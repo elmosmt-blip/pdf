@@ -188,3 +188,30 @@ cp assets/data-embed.fixed.js  assets/data-embed.js
 | P1 | 5–8 вопросов на урок (сейчас 2) + типы `classify`/`case` по дефектным изображениям | 2–3 недели |
 | P1 | Capstone‑аудит вместо финального теста | 3–5 дней |
 | P2 | Этап `shipping` в курсе либо явный allowlist в G‑STAGE | 1 день |
+
+---
+
+## 12. Применено в песочнице и выложено бандлом (31.10.2026)
+
+Исправления применены на копии проекта в песочнице и проверены end‑to‑end: их `check-course.js` → **OK**, новые `gates.js` → **OK**, `data-embed.js` регенерирован и **содержательно идентичен** `data/*.json`, патчер идемпотентен (повторный прогон — 0 изменений).
+
+Курс собран в рабочую копию в песочнице (index.html + app.js + style.css + исправленные данные) и **отдаётся живым превью** — можно открыть и убедиться, что контент именно исправленный. Контрольные проверки по HTTP:
+
+```
+m09l04 flux text  -> "…deposition of flux solids in micrograms per square
+                      inch (µg/in²)… 500 to 1500 µg/in² of solids…"
+m12l03            -> блок "Where the acceptance numbers come from" присутствует
+m12l01 quiz       -> q-m12l01-01, q-m12l01-02, q-m12l01-03
+competencies      -> K1:39 K2:14 K3:16 K4:12 K5:18 K6:60 K7:34 K8:12 K9:19 K10:18
+```
+
+На Google Drive в папке `course/` лежит один файл **`course-fix-2026-10-31.zip`** (549 КБ): патчер, гейты, три исправленных JSON, регенерированный `data-embed.js` и `README.txt` с инструкцией. Применение — распаковать в `course/` и выполнить:
+
+```bash
+node scripts/apply-review-fixes.js   # патчит data/*.json, делает .bak
+node scripts/embed.js                # регенерирует assets/data-embed.js
+node scripts/check-course.js         # -> OK
+node scripts/gates.js                # -> OK
+```
+
+Копия того же бандла — в git: [`course-fix/course-fix-2026-10-31.zip`](course-fix/course-fix-2026-10-31.zip).
