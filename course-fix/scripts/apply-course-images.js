@@ -61,8 +61,21 @@ function main() {
     if (!fs.existsSync(file)) {
       // Generation is incremental: a manifest entry whose illustration has not
       // been produced yet is skipped rather than fatal, so the script can be
-      // re-run after every batch.
+      // re-run after every batch. Any image block already on the lesson must
+      // still be detached, because it carries a src this manifest does not
+      // vouch for and the file it names may not exist at all.
       pending.push(lessonId);
+      for (const section of (lesson.content.theory || [])) {
+        if (!section || typeof section !== 'object' || !Array.isArray(section.blocks)) continue;
+        for (let i = section.blocks.length - 1; i >= 0; i--) {
+          const b = section.blocks[i];
+          if (b && b.t === 'image') {
+            section.blocks.splice(i, 1);
+            detached.push(lesson.lessonId);
+            note('detach ' + b.src + ' -> ' + lesson.lessonId + ' (illustration not generated yet)');
+          }
+        }
+      }
       continue;
     }
 
