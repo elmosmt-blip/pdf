@@ -1,0 +1,371 @@
+{
+  "_readme": "Manifest of course illustrations. One entry per lesson: {caption, alt}. The image file must exist at assets/img/<lessonId>.png and is 1280x896. Captions stay in the lesson's own language and describe what the illustration shows. Numbers are only ever dictated explicitly; where a lesson carries no numeric limits the illustration is deliberately symbolic.",
+  "m01l01": {
+    "caption": "Incoming inspection and the sampling plan: lot definition, inspection level, AQL, code letter, accept and reject numbers",
+    "alt": "Incoming inspection sampling plan with a PCB panel grid, a lot label, counterfeit red-flag reels and an accept/reject chart for lot size 5000 at level II, AQL 1.0 percent, code letter L, n equals 200, accept 5, reject 6"
+  },
+  "m02l01": {
+    "caption": "Moisture inside a package: ingress paths, barrier bag with desiccant and humidity indicator card, floor-life clock",
+    "alt": "IC package cross-section showing moisture ingress and cracking, a moisture barrier bag with desiccant and HIC, and a floor-life clock showing elapsed hours"
+  },
+  "m03l01": {
+    "caption": "Stencil aperture geometry: area ratio and aspect ratio decide whether paste releases from the aperture",
+    "alt": "Stencil aperture cross-section with paste transferring to a pad, and the area ratio and aspect ratio formulas with their minima"
+  },
+  "m04l01": {
+    "caption": "Print cycle: squeegee, snap-off, paste release, then inspection of the deposit",
+    "alt": "Screen printer cycle showing squeegee print, stencil snap-off gap, paste release and a deposit inspection scan"
+  },
+  "m05l01": {
+    "caption": "Pick-and-place machine overview: placement accuracy and repeatability, feeder bank, fiducials, axes travel",
+    "alt": "Pick-and-place machine with gantry, placement head and nozzles, feeder bank, fiducial marks on a board and an axes travel diagram"
+  },
+  "m06l01": {
+    "caption": "Reflow profile anatomy: ramp, soak, time above liquidus, peak, cooling, against the SAC305 liquidus and solidus",
+    "alt": "Reflow thermal profile curve with ramp, soak, time above liquidus, peak and cooling zones, and dashed lines for liquidus 219 C and solidus 217 C"
+  },
+  "m07l01": {
+    "caption": "Inspection layers: what visual, AOI, 2D X-ray, laminar 3D and boundary scan can each see",
+    "alt": "Five stacked inspection bands showing visual, AOI, 2D X-ray of a BGA with voids, laminar 3D slice and a boundary scan chain"
+  },
+  "m08l01": {
+    "caption": "Through-hole joint cross-section: barrel fill, annular ring, and the mechanical load that keeps through-hole in the design",
+    "alt": "Through-hole solder joint cross-section with barrel fill and annular ring callouts, and a connector under mechanical load"
+  },
+  "m01l02": {
+    "caption": "The documentation package: certificate of conformance, certificate of analysis, packing list, MSL label and declarations checked at receiving",
+    "alt": "Receiving desk with a stack of controlled documents, each marked present, and one flagged as missing"
+  },
+  "m01l03": {
+    "caption": "Defining a lot and building the plan: lot size 5,000, inspection level II, AQL 1.0%, code letter L, n = 200, accept 5, reject 6",
+    "alt": "A lot split into sub-lots by part number, revision, supplier and date code, with an inspection level selector and a sampling plan panel"
+  },
+  "m01l04": {
+    "caption": "Component verification: part number, date code, package and the counterfeit red flags",
+    "alt": "Magnified reel and chip package showing markings and date code, with red callouts for resurfaced bodies, mismatched lead finish and sanded markings"
+  },
+  "m01l05": {
+    "caption": "Solder paste, flux and adhesive receipt: alloy, powder, expiry and the cold chain",
+    "alt": "Cold-storage cabinet with paste jars and a temperature log, a magnified label with alloy code and expiry, and a powder particle size distribution curve"
+  },
+  "m01l06": {
+    "caption": "Bare PCB receipt: surface finish, planarity and warpage, packaging and shelf life",
+    "alt": "A PCB with exaggerated warp, a planarity measurement setup with a height gauge, a surface finish cross-section and a sealed barrier package with desiccant"
+  },
+  "m01l07": {
+    "caption": "Nonconforming material at the dock: quarantine, MRB and supplier notification",
+    "alt": "Quarantine cage with red hold tags, a material review board decision flow with four branches, and a feedback arrow to supplier notification"
+  },
+  "m02l02": {
+    "caption": "Reading moisture sensitivity markings: MSL label, barrier bag, humidity indicator card and desiccant",
+    "alt": "A magnified MSL label with a caution symbol, a barrier bag shown as a translucent panel with a humidity indicator card and desiccant inside"
+  },
+  "m02l03": {
+    "caption": "Floor-life accounting: clock start, accumulation across exposure events, and the bake reset",
+    "alt": "A timeline with a teal arc accumulating exposure hours, clock icons for each exposure event, and a bake event resetting the arc to zero"
+  },
+  "m02l04": {
+    "caption": "Baking and dry cabinets: when required, conditions by package thickness, and the records",
+    "alt": "A dry cabinet with trays and a humidity readout, a bake oven with a temperature-versus-time curve, package groups by body thickness and a log sheet"
+  },
+  "m02l05": {
+    "caption": "The ESD control program: protected area boundary, grounding, straps, mats, ionizers and packaging",
+    "alt": "A plan view of a workbench inside a marked EPA boundary with a grounded mat, wrist strap, ionizer, shielding bag and tote, and a signage post"
+  },
+  "m02l06": {
+    "caption": "Case: expired floor life found mid-lot — exposure clock past its limit, and the bake / MRB / scrap decision",
+    "alt": "A partially used reel with a floor-life clock past its limit and a red warning flag, beside a decision flow with bake, material review board and scrap branches"
+  },
+  "m03l02": {
+    "caption": "Area ratio and aspect ratio: area ratio = aperture area / sidewall area, aspect ratio = aperture width / foil thickness, and what fine pitch does to both",
+    "alt": "Aperture cross-section with the area ratio and aspect ratio formulas, the sidewall area shown as perimeter times thickness, and a fine-pitch example with a low area ratio"
+  },
+  "m03l03": {
+    "caption": "Foil, thickness, step stencils, laser cut and wall finish — how the foil and its walls set the deposit",
+    "alt": "Cross-sections of a plain foil, a step stencil with two thicknesses, a rough laser-cut wall and a smooth electropolished wall"
+  },
+  "m03l04": {
+    "caption": "Aperture geometry by component: chip, fine-pitch QFP, QFN/LGA and BGA",
+    "alt": "Four aperture shapes side by side with a label for each component family and the deposit each produces"
+  },
+  "m03l05": {
+    "caption": "Aperture calculator and drawing review — inputs, release metrics and the review checklist",
+    "alt": "A calculator panel taking pad geometry, foil thickness and wall condition and outputting area ratio, aspect ratio and volume, beside a stencil drawing review checklist"
+  },
+  "m03l06": {
+    "caption": "Stencil acceptance, cleaning regime and lifetime tracking",
+    "alt": "A stencil under measurement with a traceable report, a cleaning station, and a lifetime counter showing print cycles used"
+  },
+  "m04l02": {
+    "caption": "Reading SPI data: measurement principle, volume, height, area, offset, and the artifacts that look like defects",
+    "alt": "A three-dimensional laser scan of a deposit producing a height map, with volume, height, area and offset readouts and a scan-artifact callout"
+  },
+  "m04l03": {
+    "caption": "Printer setup: squeegee pressure and speed, snap-off, separation and wipe cycle",
+    "alt": "Side view of a printer showing the squeegee, the paste roll, the snap-off gap between stencil and board, the separation motion and the wipe cycle"
+  },
+  "m04l04": {
+    "caption": "Paste behaviour: viscosity, thixotropy, metal load, slump, handling and life",
+    "alt": "A viscosity versus shear-rate curve showing thixotropic hysteresis, a slump test, a metal load readout and a paste life clock"
+  },
+  "m04l05": {
+    "caption": "SPI as process evidence: mean, spread, capability, and the stop / adjust decision",
+    "alt": "A control chart of deposit volume showing the mean, the spread and the limits, with a decision flow for stop, adjust and continue"
+  },
+  "m04l06": {
+    "caption": "Print defect atlas: under-fill, excess, bridging, skew, smearing and slumping",
+    "alt": "Six small deposit cross-sections labelled with each print defect, shown beside a correct deposit for comparison"
+  },
+  "m04l07": {
+    "caption": "Print troubleshooting logic and one-variable-at-a-time experiments",
+    "alt": "A troubleshooting flow that first rules out inspection artifacts, then changes one print parameter at a time while recording the others"
+  },
+  "m05l02": {
+    "caption": "Feeders, nozzles, pick height and placement force limits by component",
+    "alt": "A placement head with interchangeable nozzles, a feeder bank, and a pick-height measurement with a placement force gauge"
+  },
+  "m05l03": {
+    "caption": "Fiducials, board recognition, vision calibration and measuring placement offset",
+    "alt": "A board with global and local fiducials inside a camera view, a calibration target, and a placement offset measurement crosshair"
+  },
+  "m05l04": {
+    "caption": "Placement defect atlas: tombstone, skew, tilt, missing, wrong part and polarity",
+    "alt": "Six small board views labelled with each placement defect, shown beside a correctly placed component"
+  },
+  "m05l05": {
+    "caption": "Component library setup, program verification and first-article check",
+    "alt": "A component library entry with package, nozzle and vision settings, beside a program verification screen and a first-article board under inspection"
+  },
+  "m05l06": {
+    "caption": "Case: shift and skew on a fine-pitch QFP",
+    "alt": "A fine-pitch QFP with measured shift and skew against a crosshair overlay, and the lead pitch tolerance band marked"
+  },
+  "m06l02": {
+    "caption": "Profile anatomy: what ramp, soak, time above liquidus, peak and cooling each control",
+    "alt": "A thermal profile curve with the five zones labelled and a callout under each naming what it controls"
+  },
+  "m06l03": {
+    "caption": "Running a thermal survey: thermocouple attachment, test coupon and the worst-case site",
+    "alt": "A test coupon with several thermocouples attached by different methods, and a board map marking the worst-case thermal sites"
+  },
+  "m06l04": {
+    "caption": "Board thermal mass and layout: heavy planes, thermal relief, mixed population, dense versus sparse",
+    "alt": "Two board layouts side by side, one dense with heavy copper planes and one sparse, with a thermal mass indicator on each"
+  },
+  "m06l05": {
+    "caption": "Alloy systems and profile families: SAC305 versus SnPb on a liquidus basis, and nitrogen versus air",
+    "alt": "Two thermal profile curves overlaid, one for a SAC-type alloy and one for a tin-lead eutectic, with each liquidus marked"
+  },
+  "m06l06": {
+    "caption": "Reflow defect atlas: tombstone, balling, beading, dewetting, voids and distortion",
+    "alt": "Six small joint views labelled with each reflow defect, shown beside a sound joint for comparison"
+  },
+  "m06l07": {
+    "caption": "Profile validation, documentation and change control",
+    "alt": "A validated profile record with thermocouple locations and measured data, beside a change-control request routing the revision"
+  },
+  "m07l02": {
+    "caption": "AOI program setup: windows, lighting, thresholds and the false-call / escape trade-off",
+    "alt": "An AOI camera view with component windows, lighting angles and a threshold slider, and a trade-off scale between false calls and escapes"
+  },
+  "m07l03": {
+    "caption": "AOI metrics: escape rate, false calls, first-pass yield and the verification workflow",
+    "alt": "An audit workflow diagram linking inspection result, verification call and disposition, with escape rate and false-call rate readouts"
+  },
+  "m07l04": {
+    "caption": "X-ray interpretation: BGA ball size and voiding, bridging and through-hole fill",
+    "alt": "An X-ray view of a BGA package showing ball size variation, voids and a bridge, beside an X-ray view of through-hole fill"
+  },
+  "m07l05": {
+    "caption": "Disposition language: defect, condition and class in workmanship terms",
+    "alt": "A decision ladder from observed condition, to defect classification, to acceptance class, with the standard term for each step"
+  },
+  "m07l06": {
+    "caption": "Classification drill: print, placement, reflow and through-hole images",
+    "alt": "Four small board images in a row, one per process stage, each with a defect to classify"
+  },
+  "m08l02": {
+    "caption": "Hole and lead: diameters, tolerance stack-up, placement tolerance and percent fill",
+    "alt": "A hole and lead cross-section with the diameter stack-up, the placement tolerance and a barrel fill percentage gauge"
+  },
+  "m08l03": {
+    "caption": "Insertion: seating, stand-off, polarity, clinch and insertion damage",
+    "alt": "An insertion machine head seating a through-hole lead, with stand-off and clinch callouts and a damaged-lead warning"
+  },
+  "m08l04": {
+    "caption": "Preparing the board for wave: carriers, pallets, masking, taping and orientation",
+    "alt": "A board loaded into a carrier with masked and taped areas and an orientation arrow, beside a pallet cross-section"
+  },
+  "m08l05": {
+    "caption": "Calculation drill: clearance and expected fill for a real bill-of-materials subset",
+    "alt": "A calculation panel showing hole diameter, lead diameter, clearance and expected fill for a small set of through-hole parts"
+  },
+  "m09l01": {
+    "caption": "Wave architecture: flux, preheat and the wave types — single, dual, lambda and micro-wave",
+    "alt": "A wave soldering line side view with fluxer, preheat, a dual wave drawn as two overlapping fountains, and cooling"
+  },
+  "m09l02": {
+    "caption": "Flux selection and application: solids, activity, amount, pattern and verification",
+    "alt": "A fluxer head spraying a pattern onto a board underside, with a solids readout, an activity class label and a verification coupon"
+  },
+  "m09l03": {
+    "caption": "Preheat: board top versus bottom temperature, flux activation and thermal limits",
+    "alt": "A board cross-section with top and bottom temperature probes, a preheat curve, and a flux activation temperature band"
+  },
+  "m09l04": {
+    "caption": "Contact time and fog height: dwell calculation, wave height versus board clearance",
+    "alt": "A board passing through a wave with contact length and conveyor speed marked, a dwell calculation panel and a clearance dimension"
+  },
+  "m09l05": {
+    "caption": "Shadowing and orientation: shading, pallets, board direction and lead geometry",
+    "alt": "A wave with a component casting a solder shadow behind it, a pallet blocking the path, and an orientation arrow showing board direction"
+  },
+  "m09l06": {
+    "caption": "Wave defect atlas: bridging, balling, insufficient fill, bypass, lifted lead and blowholes",
+    "alt": "Six small solder-side views labelled with each wave defect, shown beside a sound joint"
+  },
+  "m09l07": {
+    "caption": "Wave process control: bath contamination, tin consumption, records and first article",
+    "alt": "A solder pot with a contamination analysis readout and a tin consumption chart, beside a record sheet and a first-article board"
+  },
+  "m10l01": {
+    "caption": "Where selective beats wave: mixed assembly, heat-sensitive neighbours and throughput",
+    "alt": "A mixed assembly with through-hole joints beside surface-mount parts, and a selective nozzle soldering one joint while the neighbours stay cool"
+  },
+  "m10l02": {
+    "caption": "Nozzle strategy: size and shape, flux-on-the-fly, dwell per joint and multi-pass",
+    "alt": "A set of interchangeable nozzles with a joint beside each, a flux-on-the-fly applicator, and a multi-pass sequence"
+  },
+  "m10l03": {
+    "caption": "Thermal budget of the neighbours: heat spread, monitoring and sensitive parts",
+    "alt": "A board cross-section showing heat spreading from a soldered joint into adjacent copper and components, with a temperature map"
+  },
+  "m10l04": {
+    "caption": "Programming a run: path, order, fixtures, air knife and cycle time",
+    "alt": "A machine screen showing a soldering path with numbered joints, a fixture, an air knife and a cycle-time breakdown"
+  },
+  "m10l05": {
+    "caption": "Selective defects and validation: cross-section, pull test and documentation",
+    "alt": "A joint cross-section, a pull-test fixture holding a lead, and a validation record sheet"
+  },
+  "m11l01": {
+    "caption": "The hand soldering station: tip selection, temperature setting, ESD and fume control",
+    "alt": "A closed-loop soldering station with controller, heater, tip and sensor, a set of interchangeable tip shapes, a grounded mat and a fume extraction arm"
+  },
+  "m11l02": {
+    "caption": "Technique: contact order, dwell, feed, lead-free discipline and technique defects",
+    "alt": "A sequence of four panels showing tip contact on pad and lead, dwell, solder feed and removal, with a cold-joint warning callout"
+  },
+  "m11l03": {
+    "caption": "Rework: hot air, preheat, paste-in-pad, BGA and QFN removal and replacement",
+    "alt": "A hot-air rework station with a preheated board, a component being lifted, and a replacement part being placed with paste in the pads"
+  },
+  "m11l04": {
+    "caption": "Repair limits: IPC-7711/7721 classes, conductor cut, annular ring and laminate damage",
+    "alt": "A repaired trace with a conductor cut, an annular ring measurement and a laminate damage callout, beside a class limits table"
+  },
+  "m11l05": {
+    "caption": "Acceptance and re-inspection of rework and repair, and documenting the operation",
+    "alt": "A magnified reworked joint under inspection with a fillet and wetting check, beside a record sheet listing method, cycles and thermal exposure"
+  },
+  "m11l06": {
+    "caption": "Practice: rework one joint and document it against criteria",
+    "alt": "A single reworked joint with measurement callouts and a completed documentation form beside it"
+  },
+  "m12l01": {
+    "caption": "What residue is and why it matters: ionic residue, surface insulation resistance, conductive anodic filament and contact failure",
+    "alt": "A board surface with flux residue between close conductors, with a surface insulation resistance test cell and a filament-growth callout"
+  },
+  "m12l02": {
+    "caption": "Cleaning methods: aqueous, semi-aqueous, solvent and ultrasonic, with material compatibility",
+    "alt": "A cleaning line with a wash chamber, rinse, ultrasonic tank and dryer, with a material compatibility matrix beside it"
+  },
+  "m12l03": {
+    "caption": "Cleanliness verification: ROSE, ion chromatography, particle count and visual",
+    "alt": "A ROSE tester extracting a board, an ion chromatography trace, a particle count readout and a magnified visual check"
+  },
+  "m12l04": {
+    "caption": "Coating types and selection: acrylic, polyurethane, silicone, parylene and UV cure",
+    "alt": "Five coating chemistries shown as cross-section layers with a moisture barrier and removability rating for each"
+  },
+  "m12l05": {
+    "caption": "Application and masking: spray, dip, selective, thickness, cure and repairability",
+    "alt": "A coating line with a selective spray head, a masked connector, a thickness measurement and a cure oven"
+  },
+  "m12l06": {
+    "caption": "Contamination and coating defect cases: residue, white residue, corrosion, fish-eye and dewetting",
+    "alt": "Five magnified coated-surface defects shown side by side, each labelled, beside a sound coated surface"
+  },
+  "m13l01": {
+    "caption": "Test levels and what each catches: in-circuit test, flying probe, boundary scan and functional test",
+    "alt": "A test pyramid with the four levels, each annotated with the defect modes it catches, its relative cost and its coverage"
+  },
+  "m13l02": {
+    "caption": "In-circuit test: fixture, node access, test-point design and analog limits",
+    "alt": "A bed-of-nails fixture with spring probes contacting test points, a node access diagram and an analog measurement panel"
+  },
+  "m13l03": {
+    "caption": "Flying probe: when it wins, the throughput ceiling and program effort",
+    "alt": "A flying-probe machine with movable probes contacting a board, beside a throughput-versus-volume chart and a program effort gauge"
+  },
+  "m13l04": {
+    "caption": "Boundary scan and JTAG: BGA access, structure, and what it cannot find",
+    "alt": "A scan chain of devices connected through BGA packages, with the test access port at one end and a shaded region it cannot reach"
+  },
+  "m13l05": {
+    "caption": "Coverage math: node versus defect coverage, escape risk, and where inspection ends and test starts",
+    "alt": "Two overlapping coverage circles, one for nodes exercised and one for defect modes detected, with the uncovered region marked"
+  },
+  "m13l06": {
+    "caption": "Choosing a strategy for a product mix: volume, complexity, cost and the rework loop",
+    "alt": "A decision matrix of product volume against assembly complexity, with a test strategy recommended in each quadrant and a rework loop"
+  },
+  "m14l01": {
+    "caption": "Defect data before opinions: taxonomy, Pareto by stage and measurement integrity",
+    "alt": "A Pareto chart of defects by process stage with a data-integrity check panel beside it"
+  },
+  "m14l02": {
+    "caption": "Cause analysis tools: five-why, fishbone, fault tree and change-point analysis",
+    "alt": "Four small diagrams side by side: a five-why chain, a fishbone with six bones, a fault tree and a change-point chart"
+  },
+  "m14l03": {
+    "caption": "Containment and traceability: quarantine scope, lot trace and retroactive search",
+    "alt": "A containment boundary drawn around work in process, finished goods and shipped units, with a lot trace chain and a retroactive search arrow"
+  },
+  "m14l04": {
+    "caption": "Eight-discipline discipline: D1 to D8 content, and where eight-discipline reports fail",
+    "alt": "A row of eight labelled steps D1 to D8, with the common failure points marked in red"
+  },
+  "m14l05": {
+    "caption": "Corrective versus preventive action, and effectiveness verification",
+    "alt": "Two branches from a detected nonconformity, one to corrective action and one to preventive action, converging on an effectiveness verification gate"
+  },
+  "m14l06": {
+    "caption": "Closing the loop: PFMEA, control plan, auditor checklist and change control",
+    "alt": "A loop diagram linking corrective action to a process failure mode analysis update, a control plan revision, an auditor checklist and change control"
+  },
+  "m14l07": {
+    "caption": "Eight-discipline workshop: a full case from symptom to closure",
+    "alt": "A case timeline from observed defect through containment, root cause, corrective action and closure, with the evidence recorded at each step"
+  },
+  "m15l01": {
+    "caption": "How designers read process feedback: language, format and what gets acted on",
+    "alt": "A process note written as a constraint, with the affected component, the observed condition and the requested change highlighted"
+  },
+  "m15l02": {
+    "caption": "The evidence pack: measured data, images with scale, defect rate and cost of poor quality",
+    "alt": "A compact evidence pack with a measurement table, a scaled image, a defect-rate chart and a cost-of-poor-quality figure"
+  },
+  "m15l03": {
+    "caption": "Writing the change request: problem, impact, proposal, alternatives, risk and verification",
+    "alt": "A change request form with the six sections laid out, each with a short example entry"
+  },
+  "m15l04": {
+    "caption": "Design-for-manufacture and test asks that work: pad geometry, paste relief, spacing, test points, fiducials, panelization and hole-to-lead specification",
+    "alt": "A board layout with pad geometry, paste relief, spacing, test points, fiducials and panelization callouts, beside a hole-to-lead specification table"
+  },
+  "m15l05": {
+    "caption": "Negotiation, version control and closure with post-change data",
+    "alt": "A negotiation exchange between process and design, a version-controlled drawing revision block, and a post-change capability chart"
+  }
+}
