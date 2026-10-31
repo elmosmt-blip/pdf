@@ -8,10 +8,6 @@
     "caption": "Moisture inside a package: ingress paths, barrier bag with desiccant and humidity indicator card, floor-life clock",
     "alt": "IC package cross-section showing moisture ingress and cracking, a moisture barrier bag with desiccant and HIC, and a floor-life clock showing elapsed hours"
   },
-  "m03l01": {
-    "caption": "Stencil aperture geometry: area ratio and aspect ratio decide whether paste releases from the aperture",
-    "alt": "Stencil aperture cross-section with paste transferring to a pad, and the area ratio and aspect ratio formulas with their minima"
-  },
   "m04l01": {
     "caption": "Print cycle: squeegee, snap-off, paste release, then inspection of the deposit",
     "alt": "Screen printer cycle showing squeegee print, stencil snap-off gap, paste release and a deposit inspection scan"
@@ -367,5 +363,6 @@
   "m15l05": {
     "caption": "Negotiation, version control and closure with post-change data",
     "alt": "A negotiation exchange between process and design, a version-controlled drawing revision block, and a post-change capability chart"
-  }
+  },
+  "_pending_m03l01": "PENDING REGENERATION: the first corrected m03l01 got the formula right (A_aperture / A_sidewall, perimeter x T, minimum 0.66; aspect ratio W/T, minimum 1.5) but the model added its own worked-example panel claiming AREA RATIO 0.75 for W 0.20 mm and T 0.12 mm, which is arithmetically impossible (about 0.42). Regenerate with the course's own verified example from m03l02: aperture 0.25 x 0.25 mm, T 0.10 mm, area ratio 0.625, aspect ratio 2.5. Removed from the manifest so the wrong number does not ship."
 }
