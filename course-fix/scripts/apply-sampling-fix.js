@@ -127,6 +127,15 @@ if (manifest['m01l01'] && manifest['m01l01'].alt === OLD_ALT) {
   fixed++;
 }
 
+// The manifest also carries the m01l03 caption that apply-course-images.js
+// stamps onto the lesson, so it has to be corrected here too or the stale
+// plan comes straight back on the next rebuild.
+if (manifest['m01l03'] && manifest['m01l03'].caption === OLD_CAPTION) {
+  manifest['m01l03'].caption = NEW_CAPTION;
+  note('course-images.json m01l03 caption corrected');
+  fixed++;
+}
+
 // ------------------------------------------------------------- quiz explanation
 
 const q = questions.find((x) => x.questionId === 'q-m01l03-02');
