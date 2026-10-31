@@ -39,10 +39,14 @@ function main() {
   console.log('apply-course-images: dataDir=' + dataDir);
   const manifest = JSON.parse(fs.readFileSync(MANIFEST, 'utf8'));
   const ids = Object.keys(manifest).filter(function (k) { return k.indexOf('_') !== 0; });
+  const idSet = {};
+  ids.forEach(function (k) { idSet[k] = true; });
   const lessons = JSON.parse(fs.readFileSync(LESSONS_FILE, 'utf8'));
   let attached = 0;
   let skipped = 0;
   let cleaned = 0;
+  const pending = [];
+  const detached = [];
 
   for (const lessonId of ids) {
     const lesson = lessons.find(function (l) { return l.lessonId === lessonId; });
@@ -50,7 +54,13 @@ function main() {
     const meta = manifest[lessonId];
     const src = 'assets/img/' + lessonId + '.png';
     const file = path.join(dataDir, '..', 'assets', 'img', lessonId + '.png');
-    if (!fs.existsSync(file)) throw new Error('missing image file: ' + file);
+    if (!fs.existsSync(file)) {
+      // Generation is incremental: a manifest entry whose illustration has not
+      // been produced yet is skipped rather than fatal, so the script can be
+      // re-run after every batch.
+      pending.push(lessonId);
+      continue;
+    }
 
     const block = { t: 'image', src: src, alt: meta.alt, caption: meta.caption };
 
@@ -108,13 +118,30 @@ function main() {
     attached++;
   }
 
-  if (attached === 0 && cleaned === 0) {
-    note('nothing to do — ' + skipped + ' image(s) already attached');
-    return;
+  // Detach any illustration whose lesson has left the manifest: the manifest is
+  // the source of truth, so a lesson without an entry must render without one.
+  for (const lesson of lessons) {
+    for (const section of (lesson.content.theory || [])) {
+      if (!section || typeof section !== 'object' || !Array.isArray(section.blocks)) continue;
+      for (let i = section.blocks.length - 1; i >= 0; i--) {
+        const b = section.blocks[i];
+        if (b && b.t === 'image' && !idSet[lesson.lessonId]) {
+          section.blocks.splice(i, 1);
+          detached.push(lesson.lessonId);
+          note('detach ' + b.src + ' -> ' + lesson.lessonId + ' (no manifest entry)');
+        }
+      }
+    }
+  }
+
+  if (pending.length) {
+    note('skipped ' + pending.length + ' lesson(s) with no illustration yet: ' +
+      pending.join(', '));
   }
   fs.writeFileSync(LESSONS_FILE, JSON.stringify(lessons, null, 2) + '\n', 'utf8');
   console.log('apply-course-images: attached ' + attached + ' image(s), ' +
-    skipped + ' already present, ' + cleaned + ' stray heading(s) removed.');
+    skipped + ' already present, ' + cleaned + ' stray heading(s) removed, ' +
+    detached.length + ' detached.');
 }
 
 try { main(); } catch (e) {
