@@ -1,7 +1,7 @@
 {
   "m01l01": {
     "caption": "Incoming inspection and the sampling plan: lot definition, inspection level, AQL, code letter, accept and reject numbers",
-    "alt": "Incoming inspection sampling plan with a PCB panel grid, a lot label, counterfeit red-flag reels and an accept/reject chart for lot size 5000 at level II, AQL 1.0 percent, code letter L, n equals 200, accept 5, reject 6"
+    "alt": "Incoming inspection sampling plan with a PCB panel grid, a lot label, counterfeit red-flag reels and an accept/reject chart for lot size 5000 at level II, AQL 1.0 percent, code letter K, n equals 125, accept 3, reject 4"
   },
   "m01l02": {
     "caption": "The documentation package: certificate of conformance, certificate of analysis, packing list, MSL label and declarations checked at receiving",
