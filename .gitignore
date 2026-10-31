@@ -1,3 +1,8 @@
 
 # scratch downloads from Google Drive (not part of the deliverable)
 google_drive/
+
+# round-3 working copies (bundle is shipped as the zip)
+course-fix/work/
+course-fix/r3/
+.stash-r3/
