@@ -22,7 +22,7 @@
 
 set -euo pipefail
 
-IMGDIR="${1:-$(dirname "$0")/../assets/img}"
+IMGDIR="${1:-$(dirname "$0")/../img}"
 W=1024
 H=717
 

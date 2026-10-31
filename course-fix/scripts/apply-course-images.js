@@ -53,7 +53,11 @@ function main() {
     if (!lesson) throw new Error('lesson not found: ' + lessonId);
     const meta = manifest[lessonId];
     const src = 'assets/img/' + lessonId + '.png';
-    const file = path.join(dataDir, '..', 'assets', 'img', lessonId + '.png');
+    // Illustrations live in a tracked directory next to the manifest, not in
+    // the scratch data tree: a sandbox reset restores the repository from git
+    // and drops ignored files, which once cost 36 generated illustrations.
+    // Resolve from the manifest so the script works from any working copy.
+    const file = path.join(path.dirname(MANIFEST), '..', 'img', lessonId + '.png');
     if (!fs.existsSync(file)) {
       // Generation is incremental: a manifest entry whose illustration has not
       // been produced yet is skipped rather than fatal, so the script can be
