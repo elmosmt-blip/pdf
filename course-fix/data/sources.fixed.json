@@ -1,0 +1,143 @@
+[
+  {
+    "id": "src-001",
+    "type": "standard",
+    "title": "IPC-A-610 Acceptability of Electronic Assemblies",
+    "edition": "Rev H",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-002",
+    "type": "standard",
+    "title": "J-STD-001 Requirements for Soldered Electrical and Electronic Assemblies",
+    "edition": "Rev G",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-003",
+    "type": "standard",
+    "title": "J-STD-033 Handling, Packing, Shipping and Use of Moisture, Heat and ESD Sensitive Surface Mount Devices",
+    "edition": "Rev D",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-004",
+    "type": "standard",
+    "title": "IPC-7525 Stencil Design Guidelines",
+    "edition": "Rev A",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-005",
+    "type": "standard",
+    "title": "J-STD-020 Classification of Moisture Sensitivity for Non-Hermetic Sealing Solid State Surface Mount Devices",
+    "edition": "Rev D",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-006",
+    "type": "standard",
+    "title": "ISO 2859-1 Sampling procedures for inspection by attributes",
+    "edition": "TBD-REVIEW",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-007",
+    "type": "standard",
+    "title": "IPC-7095 Design and Assembly Process Implementation for BGAs",
+    "edition": "TBD-REVIEW",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-008",
+    "type": "standard",
+    "title": "IPC-7530 Guidelines for Temperature Profiling for Mass Soldering Processes",
+    "edition": "TBD-REVIEW",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-009",
+    "type": "standard",
+    "title": "IPC-7711/7721 Rework, Modification and Repair of Electronic Assemblies",
+    "edition": "TBD-REVIEW",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-010",
+    "type": "standard",
+    "title": "IPC-CC-830 Qualification and Performance of Electrical Insulating Compound for Conformal Coating",
+    "edition": "TBD-REVIEW",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-011",
+    "type": "standard",
+    "title": "IPC-7351 Generic Requirements for Surface Mount Design and Land Pattern Standard",
+    "edition": "TBD-REVIEW",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-012",
+    "type": "standard",
+    "title": "ANSI/ESD S20.20 Development of an Electrostatic Discharge Control Program",
+    "edition": "TBD-REVIEW",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-013",
+    "type": "standard",
+    "title": "IPC-TM-650 method 2.3.25 (ROSE) and 2.3.28 (ion chromatography)",
+    "edition": "TBD-REVIEW",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-014",
+    "type": "vendor-doc",
+    "title": "AIM Solder — Profile Supplement for Wave Soldering Process (flux deposition 500-1500 µg/in²)",
+    "edition": "Rev 4",
+    "section": "TBD-REVIEW",
+    "licenseNote": "public vendor document; confirm current revision before publication",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null,
+    "url": "https://www.aimsolder.com/wp-content/uploads/wave_solder_profile_supplement.pdf"
+  }
+]
