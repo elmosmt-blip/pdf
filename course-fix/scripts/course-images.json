@@ -8,7 +8,7 @@
     "alt": "Receiving desk with a stack of controlled documents, each marked present, and one flagged as missing"
   },
   "m01l03": {
-    "caption": "Defining a lot and building the plan: lot size 5,000, inspection level II, AQL 1.0%, code letter L, n = 200, accept 5, reject 6",
+    "caption": "Defining a lot and building the plan: lot size 5,000, inspection level II, AQL 1.0%, code letter K, n = 125, accept 3, reject 4",
     "alt": "A lot split into sub-lots by part number, revision, supplier and date code, with an inspection level selector and a sampling plan panel"
   },
   "m01l04": {
