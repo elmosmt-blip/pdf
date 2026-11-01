@@ -22,6 +22,16 @@ WORK=course-fix/work
 R4=course-fix/r4
 ZIP=course-fix/course-fix-2026-10-31-r4.zip
 
+# This script is repo-relative and destructive (it rm -rf's the work tree), so
+# refuse to run anywhere the expected layout is not present. A copy shipped
+# inside a round bundle would otherwise cd to the bundle's parent and fail
+# halfway through with a confusing message.
+if [ ! -f "$ZIP" ] || [ ! -d course-fix/data ] || [ ! -d course-fix/img ]; then
+  echo "rebuild-work: expected the repo layout at $(pwd) (course-fix/data, course-fix/img, $ZIP)" >&2
+  echo "rebuild-work: run it from a checkout of the repository, not from an extracted bundle" >&2
+  exit 2
+fi
+
 echo "rebuild-work: rebuilding $WORK"
 
 # 1. seed from the tracked r4 bundle
