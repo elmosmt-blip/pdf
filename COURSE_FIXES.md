@@ -1084,3 +1084,37 @@ was `git fetch` + `git reset --hard origin/arena/a9ab25b3-pdf` plus a rebuild of
 the work tree from the tracked r4 zip. No commit was lost — the remote held all
 of them. The derived round bundles are untracked and ignored; r4 stays tracked
 as the rebuild seed.
+
+---
+
+# §10 Round 11 (continued) — the two contradictions fall, and defect D6
+
+Both facts flagged as contradicted in round 10 turned out to be **the course being
+right**. That is the second time (J-STD-020's `tp` was the first) and it is the
+reason the verification is worth doing rather than assuming.
+
+**IPC-A-610 barrel fill — RESOLVED, course correct.** The primary IPC-A-610D text
+reads "Class 2, fill to 75% but with exception for inner layer connections" and
+"Class 3 acceptance criteria are to be followed with the following exceptions".
+75 % for both classes; the reduced-fill case is an inner-layer exception, not a
+class split. The "Class 2 = 50 %" camp is quoting **IPC-6012 Rev F**, the
+bare-board standard, and misattributing it to the assembly standard.
+**Part A is now 24 verified, 2 flagged, 0 blank.**
+
+**Defect D6 — the J-STD-033 bake table was misread.** `m02l04` `theory[4]` and
+`m02l06` `theory[3]` claimed bake time is "indexed to package body thickness, not
+to the moisture sensitivity level" and quoted single times per thickness band.
+Table 4-1 is indexed by thickness **and** MSL level, split by whether floor life
+was exceeded by more or less than 72 h. The quoted figures mixed Table 4-1
+(user bake) with Table 4-2 (supplier dry-pack, MET = 24 h): 8 h is a Table 4-2
+value, and "11 days" and "38 days" do not exist in the table at all. Both
+paragraphs rewritten, both worked examples corrected to the right row
+(`m02l04` 8 h → 7 h; `m02l06` 8/18/48 → 7/17/48 h). The lesson's separate and
+correct warning that the 24 h figure is a supplier dry-pack value is kept and now
+sits beside the Table 4-2 explanation it was contradicting.
+
+The fix is `apply-bake-table-fix.js`, idempotent — verified over three runs with
+byte-identical output on runs 2 and 3.
+
+Part A facts 15 and 16 (the two J-STD-033 bake facts) remain flagged: the rest of
+the course's bake text still needs the same read.

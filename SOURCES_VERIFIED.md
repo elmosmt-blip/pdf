@@ -288,3 +288,120 @@ enumerates them.
 
 The draft markers are still in place and `status` is still `"draft"` on all 92
 lessons. Removing them would assert a review that Part B has not had.
+
+---
+
+# Round 11 (continued) — Part B begins, and the two round-10 contradictions fall
+
+Round 11 closed the two facts that had been flagged as contradicted in round 10.
+Both turned out to be **the course being right and the secondary sources being
+wrong**, which is worth recording because it is the second time this has happened
+(J-STD-020's `tp` was the first).
+
+## The IPC-A-610 barrel-fill question — RESOLVED, the course is correct
+
+The course says IPC-A-610 sets a minimum vertical barrel fill of **75 % for both
+Class 2 and Class 3**, with 100 % fill being a customer requirement rather than a
+class limit. Secondary sources split roughly 50/50 against it, and PCBSync had
+published both positions in two of its own articles.
+
+The tiebreaker was a page carrying fragments of the actual IPC-A-610D text:
+
+> "Classification throughhole solder joint requirements are divided into three
+> classes depending on the ultimate use, life expectancy and operating
+> environment of the electronic assembly."
+>
+> "**Class 2, fill to 75% but with exception for inner layer connections to** …"
+>
+> "**Class 3 acceptance criteria are to be followed with the following
+> exceptions**."
+>
+> "**All other solder joints remain according to ipc a 610 class 2**."
+
+So Class 2 is 75 % **with an inner-layer exception**, and Class 3 is 75 % with a
+shorter exception list. It is not a class split.
+
+Where the "Class 2 = 50 %" camp comes from is now identifiable: **IPC-6012 Rev F**
+(the bare-board qualification standard) lists minimum vertical fill as **50 % for
+Class 2 and 75 % for Class 3** — wevolver states this explicitly while separately
+reporting IPC-A-610's 75 %-for-both. The bare-board figure has been misattributed
+to the assembly standard. One publisher's own correction says the same thing:
+"the widely repeated 'Class 2 is 50%' is a misread — 50% is the Class 1 minimum,
+and Class 2 only permits a 50% reduced-fill condition as a limited exception."
+
+**Consequence: facts 11 and 19 move from conflict to ok. Part A is now
+24 verified, 2 flagged, 0 blank.** The 25 %-of-ball-area void limit for Class 3
+is separately well supported.
+
+## The J-STD-033 bake tables — the conflation is confirmed, and a real defect found
+
+The full Table 4-1 and Table 4-2 matrices are now in hand, reproduced cell for
+cell by four independent sources (analog.com hosts the standard's own text;
+sg-micro, Monolithic Power and TI AN-2029 each reproduce the tables):
+
+**Table 4-1 — user bake, "floor life begins counting at time = 0 after bake":**
+
+| Thickness | MSL | 125 °C >72 h | 125 °C ≤72 h | 90 °C >72 h | 90 °C ≤72 h | 40 °C >72 h | 40 °C ≤72 h |
+|---|---|---|---|---|---|---|---|
+| ≤1.4 mm | 2 | 5 h | 3 h | 17 h | 11 h | 8 d | 5 d |
+| | 2a | 7 h | 5 h | 23 h | 13 h | 9 d | 7 d |
+| | 3 | 9 h | 7 h | 33 h | 23 h | 13 d | 9 d |
+| | 4 | 11 h | 7 h | 37 h | 23 h | 15 d | 9 d |
+| | 5 | 12 h | 7 h | 41 h | 24 h | 17 d | 10 d |
+| | 5a | 16 h | 10 h | 54 h | 24 h | 22 d | 10 d |
+| >1.4–2.0 | 2 | 18 h | 15 h | 63 h | 2 d | 25 d | 20 d |
+| | 2a | 21 h | 16 h | 3 d | 2 d | 29 d | 22 d |
+| | 3 | 27 h | 17 h | 4 d | 2 d | 37 d | 23 d |
+| | 4 | 34 h | 20 h | 5 d | 3 d | 47 d | 28 d |
+| | 5 | 40 h | 25 h | 6 d | 4 d | 57 d | 35 d |
+| | 5a | 48 h | 40 h | 8 d | 6 d | 79 d | 56 d |
+| >2.0–4.5 | all | 48 h | 48 h | 10 d | 7 d | 79 d | 67 d |
+
+**Table 4-2 — supplier bake before dry-pack, "MET = 24 h":**
+
+| Thickness | MSL | 125 °C | 150 °C |
+|---|---|---|---|
+| ≤1.4 mm | 2 / 2a / 3 / 4 / 5 / 5a | 7 / 8 / 16 / 21 / 24 / 28 h | 3 / 4 / 8 / 10 / 12 / 14 h |
+| >1.4–2.0 | 2 / 2a / 3 / 4 / 5 / 5a | 18 / 23 / 43 / 48 / 48 / 48 h | 9 / 11 / 21 / 24 / 24 / 24 h |
+| >2.0–4.5 | all | 48 h | 24 h |
+
+### Defect D6 — "bake time is indexed to thickness, not to MSL"
+
+`m02l04` `theory[4]` and `m02l06` `theory[3]` both stated that "bake time in
+J-STD-033 is indexed to package body thickness, not to the moisture sensitivity
+level", and then quoted single times per thickness band: **8 / 18 / 48 h at
+125 °C** and **9 / 11 / 38 days at 40 °C**.
+
+Table 4-1 is a three-variable table — thickness, MSL level, and temperature, each
+temperature split by whether floor life was exceeded by more or less than 72 h.
+The course's figures were a mix of Table 4-1 rows and Table 4-2 rows presented as
+if thickness alone set the time. In particular:
+
+- **8 h is not a Table 4-1 user-bake value at ≤1.4 mm at all** — it is Table 4-2
+  MSL 2a, a supplier value.
+- **11 days at 1.4–2.0 mm does not exist anywhere in the table.** The nearest
+  value is 11 hours (90 °C, ≤72 h, ≤1.4 mm, MSL 2) — this looks like a units
+  error.
+- **38 days at 2.0–4.5 mm does not exist either**; the table says 79 days.
+
+The same lesson's *other* claim — "the 24 h figure sometimes quoted for a 125 °C
+bake is the supplier dry-pack condition, not a user bake, so do not use it as a
+production recipe" — is **correct and is an expert-level point**, confirmed
+independently. It now sits next to a Table 4-2/4-3 explanation instead of
+contradicting it.
+
+Both paragraphs were rewritten, and both worked examples were corrected to the
+right row: `m02l04` (MSL 4, ≤1.4 mm, exceeded by 8 h → the ≤72 h column) now bakes
+**7 h at 125 °C**, not 8 h, and keeps its correct "about 9 days" at 40 °C;
+`m02l06` (MSL 3, exceeded by 32 h → ≤72 h) now reads **7 / 17 / 48 h** by
+thickness band.
+
+**Part A facts 15 and 16 stay flagged**, because the rest of the course's bake
+text still needs the same line-by-line read against the corrected tables.
+
+## Where Part B stands
+
+176 distinct assertions were extracted from the 571 claims. The IPC-A-610 and
+J-STD-033 work above is the first tranche. The remaining assertion groups, in
+descending order of distinct assertions, are IPC-7711 (26), IPC-6012 (10),
+J-STD-020 (9), J-STD-001 (9), ANSI/ESD S20.20 (6), IPC-7525 (5) and the tail.

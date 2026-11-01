@@ -51,7 +51,7 @@ disagrees, the course is wrong and the lesson must be corrected before promotion
 | 1 | IPC rework document numbers | IPC-7711/7721 (rework, modification and repair) | IPC document catalogue | 16 | ☑ |
 | 2 | IPC-7525 stencil area ratio and aspect ratio | area ratio 0.66, aspect ratio 1.5;  area ratio = aperture area ÷ sidewall area | IPC-7525 stencil design guidelines | 15 | ☑ |
 | 3 | Wave flux deposition on a solids basis | 500-1500 µg/in² of flux solids (≈0.78-2.33 g/m²) | Flux supplier process window / AIM profile supplement | 15 | ☑ |
-| 4 | IPC-A-610 minimum vertical barrel fill | 75 % for both Class 2 and Class 3 | IPC-A-610H section 10, through-hole solder fill | 13 | ⚠ |
+| 4 | IPC-A-610 minimum vertical barrel fill | 75 % for both Class 2 and Class 3 | IPC-A-610H section 10, through-hole solder fill | 13 | ☑ |
 | 5 | IPC-A-610 Class 3 external annular ring | minimum 0.05 mm with no breakout | IPC-A-610 annular ring criteria | 13 | ☑ |
 | 6 | MSL 6 floor life | no floor life — mandatory bake before use, then reflow within the label time limit | J-STD-020 / J-STD-033 MSL definitions | 12 | ☑ |
 | 7 | J-STD-033 bake at 90 °C and 40 °C | 90 °C: 25-30 h / 48 h / 96-192 h;  40 °C: 8-12 days / 11+ days / 38+ days | J-STD-033 Table 4-1 | 11 | ⚠ |
@@ -66,7 +66,7 @@ disagrees, the course is wrong and the lesson must be corrected before promotion
 | 16 | J-STD-033 bake at 125 °C by thickness | 8 h ≤1.4 mm, 18 h >1.4-2.0 mm, 48 h >2.0-4.5 mm | J-STD-033 Table 4-1 (user bake, clock resets to t=0) | 4 | ⚠ |
 | 17 | Preheat ramp rate for wave and selective | 1-3 °C/s | Equipment and paste datasheets; IPC-7530 profiling guidance | 4 | ☑ |
 | 18 | J-STD-020 tp — time within 5 °C of classification temperature | max 30 s for large/very large, 40 s for small | J-STD-020 reflow profile requirements | 3 | ☑ |
-| 19 | IPC-A-610 documented hole-fill exception | ≈50 % fill or 1.2 mm for parts with ≥14 leads tied to internal thermal or conductor planes | IPC-A-610H section 10 exception clause | 3 | ⚠ |
+| 19 | IPC-A-610 documented hole-fill exception | ≈50 % fill or 1.2 mm for parts with ≥14 leads tied to internal thermal or conductor planes | IPC-A-610H section 10 exception clause | 3 | ☑ |
 | 20 | ISO 2859-1 single-sampling Ac/Re at AQL 1.0 % | K → n=125, Ac=3, Re=4;  L → n=200, Ac=5, Re=6 | ISO 2859-1 normal single-sampling plans, AQL 1.0 % | 3 | ☑ |
 | 21 | IPC-6012 bow and twist limit | 0.75 % for boards using surface-mount components, 1.5 % for other boards | IPC-6012 bow/twist requirement, measured per IPC-TM-650 2.4.22 | 3 | ☑ |
 | 22 | Cleanliness ionic limit | 1.56 µg NaCl equivalent/cm² (IPC-TM-650 2.3.25) | IPC-TM-650 2.3.25 and IPC-6012 cleanliness clause | 3 | ☑ |
@@ -81,7 +81,7 @@ disagrees, the course is wrong and the lesson must be corrected before promotion
 
 > **Wave flux deposition on a solids basis** — VERIFIED (round 11). AIM wave-solder profile supplement: "Flux deposition of 500-1500 micrograms of flux per square inch is typical", and the dry-method note "Anything remaining on the board will represent a deposit of only flux solids" — so the range is a solids basis, as the course states. The unit conversion also checks: 500–1500 µg/in² = 77.5–232.5 µg/cm² = 0.775–2.325 g/m², i.e. the course’s 0.78–2.33 g/m².
 
-> **IPC-A-610 minimum vertical barrel fill** — CONTRADICTED — left open. Secondary sources split, and one publisher contradicts itself across two of its own articles. The 50 % figure may belong to IPC-6012 (bare board) rather than IPC-A-610 (assembly), which would make the course right, but that is a hypothesis. Needs IPC-A-610H §10 in front of a reviewer. See SOURCES_VERIFIED.md.
+> **IPC-A-610 minimum vertical barrel fill** — RESOLVED in round 11. Primary IPC-A-610D text: "Class 2, fill to 75% but with exception for inner layer connections" and "Class 3 acceptance criteria are to be followed with the following exceptions" - so 75 % is the minimum for both classes, and the reduced-fill case is an inner-layer (thermal or conductor plane) exception, not a Class 2 relaxation. The widely repeated "Class 2 is 50 %" is a misquote: 50 % is the Class 1 minimum, and the 50/75 split that does exist belongs to IPC-6012 Rev F (bare board), not to IPC-A-610 (assembly). PCBSync published all three positions in its own articles, which is why the fact was left open in round 10.
 
 > **IPC-A-610 Class 3 external annular ring** — VERIFIED (round 11). Class 3 external annular ring minimum 2 mil = 0.05 mm with no breakout; internal 1 mil = 0.025 mm with no breakout; Class 2 permits up to 90° breakout. Agreed by four independent sources. Caveat: the criterion is documented in IPC-A-600 / IPC-6012 (bare board), not IPC-A-610 (assembly) — the checklist’s "verify against" names the wrong document.
 
@@ -105,13 +105,13 @@ disagrees, the course is wrong and the lesson must be corrected before promotion
 
 > **ESD programme and test-method standards** — VERIFIED (round 11) from the ESD Association’s own IEC-equivalency chart: "ANSI/ESD STM3.1 | IEC 61340-4-7 | Ionization" and "ANSI/ESD STM97.1 & ANSI/ESD STM97.2 | IEC 61340-4-5 | Footwear and Flooring Systems". The ESDA endorsed-standards page confirms STM97.1-2015 and STM97.2-2016 are each technically equivalent to IEC 61340-4-5. This also confirms the earlier draft’s error: no STM97.7 or 97.8 covers ionization. ANSI/ESD S20.20 is the programme standard, technically equivalent to IEC 61340-5-1.
 
-> **J-STD-033 bake at 125 °C by thickness** — LIKELY A TABLE CONFLATION — left open. The course’s 8 h comes from J-STD-033D Table 4-1 (user bake), but its 18 h and 48 h come from Table 4-2 (supplier bake, MET = 24 h), and 18 h is the MSL-2 value only. No revision contains that chain, and the two tables mean different things.
+> **J-STD-033 bake at 125 °C by thickness** — LIKELY A TABLE CONFLATION - left open. The course’s 8 h comes from J-STD-033D Table 4-1 (user bake), but its 18 h and 48 h come from Table 4-2 (supplier bake, MET = 24 h), and 18 h is the MSL-2 value only. No revision contains that chain, and the two tables mean different things. Round 11 read the full Table 4-1 and 4-2 matrices and corrected the two lessons that quoted single thickness-indexed times: Table 4-1 is indexed by thickness AND MSL level, split by whether floor life was exceeded by more or less than 72 h. The worked examples now carry the right row (MSL 4, ≤1.4 mm, ≤72 h: 7 h at 125 °C; MSL 3, ≤1.4 mm, ≤72 h: 7 h at 125 °C, 9 days at 40 °C). The Part A fact stays open because the remaining bake text still needs a line-by-line read against the corrected tables.
 
 > **Preheat ramp rate for wave and selective** — VERIFIED (round 11). AIM profile supplement, citing IPC/JEDEC: "Top Side Ramp Up Rate — < 3 °C/Sec (general), 1 - 3 °C/Sec (tin-lead), 1 - 3 °C/Sec (lead-free)". Caveat: the IPC-7530A industry draft notes component suppliers often recommend a more conservative 2–4 °C/s to avoid thermal shock, so 1–3 °C/s is the process window, not a component-safe limit.
 
 > **J-STD-020 tp — time within 5 °C of classification temperature** — THE COURSE WAS WRONG — CORRECTED in round 10. No revision supports 40 s. J-STD-020D Table 5-2 gives tp = 30 s on the Pb-free profile and 20 s for SnPb; J-STD-020E and F datasheets reproduce 20–30 s and <30 s. Four occurrences corrected.
 
-> **IPC-A-610 documented hole-fill exception** — CONSISTENTLY DESCRIBED but rests on the same unresolved §10 question as the barrel-fill fact. Secondary sources agree on "≈50 % fill or 1.2 mm for parts with 14 or more leads tied into internal thermal or conductor planes", but the publisher that states it also contradicts itself on the base 75 % figure. Not ticked until §10 is read.
+> **IPC-A-610 documented hole-fill exception** — RESOLVED in round 11, on the same primary text as the barrel-fill fact. The exception is for connections into inner layers - described in secondary sources as roughly 50 % fill or 1.2 mm for parts with 14 or more leads whose barrels tie into internal thermal or conductor planes, with conditions on wetting and lead visibility. It is an inner-layer exception, not a class split, and it applies at Class 2; Class 3 has a shorter exception list.
 
 > **ISO 2859-1 single-sampling Ac/Re at AQL 1.0 %** — VERIFIED (round 11). K (n=125) → Ac 3, Re 4; L (n=200) → Ac 5, Re 6; J (n=80) → Ac 2, Re 3; H (n=50) → Ac 1, Re 2. Three independent reproductions of ISO 2859-1 Table II-A agree. This is the table behind the W17 correction of m01l03.
 
@@ -334,11 +334,11 @@ Registry entry: `src-003` — J-STD-033 Handling, Packing, Shipping and Use of M
 | m02l04 | `theory[2].p` | For plastic packages, IPC/JEDEC J-STD-033D assigns moisture sensitivity levels and floor life. | ☐ |
 | m02l04 | `theory[3].p` | IPC/JEDEC J-STD-033D recognizes dry storage at 10% RH or less for eligible devices. | ☐ |
 | m02l04 | `theory[4].p` | Use the bake table in IPC/JEDEC J-STD-033D for the package type and the component or tape datasheet. | ☐ |
-| m02l04 | `theory[4].p` | Bake time in J-STD-033 is indexed to package body thickness, not to the moisture sensitivity level. | ☐ |
+| m02l04 | `theory[4].p` | Bake time in J-STD-033 Table 4-1 is indexed to package body thickness AND to the moisture sensitivity level, with separate columns for floor life exceeded by more than 72 h and by 72 h or less, so all three variables must be read off the table before a time is quoted. | ☐ |
 | m02l04 | `calc.task` | A batch of IPC/JEDEC J-STD-033D MSL 4 ICs in tape and reel was opened 50 h ago. | ☐ |
 | m02l04 | `calc.solution` | Use IPC/JEDEC J-STD-033D floor life for MSL 4: 72 h. | ☐ |
 | m02l04 | `calc.solution` | A tape-and-reel bake cannot exceed 40°C, and at 40°C the J-STD-033 Table 4-1 time for a body up to 1.4 mm is about 9 days, which does not fit a 30 h window. | ☐ |
-| m02l04 | `calc.solution` | Either move the reflow inside the remaining floor life, suspend the clock in a qualified dry cabinet at 10% RH or less, or de-reel, bake loose parts at 125°C for 8 h and re-reel; verify the chosen route against the J-STD-033D bake table, the tape datasheet and the reflow window. | ☐ |
+| m02l04 | `calc.solution` | Either move the reflow inside the remaining floor life, suspend the clock in a qualified dry cabinet at 10% RH or less, or de-reel, bake loose parts at 125°C for 7 h and re-reel; verify the chosen route against the J-STD-033D bake table, the tape datasheet and the reflow window. | ☐ |
 | m02l04 | `defect.cause` | The IPC/JEDEC J-STD-033D MSL 4 floor life was exceeded because the dry cabinet excursion was not treated as exposure; moisture in the package flashed during reflow. | ☐ |
 | m02l04 | `quiz.q-m02l04-02.prompt` | The J-STD-033 Table 4-1 bake time for that body thickness is 192 h. | ☐ |
 | m02l04 | `quiz.q-m02l04-02.explanation` | J-STD-033 bake time is indexed to package body thickness, not to the moisture sensitivity level: for 2.0 to 4.5 mm bodies the 90 °C column gives 192 h. | ☐ |
@@ -346,14 +346,14 @@ Registry entry: `src-003` — J-STD-033 Handling, Packing, Shipping and Use of M
 | m02l06 | `theory[1].p` | IPC/JEDEC J-STD-033 defines floor life at reference conditions of 30 °C and 60% RH, so a hot, humid storage area can consume the clock faster than a controlled dry cabinet. | ☐ |
 | m02l06 | `theory[2].p` | Compare elapsed floor life with the floor life for the device level in IPC/JEDEC J-STD-033. | ☐ |
 | m02l06 | `theory[2].p` | If dry storage is used, IPC/JEDEC J-STD-033 uses a dry storage target of 5% RH or less; if the cabinet runs above that, treat the devices as exposed and recalculate floor life. | ☐ |
-| m02l06 | `theory[3].p` | For moisture-sensitive devices, IPC/JEDEC J-STD-033 provides bake conditions that depend on the carrier and the maximum temperature allowed by the component. | ☐ |
-| m02l06 | `theory[3].p` | For tape and reel, IPC/JEDEC J-STD-033 also provides a lower-temperature long bake at 40 °C, roughly 9 days for a body up to 1.4 mm, 11 days for 1.4 to 2.0 mm and 38 days for 2.0 to 4.5 mm, because the tape, reel, labels and cover tape cannot tolerate higher temperature. | ☐ |
+| m02l06 | `theory[3].p` | For moisture-sensitive devices, IPC/JEDEC J-STD-033 provides bake conditions that depend on the carrier, the package body thickness, the moisture sensitivity level and the maximum temperature allowed by the component. | ☐ |
+| m02l06 | `theory[3].p` | For tape and reel, IPC/JEDEC J-STD-033 also provides a lower-temperature long bake at 40 °C — 8 to 22 days for a body up to 1.4 mm and 25 to 79 days for 1.4 to 2.0 mm, again by MSL level — because the tape, reel, labels and cover tape cannot tolerate higher temperature. | ☐ |
 | m02l06 | `theory[4].p` | After baking, store the batch in a dry cabinet at 5% RH or less under IPC/JEDEC J-STD-033, or repackage it in a moisture barrier bag with desiccant and a humidity indicator card. | ☐ |
 | m02l06 | `calc.solution` | The devices are MSL3 under IPC/JEDEC J-STD-020, and the floor-life rules come from IPC/JEDEC J-STD-033. | ☐ |
 | m02l06 | `calc.solution` | Step 2: Compare elapsed floor life with IPC/JEDEC J-STD-033. | ☐ |
 | m02l06 | `calc.solution` | IPC/JEDEC J-STD-033 uses a dry storage target of 5% RH or less. | ☐ |
-| m02l06 | `calc.solution` | If the carrier cannot withstand 125 °C, use the IPC/JEDEC J-STD-033 lower-temperature long bake at 40 °C, which is roughly 9 days for a body up to 1.4 mm and therefore does not fit a short reflow window. | ☐ |
-| m02l06 | `calc.solution` | If the component and carrier datasheets allow 125 °C, the IPC/JEDEC J-STD-033 125 °C column applies only to loose parts in trays or tubes and is indexed to body thickness: 8 h up to 1.4 mm, 18 h for 1.4 to 2.0 mm, 48 h for 2.0 to 4.5 mm. | ☐ |
+| m02l06 | `calc.solution` | If the carrier cannot withstand 125 °C, use the IPC/JEDEC J-STD-033 lower-temperature long bake at 40 °C, which for an MSL 3 body up to 1.4 mm is 9 days and therefore does not fit a short reflow window. | ☐ |
+| m02l06 | `calc.solution` | If the component and carrier datasheets allow 125 °C, the IPC/JEDEC J-STD-033 125 °C column applies only to loose parts in trays or tubes and is indexed to both body thickness and MSL level: for this MSL 3 lot with floor life exceeded by 32 h, 7 h up to 1.4 mm, 17 h at 1.4 to 2.0 mm and 48 h at 2… | ☐ |
 | m02l06 | `calc.solution` | For this case, choose the 40 °C long bake as the conservative tape-and-reel condition, or de-reel, bake the loose parts at 125 °C for the thickness-indexed time and re-reel; verify the chosen route against the J-STD-033 bake table, the tape datasheet and the reflow window. | ☐ |
 | m02l06 | `calc.solution` | Store at 5% RH or less under IPC/JEDEC J-STD-033, or repackage in a moisture barrier bag with desiccant and a humidity indicator card. | ☐ |
 | m02l06 | `defect.cause` | MSL3 tape and reel devices exceeded IPC/JEDEC J-STD-033 floor life, the dry cabinet ran above the 5% RH target, and the batch was fed to placement without a bake decision or traceability containment. | ☐ |
