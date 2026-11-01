@@ -2938,7 +2938,7 @@
         },
         {
           "h": "Alloy families set different thermal budgets",
-          "p": "SnPb profiles usually use a lower peak because the J-STD-020 classification temperature for SnPb eutectic is 235 °C for a package thinner than 2.5 mm with a volume below 350 mm³ and 220 °C for every other case, while SAC305 profiles use a higher peak because the SAC305 classification temperatures are 260 °C for small packages, 250 °C for large packages and 245 °C for very large packages. The practical target peak is set by paste wetting, component rating, and board stress, then checked against the classification limit."
+          "p": "SnPb profiles usually use a lower peak because the J-STD-020 classification temperature for SnPb eutectic is 235 °C for a package thinner than 2.5 mm with a volume below 350 mm³ and 220 °C for every other case, while SAC305 profiles use a higher peak because the SAC305 classification temperatures are 260 °C for small packages, 250 °C for large packages and 245 °C for very large packages at 1.6-2.5 mm thickness (the full J-STD-020 table is thickness x volume: below 1.6 mm every volume is 260 °C, and above 2.5 mm the limits fall to 250 °C small and 245 °C large and very large). The practical target peak is set by paste wetting, component rating, and board stress, then checked against the classification limit."
         },
         {
           "h": "Ramp and soak control flux and gradients",
