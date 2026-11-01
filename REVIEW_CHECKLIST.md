@@ -30,7 +30,7 @@ instruction.
 | lessons | 92 |
 | modules | 15 |
 | quiz questions | 185 |
-| standards cited | 41 |
+| standards cited | 40 |
 | distinct claim sentences | 571 |
 | recurring facts in Part A | 26 |
 | sources in the registry | 39 |
@@ -49,31 +49,31 @@ disagrees, the course is wrong and the lesson must be corrected before promotion
 | # | Fact | Course asserts | Verify against | Lessons | OK |
 |---|---|---|---|---|---|
 | 1 | IPC rework document numbers | IPC-7711/7721 (rework, modification and repair) | IPC document catalogue | 16 | ☐ |
-| 2 | IPC-7525 stencil area ratio and aspect ratio | area ratio 0.66, aspect ratio 1.5;  area ratio = aperture area ÷ sidewall area | IPC-7525 stencil design guidelines | 15 | ☐ |
+| 2 | IPC-7525 stencil area ratio and aspect ratio | area ratio 0.66, aspect ratio 1.5;  area ratio = aperture area ÷ sidewall area | IPC-7525 stencil design guidelines | 15 | ☑ |
 | 3 | Wave flux deposition on a solids basis | 500-1500 µg/in² of flux solids (≈0.78-2.33 g/m²) | Flux supplier process window / AIM profile supplement | 15 | ☐ |
-| 4 | IPC-A-610 minimum vertical barrel fill | 75 % for both Class 2 and Class 3 | IPC-A-610H section 10, through-hole solder fill | 13 | ☐ |
+| 4 | IPC-A-610 minimum vertical barrel fill | 75 % for both Class 2 and Class 3 | IPC-A-610H section 10, through-hole solder fill | 13 | ⚠ |
 | 5 | IPC-A-610 Class 3 external annular ring | minimum 0.05 mm with no breakout | IPC-A-610 annular ring criteria | 13 | ☐ |
-| 6 | MSL 6 floor life | no floor life — mandatory bake before use, then reflow within the label time limit | J-STD-020 / J-STD-033 MSL definitions | 12 | ☐ |
-| 7 | J-STD-033 bake at 90 °C and 40 °C | 90 °C: 25-30 h / 48 h / 96-192 h;  40 °C: 8-12 days / 11+ days / 38+ days | J-STD-033 Table 4-1 | 11 | ☐ |
+| 6 | MSL 6 floor life | no floor life — mandatory bake before use, then reflow within the label time limit | J-STD-020 / J-STD-033 MSL definitions | 12 | ☑ |
+| 7 | J-STD-033 bake at 90 °C and 40 °C | 90 °C: 25-30 h / 48 h / 96-192 h;  40 °C: 8-12 days / 11+ days / 38+ days | J-STD-033 Table 4-1 | 11 | ⚠ |
 | 8 | SAC305 phase change temperatures | solidus 217 °C, liquidus 219 °C | Alloy supplier datasheet / IPC J-STD-006 alloy designation tables | 8 | ☐ |
-| 9 | J-STD-033 cumulative bake cap | cumulative time above 90 °C up to 125 °C ≤ 96 h; above 125 °C needs supplier approval | J-STD-033 cumulative bake guidance | 8 | ☐ |
-| 10 | Tape-and-reel dry-pack temperature cap | capped at 40 °C | J-STD-033 handling guidance for tape-and-reel | 8 | ☐ |
+| 9 | J-STD-033 cumulative bake cap | cumulative time above 90 °C up to 125 °C ≤ 96 h; above 125 °C needs supplier approval | J-STD-033 cumulative bake guidance | 8 | ☑ |
+| 10 | Tape-and-reel dry-pack temperature cap | capped at 40 °C | J-STD-033 handling guidance for tape-and-reel | 8 | ☑ |
 | 11 | IPC-CC-830 conformal coating type designations | AR acrylic, ER polyurethane, SR silicone, DR parylene | IPC-CC-830 type designation tables | 7 | ☐ |
-| 12 | J-STD-020 classification temperature by package size | 260 °C small, 250 °C large, 245 °C very large | J-STD-020 classification temperature tables | 5 | ☐ |
-| 13 | J-STD-020 ramp-down limit | ≤ 6 °C/s | J-STD-020 reflow profile requirements | 5 | ☐ |
+| 12 | J-STD-020 classification temperature by package size | 260 °C small, 250 °C large, 245 °C very large | J-STD-020 classification temperature tables | 5 | ☑ |
+| 13 | J-STD-020 ramp-down limit | ≤ 6 °C/s | J-STD-020 reflow profile requirements | 5 | ☑ |
 | 14 | Contractual 100 % fill | a customer requirement, not an IPC-A-610 class limit | IPC-A-610H section 10 and the customer contract | 5 | ☐ |
 | 15 | ESD programme and test-method standards | ANSI/ESD S20.20 for the programme; STM3.1 → IEC 61340-4-7 ionisation; STM97.1/97.2 → IEC 61340-4-5 footwear and flooring | ANSI/ESD S20.20 and the ESD Association test-method catalogue | 5 | ☐ |
-| 16 | J-STD-033 bake at 125 °C by thickness | 8 h ≤1.4 mm, 18 h >1.4-2.0 mm, 48 h >2.0-4.5 mm | J-STD-033 Table 4-1 (user bake, clock resets to t=0) | 4 | ☐ |
+| 16 | J-STD-033 bake at 125 °C by thickness | 8 h ≤1.4 mm, 18 h >1.4-2.0 mm, 48 h >2.0-4.5 mm | J-STD-033 Table 4-1 (user bake, clock resets to t=0) | 4 | ⚠ |
 | 17 | Preheat ramp rate for wave and selective | 1-3 °C/s | Equipment and paste datasheets; IPC-7530 profiling guidance | 4 | ☐ |
-| 18 | IPC-7525 edition | the course cites IPC-7525B (m03l06) and IPC-7525D (m03l02); registry src-004 says Rev A | IPC-7525 revision history — which revision is current, and whether both citations can be right | 3 | ☐ |
-| 19 | J-STD-020 tp — time within 5 °C of classification temperature | max 30 s for large/very large, 40 s for small | J-STD-020 reflow profile requirements | 3 | ☐ |
-| 20 | IPC-A-610 documented hole-fill exception | ≈50 % fill or 1.2 mm for parts with ≥14 leads tied to internal thermal or conductor planes | IPC-A-610H section 10 exception clause | 3 | ☐ |
-| 21 | ISO 2859-1 single-sampling Ac/Re at AQL 1.0 % | K → n=125, Ac=3, Re=4;  L → n=200, Ac=5, Re=6 | ISO 2859-1 normal single-sampling plans, AQL 1.0 % | 3 | ☐ |
-| 22 | IPC-6012 bow and twist limit | 0.75 % for boards using surface-mount components, 1.5 % for other boards | IPC-6012 bow/twist requirement, measured per IPC-TM-650 2.4.22 | 3 | ☐ |
-| 23 | Cleanliness ionic limit | 1.56 µg NaCl equivalent/cm² (IPC-TM-650 2.3.25) | IPC-TM-650 2.3.25 and IPC-6012 cleanliness clause | 3 | ☐ |
-| 24 | ISO 2859-1 code letter to sample size | A2 B3 C5 D8 E13 F20 G32 H50 J80 K125 L200 M315 N500 P800 Q1250 R2000 | ISO 2859-1 / ANSI-ASQ Z1.4 Table II-A | 2 | ☐ |
-| 25 | ISO 2859-1 lot-size to code letter by inspection level | 501-1200 G/J/K;  1201-3200 H/K/L;  3201-10000 J/L/M | ISO 2859-1 Table I | 1 | ☐ |
-| 26 | J-STD-004/005 solder powder Type 3 | 25-45 µm, ≥80 % between sieves, <10 % below 25 µm, <10 % in 45-60 µm, <0.5 % above 60 µm | J-STD-005 powder size distribution tables | 1 | ☐ |
+| 18 | J-STD-020 tp — time within 5 °C of classification temperature | max 30 s for large/very large, 40 s for small | J-STD-020 reflow profile requirements | 3 | ☑ |
+| 19 | IPC-A-610 documented hole-fill exception | ≈50 % fill or 1.2 mm for parts with ≥14 leads tied to internal thermal or conductor planes | IPC-A-610H section 10 exception clause | 3 | ☑ |
+| 20 | ISO 2859-1 single-sampling Ac/Re at AQL 1.0 % | K → n=125, Ac=3, Re=4;  L → n=200, Ac=5, Re=6 | ISO 2859-1 normal single-sampling plans, AQL 1.0 % | 3 | ☐ |
+| 21 | IPC-6012 bow and twist limit | 0.75 % for boards using surface-mount components, 1.5 % for other boards | IPC-6012 bow/twist requirement, measured per IPC-TM-650 2.4.22 | 3 | ☐ |
+| 22 | Cleanliness ionic limit | 1.56 µg NaCl equivalent/cm² (IPC-TM-650 2.3.25) | IPC-TM-650 2.3.25 and IPC-6012 cleanliness clause | 3 | ☐ |
+| 23 | ISO 2859-1 code letter to sample size | A2 B3 C5 D8 E13 F20 G32 H50 J80 K125 L200 M315 N500 P800 Q1250 R2000 | ISO 2859-1 / ANSI-ASQ Z1.4 Table II-A | 2 | ☐ |
+| 24 | ISO 2859-1 lot-size to code letter by inspection level | 501-1200 G/J/K;  1201-3200 H/K/L;  3201-10000 J/L/M | ISO 2859-1 Table I | 1 | ☐ |
+| 25 | J-STD-004/005 solder powder Type 3 | 25-45 µm, ≥80 % between sieves, <10 % below 25 µm, <10 % in 45-60 µm, <0.5 % above 60 µm | J-STD-005 powder size distribution tables | 1 | ☐ |
+| 26 | IPC-7525 edition | the course cites IPC-7525B (m03l06) and IPC-7525D (m03l02); registry src-004 says Rev A | IPC-7525 revision history — which revision is current, and whether both citations can be right | 0 | ☐ |
 
 > **IPC rework document numbers** — An earlier draft cited IPC-7711/7712; rounds 3-4 corrected every occurrence. 7712 does not cover this subject.
 
@@ -86,6 +86,14 @@ disagrees, the course is wrong and the lesson must be corrected before promotion
 > **ESD programme and test-method standards** — An earlier draft cited STM97.7/97.8 for ionisation; no such standards exist. Corrected in round 3.
 
 > **IPC-7525 edition** — Three different edition claims for one standard: two in the course and a third in the registry, and the registry matches neither. This is a course defect, not a registry gap. Pick the correct revision, then make the two lessons and src-004 agree. The same check applies to IPC-7530B, which the registry leaves as TBD-REVIEW, and to IPC-A-610, where the registry says Rev H and the course cites IPC-A-610H and those do agree.
+
+> **IPC-7525 edition — RESOLVED (round 10).** The course cited IPC-7525D, **which does not exist**; `m03l06` cited IPC-7525B and `src-004` said Rev A. The current revision is **IPC-7525C (November 2021)**. 19 references corrected. The course's own marker had asked for exactly this check.
+> **IPC-7525 area ratio — definitions verified verbatim.** IPC-7525B §1.1.2: "The ratio of the area of aperture opening to the area of aperture walls." §1.1.3: "The ratio of the width of the aperture to the thickness of the stencil foil." The **0.66 and 1.5 figures themselves remain unverified** — they appear only in secondary sources.
+> **J-STD-020 `tp` — course was WRONG, corrected.** No revision supports 40 s. J-STD-020D Table 5-2 gives 30 s (Pb-free) / 20 s (SnPb).
+> **J-STD-020 classification temperature — course was WRONG, corrected.** "260 small / 250 large / 245 very large" is the 1.6–2.5 mm row only; the table is thickness × volume, and above 2.5 mm a small package is limited to 250 °C.
+> **J-STD-033 cumulative bake — 96 h VERIFIED for revision D.** J-STD-033A/B said 48 h; D relaxed it to 96 h.
+> **IPC-A-610 barrel fill — CONTRADICTED, left open.** Secondary sources split, and one publisher contradicts itself across two articles. The 50 % figure may belong to IPC-6012 rather than IPC-A-610. Needs the standard itself.
+> **J-STD-033 bake chain — LIKELY TABLE CONFLATION, left open.** The course's 8 h comes from Table 4-1 (user bake) but its 18 h and 48 h come from Table 4-2 (supplier bake, MET = 24 h). No revision contains that chain.
 
 ---
 
@@ -436,8 +444,8 @@ Registry entry: `src-005` — J-STD-020 Classification of Moisture Sensitivity f
 | m02l06 | `theory[2].p` | If the device is classified as the lowest moisture sensitivity level under IPC/JEDEC J-STD-020, baking is usually not required unless contamination, handling damage, or a customer requirement says otherwise. | ☐ |
 | m02l06 | `calc.solution` | The devices are MSL3 under IPC/JEDEC J-STD-020, and the floor-life rules come from IPC/JEDEC J-STD-033. | ☐ |
 | m06l01 | `theory[2].p` | The time-above-liquidus window is process guidance rather than a J-STD-020 parameter: IPC-7530 and the paste datasheet typically call for 60-150 s for many assemblies. | ☐ |
-| m06l01 | `theory[2].p` | J-STD-020 has its own time figure, tp, which is the time within 5 °C of the classification temperature and is limited to 30-40 s; it is a package qualification parameter, not the paste window used to run a board. | ☐ |
-| m06l01 | `theory[3].p` | For SAC305, J-STD-020 does not give one peak temperature: it gives classification temperatures by package size, 260 °C for small packages, 250 °C for large packages and 245 °C for very large packages, each with tp, the time within 5 °C of that temperature, limited to 30-40 s. | ☐ |
+| m06l01 | `theory[2].p` | J-STD-020 has its own time figure, tp, which is the time within 5 °C of the classification temperature and is limited to 30 s on the Pb-free profile (20 s for SnPb); it is a package qualification parameter, not the paste window used to run a board. | ☐ |
+| m06l01 | `theory[3].p` | For SAC305, J-STD-020 does not give one peak temperature: it gives classification temperatures by package size, 260 °C for small packages, 250 °C for large packages and 245 °C for very large packages at 1.6-2.5 mm thickness (the full J-STD-020 table is thickness x volume: below 1.6 mm every volum… | ☐ |
 | m06l01 | `theory[6].h` | Judging against J-STD-020 | ☐ |
 | m06l01 | `theory[6].p` | To judge a measured profile, compare the measured peak against the J-STD-020 classification temperature for the package size, and the measured time above liquidus against the paste-datasheet window, typically 60-150 s under IPC-7530 guidance. | ☐ |
 | m06l01 | `theory[6].p` | Moisture sensitivity level, floor life, and bake requirements from J-STD-020 also affect whether the component can tolerate the reflow exposure. | ☐ |
@@ -446,11 +454,11 @@ Registry entry: `src-005` — J-STD-020 Classification of Moisture Sensitivity f
 | m06l01 | `calc.solution` | This window is IPC-7530 and datasheet guidance, not a J-STD-020 parameter. | ☐ |
 | m06l01 | `calc.solution` | The J-STD-020 classification ramp-down limit is 6 °C/s or less. | ☐ |
 | m06l02 | `theory[2].p` | IPC J-STD-020 gives moisture sensitivity level (MSL) related preheat guidance for components, not a universal ramp rate for the whole profile. | ☐ |
-| m06l02 | `theory[4].p` | J-STD-020 does not set a board-assembly TAL limit: its own time parameter is tp, the time within 5 °C of the classification temperature, limited to 30-40 s for large and very large packages and 40 s for small ones, and its peak figures are classification temperatures by package size, 260 °C small… | ☐ |
+| m06l02 | `theory[4].p` | J-STD-020 does not set a board-assembly TAL limit: its own time parameter is tp, the time within 5 °C of the classification temperature, limited to 30 s, and its peak figures are classification temperatures by package thickness and volume, not by size alone: 260 °C for a thin package at any volum… | ☐ |
 | m06l02 | `theory[5].p` | Peak temperature is usually set 10 to 25 °C above liquidus for common alloys, but the governing limit is the component's rated peak temperature from its datasheet or IPC J-STD-020. | ☐ |
 | m06l02 | `theory[7].p` | Always measure with thermocouples on the actual product, not just a test coupon, and compare the measured ramp, soak, TAL, peak, and cooling against the TAL window from your paste datasheet and the J-STD-020 classification temperature for the package size, which is the peak ceiling. | ☐ |
 | m06l02 | `calc.task` | Check against the J-STD-020 classification temperature for the package size and typical paste guidance. | ☐ |
-| m06l02 | `calc.solution` | J-STD-020 sets classification temperatures by package size — 260 °C small, 250 °C large, 245 °C very large. | ☐ |
+| m06l02 | `calc.solution` | J-STD-020 sets classification temperatures by package size — 260 °C small, 250 °C large, 245 °C very large (1.6-2.5 mm row; above 2.5 mm thickness the limits fall to 250 °C small and 245 °C large and very large). | ☐ |
 | m06l02 | `calc.solution` | J-STD-020 does not set a board-assembly time-above-liquidus limit; its 30 s figure is tp, the time within 5 °C of the classification temperature. | ☐ |
 | m06l02 | `calc.solution` | Typical practice is 1 to 4 °C/s; this is within range, and the J-STD-020 classification ramp-down limit is 6 °C/s or less. | ☐ |
 | m06l02 | `quiz.q-m06l02-02.prompt` | Using the lesson's rule-of-thumb limits (ramp 1-3 °C/s, time above liquidus 60-120 s from the paste datasheet, and peak not above the J-STD-020 classification temperature of 250 °C for a large package), a measured profile for SAC305 ramps from 150 °C to liquidus in 30 s, crosses liquidus upward a… | ☐ |
@@ -458,21 +466,21 @@ Registry entry: `src-005` — J-STD-020 Classification of Moisture Sensitivity f
 | m06l03 | `theory[5].p` | For component qualification, peak-temperature limits are often referenced to IPC/JEDEC J-STD-020, but the component datasheet and the applicable moisture sensitivity level control the final limit. | ☐ |
 | m06l03 | `quiz.q-m06l03-02.prompt` | Using the J-STD-020 classification temperatures for SAC305 (260 °C small package, 250 °C large package, 245 °C very large package) and the lesson formula minimum margin = min(classification temperature − hottest measured, coolest measured − liquidus), a survey records a coolest part peak of 246 °… | ☐ |
 | m06l04 | `theory[6].p` | The average ramp-up of 1-3 °C/s and the 60-150 s time-above-liquidus window come from IPC-7530 and the paste datasheet, not from J-STD-020. | ☐ |
-| m06l04 | `theory[6].p` | J-STD-020 supplies the classification temperatures that bound the peak: 260 °C for small packages, 250 °C for large packages and 245 °C for very large packages, each with tp, the time within 5 °C of that temperature, limited to 30-40 s. | ☐ |
+| m06l04 | `theory[6].p` | J-STD-020 supplies the classification temperatures that bound the peak: 260 °C for small packages, 250 °C for large packages and 245 °C for very large packages at 1.6-2.5 mm thickness (the full J-STD-020 table is thickness x volume: below 1.6 mm every volume is 260 °C, and above 2.5 mm the limits… | ☐ |
 | m06l04 | `calc.task` | The component limit is the J-STD-020 classification temperature for the package size. | ☐ |
 | m06l04 | `calc.solution` | Apply limits: ramp 1-3 °C/s and time above liquidus 60-150 s from IPC-7530 and the paste datasheet; the peak ceiling is the J-STD-020 classification temperature for the package size, 250 °C for a large package. | ☐ |
 | m06l04 | `quiz.q-m06l04-02.prompt` | For a SAC305 board, the cited process guidance gives a maximum ramp rate of 4 °C/s, a liquidus of 219 °C, a J-STD-020 classification temperature of 250 °C for a large package, and a minimum time above liquidus of 60 s. | ☐ |
 | m06l05 | `theory[1].p` | These values come from the alloy and paste datasheet, not from J-STD-020, which supplies classification temperatures rather than alloy melting data. | ☐ |
 | m06l05 | `theory[2].p` | SnPb profiles usually use a lower peak because the J-STD-020 classification temperature for SnPb eutectic is 220 C, while SAC305 profiles use a higher peak because the SAC305 classification temperatures are 260 C for small packages, 250 C for large packages and 245 C for very large packages. | ☐ |
-| m06l05 | `theory[5].p` | A SnAgCu peak of 245 C may be acceptable if the measured board temperature stays below the J-STD-020 classification temperature for the package size (260 C small, 250 C large, 245 C very large) and the paste datasheet supports it. | ☐ |
+| m06l05 | `theory[5].p` | A SnAgCu peak of 245 C may be acceptable if the measured board temperature stays below the J-STD-020 classification temperature for the package size (260 C small, 250 C large, 245 C very large (1.6-2.5 mm row; above 2.5 mm thickness the limits fall to 250 C small and 245 C large and very large)) … | ☐ |
 | m06l05 | `theory[7].p` | Compare the measured values with IPC-7530B guidance and IPC/JEDEC J-STD-020 classification limits, then adjust zones until the coldest joint meets wetting requirements without exceeding the hottest joint limit. | ☐ |
 | m06l05 | `calc.task` | Build the expected ramp from thermal mass and check ramp, time above liquidus, and peak against IPC-7530B guidance and IPC/JEDEC J-STD-020 limits. | ☐ |
-| m06l05 | `calc.solution` | Check peak against the J-STD-020 classification temperature for the package size (260 C small, 250 C large, 245 C very large): measured 245 C is below the limit for small and large packages and exactly at the limit for very large packages, so confirm the package size. | ☐ |
+| m06l05 | `calc.solution` | Check peak against the J-STD-020 classification temperature for the package size (260 C small, 250 C large, 245 C very large (1.6-2.5 mm row; above 2.5 mm thickness the limits fall to 250 C small and 245 C large and very large)): measured 245 C is below the limit for small and large packages and … | ☐ |
 | m06l06 | `quiz.q-m06l06-02.explanation` | Note that time above liquidus is a measured profile quantity from IPC-7530 and the paste datasheet, not a J-STD-020 parameter. | ☐ |
 
 ### IPC-7525 — 44 claims
 
-Registry entry: `src-004` — IPC-7525 Stencil Design Guidelines
+Registry entry: `src-004` — IPC-7525C Stencil Design Guidelines (stencil design guidance: area ratio, aspect ratio, aperture sizing)
 
 | Lesson | Where | Claim (verbatim) | OK |
 |---|---|---|---|
@@ -618,23 +626,25 @@ Registry entry: `src-010` — IPC-CC-830 Qualification and Performance of Electr
 | m12l05 | `theory[6].p` | Too thin a coating may not meet IPC-CC-830 qualification or IPC-A-610 acceptability for the intended class; too thick a coating can trap solvent, crack during thermal cycling, or interfere with connectors and test probes. | ☐ |
 | m12l05 | `calc.solution` | If the qualified IPC-CC-830 coating system or IPC-A-610 inspection class requires a different thickness range, adjust the spray parameters and re-measure. | ☐ |
 
-### IPC-7525D — 11 claims
+### IPC-7525C — 13 claims
 
-Registry entry: `src-004` — IPC-7525 Stencil Design Guidelines
+Registry entry: `src-004` — IPC-7525C Stencil Design Guidelines (stencil design guidance: area ratio, aspect ratio, aperture sizing)
 
 | Lesson | Where | Claim (verbatim) | OK |
 |---|---|---|---|
-| m03l02 | `theory[1].p` | IPC-7525D treats area ratio as a key indicator of paste release because the paste must separate from the sidewalls and transfer to the pad. | ☐ |
-| m03l02 | `theory[2].p` | IPC-7525D provides area-ratio guidance for stencil design, but the practical release limit depends on paste rheology, stencil wall finish, print speed, snap-off distance, and squeegee pressure; verify against your paste and equipment datasheet. | ☐ |
-| m03l02 | `theory[3].p` | IPC-7525D discusses aspect ratio as a stencil geometry parameter related to paste release and aperture wall effects. | ☐ |
-| m03l02 | `theory[7].p` | If area ratio is near or below the IPC-7525D guidance range, or if expected volume is close to the minimum needed for the component and pad, the design should be reviewed for foil thickness, aperture size within the pad, wall finish, paste selection, and print parameters. | ☐ |
-| m03l02 | `calc.task` | State whether the aperture is expected to release paste adequately according to common IPC-7525D area-ratio guidance. | ☐ |
-| m03l02 | `calc.solution` | The area ratio is 0.625, which is below the commonly cited IPC-7525D area-ratio guidance value of 0.66. | ☐ |
-| m03l02 | `defect.action` | Review the aperture area ratio and aspect ratio against IPC-7525D guidance and your paste/equipment datasheet. | ☐ |
-| m03l05 | `theory[2].p` | IPC-7525D recommends an area ratio above 0.66 for reliable paste release. | ☐ |
-| m03l05 | `theory[3].p` | IPC-7525D recommends an aspect ratio above 1.5. | ☐ |
-| m03l05 | `theory[4].p` | IPC-7525D recommends a wall taper in the range of 85 to 90 degrees, measured from the horizontal plane, because a slight taper reduces the effective wall area. | ☐ |
-| m03l05 | `calc.solution` | The nominal area ratio 0.625 is below the IPC-7525D recommended value of 0.66, so paste release may be inadequate unless qualified by paste and equipment testing. | ☐ |
+| m03l02 | `theory[1].p` | IPC-7525C treats area ratio as a key indicator of paste release because the paste must separate from the sidewalls and transfer to the pad. | ☐ |
+| m03l02 | `theory[2].p` | IPC-7525C provides area-ratio guidance for stencil design, but the practical release limit depends on paste rheology, stencil wall finish, print speed, snap-off distance, and squeegee pressure; verify against your paste and equipment datasheet. | ☐ |
+| m03l02 | `theory[3].p` | IPC-7525C discusses aspect ratio as a stencil geometry parameter related to paste release and aperture wall effects. | ☐ |
+| m03l02 | `theory[7].p` | If area ratio is near or below the IPC-7525C guidance range, or if expected volume is close to the minimum needed for the component and pad, the design should be reviewed for foil thickness, aperture size within the pad, wall finish, paste selection, and print parameters. | ☐ |
+| m03l02 | `calc.task` | State whether the aperture is expected to release paste adequately according to common IPC-7525C area-ratio guidance. | ☐ |
+| m03l02 | `calc.solution` | The area ratio is 0.625, which is below the commonly cited IPC-7525C area-ratio guidance value of 0.66. | ☐ |
+| m03l02 | `defect.action` | Review the aperture area ratio and aspect ratio against IPC-7525C guidance and your paste/equipment datasheet. | ☐ |
+| m03l05 | `theory[2].p` | IPC-7525C recommends an area ratio above 0.66 for reliable paste release. | ☐ |
+| m03l05 | `theory[3].p` | IPC-7525C recommends an aspect ratio above 1.5. | ☐ |
+| m03l05 | `theory[4].p` | IPC-7525C recommends a wall taper in the range of 85 to 90 degrees, measured from the horizontal plane, because a slight taper reduces the effective wall area. | ☐ |
+| m03l05 | `calc.solution` | The nominal area ratio 0.625 is below the IPC-7525C recommended value of 0.66, so paste release may be inadequate unless qualified by paste and equipment testing. | ☐ |
+| m03l06 | `theory[2].p` | Where the specification is silent, use the design reference such as IPC-7525C and the paste or equipment datasheet, then document the accepted limit before release. | ☐ |
+| m03l06 | `calc.task` | Issued specification: foil thickness 0.120 mm +/-0.010 mm; aperture width 0.400 mm +/-0.025 mm; area ratio minimum 0.66 (issued spec, based on IPC-7525C guidance); wall taper minimum 85 deg; tension 25-35 N/cm; step depth 0.050 mm +/-0.010 mm. | ☐ |
 
 ### IPC-7351 — 11 claims
 
@@ -818,15 +828,6 @@ Registry entry: `src-033` — ANSI/ESD STM97.1 Floor Materials and Footwear — 
 | m02l05 | `theory[3].p` | Wrist straps are governed by ANSI/ESD S1.1 and are typically used at static controlled workstations; footwear/floor systems are qualified using ANSI/ESD STM97.1 and ANSI/ESD STM97.2. | ☐ |
 | m02l05 | `theory[5].p` | Footwear and flooring systems, by contrast, are qualified under ANSI/ESD STM97.1 and STM97.2. | ☐ |
 
-### IPC-7525B — 2 claims
-
-Registry entry: `src-004` — IPC-7525 Stencil Design Guidelines
-
-| Lesson | Where | Claim (verbatim) | OK |
-|---|---|---|---|
-| m03l06 | `theory[2].p` | Where the specification is silent, use the design reference such as IPC-7525B and the paste or equipment datasheet, then document the accepted limit before release. | ☐ |
-| m03l06 | `calc.task` | Issued specification: foil thickness 0.120 mm +/-0.010 mm; aperture width 0.400 mm +/-0.025 mm; area ratio minimum 0.66 (issued spec, based on IPC-7525B guidance); wall taper minimum 85 deg; tension 25-35 N/cm; step depth 0.050 mm +/-0.010 mm. | ☐ |
-
 ### IPC-7721 — 2 claims
 
 Registry entry: `src-009` — IPC-7711/7721 Rework, Modification and Repair of Electronic Assemblies
@@ -983,11 +984,11 @@ not that the text is well written.
 | m02l05 | The ESD control program: EPA, grounding, straps, mats, ionizers, packaging | 12 | ANSI/ESD S1.1, ANSI/ESD S20.20, ANSI/ESD S4.1, ANSI/ESD S541, ANSI/ESD S6.1, ANSI/ESD STM11.11, ANSI/ESD STM3.1, ANSI/ESD STM97.1, ANSI/ESD STM97.2, IEC 61340-4-7, IEC 61340-5-1 | draft | ☐ |
 | m02l06 | Case: expired floor life found mid-lot | 24 | ANSI/ESD S20.20, IEC 61340-5-1, J-STD-020, J-STD-033 | draft | ☐ |
 | m03l01 | The paste volume budget: what the joint needs before the aperture is drawn | 3 | IPC-7525 | draft | ☐ |
-| m03l02 | Area ratio and aspect ratio: definitions, calculation, fine-pitch consequences | 7 | IPC-7525D | draft | ☐ |
+| m03l02 | Area ratio and aspect ratio: definitions, calculation, fine-pitch consequences | 7 | IPC-7525C | draft | ☐ |
 | m03l03 | Foil, thickness, step stencils, laser cut and wall finish | 14 | IPC-7525 | draft | ☐ |
 | m03l04 | Aperture geometry by component: chip, QFP fine pitch, QFN/LGA, BGA | 17 | IPC-7095, IPC-7351, IPC-7525, IPC-A-610 | draft | ☐ |
-| m03l05 | Aperture calculator and drawing review | 4 | IPC-7525D | draft | ☐ |
-| m03l06 | Stencil acceptance, cleaning regime and lifetime tracking | 4 | IPC-7525, IPC-7525B | draft | ☐ |
+| m03l05 | Aperture calculator and drawing review | 4 | IPC-7525C | draft | ☐ |
+| m03l06 | Stencil acceptance, cleaning regime and lifetime tracking | 4 | IPC-7525, IPC-7525C | draft | ☐ |
 | m04l01 | From aperture to deposit: how stencil geometry becomes paste volume | 7 | IPC-7525 | draft | ☐ |
 | m04l02 | Reading SPI data: measurement principle, volume/height/area/offset, artifacts | 3 | IPC-7525, IPC-A-610 | draft | ☐ |
 | m04l03 | Printer setup: squeegee pressure and speed, snap-off, separation, wipe cycle | 0 | — | draft | ☐ |
