@@ -328,6 +328,41 @@ function main() {
   });
   RECURRING.sort(function (a, b) { return b.lessons.length - a.lessons.length; });
 
+  /* Round 10 verification verdicts. Keyed by the stable `fact` label, not by
+     index, because RECURRING is sorted by lesson count and the order shifts as
+     the extraction patterns change. Without this the ticks are hand-edits that
+     the next regeneration silently wipes. */
+  var VERDICT = {
+    "IPC-7525 stencil area ratio and aspect ratio": "ok",
+    "IPC-A-610 minimum vertical barrel fill": "conflict",
+    "MSL 6 floor life": "ok",
+    "J-STD-033 bake at 90 °C and 40 °C": "conflict",
+    "J-STD-033 cumulative bake cap": "ok",
+    "Tape-and-reel dry-pack temperature cap": "ok",
+    "J-STD-020 classification temperature by package size": "ok",
+    "J-STD-020 ramp-down limit": "ok",
+    "IPC-7525 edition": "ok",
+    "J-STD-033 bake at 125 °C by thickness": "conflict",
+    "J-STD-020 tp — time within 5 °C of classification temperature": "ok"
+  };
+  var ROUND10_NOTE = {
+    "IPC-7525 edition": "RESOLVED in round 10. The current revision is IPC-7525C (November 2021); IPC-7525D does not exist, IPC-7525B (10/2011) is superseded, and src-004 said Rev A. 19 edition references corrected across m03l02, m03l05 and m03l06, and src-004 updated Rev A to Rev C. The course’s own TBD-REVIEW marker had asked for exactly this check.",
+    "IPC-7525 stencil area ratio and aspect ratio": "DEFINITIONS VERIFIED VERBATIM from IPC-7525B §1.1.2 and §1.1.3 (round 10). The 0.66 and 1.5 FIGURES are still carried only by convergent secondary sources and remain unverified against the standard body text.",
+    "IPC-A-610 minimum vertical barrel fill": "CONTRADICTED — left open. Secondary sources split on this, and one publisher contradicts itself across two of its own articles. The 50 % figure may belong to IPC-6012 (bare board) rather than IPC-A-610 (assembly), which would make the course right, but that is a hypothesis. Needs IPC-A-610H §10 in front of a reviewer. See SOURCES_VERIFIED.md.",
+    "MSL 6 floor life": "VERIFIED VERBATIM from J-STD-033 Table 5-1 (round 10): \"Mandatory bake before use. After bake, must be reflowed within the time limit specified on the label.\"",
+    "J-STD-033 bake at 90 °C and 40 °C": "LEFT OPEN. The J-STD-033B.1 Table 4-1 gives 10 days at 90 °C and 79 days at 40 °C for the >2.0 to 4.5 mm band, which is a different order of magnitude from the course’s figures. The revision-D restructure may explain it; the numbers came out of a garbled PDF text layer and could not be confirmed.",
+    "J-STD-033 cumulative bake cap": "VERIFIED for revision D (round 10). J-STD-033D §4.2.7.1: \"the cumulative bake time at a temperature greater than 90 °C and up to 125 °C should not exceed 96 hours.\" Note that J-STD-033A and B said 48 hours — D relaxed it, so the course is right only if it means D.",
+    "Tape-and-reel dry-pack temperature cap": "VERIFIED (round 10). J-STD-033: tape and reel maximum 40 °C to prevent carrier damage; the 125 °C option cannot be used with tape/reel.",
+    "J-STD-020 classification temperature by package size": "THE COURSE WAS WRONG — CORRECTED in round 10. \"260 small / 250 large / 245 very large\" is the 1.6–2.5 mm thickness row only. The table is thickness × volume: below 1.6 mm every volume is 260 °C, and above 2.5 mm the limits fall to 250 °C small and 245 °C large and very large. A small-volume package thicker than 2.5 mm is limited to 250 °C, not 260 °C. Five occurrences corrected.",
+    "J-STD-020 ramp-down limit": "VERIFIED (round 10). J-STD-020D: \"Ramp-down rate (Tp to TL) 6 °C/second max.\"",
+    "J-STD-020 tp — time within 5 °C of classification temperature": "THE COURSE WAS WRONG — CORRECTED in round 10. No revision supports 40 s. J-STD-020D Table 5-2 gives tp = 30 s on the Pb-free profile and 20 s for SnPb; J-STD-020E and F datasheets reproduce 20–30 s and <30 s. Four occurrences corrected.",
+    "J-STD-033 bake at 125 °C by thickness": "LIKELY A TABLE CONFLATION — left open. The course’s 8 h comes from J-STD-033D Table 4-1 (user bake), but its 18 h and 48 h come from Table 4-2 (supplier bake, MET = 24 h), and 18 h is the MSL-2 value only. No revision contains that chain, and the two tables mean different things: a supplier bake resets shelf life for dry-pack, a user bake resets floor life after exposure."
+  };
+  RECURRING.forEach(function (f) {
+    f.verdict = VERDICT[f.fact] || 'open';
+    if (ROUND10_NOTE[f.fact]) f.note = ROUND10_NOTE[f.fact];
+  });
+
   /* ------------------------------------------------------------- render */
 
   var out = [];
@@ -391,8 +426,9 @@ function main() {
   w('| # | Fact | Course asserts | Verify against | Lessons | OK |');
   w('|---|---|---|---|---|---|');
   RECURRING.forEach(function (f, i) {
+    var box = f.verdict === 'ok' ? '☑' : (f.verdict === 'conflict' ? '⚠' : '☐');
     w('| ' + (i + 1) + ' | ' + esc(f.fact) + ' | ' + esc(f.assert) + ' | ' + esc(f.verify) +
-      ' | ' + f.lessons.length + ' | ☐ |');
+      ' | ' + f.lessons.length + ' | ' + box + ' |');
   });
   w('');
 

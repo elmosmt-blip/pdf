@@ -66,34 +66,44 @@ disagrees, the course is wrong and the lesson must be corrected before promotion
 | 16 | J-STD-033 bake at 125 °C by thickness | 8 h ≤1.4 mm, 18 h >1.4-2.0 mm, 48 h >2.0-4.5 mm | J-STD-033 Table 4-1 (user bake, clock resets to t=0) | 4 | ⚠ |
 | 17 | Preheat ramp rate for wave and selective | 1-3 °C/s | Equipment and paste datasheets; IPC-7530 profiling guidance | 4 | ☐ |
 | 18 | J-STD-020 tp — time within 5 °C of classification temperature | max 30 s for large/very large, 40 s for small | J-STD-020 reflow profile requirements | 3 | ☑ |
-| 19 | IPC-A-610 documented hole-fill exception | ≈50 % fill or 1.2 mm for parts with ≥14 leads tied to internal thermal or conductor planes | IPC-A-610H section 10 exception clause | 3 | ☑ |
+| 19 | IPC-A-610 documented hole-fill exception | ≈50 % fill or 1.2 mm for parts with ≥14 leads tied to internal thermal or conductor planes | IPC-A-610H section 10 exception clause | 3 | ☐ |
 | 20 | ISO 2859-1 single-sampling Ac/Re at AQL 1.0 % | K → n=125, Ac=3, Re=4;  L → n=200, Ac=5, Re=6 | ISO 2859-1 normal single-sampling plans, AQL 1.0 % | 3 | ☐ |
 | 21 | IPC-6012 bow and twist limit | 0.75 % for boards using surface-mount components, 1.5 % for other boards | IPC-6012 bow/twist requirement, measured per IPC-TM-650 2.4.22 | 3 | ☐ |
 | 22 | Cleanliness ionic limit | 1.56 µg NaCl equivalent/cm² (IPC-TM-650 2.3.25) | IPC-TM-650 2.3.25 and IPC-6012 cleanliness clause | 3 | ☐ |
 | 23 | ISO 2859-1 code letter to sample size | A2 B3 C5 D8 E13 F20 G32 H50 J80 K125 L200 M315 N500 P800 Q1250 R2000 | ISO 2859-1 / ANSI-ASQ Z1.4 Table II-A | 2 | ☐ |
 | 24 | ISO 2859-1 lot-size to code letter by inspection level | 501-1200 G/J/K;  1201-3200 H/K/L;  3201-10000 J/L/M | ISO 2859-1 Table I | 1 | ☐ |
 | 25 | J-STD-004/005 solder powder Type 3 | 25-45 µm, ≥80 % between sieves, <10 % below 25 µm, <10 % in 45-60 µm, <0.5 % above 60 µm | J-STD-005 powder size distribution tables | 1 | ☐ |
-| 26 | IPC-7525 edition | the course cites IPC-7525B (m03l06) and IPC-7525D (m03l02); registry src-004 says Rev A | IPC-7525 revision history — which revision is current, and whether both citations can be right | 0 | ☐ |
+| 26 | IPC-7525 edition | the course cites IPC-7525B (m03l06) and IPC-7525D (m03l02); registry src-004 says Rev A | IPC-7525 revision history — which revision is current, and whether both citations can be right | 0 | ☑ |
 
 > **IPC rework document numbers** — An earlier draft cited IPC-7711/7712; rounds 3-4 corrected every occurrence. 7712 does not cover this subject.
 
+> **IPC-7525 stencil area ratio and aspect ratio** — DEFINITIONS VERIFIED VERBATIM from IPC-7525B §1.1.2 and §1.1.3 (round 10). The 0.66 and 1.5 FIGURES are still carried only by convergent secondary sources and remain unverified against the standard body text.
+
 > **Wave flux deposition on a solids basis** — The 0.5-1.0 g/ft² figures are a liquid basis, not solids; the course states the solids basis.
 
-> **IPC-A-610 minimum vertical barrel fill** — The "Class 2 = 50 %, Class 3 = 75 %" split is a myth; the course states 75 % for both.
+> **IPC-A-610 minimum vertical barrel fill** — CONTRADICTED — left open. Secondary sources split on this, and one publisher contradicts itself across two of its own articles. The 50 % figure may belong to IPC-6012 (bare board) rather than IPC-A-610 (assembly), which would make the course right, but that is a hypothesis. Needs IPC-A-610H §10 in front of a reviewer. See SOURCES_VERIFIED.md.
+
+> **MSL 6 floor life** — VERIFIED VERBATIM from J-STD-033 Table 5-1 (round 10): "Mandatory bake before use. After bake, must be reflowed within the time limit specified on the label."
+
+> **J-STD-033 bake at 90 °C and 40 °C** — LEFT OPEN. The J-STD-033B.1 Table 4-1 gives 10 days at 90 °C and 79 days at 40 °C for the >2.0 to 4.5 mm band, which is a different order of magnitude from the course’s figures. The revision-D restructure may explain it; the numbers came out of a garbled PDF text layer and could not be confirmed.
 
 > **SAC305 phase change temperatures** — The course uses 217 for solidus and 219 for liquidus throughout. An earlier draft swapped them; rounds 2-4 fixed every occurrence.
 
+> **J-STD-033 cumulative bake cap** — VERIFIED for revision D (round 10). J-STD-033D §4.2.7.1: "the cumulative bake time at a temperature greater than 90 °C and up to 125 °C should not exceed 96 hours." Note that J-STD-033A and B said 48 hours — D relaxed it, so the course is right only if it means D.
+
+> **Tape-and-reel dry-pack temperature cap** — VERIFIED (round 10). J-STD-033: tape and reel maximum 40 °C to prevent carrier damage; the 125 °C option cannot be used with tape/reel.
+
+> **J-STD-020 classification temperature by package size** — THE COURSE WAS WRONG — CORRECTED in round 10. "260 small / 250 large / 245 very large" is the 1.6–2.5 mm thickness row only. The table is thickness × volume: below 1.6 mm every volume is 260 °C, and above 2.5 mm the limits fall to 250 °C small and 245 °C large and very large. A small-volume package thicker than 2.5 mm is limited to 250 °C, not 260 °C. Five occurrences corrected.
+
+> **J-STD-020 ramp-down limit** — VERIFIED (round 10). J-STD-020D: "Ramp-down rate (Tp to TL) 6 °C/second max."
+
 > **ESD programme and test-method standards** — An earlier draft cited STM97.7/97.8 for ionisation; no such standards exist. Corrected in round 3.
 
-> **IPC-7525 edition** — Three different edition claims for one standard: two in the course and a third in the registry, and the registry matches neither. This is a course defect, not a registry gap. Pick the correct revision, then make the two lessons and src-004 agree. The same check applies to IPC-7530B, which the registry leaves as TBD-REVIEW, and to IPC-A-610, where the registry says Rev H and the course cites IPC-A-610H and those do agree.
+> **J-STD-033 bake at 125 °C by thickness** — LIKELY A TABLE CONFLATION — left open. The course’s 8 h comes from J-STD-033D Table 4-1 (user bake), but its 18 h and 48 h come from Table 4-2 (supplier bake, MET = 24 h), and 18 h is the MSL-2 value only. No revision contains that chain, and the two tables mean different things: a supplier bake resets shelf life for dry-pack, a user bake resets floor life after exposure.
 
-> **IPC-7525 edition — RESOLVED (round 10).** The course cited IPC-7525D, **which does not exist**; `m03l06` cited IPC-7525B and `src-004` said Rev A. The current revision is **IPC-7525C (November 2021)**. 19 references corrected. The course's own marker had asked for exactly this check.
-> **IPC-7525 area ratio — definitions verified verbatim.** IPC-7525B §1.1.2: "The ratio of the area of aperture opening to the area of aperture walls." §1.1.3: "The ratio of the width of the aperture to the thickness of the stencil foil." The **0.66 and 1.5 figures themselves remain unverified** — they appear only in secondary sources.
-> **J-STD-020 `tp` — course was WRONG, corrected.** No revision supports 40 s. J-STD-020D Table 5-2 gives 30 s (Pb-free) / 20 s (SnPb).
-> **J-STD-020 classification temperature — course was WRONG, corrected.** "260 small / 250 large / 245 very large" is the 1.6–2.5 mm row only; the table is thickness × volume, and above 2.5 mm a small package is limited to 250 °C.
-> **J-STD-033 cumulative bake — 96 h VERIFIED for revision D.** J-STD-033A/B said 48 h; D relaxed it to 96 h.
-> **IPC-A-610 barrel fill — CONTRADICTED, left open.** Secondary sources split, and one publisher contradicts itself across two articles. The 50 % figure may belong to IPC-6012 rather than IPC-A-610. Needs the standard itself.
-> **J-STD-033 bake chain — LIKELY TABLE CONFLATION, left open.** The course's 8 h comes from Table 4-1 (user bake) but its 18 h and 48 h come from Table 4-2 (supplier bake, MET = 24 h). No revision contains that chain.
+> **J-STD-020 tp — time within 5 °C of classification temperature** — THE COURSE WAS WRONG — CORRECTED in round 10. No revision supports 40 s. J-STD-020D Table 5-2 gives tp = 30 s on the Pb-free profile and 20 s for SnPb; J-STD-020E and F datasheets reproduce 20–30 s and <30 s. Four occurrences corrected.
+
+> **IPC-7525 edition** — RESOLVED in round 10. The current revision is IPC-7525C (November 2021); IPC-7525D does not exist, IPC-7525B (10/2011) is superseded, and src-004 said Rev A. 19 edition references corrected across m03l02, m03l05 and m03l06, and src-004 updated Rev A to Rev C. The course’s own TBD-REVIEW marker had asked for exactly this check.
 
 ---
 
