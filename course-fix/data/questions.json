@@ -643,11 +643,11 @@
     "competencies": [
       "K5"
     ],
-    "prompt": "For a SAC305 board, the cited process guidance gives a maximum ramp rate of 4 °C/s, a liquidus of 219 °C, a J-STD-020 classification temperature of 250 °C for a large package, and a minimum time above liquidus of 60 s. If a heavy-plane board is ramped from the lower soak limit of 150 °C at the maximum allowed ramp rate, what is the minimum elapsed time from that soak exit to the end of the minimum time above liquidus?",
+    "prompt": "For a SAC305 board, the cited process guidance gives a maximum ramp rate of 3 °C/s, a liquidus of 219 °C, a J-STD-020 classification temperature of 250 °C for a large package, and a minimum time above liquidus of 60 s. If a heavy-plane board is ramped from the lower soak limit of 150 °C at the maximum allowed ramp rate, what is the minimum elapsed time from that soak exit to the end of the minimum time above liquidus?",
     "options": [
       {
         "id": "a",
-        "text": "77 s"
+        "text": "83 s"
       },
       {
         "id": "b",
@@ -655,15 +655,15 @@
       },
       {
         "id": "c",
-        "text": "17 s"
+        "text": "23 s"
       },
       {
         "id": "d",
-        "text": "92 s"
+        "text": "93 s"
       }
     ],
     "correct": "a",
-    "explanation": "Time to reach liquidus is (219 °C − 150 °C) ÷ 4 °C/s = 17.25 s. The minimum time above liquidus is 60 s, so the minimum elapsed time from soak exit to the end of that interval is 17.25 s + 60 s = 77.25 s, rounded to 77 s. The 92 s option adds the full ramp to the classification temperature plus 60 s, which double-counts time already inside the above-liquidus interval; 60 s ignores the time needed to reach liquidus; 17 s ignores the required time above liquidus.",
+    "explanation": "Time to reach liquidus is (219 °C − 150 °C) ÷ 3 °C/s = 23 s. The minimum time above liquidus is 60 s, so the minimum elapsed time from soak exit to the end of that interval is 23 s + 60 s = 83 s. The 93 s option ramps all the way to the 250 °C classification temperature before counting the 60 s, which double-counts the part of the ramp that is already above liquidus; 60 s ignores the time needed to reach liquidus; 23 s ignores the required time above liquidus.",
     "source": "",
     "lessonId": "m06l04"
   },
@@ -703,11 +703,11 @@
     "competencies": [
       "K5"
     ],
-    "prompt": "A high-thermal-mass SAC305 board is profiled using process guidance: liquidus 219 °C, peak 245 °C, minimum time above liquidus 60 s, and maximum ramp rate 4 °C/s. If the board ramps from liquidus to peak at the maximum ramp rate and then dwells at peak before cooling, calculate the minimum dwell at peak required so that the time above liquidus just meets the minimum.",
+    "prompt": "A high-thermal-mass SAC305 board is profiled using process guidance: liquidus 219 °C, peak 245 °C, minimum time above liquidus 60 s, and maximum ramp rate 3 °C/s. If the board ramps from liquidus to peak at the maximum ramp rate and then dwells at peak before cooling, calculate the minimum dwell at peak required so that the time above liquidus just meets the minimum.",
     "options": [
       {
         "id": "a",
-        "text": "About 54 s"
+        "text": "About 51 s"
       },
       {
         "id": "b",
@@ -715,15 +715,15 @@
       },
       {
         "id": "c",
-        "text": "About 40 s"
+        "text": "About 8.7 s"
       },
       {
         "id": "d",
-        "text": "About 88 s"
+        "text": "About 69 s"
       }
     ],
     "correct": "a",
-    "explanation": "Time above liquidus includes the ramp from liquidus to peak plus the dwell at peak. Ramp time = (245 °C − 219 °C) / 4 °C/s = 6.5 s. Required dwell = 60 s − 6.5 s = 53.5 s, about 54 s. Option b ignores the ramp time above liquidus; option c corresponds to using a 6.5 °C/s ramp rate; option d adds the liquidus-to-peak temperature difference to the required time instead of converting it to time.",
+    "explanation": "Time above liquidus includes the ramp from liquidus to peak plus the dwell at peak. Ramp time = (245 °C − 219 °C) ÷ 3 °C/s = 8.7 s. Required dwell = 60 s − 8.7 s = 51.3 s, about 51 s. Option b ignores the ramp time already spent above liquidus; option c reports the ramp time itself rather than the dwell; option d adds the ramp time instead of subtracting it.",
     "source": "",
     "lessonId": "m06l05"
   },

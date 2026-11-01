@@ -41,6 +41,7 @@ node course-fix/scripts/apply-sources-fix.js       "$WORK/data"
 node course-fix/scripts/apply-standards-verification.js "$WORK/data"
 node course-fix/scripts/apply-bake-table-fix.js    "$WORK/data"
 node course-fix/scripts/apply-repair-limits-fix.js "$WORK/data"
+node course-fix/scripts/apply-ramp-rate-fix.js   "$WORK/data"
 
 # 4. r4 predates the round-6 index.html fix, and the rebuild resurrects the
 #    Cloudflare Rocket Loader artefact every single time. Mandatory.
@@ -74,5 +75,19 @@ check "nonsense phrase"      0 "IPC-7525C does not exist"
 check "repair 0.25mm gone"   0 "commonly cited IPC-7711/7721 laminate damage depth limit of 0.25 mm"
 check "repair A600 attrib"    6 "IPC-A-600 §"
 check "quiz A610 wrong"      0 "IPC-A-610 Class 3 minimum of 0.05 mm"
+check "ramp 4C/s gone"       0 "maximum ramp rate of 4 °C/s"
+check "ramp 4C/s bare"       0 "maximum ramp rate 4 °C/s"
+
+# Some fixes land in questions.json, not lessons.json.
+checkq () { # <label> <expected> <pattern>
+  local got
+  got=$( { grep -o "$3" "$WORK/data/questions.json" || true; } | wc -l )
+  if [ "$got" != "$2" ]; then echo "  !! $1: expected $2, found $got"; fail=1
+  else echo "  ok $1 ($got)"; fi
+}
+checkq "quiz ramp 4C/s gone"   0 "ramp rate of 4 °C/s"
+checkq "quiz ramp 4C/s bare"   0 "ramp rate 4 °C/s"
+checkq "quiz ramp 3C/s fixed"  1 "ramp rate of 3 °C/s"
+checkq "quiz ramp 3C/s bare"   1 "ramp rate 3 °C/s"
 
 [ "$fail" = 0 ] && echo "rebuild-work: OK" || { echo "rebuild-work: FAILED"; exit 1; }

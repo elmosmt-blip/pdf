@@ -1164,3 +1164,41 @@ tree in one command and asserts all twelve round-10/11 fixes landed.
 The claim count moved 571 → 575 and the open boxes 663 → 667, because the
 corrected text now cites IPC-A-600 where it used to cite the wrong document.
 That is the checklist getting longer by being made right, not by regressing.
+
+---
+
+# §12 Round 11 (continued) — the J-STD-001 / J-STD-020 tranche and defect D8
+
+**The J-STD-001 cleanliness claims are correct and more current than most
+published guidance.** Amendment 1 to J-STD-001G (2018) and Rev H (September 2020)
+removed the 1.56 µg/cm² ROSE pass/fail and replaced it with objective evidence —
+SIR, ion chromatography, temperature-humidity-bias, or documented field history.
+A large fraction of published guidance still teaches the deprecated limit,
+including at least one major fabricator's reference table. The course is on the
+right side of that split.
+
+There is no conflict with the round-11 Part A cleanliness fact: 1.56 µg/cm² is
+**IPC-6012E §3.9.1** (bare board) and still stands there. The course already
+draws that line itself, using the word "historically" for the J-STD-001
+application.
+
+**Defect D8 — a 4 °C/s ramp-up limit.** `q-m06l04-02` and `q-m06l05-02` both
+premise a maximum ramp rate of 4 °C/s, and both contradict the lesson carrying
+them (`m06l04` theory[6] and `m06l05` theory[3] both teach 1-3 °C/s from
+IPC-7530). Every external source agrees with the lessons: J-STD-020D/E/F and the
+datasheets reproducing it all give 3 °C/s max ramp-up, and no source gives 4 °C/s.
+The likely origin is the lessons' own *cooling* range of 1-4 °C/s read as a
+ramp-up limit.
+
+Both quizzes recomputed at 3 °C/s: 77 s → **83 s** and 54 s → **51 s**, with the
+distractors rebuilt to stay meaningful.
+
+**The rest of the tranche is clean.** The remaining 39 assertions across
+IPC-6012, J-STD-020, IPC-7525, IPC-7525C and ANSI/ESD S20.20 are pointers or
+already-verified facts. The IPC-7525 worked arithmetic checks out: for a square
+aperture, area ratio = d²/(4dt) = d/(4t), so d = 3t gives 0.75 against the 0.66
+minimum.
+
+Part A remains **24 verified, 2 flagged, 0 blank**. Defects this round: D4
+(IPC-CC-830), D6 (J-STD-033 bake table), D7 (IPC-7711/7721 figures), D8 (ramp
+rate).

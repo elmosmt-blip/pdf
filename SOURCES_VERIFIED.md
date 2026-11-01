@@ -451,3 +451,84 @@ in Part B should be read with that specifically in mind.
 
 `IPC-7711/7721` itself is the correct designation; one secondary source's
 "IPC-7711/7722" is the error, confirmed against an IPC-approved training centre.
+
+---
+
+# Round 11 (continued) — J-STD-001, J-STD-020 and defect D8
+
+## The J-STD-001 cleanliness claims are correct, and more current than most sources
+
+Two distinct claims say J-STD-001 has moved away from a single ROSE number:
+
+> "the current revision of J-STD-001 has moved away from a single fixed limit
+> towards objective evidence: the assembly must be demonstrably clean enough for
+> its intended life and environment, and the limit is then set and justified for
+> that specific process and product rather than copied from a table."
+
+> "J-STD-001 no longer treats a single ROSE number as a pass/fail criterion for
+> every product: it requires objective evidence, normally SIR data …"
+
+**Verified.** Amendment 1 to J-STD-001G (2018) and Revision H (September 2020)
+removed the 1.56 µg/cm² ROSE pass/fail and replaced it with objective evidence —
+SIR per IPC-TM-650 2.6.3.7, ion chromatography per 2.3.28, temperature-humidity-bias
+testing, or documented field history. IPC's own site states the old benchmark
+"was removed from J-STD-001 (Rev G, Amendment 1, effective 2018)".
+
+This matters because a large fraction of published guidance still teaches the
+deprecated limit — AtlasPCB's table, for instance, still presents 1.56 µg/cm² as
+a J-STD-001 pass/fail. **The course is on the right side of that split.**
+
+There is no contradiction with the round-11 Part A cleanliness fact, which cites
+**IPC-6012E §3.9.1** for the 1.56 µg/cm² figure on *bare boards*. The course
+already draws the line correctly: the same paragraph says the value is
+"historically applied to assembled boards through IPC J-STD-001 and to bare
+boards through IPC-6012". Bare board still has the number; assembly moved to
+objective evidence.
+
+## Defect D8 — a 4 °C/s ramp-up limit that no source supports
+
+`q-m06l04-02` and `q-m06l05-02` both premise "a maximum ramp rate of 4 °C/s".
+Both are wrong, and both contradict the lesson that carries them:
+
+- `m06l04` `theory[6]`: "The average ramp-up of 1-3 °C/s and the 60-150 s
+  time-above-liquidus window come from IPC-7530 and the paste datasheet, **not
+  from J-STD-020**."
+- `m06l05` `theory[3]`: "IPC-7530B gives typical guidance such as a ramp rate of
+  1-3 C/s".
+
+Every external source agrees with the lessons. J-STD-020D/E/F and the datasheets
+that reproduce it (Bourns, Diodes, NXP, KDS, WPP, ams-osram) all give "ramp-up
+rate (T_L to T_P) 3 °C/second max". **No source anywhere gives 4 °C/s for
+ramp-up.** J-STD-020 caps ramp-*down* at 6 °C/s and ramp-*up* at 3 °C/s.
+
+The likely origin is the lessons' own cooling figure — "typical cooling rates are
+1-4 °C/s" — read as a ramp-up limit. Cooling and ramp-up are different quantities.
+
+Because the quizzes build arithmetic on the premise, options and explanations
+were recomputed rather than patched:
+
+| Question | Was | Now |
+|---|---|---|
+| `q-m06l04-02` | (219−150)/4 = 17.25 s, +60 = 77.25 s → 77 s | (219−150)/3 = 23 s, +60 = **83 s** |
+| `q-m06l05-02` | (245−219)/4 = 6.5 s, dwell 53.5 s → 54 s | (245−219)/3 = 8.7 s, dwell 51.3 s → **51 s** |
+
+Distractors were rebuilt to stay pedagogically meaningful: 93 s ramps to the
+250 °C classification temperature before counting the 60 s; 69 s adds the ramp
+time instead of subtracting it; 8.7 s reports the ramp time rather than the dwell.
+
+## The rest of this tranche
+
+The remaining 39 assertions across IPC-6012, J-STD-020, IPC-7525, IPC-7525C and
+ANSI/ESD S20.20 are pointers or already-verified facts, and check out:
+
+- **IPC-6012** — the planarity/warpage and class claims are correct. The 0.75 %
+  / 1.5 % bow-and-twist split was verified in round 11.
+- **J-STD-020** — the classification-temperature claims already carry the
+  round-10 thickness × volume correction; `tp` = 30 s is correct; the claims
+  correctly note that J-STD-020 does not set a board TAL limit.
+- **IPC-7525 / 7525C** — the area-ratio definitions were verified verbatim in
+  round 10, and the worked arithmetic checks: for a square aperture,
+  AR = d²/(4dt) = d/(4t), so d = 3t gives 3t/(4t) = 0.75 > 0.66.
+- **ANSI/ESD S20.20** — programme, EPA and grounding claims are correct, and
+  S20.20 ↔ IEC 61340-5-1 equivalence was verified from ESDA's own chart in
+  round 11.
