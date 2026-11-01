@@ -79,6 +79,16 @@ node course-fix/scripts/apply-index-fix.js "$WORK"
 #     rather than in the data. Mandatory.
 node course-fix/scripts/apply-review-banner-fix.js "$WORK"
 
+# 4c. Two things the r4 seed carries that are now wrong rather than merely old:
+#     the *.fixed.json trio (a round-4 migration artefact, referenced by
+#     nothing, and stale — sources.fixed.json still lists 17 sources against
+#     the current 39) and README.txt, which still asserts that every lesson
+#     keeps its TBD-REVIEW marker. Both are replaced here so a rebuild cannot
+#     ship them, and so the bundle cannot carry a second, contradictory copy of
+#     the data.
+rm -f "$WORK"/data/*.fixed.json
+cp course-fix/README.txt "$WORK/README.txt"
+
 # 5. regenerate the derived artefacts
 node "$WORK/scripts/embed.js" "$WORK/data" "$WORK/assets/data-embed.js"
 node "$WORK/scripts/check-course.js" "$WORK/data"
@@ -152,9 +162,14 @@ checknode "S4.1 superseded ref"    0 'var L=require(process.cwd()+"/course-fix/w
 # are what a reader actually saw; the TBD-REVIEW greps catch the fallbacks.
 checknode "no draft banner"       0 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/assets/app.js","utf8")+fs.readFileSync(process.cwd()+"/course-fix/work/index.html","utf8");console.log(t.split("Content not yet reviewed").length-1)'
 checknode "no draft footer"       0 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/index.html","utf8");console.log(t.split("unreviewed draft content").length-1)'
+checknode "no draft meta desc"    0 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/index.html","utf8");console.log(t.split("Draft content, unreviewed").length-1)'
 checknode "no shell TBD-REVIEW"   0 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/assets/app.js","utf8");console.log(t.split("TBD-REVIEW").length-1)'
 checknode "no draft stat label"   0 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/assets/app.js","utf8");console.log(t.split("draft content, human review pending").length-1)'
 checknode "verifiedBy fallback"   0 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/assets/app.js","utf8");console.log(t.split("verified by TBD-REVIEW").length-1)'
+# D19/round-20: no stale duplicate data and no stale README may ship.
+checknode "fixed.json gone"       0 'var fs=require("fs");var d=process.cwd()+"/course-fix/work/data/";console.log(fs.readdirSync(d).filter(function(f){return /\.fixed\.json$/.test(f)}).length)'
+checknode "README not stale"      0 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/README.txt","utf8");console.log(t.split("keeps status").length-1)'
+checknode "README sources 39"     1 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/README.txt","utf8");console.log(t.split("39 named standards").length-1)'
 # m07l06's theory shape. The data must be uniform objects, and the renderer
 # must handle a bare string rather than dropping it.
 checknode "m07l06 sections"       8 'var L=require(process.cwd()+"/course-fix/work/data/lessons.json");var l=L.filter(function(x){return x.lessonId==="m07l06"})[0];console.log(l.content.theory.length)'

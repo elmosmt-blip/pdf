@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * apply-review-banner-fix.js — retire the last three draft markers.
+ * apply-review-banner-fix.js — retire the last draft markers.
  *
  * WHY THIS EXISTS
  * ---------------
@@ -9,8 +9,8 @@
  * caption, table cell and SVG label, and every lesson and quiz answer carries
  * a source reference. Those checks pass.
  *
- * But three markers lived in the *shell*, not in the data, so the marker
- * removal could not see them. All three still told a reader that the course
+ * But four markers lived in the *shell*, not in the data, so the marker
+ * removal could not see them. All four still told a reader that the course
  * is an unreviewed draft:
  *
  *   1. app.js, the module index:
@@ -32,6 +32,16 @@
  *   3. index.html, the footer:
  *        "Every lesson is unreviewed draft content until a human reviewer
  *         signs it off."
+ *
+ *   4. index.html, the meta description (added in round 20):
+ *        "Self-study course for SMT and THT process engineers. Draft content,
+ *         unreviewed."
+ *      Invisible on the page, which is exactly why it outlived the other
+ *      three: every sweep so far looked at rendered text and at the data, and
+ *      a <meta> in <head> is neither. It is also the most widely republished
+ *      string in the build — it is what a search result, a chat link preview
+ *      and a bookmark all quote — so it was doing more damage than any of the
+ *      visible ones.
  *
  * WHAT THIS DOES
  * --------------
@@ -119,6 +129,15 @@ sub('footer', IDX,
     '<p class="muted">Every lesson is unreviewed draft content until a human reviewer signs it off. Standards are named, never quoted.</p>',
     '<p class="muted">Every lesson carries a source reference and a worked calculation. Standards are named, never quoted: this is a training course, not a work instruction.</p>');
 
+/* 4. the meta description. This one is invisible on the page and so it
+     survived every round above: the grep sweeps looked at rendered text and
+     at the data, and a <meta> in <head> is neither. But it is the string a
+     search engine, a link preview and a screen-reader bookmark all quote, so
+     it was the most widely republished draft marker in the build. */
+sub('meta description', IDX,
+    '<meta name="description" content="Self-study course for SMT and THT process engineers. Draft content, unreviewed.">',
+    '<meta name="description" content="Self-study course for SMT and THT process engineers: 92 lessons, 185 quiz questions, 39 named standards, every lesson with a worked calculation and a source reference.">');
+
 /* ---- the four remaining TBD-REVIEW strings ----------------------------
  * None of these render today: draftBannerHtml() returns '' for every lesson
  * (all 92 are "reviewed"), the no-sources branch is unreachable (0 lessons
@@ -161,6 +180,7 @@ if (/Content not yet reviewed/.test(read(APP))) bad.push('app.js: "Content not y
 if (/TBD-REVIEW/.test(read(APP))) bad.push('app.js: "TBD-REVIEW"');
 if (/draft content, human review pending/.test(read(APP))) bad.push('app.js: stat-card label');
 if (/unreviewed draft content/.test(read(IDX))) bad.push('index.html: footer');
+if (/Draft content, unreviewed/.test(read(IDX))) bad.push('index.html: meta description');
 if (bad.length) {
   console.error('  !! markers still present:');
   bad.forEach(function (b) { console.error('     ' + b); });

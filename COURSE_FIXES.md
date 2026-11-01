@@ -1483,3 +1483,46 @@ precisely because their output could not be.
 **Round 18 defects: D16 (area vs height), D17 (solidus vs liquidus), D18
 (rounded intermediates).** All 92 lessons read end to end; everything else
 reconciles.
+
+## D19 — the draft marker that hid in a `<meta>` tag
+
+Round 17 removed the markers from the data and round 18 removed them from the
+rendered shell. Both passed. `apply-review-banner-fix.js` even ends with a
+self-check that greps `app.js` and `index.html` for the old wording and exits
+non-zero if any survives.
+
+It still survived — in the one place none of those sweeps looked:
+
+```html
+<meta name="description" content="Self-study course for SMT and THT process
+engineers. Draft content, unreviewed.">
+```
+
+Every earlier sweep had a shape. The data sweeps walked `lesson.content`. The
+UI sweeps walked the strings `app.js` actually renders. The render probe loaded
+the router and read `#main`. A `<meta>` in `<head>` is none of those things: it
+is never rendered into `#main`, never appears in a lesson body, and is invisible
+on the page — which is exactly why it outlived three rounds of grep.
+
+It was also the most widely republished string in the build. The visible banner
+was read by whoever opened the course. The meta description is what a search
+result, a chat link preview, a bookmark and an accessibility tool all quote. The
+marker that was hardest to see was doing the most damage.
+
+Fixed by a fourth guarded substitution in `apply-review-banner-fix.js`, plus a
+`no draft meta desc` check in `rebuild-work.sh` so the next rebuild from the r4
+seed cannot resurrect it. Verified from a clean r4 extraction: the substitution
+fires, `Draft content, unreviewed` appears nowhere in `index.html`, and the fix
+is idempotent (run 2 is byte-identical).
+
+**The lesson is not "grep harder".** Every sweep was correct for what it
+claimed to check, and three of them were genuinely load-bearing. The lesson is
+that a marker can live outside the shape of every check you have written, so
+the check has to be written against the file, not against the defect. The final
+sweep for a "no markers remain" claim is a case-insensitive grep for
+`draft|unreviewed|tbd|sign-off|placeholder` over **every file that ships**, with
+the hits read one by one to separate real markers from code that legitimately
+names the concept — `draftBannerHtml()`, `chip--draft`, the `draft:` enum value
+and the `status === 'reviewed'` guard are all mechanism and stay.
+
+**Round 20 defects: D19 (meta description).** All four shell markers now gone.

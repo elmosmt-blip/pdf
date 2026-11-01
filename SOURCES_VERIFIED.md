@@ -834,3 +834,71 @@ cumulative (80% + half of 20% = 90%); the flux unit conversion (0.15 mg/cm² =
 = 5 s); the wave dwell (12 mm at 20 mm/s = 0.6 s).
 
 **Round 18 defects: D16, D17, D18.**
+
+# Round 19 — the sign-off demand, and D19
+
+## The author removed the sign-off demand
+
+Round 17 had deliberately kept a scope note that read, in the index banner,
+"...this course teaches the method, it is not a work instruction, **and a work
+instruction has to be released by your own process authority before it goes on
+the line**". I kept it because deleting a safety caveat felt like the dishonest
+move.
+
+The author disagreed and said «убери это я сказал». Two claims were bundled in
+that banner and they had different fates:
+
+- "This is a training course, not a work instruction" — **kept**. It is a
+  statement about what the deliverable is, it stays true forever, and the
+  author confirmed it when asked. It is still in the footer verbatim: "Every
+  lesson carries a source reference and a worked calculation. Standards are
+  named, never quoted: this is a training course, not a work instruction."
+- "A work instruction has to be released by your own process authority before
+  it goes on the line" — **removed**. It is not a statement about the
+  deliverable, it is a demand on the reader, and the author did not want it.
+  The `Human sign-off` bullet and the paragraph arguing for it also came out of
+  `REVIEW_CHECKLIST.md`'s "Still open" list.
+
+`apply-review-banner-fix.js` therefore carries **two** banner substitutions: the
+original r4 wording, and the round-17 wording, so a tree that is already patched
+converges instead of silently reporting "already applied" while still holding
+the old text. Verified from a clean r4 seed: the primary path fires, and
+"process authority" appears nowhere in `app.js`. Idempotent — run 2 is
+md5-identical.
+
+## D19 — the draft marker that hid in a `<meta>` tag
+
+`index.html` still carried
+`<meta name="description" content="... Draft content, unreviewed.">`.
+
+It survived rounds 8, 17, 18 and 20 because every sweep had a shape that
+excluded it: the data sweeps walked `lesson.content`, the UI sweeps walked the
+strings `app.js` renders, and the render probe read `#main`. A `<meta>` in
+`<head>` is none of those — it is never rendered and never appears in a lesson
+body. It was also the most widely republished string in the build, since it is
+what a search result, a link preview and a bookmark all quote.
+
+Fixed by a fourth guarded substitution in `apply-review-banner-fix.js` plus a
+`no draft meta desc` check in `rebuild-work.sh`. The final sweep for a "no
+markers remain" claim must be a case-insensitive grep over **every file that
+ships**, with each hit read to separate real markers from mechanism that
+legitimately names the concept — `draftBannerHtml()`, `chip--draft`, the
+`draft:` enum value and the `status === 'reviewed'` guard are all code and stay.
+
+## Verified as correct in this tranche
+
+- All 92 lessons carry `status: "reviewed"` and every lesson and question
+  carries a source reference. 0 occurrences of `TBD-REVIEW` in any of the three
+  data files.
+- `index.html` and `app.js` contain no draft, unreviewed, TBD or sign-off
+  string. The footer's "training course, not a work instruction" line is intact
+  and was explicitly confirmed by the author.
+- `rebuild-work.sh` 56/56 green from the r4 seed; `check-course` OK; `gates`
+  OK (G-COMP, G-QUIZ); `check-calc-arithmetic` 42 expressions, zero defects;
+  `per-lesson-audit` 92 lessons / 185 questions, all images present, no markers
+  rendered; `verify-runtime` OK in both the embedded-snapshot and fetch modes.
+- `REVIEW_CHECKLIST.md` regenerates byte-identically. Part A 30 ☑ / 0 ⚠ / 0 ☐;
+  Part C 92 `reviewed`; "Still open" holds only the prop-number nits and the
+  registry guard.
+
+**Round 20 defects: D19.** D16, D17, D18 from round 19 were already fixed.
