@@ -3881,7 +3881,7 @@
       "K8",
       "K6"
     ],
-    "prompt": "A Class 3 product has a repaired through-hole joint where the annular ring still meets IPC-7711/7721 Class 3 minimum, laminate is not exposed, and no conductor is cut. What is the correct disposition?",
+    "prompt": "A Class 3 product has a repaired through-hole joint where the annular ring still meets the IPC-A-600 Class 3 minimum, laminate is not exposed, and no conductor is cut. What is the correct disposition?",
     "options": [
       {
         "id": "a",
@@ -3912,7 +3912,7 @@
       "K8",
       "K6"
     ],
-    "prompt": "IPC-7711/7721 repair acceptance requires the repaired annular ring to meet the IPC-A-610 Class 3 minimum of 0.05 mm. A repaired through-hole pad has a pad diameter that exceeds the hole diameter by twice this minimum. Using annular ring = (pad diameter - hole diameter)/2, what is the disposition?",
+    "prompt": "IPC-7711/7721 repair acceptance requires the repaired annular ring to meet the IPC-A-600 Class 3 minimum of 0.05 mm. A repaired through-hole pad has a pad diameter that exceeds the hole diameter by twice this minimum. Using annular ring = (pad diameter - hole diameter)/2, what is the disposition?",
     "options": [
       {
         "id": "a",

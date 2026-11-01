@@ -31,7 +31,7 @@ instruction.
 | modules | 15 |
 | quiz questions | 185 |
 | standards cited | 40 |
-| distinct claim sentences | 571 |
+| distinct claim sentences | 575 |
 | recurring facts in Part A | 26 |
 | sources in the registry | 39 |
 
@@ -140,7 +140,7 @@ block (`.table` for tables, `.figure` for the SVG schematics), `calc.task` and
 `calc.solution` the worked example, `defect.*` the case study, `quiz[k].*` the
 questions and their explanations.
 
-### IPC-A-610 — 130 claims
+### IPC-A-610 — 129 claims
 
 Registry entry: `src-001` — IPC-A-610 Acceptability of Electronic Assemblies
 
@@ -232,7 +232,6 @@ Registry entry: `src-001` — IPC-A-610 Acceptability of Electronic Assemblies
 | m11l01 | `calc.solution` | Step 8: Inspect the joint for wetting, fillet, lifted pad, and laminate damage, using IPC-A-610 and IPC J-STD-001 as the workmanship references. | ☐ |
 | m11l01 | `defect.action` | Reduce the setpoint within the paste and iron datasheet range, use a larger or better-tinned tip to improve heat transfer, shorten contact time, pre-tin the pad, and inspect the board with IPC-A-610. | ☐ |
 | m11l03 | `theory[6].p` | IPC-A-610 provides visual acceptance criteria for electronic assemblies; use the class and acceptance criteria defined by the contract. | ☐ |
-| m11l04 | `quiz.q-m11l04-02.prompt` | IPC-7711/7721 repair acceptance requires the repaired annular ring to meet the IPC-A-610 Class 3 minimum of 0.05 mm. | ☐ |
 | m11l05 | `theory[1].p` | IPC-7711/7721 Acceptability of Rework, Modifications, and Repairs for Electronic Assemblies provides acceptability criteria for reworked and repaired assemblies, while IPC-A-610 Acceptability of Electronic Assemblies provides the baseline visual and construction acceptability criteria for the ori… | ☐ |
 | m11l05 | `theory[2].p` | IPC-7711/7721 Acceptability of Rework, Modifications, and Repairs for Electronic Assemblies is the primary standard for judging whether a reworked or repaired joint is acceptable, but the product specification may also require IPC-A-610 Acceptability of Electronic Assemblies and IPC J-STD-001 Req… | ☐ |
 | m11l05 | `theory[3].p` | IPC-A-610 Acceptability of Electronic Assemblies and IPC-7711/7721 Acceptability of Rework, Modifications, and Repairs for Electronic Assemblies use class-based criteria, commonly Class 1, Class 2, and Class 3, with Class 3 generally applying to high-reliability products where defects have greate… | ☐ |
@@ -368,7 +367,7 @@ Registry entry: `src-003` — J-STD-033 Handling, Packing, Shipping and Use of M
 | m12l02 | `theory[7].p` | Moisture sensitivity level constraints are governed by the applicable MSL classification and floor-life rules, commonly referenced through IPC/JEDEC J-STD-033. | ☐ |
 | m12l02 | `calc.solution` | MSL 3 floor-life rules are governed by IPC/JEDEC J-STD-033, so the actual floor life must be taken from the component specification and the current exposure record. | ☐ |
 
-### IPC-7711 — 83 claims
+### IPC-7711 — 72 claims
 
 Registry entry: `src-009` — IPC-7711/7721 Rework, Modification and Repair of Electronic Assemblies
 
@@ -393,26 +392,15 @@ Registry entry: `src-009` — IPC-7711/7721 Rework, Modification and Repair of E
 | m11l04 | `theory[2].p` | A joint or board area is repairable when the damage is within the applicable IPC-7711/7721 limits, the repair method is qualified for the materials and thermal exposure, and the repaired area can be inspected and documented. | ☐ |
 | m11l04 | `theory[2].p` | It is scrap when the damage violates IPC-7711/7721 acceptance, when the repair would require unqualified materials or processes, or when the residual risk cannot be accepted by the product owner. | ☐ |
 | m11l04 | `theory[2].p` | The disposition record should state the measured condition, the IPC-7711/7721 class used, the repair method, and the residual risk such as thermal fatigue, insulation degradation, or mechanical weakness. | ☐ |
-| m11l04 | `theory[3].p` | IPC-7711/7721 expresses the repair limit as a percentage of original width; a commonly used limit is that conductor width reduction shall not exceed 20% of original width, but the controlled revision and customer specification must be verified. | ☐ |
-| m11l04 | `theory[3].p` | If the reduction exceeds the applicable IPC-7711/7721 limit, the repair is not acceptable unless the customer authorizes a deviation. | ☐ |
-| m11l04 | `theory[4].p` | IPC-7711/7721 requires the repaired hole to retain a minimum annular ring; a commonly cited minimum is 0.05 mm, but the controlled revision and product specification must be checked. | ☐ |
-| m11l04 | `theory[4].p` | If the measured annular ring is below the applicable IPC-7711/7721 limit, the hole is normally scrap unless a qualified repair restores the required copper geometry. | ☐ |
+| m11l04 | `theory[3].p` | IPC-7711/7721 does not set the number itself: its conductor-repair procedures require only that conductor width, spacing and current-carrying capacity are not reduced below the allowable tolerances, and leave the limit to the drawing and to the bare-board standards. | ☐ |
+| m11l04 | `theory[4].p` | IPC-7711/7721 requires the repaired hole to retain the annular ring the class calls for, but the number comes from IPC-A-600 §2.10.3: 0.050 mm [0.0020 in] minimum external annular ring at Class 3, with up to 20 % local reduction for pits, dents, nicks, pinholes or splay. | ☐ |
 | m11l04 | `theory[5].p` | IPC-7711/7721 does not accept laminate damage that creates delamination, blistering, separation, or exposed conductors. | ☐ |
-| m11l04 | `theory[5].p` | Where a laminate damage depth limit is specified, use the controlled IPC-7711/7721 revision and the customer specification; a commonly cited depth limit is 0.25 mm, but this must be verified. | ☐ |
 | m11l04 | `theory[6].p` | A repair that meets IPC-7711/7721 geometry limits can still be rejected if the process causes blistering, delamination, solder mask lifting, component damage, or contamination that cannot be removed. | ☐ |
 | m11l04 | `theory[7].p` | It should include the IPC-7711/7721 class, measured conductor width reduction, measured annular ring, laminate condition, repair method, inspection result, and residual risk. | ☐ |
 | m11l04 | `calc.task` | A Class 2 assembly requires IPC-7711/7721 Class 2. | ☐ |
 | m11l04 | `calc.solution` | Step 1: Confirm the required class is IPC-7711/7721 Class 2. | ☐ |
-| m11l04 | `calc.solution` | Step 3: Compare with the IPC-7711/7721 conductor width reduction limit. | ☐ |
-| m11l04 | `calc.solution` | If the applicable IPC-7711/7721 limit is 20%, the trace is at the limit and acceptable only if the controlled revision and customer specification allow 20% for Class 2. | ☐ |
-| m11l04 | `calc.solution` | Step 4: Compare annular ring: 0.06 mm is greater than the commonly cited IPC-7711/7721 minimum of 0.05 mm, so the hole is acceptable if the controlled revision confirms 0.05 mm for Class 2. | ☐ |
-| m11l04 | `calc.solution` | Step 5: Evaluate laminate damage: the scratch is 0.08 mm deep, which is less than the commonly cited IPC-7711/7721 laminate damage depth limit of 0.25 mm, and there is no delamination, blistering, separation, or exposed conductor. | ☐ |
-| m11l04 | `calc.solution` | Basis: IPC-7711/7721 Class 2 conductor width reduction at or below the applicable limit, annular ring above the applicable minimum, and laminate damage without prohibited defects. | ☐ |
-| m11l04 | `defect.action` | Measure the annular ring and trace width, compare them with the applicable IPC-7711/7721 class limits, and record the result. | ☐ |
-| m11l04 | `defect.action` | If the annular ring or conductor width reduction is outside the IPC-7711/7721 limit, scrap the assembly or request a customer deviation. | ☐ |
-| m11l04 | `quiz.q-m11l04-01.prompt` | A Class 3 product has a repaired through-hole joint where the annular ring still meets IPC-7711/7721 Class 3 minimum, laminate is not exposed, and no conductor is cut. | ☐ |
 | m11l04 | `quiz.q-m11l04-01.explanation` | IPC-7711/7721 permits repair when the repaired joint meets the required class criteria, and Class 3 requires documented repair basis and residual risk. | ☐ |
-| m11l04 | `quiz.q-m11l04-02.prompt` | IPC-7711/7721 repair acceptance requires the repaired annular ring to meet the IPC-A-610 Class 3 minimum of 0.05 mm. | ☐ |
+| m11l04 | `quiz.q-m11l04-02.prompt` | IPC-7711/7721 repair acceptance requires the repaired annular ring to meet the IPC-A-600 Class 3 minimum of 0.05 mm. | ☐ |
 | m11l05 | `theory[1].p` | IPC-7711/7721 Acceptability of Rework, Modifications, and Repairs for Electronic Assemblies provides acceptability criteria for reworked and repaired assemblies, while IPC-A-610 Acceptability of Electronic Assemblies provides the baseline visual and construction acceptability criteria for the ori… | ☐ |
 | m11l05 | `theory[2].p` | IPC-7711/7721 Acceptability of Rework, Modifications, and Repairs for Electronic Assemblies is the primary standard for judging whether a reworked or repaired joint is acceptable, but the product specification may also require IPC-A-610 Acceptability of Electronic Assemblies and IPC J-STD-001 Req… | ☐ |
 | m11l05 | `theory[3].p` | IPC-A-610 Acceptability of Electronic Assemblies and IPC-7711/7721 Acceptability of Rework, Modifications, and Repairs for Electronic Assemblies use class-based criteria, commonly Class 1, Class 2, and Class 3, with Class 3 generally applying to high-reliability products where defects have greate… | ☐ |
@@ -588,7 +576,7 @@ Registry entry: `src-002` — J-STD-001 Requirements for Soldered Electrical and
 | m14l03 | `theory[7].p` | Soldering acceptance should be checked against IPC-A-610 and IPC/JEDEC J-STD-001 where applicable. | ☐ |
 | m15l03 | `theory[6].p` | For soldering process qualification, cite IPC J-STD-001. | ☐ |
 
-### IPC-6012 — 17 claims
+### IPC-6012 — 18 claims
 
 Registry entry: `src-018` — IPC-6012 Qualification and Performance Specification for Rigid Printed Boards (qualification and performance requirements for bare boards)
 
@@ -610,7 +598,32 @@ Registry entry: `src-018` — IPC-6012 Qualification and Performance Specificati
 | m01l06 | `quiz.q-m01l06-02.options[1].text` | 0.75%; accept because it meets the IPC-6012 Class 3 limit | ☐ |
 | m01l06 | `quiz.q-m01l06-02.options[2].text` | 1.50%; quarantine because it is within the IPC-6012 Class 2 limit | ☐ |
 | m01l06 | `quiz.q-m01l06-02.explanation` | IPC-6012 Class 3 allows 0.75%, so 0.8% exceeds the limit and the finding should be recorded as reject. | ☐ |
+| m11l04 | `theory[5].p` | Where a depth limit is needed, take it from the controlled IPC-A-600 or IPC-6012 revision and the customer specification, not from IPC-7721. | ☐ |
 | m12l03 | `theory[8].p` | The most widely used reference value is 1.56 microgram NaCl equivalent per square centimeter, reported per IPC-TM-650 method 2.3.25 (ROSE) and historically applied to assembled boards through IPC J-STD-001 and to bare boards through IPC-6012. | ☐ |
+
+### IPC-A-600 — 17 claims
+
+Registry entry: `src-022` — IPC-A-600 Acceptability of Printed Boards (visual and dimensional criteria)
+
+| Lesson | Where | Claim (verbatim) | OK |
+|---|---|---|---|
+| m01l02 | `theory[3].p` | For bare PCBs, a CoC or CoA may prove laminate material, copper weight, plating type, plating thickness, and acceptance against IPC-A-600 or IPC-6012, depending on the contract. | ☐ |
+| m01l02 | `theory[6].p` | Acceptance may be referenced to IPC-A-600 for visual and dimensional criteria, while IPC-6012 may be used for qualification and performance requirements. | ☐ |
+| m01l04 | `theory[4].p` | Acceptability of visual and dimensional features is commonly judged against IPC-A-600, Acceptability of Printed Boards, but the purchase order may impose tighter limits. | ☐ |
+| m01l05 | `theory[4].p` | For bare PCBs, request the packing list, certificate of conformance, IPC-A-600 class or purchase-order class, bare-board test report, finish type and thickness report, impedance report if controlled, material declaration, and moisture barrier packaging with humidity indicator card when required. | ☐ |
+| m01l05 | `theory[4].p` | The IPC-A-600 class statement proves the visual and dimensional acceptance level intended for the board. | ☐ |
+| m11l04 | `theory[3].p` | The figure comes from IPC-A-600 §3.5.3.1, which caps the reduction of the minimum conductor width at 20 % for Class 2 and 10 % for Class 3; the controlled revision and the customer specification must still be verified. | ☐ |
+| m11l04 | `theory[3].p` | If the reduction exceeds the applicable IPC-A-600 limit for the class, the repair is not acceptable unless the customer authorizes a deviation. | ☐ |
+| m11l04 | `theory[4].p` | IPC-7711/7721 requires the repaired hole to retain the annular ring the class calls for, but the number comes from IPC-A-600 §2.10.3: 0.050 mm [0.0020 in] minimum external annular ring at Class 3, with up to 20 % local reduction for pits, dents, nicks, pinholes or splay. | ☐ |
+| m11l04 | `theory[4].p` | If the measured annular ring is below the applicable IPC-A-600 limit for the class, the hole is normally scrap unless a qualified repair restores the required copper geometry. | ☐ |
+| m11l04 | `theory[5].p` | Where a depth limit is needed, take it from the controlled IPC-A-600 or IPC-6012 revision and the customer specification, not from IPC-7721. | ☐ |
+| m11l04 | `calc.solution` | Step 3: Compare with the IPC-A-600 §3.5.3.1 conductor width reduction limit for Class 2, which is 20% of the minimum conductor width. | ☐ |
+| m11l04 | `calc.solution` | Step 4: Compare annular ring: 0.06 mm is greater than the IPC-A-600 §2.10.3 Class 3 minimum of 0.050 mm, so the hole is acceptable if the controlled revision confirms that minimum for the class. | ☐ |
+| m11l04 | `calc.solution` | Basis: conductor width reduction at the IPC-A-600 §3.5.3.1 Class 2 limit of 20%, annular ring above the IPC-A-600 §2.10.3 minimum, and laminate damage without prohibited defects. | ☐ |
+| m11l04 | `defect.action` | Measure the annular ring and trace width, compare them with the applicable IPC-A-600 class limits, and record the result. | ☐ |
+| m11l04 | `defect.action` | If the annular ring or conductor width reduction is outside the IPC-A-600 limit, scrap the assembly or request a customer deviation. | ☐ |
+| m11l04 | `quiz.q-m11l04-01.prompt` | A Class 3 product has a repaired through-hole joint where the annular ring still meets the IPC-A-600 Class 3 minimum, laminate is not exposed, and no conductor is cut. | ☐ |
+| m11l04 | `quiz.q-m11l04-02.prompt` | IPC-7711/7721 repair acceptance requires the repaired annular ring to meet the IPC-A-600 Class 3 minimum of 0.05 mm. | ☐ |
 
 ### IPC-7530 — 17 claims
 
@@ -801,17 +814,17 @@ Registry entry: `src-006` — ISO 2859-1 Sampling procedures for inspection by a
 | m01l03 | `calc.task` | Use ISO 2859-1 general inspection level II and an AQL of 1.0% defective. | ☐ |
 | m01l03 | `calc.solution` | Select standard: ISO 2859-1 normal single sampling. | ☐ |
 
-### IPC-A-600 — 5 claims
+### IPC-7721 — 5 claims
 
-Registry entry: `src-022` — IPC-A-600 Acceptability of Printed Boards (visual and dimensional criteria)
+Registry entry: `src-009` — IPC-7711/7721 Rework, Modification and Repair of Electronic Assemblies
 
 | Lesson | Where | Claim (verbatim) | OK |
 |---|---|---|---|
-| m01l02 | `theory[3].p` | For bare PCBs, a CoC or CoA may prove laminate material, copper weight, plating type, plating thickness, and acceptance against IPC-A-600 or IPC-6012, depending on the contract. | ☐ |
-| m01l02 | `theory[6].p` | Acceptance may be referenced to IPC-A-600 for visual and dimensional criteria, while IPC-6012 may be used for qualification and performance requirements. | ☐ |
-| m01l04 | `theory[4].p` | Acceptability of visual and dimensional features is commonly judged against IPC-A-600, Acceptability of Printed Boards, but the purchase order may impose tighter limits. | ☐ |
-| m01l05 | `theory[4].p` | For bare PCBs, request the packing list, certificate of conformance, IPC-A-600 class or purchase-order class, bare-board test report, finish type and thickness report, impedance report if controlled, material declaration, and moisture barrier packaging with humidity indicator card when required. | ☐ |
-| m01l05 | `theory[4].p` | The IPC-A-600 class statement proves the visual and dimensional acceptance level intended for the board. | ☐ |
+| m11l04 | `theory[5].p` | IPC-7721 sets no laminate-damage depth limit. | ☐ |
+| m11l04 | `theory[5].p` | Where a depth limit is needed, take it from the controlled IPC-A-600 or IPC-6012 revision and the customer specification, not from IPC-7721. | ☐ |
+| m11l04 | `calc.solution` | IPC-7721 sets no depth limit; a shallow cosmetic scratch is repairable if a qualified repair restores insulation and electrical clearance. | ☐ |
+| m12l05 | `theory[7].p` | For rework and repair, follow IPC-7711 and IPC-7721 guidance for acceptable rework and repair methods, including preheat, temperature control, and post-rework inspection. | ☐ |
+| m12l05 | `defect.action` | Remove the assembly from the line and clean or replace affected connectors according to IPC-7711 and IPC-7721 rework and repair guidance. | ☐ |
 
 ### J-STD-005 — 3 claims
 
@@ -859,15 +872,6 @@ Registry entry: `src-033` — ANSI/ESD STM97.1 Floor Materials and Footwear — 
 |---|---|---|---|
 | m02l05 | `theory[3].p` | Wrist straps are governed by ANSI/ESD S1.1 and are typically used at static controlled workstations; footwear/floor systems are qualified using ANSI/ESD STM97.1 and ANSI/ESD STM97.2. | ☐ |
 | m02l05 | `theory[5].p` | Footwear and flooring systems, by contrast, are qualified under ANSI/ESD STM97.1 and STM97.2. | ☐ |
-
-### IPC-7721 — 2 claims
-
-Registry entry: `src-009` — IPC-7711/7721 Rework, Modification and Repair of Electronic Assemblies
-
-| Lesson | Where | Claim (verbatim) | OK |
-|---|---|---|---|
-| m12l05 | `theory[7].p` | For rework and repair, follow IPC-7711 and IPC-7721 guidance for acceptable rework and repair methods, including preheat, temperature control, and post-rework inspection. | ☐ |
-| m12l05 | `defect.action` | Remove the assembly from the line and clean or replace affected connectors according to IPC-7711 and IPC-7721 rework and repair guidance. | ☐ |
 
 ### IPC-7526 — 2 claims
 
@@ -1067,7 +1071,7 @@ not that the text is well written.
 | m11l01 | The hand soldering station: tip selection, temperature setting, ESD and fume control | 10 | ANSI/ESD S20.20, IEC 61340-5-1, IPC-A-610, J-STD-001 | draft | ☐ |
 | m11l02 | Technique: contact order, dwell, feed, lead-free discipline, technique defects | 0 | — | draft | ☐ |
 | m11l03 | Rework: hot air, preheat, paste-in-pad, BGA/QFN removal and replacement | 4 | IPC-7530, IPC-A-610, J-STD-001, J-STD-033 | draft | ☐ |
-| m11l04 | Repair limits: IPC-7711/7721 classes, conductor cut, annular ring, laminate damage | 27 | IPC-7711, IPC-A-610 | draft | ☐ |
+| m11l04 | Repair limits: IPC-7711/7721 classes, conductor cut, annular ring, laminate damage | 31 | IPC-6012, IPC-7711, IPC-7721, IPC-A-600 | draft | ☐ |
 | m11l05 | Acceptance and re-inspection of rework and repair; documenting the operation | 25 | IPC-7711, IPC-A-610, J-STD-001 | draft | ☐ |
 | m11l06 | Practice: rework one joint and document it against criteria | 21 | IPC-7711, IPC-A-610 | draft | ☐ |
 | m12l01 | What residue is and why it matters: ionic residue, SIR, CAF, contact failure | 22 | ANSI/ESD S20.20, IEC 61340-5-1, IPC-7711, IPC-CC-830, IPC-TM-650, J-STD-001, J-STD-033 | draft | ☐ |

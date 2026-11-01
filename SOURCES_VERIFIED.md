@@ -405,3 +405,49 @@ text still needs the same line-by-line read against the corrected tables.
 J-STD-033 work above is the first tranche. The remaining assertion groups, in
 descending order of distinct assertions, are IPC-7711 (26), IPC-6012 (10),
 J-STD-020 (9), J-STD-001 (9), ANSI/ESD S20.20 (6), IPC-7525 (5) and the tail.
+
+---
+
+# Round 11 (continued) — the IPC-7711 tranche, and a third mis-attribution
+
+26 distinct IPC-7711/7721 assertions, covering 26 claims. 23 of them are pointers
+("rework per IPC-7711/7721") or statements about class-specificity, and they are
+correct as written. The three that carry a number are all attributed to the wrong
+document, which is the same failure mode as the barrel-fill question — and the
+third time it has appeared.
+
+| Claim | Course said | Actually |
+|---|---|---|
+| Conductor width reduction ≤ 20 % | IPC-7711/7721 | **IPC-A-600 §3.5.3.1** — "allowable reduction of the minimum conductor width … shall not exceed 20 % of the minimum conductor width" (10 % at Class 3). IPC-7711/7721's conductor-repair procedures only require that "conductor widths, spacing and current carrying capacity must not be reduced below allowable tolerances" and defer to the drawing |
+| Minimum annular ring 0.05 mm | IPC-7711/7721 | **IPC-A-600 §2.10.3** — "Acceptable – Class 3: holes are not centered in the lands, but the annular ring measures 0.050 mm [0.0020 in] or more", with up to 20 % local reduction for pits, dents, nicks, pinholes or splay. Same split in IPC-6012 and IPC-7351 |
+| Laminate damage depth 0.25 mm | IPC-7711/7721, "commonly cited" | **Does not exist.** The only 0.25 mm anywhere in IPC-7721 is the width of a milled channel for a foil jumper beside a BGA pad ("tight spacing may restrict the width of the channel to 0.25 mm [0.010 in] or less"). IPC-7721's laminate-repair procedures are judged on the condition they restore — insulation and clearance maintained, no epoxy in the hole or on internal pad walls, no reduction in hole diameter, no exposed adjacent circuitry — not on a depth |
+
+### Defect D7 — a fabricated figure
+
+The 0.25 mm laminate depth limit is the most serious of the three, because the
+other two are real numbers filed under the wrong standard, while this one is not
+a number at all. It was presented as "a commonly cited depth limit", and it is
+cited nowhere. The course's own worked example compared a measured 0.08 mm
+scratch against it and reached a disposition on that basis, which means the
+fabricated figure was load-bearing: it was doing work in a calculation.
+
+The worked example now rests on the conditions IPC-7721 actually judges. The
+measured depth is kept as a recorded value — it is still worth writing down — it
+just is not compared against a limit that does not exist.
+
+### A fourth instance, in a quiz
+
+`q-m11l04-02` said "IPC-7711/7721 repair acceptance requires the repaired annular
+ring to meet the **IPC-A-610** Class 3 minimum of 0.05 mm". Round 11 already
+established that the 0.05 mm Class 3 external annular ring criterion belongs to
+IPC-A-600 / IPC-6012 (bare board) and not to IPC-A-610 (assembly). The quiz has
+now been corrected to IPC-A-600, which also brings it into line with the lesson.
+
+**A pattern worth naming:** the course reaches for IPC-A-610 and IPC-7711/7721 as
+generic acceptability references, and in doing so attaches bare-board figures to
+assembly documents. Four separate facts have now turned on it — barrel fill, the
+Class 3 annular ring in Part A, and two of the three here. The remaining claims
+in Part B should be read with that specifically in mind.
+
+`IPC-7711/7721` itself is the correct designation; one secondary source's
+"IPC-7711/7722" is the error, confirmed against an IPC-approved training centre.

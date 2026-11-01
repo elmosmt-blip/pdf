@@ -40,6 +40,7 @@ node course-fix/scripts/apply-course-images.js     "$WORK/data"
 node course-fix/scripts/apply-sources-fix.js       "$WORK/data"
 node course-fix/scripts/apply-standards-verification.js "$WORK/data"
 node course-fix/scripts/apply-bake-table-fix.js    "$WORK/data"
+node course-fix/scripts/apply-repair-limits-fix.js "$WORK/data"
 
 # 4. r4 predates the round-6 index.html fix, and the rebuild resurrects the
 #    Cloudflare Rocket Loader artefact every single time. Mandatory.
@@ -70,5 +71,8 @@ check "bake thickness-only"  0 "indexed to package body thickness, not to"
 check "bake 11 days gone"    0 "11 days for 1.4 to 2.0 mm"
 check "bake 38 days gone"    0 "38 days for 2.0 to 4.5 mm"
 check "nonsense phrase"      0 "IPC-7525C does not exist"
+check "repair 0.25mm gone"   0 "commonly cited IPC-7711/7721 laminate damage depth limit of 0.25 mm"
+check "repair A600 attrib"    6 "IPC-A-600 §"
+check "quiz A610 wrong"      0 "IPC-A-610 Class 3 minimum of 0.05 mm"
 
 [ "$fail" = 0 ] && echo "rebuild-work: OK" || { echo "rebuild-work: FAILED"; exit 1; }

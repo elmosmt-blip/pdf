@@ -1118,3 +1118,49 @@ byte-identical output on runs 2 and 3.
 
 Part A facts 15 and 16 (the two J-STD-033 bake facts) remain flagged: the rest of
 the course's bake text still needs the same read.
+
+---
+
+# §11 Round 11 (continued) — the IPC-7711 tranche and defect D7
+
+23 of the 26 IPC-7711/7721 assertions are pointers or class-specificity
+statements and are correct. The three carrying a number are attributed to the
+wrong document:
+
+- **20 % conductor width reduction** — IPC-A-600 §3.5.3.1, not IPC-7711/7721.
+  IPC-7711/7721 only requires that width, spacing and current-carrying capacity
+  "must not be reduced below allowable tolerances" and defers to the drawing.
+- **0.05 mm minimum annular ring** — IPC-A-600 §2.10.3, not IPC-7711/7721.
+- **0.25 mm laminate damage depth** — **does not exist.** The only 0.25 mm in
+  IPC-7721 is a milled channel width for a foil jumper. It was presented as "a
+  commonly cited depth limit", it is cited nowhere, and the course's own worked
+  example compared a measured scratch against it and reached a disposition on
+  that basis — so the fabricated figure was load-bearing in a calculation.
+
+**Defect D7.** `m11l04` theory[3]/[4]/[5], its worked example, its defect action
+and two quiz prompts corrected; 12 substitutions in total. The worked example now
+rests on the conditions IPC-7721 actually judges. The measured 0.08 mm depth is
+kept as a recorded value but is no longer compared against a nonexistent limit.
+
+`q-m11l04-02` separately attributed the 0.05 mm Class 3 annular ring to
+**IPC-A-610**; round 11 already established that criterion belongs to
+IPC-A-600 / IPC-6012. Corrected, which also brings the quiz into line with its
+lesson.
+
+**The pattern, named.** The course reaches for IPC-A-610 and IPC-7711/7721 as
+generic acceptability references and in doing so attaches bare-board figures to
+assembly documents. Four facts have now turned on it: barrel fill, the Class 3
+annular ring in Part A, and two of the three here. The rest of Part B should be
+read with that specifically in mind.
+
+`IPC-7711/7721` is the correct designation; one secondary source's
+"IPC-7711/7722" is the error.
+
+**Reset #9** also cost a cycle: the gitignored `course-fix/work/` tree was lost
+and the bake-table fix had only ever been applied to the scratch tree. The fix is
+now in the tracked `course-fix/data/`, and `rebuild-work.sh` rebuilds the scratch
+tree in one command and asserts all twelve round-10/11 fixes landed.
+
+The claim count moved 571 → 575 and the open boxes 663 → 667, because the
+corrected text now cites IPC-A-600 where it used to cite the wrong document.
+That is the checklist getting longer by being made right, not by regressing.
