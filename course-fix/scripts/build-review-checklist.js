@@ -31,13 +31,24 @@ var fs = require('fs');
 
 /* ---------------------------------------------------------------- patterns */
 
+/* Every designation shape the course uses. The first draft of this list was a
+   hand-written set of the standards the audit rounds had already met, which
+   silently omitted IPC-2221, IPC-2222, IPC-4101, IPC-A-600, the ANSI/ESD S-series
+   and the J-STD-002/004/006 group. A claim citing a standard the pattern list
+   does not know about is a claim the checklist never asks about, so the shapes
+   below are written to cover the designations rather than to name them. */
 var PATTERNS = [
-  'IPC-TM-650', 'ANSI/ESD S20\\.20',
+  'IPC-TM-650',
+  'ANSI/ESD S20\\.20',
   'ANSI/ESD STM[0-9]+(?:\\.[0-9]+)?',
+  'ANSI/ESD S[0-9]+(?:\\.[0-9]+)?',
+  'ANSI/AS9100',
   'IEC 61340-[0-9]+(?:-[0-9]+)?',
-  'J-STD-020', 'J-STD-033', 'J-STD-001', 'J-STD-004', 'J-STD-005', 'J-STD-006',
-  'IPC-A-610', 'IPC-6012', 'IPC-7095', 'IPC-7351', 'IPC-7525', 'IPC-7526',
-  'IPC-7530', 'IPC-7711', 'IPC-7721', 'IPC-CC-830', 'ISO 2859-1'
+  'J-STD-[0-9]+',
+  'IPC(?:-JEDEC)?-?[A-Z]*-?[0-9]+[A-Za-z]?(?:\\.[0-9]+)?',
+  'ISO 2859-1',
+  'ISO 9001(?::[0-9]+)?',
+  'UL 94'
 ];
 var STD_RE = new RegExp('(' + PATTERNS.join('|') + ')', 'g');
 
@@ -46,6 +57,13 @@ var STD_RE = new RegExp('(' + PATTERNS.join('|') + ')', 'g');
    a mismatch is visible without opening the lesson. The values recorded here
    are the ones the earlier audit rounds settled on. */
 var RECURRING = [
+  {
+    fact: 'IPC-7525 edition',
+    assert: 'the course cites IPC-7525B (m03l06) and IPC-7525D (m03l02); registry src-004 says Rev A',
+    verify: 'IPC-7525 revision history — which revision is current, and whether both citations can be right',
+    re: /IPC-7525[BD]/i,
+    note: 'Three different edition claims for one standard: two in the course and a third in the registry, and the registry matches neither. This is a course defect, not a registry gap. Pick the correct revision, then make the two lessons and src-004 agree. The same check applies to IPC-7530B, which the registry leaves as TBD-REVIEW, and to IPC-A-610, where the registry says Rev H and the course cites IPC-A-610H and those do agree.'
+  },
   {
     fact: 'SAC305 phase change temperatures',
     assert: 'solidus 217 °C, liquidus 219 °C',
@@ -224,6 +242,19 @@ function sentences(text) {
     .filter(function (s) { return s.length > 3; });
 }
 
+/* Does a registry title cover a cited designation? A combined title such as
+   "IPC-7711/7721" covers IPC-7721 even though it does not contain that literal
+   string, so the numeric core has to be compared, not the whole token. */
+function registryCovers(title, std) {
+  if (title.indexOf(std) !== -1) return true;
+  /* Strip the family prefix, then any edition letter or dated suffix, so that a
+     citation of IPC-7525D is covered by a registry entry for IPC-7525 and a
+     citation of ISO 9001:2015 by an entry for ISO 9001. */
+  var core = std.replace(/^[A-Za-z\/]+-?\s*/, '').replace(/[A-Za-z]+$/, '').replace(/:.*$/, '');
+  var nums = title.match(/\d[\d.]*/g) || [];
+  return nums.some(function (n) { return n === core; });
+}
+
 function esc(s) { return String(s).replace(/\|/g, '\\|'); }
 
 /* --------------------------------------------------------------------- main */
@@ -389,9 +420,11 @@ function main() {
   Object.keys(byStandard).sort(function (a, b) { return byStandard[b].length - byStandard[a].length; })
     .forEach(function (std) {
       var claims = byStandard[std];
-      var src = sources.filter(function (s) {
-        return s.title.indexOf(std) !== -1 || s.id === undefined && false;
-      })[0];
+      /* Match the designation against the registry the way the course actually
+         cites it: an exact substring, or one component of a combined title such
+         as "IPC-7711/7721". A plain substring test reports IPC-7721 as
+         unregistered even though src-009 covers it. */
+      var src = sources.filter(function (s) { return registryCovers(s.title, std); })[0];
       w('### ' + std + ' — ' + claims.length + ' claim' + (claims.length === 1 ? '' : 's'));
       w('');
       if (src) w('Registry entry: `' + src.id + '` — ' + esc(src.title));

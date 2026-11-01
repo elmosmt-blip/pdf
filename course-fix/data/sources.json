@@ -169,5 +169,225 @@
     "licenseNote": "paraphrase only",
     "verifiedBy": "TBD-REVIEW",
     "verifiedOn": null
+  },
+  {
+    "id": "src-018",
+    "type": "standard",
+    "title": "IPC-6012 Qualification and Performance Specification for Rigid Printed Boards (qualification and performance requirements for bare boards)",
+    "edition": "TBD-REVIEW",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-019",
+    "type": "standard",
+    "title": "J-STD-004 Requirements for Soldering Fluxes (paste CoA specification reference)",
+    "edition": "TBD-REVIEW",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-020",
+    "type": "standard",
+    "title": "J-STD-006 Soft Solder Alloys and Fluxed or Non-Fluxed Solid Solders for Electronic Soldering Applications (powder solder, other than paste)",
+    "edition": "TBD-REVIEW",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-021",
+    "type": "standard",
+    "title": "J-STD-002 Solderability Tests for Component Leads, Terminations, Lugs, Terminals and Wires",
+    "edition": "TBD-REVIEW",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-022",
+    "type": "standard",
+    "title": "IPC-A-600 Acceptability of Printed Boards (visual and dimensional criteria)",
+    "edition": "TBD-REVIEW",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-023",
+    "type": "standard",
+    "title": "IPC-4101 Specification for Base Materials for Rigid and Multilayer Printed Boards",
+    "edition": "TBD-REVIEW",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-024",
+    "type": "standard",
+    "title": "IPC-2221 Generic Standard on Printed Board Design",
+    "edition": "TBD-REVIEW",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-025",
+    "type": "standard",
+    "title": "IPC-2222 Sectional Design Standard for Rigid Organic Printed Boards",
+    "edition": "TBD-REVIEW",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-026",
+    "type": "standard",
+    "title": "IPC-7526 Stencil and Misprinted Board Cleaning Handbook",
+    "edition": "TBD-REVIEW",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-027",
+    "type": "standard",
+    "title": "ANSI/ESD S1.1 Wrist Straps",
+    "edition": "TBD-REVIEW",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-028",
+    "type": "standard",
+    "title": "ANSI/ESD S4.1 Worksurfaces — Resistance Measurements",
+    "edition": "TBD-REVIEW",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-029",
+    "type": "standard",
+    "title": "ANSI/ESD S6.1 Grounding (equipotential bonding of racks, carts, shelving and tables)",
+    "edition": "TBD-REVIEW",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-030",
+    "type": "standard",
+    "title": "ANSI/ESD S541 Packaging Materials for ESD Sensitive Items",
+    "edition": "TBD-REVIEW",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-031",
+    "type": "standard",
+    "title": "ANSI/ESD STM3.1 Ionization (offset voltage and discharge time)",
+    "edition": "TBD-REVIEW",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-032",
+    "type": "standard",
+    "title": "ANSI/ESD STM11.11 Surface Resistance Measurements of Static Dissipative Planar Materials",
+    "edition": "TBD-REVIEW",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-033",
+    "type": "standard",
+    "title": "ANSI/ESD STM97.1 Floor Materials and Footwear — Resistance Measurement in Combination with a Person",
+    "edition": "TBD-REVIEW",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-034",
+    "type": "standard",
+    "title": "ANSI/ESD STM97.2 Footwear/Flooring System — Voltage Measurement in Combination with a Person",
+    "edition": "TBD-REVIEW",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-035",
+    "type": "standard",
+    "title": "IEC 61340-5-1 Protection of Electronic Devices from Electrostatic Phenomena — General Requirements",
+    "edition": "TBD-REVIEW",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-036",
+    "type": "standard",
+    "title": "IEC 61340-4-7 Standard Test Methods for Specific Applications — Ionization",
+    "edition": "TBD-REVIEW",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-037",
+    "type": "standard",
+    "title": "ISO 9001 Quality Management Systems — Requirements (control of externally provided product)",
+    "edition": "TBD-REVIEW",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-038",
+    "type": "standard",
+    "title": "ANSI/AS9100 Quality Management Systems — Requirements for Aviation, Space and Defense Organizations",
+    "edition": "TBD-REVIEW",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-039",
+    "type": "standard",
+    "title": "UL 94 Tests for Flammability of Plastic Materials for Parts in Devices and Appliances",
+    "edition": "TBD-REVIEW",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
   }
 ]

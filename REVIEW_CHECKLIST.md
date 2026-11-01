@@ -30,10 +30,10 @@ instruction.
 | lessons | 92 |
 | modules | 15 |
 | quiz questions | 185 |
-| standards cited | 25 |
-| distinct claim sentences | 549 |
-| recurring facts in Part A | 25 |
-| sources in the registry | 17 |
+| standards cited | 41 |
+| distinct claim sentences | 571 |
+| recurring facts in Part A | 26 |
+| sources in the registry | 39 |
 
 ---
 
@@ -41,7 +41,7 @@ instruction.
 
 Each fact below is asserted in several lessons in different words. Verify it once
 against the standard and every lesson citing it is covered. This is the shortest
-path through the course: 25 facts touch 81 of 92 lessons.
+path through the course: 26 facts touch 81 of 92 lessons.
 
 The "course asserts" column is what the course currently says. If the standard
 disagrees, the course is wrong and the lesson must be corrected before promotion.
@@ -65,14 +65,15 @@ disagrees, the course is wrong and the lesson must be corrected before promotion
 | 15 | ESD programme and test-method standards | ANSI/ESD S20.20 for the programme; STM3.1 → IEC 61340-4-7 ionisation; STM97.1/97.2 → IEC 61340-4-5 footwear and flooring | ANSI/ESD S20.20 and the ESD Association test-method catalogue | 5 | ☐ |
 | 16 | J-STD-033 bake at 125 °C by thickness | 8 h ≤1.4 mm, 18 h >1.4-2.0 mm, 48 h >2.0-4.5 mm | J-STD-033 Table 4-1 (user bake, clock resets to t=0) | 4 | ☐ |
 | 17 | Preheat ramp rate for wave and selective | 1-3 °C/s | Equipment and paste datasheets; IPC-7530 profiling guidance | 4 | ☐ |
-| 18 | J-STD-020 tp — time within 5 °C of classification temperature | max 30 s for large/very large, 40 s for small | J-STD-020 reflow profile requirements | 3 | ☐ |
-| 19 | IPC-A-610 documented hole-fill exception | ≈50 % fill or 1.2 mm for parts with ≥14 leads tied to internal thermal or conductor planes | IPC-A-610H section 10 exception clause | 3 | ☐ |
-| 20 | ISO 2859-1 single-sampling Ac/Re at AQL 1.0 % | K → n=125, Ac=3, Re=4;  L → n=200, Ac=5, Re=6 | ISO 2859-1 normal single-sampling plans, AQL 1.0 % | 3 | ☐ |
-| 21 | IPC-6012 bow and twist limit | 0.75 % for boards using surface-mount components, 1.5 % for other boards | IPC-6012 bow/twist requirement, measured per IPC-TM-650 2.4.22 | 3 | ☐ |
-| 22 | Cleanliness ionic limit | 1.56 µg NaCl equivalent/cm² (IPC-TM-650 2.3.25) | IPC-TM-650 2.3.25 and IPC-6012 cleanliness clause | 3 | ☐ |
-| 23 | ISO 2859-1 code letter to sample size | A2 B3 C5 D8 E13 F20 G32 H50 J80 K125 L200 M315 N500 P800 Q1250 R2000 | ISO 2859-1 / ANSI-ASQ Z1.4 Table II-A | 2 | ☐ |
-| 24 | ISO 2859-1 lot-size to code letter by inspection level | 501-1200 G/J/K;  1201-3200 H/K/L;  3201-10000 J/L/M | ISO 2859-1 Table I | 1 | ☐ |
-| 25 | J-STD-004/005 solder powder Type 3 | 25-45 µm, ≥80 % between sieves, <10 % below 25 µm, <10 % in 45-60 µm, <0.5 % above 60 µm | J-STD-005 powder size distribution tables | 1 | ☐ |
+| 18 | IPC-7525 edition | the course cites IPC-7525B (m03l06) and IPC-7525D (m03l02); registry src-004 says Rev A | IPC-7525 revision history — which revision is current, and whether both citations can be right | 3 | ☐ |
+| 19 | J-STD-020 tp — time within 5 °C of classification temperature | max 30 s for large/very large, 40 s for small | J-STD-020 reflow profile requirements | 3 | ☐ |
+| 20 | IPC-A-610 documented hole-fill exception | ≈50 % fill or 1.2 mm for parts with ≥14 leads tied to internal thermal or conductor planes | IPC-A-610H section 10 exception clause | 3 | ☐ |
+| 21 | ISO 2859-1 single-sampling Ac/Re at AQL 1.0 % | K → n=125, Ac=3, Re=4;  L → n=200, Ac=5, Re=6 | ISO 2859-1 normal single-sampling plans, AQL 1.0 % | 3 | ☐ |
+| 22 | IPC-6012 bow and twist limit | 0.75 % for boards using surface-mount components, 1.5 % for other boards | IPC-6012 bow/twist requirement, measured per IPC-TM-650 2.4.22 | 3 | ☐ |
+| 23 | Cleanliness ionic limit | 1.56 µg NaCl equivalent/cm² (IPC-TM-650 2.3.25) | IPC-TM-650 2.3.25 and IPC-6012 cleanliness clause | 3 | ☐ |
+| 24 | ISO 2859-1 code letter to sample size | A2 B3 C5 D8 E13 F20 G32 H50 J80 K125 L200 M315 N500 P800 Q1250 R2000 | ISO 2859-1 / ANSI-ASQ Z1.4 Table II-A | 2 | ☐ |
+| 25 | ISO 2859-1 lot-size to code letter by inspection level | 501-1200 G/J/K;  1201-3200 H/K/L;  3201-10000 J/L/M | ISO 2859-1 Table I | 1 | ☐ |
+| 26 | J-STD-004/005 solder powder Type 3 | 25-45 µm, ≥80 % between sieves, <10 % below 25 µm, <10 % in 45-60 µm, <0.5 % above 60 µm | J-STD-005 powder size distribution tables | 1 | ☐ |
 
 > **IPC rework document numbers** — An earlier draft cited IPC-7711/7712; rounds 3-4 corrected every occurrence. 7712 does not cover this subject.
 
@@ -83,6 +84,8 @@ disagrees, the course is wrong and the lesson must be corrected before promotion
 > **SAC305 phase change temperatures** — The course uses 217 for solidus and 219 for liquidus throughout. An earlier draft swapped them; rounds 2-4 fixed every occurrence.
 
 > **ESD programme and test-method standards** — An earlier draft cited STM97.7/97.8 for ionisation; no such standards exist. Corrected in round 3.
+
+> **IPC-7525 edition** — Three different edition claims for one standard: two in the course and a third in the registry, and the registry matches neither. This is a course defect, not a registry gap. Pick the correct revision, then make the two lessons and src-004 agree. The same check applies to IPC-7530B, which the registry leaves as TBD-REVIEW, and to IPC-A-610, where the registry says Rev H and the course cites IPC-A-610H and those do agree.
 
 ---
 
@@ -415,70 +418,6 @@ Registry entry: `src-009` — IPC-7711/7721 Rework, Modification and Repair of E
 | m15l03 | `theory[6].p` | For rework and repair limits, cite IPC-7711/7721. | ☐ |
 | m15l05 | `theory[3].p` | Use IPC-7711/7721 for rework and repair limits only when discussing repairability, not as a substitute for design change data. | ☐ |
 
-### IPC-7525 — 57 claims
-
-Registry entry: `src-004` — IPC-7525 Stencil Design Guidelines
-
-| Lesson | Where | Claim (verbatim) | OK |
-|---|---|---|---|
-| m03l01 | `theory[1].p` | IPC-7525 stencil design guidelines are commonly referenced for release indicators; a common working target is an area ratio above about 0.66, but verify against your paste and equipment datasheet. | ☐ |
-| m03l01 | `theory[2].p` | IPC-7525 stencil design guidelines are commonly referenced for release indicators; a common working target is an aspect ratio above about 1.5, but verify against your paste and equipment datasheet. | ☐ |
-| m03l01 | `calc.task` | State whether release is adequate using the IPC-7525 release indicators. | ☐ |
-| m03l02 | `theory[1].p` | IPC-7525D treats area ratio as a key indicator of paste release because the paste must separate from the sidewalls and transfer to the pad. | ☐ |
-| m03l02 | `theory[2].p` | IPC-7525D provides area-ratio guidance for stencil design, but the practical release limit depends on paste rheology, stencil wall finish, print speed, snap-off distance, and squeegee pressure; verify against your paste and equipment datasheet. | ☐ |
-| m03l02 | `theory[3].p` | IPC-7525D discusses aspect ratio as a stencil geometry parameter related to paste release and aperture wall effects. | ☐ |
-| m03l02 | `theory[7].p` | If area ratio is near or below the IPC-7525D guidance range, or if expected volume is close to the minimum needed for the component and pad, the design should be reviewed for foil thickness, aperture size within the pad, wall finish, paste selection, and print parameters. | ☐ |
-| m03l02 | `calc.task` | State whether the aperture is expected to release paste adequately according to common IPC-7525D area-ratio guidance. | ☐ |
-| m03l02 | `calc.solution` | The area ratio is 0.625, which is below the commonly cited IPC-7525D area-ratio guidance value of 0.66. | ☐ |
-| m03l02 | `defect.action` | Review the aperture area ratio and aspect ratio against IPC-7525D guidance and your paste/equipment datasheet. | ☐ |
-| m03l03 | `theory[2].p` | Area ratio is aperture area divided by the product of aperture perimeter and foil thickness; IPC-7525 commonly uses a minimum area ratio of 0.66 for reliable paste release. | ☐ |
-| m03l03 | `theory[2].p` | Aspect ratio is aperture width divided by foil thickness; IPC-7525 commonly uses a minimum aspect ratio of 1.5. | ☐ |
-| m03l03 | `theory[7].p` | A practical sequence is: identify the tightest pitch and paste-volume requirements; choose a base foil thickness; size apertures to meet IPC-7525 area-ratio and aspect-ratio guidelines while controlling paste volume; add a step only when a single thickness cannot meet fine-pitch and large-pad nee… | ☐ |
-| m03l03 | `calc.task` | Select a base foil thickness and aperture size for the fine-pitch pads, select a local step thickness for the thermal pad, and check the IPC-7525 area-ratio and aspect-ratio guidelines. | ☐ |
-| m03l03 | `calc.solution` | This is above the IPC-7525 guideline of 0.66. | ☐ |
-| m03l03 | `calc.solution` | This is above the IPC-7525 guideline of 1.5. | ☐ |
-| m03l03 | `calc.solution` | Check the thermal pad area ratio: area = 0.95 mm x 0.95 mm = 0.9025 mm^2; perimeter = 3.80 mm; area ratio = 0.9025 mm^2 / (3.80 mm x 0.150 mm) = 1.58, above the IPC-7525 guideline of 0.66. | ☐ |
-| m03l03 | `calc.solution` | Aspect ratio = 0.95 mm / 0.150 mm = 6.33, above the IPC-7525 guideline of 1.5. | ☐ |
-| m03l03 | `defect.action` | Recheck area ratio and aspect ratio against IPC-7525, request a smoother wall finish or verified taper from the stencil maker, and rerun SPI to confirm the change. | ☐ |
-| m03l03 | `quiz.q-m03l03-02.prompt` | Using IPC-7525 area-ratio guidance, a square aperture is specified as 0.40 mm on a side with 0.12 mm foil. | ☐ |
-| m03l03 | `quiz.q-m03l03-02.options[0].text` | 0.83, acceptable because it is above the IPC-7525 minimum area ratio. | ☐ |
-| m03l03 | `quiz.q-m03l03-02.options[1].text` | 0.66, acceptable because it equals the IPC-7525 minimum area ratio. | ☐ |
-| m03l03 | `quiz.q-m03l03-02.options[3].text` | 0.42, unacceptable because it is below the IPC-7525 minimum area ratio. | ☐ |
-| m03l03 | `quiz.q-m03l03-02.explanation` | This is above the IPC-7525 minimum area ratio, so the aperture is acceptable for paste release; the other values result from misapplying the formula or confusing the calculated ratio with the minimum threshold. | ☐ |
-| m03l04 | `theory[1].p` | IPC-7525 provides stencil design guidance for thickness, aperture area, and sidewall finish. | ☐ |
-| m03l04 | `theory[2].p` | For the smallest chip components, aperture width may be 0.10 mm to 0.15 mm and length 0.20 mm to 0.30 mm, but final values should be verified against IPC-7525, land pattern data from IPC-7351, and paste release behavior. | ☐ |
-| m03l04 | `theory[3].p` | Area ratio, defined as aperture opening area divided by aperture wall area, is a useful control; IPC-7525 discusses area-ratio effects on paste release. | ☐ |
-| m03l04 | `theory[3].p` | For pitches below 0.5 mm, reduce aperture width relative to pad width, use trapezoidal or rounded apertures, and verify against IPC-7525 and paste datasheet to prevent bridging. | ☐ |
-| m03l04 | `theory[4].p` | A common approach is to divide the thermal pad into multiple small apertures with 0.10 mm to 0.20 mm spacing between segments, or to use a reduced-area pattern, and verify against IPC-7525 and the package land pattern guidance in IPC-7351. | ☐ |
-| m03l04 | `theory[6].p` | When the board contains both fine-pitch and large components, consider a step stencil or local thickness change, and verify the transition location against IPC-7525 and stencil fabrication capability. | ☐ |
-| m03l04 | `calc.solution` | Use IPC-7525 area-ratio guidance and choose a thin foil, 0.10 mm, to reduce paste volume and bridging risk. | ☐ |
-| m03l04 | `calc.solution` | This is above the practical target of 0.66 associated with IPC-7525 area-ratio guidance, so release should be acceptable if sidewall finish and paste viscosity are verified. | ☐ |
-| m03l04 | `defect.action` | Reduce foil to 0.10 mm, reduce aperture width to 0.22 mm, use rounded or trapezoidal apertures, verify area ratio of at least 0.66 against IPC-7525, adjust paste viscosity and squeegee pressure, re-run first article and inspect per IPC-A-610. | ☐ |
-| m03l04 | `quiz.q-m03l04-02.explanation` | With d = 3t, area ratio = 3t/(4t) = 0.75, which exceeds the IPC-7525 minimum of 0.66. | ☐ |
-| m03l05 | `theory[2].p` | IPC-7525D recommends an area ratio above 0.66 for reliable paste release. | ☐ |
-| m03l05 | `theory[3].p` | IPC-7525D recommends an aspect ratio above 1.5. | ☐ |
-| m03l05 | `theory[4].p` | IPC-7525D recommends a wall taper in the range of 85 to 90 degrees, measured from the horizontal plane, because a slight taper reduces the effective wall area. | ☐ |
-| m03l05 | `calc.solution` | The nominal area ratio 0.625 is below the IPC-7525D recommended value of 0.66, so paste release may be inadequate unless qualified by paste and equipment testing. | ☐ |
-| m03l06 | `theory[2].p` | Where the specification is silent, use the design reference such as IPC-7525B and the paste or equipment datasheet, then document the accepted limit before release. | ☐ |
-| m03l06 | `calc.task` | Issued specification: foil thickness 0.120 mm +/-0.010 mm; aperture width 0.400 mm +/-0.025 mm; area ratio minimum 0.66 (issued spec, based on IPC-7525B guidance); wall taper minimum 85 deg; tension 25-35 N/cm; step depth 0.050 mm +/-0.010 mm. | ☐ |
-| m03l06 | `quiz.q-m03l06-02.prompt` | The issued specification adopts the IPC-7525 minimum area ratio. | ☐ |
-| m03l06 | `quiz.q-m03l06-02.explanation` | The current area is 1.98 - 0.88 = 1.10 x perimeter x thickness, giving an area ratio of 1.10, which is above the IPC-7525 minimum, so the stencil remains in service. | ☐ |
-| m04l01 | `theory[2].p` | IPC-7525 stencil design guidelines commonly use an area ratio target of 0.66 or higher for good paste release. | ☐ |
-| m04l01 | `theory[3].p` | IPC-7525 stencil design guidelines commonly use an aspect ratio target of 1.5 or higher. | ☐ |
-| m04l01 | `theory[7].p` | If either value is below the IPC-7525 guideline, adjust the aperture size within the pad boundary or reduce foil thickness. | ☐ |
-| m04l01 | `calc.task` | If the area ratio is low, specify a foil thickness that meets IPC-7525 release targets while keeping paste volume practical. | ☐ |
-| m04l01 | `calc.solution` | Step eight: compare with IPC-7525 stencil design guidelines. | ☐ |
-| m04l01 | `defect.cause` | The aperture area reduction combined with 0.12 mm foil produced an area ratio below the IPC-7525 guideline of 0.66, reducing paste release from the aperture. | ☐ |
-| m04l01 | `defect.action` | Recalculate area ratio and aspect ratio, confirm they meet IPC-7525 targets of 0.66 and 1.5, and verify with paste inspection and reflow cross-sections. | ☐ |
-| m04l02 | `theory[2].p` | IPC-7525 provides stencil design guidance for area ratio and related aperture behaviour, and low area ratio apertures may need modified paste, stencil, or printer settings. | ☐ |
-| m05l06 | `theory[8].p` | IPC-7525 and related stencil guidance can be used to evaluate paste print capability, but exact stencil aperture and paste volume targets should be verified against your paste, stencil, and printer datasheets. | ☐ |
-| m07l01 | `theory[6].p` | Acceptance should follow the customer-specified IPC-A-610 Acceptability Requirements for Electronic Assemblies class and relevant design guidance such as IPC-7351 Land Pattern Design Data Standard for Surface Mount and IPC-7525 Stencil Design Guidelines. | ☐ |
-| m07l01 | `defect.cause` | Land pattern and stencil design may not match IPC-7351 Land Pattern Design Data Standard for Surface Mount and IPC-7525 Stencil Design Guidelines. | ☐ |
-| m07l01 | `defect.action` | Review stencil aperture area ratio, paste type, print pressure, squeegee speed, and reflow profile against IPC-7525 Stencil Design Guidelines and IPC-7095 Design and Assembly Process Implementation for BGAs. | ☐ |
-| m14l01 | `theory[5].p` | Verify actual parameter ranges against your paste datasheet, stencil design, printer datasheet, oven profile, wave or selective solder machine datasheet, and IPC-7525, IPC-7526, IPC-7530, or IPC-7711/7721 guidance where applicable. | ☐ |
-| m14l01 | `defect.action` | If the corrected paste print Pareto rises, review stencil condition, aperture design, paste rheology, squeegee settings, and SPI data against IPC-7525, IPC-7526, and IPC-7530 guidance and your equipment datasheets. | ☐ |
-| m15l04 | `theory[2].p` | Land pattern design can be framed with IPC-7351, while paste aperture changes should be checked against IPC-7525 and verified with your paste and printer datasheet. | ☐ |
-
 ### J-STD-020 — 45 claims
 
 Registry entry: `src-005` — J-STD-020 Classification of Moisture Sensitivity for Non-Hermetic Sealing Solid State Surface Mount Devices
@@ -531,36 +470,56 @@ Registry entry: `src-005` — J-STD-020 Classification of Moisture Sensitivity f
 | m06l05 | `calc.solution` | Check peak against the J-STD-020 classification temperature for the package size (260 C small, 250 C large, 245 C very large): measured 245 C is below the limit for small and large packages and exactly at the limit for very large packages, so confirm the package size. | ☐ |
 | m06l06 | `quiz.q-m06l06-02.explanation` | Note that time above liquidus is a measured profile quantity from IPC-7530 and the paste datasheet, not a J-STD-020 parameter. | ☐ |
 
-### IPC-7530 — 24 claims
+### IPC-7525 — 44 claims
 
-Registry entry: `src-008` — IPC-7530 Guidelines for Temperature Profiling for Mass Soldering Processes
+Registry entry: `src-004` — IPC-7525 Stencil Design Guidelines
 
 | Lesson | Where | Claim (verbatim) | OK |
 |---|---|---|---|
-| m06l01 | `theory[2].p` | The time-above-liquidus window is process guidance rather than a J-STD-020 parameter: IPC-7530 and the paste datasheet typically call for 60-150 s for many assemblies. | ☐ |
-| m06l01 | `theory[6].p` | To judge a measured profile, compare the measured peak against the J-STD-020 classification temperature for the package size, and the measured time above liquidus against the paste-datasheet window, typically 60-150 s under IPC-7530 guidance. | ☐ |
-| m06l01 | `calc.solution` | This window is IPC-7530 and datasheet guidance, not a J-STD-020 parameter. | ☐ |
-| m06l02 | `theory[4].p` | The TAL window is process guidance from IPC-7530 and the paste datasheet, typically 60-120 s or 60-150 s. | ☐ |
-| m06l02 | `calc.solution` | The applicable limit is the paste window of 60-120 s from the paste datasheet and IPC-7530 guidance, and 45 s is 15 s below the lower bound, so the profile is too short for reliable wetting rather than too long. | ☐ |
-| m06l04 | `theory[6].p` | The average ramp-up of 1-3 °C/s and the 60-150 s time-above-liquidus window come from IPC-7530 and the paste datasheet, not from J-STD-020. | ☐ |
-| m06l04 | `calc.solution` | Apply limits: ramp 1-3 °C/s and time above liquidus 60-150 s from IPC-7530 and the paste datasheet; the peak ceiling is the J-STD-020 classification temperature for the package size, 250 °C for a large package. | ☐ |
-| m06l05 | `theory[3].p` | IPC-7530B gives typical guidance such as a ramp rate of 1-3 C/s and a soak that reduces thermal gradients. | ☐ |
-| m06l05 | `theory[4].p` | IPC-7530B gives typical guidance of 60-120 s above liquidus. | ☐ |
-| m06l05 | `theory[7].p` | Compare the measured values with IPC-7530B guidance and IPC/JEDEC J-STD-020 classification limits, then adjust zones until the coldest joint meets wetting requirements without exceeding the hottest joint limit. | ☐ |
-| m06l05 | `calc.task` | Build the expected ramp from thermal mass and check ramp, time above liquidus, and peak against IPC-7530B guidance and IPC/JEDEC J-STD-020 limits. | ☐ |
-| m06l05 | `calc.solution` | Check ramp against IPC-7530B typical guidance of 1-3 C/s: 1.1 C/s is within the guidance. | ☐ |
-| m06l05 | `calc.solution` | Check time above liquidus against IPC-7530B typical guidance of 60-120 s: measured 75 s is within the guidance. | ☐ |
-| m06l05 | `defect.action` | Reduce the ramp rate toward IPC-7530B guidance, extend the soak, verify thermocouple placement on the heavy area, and re-run the profile while checking the paste datasheet for recommended ramp and soak limits. | ☐ |
-| m06l06 | `quiz.q-m06l06-02.explanation` | Note that time above liquidus is a measured profile quantity from IPC-7530 and the paste datasheet, not a J-STD-020 parameter. | ☐ |
-| m09l01 | `theory[1].p` | Use thermocouples on heavy ground planes and small pads, and follow IPC-7530 for profiling. | ☐ |
-| m09l03 | `theory[4].p` | Use a thermocouple profile consistent with IPC-7530 guidance and adjust until hole fill and wetting are stable. | ☐ |
-| m10l05 | `theory[1].p` | Use IPC-A-610 for visual acceptance, IPC-7711/7721 for rework and repair guidance, and IPC-7530 for thermal process control where applicable. | ☐ |
-| m11l03 | `theory[4].p` | IPC-7530 provides guidance for rework, modification, and repair; use it with your process qualification and work instruction. | ☐ |
+| m03l01 | `theory[1].p` | IPC-7525 stencil design guidelines are commonly referenced for release indicators; a common working target is an area ratio above about 0.66, but verify against your paste and equipment datasheet. | ☐ |
+| m03l01 | `theory[2].p` | IPC-7525 stencil design guidelines are commonly referenced for release indicators; a common working target is an aspect ratio above about 1.5, but verify against your paste and equipment datasheet. | ☐ |
+| m03l01 | `calc.task` | State whether release is adequate using the IPC-7525 release indicators. | ☐ |
+| m03l03 | `theory[2].p` | Area ratio is aperture area divided by the product of aperture perimeter and foil thickness; IPC-7525 commonly uses a minimum area ratio of 0.66 for reliable paste release. | ☐ |
+| m03l03 | `theory[2].p` | Aspect ratio is aperture width divided by foil thickness; IPC-7525 commonly uses a minimum aspect ratio of 1.5. | ☐ |
+| m03l03 | `theory[7].p` | A practical sequence is: identify the tightest pitch and paste-volume requirements; choose a base foil thickness; size apertures to meet IPC-7525 area-ratio and aspect-ratio guidelines while controlling paste volume; add a step only when a single thickness cannot meet fine-pitch and large-pad nee… | ☐ |
+| m03l03 | `calc.task` | Select a base foil thickness and aperture size for the fine-pitch pads, select a local step thickness for the thermal pad, and check the IPC-7525 area-ratio and aspect-ratio guidelines. | ☐ |
+| m03l03 | `calc.solution` | This is above the IPC-7525 guideline of 0.66. | ☐ |
+| m03l03 | `calc.solution` | This is above the IPC-7525 guideline of 1.5. | ☐ |
+| m03l03 | `calc.solution` | Check the thermal pad area ratio: area = 0.95 mm x 0.95 mm = 0.9025 mm^2; perimeter = 3.80 mm; area ratio = 0.9025 mm^2 / (3.80 mm x 0.150 mm) = 1.58, above the IPC-7525 guideline of 0.66. | ☐ |
+| m03l03 | `calc.solution` | Aspect ratio = 0.95 mm / 0.150 mm = 6.33, above the IPC-7525 guideline of 1.5. | ☐ |
+| m03l03 | `defect.action` | Recheck area ratio and aspect ratio against IPC-7525, request a smoother wall finish or verified taper from the stencil maker, and rerun SPI to confirm the change. | ☐ |
+| m03l03 | `quiz.q-m03l03-02.prompt` | Using IPC-7525 area-ratio guidance, a square aperture is specified as 0.40 mm on a side with 0.12 mm foil. | ☐ |
+| m03l03 | `quiz.q-m03l03-02.options[0].text` | 0.83, acceptable because it is above the IPC-7525 minimum area ratio. | ☐ |
+| m03l03 | `quiz.q-m03l03-02.options[1].text` | 0.66, acceptable because it equals the IPC-7525 minimum area ratio. | ☐ |
+| m03l03 | `quiz.q-m03l03-02.options[3].text` | 0.42, unacceptable because it is below the IPC-7525 minimum area ratio. | ☐ |
+| m03l03 | `quiz.q-m03l03-02.explanation` | This is above the IPC-7525 minimum area ratio, so the aperture is acceptable for paste release; the other values result from misapplying the formula or confusing the calculated ratio with the minimum threshold. | ☐ |
+| m03l04 | `theory[1].p` | IPC-7525 provides stencil design guidance for thickness, aperture area, and sidewall finish. | ☐ |
+| m03l04 | `theory[2].p` | For the smallest chip components, aperture width may be 0.10 mm to 0.15 mm and length 0.20 mm to 0.30 mm, but final values should be verified against IPC-7525, land pattern data from IPC-7351, and paste release behavior. | ☐ |
+| m03l04 | `theory[3].p` | Area ratio, defined as aperture opening area divided by aperture wall area, is a useful control; IPC-7525 discusses area-ratio effects on paste release. | ☐ |
+| m03l04 | `theory[3].p` | For pitches below 0.5 mm, reduce aperture width relative to pad width, use trapezoidal or rounded apertures, and verify against IPC-7525 and paste datasheet to prevent bridging. | ☐ |
+| m03l04 | `theory[4].p` | A common approach is to divide the thermal pad into multiple small apertures with 0.10 mm to 0.20 mm spacing between segments, or to use a reduced-area pattern, and verify against IPC-7525 and the package land pattern guidance in IPC-7351. | ☐ |
+| m03l04 | `theory[6].p` | When the board contains both fine-pitch and large components, consider a step stencil or local thickness change, and verify the transition location against IPC-7525 and stencil fabrication capability. | ☐ |
+| m03l04 | `calc.solution` | Use IPC-7525 area-ratio guidance and choose a thin foil, 0.10 mm, to reduce paste volume and bridging risk. | ☐ |
+| m03l04 | `calc.solution` | This is above the practical target of 0.66 associated with IPC-7525 area-ratio guidance, so release should be acceptable if sidewall finish and paste viscosity are verified. | ☐ |
+| m03l04 | `defect.action` | Reduce foil to 0.10 mm, reduce aperture width to 0.22 mm, use rounded or trapezoidal apertures, verify area ratio of at least 0.66 against IPC-7525, adjust paste viscosity and squeegee pressure, re-run first article and inspect per IPC-A-610. | ☐ |
+| m03l04 | `quiz.q-m03l04-02.explanation` | With d = 3t, area ratio = 3t/(4t) = 0.75, which exceeds the IPC-7525 minimum of 0.66. | ☐ |
+| m03l06 | `quiz.q-m03l06-02.prompt` | The issued specification adopts the IPC-7525 minimum area ratio. | ☐ |
+| m03l06 | `quiz.q-m03l06-02.explanation` | The current area is 1.98 - 0.88 = 1.10 x perimeter x thickness, giving an area ratio of 1.10, which is above the IPC-7525 minimum, so the stencil remains in service. | ☐ |
+| m04l01 | `theory[2].p` | IPC-7525 stencil design guidelines commonly use an area ratio target of 0.66 or higher for good paste release. | ☐ |
+| m04l01 | `theory[3].p` | IPC-7525 stencil design guidelines commonly use an aspect ratio target of 1.5 or higher. | ☐ |
+| m04l01 | `theory[7].p` | If either value is below the IPC-7525 guideline, adjust the aperture size within the pad boundary or reduce foil thickness. | ☐ |
+| m04l01 | `calc.task` | If the area ratio is low, specify a foil thickness that meets IPC-7525 release targets while keeping paste volume practical. | ☐ |
+| m04l01 | `calc.solution` | Step eight: compare with IPC-7525 stencil design guidelines. | ☐ |
+| m04l01 | `defect.cause` | The aperture area reduction combined with 0.12 mm foil produced an area ratio below the IPC-7525 guideline of 0.66, reducing paste release from the aperture. | ☐ |
+| m04l01 | `defect.action` | Recalculate area ratio and aspect ratio, confirm they meet IPC-7525 targets of 0.66 and 1.5, and verify with paste inspection and reflow cross-sections. | ☐ |
+| m04l02 | `theory[2].p` | IPC-7525 provides stencil design guidance for area ratio and related aperture behaviour, and low area ratio apertures may need modified paste, stencil, or printer settings. | ☐ |
+| m05l06 | `theory[8].p` | IPC-7525 and related stencil guidance can be used to evaluate paste print capability, but exact stencil aperture and paste volume targets should be verified against your paste, stencil, and printer datasheets. | ☐ |
+| m07l01 | `theory[6].p` | Acceptance should follow the customer-specified IPC-A-610 Acceptability Requirements for Electronic Assemblies class and relevant design guidance such as IPC-7351 Land Pattern Design Data Standard for Surface Mount and IPC-7525 Stencil Design Guidelines. | ☐ |
+| m07l01 | `defect.cause` | Land pattern and stencil design may not match IPC-7351 Land Pattern Design Data Standard for Surface Mount and IPC-7525 Stencil Design Guidelines. | ☐ |
+| m07l01 | `defect.action` | Review stencil aperture area ratio, paste type, print pressure, squeegee speed, and reflow profile against IPC-7525 Stencil Design Guidelines and IPC-7095 Design and Assembly Process Implementation for BGAs. | ☐ |
 | m14l01 | `theory[5].p` | Verify actual parameter ranges against your paste datasheet, stencil design, printer datasheet, oven profile, wave or selective solder machine datasheet, and IPC-7525, IPC-7526, IPC-7530, or IPC-7711/7721 guidance where applicable. | ☐ |
 | m14l01 | `defect.action` | If the corrected paste print Pareto rises, review stencil condition, aperture design, paste rheology, squeegee settings, and SPI data against IPC-7525, IPC-7526, and IPC-7530 guidance and your equipment datasheets. | ☐ |
-| m14l06 | `theory[2].p` | For example, a change in peak reflow temperature or dwell time above the liquidus can affect solder joint microstructure and should be reviewed against the paste and component datasheets and against IPC-7530 Guidelines for Convection Reflow Soldering where applicable. | ☐ |
-| m14l06 | `defect.action` | Requalify the stencil aperture and reflow profile using the new paste datasheet and verify against IPC-7530 Guidelines for Convection Reflow Soldering where applicable. | ☐ |
-| m15l05 | `theory[1].p` | Include the current controlled documents: drawing revision, IPC-7351 land pattern revision, stencil thickness, paste type, feeder map, AOI program, and IPC-7530 reflow profile. | ☐ |
+| m15l04 | `theory[2].p` | Land pattern design can be framed with IPC-7351, while paste aperture changes should be checked against IPC-7525 and verified with your paste and printer datasheet. | ☐ |
 
 ### J-STD-001 — 20 claims
 
@@ -591,7 +550,7 @@ Registry entry: `src-002` — J-STD-001 Requirements for Soldered Electrical and
 
 ### IPC-6012 — 17 claims
 
-Registry entry: **none — this standard is cited but absent from sources.json**
+Registry entry: `src-018` — IPC-6012 Qualification and Performance Specification for Rigid Printed Boards (qualification and performance requirements for bare boards)
 
 | Lesson | Where | Claim (verbatim) | OK |
 |---|---|---|---|
@@ -612,6 +571,30 @@ Registry entry: **none — this standard is cited but absent from sources.json**
 | m01l06 | `quiz.q-m01l06-02.options[2].text` | 1.50%; quarantine because it is within the IPC-6012 Class 2 limit | ☐ |
 | m01l06 | `quiz.q-m01l06-02.explanation` | IPC-6012 Class 3 allows 0.75%, so 0.8% exceeds the limit and the finding should be recorded as reject. | ☐ |
 | m12l03 | `theory[8].p` | The most widely used reference value is 1.56 microgram NaCl equivalent per square centimeter, reported per IPC-TM-650 method 2.3.25 (ROSE) and historically applied to assembled boards through IPC J-STD-001 and to bare boards through IPC-6012. | ☐ |
+
+### IPC-7530 — 17 claims
+
+Registry entry: `src-008` — IPC-7530 Guidelines for Temperature Profiling for Mass Soldering Processes
+
+| Lesson | Where | Claim (verbatim) | OK |
+|---|---|---|---|
+| m06l01 | `theory[2].p` | The time-above-liquidus window is process guidance rather than a J-STD-020 parameter: IPC-7530 and the paste datasheet typically call for 60-150 s for many assemblies. | ☐ |
+| m06l01 | `theory[6].p` | To judge a measured profile, compare the measured peak against the J-STD-020 classification temperature for the package size, and the measured time above liquidus against the paste-datasheet window, typically 60-150 s under IPC-7530 guidance. | ☐ |
+| m06l01 | `calc.solution` | This window is IPC-7530 and datasheet guidance, not a J-STD-020 parameter. | ☐ |
+| m06l02 | `theory[4].p` | The TAL window is process guidance from IPC-7530 and the paste datasheet, typically 60-120 s or 60-150 s. | ☐ |
+| m06l02 | `calc.solution` | The applicable limit is the paste window of 60-120 s from the paste datasheet and IPC-7530 guidance, and 45 s is 15 s below the lower bound, so the profile is too short for reliable wetting rather than too long. | ☐ |
+| m06l04 | `theory[6].p` | The average ramp-up of 1-3 °C/s and the 60-150 s time-above-liquidus window come from IPC-7530 and the paste datasheet, not from J-STD-020. | ☐ |
+| m06l04 | `calc.solution` | Apply limits: ramp 1-3 °C/s and time above liquidus 60-150 s from IPC-7530 and the paste datasheet; the peak ceiling is the J-STD-020 classification temperature for the package size, 250 °C for a large package. | ☐ |
+| m06l06 | `quiz.q-m06l06-02.explanation` | Note that time above liquidus is a measured profile quantity from IPC-7530 and the paste datasheet, not a J-STD-020 parameter. | ☐ |
+| m09l01 | `theory[1].p` | Use thermocouples on heavy ground planes and small pads, and follow IPC-7530 for profiling. | ☐ |
+| m09l03 | `theory[4].p` | Use a thermocouple profile consistent with IPC-7530 guidance and adjust until hole fill and wetting are stable. | ☐ |
+| m10l05 | `theory[1].p` | Use IPC-A-610 for visual acceptance, IPC-7711/7721 for rework and repair guidance, and IPC-7530 for thermal process control where applicable. | ☐ |
+| m11l03 | `theory[4].p` | IPC-7530 provides guidance for rework, modification, and repair; use it with your process qualification and work instruction. | ☐ |
+| m14l01 | `theory[5].p` | Verify actual parameter ranges against your paste datasheet, stencil design, printer datasheet, oven profile, wave or selective solder machine datasheet, and IPC-7525, IPC-7526, IPC-7530, or IPC-7711/7721 guidance where applicable. | ☐ |
+| m14l01 | `defect.action` | If the corrected paste print Pareto rises, review stencil condition, aperture design, paste rheology, squeegee settings, and SPI data against IPC-7525, IPC-7526, and IPC-7530 guidance and your equipment datasheets. | ☐ |
+| m14l06 | `theory[2].p` | For example, a change in peak reflow temperature or dwell time above the liquidus can affect solder joint microstructure and should be reviewed against the paste and component datasheets and against IPC-7530 Guidelines for Convection Reflow Soldering where applicable. | ☐ |
+| m14l06 | `defect.action` | Requalify the stencil aperture and reflow profile using the new paste datasheet and verify against IPC-7530 Guidelines for Convection Reflow Soldering where applicable. | ☐ |
+| m15l05 | `theory[1].p` | Include the current controlled documents: drawing revision, IPC-7351 land pattern revision, stencil thickness, paste type, feeder map, AOI program, and IPC-7530 reflow profile. | ☐ |
 
 ### IPC-CC-830 — 15 claims
 
@@ -634,6 +617,24 @@ Registry entry: `src-010` — IPC-CC-830 Qualification and Performance of Electr
 | m12l05 | `theory[5].p` | If cleaning is required after coating, confirm that the cleaning solvent does not swell, soften, or craze the coating; IPC-CC-830 includes chemical resistance testing, but production cleaning should still be validated on the actual assembly. | ☐ |
 | m12l05 | `theory[6].p` | Too thin a coating may not meet IPC-CC-830 qualification or IPC-A-610 acceptability for the intended class; too thick a coating can trap solvent, crack during thermal cycling, or interfere with connectors and test probes. | ☐ |
 | m12l05 | `calc.solution` | If the qualified IPC-CC-830 coating system or IPC-A-610 inspection class requires a different thickness range, adjust the spray parameters and re-measure. | ☐ |
+
+### IPC-7525D — 11 claims
+
+Registry entry: `src-004` — IPC-7525 Stencil Design Guidelines
+
+| Lesson | Where | Claim (verbatim) | OK |
+|---|---|---|---|
+| m03l02 | `theory[1].p` | IPC-7525D treats area ratio as a key indicator of paste release because the paste must separate from the sidewalls and transfer to the pad. | ☐ |
+| m03l02 | `theory[2].p` | IPC-7525D provides area-ratio guidance for stencil design, but the practical release limit depends on paste rheology, stencil wall finish, print speed, snap-off distance, and squeegee pressure; verify against your paste and equipment datasheet. | ☐ |
+| m03l02 | `theory[3].p` | IPC-7525D discusses aspect ratio as a stencil geometry parameter related to paste release and aperture wall effects. | ☐ |
+| m03l02 | `theory[7].p` | If area ratio is near or below the IPC-7525D guidance range, or if expected volume is close to the minimum needed for the component and pad, the design should be reviewed for foil thickness, aperture size within the pad, wall finish, paste selection, and print parameters. | ☐ |
+| m03l02 | `calc.task` | State whether the aperture is expected to release paste adequately according to common IPC-7525D area-ratio guidance. | ☐ |
+| m03l02 | `calc.solution` | The area ratio is 0.625, which is below the commonly cited IPC-7525D area-ratio guidance value of 0.66. | ☐ |
+| m03l02 | `defect.action` | Review the aperture area ratio and aspect ratio against IPC-7525D guidance and your paste/equipment datasheet. | ☐ |
+| m03l05 | `theory[2].p` | IPC-7525D recommends an area ratio above 0.66 for reliable paste release. | ☐ |
+| m03l05 | `theory[3].p` | IPC-7525D recommends an aspect ratio above 1.5. | ☐ |
+| m03l05 | `theory[4].p` | IPC-7525D recommends a wall taper in the range of 85 to 90 degrees, measured from the horizontal plane, because a slight taper reduces the effective wall area. | ☐ |
+| m03l05 | `calc.solution` | The nominal area ratio 0.625 is below the IPC-7525D recommended value of 0.66, so paste release may be inadequate unless qualified by paste and equipment testing. | ☐ |
 
 ### IPC-7351 — 11 claims
 
@@ -689,7 +690,7 @@ Registry entry: `src-012` — ANSI/ESD S20.20 Development of an Electrostatic Di
 
 ### J-STD-004 — 8 claims
 
-Registry entry: **none — this standard is cited but absent from sources.json**
+Registry entry: `src-019` — J-STD-004 Requirements for Soldering Fluxes (paste CoA specification reference)
 
 | Lesson | Where | Claim (verbatim) | OK |
 |---|---|---|---|
@@ -719,7 +720,7 @@ Registry entry: `src-007` — IPC-7095 Design and Assembly Process Implementatio
 
 ### IEC 61340-5-1 — 7 claims
 
-Registry entry: **none — this standard is cited but absent from sources.json**
+Registry entry: `src-035` — IEC 61340-5-1 Protection of Electronic Devices from Electrostatic Phenomena — General Requirements
 
 | Lesson | Where | Claim (verbatim) | OK |
 |---|---|---|---|
@@ -730,6 +731,20 @@ Registry entry: **none — this standard is cited but absent from sources.json**
 | m12l01 | `theory[5].p` | For ESD-sensitive work, use grounded work surfaces, wrist straps, ionizers, and ESD-safe containers as required by ANSI/ESD S20.20 or IEC 61340-5-1. | ☐ |
 | m12l01 | `calc.solution` | ESD controls must follow ANSI/ESD S20.20 or IEC 61340-5-1. | ☐ |
 | m12l01 | `defect.action` | Control MSL exposure per IPC/JEDEC J-STD-033 and ESD handling per ANSI/ESD S20.20 or IEC 61340-5-1. | ☐ |
+
+### IPC-7530B — 7 claims
+
+Registry entry: `src-008` — IPC-7530 Guidelines for Temperature Profiling for Mass Soldering Processes
+
+| Lesson | Where | Claim (verbatim) | OK |
+|---|---|---|---|
+| m06l05 | `theory[3].p` | IPC-7530B gives typical guidance such as a ramp rate of 1-3 C/s and a soak that reduces thermal gradients. | ☐ |
+| m06l05 | `theory[4].p` | IPC-7530B gives typical guidance of 60-120 s above liquidus. | ☐ |
+| m06l05 | `theory[7].p` | Compare the measured values with IPC-7530B guidance and IPC/JEDEC J-STD-020 classification limits, then adjust zones until the coldest joint meets wetting requirements without exceeding the hottest joint limit. | ☐ |
+| m06l05 | `calc.task` | Build the expected ramp from thermal mass and check ramp, time above liquidus, and peak against IPC-7530B guidance and IPC/JEDEC J-STD-020 limits. | ☐ |
+| m06l05 | `calc.solution` | Check ramp against IPC-7530B typical guidance of 1-3 C/s: 1.1 C/s is within the guidance. | ☐ |
+| m06l05 | `calc.solution` | Check time above liquidus against IPC-7530B typical guidance of 60-120 s: measured 75 s is within the guidance. | ☐ |
+| m06l05 | `defect.action` | Reduce the ramp rate toward IPC-7530B guidance, extend the soak, verify thermocouple placement on the heavy area, and re-run the profile while checking the paste datasheet for recommended ramp and soak limits. | ☐ |
 
 ### ISO 2859-1 — 6 claims
 
@@ -744,6 +759,18 @@ Registry entry: `src-006` — ISO 2859-1 Sampling procedures for inspection by a
 | m01l03 | `calc.task` | Use ISO 2859-1 general inspection level II and an AQL of 1.0% defective. | ☐ |
 | m01l03 | `calc.solution` | Select standard: ISO 2859-1 normal single sampling. | ☐ |
 
+### IPC-A-600 — 5 claims
+
+Registry entry: `src-022` — IPC-A-600 Acceptability of Printed Boards (visual and dimensional criteria)
+
+| Lesson | Where | Claim (verbatim) | OK |
+|---|---|---|---|
+| m01l02 | `theory[3].p` | For bare PCBs, a CoC or CoA may prove laminate material, copper weight, plating type, plating thickness, and acceptance against IPC-A-600 or IPC-6012, depending on the contract. | ☐ |
+| m01l02 | `theory[6].p` | Acceptance may be referenced to IPC-A-600 for visual and dimensional criteria, while IPC-6012 may be used for qualification and performance requirements. | ☐ |
+| m01l04 | `theory[4].p` | Acceptability of visual and dimensional features is commonly judged against IPC-A-600, Acceptability of Printed Boards, but the purchase order may impose tighter limits. | ☐ |
+| m01l05 | `theory[4].p` | For bare PCBs, request the packing list, certificate of conformance, IPC-A-600 class or purchase-order class, bare-board test report, finish type and thickness report, impedance report if controlled, material declaration, and moisture barrier packaging with humidity indicator card when required. | ☐ |
+| m01l05 | `theory[4].p` | The IPC-A-600 class statement proves the visual and dimensional acceptance level intended for the board. | ☐ |
+
 ### J-STD-005 — 3 claims
 
 Registry entry: `src-015` — J-STD-005 Requirements for Soldering Pastes (powder size distribution, Type 3 = 25-45 µm, 80% minimum in range)
@@ -754,18 +781,55 @@ Registry entry: `src-015` — J-STD-005 Requirements for Soldering Pastes (powde
 | m01l05 | `quiz.q-m01l05-02.prompt` | IPC J-STD-005 Type 3 powder requires 80% of the powder to be between 25 and 45 µm, with no more than 10% below 25 µm and no more than 10% above 45 µm. | ☐ |
 | m01l05 | `quiz.q-m01l05-02.explanation` | Because J-STD-005 Type 3 requires 80% minimum in range, the lot is accepted on this evidence. | ☐ |
 
+### IPC-2221 — 3 claims
+
+Registry entry: `src-024` — IPC-2221 Generic Standard on Printed Board Design
+
+| Lesson | Where | Claim (verbatim) | OK |
+|---|---|---|---|
+| m08l01 | `quiz.q-m08l01-02.explanation` | The 0.30 mm clearance is a design rule of thumb rather than an IPC-2221 requirement, so verify it against your drill, plating and lead tolerances. | ☐ |
+| m15l04 | `theory[4].p` | IPC-2221 and IPC-2222 provide generic and organic-board design frameworks, but the final spacing should also reflect your placement accuracy, feeder clearance, and inspection optics. | ☐ |
+| m15l04 | `theory[8].p` | IPC-2221 and IPC-2222 provide design frameworks, but the final hole size should be checked against drill tolerance, plating thickness, and lead diameter variation. | ☐ |
+
+### IPC-4101 — 2 claims
+
+Registry entry: `src-023` — IPC-4101 Specification for Base Materials for Rigid and Multilayer Printed Boards
+
+| Lesson | Where | Claim (verbatim) | OK |
+|---|---|---|---|
+| m01l04 | `theory[4].p` | Material declarations may reference IPC-4101, Specification for Base Materials for Rigid and Multilayer Printed Boards, and flammability may reference UL 94, Standard for Safety of Flammability of Plastic Materials. | ☐ |
+| m01l06 | `theory[2].p` | For plated finishes, a report may cite IPC-4101 for base material and finish requirements and IPC-6012 for qualified product performance. | ☐ |
+
+### ISO 9001 — 2 claims
+
+Registry entry: `src-037` — ISO 9001 Quality Management Systems — Requirements (control of externally provided product)
+
+| Lesson | Where | Claim (verbatim) | OK |
+|---|---|---|---|
+| m01l04 | `theory[7].p` | The disposition should follow the quality management system, for example ISO 9001, Quality management systems, or ANSI/AS9100, Quality Management Systems—Requirements for Aviation, Space, and Defense Organizations, where nonconforming output must be controlled and documented. | ☐ |
+| m14l03 | `theory[1].p` | When the scope is too narrow, the escape can continue downstream, and the company may need to notify the customer under the applicable requirement in ISO 9001 or IATF 16949. | ☐ |
+
 ### ANSI/ESD STM97.1 — 2 claims
 
-Registry entry: **none — this standard is cited but absent from sources.json**
+Registry entry: `src-033` — ANSI/ESD STM97.1 Floor Materials and Footwear — Resistance Measurement in Combination with a Person
 
 | Lesson | Where | Claim (verbatim) | OK |
 |---|---|---|---|
 | m02l05 | `theory[3].p` | Wrist straps are governed by ANSI/ESD S1.1 and are typically used at static controlled workstations; footwear/floor systems are qualified using ANSI/ESD STM97.1 and ANSI/ESD STM97.2. | ☐ |
 | m02l05 | `theory[5].p` | Footwear and flooring systems, by contrast, are qualified under ANSI/ESD STM97.1 and STM97.2. | ☐ |
 
+### IPC-7525B — 2 claims
+
+Registry entry: `src-004` — IPC-7525 Stencil Design Guidelines
+
+| Lesson | Where | Claim (verbatim) | OK |
+|---|---|---|---|
+| m03l06 | `theory[2].p` | Where the specification is silent, use the design reference such as IPC-7525B and the paste or equipment datasheet, then document the accepted limit before release. | ☐ |
+| m03l06 | `calc.task` | Issued specification: foil thickness 0.120 mm +/-0.010 mm; aperture width 0.400 mm +/-0.025 mm; area ratio minimum 0.66 (issued spec, based on IPC-7525B guidance); wall taper minimum 85 deg; tension 25-35 N/cm; step depth 0.050 mm +/-0.010 mm. | ☐ |
+
 ### IPC-7721 — 2 claims
 
-Registry entry: **none — this standard is cited but absent from sources.json**
+Registry entry: `src-009` — IPC-7711/7721 Rework, Modification and Repair of Electronic Assemblies
 
 | Lesson | Where | Claim (verbatim) | OK |
 |---|---|---|---|
@@ -774,32 +838,97 @@ Registry entry: **none — this standard is cited but absent from sources.json**
 
 ### IPC-7526 — 2 claims
 
-Registry entry: **none — this standard is cited but absent from sources.json**
+Registry entry: `src-026` — IPC-7526 Stencil and Misprinted Board Cleaning Handbook
 
 | Lesson | Where | Claim (verbatim) | OK |
 |---|---|---|---|
 | m14l01 | `theory[5].p` | Verify actual parameter ranges against your paste datasheet, stencil design, printer datasheet, oven profile, wave or selective solder machine datasheet, and IPC-7525, IPC-7526, IPC-7530, or IPC-7711/7721 guidance where applicable. | ☐ |
 | m14l01 | `defect.action` | If the corrected paste print Pareto rises, review stencil condition, aperture design, paste rheology, squeegee settings, and SPI data against IPC-7525, IPC-7526, and IPC-7530 guidance and your equipment datasheets. | ☐ |
 
+### IPC-2222 — 2 claims
+
+Registry entry: `src-025` — IPC-2222 Sectional Design Standard for Rigid Organic Printed Boards
+
+| Lesson | Where | Claim (verbatim) | OK |
+|---|---|---|---|
+| m15l04 | `theory[4].p` | IPC-2221 and IPC-2222 provide generic and organic-board design frameworks, but the final spacing should also reflect your placement accuracy, feeder clearance, and inspection optics. | ☐ |
+| m15l04 | `theory[8].p` | IPC-2221 and IPC-2222 provide design frameworks, but the final hole size should be checked against drill tolerance, plating thickness, and lead diameter variation. | ☐ |
+
+### UL 94 — 1 claim
+
+Registry entry: `src-039` — UL 94 Tests for Flammability of Plastic Materials for Parts in Devices and Appliances
+
+| Lesson | Where | Claim (verbatim) | OK |
+|---|---|---|---|
+| m01l04 | `theory[4].p` | Material declarations may reference IPC-4101, Specification for Base Materials for Rigid and Multilayer Printed Boards, and flammability may reference UL 94, Standard for Safety of Flammability of Plastic Materials. | ☐ |
+
+### ANSI/AS9100 — 1 claim
+
+Registry entry: `src-038` — ANSI/AS9100 Quality Management Systems — Requirements for Aviation, Space and Defense Organizations
+
+| Lesson | Where | Claim (verbatim) | OK |
+|---|---|---|---|
+| m01l04 | `theory[7].p` | The disposition should follow the quality management system, for example ISO 9001, Quality management systems, or ANSI/AS9100, Quality Management Systems—Requirements for Aviation, Space, and Defense Organizations, where nonconforming output must be controlled and documented. | ☐ |
+
 ### J-STD-006 — 1 claim
 
-Registry entry: **none — this standard is cited but absent from sources.json**
+Registry entry: `src-020` — J-STD-006 Soft Solder Alloys and Fluxed or Non-Fluxed Solid Solders for Electronic Soldering Applications (powder solder, other than paste)
 
 | Lesson | Where | Claim (verbatim) | OK |
 |---|---|---|---|
 | m01l05 | `theory[3].p` | The alloy and powder type prove the paste matches the process requirement, using classifications such as those in IPC J-STD-005 for paste, IPC J-STD-006 for powder, and IPC J-STD-004 for flux. | ☐ |
 
-### ANSI/ESD STM97.2 — 1 claim
+### J-STD-002 — 1 claim
 
-Registry entry: **none — this standard is cited but absent from sources.json**
+Registry entry: `src-021` — J-STD-002 Solderability Tests for Component Leads, Terminations, Lugs, Terminals and Wires
+
+| Lesson | Where | Claim (verbatim) | OK |
+|---|---|---|---|
+| m01l06 | `theory[2].p` | For solderability, IPC/JEDEC J-STD-002 can be used for component solderability, while bare board solderability is commonly specified against IPC-6012 and the customer drawing. | ☐ |
+
+### ISO 9001:2015 — 1 claim
+
+Registry entry: `src-037` — ISO 9001 Quality Management Systems — Requirements (control of externally provided product)
+
+| Lesson | Where | Claim (verbatim) | OK |
+|---|---|---|---|
+| m01l07 | `theory[1].p` | ISO 9001:2015 requires control of externally provided processes, products, and services, so the dock record should show the evidence used to accept, quarantine, or reject the lot. | ☐ |
+
+### ANSI/ESD S6.1 — 1 claim
+
+Registry entry: `src-029` — ANSI/ESD S6.1 Grounding (equipotential bonding of racks, carts, shelving and tables)
+
+| Lesson | Where | Claim (verbatim) | OK |
+|---|---|---|---|
+| m02l05 | `theory[2].p` | ANSI/ESD S6.1 addresses grounding and equipotential bonding; use it to verify that racks, carts, shelving, tables, and floor systems are bonded as required by the control plan. | ☐ |
+
+### ANSI/ESD S1.1 — 1 claim
+
+Registry entry: `src-027` — ANSI/ESD S1.1 Wrist Straps
 
 | Lesson | Where | Claim (verbatim) | OK |
 |---|---|---|---|
 | m02l05 | `theory[3].p` | Wrist straps are governed by ANSI/ESD S1.1 and are typically used at static controlled workstations; footwear/floor systems are qualified using ANSI/ESD STM97.1 and ANSI/ESD STM97.2. | ☐ |
 
+### ANSI/ESD STM97.2 — 1 claim
+
+Registry entry: `src-034` — ANSI/ESD STM97.2 Footwear/Flooring System — Voltage Measurement in Combination with a Person
+
+| Lesson | Where | Claim (verbatim) | OK |
+|---|---|---|---|
+| m02l05 | `theory[3].p` | Wrist straps are governed by ANSI/ESD S1.1 and are typically used at static controlled workstations; footwear/floor systems are qualified using ANSI/ESD STM97.1 and ANSI/ESD STM97.2. | ☐ |
+
+### ANSI/ESD S4.1 — 1 claim
+
+Registry entry: `src-028` — ANSI/ESD S4.1 Worksurfaces — Resistance Measurements
+
+| Lesson | Where | Claim (verbatim) | OK |
+|---|---|---|---|
+| m02l05 | `theory[4].p` | ANSI/ESD S4.1 covers static dissipative mats, and surface resistance or resistivity can be characterized using ANSI/ESD STM11.11. | ☐ |
+
 ### ANSI/ESD STM11.11 — 1 claim
 
-Registry entry: **none — this standard is cited but absent from sources.json**
+Registry entry: `src-032` — ANSI/ESD STM11.11 Surface Resistance Measurements of Static Dissipative Planar Materials
 
 | Lesson | Where | Claim (verbatim) | OK |
 |---|---|---|---|
@@ -807,7 +936,7 @@ Registry entry: **none — this standard is cited but absent from sources.json**
 
 ### ANSI/ESD STM3.1 — 1 claim
 
-Registry entry: **none — this standard is cited but absent from sources.json**
+Registry entry: `src-031` — ANSI/ESD STM3.1 Ionization (offset voltage and discharge time)
 
 | Lesson | Where | Claim (verbatim) | OK |
 |---|---|---|---|
@@ -815,11 +944,19 @@ Registry entry: **none — this standard is cited but absent from sources.json**
 
 ### IEC 61340-4-7 — 1 claim
 
-Registry entry: **none — this standard is cited but absent from sources.json**
+Registry entry: `src-036` — IEC 61340-4-7 Standard Test Methods for Specific Applications — Ionization
 
 | Lesson | Where | Claim (verbatim) | OK |
 |---|---|---|---|
 | m02l05 | `theory[5].p` | ANSI/ESD STM3.1 covers ionization, and performance qualification and periodic verification are evaluated against the offset-voltage (balance) and discharge-time limits in that method, which is the ESDA counterpart of IEC 61340-4-7. | ☐ |
+
+### ANSI/ESD S541 — 1 claim
+
+Registry entry: `src-030` — ANSI/ESD S541 Packaging Materials for ESD Sensitive Items
+
+| Lesson | Where | Claim (verbatim) | OK |
+|---|---|---|---|
+| m02l05 | `theory[6].p` | ANSI/ESD S541 covers ESD packaging, including shielding bags, conductive containers, and closure methods. | ☐ |
 
 ---
 
@@ -833,24 +970,24 @@ not that the text is well written.
 | Lesson | Title | Claims | Standards cited | Status | Reviewed |
 |---|---|---|---|---|---|
 | m01l01 | What incoming inspection protects: defect cost by stage | 0 | — | draft | ☐ |
-| m01l02 | The documentation package: CoC/CoA, packing list, MSL label, declarations | 9 | IPC-6012, J-STD-004, J-STD-033 | draft | ☐ |
+| m01l02 | The documentation package: CoC/CoA, packing list, MSL label, declarations | 11 | IPC-6012, IPC-A-600, J-STD-004, J-STD-033 | draft | ☐ |
 | m01l03 | Sampling a lot: lot definition, sample size, inspection level, AQL concept | 7 | ISO 2859-1, J-STD-033 | draft | ☐ |
-| m01l04 | Component verification: part number, date code, package, counterfeit red flags | 2 | IPC-6012, J-STD-033 | draft | ☐ |
-| m01l05 | Solder paste, flux and adhesive receipt: alloy, powder, expiry, cold chain | 7 | J-STD-004, J-STD-005, J-STD-006, J-STD-033 | draft | ☐ |
-| m01l06 | Bare PCB receipt: surface finish, planarity and warpage, packaging, shelf life | 15 | IPC-6012, J-STD-033 | draft | ☐ |
-| m01l07 | Nonconforming material at dock: quarantine, MRB, supplier notification | 2 | J-STD-033 | draft | ☐ |
+| m01l04 | Component verification: part number, date code, package, counterfeit red flags | 7 | ANSI/AS9100, IPC-4101, IPC-6012, IPC-A-600, ISO 9001, J-STD-033, UL 94 | draft | ☐ |
+| m01l05 | Solder paste, flux and adhesive receipt: alloy, powder, expiry, cold chain | 9 | IPC-A-600, J-STD-004, J-STD-005, J-STD-006, J-STD-033 | draft | ☐ |
+| m01l06 | Bare PCB receipt: surface finish, planarity and warpage, packaging, shelf life | 17 | IPC-4101, IPC-6012, J-STD-002, J-STD-033 | draft | ☐ |
+| m01l07 | Nonconforming material at dock: quarantine, MRB, supplier notification | 3 | ISO 9001:2015, J-STD-033 | draft | ☐ |
 | m02l01 | Moisture inside a package: what happens during reflow and why | 14 | J-STD-020, J-STD-033 | draft | ☐ |
 | m02l02 | Reading MSL reality: J-STD-033 / J-STD-020 markings, barrier bag, HIC | 16 | J-STD-020, J-STD-033 | draft | ☐ |
 | m02l03 | Floor-life accounting: clock start, accumulation, reset rules | 13 | J-STD-033 | draft | ☐ |
 | m02l04 | Baking and dry cabinets: when required, conditions by package, records | 11 | J-STD-033 | draft | ☐ |
-| m02l05 | The ESD control program: EPA, grounding, straps, mats, ionizers, packaging | 8 | ANSI/ESD S20.20, ANSI/ESD STM11.11, ANSI/ESD STM3.1, ANSI/ESD STM97.1, ANSI/ESD STM97.2, IEC 61340-4-7, IEC 61340-5-1 | draft | ☐ |
+| m02l05 | The ESD control program: EPA, grounding, straps, mats, ionizers, packaging | 12 | ANSI/ESD S1.1, ANSI/ESD S20.20, ANSI/ESD S4.1, ANSI/ESD S541, ANSI/ESD S6.1, ANSI/ESD STM11.11, ANSI/ESD STM3.1, ANSI/ESD STM97.1, ANSI/ESD STM97.2, IEC 61340-4-7, IEC 61340-5-1 | draft | ☐ |
 | m02l06 | Case: expired floor life found mid-lot | 24 | ANSI/ESD S20.20, IEC 61340-5-1, J-STD-020, J-STD-033 | draft | ☐ |
 | m03l01 | The paste volume budget: what the joint needs before the aperture is drawn | 3 | IPC-7525 | draft | ☐ |
-| m03l02 | Area ratio and aspect ratio: definitions, calculation, fine-pitch consequences | 7 | IPC-7525 | draft | ☐ |
+| m03l02 | Area ratio and aspect ratio: definitions, calculation, fine-pitch consequences | 7 | IPC-7525D | draft | ☐ |
 | m03l03 | Foil, thickness, step stencils, laser cut and wall finish | 14 | IPC-7525 | draft | ☐ |
 | m03l04 | Aperture geometry by component: chip, QFP fine pitch, QFN/LGA, BGA | 17 | IPC-7095, IPC-7351, IPC-7525, IPC-A-610 | draft | ☐ |
-| m03l05 | Aperture calculator and drawing review | 4 | IPC-7525 | draft | ☐ |
-| m03l06 | Stencil acceptance, cleaning regime and lifetime tracking | 4 | IPC-7525 | draft | ☐ |
+| m03l05 | Aperture calculator and drawing review | 4 | IPC-7525D | draft | ☐ |
+| m03l06 | Stencil acceptance, cleaning regime and lifetime tracking | 4 | IPC-7525, IPC-7525B | draft | ☐ |
 | m04l01 | From aperture to deposit: how stencil geometry becomes paste volume | 7 | IPC-7525 | draft | ☐ |
 | m04l02 | Reading SPI data: measurement principle, volume/height/area/offset, artifacts | 3 | IPC-7525, IPC-A-610 | draft | ☐ |
 | m04l03 | Printer setup: squeegee pressure and speed, snap-off, separation, wipe cycle | 0 | — | draft | ☐ |
@@ -868,7 +1005,7 @@ not that the text is well written.
 | m06l02 | Profile anatomy: ramp, soak, time above liquidus, peak, cooling — what each controls | 12 | IPC-7530, J-STD-020 | draft | ☐ |
 | m06l03 | Running a thermal survey: thermocouple attachment, test coupon, worst-case site | 2 | J-STD-020 | draft | ☐ |
 | m06l04 | Board thermal mass and layout: heavy planes, thermal relief, mixed population, dense vs sparse | 7 | IPC-7530, J-STD-020 | draft | ☐ |
-| m06l05 | Alloy systems and profile families: SnAgCu vs SnPb, liquidus basis, nitrogen vs air | 13 | IPC-7530, J-STD-020 | draft | ☐ |
+| m06l05 | Alloy systems and profile families: SnAgCu vs SnPb, liquidus basis, nitrogen vs air | 13 | IPC-7530B, J-STD-020 | draft | ☐ |
 | m06l06 | Reflow defect atlas: tombstone, balling, beading, dewetting, voids, distortion | 2 | IPC-7530, J-STD-020 | draft | ☐ |
 | m06l07 | Profile validation, documentation and change control | 0 | — | draft | ☐ |
 | m07l01 | What each method can see: visual, AOI, 2D X-ray, laminar/3D, boundary scan | 11 | IPC-7095, IPC-7351, IPC-7525, IPC-A-610 | draft | ☐ |
@@ -877,7 +1014,7 @@ not that the text is well written.
 | m07l04 | X-ray interpretation: BGA ball size and voiding, bridging, through-hole fill | 15 | IPC-7095, IPC-A-610 | draft | ☐ |
 | m07l05 | Disposition language: defect, condition and class in workmanship terms | 11 | IPC-7711, IPC-A-610 | draft | ☐ |
 | m07l06 | Classification drill: print, placement, reflow and THT images | 16 | IPC-7711, IPC-A-610 | draft | ☐ |
-| m08l01 | What stays through-hole and why: connectors, mechanical load, power | 4 | IPC-A-610 | draft | ☐ |
+| m08l01 | What stays through-hole and why: connectors, mechanical load, power | 5 | IPC-2221, IPC-A-610 | draft | ☐ |
 | m08l02 | Hole and lead: diameters, tolerance stack-up, placement tolerance, percent fill | 3 | IPC-A-610 | draft | ☐ |
 | m08l03 | Insertion: seating, stand-off, polarity, clinch, insertion damage | 1 | IPC-A-610 | draft | ☐ |
 | m08l04 | Preparing the board for wave: carriers, pallets, masking, taping, orientation | 0 | — | draft | ☐ |
@@ -914,7 +1051,7 @@ not that the text is well written.
 | m13l06 | Choosing a strategy for a product mix: volume, complexity, cost, rework loop | 0 | — | draft | ☐ |
 | m14l01 | Defect data before opinions: taxonomy, Pareto by stage, measurement integrity | 12 | IPC-7525, IPC-7526, IPC-7530, IPC-7711, IPC-A-610 | draft | ☐ |
 | m14l02 | Cause analysis tools: 5-Why, fishbone, fault tree, change-point analysis | 4 | IPC-A-610, J-STD-001 | draft | ☐ |
-| m14l03 | Containment and traceability: quarantine scope, lot trace, retroactive search | 5 | IPC-7711, IPC-A-610, J-STD-001 | draft | ☐ |
+| m14l03 | Containment and traceability: quarantine scope, lot trace, retroactive search | 6 | IPC-7711, IPC-A-610, ISO 9001, J-STD-001 | draft | ☐ |
 | m14l04 | 8D discipline: D1–D8 content and where 8D reports fail | 0 | — | draft | ☐ |
 | m14l05 | Corrective vs preventive action and effectiveness verification | 0 | — | draft | ☐ |
 | m14l06 | Closing the loop: PFMEA, control plan, auditor checklist, change control | 4 | IPC-7530, IPC-7711, IPC-A-610 | draft | ☐ |
@@ -922,7 +1059,7 @@ not that the text is well written.
 | m15l01 | How designers read process feedback: language, format, what gets acted on | 0 | — | draft | ☐ |
 | m15l02 | The evidence pack: measured data, images with scale, defect rate, cost of poor quality | 0 | — | draft | ☐ |
 | m15l03 | Writing the change request: problem, impact, proposal, alternatives, risk, verification | 6 | IPC-7095, IPC-7351, IPC-7711, IPC-A-610, J-STD-001 | draft | ☐ |
-| m15l04 | DFM/DFT asks that work: pad geometry, paste relief, spacing, test points, fiducials, panelization, hole/lead spec | 4 | IPC-7351, IPC-7525, IPC-A-610 | draft | ☐ |
+| m15l04 | DFM/DFT asks that work: pad geometry, paste relief, spacing, test points, fiducials, panelization, hole/lead spec | 8 | IPC-2221, IPC-2222, IPC-7351, IPC-7525, IPC-A-610 | draft | ☐ |
 | m15l05 | Negotiation, version control and closure with post-change data | 5 | IPC-7351, IPC-7530, IPC-7711, IPC-A-610 | draft | ☐ |
 
 ---
