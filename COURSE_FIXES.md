@@ -1202,3 +1202,54 @@ minimum.
 Part A remains **24 verified, 2 flagged, 0 blank**. Defects this round: D4
 (IPC-CC-830), D6 (J-STD-033 bake table), D7 (IPC-7711/7721 figures), D8 (ramp
 rate).
+
+---
+
+# §13 Round 12 — the tail of Part B, and defects D9 to D12
+
+Every Part B claim has now been adjudicated. The last 28 distinct assertions
+produced four defects.
+
+**Defect D10 — the time-above-liquidus window was denied to J-STD-020.** Three
+lessons said the window is "process guidance rather than a J-STD-020 parameter"
+and attributed 60–150 s to IPC-7530. It is the reverse: 60–150 s is J-STD-020's
+t_L, the time at liquidus on the classification profile, and IPC-7530's typical
+guidance is narrower at 30–90 s. No number changed — 75 s and 85 s pass under
+either window — but the reader was taught that J-STD-020 places no requirement on
+time above liquidus, when t_L is one of its central classification parameters.
+
+The same root cause in its second half: `m06l05` called 60–120 s "above
+liquidus". That is t_s, the soak. Both figures are genuine J-STD-020 numbers,
+attached to the wrong parameter and the wrong document.
+
+**Defect D11 — the SnPb classification temperature was a flat 220 °C.**
+J-STD-020E Table 4-1 is two-dimensional: 235 °C for thickness below 2.5 mm and
+volume below 350 mm³, 220 °C for every other cell. A reader building an SnPb
+profile from the flat figure under-peaks small parts.
+
+**Defect D9 — J-STD-005 Type 3 tail limits.** The quiz gave the fine tail as
+"10 % below 25 µm" and the coarse tail as "10 % above 45 µm". The table gives
+10 % max smaller than **20 µm** and **less than 1 %** larger than 45 µm, with
+none larger than 50 µm. The old 95 % certificate figure would have failed the
+<1 % coarse tail while the quiz still said "accept", so the worked example was
+rebuilt on corrected limits. The round-11 verdict on this fact was itself wrong —
+it read the 80 % in-band figure as the whole table and declared the quiz claim
+identical. That verdict is corrected.
+
+**Defect D12 — temperatures without the degree sign.** 17 strings in 7 lessons.
+The trap is inline SVG path data, where "C160,240" follows a coordinate and a
+naive replace would corrupt every path. All 25 paths verified byte-identical
+after the fix; the TBD-REVIEW `review` strings deliberately untouched, because
+they quote the original draft verbatim.
+
+**Verified as correct:** J-STD-004 flux classification, all IPC-A-600
+attributions, IPC-CC-830 coating thickness ranges, IPC-TM-650 methods 2.3.25 and
+2.3.28 (1.56 µg/cm² = 10.06 µg/in²), ISO 2859-1 code letters, all ANSI/ESD test
+methods, IPC-2221/2222, IPC-4101, UL 94, J-STD-002, ISO 9001 clause 8.4, IATF
+16949 and ANSI/AS9100.
+
+**Part A: 28 verified, 2 flagged, 0 blank** — up from 24. The two flagged facts
+are both J-STD-033 bake and stay open until the remaining bake text has had the
+same line-by-line read. Defects this round: D8 (ramp rate), D9 (J-STD-005 tails),
+D10 (TAL/soak attribution), D11 (SnPb classification temperature), D12 (degree
+signs).

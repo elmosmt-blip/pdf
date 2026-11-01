@@ -52,6 +52,7 @@ node course-fix/scripts/apply-standards-verification.js "$WORK/data"
 node course-fix/scripts/apply-bake-table-fix.js    "$WORK/data"
 node course-fix/scripts/apply-repair-limits-fix.js "$WORK/data"
 node course-fix/scripts/apply-ramp-rate-fix.js   "$WORK/data"
+node course-fix/scripts/apply-profile-limits-fix.js "$WORK/data"
 
 # 4. r4 predates the round-6 index.html fix, and the rebuild resurrects the
 #    Cloudflare Rocket Loader artefact every single time. Mandatory.
@@ -99,5 +100,27 @@ checkq "quiz ramp 4C/s gone"   0 "ramp rate of 4 °C/s"
 checkq "quiz ramp 4C/s bare"   0 "ramp rate 4 °C/s"
 checkq "quiz ramp 3C/s fixed"  1 "ramp rate of 3 °C/s"
 checkq "quiz ramp 3C/s bare"   1 "ramp rate 3 °C/s"
+
+# D9-D12: profile limits, J-STD-005 tails, SnPb Tc, degree symbols.
+check "TAL denied to J020"   0 "window is process guidance rather than a J-STD-020 parameter"
+check "TAL 60-150 IPC7530"   0 "typically call for 60-150 s for many assemblies"
+check "TAL not-J020 explicit" 0 "This window is IPC-7530 and datasheet guidance, not a J-STD-020 parameter"
+check "TAL not-J020 phr2"    0 "come from IPC-7530 and the paste datasheet, not from J-STD-020"
+check "soak as TAL 60-120"   0 "typical guidance of 60-120 s: measured 75 s"
+check "soak as TAL phr2"     0 "gives typical guidance of 60-120 s above liquidus"
+check "SnPb Tc flat 220"     0 "classification temperature for SnPb eutectic is 220 C"
+check "SnPb Tc 235"          1 "235 °C for a package thinner than 2.5 mm"
+# Counted with node because the taught content and the TBD-REVIEW metadata must
+# be checked separately: review[] deliberately quotes the original draft verbatim,
+# so it still says "100 C" and must NOT be rewritten.
+checknode () { # <label> <expected> <node-expr over lessons.json>
+  local got
+  got=$( node -e "$3" )
+  if [ "$got" != "$2" ]; then echo "  !! $1: expected $2, found $got"; fail=1
+  else echo "  ok $1 ($got)"; fi
+}
+checknode "TAL is J020 tL"       4 'var L=require(process.cwd()+"/course-fix/work/data/lessons.json");var n=0;L.forEach(function(l){var s=JSON.stringify(l.content||{});["60-150 s time-above-liquidus window is J-STD-020 tL","classification window of 60-150 s","the J-STD-020 classification window."].forEach(function(k){n+=(s.split(k).length-1)})});console.log(n)'
+checknode "IPC7530 TAL 30-90"    7 'var L=require(process.cwd()+"/course-fix/work/data/lessons.json");var n=0;L.forEach(function(l){n+=(JSON.stringify(l.content||{}).split("30-90 s").length-1)});console.log(n)'
+checknode "bare N C in content"  0 'var L=require(process.cwd()+"/course-fix/work/data/lessons.json");var n=0;L.forEach(function(l){var s=JSON.stringify(l.content||{});var re=/(\\d+(?:\\.\\d+)?) C(?![a-zA-Z°])(?=\\s*[^\\s0-9,.\\-]|$)/g,m;while((m=re.exec(s)))n++});console.log(n)'
 
 [ "$fail" = 0 ] && echo "rebuild-work: OK" || { echo "rebuild-work: FAILED"; exit 1; }

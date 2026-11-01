@@ -532,3 +532,127 @@ ANSI/ESD S20.20 are pointers or already-verified facts, and check out:
 - **ANSI/ESD S20.20** — programme, EPA and grounding claims are correct, and
   S20.20 ↔ IEC 61340-5-1 equivalence was verified from ESDA's own chart in
   round 11.
+
+---
+
+# Round 12 — the tail of Part B, and defects D9 to D12
+
+The remaining 28 distinct assertions cover J-STD-004/005, IPC-A-600, IPC-CC-830,
+IPC-TM-650, IPC-7530B, ISO 2859-1, IPC-7721, IPC-2221/2222, ISO 9001 and the
+ANSI/ESD test methods. Four of them were wrong.
+
+## J-STD-020 classification profile — the numbers were right, the attribution was not
+
+Primary text: J-STD-020E from `ez.analog.com`, plus the classification-profile
+table reproduced verbatim in the Abracon, Texas Instruments and Microchip
+handling notes. Both alloy families share one profile:
+
+| Parameter | SnPb | Pb-free |
+|---|---|---|
+| T_smin → T_smax | 100 → 150 °C | 150 → 200 °C |
+| **t_s (soak)** | **60–120 s** | 60–120 s |
+| ramp-up (T_smax → T_P) | 3 °C/s max | 3 °C/s max |
+| T_L | 183 °C | 217 °C |
+| **t_L (time at liquidus)** | **60–150 s** | 60–150 s |
+| t_p (within 5 °C of T_c) | 20 s | 30 s |
+| ramp-down | 6 °C/s max | 6 °C/s max |
+| 25 °C → peak | 6 min max | 8 min max |
+
+**Defect D10 — the time-above-liquidus window was denied to J-STD-020.** Three
+lessons said the window is "process guidance rather than a J-STD-020 parameter"
+and attributed 60–150 s to IPC-7530. It is the other way round: 60–150 s *is*
+J-STD-020's t_L, and IPC-7530's typical guidance is narrower, at 30–90 s. The
+error produced no wrong number — 75 s and 85 s pass under either window — but a
+wrong mental model: a reader learns that J-STD-020 says nothing about time above
+liquidus, when t_L is one of its central classification parameters.
+
+**The same root cause, second half.** `m06l05` said "IPC-7530B gives typical
+guidance of 60-120 s above liquidus". 60–120 s is t_s, the *soak*. Both figures
+are genuine J-STD-020 numbers; they were attached to the wrong parameter and to
+the wrong document. Corrected in both places, with all conclusions unchanged.
+
+**IPC-7530 typical guidance (verified).** The AIM Solder reflow profile
+supplement reproduces the IPC/JEDEC table: "Time Above Liquidus (TAL) 30-90
+sec.", soak zone 150–200 °C, "Ramp Up Rate < 3 °C/sec" with 1–3 °C/sec as the
+recommended starting point. The round-10 caveat stands: the IPC-7530A draft
+notes component suppliers often recommend a more conservative 2–4 °C/s, so
+1–3 °C/s is a process window, not a component-safe limit.
+
+## Defect D11 — the SnPb classification temperature was given as a flat 220 °C
+
+`m06l05 theory[2]` stated "the J-STD-020 classification temperature for SnPb
+eutectic is 220 C". J-STD-020E Table 4-1 is two-dimensional:
+
+| Package thickness | Volume < 350 mm³ | Volume ≥ 350 mm³ |
+|---|---|---|
+| < 2.5 mm | **235 °C** | 220 °C |
+| ≥ 2.5 mm | 220 °C | 220 °C |
+
+A thin small package is classified at 235 °C. A reader building an SnPb profile
+from the flat figure under-peaks small parts. Confirmed from the primary text and
+from the same table in the TI, Microchip and Abracon notes.
+
+## Defect D9 — J-STD-005 Type 3 tail limits
+
+The quiz `q-m01l05-02` stated Type 3 as "80 % between 25 and 45 µm, no more than
+10 % below 25 µm, no more than 10 % above 45 µm". The table (J-STD-005 Table 3-2,
+reproduced verbatim by the AIM Solder test report, and independently by PCBSync
+and Wikipedia) is:
+
+| none larger than | < 1 % larger than | 80 % min between | 10 % max smaller than |
+|---|---|---|---|
+| 50 µm | 45 µm | 25–45 µm | 20 µm |
+
+Both tails were wrong: the fine bound is 20 µm, not 25 µm, and the coarse bound
+is 1 %, not 10 %. Some older renderings of the table (the SMTA "Size Matters"
+paper, Leuze) show a different layout — 0.5 % above 60 µm, 10 % max below 25 µm
+— which is almost certainly where the quiz figure came from: a conflation of two
+revisions.
+
+The worked example was rebuilt on the corrected limits. The certificate now
+reports 99.5 % passing the 45 µm sieve, which keeps every limit consistent — the
+old 95 % would have failed the <1 % coarse tail while the quiz still said
+"accept". The minimum-overlap arithmetic is unchanged in kind: 99.5 + 95 − 100
+= 94.5 % ≥ 80 %.
+
+**The round-11 verdict on this fact was itself wrong** and has been corrected:
+it read the 80 % in-band figure as the whole table and declared the quiz claim
+identical.
+
+## Defect D12 — temperatures printed without the degree sign
+
+Seven lessons wrote temperatures as "183 C". 17 strings corrected. The trap is
+inline SVG path data, where a cubic Bézier command "C160,240" follows a
+coordinate — a naive `sed 's/ C/ °C/'` would have corrupted every path. The fix
+walks only text fields, skips `svg`/`figure`/`src` keys outright, and matches a
+digit-run, a space, "C", then a letter, "/" or end-of-string — never a digit,
+comma, minus or period. Verified after the fact: all 25 SVG paths byte-identical
+to before, all 15 figure blocks intact, 285 temperatures now carrying °C.
+
+The TBD-REVIEW `review` strings were deliberately **not** touched: they quote
+the original draft verbatim, so they still say "100 C". Rewriting them would
+falsify the audit record.
+
+## Verified as correct in this tranche
+
+- **J-STD-004 flux classification** — by residue type and activity; low activity
+  for fresh finishes, higher for oxidised or high-thermal-mass joints.
+- **IPC-A-600 attributions** — all now correct after D7: conductor width
+  reduction §3.5.3.1, annular ring §2.10.3, laminate damage judged on the
+  restored condition.
+- **IPC-CC-830 coating thicknesses** — 1–25 µm (parylene), 25–75 µm, 25–100 µm,
+  25–130 µm, 50–150 µm, all hedged to the coating datasheet.
+- **IPC-TM-650 methods** — 2.3.25 ROSE, 2.3.28 ion chromatography. The unit
+  conversion checks: 1.56 µg/cm² = 10.06 µg/in².
+- **ISO 2859-1** — code letters and the 1201–3200 → K (n = 125) mapping, verified
+  in round 11.
+- **ANSI/ESD test methods** — S1.1 wrist straps, S4.1 worksurfaces, S541
+  packaging, STM11.11 surface resistance, STM3.1 ionisation, STM97.1/97.2
+  footwear and flooring. All verified in round 11 against the ESDA chart.
+- **IPC-2221 / IPC-2222, IPC-4101, UL 94, J-STD-002, ISO 9001 clause 8.4,
+  IATF 16949, ANSI/AS9100** — all correct as stated.
+
+**Part A is now 28 verified, 2 flagged, 0 blank.** The two flagged facts are
+both J-STD-033 bake and stay open until the remaining bake text has had the same
+line-by-line read against the corrected tables. Every Part B claim has now been
+adjudicated.

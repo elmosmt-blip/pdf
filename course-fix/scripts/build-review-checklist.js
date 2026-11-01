@@ -73,13 +73,13 @@ var RECURRING = [
   },
   {
     fact: 'J-STD-020 classification temperature by package size',
-    assert: '260 °C small, 250 °C large, 245 °C very large',
+    assert: 'thickness × volume table: <1.6 mm → 260 °C at every volume; 1.6-2.5 mm → 260/250/245; >2.5 mm → 250/245/245 °C',
     verify: 'J-STD-020 classification temperature tables',
     re: /classification temperature/i
   },
   {
     fact: 'J-STD-020 tp — time within 5 °C of classification temperature',
-    assert: 'max 30 s for large/very large, 40 s for small',
+    assert: 'tp = 30 s on the Pb-free profile, 20 s for SnPb',
     verify: 'J-STD-020 reflow profile requirements',
     re: /\btp\b|time within 5/i
   },
@@ -91,13 +91,13 @@ var RECURRING = [
   },
   {
     fact: 'J-STD-033 bake at 125 °C by thickness',
-    assert: '8 h ≤1.4 mm, 18 h >1.4-2.0 mm, 48 h >2.0-4.5 mm',
+    assert: 'Table 4-1 indexed by thickness AND MSL level, split by floor life exceeded >72 h / ≤72 h: ≤1.4 mm at 125 °C → MSL 2 5 h / 3 h rising to MSL 5a 16 h / 10 h; 1.4-2.0 mm 18→48 h; 2.0-4.5 mm 48 h',
     verify: 'J-STD-033 Table 4-1 (user bake, clock resets to t=0)',
     re: /125\s*°?\s*C/i
   },
   {
     fact: 'J-STD-033 bake at 90 °C and 40 °C',
-    assert: '90 °C: 25-30 h / 48 h / 96-192 h;  40 °C: 8-12 days / 11+ days / 38+ days',
+    assert: '≤1.4 mm at 90 °C → 17/11 h (MSL 2) to 54/24 h (MSL 5a); at 40 °C → 8/5 days to 22/10 days; 1.4-2.0 mm at 40 °C 25→79 days; 2.0-4.5 mm 48 h at 125 °C / 79 days at 40 °C',
     verify: 'J-STD-033 Table 4-1',
     re: /90\s*°?\s*C|40\s*°?\s*C/i
   },
@@ -170,9 +170,33 @@ var RECURRING = [
   },
   {
     fact: 'J-STD-004/005 solder powder Type 3',
-    assert: '25-45 µm, ≥80 % between sieves, <10 % below 25 µm, <10 % in 45-60 µm, <0.5 % above 60 µm',
-    verify: 'J-STD-005 powder size distribution tables',
+    assert: '25-45 µm, ≥80 % between sieves, <10 % below 20 µm, <1 % above 45 µm, none larger than 50 µm',
+    verify: 'J-STD-005 powder size distribution table (Table 3-2)',
     re: /Type 3|25\s*[-\u2013]\s*45/i
+  },
+  {
+    fact: 'J-STD-020 tL — time above liquidus',
+    assert: 'tL = 60-150 s on both the SnPb and Pb-free classification profile',
+    verify: 'J-STD-020 classification reflow profile table',
+    re: /time[- ]above[- ]liquidus|above liquidus of 60|tL/i
+  },
+  {
+    fact: 'J-STD-020 ts — soak time on the classification profile',
+    assert: 'ts = 60-120 s from Tsmin to Tsmax; this is the soak, not the time above liquidus',
+    verify: 'J-STD-020 classification reflow profile table',
+    re: /60-120 s|soak/i
+  },
+  {
+    fact: 'IPC-7530 typical time-above-liquidus guidance',
+    assert: '30-90 s above liquidus, ramp 1-3 °C/s, soak 150-200 °C for 60-120 s',
+    verify: 'IPC-7530 profile guidance / AIM IPC-JEDEC profile supplement',
+    re: /IPC-7530/i
+  },
+  {
+    fact: 'J-STD-020 SnPb eutectic classification temperature',
+    assert: '235 °C for thickness < 2.5 mm and volume < 350 mm³; 220 °C for every other case',
+    verify: 'J-STD-020E Table 4-1',
+    re: /SnPb eutectic|tin-lead|Sn-Pb/i
   },
   {
     fact: 'Wave flux deposition on a solids basis',
@@ -361,7 +385,11 @@ function main() {
     "IPC-A-610 minimum vertical barrel fill": "ok",
     "J-STD-033 bake at 90 °C and 40 °C": "conflict",
     "J-STD-033 bake at 125 °C by thickness": "conflict",
-    "IPC-A-610 documented hole-fill exception": "ok"
+    "IPC-A-610 documented hole-fill exception": "ok",
+    "J-STD-020 tL — time above liquidus": "ok",
+    "J-STD-020 ts — soak time on the classification profile": "ok",
+    "IPC-7530 typical time-above-liquidus guidance": "ok",
+    "J-STD-020 SnPb eutectic classification temperature": "ok"
   };
   var VERDICT_NOTE = {
     "IPC-7525 edition": "RESOLVED in round 10. The current revision is IPC-7525C (November 2021); IPC-7525D does not exist, IPC-7525B (10/2011) is superseded, and src-004 said Rev A. 19 edition references corrected, src-004 Rev A to Rev C. The course’s own TBD-REVIEW marker had asked for exactly this check.",
@@ -382,14 +410,17 @@ function main() {
     "ISO 2859-1 code letter to sample size": "VERIFIED (round 11). A 2, B 3, C 5, D 8, E 13, F 20, G 32, H 50, J 80, K 125, L 200, M 315, N 500, P 800, Q 1250, R 2000 (S 3150). Matches the course exactly; confirmed against a hosted copy of ISO 2859-1 itself and three independent reproductions.",
     "ISO 2859-1 lot-size to code letter by inspection level": "VERIFIED (round 11) for general inspection level II: 501–1200 → J (80), 1201–3200 → K (125), 3201–10000 → L (200). The course’s middle value of each triple is level II, which is the level used in the m01l03 sampling lesson fixed in W17.",
     "ISO 2859-1 single-sampling Ac/Re at AQL 1.0 %": "VERIFIED (round 11). K (n=125) → Ac 3, Re 4; L (n=200) → Ac 5, Re 6; J (n=80) → Ac 2, Re 3; H (n=50) → Ac 1, Re 2. Three independent reproductions of ISO 2859-1 Table II-A agree. This is the table behind the W17 correction of m01l03.",
-    "J-STD-004/005 solder powder Type 3": "VERIFIED (round 11) against J-STD-005A, reproduced verbatim by AIM and by the Journal of Welding and Joining: <0.5 % larger than 60 µm, <10 % in the 45–60 µm band, ≥80 % between 25–45 µm, <10 % smaller than 25 µm. That is exactly the course’s claim. Note the original J-STD-005 (January 1995) Table 2A gave different limits — none larger than 50 µm, 80 % between 45–25 µm, 10 % max below 20 µm — so the course is right only for revision A and later.",
+    "J-STD-004/005 solder powder Type 3": "THE COURSE WAS WRONG — CORRECTED in round 12 (defect D9). The round-11 verdict recorded here was itself wrong: it read the 80 % in-band figure as the whole table and declared the quiz claim identical. J-STD-005 Type 3 is: none larger than 50 µm, less than 1 % larger than 45 µm, ≥80 % between 25–45 µm, 10 % maximum smaller than 20 µm. The quiz said “no more than 10 % below 25 µm and no more than 10 % above 45 µm” — wrong on both tails. The fine-tail bound is 20 µm, not 25 µm, and the coarse-tail bound is 1 %, not 10 %. Confirmed by the AIM Solder test report, which reproduces the standard’s own Table 3-2 header and Type 3 row verbatim, and independently by PCBSync and Wikipedia. Some older renderings of the table (the SMTA “Size Matters” paper, Leuze) show a different layout with 0.5 % above 60 µm and 10 % max below 25 µm, which is almost certainly where the quiz figure came from — a conflation of two revisions. The worked example was rebuilt on the corrected limits: the certificate now reports 99.5 % passing the 45 µm sieve, which keeps every limit consistent, and the minimum-overlap arithmetic is unchanged in kind.",
     "Wave flux deposition on a solids basis": "VERIFIED (round 11). AIM wave-solder profile supplement: \"Flux deposition of 500-1500 micrograms of flux per square inch is typical\", and the dry-method note \"Anything remaining on the board will represent a deposit of only flux solids\" — so the range is a solids basis, as the course states. The unit conversion also checks: 500–1500 µg/in² = 77.5–232.5 µg/cm² = 0.775–2.325 g/m², i.e. the course’s 0.78–2.33 g/m².",
     "Preheat ramp rate for wave and selective": "VERIFIED (round 11). AIM profile supplement, citing IPC/JEDEC: \"Top Side Ramp Up Rate — < 3 °C/Sec (general), 1 - 3 °C/Sec (tin-lead), 1 - 3 °C/Sec (lead-free)\". Caveat: the IPC-7530A industry draft notes component suppliers often recommend a more conservative 2–4 °C/s to avoid thermal shock, so 1–3 °C/s is the process window, not a component-safe limit.",
     "IPC rework document numbers": "VERIFIED (round 11). IPC-7711 = Rework of Electronic Assemblies; IPC-7721 = Repair and Modification of Printed Boards and Electronic Assemblies; published together as IPC-7711/7721. The numbers are correct. The earlier draft’s \"IPC-7711/7712\" was indeed wrong — 7712 does not cover this subject.",
     "IPC-CC-830 conformal coating type designations": "THE COURSE WAS WRONG — CORRECTED in round 11. The m12l01 table gave \"Polyurethane (ER)\" and \"Parylene (DR)\". IPC-CC-830C §1.3.1 lists Type AR acrylic, Type ER EPOXY, Type SR silicone, Type UR POLYURETHANE, Type XY PARAXYLYLENE (parylene), Type UT ultra-thin, Type SC styrene block co-polymer. ER is epoxy, not polyurethane, and there is no DR at all. Confirmed from two independent renderings of the standard. Consequence: a reader specifying \"ER\" for a polyurethane coating orders an epoxy, and \"DR\" orders nothing. Two cells corrected.",
     "IPC-6012 bow and twist limit": "VERIFIED (round 11). Eurocircuits quotes IPC-6012 directly: \"maximum bow and twist of 0.75% for printed boards that use surface mount components and 1.5% for all other printed boards\". IPC-A-600 §2.11 carries the same split, measured per IPC-TM-650 2.4.22. Agreed by four independent sources.",
     "Cleanliness ionic limit": "VERIFIED (round 11). 1.56 µg NaCl equivalent/cm² tested per IPC-TM-650 2.3.25, and the clause is named exactly as the course names it: \"Per IPC-6012E §3.9.1, ionic contamination must not exceed 1.56 µg/cm² NaCl equivalent for Class 2/3 bare boards\". Useful cross-check the course could carry: 1.56 µg/cm² = 10.06 µg/in². IPC-5704 lists the same 1.56 total ionic figure with per-ion limits of chloride 0.25, bromide 0.25, sulfate 0.50, weak organic acids 1.0.",
-    "ESD programme and test-method standards": "VERIFIED (round 11) from the ESD Association’s own IEC-equivalency chart: \"ANSI/ESD STM3.1 | IEC 61340-4-7 | Ionization\" and \"ANSI/ESD STM97.1 & ANSI/ESD STM97.2 | IEC 61340-4-5 | Footwear and Flooring Systems\". The ESDA endorsed-standards page confirms STM97.1-2015 and STM97.2-2016 are each technically equivalent to IEC 61340-4-5. This also confirms the earlier draft’s error: no STM97.7 or 97.8 covers ionization. ANSI/ESD S20.20 is the programme standard, technically equivalent to IEC 61340-5-1."
+    "J-STD-020 tL — time above liquidus": "THE COURSE HAD IT BACKWARDS — CORRECTED in round 12 (defect D10). Three lessons stated that the time-above-liquidus window is “process guidance rather than a J-STD-020 parameter” and attributed 60-150 s to IPC-7530. It is the opposite: 60-150 s is J-STD-020’s tL, the time at liquidus on the classification profile, and it applies to both alloy families. Confirmed from the primary J-STD-020E text (ez.analog.com) and from the classification-profile table reproduced verbatim in the Abracon, Texas Instruments and Microchip handling notes. IPC-7530’s typical guidance is 30-90 s, narrower than the component classification. The consequence of the error is not a wrong number but a wrong mental model: a reader is taught that J-STD-020 places no requirement on time above liquidus at all, when tL is one of its central classification parameters.",
+    "J-STD-020 ts — soak time on the classification profile": "THE COURSE CONFUSED IT WITH tL — CORRECTED in round 12 (defect D10). m06l05 theory[4] and its worked example stated “IPC-7530B gives typical guidance of 60-120 s above liquidus”. 60-120 s is ts, the time from Tsmin to Tsmax on the J-STD-020 classification profile — the soak. The time above liquidus on that profile is tL = 60-150 s, and IPC-7530’s typical process window is 30-90 s. Both the 60-120 s and the 60-150 s figures are correct J-STD-020 numbers; the defect was attaching them to the wrong parameter and to the wrong document. All conclusions in both lessons are unchanged: 75 s and 85 s sit inside every window quoted.",
+    "IPC-7530 typical time-above-liquidus guidance": "VERIFIED (round 12). The AIM Solder reflow profile supplement reproduces the IPC/JEDEC profile table: “Time Above Liquidus (TAL) 30-90 sec.”, soak zone 150-200 °C, ramp up rate < 3 °C/sec with 1-3 °C/sec as the recommended starting point. PCBSync and several assembler references give 45-90 s or 60-90 s as typical, so the honest statement is that IPC-7530’s window is narrower than the component classification and that the paste datasheet is the authority for a given board. The round-10 caveat still stands: the IPC-7530A draft notes component suppliers often recommend a more conservative 2-4 °C/s to avoid thermal shock, so 1-3 °C/s is a process window, not a component-safe limit.",
+    "J-STD-020 SnPb eutectic classification temperature": "THE COURSE WAS WRONG — CORRECTED in round 12 (defect D11). m06l05 theory[2] stated “the J-STD-020 classification temperature for SnPb eutectic is 220 C” as a single figure. J-STD-020E Table 4-1 is two-dimensional: 235 °C for package thickness below 2.5 mm and volume below 350 mm³, and 220 °C for the <2.5 mm / ≥350 mm³ cell and for every ≥2.5 mm cell. So a thin small package is classified at 235 °C, not 220 °C, and a reader building an SnPb profile from the flat figure would under-peak small parts. Confirmed from the primary J-STD-020E text and from the same table reproduced in the Texas Instruments, Microchip and Abracon handling notes.",    "ESD programme and test-method standards": "VERIFIED (round 11) from the ESD Association’s own IEC-equivalency chart: \"ANSI/ESD STM3.1 | IEC 61340-4-7 | Ionization\" and \"ANSI/ESD STM97.1 & ANSI/ESD STM97.2 | IEC 61340-4-5 | Footwear and Flooring Systems\". The ESDA endorsed-standards page confirms STM97.1-2015 and STM97.2-2016 are each technically equivalent to IEC 61340-4-5. This also confirms the earlier draft’s error: no STM97.7 or 97.8 covers ionization. ANSI/ESD S20.20 is the programme standard, technically equivalent to IEC 61340-5-1."
   };
   RECURRING.forEach(function (f) {
     f.verdict = VERDICT[f.fact] || 'open';

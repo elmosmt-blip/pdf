@@ -1434,11 +1434,11 @@
       "K1",
       "K9"
     ],
-    "prompt": "IPC J-STD-005 Type 3 powder requires 80% of the powder to be between 25 and 45 µm, with no more than 10% below 25 µm and no more than 10% above 45 µm. A certificate reports that 95% passes the 45 µm sieve and 95% is retained on the 25 µm sieve. Using the lesson formula for minimum overlap, what is the minimum percentage within 25-45 µm and the appropriate disposition?",
+    "prompt": "IPC J-STD-005 Type 3 powder requires 80% of the powder to be between 25 and 45 µm, with no more than 10% below 20 µm and less than 1% above 45 µm. A certificate reports that 99.5% passes the 45 µm sieve and 95% is retained on the 25 µm sieve. Using the lesson formula for minimum overlap, what is the minimum percentage within 25-45 µm and the appropriate disposition?",
     "options": [
       {
         "id": "a",
-        "text": "90%; accept because the certificate proves at least 90% in range, which meets the 80% requirement."
+        "text": "94.5%; accept because the certificate proves at least 94.5% in range, which meets the 80% requirement."
       },
       {
         "id": "b",
@@ -1446,15 +1446,15 @@
       },
       {
         "id": "c",
-        "text": "100%; accept because all powder is either retained on the 25 µm sieve or passes the 45 µm sieve."
+        "text": "99.5%; accept because the two sieve results are additive."
       },
       {
         "id": "d",
-        "text": "90%; reject because any excursion below 100% is automatically reject."
+        "text": "94.5%; reject because any excursion below 100% is automatically reject."
       }
     ],
     "correct": "a",
-    "explanation": "The minimum overlap is 95% + 95% − 100% = 90%, so the certificate proves at least 90% of the powder is within 25-45 µm. Because J-STD-005 Type 3 requires 80% minimum in range, the lot is accepted on this evidence. Option b applies the requirement as if it were the measured overlap, option c assumes no outside-size powder, and option d invents a 100% requirement that the standard does not contain.",
+    "explanation": "The minimum overlap is 99.5% + 95% − 100% = 94.5%, so the certificate proves at least 94.5% of the powder is within 25-45 µm. Because J-STD-005 Type 3 requires 80% minimum in range, the lot meets the in-band requirement. The tail limits are met as well: at most 0.5% is above 45 µm against the less-than-1% limit, and at most 5% is below 25 µm, which bounds the below-20 µm fraction at 5% against the 10% limit. Option b applies the requirement as if it were the measured overlap, option c adds the two sieve results instead of taking their minimum overlap, and option d invents a 100% requirement that the standard does not contain.",
     "source": ""
   },
   {
