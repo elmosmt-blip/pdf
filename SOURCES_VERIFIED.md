@@ -656,3 +656,110 @@ falsify the audit record.
 both J-STD-033 bake and stay open until the remaining bake text has had the same
 line-by-line read against the corrected tables. Every Part B claim has now been
 adjudicated.
+
+---
+
+# Round 17 — the bake table closes, ANSI/ESD S4.1 retires, the markers come down
+
+Round 17 closed Part A to **30 verified, 0 flagged, 0 blank** and took the
+draft markers off all 92 lessons. It also found three defects, one of which is
+in no standard at all.
+
+## The bake table — all 20 claims reconciled (D13)
+
+The last two flagged facts were both J-STD-033 bake. The primary text was read
+in full (surfacemountprocess.com for Table 4-1, cross-checked against
+J-STD-033D at ampnuts.ru and the JEDEC original at gndzero.com), and every
+bake claim in the course was walked against it.
+
+**The course's own figures were right; the two quiz prompts were not, and they
+came from a collapsed secondary table.** PCBSync's J-STD-033 page flattens
+thickness × MSL × exceedance size into a single row and drops the MSL dimension
+— "2.0-4.5 mm · 2-5a · 48 hrs · 192 hrs · 38 days". It was flagged as a suspect
+source in round 11; it is now a **confirmed defect source**, and it is the origin
+of the course's "192 h", "38 days" and "8 h" errors. Grade it below reseller
+listings, which at least reproduce revision history faithfully.
+
+Corrected against Table 4-1:
+
+| Quiz | Was | Now |
+|:--|:--|:--|
+| `q-m02l04-02` | 90 °C gives 192 h for 2.0–4.5 mm | **10 days = 240 h** |
+| `q-m02l04-02` | time "indexed to thickness, not MSL" | indexed to thickness **and** MSL **and** exceedance size |
+| `q-m02l06-02` | 125 °C gives 8 h / 18 h / 48 h | MSL 3, ≤72 h column: **7 / 17 / 48 h** |
+| `q-m02l06-02` | 40 °C long bake "about 9–38 days" | **8–22 d** (≤1.4 mm), **25–79 d** (1.4–2.0 mm) |
+
+Also corrected: the course claimed a long 90 °C bake needs supplier approval.
+The 96 h cumulative bake limit applies only **above** 90 °C; at 90 °C or below
+there is no limit.
+
+**Table 4-1 (user bake) as now carried by the course** — ≤1.4 mm at 125 °C:
+MSL 2 = 5 h (>72 h) / 3 h (≤72 h); 2a = 7/5; 3 = 9/7; 4 = 11/7; 5 = 12/7;
+5a = 16/10 h. At 90 °C: 17/11, 23/13, 33/23, 37/23, 41/24, 54/24 h. At 40 °C:
+8/5, 9/7, 13/9, 15/9, 17/10, 22/10 days. Thicker bands: 1.4–2.0 mm 125 °C
+18→48 h, 40 °C 25→79 d; 2.0–4.5 mm 48 h / 79 d. Table 4-2 supplier values are
+named explicitly as **not** a user rebake recipe.
+
+## ANSI/ESD S4.1 is superseded (D14)
+
+The course cited **ANSI/ESD S4.1** for static dissipative mats. It was
+superseded by **ANSI/ESD STM4.1-2017**; `m02l05`, the registry title and the
+edition are corrected. This confirms ESDA's own document-status pages, which
+also gave: S20.20-2021, S1.1-2021, S6.1-2019, STM11.11-2022, S541-2019,
+IEC 61340-5-1:2024 (ed. 3.0). There is **no** STM97.7/97.8 for ionisation.
+
+All 39 sources now carry an `edition`, from publisher status pages, standard
+front matter and reseller listings. IPC editions recovered this round:
+IPC-2221 Rev C 12/23; IPC-2222 Rev B 10/20; IPC-4101 Rev E WAM1 4/22;
+IPC-6012 Rev F 9/23; IPC-A-600 Rev M 5/25; IPC-7095 Rev E 9/24; IPC-7526 Rev A
+3/22; IPC-7530 Rev B 1/25; IPC-7711C/7721C Jan 2017; IPC-7351 Rev B 6/10 (no
+longer maintained). Where sources disagree, the disagreement is recorded rather
+than resolved by preference.
+
+## Provenance is split honestly
+
+Every source now carries `section`, `verifiedBy` and `verifiedOn`. `verifiedBy`
+is one of two tokens and nothing else:
+
+- **READ** — the primary text was actually read and the clause content checked.
+- **SCOPE** — the designation and its revision were confirmed; the clause text
+  was not read.
+
+The split exists because conflating the two is how a source list becomes a
+false audit record. `verifiedBy` never carries a human name.
+
+## D15 — a schema violation no gate could see
+
+m07l06 stores seven of its eight theory sections as bare strings. `theoryHtml()`
+reads only `t.h`, `t.blocks` and `t.p`, all `undefined` on a string, so the
+entries vanish silently: no error, no warning, `check-course.js` passes, and the
+page renders 4,318 characters short — the drill's own classification vocabulary,
+per-stage inspection method and disposition record format. Fixed in both the
+data and the renderer.
+
+The general lesson: **a check that walks the JSON cannot see content the
+renderer never reads.** `per-lesson-audit.js` now renders all 92 lessons through
+the real `app.js` and asserts on what a reader actually gets.
+
+## Verified as correct in this tranche
+
+- **All 20 J-STD-033 bake claims** reconcile with the primary Table 4-1 / 4-2 / 5-1.
+- **The 96 h cumulative bake limit** applies only above 90 °C — the course had
+  it as a general supplier-approval trigger.
+- **IPC-7525 / 7525C area-ratio arithmetic**, 0.66 and 1.5 figures (secondary
+  only; IPC-7525C Nov 2021 is current, 7525D does not exist).
+- **J-STD-001 cleanliness** — the course is ahead of published guidance: the
+  single 1.56 µg/cm² ROSE pass/fail was removed in Rev G Amendment 1 (2018) and
+  Rev H (2020) requires objective evidence. The 1.56 µg/cm² figure the course
+  also carries is **IPC-6012E §3.9.1 (bare board)**.
+- **IPC-6012 bow/twist** — 0.75 % for SMT boards, 1.5 % otherwise, per
+  IPC-TM-650 2.4.22. **Wave flux deposition** — 500–1500 µg/in² of flux solids
+  ≈ 0.78–2.33 g/m².
+- **ISO 2859-1:1999 (as amended 2011)** — Table I level II: 501–1200 → J(80),
+  1201–3200 → K(125), 3201–10000 → L(200). At AQL 1.0 %: K → Ac 3 / Re 4.
+- **All ANSI/ESD test-method designations** except S4.1, now retired.
+- **IPC-2221 / IPC-2222 as design frameworks**, IPC-4101, UL 94, J-STD-004 flux
+  classes, J-STD-002, ISO 9001 clause 8.4, IATF 16949, ANSI/AS9100.
+
+**Part A: 30 verified, 0 flagged, 0 blank. Part B complete.** Defects this
+round: D13 (bake quiz), D14 (ANSI/ESD S4.1), D15 (m07l06 theory shape).

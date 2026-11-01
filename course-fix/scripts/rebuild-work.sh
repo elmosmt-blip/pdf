@@ -59,9 +59,19 @@ node course-fix/scripts/apply-source-provenance.js  "$WORK/data"
 node course-fix/scripts/apply-source-editions.js    "$WORK/data"
 node course-fix/scripts/apply-marker-removal.js     "$WORK/data"
 
+# 3b. m07l06 stores 7 of its 8 theory sections as bare strings, which
+#     theoryHtml() silently drops — 4,318 characters of the drill itself.
+#     Fixes both the data and the renderer.
+node course-fix/scripts/apply-theory-string-fix.js  "$WORK"
+
 # 4. r4 predates the round-6 index.html fix, and the rebuild resurrects the
 #    Cloudflare Rocket Loader artefact every single time. Mandatory.
 node course-fix/scripts/apply-index-fix.js "$WORK"
+
+# 4b. r4 also ships the three shell-level draft markers that apply-marker-
+#     removal.js cannot reach, because they live in app.js and index.html
+#     rather than in the data. Mandatory.
+node course-fix/scripts/apply-review-banner-fix.js "$WORK"
 
 # 5. regenerate the derived artefacts
 node "$WORK/scripts/embed.js" "$WORK/data" "$WORK/assets/data-embed.js"
@@ -131,6 +141,19 @@ checknode "TBD-REVIEW anywhere"    0 'var d=process.cwd()+"/course-fix/work/data
 checknode "reviewed lessons"       92 'var L=require(process.cwd()+"/course-fix/work/data/lessons.json");console.log(L.filter(function(l){return l.status==="reviewed"}).length)'
 checknode "edition markers left"   0 'var S=require(process.cwd()+"/course-fix/work/data/sources.json");console.log(S.filter(function(s){return String(s.edition).indexOf("TBD-REVIEW")>=0}).length)'
 checknode "S4.1 superseded ref"    0 'var L=require(process.cwd()+"/course-fix/work/data/lessons.json");var n=0;L.forEach(function(l){var s=JSON.stringify(l.content||{});n+=s.split("ANSI/ESD S4.1").length-1});console.log(n)'
+# The shell-level markers live in app.js / index.html, not the data, so they
+# need their own greps. "Content not yet reviewed" and the footer draft line
+# are what a reader actually saw; the TBD-REVIEW greps catch the fallbacks.
+checknode "no draft banner"       0 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/assets/app.js","utf8")+fs.readFileSync(process.cwd()+"/course-fix/work/index.html","utf8");console.log(t.split("Content not yet reviewed").length-1)'
+checknode "no draft footer"       0 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/index.html","utf8");console.log(t.split("unreviewed draft content").length-1)'
+checknode "no shell TBD-REVIEW"   0 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/assets/app.js","utf8");console.log(t.split("TBD-REVIEW").length-1)'
+checknode "no draft stat label"   0 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/assets/app.js","utf8");console.log(t.split("draft content, human review pending").length-1)'
+checknode "verifiedBy fallback"   0 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/assets/app.js","utf8");console.log(t.split("verified by TBD-REVIEW").length-1)'
+# m07l06's theory shape. The data must be uniform objects, and the renderer
+# must handle a bare string rather than dropping it.
+checknode "m07l06 sections"       8 'var L=require(process.cwd()+"/course-fix/work/data/lessons.json");var l=L.filter(function(x){return x.lessonId==="m07l06"})[0];console.log(l.content.theory.length)'
+checknode "string theory left"    0 'var L=require(process.cwd()+"/course-fix/work/data/lessons.json");var n=0;L.forEach(function(l){(l.content.theory||[]).forEach(function(s){if(typeof s==="string")n++})});console.log(n)'
+checknode "theory renderer safe"  1 'var t=require("fs").readFileSync(process.cwd()+"/course-fix/work/assets/app.js","utf8");var q=String.fromCharCode(39);console.log(t.indexOf("typeof t === "+q+"string"+q)>=0?1:0)'
 checknode "STM4.1 in place"        1 'var L=require(process.cwd()+"/course-fix/work/data/lessons.json");var n=0;L.forEach(function(l){var s=JSON.stringify(l.content||{});n+=s.split("ANSI/ESD STM4.1").length-1});console.log(n)'
 
 # D9-D12: profile limits, J-STD-005 tails, SnPb Tc, degree symbols.
@@ -148,5 +171,10 @@ check "SnPb Tc 235"          1 "235 °C for a package thinner than 2.5 mm"
 checknode "TAL is J020 tL"       4 'var L=require(process.cwd()+"/course-fix/work/data/lessons.json");var n=0;L.forEach(function(l){var s=JSON.stringify(l.content||{});["60-150 s time-above-liquidus window is J-STD-020 tL","classification window of 60-150 s","the J-STD-020 classification window."].forEach(function(k){n+=(s.split(k).length-1)})});console.log(n)'
 checknode "IPC7530 TAL 30-90"    7 'var L=require(process.cwd()+"/course-fix/work/data/lessons.json");var n=0;L.forEach(function(l){n+=(JSON.stringify(l.content||{}).split("30-90 s").length-1)});console.log(n)'
 checknode "bare N C in content"  0 'var L=require(process.cwd()+"/course-fix/work/data/lessons.json");var n=0;L.forEach(function(l){var s=JSON.stringify(l.content||{});var re=/(\\d+(?:\\.\\d+)?) C(?![a-zA-Z°])(?=\\s*[^\\s0-9,.\\-]|$)/g,m;while((m=re.exec(s)))n++});console.log(n)'
+
+# 7. render every lesson through the real app.js and assert on what a reader
+#    actually gets. The JSON checks above cannot see content the renderer never
+#    reads, which is how m07l06 lost 4,318 characters (D15).
+node course-fix/scripts/per-lesson-audit.js "$WORK" course-fix/img | tail -3
 
 [ "$fail" = 0 ] && echo "rebuild-work: OK" || { echo "rebuild-work: FAILED"; exit 1; }

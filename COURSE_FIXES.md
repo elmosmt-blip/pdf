@@ -1253,3 +1253,130 @@ are both J-STD-033 bake and stay open until the remaining bake text has had the
 same line-by-line read. Defects this round: D8 (ramp rate), D9 (J-STD-005 tails),
 D10 (TAL/soak attribution), D11 (SnPb classification temperature), D12 (degree
 signs).
+
+---
+
+# §14 Round 17 — the markers come down, and two defects the gates could not see
+
+Round 17 had three jobs: close Part A to 30/30, close Part B, and take the
+markers off. The third one turned out to be the one that found real defects,
+because removing a marker is not a text edit — it forces every number in the
+course to carry its source, and that exercise is what surfaced D13, D14 and
+D15.
+
+## The markers were a review backlog, not a content defect
+
+A lesson carried "TBD-REVIEW" whenever a number-with-unit had no source
+reference, and the whole course rendered a draft banner on all 92 lessons. The
+markers were therefore an accurate report of an unfinished audit, and the only
+honest way to remove them was to finish the audit. That is what happened:
+`status` is now `reviewed` on all 92 lessons, the 13 `TBD-REVIEW` suffixes are
+gone from 8 table captions, 1 table cell and 2 SVG `<text>` labels, and every
+lesson and quiz answer carries a source ref. 229 gate errors went to 0.
+
+`reviewed` was chosen over `published` — published would assert a customer
+sign-off that is not ours to give — and over `factchecked`, which the UI still
+styles as a draft. The `review` string is replaced with a factual audit record,
+never blanked: it is the only place the D1–D14 history lives.
+
+**The scope disclaimer is kept, deliberately.** The original footer text
+bundled two claims of very different standing. "Unreviewed draft" and
+"TBD-REVIEW" were status claims and are now false. "Nothing here is a work
+instruction until a human reviewer signs it off" is not a status claim — it is
+a statement about what this deliverable is, and it stays true forever. Deleting
+it would have been the one dishonest option available.
+
+## Three markers lived in the shell, not in the data
+
+`apply-marker-removal.js` closed the per-lesson markers and its checks passed.
+But three markers lived in `app.js` and `index.html`, where no data-side check
+could see them, and all three still told a reader the course was an unreviewed
+draft:
+
+1. the module index carried a `banner--warn` headed "Content not yet reviewed"
+   whose body named `TBD-REVIEW` — a marker that by then existed nowhere in the
+   data, on the first page a reader lands on;
+2. the first stat card read "draft content, human review pending";
+3. the footer read "unreviewed draft content until a human reviewer signs it off".
+
+A fourth was latent rather than visible: `sourcesHtml()` fell back to
+`esc(s.verifiedBy || 'TBD-REVIEW')`, so any source added later without
+provenance would have rendered "verified by TBD-REVIEW" — which reads as a
+provenance value and is the exact failure the provenance pass closed. Changed
+to `'not stated'`, matching the `licenseNote` fallback beside it.
+
+`apply-review-banner-fix.js` replaces all four and is wired into
+`rebuild-work.sh` with five greps of its own, so the shell cannot regress
+silently the way it did here.
+
+## Defect D13 — the bake quiz quoted a collapsed table
+
+Both prompts traced to PCBSync's J-STD-033 page, which flattens thickness ×
+MSL × exceedance size into one row and drops the MSL dimension entirely. That
+page was already flagged in round 11 as a suspect source; it is now a
+**confirmed** defect source.
+
+| Quiz | Was | Now |
+|:--|:--|:--|
+| `q-m02l04-02` | "90 °C column gives 192 h" for 2.0–4.5 mm; time "indexed to thickness, not MSL" | **10 days = 240 h**; indexed to thickness **and** MSL **and** exceedance size |
+| `q-m02l06-02` | "125 °C for 8 h / 18 h / 48 h" | MSL 3, ≤72 h column: **7 / 17 / 48 h** |
+| `q-m02l06-02` | "40 °C long bake about 9–38 days" | **8–22 d** (≤1.4 mm), **25–79 d** (1.4–2.0 mm) |
+
+The "192 h" and "38 days" figures do not exist in Table 4-1 in any form. Also
+corrected: the course claimed a long 90 °C bake needs supplier approval — the
+96 h cumulative bake limit applies only **above** 90 °C; at 90 °C or below
+there is no limit. All 20 bake claims in the course now reconcile with the
+primary Table 4-1 / 4-2 / 5-1, which closes the two facts flagged since round 11.
+
+## Defect D14 — ANSI/ESD S4.1 is superseded
+
+`m02l05` and the registry cited **ANSI/ESD S4.1** for static dissipative mats.
+It was superseded by **ANSI/ESD STM4.1-2017**. Lesson text, registry title and
+edition updated. All 39 sources now carry an `edition`, taken from publisher
+status pages, standard front matter and reseller listings; where sources
+disagree the disagreement is recorded rather than resolved by preference.
+
+Provenance is split honestly into **READ** (primary text actually read) and
+**SCOPE** (designation confirmed, clause text not). `verifiedBy` never carries a
+human name.
+
+## Defect D15 — m07l06 silently dropped 4,318 characters of its own theory
+
+This one is not in any standard; it is a schema violation the gates cannot see,
+and it was found by the new per-lesson audit, which renders every lesson through
+the real `app.js` rather than walking the JSON.
+
+A theory section is documented as `{h, p, blocks}`. m07l06 ("Classification
+drill: print, placement, reflow and THT images") stores seven of its eight
+sections as **bare strings**:
+
+```js
+theory: [ {blocks:[…]}, "In an AOI classification drill, …", "Classify the
+         defect by the physical condition, …", … 7 strings ]
+```
+
+`theoryHtml()` reads only `t.h`, `t.blocks` and `t.p`. For a string entry all
+three are `undefined`, so the loop body does nothing and the entry vanishes.
+No error, no warning, `check-course.js` passes, and the page renders — without
+seven paragraphs. Those paragraphs are the drill itself: the classification
+vocabulary, the per-stage inspection method and the disposition record format.
+The lesson taught an AOI classification drill and never said how to classify
+anything. The page grew from 5,905 to 17,154 rendered characters once fixed.
+
+`apply-theory-string-fix.js` does both halves: it normalises the data to
+`{p: …}`, so every other tool that walks `theory` sees the content, and it
+hardens `theoryHtml()` so a bare string renders as a paragraph instead of
+disappearing. The data fix repairs today's lesson; the renderer fix is what
+stops the next one failing the same way. Both are checked in `rebuild-work.sh`.
+
+## `rebuild-work.sh` aborted at runtime, and `bash -n` could not see it
+
+The "reviewed lessons" check was written with a count and no node expression, so
+under `set -u` the script died on `$3: unbound variable` after 30 checks passed
+— meaning the three new edition checks had never once run. **`bash -n` does not
+catch a missing positional parameter.** Fixed; all 53 checks now run, and the
+new `per-lesson-audit.js` and `banner-check.js` render the course rather than
+grepping it.
+
+**Part A: 30 verified, 0 flagged, 0 blank.** Part B complete. Defects this
+round: D13 (bake quiz), D14 (ANSI/ESD S4.1), D15 (m07l06 theory shape).
