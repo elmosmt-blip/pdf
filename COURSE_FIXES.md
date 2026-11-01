@@ -933,3 +933,98 @@ null` — ровно как те, что были там изначально.
 баннер и футер на месте. `REVIEW_CHECKLIST.md` — это ворота, а не пропуск: 666
 галочек не отмечены, 571 претензия не сверена с текстом стандартов. Закрытие
 пробелов реестра делает список проверяемым, но не выполняет проверку.
+
+---
+
+# §7 Round 9 — registry gaps closed, claim extraction widened
+
+*(recorded in round 9; kept for continuity)*
+
+`apply-sources-fix.js` added 22 registry entries (17 → 39). Part B's
+hand-written patterns were replaced with 11 shape-based ones, growing it from
+549 claims / 25 standards to 571 / 41. An IPC-7525 edition conflict was found
+and raised to Part A fact 18 rather than resolved, on the grounds that picking a
+revision is a judgement about a document nobody had read.
+
+**That last judgement was wrong, and round 10 is the correction.**
+
+# §8 Round 10 — the standards were verifiable after all
+
+Round 9 concluded that the 571 claims could not be checked because IPC and JEDEC
+documents are paywalled. The user's response was that the material is freely
+available online if you look for it. **The user was right and the conclusion was
+wrong.** The documents are sold, but their content is reproduced in freely
+available primary and near-primary sources:
+
+| Source | What it gave |
+|---|---|
+| `electronics.org/TOC/IPC-7525B.pdf` | IPC-7525B front matter and §1.1.2 / §1.1.3 verbatim |
+| `akrometrix.com/.../JSTD020D-01.pdf` | J-STD-020D Tables 4-2 and 5-2 verbatim |
+| `ampnuts.ru/.../J-STD-033D.pdf` | J-STD-033D Table 4-1, §4.2.7.1, Table 5-1 |
+| `navsea.navy.mil`, `smtdryboxes.com`, `mcdry.cn`, `ez.analog.com` | J-STD-033 A/B.1 full text |
+| TI AN-2029, Würth Elektronik, TAI-TECH, TDK | J-STD-020E/F classification tables reproduced verbatim |
+| Accuristech document history | the IPC-7525 revision table |
+
+Two method notes. **Search for the document, not the fact**: queries naming the
+standard and the table surface hosted PDFs, queries naming the number surface
+SEO pages. And **secondary sources disagree** — one publisher stated the
+opposite conclusion in two different articles — so where they disagreed the fact
+was marked CONTRADICTED rather than settled by majority vote.
+
+## Defects found and fixed
+
+**D1 — the course cites IPC-7525D, which does not exist.** Current revision is
+**IPC-7525C (November 2021)**. `m03l02` and `m03l05` cited 7525D, `m03l06`
+cited 7525B, `src-004` said Rev A — three claims, none of them current. 19
+edition references corrected, `src-004` Rev A → Rev C. The course's own
+TBD-REVIEW marker had asked for exactly this check: *"0.66 (IPC-7525D
+recommended area ratio; verify current revision)"*.
+
+**D2 — J-STD-020 `tp` stated as 40 s.** No revision supports it. J-STD-020D
+Table 5-2 gives **30 s on the Pb-free profile and 20 s for SnPb**; J-STD-020E
+and F datasheets reproduce 20–30 s and <30 s. Corrected in 4 places.
+
+**D3 — J-STD-020 classification temperature presented as size-only.**
+*"260 small / 250 large / 245 very large"* is the **1.6–2.5 mm thickness row**.
+The table is thickness × volume: below 1.6 mm every volume is 260 °C, and above
+2.5 mm the limits fall to 250 °C small and 245 °C large and very large. A
+small-volume package thicker than 2.5 mm is limited to **250 °C, not 260 °C** —
+the course's rule would let it run 10 °C hot. Corrected in 5 places.
+
+## Verified — 8 of 26 Part A facts
+
+IPC-7525 area/aspect-ratio **definitions** verified verbatim from IPC-7525B
+§1.1.2/§1.1.3 (the 0.66 and 1.5 figures remain secondary-only); MSL 6 verbatim
+from J-STD-033 Table 5-1; cumulative bake 96 h from J-STD-033D §4.2.7.1 (A/B
+said 48 h — D relaxed it); tape-and-reel 40 °C cap; ramp-down 6 °C/s; plus D1,
+D2 and D3.
+
+## Left open — 3 facts flagged, not ticked
+
+**IPC-A-610 barrel fill** is contradicted: secondary sources split, one
+publisher contradicts itself across two articles, and the 50 % figure may belong
+to IPC-6012 rather than IPC-A-610. **J-STD-033 bake at 90/40 °C** does not match
+the J-STD-033B.1 Table 4-1 by an order of magnitude. **J-STD-033 bake at 125 °C
+by thickness** appears to conflate Table 4-1 (user bake) with Table 4-2
+(supplier bake, MET = 24 h) — the course's 8 h is from one table and its 18 h
+and 48 h from the other, and no revision contains that chain.
+
+`SOURCES_VERIFIED.md` carries the full evidence trail.
+
+## Repo hygiene
+
+The derived round bundles r2, r3, r8 and r9 were tracked in git — r8 and r9 are
+54 MB each and pushed GitHub past its recommended file size on every push. They
+are reproducible from `course-fix/scripts/` + `course-fix/data/` +
+`course-fix/img/` and already on Drive, so they are now untracked and ignored.
+r4 (11.9 MB) stays tracked: it is the rebuild seed that survives a sandbox
+reset. History is not rewritten — force-push is not allowed on this branch.
+
+## What was NOT done
+
+The draft markers were **not** removed. Round 10 raised verified Part A facts
+from 0 to 8 of 26 and closed 563 of 571 claims as *still* unverified; the
+remaining 18 recurring facts and the whole Part B claim list still need a
+primary source. Removing the markers would assert a review that has not
+happened. The three marker entries this pass actually resolved are annotated in
+place so a reviewer does not redo the work.
