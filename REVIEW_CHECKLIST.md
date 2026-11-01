@@ -34,7 +34,7 @@ instruction.
 | modules | 15 |
 | quiz questions | 185 |
 | standards cited | 40 |
-| distinct claim sentences | 577 |
+| distinct claim sentences | 584 |
 | recurring facts in Part A | 30 |
 | sources in the registry | 39 |
 
@@ -155,7 +155,7 @@ block (`.table` for tables, `.figure` for the SVG schematics), `calc.task` and
 `calc.solution` the worked example, `defect.*` the case study, `quiz[k].*` the
 questions and their explanations.
 
-### IPC-A-610 — 129 claims
+### IPC-A-610 — 136 claims
 
 Registry entry: `src-001` — IPC-A-610 Acceptability of Electronic Assemblies
 
@@ -221,6 +221,12 @@ Registry entry: `src-001` — IPC-A-610 Acceptability of Electronic Assemblies
 | m08l05 | `calc.task` | Compare the expected fill with IPC-A-610 minimum hole fill for the applicable class. | ☐ |
 | m08l05 | `calc.solution` | The 90% target is above the IPC-A-610 minimum vertical barrel fill of 75% that applies to both Class 2 and Class 3; a customer requirement for 100% fill is contractual and is not an IPC-A-610 class limit. | ☐ |
 | m08l05 | `defect.symptom` | X-ray or cross-section shows hole fill below the applicable IPC-A-610 minimum, with dull solder at the exit side and occasional open at the lead shoulder. | ☐ |
+| m08l05 | `quiz.q-m08l05-02.options[0].text` | 43.75%; it is the annular capacity, a geometric property of the hole and lead — it is not an inspection result and is not compared with the IPC-A-610 vertical fill minimum. | ☐ |
+| m08l05 | `quiz.q-m08l05-02.options[1].text` | 43.75%; it is the expected vertical barrel fill, so it must be compared with the IPC-A-610 75% minimum and the joint rejected. | ☐ |
+| m08l05 | `quiz.q-m08l05-02.options[2].text` | 56.25%; it is the expected vertical barrel fill, so it must be compared with the IPC-A-610 75% minimum and the joint rejected. | ☐ |
+| m08l05 | `quiz.q-m08l05-02.options[3].text` | 75.00%; it is the expected vertical barrel fill, so it meets the IPC-A-610 minimum and the joint is accepted. | ☐ |
+| m08l05 | `quiz.q-m08l05-02.explanation` | IPC-A-610 judges vertical barrel fill — fill height against board or barrel height — so the two are never compared. | ☐ |
+| m08l05 | `quiz.q-m08l05-02.explanation` | A 100% requirement is contractual, not an IPC-A-610 class limit. | ☐ |
 | m09l01 | `theory[6].p` | Use IPC-A-610 acceptance criteria for evaluation. | ☐ |
 | m09l02 | `theory[7].p` | IPC J-STD-001 and IPC-A-610 provide acceptance criteria for soldered assemblies; use them with your internal limits for flux residue and cleaning. | ☐ |
 | m09l03 | `theory[7].p` | Use IPC-A-610 acceptability criteria for the required product class, and document the flux type, flux density, preheat setpoints, wave height, conveyor speed, and wave temperature. | ☐ |
@@ -230,8 +236,9 @@ Registry entry: `src-001` — IPC-A-610 Acceptability of Electronic Assemblies
 | m09l06 | `theory[1].p` | Acceptance limits are defined in IPC-A-610; verify the applicable class and revision before judging a joint. | ☐ |
 | m09l06 | `theory[7].p` | Verify preheat ramp, dwell, and board bake requirements against your paste/equipment datasheet and the applicable IPC-A-610 acceptance criteria. | ☐ |
 | m09l06 | `calc.solution` | Compare with the acceptance limit in IPC-A-610 for the applicable class; if the limit is higher, the joint fails. | ☐ |
-| m09l06 | `quiz.q-m09l06-02.prompt` | If the hole diameter is twice the lead diameter and the required fill is the IPC-A-610 minimum of 75% of barrel height, what is the expected fill fraction and the disposition? | ☐ |
-| m09l06 | `quiz.q-m09l06-02.explanation` | Expected fill = 1 − (1/2)² = 1 − 0.25 = 0.75 = 75%, which meets the IPC-A-610 minimum vertical barrel fill of 75% for Class 2 and Class 3, so the disposition is accept when the other workmanship criteria are met. | ☐ |
+| m09l06 | `quiz.q-m09l06-02.prompt` | Using the lesson formula fill fraction = fill height / board thickness, and comparing with the IPC-A-610 minimum vertical barrel fill of 75%, what is the fill fraction and the disposition? | ☐ |
+| m09l06 | `quiz.q-m09l06-02.options[0].text` | 81.25%; accept, because the calculated vertical fill meets the IPC-A-610 minimum. | ☐ |
+| m09l06 | `quiz.q-m09l06-02.explanation` | Fill fraction is measured vertically: fill height divided by board thickness, so 1.3 mm / 1.6 mm = 0.8125 = 81.25%, which is above the 75% minimum vertical barrel fill that IPC-A-610 sets for both Class 2 and Class 3. | ☐ |
 | m09l06 | `quiz.q-m09l06-02.explanation` | IPC-A-610 does not set a 100% class limit; a 100% requirement is contractual. | ☐ |
 | m09l07 | `theory[8].p` | For first article, run the board, inspect the solder side against IPC-A-610 Class 2/3 acceptance, measure hole fill, and keep a solder-side image. | ☐ |
 | m10l01 | `theory[0].p` | IPC-A-610 acceptance classes should be agreed before the trial, because the same visual defect may be acceptable in one class and unacceptable in another. | ☐ |
@@ -1072,13 +1079,13 @@ not that the text is well written.
 | m08l02 | Hole and lead: diameters, tolerance stack-up, placement tolerance, percent fill | 3 | IPC-A-610 | reviewed | ☐ |
 | m08l03 | Insertion: seating, stand-off, polarity, clinch, insertion damage | 1 | IPC-A-610 | reviewed | ☐ |
 | m08l04 | Preparing the board for wave: carriers, pallets, masking, taping, orientation | 0 | — | reviewed | ☐ |
-| m08l05 | Calculation drill: clearance and expected fill for a real BOM subset | 7 | IPC-7351, IPC-A-610 | reviewed | ☐ |
+| m08l05 | Calculation drill: clearance and expected fill for a real BOM subset | 13 | IPC-7351, IPC-A-610 | reviewed | ☐ |
 | m09l01 | Wave architecture: flux, preheat, wave types (single/dual, lambda, micro-wave) | 2 | IPC-7530, IPC-A-610 | reviewed | ☐ |
 | m09l02 | Flux selection and application: solids, activity, amount, pattern, verification | 5 | IPC-A-610, J-STD-001, J-STD-004 | reviewed | ☐ |
 | m09l03 | Preheat: board top vs bottom temperature, flux activation, thermal limits | 5 | IPC-7530, IPC-A-610, J-STD-004 | reviewed | ☐ |
 | m09l04 | Contact time and fog height: dwell calculation, wave height vs board clearance | 2 | IPC-A-610 | reviewed | ☐ |
 | m09l05 | Shadowing and orientation: shading, pallets, board direction, lead geometry | 0 | — | reviewed | ☐ |
-| m09l06 | Wave defect atlas: bridging, balling, insufficient fill, bypass, lifted lead, blowholes | 6 | IPC-A-610 | reviewed | ☐ |
+| m09l06 | Wave defect atlas: bridging, balling, insufficient fill, bypass, lifted lead, blowholes | 7 | IPC-A-610 | reviewed | ☐ |
 | m09l07 | Wave process control: bath contamination, tin consumption, records, first article | 1 | IPC-A-610 | reviewed | ☐ |
 | m10l01 | Where selective beats wave: mixed assembly, heat-sensitive neighbours, throughput | 11 | IPC-7711, IPC-A-610, J-STD-001 | reviewed | ☐ |
 | m10l02 | Nozzle strategy: size and shape, flux-on-the-fly, dwell per joint, multi-pass | 0 | — | reviewed | ☐ |

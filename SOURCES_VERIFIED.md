@@ -763,3 +763,74 @@ the real `app.js` and asserts on what a reader actually gets.
 
 **Part A: 30 verified, 0 flagged, 0 blank. Part B complete.** Defects this
 round: D13 (bake quiz), D14 (ANSI/ESD S4.1), D15 (m07l06 theory shape).
+
+---
+
+# Round 18 — the per-lesson review
+
+Round 18 read all 92 lessons end to end: theory, worked calculation, defect case
+and both quiz questions of each. It found three defects, none of which is a
+citation error — all three are internal, which is the class the earlier rounds
+were least equipped to see.
+
+## D16 — two quizzes compared an area with a height
+
+`m09l06` teaches fill fraction = fill height / board thickness (1.1 mm / 1.6 mm
+= 68.75%). Its quiz attributed to that lesson a rule of thumb it never
+contains, `expected fill fraction = 1 − (lead diameter / hole diameter)²`, and
+with hole = 2 × lead got exactly 75% — then accepted the joint against the
+IPC-A-610 minimum of 75% of barrel height.
+
+The formula yields the annular **cross-sectional area** available to solder;
+IPC-A-610 judges **vertical** barrel fill. They are never compared. And the 75%
+is not physics: hole = 2 × lead was chosen because 1 − (1/2)² equals the
+acceptance limit exactly. A student following the quiz reads a geometric
+capacity as an inspection result.
+
+`q-m08l05-02` made the same claim against `m08l05`, whose lesson uses a third
+definition (90% of the annular volume). Both quizzes now use their lesson's own
+definition, and the area formula survives as an explicitly labelled capacity
+that is not compared with the limit. `m07l04`'s quiz was already correct, which
+is what confirmed the other two were outliers.
+
+## D17 — solidus read as liquidus
+
+`m06l03` computes the coolest-site margin as 238 − 219 = 19 °C and then states
+21 °C, which is 238 − 217, the margin above **solidus**. One sentence, one
+neighbouring parameter, same family as D16.
+
+## D18 — a drill that did not reproduce
+
+`m08l05` printed 1.02 and 0.31 and subtracted them to get 0.70. The stated value
+is the correctly rounded true difference (0.7037), but the printed arithmetic
+gives 0.71. Now carries 1.018 − 0.314 = 0.704.
+
+## The arithmetic checker, and why it is not naive
+
+`check-calc-arithmetic.js` verifies every worked solution. Two earlier versions
+were abandoned: the first matched two operands only and reported 83 defects out
+of 138 expressions; the second matched chains but ignored parentheses. The
+current version evaluates parenthesised groups inside out, handles ppm and
+percent scaling, and accepts a result rounded to the precision actually written.
+It reports 42 expressions, zero defects, and prints the surrounding text with
+every hit.
+
+## Verified as correct in this tranche
+
+Read end to end and found sound: all of module 01 (incoming inspection,
+documentation, sampling, component verification, paste receipt, bare PCB
+receipt, nonconforming material); modules 03–05 (stencil design, area and
+aspect ratio, SPI, printer setup, paste behaviour, placement); modules 07 and
+09–10 (X-ray, AOI metrics, wave architecture, flux, preheat, contact time,
+shadowing, selective soldering); modules 13–15 (test coverage, fault trees, 8D,
+PFMEA, design feedback).
+
+Spot-verified arithmetic that reconciles: the ISO 2859-1 code-letter table
+(501–1200 → J, 1201–3200 → K, 3201–10000 → L at level II); every stencil area
+ratio (0.40/0.48 = 0.83, 0.10/0.48 = 0.21, 3t/4t = 0.75); the SAC305 fault tree
+(0.01 × 0.02 OR 0.05 = 0.05019); the PFMEA RPN (8 × 2 × 3 = 48); the Pareto
+cumulative (80% + half of 20% = 90%); the flux unit conversion (0.15 mg/cm² =
+970 µg/in²); the COPQ chain in `m15l05`; the selective-soldering time (4 × 1 + 1
+= 5 s); the wave dwell (12 mm at 20 mm/s = 0.6 s).
+
+**Round 18 defects: D16, D17, D18.**

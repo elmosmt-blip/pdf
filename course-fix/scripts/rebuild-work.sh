@@ -64,6 +64,12 @@ node course-fix/scripts/apply-marker-removal.js     "$WORK/data"
 #     Fixes both the data and the renderer.
 node course-fix/scripts/apply-theory-string-fix.js  "$WORK"
 
+# 3c. three defects found by the per-lesson review: two quizzes that attribute
+#     an area formula to lessons teaching a height formula (D16), a worked
+#     solution whose interpretation contradicts its own arithmetic (D17), and
+#     a drill that subtracts rounded intermediates (D18).
+node course-fix/scripts/apply-round18-fixes.js    "$WORK"
+
 # 4. r4 predates the round-6 index.html fix, and the rebuild resurrects the
 #    Cloudflare Rocket Loader artefact every single time. Mandatory.
 node course-fix/scripts/apply-index-fix.js "$WORK"
@@ -154,6 +160,11 @@ checknode "verifiedBy fallback"   0 'var fs=require("fs");var t=fs.readFileSync(
 checknode "m07l06 sections"       8 'var L=require(process.cwd()+"/course-fix/work/data/lessons.json");var l=L.filter(function(x){return x.lessonId==="m07l06"})[0];console.log(l.content.theory.length)'
 checknode "string theory left"    0 'var L=require(process.cwd()+"/course-fix/work/data/lessons.json");var n=0;L.forEach(function(l){(l.content.theory||[]).forEach(function(s){if(typeof s==="string")n++})});console.log(n)'
 checknode "theory renderer safe"  1 'var t=require("fs").readFileSync(process.cwd()+"/course-fix/work/assets/app.js","utf8");var q=String.fromCharCode(39);console.log(t.indexOf("typeof t === "+q+"string"+q)>=0?1:0)'
+# D16/D17/D18 guards. The area formula must not come back, the margin must
+# stay at the liquidus value, and the drill must not subtract rounded numbers.
+checknode "no area-fill quiz"      0 'var Q=require(process.cwd()+"/course-fix/work/data/questions.json");var n=0;Q.forEach(function(q){var t=q.prompt+" "+q.explanation;if(/1 − \(lead diameter \/ hole diameter\)²/.test(t))n++});console.log(n)'
+checknode "m06l03 margin 19"       1 'var L=require(process.cwd()+"/course-fix/work/data/lessons.json");var l=L.filter(function(x){return x.lessonId==="m06l03"})[0];console.log((l.content.calc.solution.split("above liquidus by 19 °C").length-1))'
+checknode "no rounded subtraction" 0 'var L=require(process.cwd()+"/course-fix/work/data/lessons.json");var n=0;L.forEach(function(l){var s=(l.content.calc&&l.content.calc.solution)||"";if(/1\.02 - 0\.31 = 0\.70/.test(s))n++});console.log(n)'
 checknode "STM4.1 in place"        1 'var L=require(process.cwd()+"/course-fix/work/data/lessons.json");var n=0;L.forEach(function(l){var s=JSON.stringify(l.content||{});n+=s.split("ANSI/ESD STM4.1").length-1});console.log(n)'
 
 # D9-D12: profile limits, J-STD-005 tails, SnPb Tc, degree symbols.
@@ -175,6 +186,7 @@ checknode "bare N C in content"  0 'var L=require(process.cwd()+"/course-fix/wor
 # 7. render every lesson through the real app.js and assert on what a reader
 #    actually gets. The JSON checks above cannot see content the renderer never
 #    reads, which is how m07l06 lost 4,318 characters (D15).
+node course-fix/scripts/check-calc-arithmetic.js "$WORK/data" | tail -2
 node course-fix/scripts/per-lesson-audit.js "$WORK" course-fix/img | tail -3
 
 [ "$fail" = 0 ] && echo "rebuild-work: OK" || { echo "rebuild-work: FAILED"; exit 1; }

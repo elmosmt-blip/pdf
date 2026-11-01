@@ -1380,3 +1380,98 @@ grepping it.
 
 **Part A: 30 verified, 0 flagged, 0 blank.** Part B complete. Defects this
 round: D13 (bake quiz), D14 (ANSI/ESD S4.1), D15 (m07l06 theory shape).
+
+---
+
+# §15 Round 18 — the per-lesson review, and three defects the gates could not see
+
+Round 17 shipped the marker removal and rebuilt the gate suite around rendering
+rather than grepping. Round 18 is what that tooling was for: a pass over every
+one of the 92 lessons, reading the theory, the worked calculation, the defect
+case and both quiz questions of each. It found three defects, and the most
+serious one had been sitting in the course since it was written.
+
+## D16 — two quizzes compared an area with a height
+
+`m09l06` teaches fill fraction as **fill height / board thickness** and works it
+as 1.1 mm / 1.6 mm = 68.75%. Its own quiz said:
+
+> "A through-hole wave-soldering process uses **the lesson rule of thumb** that
+> expected fill fraction = 1 − (lead diameter / hole diameter)². If the hole
+> diameter is twice the lead diameter and the required fill is the IPC-A-610
+> minimum of 75% of barrel height, what is the expected fill fraction and the
+> disposition?" — answer: **75%; accept**.
+
+Three things are wrong at once, and they compound:
+
+1. **The formula is not in the lesson.** The lesson never states it. The quiz
+   attributes it to the lesson it belongs to.
+2. **It measures a different quantity.** The formula yields the annular
+   *cross-sectional area* available to solder — a geometric capacity of the hole
+   and lead. IPC-A-610 judges *vertical* barrel fill, fill height against board
+   or barrel height. The two are never compared.
+3. **The 75% is not physics, it is arithmetic arranged to land on the
+   threshold.** Choosing hole = 2 × lead makes 1 − (1/2)² = 0.75 exactly equal
+   the acceptance limit. That is the only reason the joint "passes".
+
+The outcome is the worst kind of wrong: a student who learns "expected fill =
+1 − (d_L/d_h)², compare to 75%" will read a geometric capacity as an inspection
+result and accept a joint whose vertical fill was never measured.
+
+`q-m08l05-02` made the same claim against `m08l05`, whose lesson computes
+expected fill volume as 90% of the annular volume — a third definition again.
+
+**This is the fourth dimension error of the same family** (D7 laminate depth,
+D8 ramp rate, D10 soak vs time-above-liquidus, D13 bake table). The pattern is
+now unmistakable: a figure from a neighbouring section, or a plausible-looking
+formula, is read as a different parameter and carried into a quiz that then
+contradicts its own lesson.
+
+Both quizzes are rewritten to use the definition their lesson actually teaches.
+The area formula is kept — as an explicitly labelled **capacity** that is *not*
+compared with the limit — so the distinction is taught rather than quietly
+avoided. `m07l04`'s own quiz already did this correctly (fill height / hole
+depth, 66.7% < 75%, reject); finding the one correct case is what confirmed the
+other two were the outliers rather than the house style.
+
+## D17 — a worked solution contradicted its own arithmetic
+
+`m06l03` runs a thermal survey: coolest peak 238 °C, SAC305 liquidus 219 °C,
+component limit 260 °C, hottest peak 246 °C. The solution computes the coolest
+margin as 238 − 219 = **19 °C** — and then its own interpretation sentence says:
+
+> "the coolest site is above liquidus by **21 °C**"
+
+21 °C is 238 − **217**, the margin above *solidus*. The lesson, the quiz and the
+rest of the solution all use liquidus; one sentence had drifted to the
+neighbouring parameter. This is the same family as D16, one paragraph wide, and
+it is exactly the kind of thing a gate that only counts markers cannot see.
+
+## D18 — a calculation drill that did not reproduce
+
+`m08l05` is a calculation drill, so its whole value is that a student can follow
+the numbers. It printed rounded intermediates and then subtracted them:
+
+> hole volume = 1.02, lead volume = 0.31, **annular volume = 1.02 − 0.31 = 0.70**
+
+The stated 0.70 is the correctly rounded true difference (0.7037), but a student
+doing the arithmetic as written gets 0.71. Carrying one more decimal makes it
+reproduce: 1.018 − 0.314 = 0.704, and 90% of 0.704 = 0.63.
+
+## The checker that cried wolf, twice
+
+A naive arithmetic checker is worse than none. The first version matched only
+two operands, so it read "980 + 150 - 30 = 1100" as "150 - 30 = 1100" and
+reported **83 defects out of 138 expressions**. The second matched chains but
+ignored parentheses, so it read "(3 - 0) x 5 x 4 = 60" as "5 x 4 = 60".
+
+`check-calc-arithmetic.js` now evaluates parenthesised groups from the inside
+out, handles unit scaling (ppm, percent) and accepts a result rounded to the
+precision actually written. It reports 42 expressions and zero defects. Every
+hit is printed with its surrounding text so a residual false positive can be
+recognised on sight instead of trusted — the first two versions were abandoned
+precisely because their output could not be.
+
+**Round 18 defects: D16 (area vs height), D17 (solidus vs liquidus), D18
+(rounded intermediates).** All 92 lessons read end to end; everything else
+reconciles.
