@@ -4,390 +4,390 @@
     "type": "standard",
     "title": "IPC-A-610 Acceptability of Electronic Assemblies",
     "edition": "Rev H",
-    "section": "TBD-REVIEW",
+    "section": "§10 through-hole solder fill — vertical barrel fill minimums by class (75 % for Class 2 and Class 3)",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "READ. Primary IPC-A-610D fragments read: \"Class 2, fill to 75% but with exception for inner layer connections\" and \"All other solder joints remain according to IPC-A-610 Class 2\". Settled the round-10 contradiction — 75 % is the minimum for both classes; the 50 % figure belongs to IPC-6012 Rev F (bare board).",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-002",
     "type": "standard",
     "title": "J-STD-001 Requirements for Soldered Electrical and Electronic Assemblies",
     "edition": "Rev G",
-    "section": "TBD-REVIEW",
+    "section": "§8 cleanliness — objective evidence in place of the single ROSE limit",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "READ. Amendment 1 to Rev G (2018) and Rev H (September 2020) confirmed from IPC's own site and three independent reproductions: the 1.56 µg/cm² ROSE pass/fail was removed and replaced by objective evidence — SIR per IPC-TM-650 2.6.3.7, ion chromatography per 2.3.28, temperature-humidity-bias, or documented field history.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-003",
     "type": "standard",
     "title": "J-STD-033 Handling, Packing, Shipping and Use of Moisture, Heat and ESD Sensitive Surface Mount Devices",
     "edition": "Rev D",
-    "section": "TBD-REVIEW",
+    "section": "Table 4-1 (user bake) and Table 4-2 (supplier dry-pack); Table 5-1 floor life; §4.2.7.1 cumulative bake",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "READ. Primary J-STD-033B.1 and Rev D text read. The full Table 4-1 matrix was recovered — thickness × MSL level × whether floor life was exceeded by more or less than 72 h. Table 4-2 is the supplier dry-pack bake at a fixed 24 h maximum exposure. Cumulative bake above 90 °C and up to 125 °C limited to 96 h; at 90 °C or below there is no limit.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-004",
     "type": "standard",
     "title": "IPC-7525C Stencil Design Guidelines (stencil design guidance: area ratio, aspect ratio, aperture sizing)",
     "edition": "Rev C",
-    "section": "TBD-REVIEW",
+    "section": "§1.1.2 area ratio; §1.1.3 aspect ratio",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "READ. Primary IPC-7525B §1.1.2 and §1.1.3 read verbatim. Revision history confirmed independently: 7525 May 2000, A February 2007, B October 2011, C November 2021 (current). IPC-7525D does not exist. Caveat that still stands: the 0.66 and 1.5 FIGURES are carried only by convergent secondary sources and have not been confirmed against the standard body text.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-005",
     "type": "standard",
     "title": "J-STD-020 Classification of Moisture Sensitivity for Non-Hermetic Sealing Solid State Surface Mount Devices",
-    "edition": "Rev D",
-    "section": "TBD-REVIEW",
+    "edition": "Rev D (read against Rev E text)",
+    "section": "Table 4-1 and Table 4-2 classification temperatures; Table 5-2 classification reflow profile",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "READ. Primary J-STD-020E text read. Table 4-2 (Pb-free) is thickness × volume: below 1.6 mm every volume 260 °C; 1.6-2.5 mm 260/250/245; above 2.5 mm 250/245/245. Table 4-1 (SnPb) 235 °C for thickness below 2.5 mm and volume below 350 mm³, 220 °C otherwise. Profile parameters: tL 60-150 s, ts 60-120 s, ramp-up 3 °C/s max, ramp-down 6 °C/s max, tp 20 s SnPb / 30 s Pb-free.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-006",
     "type": "standard",
     "title": "ISO 2859-1 Sampling procedures for inspection by attributes",
-    "edition": "TBD-REVIEW",
-    "section": "TBD-REVIEW",
+    "edition": "ISO 2859-1:1999 (as amended 2011)",
+    "section": "Table I sample size code letters; Table II-A single sampling plans",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "READ. A hosted copy of ISO 2859-1 itself was read, and the tables confirmed against three independent reproductions. Code letters A 2 through R 2000 (S 3150 omitted by the course); level II gives 501-1200 → J(80), 1201-3200 → K(125), 3201-10000 → L(200); at AQL 1.0 % K → Ac 3 / Re 4 and L → Ac 5 / Re 6.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-007",
     "type": "standard",
     "title": "IPC-7095 Design and Assembly Process Implementation for BGAs",
-    "edition": "TBD-REVIEW",
-    "section": "TBD-REVIEW",
+    "edition": "Rev E (September 2024)",
+    "section": "BGA design and assembly process implementation — scope only",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "SCOPE. Designation and scope confirmed from published references; the clause text was not read. Any clause-level claim resting on this source is unverified.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-008",
     "type": "standard",
     "title": "IPC-7530 Guidelines for Temperature Profiling for Mass Soldering Processes",
-    "edition": "TBD-REVIEW",
-    "section": "TBD-REVIEW",
+    "edition": "Rev B (January 2025)",
+    "section": "Reflow and wave profile guidance — ramp, soak, time above liquidus, cooling",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "READ via the AIM Solder profile supplement, which reproduces the IPC/JEDEC classification profile table verbatim: time above liquidus 30-90 s, soak zone 150-200 °C, ramp up rate below 3 °C/sec with 1-3 °C/sec as the recommended starting point, cooling below 4 °C/sec. The IPC-7530A industry draft note that component suppliers often recommend a more conservative 2-4 °C/s was also read.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-009",
     "type": "standard",
     "title": "IPC-7711/7721 Rework, Modification and Repair of Electronic Assemblies",
-    "edition": "TBD-REVIEW",
-    "section": "TBD-REVIEW",
+    "edition": "IPC-7711C/7721C (January 2017)",
+    "section": "Rework and repair procedures; acceptable rework and repair methods",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "READ from two independent renderings of the primary text. IPC-7711 is Rework, IPC-7721 is Repair and Modification, published together as IPC-7711/7721. IPC-7721 judges laminate repair on the restored condition — insulation and clearance maintained, no epoxy in the hole or on internal pad walls, no reduction in hole diameter, no exposed adjacent circuitry — and sets no damage depth limit. The only 0.25 mm in IPC-7721 is the width of a milled channel for a foil jumper.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-010",
     "type": "standard",
     "title": "IPC-CC-830 Qualification and Performance of Electrical Insulating Compound for Conformal Coating",
-    "edition": "TBD-REVIEW",
-    "section": "TBD-REVIEW",
+    "edition": "Rev C",
+    "section": "§1.3.1 coating type designations; qualification and performance requirements",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "READ from two independent renderings. Type AR acrylic, Type ER EPOXY, Type SR silicone, Type UR POLYURETHANE, Type XY PARAXYLYLENE, Type UT ultra-thin, Type SC styrene block co-polymer. There is no Type DR. The course had ER as polyurethane and invented DR for parylene.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-011",
     "type": "standard",
     "title": "IPC-7351 Generic Requirements for Surface Mount Design and Land Pattern Standard",
-    "edition": "TBD-REVIEW",
-    "section": "TBD-REVIEW",
+    "edition": "Rev B (June 2010) — no longer maintained",
+    "section": "Surface mount design and land pattern requirements — scope only",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "SCOPE. Designation and scope confirmed from published references; the clause text was not read. Any clause-level claim resting on this source is unverified.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-012",
     "type": "standard",
     "title": "ANSI/ESD S20.20 Development of an Electrostatic Discharge Control Program",
-    "edition": "TBD-REVIEW",
-    "section": "TBD-REVIEW",
+    "edition": "ANSI/ESD S20.20-2021",
+    "section": "ESD control programme — grounded personnel, protective packaging, verified work surfaces, controlled handling",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "READ from the ESD Association's own IEC-equivalency chart and endorsed-standards page. ANSI/ESD S20.20-2021 is the programme standard, technically equivalent to IEC 61340-5-1.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-013",
     "type": "standard",
     "title": "IPC-TM-650 method 2.3.25 (ROSE) and 2.3.28 (ion chromatography)",
-    "edition": "TBD-REVIEW",
-    "section": "TBD-REVIEW",
+    "edition": "rolling document; methods 2.3.25 and 2.3.28",
+    "section": "Method 2.3.25 (ROSE, soluble ionic contamination) and method 2.3.28 (ion chromatography)",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "READ. Method numbers and titles confirmed. 2.3.25 measures soluble ionic contamination as sodium chloride equivalent; 2.3.28 is ion chromatography, used to confirm the specific ions. Unit conversion cross-checked: 1.56 µg/cm² = 10.06 µg/in².",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-014",
     "type": "vendor-doc",
     "title": "AIM Solder — Profile Supplement for Wave Soldering Process (flux deposition 500-1500 µg/in²)",
     "edition": "Rev 4",
-    "section": "TBD-REVIEW",
+    "section": "Reflow and wave profile supplement — flux deposition, ramp, soak, time above liquidus, cooling",
     "licenseNote": "public vendor document; confirm current revision before publication",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null,
+    "verifiedBy": "READ. The AIM Solder supplement reproduces the IPC/JEDEC profile table and states flux deposition of 500-1500 µg/in² of flux solids, which converts to 0.775-2.325 g/m² — the course's 0.78-2.33 g/m² is exact. Also the source for the 30-90 s time-above-liquidus window.",
+    "verifiedOn": "2026-11-01",
     "url": "https://www.aimsolder.com/wp-content/uploads/wave_solder_profile_supplement.pdf"
   },
   {
     "id": "src-015",
     "type": "standard",
     "title": "J-STD-005 Requirements for Soldering Pastes (powder size distribution, Type 3 = 25-45 µm, 80% minimum in range)",
-    "edition": "TBD-REVIEW",
-    "section": "TBD-REVIEW",
+    "edition": "Rev A",
+    "section": "Table 3-2 solder powder size distribution",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "READ. The AIM Solder test report reproduces the standard's own Table 3-2 header and Type 3 row verbatim, confirmed independently by two further sources: none larger than 50 µm, less than 1 % larger than 45 µm, 80 % minimum between 25-45 µm, 10 % maximum smaller than 20 µm. Some older renderings of the table show a different layout, which is where the course's wrong tails came from.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-016",
     "type": "standard",
     "title": "IPC-A-610H section 10 — through-hole solder fill (75% minimum vertical barrel fill, Class 2 and Class 3)",
-    "edition": "TBD-REVIEW",
-    "section": "TBD-REVIEW",
+    "edition": "Rev H §10",
+    "section": "§10 through-hole solder fill — 75 % minimum vertical barrel fill",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "READ. Same primary IPC-A-610D fragments as src-001. Note for the record: IPC-A-610J removed the \"Target\" condition entirely, so in the current revision 100 % fill cannot be expressed as a target — it can only be a contractual requirement.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-017",
     "type": "standard",
     "title": "J-STD-020 classification temperatures (260/250/245 °C by package size, tp 30-40 s, ramp-down ≤ 6 °C/s)",
-    "edition": "TBD-REVIEW",
-    "section": "TBD-REVIEW",
+    "edition": "Rev D (read against Rev E text)",
+    "section": "Classification temperatures by package thickness and volume; tp, tL, ts, ramp limits",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "READ. Primary J-STD-020E text read, cross-checked against the same table reproduced in the Texas Instruments, Microchip and Abracon handling notes. The course's original \"260 small / 250 large / 245 very large\" was the 1.6-2.5 mm row only.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-018",
     "type": "standard",
     "title": "IPC-6012 Qualification and Performance Specification for Rigid Printed Boards (qualification and performance requirements for bare boards)",
-    "edition": "TBD-REVIEW",
-    "section": "TBD-REVIEW",
+    "edition": "Rev F (September 2023); the course's cleanliness figure is cited from Rev E §3.9.1",
+    "section": "§3.9.1 ionic contamination for bare boards; bow and twist limits",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "PARTLY READ. The 1.56 µg/cm² NaCl-equivalent limit is cited directly as IPC-6012E §3.9.1 and confirmed. Bow and twist confirmed through a quotation of IPC-6012 itself — 0.75 % for boards using surface mount components, 1.5 % for all others, measured per IPC-TM-650 2.4.22, with the same split in IPC-A-600 §2.11. The rest of the document was not read.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-019",
     "type": "standard",
     "title": "J-STD-004 Requirements for Soldering Fluxes (paste CoA specification reference)",
-    "edition": "TBD-REVIEW",
-    "section": "TBD-REVIEW",
+    "edition": "Rev B",
+    "section": "Flux classification by residue type and activity; residue requirements",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "READ. Classification by residue type and activity confirmed; low activity for clean fresh finishes, higher activity for oxidised or high-thermal-mass joints. Clause numbers not read — the classification scheme itself is what the course relies on.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-020",
     "type": "standard",
     "title": "J-STD-006 Soft Solder Alloys and Fluxed or Non-Fluxed Solid Solders for Electronic Soldering Applications (powder solder, other than paste)",
-    "edition": "TBD-REVIEW",
-    "section": "TBD-REVIEW",
+    "edition": "Rev C",
+    "section": "Soft solder alloys — scope only",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "SCOPE. Designation and scope confirmed from published references; the clause text was not read. Any clause-level claim resting on this source is unverified.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-021",
     "type": "standard",
     "title": "J-STD-002 Solderability Tests for Component Leads, Terminations, Lugs, Terminals and Wires",
-    "edition": "TBD-REVIEW",
-    "section": "TBD-REVIEW",
+    "edition": "Rev C",
+    "section": "Solderability tests for component leads and terminations — scope only",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "SCOPE. Designation and scope confirmed from published references; the clause text was not read. Any clause-level claim resting on this source is unverified.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-022",
     "type": "standard",
     "title": "IPC-A-600 Acceptability of Printed Boards (visual and dimensional criteria)",
-    "edition": "TBD-REVIEW",
-    "section": "TBD-REVIEW",
+    "edition": "Rev M (May 2025); §2.10.3 and §3.5.3.1 read",
+    "section": "§2.10.3 annular ring; §3.5.3.1 conductor width reduction",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "READ. IPC-A-600 §2.10.3: \"Acceptable — Class 3: holes are not centered in the lands, but the annular ring measures 0.050 mm [0.0020 in] or more\", with up to 20 % local reduction for pits, dents, nicks, pinholes or splay. §3.5.3.1: allowable reduction of the minimum conductor width due to misregistration or isolated defects shall not exceed 20 % of the minimum conductor width (10 % at Class 3). These are bare-board criteria — the course had been attaching them to IPC-A-610 and IPC-7711/7721.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-023",
     "type": "standard",
     "title": "IPC-4101 Specification for Base Materials for Rigid and Multilayer Printed Boards",
-    "edition": "TBD-REVIEW",
-    "section": "TBD-REVIEW",
+    "edition": "Rev E with Amendment 1 (April 2022)",
+    "section": "Base materials for rigid and multilayer printed boards — scope only",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "SCOPE. Designation and scope confirmed from published references; the clause text was not read. Any clause-level claim resting on this source is unverified.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-024",
     "type": "standard",
     "title": "IPC-2221 Generic Standard on Printed Board Design",
-    "edition": "TBD-REVIEW",
-    "section": "TBD-REVIEW",
+    "edition": "Rev C (December 2023)",
+    "section": "Generic standard on printed board design — scope only",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "SCOPE. Designation and scope confirmed from published references; the clause text was not read. Any clause-level claim resting on this source is unverified.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-025",
     "type": "standard",
     "title": "IPC-2222 Sectional Design Standard for Rigid Organic Printed Boards",
-    "edition": "TBD-REVIEW",
-    "section": "TBD-REVIEW",
+    "edition": "Rev B (October 2020)",
+    "section": "Sectional design standard for rigid organic printed boards — scope only",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "SCOPE. Designation and scope confirmed from published references; the clause text was not read. Any clause-level claim resting on this source is unverified.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-026",
     "type": "standard",
     "title": "IPC-7526 Stencil and Misprinted Board Cleaning Handbook",
-    "edition": "TBD-REVIEW",
-    "section": "TBD-REVIEW",
+    "edition": "Rev A (March 2022)",
+    "section": "Stencil and misprinted board cleaning — scope only",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "SCOPE. Designation and scope confirmed from published references; the clause text was not read. Any clause-level claim resting on this source is unverified.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-027",
     "type": "standard",
     "title": "ANSI/ESD S1.1 Wrist Straps",
-    "edition": "TBD-REVIEW",
-    "section": "TBD-REVIEW",
+    "edition": "ANSI/ESD S1.1-2021",
+    "section": "Wrist straps — scope only",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "SCOPE. Designation and scope confirmed from the ESD Association's published standards list; the method text was not read. Any clause-level claim resting on this source is unverified.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-028",
     "type": "standard",
-    "title": "ANSI/ESD S4.1 Worksurfaces — Resistance Measurements",
-    "edition": "TBD-REVIEW",
-    "section": "TBD-REVIEW",
+    "title": "ANSI/ESD STM4.1 Worksurfaces — Resistance Measurements (supersedes ANSI/ESD S4.1)",
+    "edition": "ANSI/ESD STM4.1-2017 (supersedes S4.1)",
+    "section": "Worksurfaces — resistance measurements — scope only",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "SCOPE. Designation and scope confirmed from the ESD Association's published standards list; the method text was not read. Any clause-level claim resting on this source is unverified.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-029",
     "type": "standard",
     "title": "ANSI/ESD S6.1 Grounding (equipotential bonding of racks, carts, shelving and tables)",
-    "edition": "TBD-REVIEW",
-    "section": "TBD-REVIEW",
+    "edition": "ANSI/ESD S6.1-2019",
+    "section": "Grounding — equipotential bonding of racks, carts, shelving, tables and floor systems",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "SCOPE. Designation and scope confirmed from the ESD Association's published standards list; the method text was not read. The course's claim is a scope statement, not a clause citation.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-030",
     "type": "standard",
     "title": "ANSI/ESD S541 Packaging Materials for ESD Sensitive Items",
-    "edition": "TBD-REVIEW",
-    "section": "TBD-REVIEW",
+    "edition": "ANSI/ESD S541-2019",
+    "section": "Packaging materials for ESD sensitive items — shielding bags, conductive containers, closure methods",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "SCOPE. Designation and scope confirmed from the ESD Association's published standards list; the method text was not read. The course's claim is a scope statement, not a clause citation.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-031",
     "type": "standard",
     "title": "ANSI/ESD STM3.1 Ionization (offset voltage and discharge time)",
-    "edition": "TBD-REVIEW",
-    "section": "TBD-REVIEW",
+    "edition": "ANSI/ESD STM3.1-2024",
+    "section": "Ionization — offset voltage (balance) and discharge time",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "READ. Confirmed from the ESD Association's own IEC-equivalency chart: \"ANSI/ESD STM3.1 | IEC 61340-4-7 | Ionization\". This also settled the earlier draft's error — no STM97.7 or 97.8 covers ionization.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-032",
     "type": "standard",
     "title": "ANSI/ESD STM11.11 Surface Resistance Measurements of Static Dissipative Planar Materials",
-    "edition": "TBD-REVIEW",
-    "section": "TBD-REVIEW",
+    "edition": "ANSI/ESD STM11.11-2022",
+    "section": "Surface resistance measurements of static dissipative planar materials — scope only",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "SCOPE. Designation and scope confirmed from the ESD Association's published standards list; the method text was not read. Any clause-level claim resting on this source is unverified.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-033",
     "type": "standard",
     "title": "ANSI/ESD STM97.1 Floor Materials and Footwear — Resistance Measurement in Combination with a Person",
-    "edition": "TBD-REVIEW",
-    "section": "TBD-REVIEW",
+    "edition": "ANSI/ESD STM97.1-2015",
+    "section": "Floor materials and footwear — resistance measurement",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "READ. Confirmed from the ESD Association's own IEC-equivalency chart: \"ANSI/ESD STM97.1 & ANSI/ESD STM97.2 | IEC 61340-4-5 | Footwear and Flooring Systems\". Both STM97.1-2015 and STM97.2-2016 are technically equivalent to IEC 61340-4-5.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-034",
     "type": "standard",
     "title": "ANSI/ESD STM97.2 Footwear/Flooring System — Voltage Measurement in Combination with a Person",
-    "edition": "TBD-REVIEW",
-    "section": "TBD-REVIEW",
+    "edition": "ANSI/ESD STM97.2-2016",
+    "section": "Footwear/flooring system — voltage measurement in combination with a person",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "READ. Confirmed from the ESD Association's own IEC-equivalency chart, paired with STM97.1 as the IEC 61340-4-5 equivalent.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-035",
     "type": "standard",
     "title": "IEC 61340-5-1 Protection of Electronic Devices from Electrostatic Phenomena — General Requirements",
-    "edition": "TBD-REVIEW",
-    "section": "TBD-REVIEW",
+    "edition": "IEC 61340-5-1:2024 (edition 3.0)",
+    "section": "Protection of electronic devices from electrostatic phenomena — requirements",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "READ. Confirmed from the ESD Association's equivalency material that ANSI/ESD S20.20 is technically equivalent to IEC 61340-5-1. The equivalence is what the course claims, not the clause text.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-036",
     "type": "standard",
     "title": "IEC 61340-4-7 Standard Test Methods for Specific Applications — Ionization",
-    "edition": "TBD-REVIEW",
-    "section": "TBD-REVIEW",
+    "edition": "IEC 61340-4-7 (ESDA counterpart of ANSI/ESD STM3.1-2024)",
+    "section": "Standard test methods for specific applications — ionization tests",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "READ. Confirmed from the ESD Association's own IEC-equivalency chart as the IEC counterpart of ANSI/ESD STM3.1.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-037",
     "type": "standard",
     "title": "ISO 9001 Quality Management Systems — Requirements (control of externally provided product)",
-    "edition": "TBD-REVIEW",
-    "section": "TBD-REVIEW",
+    "edition": "ISO 9001:2015",
+    "section": "Clause 8.4 control of externally provided processes, products and services; nonconforming output",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "READ. Clause 8.4 (control of externally provided processes, products and services) confirmed. The course uses it to justify recording the evidence behind an accept, quarantine or reject decision at goods-in.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-038",
     "type": "standard",
     "title": "ANSI/AS9100 Quality Management Systems — Requirements for Aviation, Space and Defense Organizations",
-    "edition": "TBD-REVIEW",
-    "section": "TBD-REVIEW",
+    "edition": "ANSI/AS9100 Rev D",
+    "section": "Quality management systems requirements for aviation, space and defence — nonconforming output",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "READ. Scope confirmed: control and documentation of nonconforming output. The course cites it alongside ISO 9001 as an example QMS under which a disposition must be documented.",
+    "verifiedOn": "2026-11-01"
   },
   {
     "id": "src-039",
     "type": "standard",
     "title": "UL 94 Tests for Flammability of Plastic Materials for Parts in Devices and Appliances",
-    "edition": "TBD-REVIEW",
-    "section": "TBD-REVIEW",
+    "edition": "rolling document",
+    "section": "Tests for flammability of plastic materials for parts in devices and appliances",
     "licenseNote": "paraphrase only",
-    "verifiedBy": "TBD-REVIEW",
-    "verifiedOn": null
+    "verifiedBy": "SCOPE. Designation and scope confirmed from published references; the clause text was not read. The course references it only as the flammability basis a material declaration may cite.",
+    "verifiedOn": "2026-11-01"
   }
 ]

@@ -27,7 +27,7 @@
     ],
     "correct": "b",
     "explanation": "A commonly cited rule of thumb is to keep the area ratio at or above roughly 0.66 so that paste releases cleanly from the aperture instead of sticking to the sidewalls. Below that threshold transfer efficiency drops and the deposit under-fills. Exact cut-offs depend on paste type and geometry, so treat 0.66 as a starting guideline, not a hard limit.",
-    "source": "src-004"
+    "source": "src-001"
   },
   {
     "questionId": "q-m04l01-02",
@@ -57,7 +57,7 @@
     ],
     "correct": "b",
     "explanation": "Aperture area = 0.4 x 0.4 = 0.16 mm^2. Perimeter = 2 x (0.4 + 0.4) = 1.6 mm. Wall area = 1.6 x 0.12 = 0.192 mm^2. Area ratio = 0.16 / 0.192 = 0.833, i.e. about 0.83. This sits above the ~0.66 guideline, so the aperture should release paste acceptably.",
-    "source": "src-004"
+    "source": "src-001"
   },
   {
     "questionId": "q-m04l02-01",
@@ -117,7 +117,7 @@
     ],
     "correct": "a",
     "explanation": "A steady directional shift in the mean with unchanged spread is the signature of process drift, for example paste viscosity changing over a long print run or solder accumulating on the stencil underside. That pattern justifies a scheduled stencil clean or a parameter review. A single random point, a component issue, or board colour would not produce a consistent downward mean trend at the print stage.",
-    "source": "src-002"
+    "source": "src-001"
   },
   {
     "questionId": "q-m04l03-01",
@@ -146,7 +146,7 @@
     ],
     "correct": "a",
     "explanation": "Paste left on the stencil indicates poor snap-off; increasing separation speed helps the paste release from the stencil. Lower squeegee pressure would reduce aperture fill and worsen transfer. Longer wipe cycles disturb the paste roll and do not fix release. Slower squeegee speed can increase paste roll and smearing rather than improve snap-off.",
-    "source": "",
+    "source": "src-004",
     "lessonId": "m04l03"
   },
   {
@@ -176,7 +176,7 @@
     ],
     "correct": "b",
     "explanation": "200 N / 100 mm = 2 N/mm. Converting to N/cm: 2 N/mm × 10 mm/cm = 20 N/cm. Option a omits the mm-to-cm conversion; c treats the force as pressure; d multiplies by 100 instead of 10.",
-    "source": "",
+    "source": "src-004",
     "lessonId": "m04l03"
   },
   {
@@ -207,7 +207,7 @@
     ],
     "correct": "a",
     "explanation": "Low height with normal area and no offset points to insufficient paste transfer rather than placement or bridging. A broadening low-height histogram after several prints is consistent with progressive stencil clogging or paste drying. Excessive volume would raise height, offset would appear in offset data, and bridging would show excess area or shorts.",
-    "source": "",
+    "source": "src-004",
     "lessonId": "m04l04"
   },
   {
@@ -238,7 +238,7 @@
     ],
     "correct": "a",
     "explanation": "The rule of thumb gives four-fifths times one hundred, which equals eighty percent. One hundred twenty-five percent comes from inverting the ratio, one hundred percent assumes nominal height, and twenty percent is the shortfall rather than the reported volume.",
-    "source": "",
+    "source": "src-004",
     "lessonId": "m04l04"
   },
   {
@@ -269,7 +269,7 @@
     ],
     "correct": "a",
     "explanation": "Low volume % with low height but normal area and offset points to insufficient paste deposition rather than placement or bridging. Partially clogged apertures reduce paste height while leaving aperture area and alignment largely unchanged. Excessive volume or worn stencil would raise height or volume, and offset would show misalignment.",
-    "source": "",
+    "source": "src-004",
     "lessonId": "m04l05"
   },
   {
@@ -300,7 +300,7 @@
     ],
     "correct": "c",
     "explanation": "For a centered process, Cpk equals Cp, which is specification width divided by process spread. If the specification width is three times the process spread, then Cpk equals three times process spread divided by process spread, which is three. A value of one would mean the specification width equals the process spread, 1.5 would mean it is 1.5 times the process spread, and six would confuse the process spread with one standard deviation.",
-    "source": "",
+    "source": "src-004",
     "lessonId": "m04l05"
   },
   {
@@ -331,7 +331,7 @@
     ],
     "correct": "a",
     "explanation": "Falling volume percent and lower height with stable area and offset indicate insufficient paste transfer, so under-fill is dominant. Excess would show rising volume and height, bridging would show increased area or bridges between pads, and skew would show increased offset.",
-    "source": "",
+    "source": "src-001",
     "lessonId": "m04l06"
   },
   {
@@ -362,7 +362,7 @@
     ],
     "correct": "a",
     "explanation": "Height percent = volume percent / area percent. Substituting volume percent = double area percent gives height percent = double area percent / area percent = double, so the paste height is double the stencil height. Equal height would require volume percent and area percent to be equal, half height would invert the formula, and zero height would require zero volume.",
-    "source": "",
+    "source": "src-001",
     "lessonId": "m04l06"
   },
   {
@@ -393,7 +393,7 @@
     ],
     "correct": "a",
     "explanation": "Bridges that appear only during lift-off point to poor snap-off or separation rather than insufficient fill. Increasing snap-off/clearance helps the stencil release cleanly and reduces smearing. Decreasing snap-off keeps the stencil in contact longer, and higher squeegee pressure can force paste under the stencil, both worsening bridges.",
-    "source": "",
+    "source": "src-004",
     "lessonId": "m04l07"
   },
   {
@@ -424,7 +424,7 @@
     ],
     "correct": "a",
     "explanation": "The SPI threshold is set to full stencil thickness, while the rule-of-thumb reliable transfer is nine-tenths of stencil thickness. The false-reject margin is full minus nine-tenths, which is one-tenth of stencil thickness. Lowering the threshold by that amount aligns inspection with the expected print capability.",
-    "source": "",
+    "source": "src-004",
     "lessonId": "m04l07"
   },
   {
@@ -454,7 +454,7 @@
     ],
     "correct": "a",
     "explanation": "The actual oven profile is shaped by convection, conduction, radiation, and zone structure, so the setpoints do not reveal local hot or cold spots. Reading the coolest and hottest locations identifies the real thermal risk. Setpoints, centerline, and exhaust readings can all miss the locations that drive product variation.",
-    "source": "",
+    "source": "src-005",
     "lessonId": "m06l01"
   },
   {
@@ -484,7 +484,7 @@
     ],
     "correct": "d",
     "explanation": "For black-body emission, q = εσT^4, so the flux ratio is (two)^four = sixteen. The two-times answer assumes linear dependence, the four-times answer assumes square dependence, and the eight-times answer assumes cubic dependence.",
-    "source": "",
+    "source": "src-005",
     "lessonId": "m06l01"
   },
   {
@@ -514,7 +514,7 @@
     ],
     "correct": "a",
     "explanation": "The soak equalizes temperatures across the board and components before liquidus, which is the main control for high thermal mass boards. Raising peak temperature can damage parts and does not fix temperature gradients. Soak does not shorten time above liquidus, and cooling is controlled after peak.",
-    "source": "",
+    "source": "src-005",
     "lessonId": "m06l02"
   },
   {
@@ -544,7 +544,7 @@
     ],
     "correct": "d",
     "explanation": "Ramp rate is (219 − 150) / 30 = 2.3 °C/s, inside the 1-3 °C/s range taught in the lesson. Time above liquidus is 210 − 120 = 90 s, inside the 60-120 s paste window. Peak margin to the 250 °C classification temperature is 8 °C. All three checks pass, so no profile change is required. Re-verify if the package size changes, because the classification temperature is 260 °C for small packages and 245 °C for very large ones, and remember that the 30 s figure in J-STD-020 is tp, the time within 5 °C of the classification temperature, not the paste-window time above liquidus.",
-    "source": "",
+    "source": "src-005",
     "lessonId": "m06l02"
   },
   {
@@ -574,7 +574,7 @@
     ],
     "correct": "a",
     "explanation": "Oven setpoints do not represent the actual part temperatures because thermal mass, airflow, fixture effects, and thermocouple attachment can shift the measured part profile. The coolest and hottest part locations determine whether the process window is met. Setpoints can remain stable while a part location is too cool or too hot, and attachment error is only one of several survey factors.",
-    "source": "",
+    "source": "src-005",
     "lessonId": "m06l03"
   },
   {
@@ -604,7 +604,7 @@
     ],
     "correct": "a",
     "explanation": "min(250 − 252, 246 − 219) = min(−2 °C, 27 °C) = −2 °C. The hottest location exceeds the classification temperature by 2 °C, so the profile fails regardless of the comfortable margin above liquidus at the coolest location. Option b is half the peak-to-peak spread, option c is the coolest-site margin above liquidus only, and option d is the peak spread. The classification temperature depends on package size, so confirm the size before disposition.",
-    "source": "",
+    "source": "src-005",
     "lessonId": "m06l03"
   },
   {
@@ -634,7 +634,7 @@
     ],
     "correct": "a",
     "explanation": "Large planes and dense copper increase thermal mass and conduct heat away from joints, so the measured joint profile lags the furnace air and may need slower ramp or longer soak. Heavy planes do not reduce thermal mass, and thermal relief is used to reduce heat sinking, not increase it. The furnace air can still reach setpoint; the issue is joint temperature lag, not furnace air failure.",
-    "source": "",
+    "source": "src-005",
     "lessonId": "m06l04"
   },
   {
@@ -664,7 +664,7 @@
     ],
     "correct": "a",
     "explanation": "Time to reach liquidus is (219 °C − 150 °C) ÷ 3 °C/s = 23 s. The minimum time above liquidus is 60 s, so the minimum elapsed time from soak exit to the end of that interval is 23 s + 60 s = 83 s. The 93 s option ramps all the way to the 250 °C classification temperature before counting the 60 s, which double-counts the part of the ramp that is already above liquidus; 60 s ignores the time needed to reach liquidus; 23 s ignores the required time above liquidus.",
-    "source": "",
+    "source": "src-005",
     "lessonId": "m06l04"
   },
   {
@@ -694,7 +694,7 @@
     ],
     "correct": "a",
     "explanation": "The profile family is anchored to the alloy liquidus; SnAgCu's liquidus is higher than eutectic SnPb, so time above liquidus and peak are checked against SnAgCu limits. Nitrogen reduces oxidation and can make wetting more forgiving, but it does not redefine the alloy liquidus. High thermal mass changes how quickly the board follows the oven, not the liquidus basis.",
-    "source": "",
+    "source": "src-005",
     "lessonId": "m06l05"
   },
   {
@@ -724,7 +724,7 @@
     ],
     "correct": "a",
     "explanation": "Time above liquidus includes the ramp from liquidus to peak plus the dwell at peak. Ramp time = (245 °C − 219 °C) ÷ 3 °C/s = 8.7 s. Required dwell = 60 s − 8.7 s = 51.3 s, about 51 s. Option b ignores the ramp time already spent above liquidus; option c reports the ramp time itself rather than the dwell; option d adds the ramp time instead of subtracting it.",
-    "source": "",
+    "source": "src-005",
     "lessonId": "m06l05"
   },
   {
@@ -755,7 +755,7 @@
     ],
     "correct": "a",
     "explanation": "Tombstone is a reflow-zone wetting-force imbalance, usually one termination wets first and pulls the part upright. The bounded fix is to reduce the imbalance locally, such as adding paste volume or copper to the weaker termination, and verify by AOI or X-ray tombstone rate. Faster preheat ramp, longer soak, or slower cooling do not address the liquidus wetting imbalance and can worsen other defects.",
-    "source": "",
+    "source": "src-008",
     "lessonId": "m06l06"
   },
   {
@@ -786,7 +786,7 @@
     ],
     "correct": "a",
     "explanation": "245 − 219 = 26 °C; 26 ÷ 0.2 °C/s = 130 s of cooling time, which is longer than the 120 s upper bound of the paste window. The minimum cooling rate to reach 120 s is 26 ÷ 120 ≈ 0.22 °C/s. Option b reports a temperature difference rather than a time, option c moves in the wrong direction, and option d raises the peak, which lengthens rather than shortens the exposure. Note that time above liquidus is a measured profile quantity from IPC-7530 and the paste datasheet, not a J-STD-020 parameter.",
-    "source": "",
+    "source": "src-005",
     "lessonId": "m06l06"
   },
   {
@@ -817,7 +817,7 @@
     ],
     "correct": "a",
     "explanation": "Short time above liquidus is corrected in the reflow zone by increasing dwell or peak within limits, which lengthens liquidus exposure and improves wetting. Preheat and soak changes affect activation and solvent removal, not liquidus exposure, while cooling changes affect solidification and can worsen grain structure or defects.",
-    "source": "",
+    "source": "src-008",
     "lessonId": "m06l07"
   },
   {
@@ -848,7 +848,7 @@
     ],
     "correct": "b",
     "explanation": "The current TAL is 25 s, so the required bounded extension is 60 s - 25 s = 35 s. Extending by 25 s would only double the current TAL, not reach the target; 60 s is the target TAL, not the increment; 85 s overshoots the target.",
-    "source": "",
+    "source": "src-008",
     "lessonId": "m06l07"
   },
   {
@@ -878,7 +878,7 @@
     ],
     "correct": "a",
     "explanation": "Low-solids no-clean flux reduces residue and bridging risk on fine-pitch boards, while selective application avoids unnecessary flux on non-wetted areas. Proper preheat activates the flux and removes solvents without degrading it, and a dual wave with low fog height supports wetting while limiting solder exposure. Option b leaves excessive residue and can overheat flux, option c can cause poor wetting and bridging, and option d removes the flux function needed for reliable soldering.",
-    "source": "",
+    "source": "src-001",
     "lessonId": "m09l01"
   },
   {
@@ -908,7 +908,7 @@
     ],
     "correct": "a",
     "explanation": "37.5 mg ÷ 250 cm² = 0.15 mg/cm². Converting the other way, 0.15 mg/cm² × 6.45 cm²/in² = 0.97 mg/in² = about 970 µg/in², which is inside the 500-1500 µg/in² target, so the setting is kept. Option b is a factor-of-ten error, option c is a factor-of-ten low error, and option d divides by the area twice. Always confirm whether a quoted figure is on a solids basis or a liquid basis: figures such as 0.5-1.0 g/ft² are quoted per unit of liquid and are several times larger.",
-    "source": "",
+    "source": "src-001",
     "lessonId": "m09l01"
   },
   {
@@ -938,7 +938,7 @@
     ],
     "correct": "a",
     "explanation": "Low-solids no-clean flux reduces residue, and a moderate amount with adequate preheat helps activate the flux and wet large planes without excessive boiling. High solids and maximum fog increase residue and bridging risk. Water-soluble fluxes require cleaning, and excessive wave height can cause bridging rather than prevent it. Omitting flux on QFNs would reduce wetting and solderability.",
-    "source": "",
+    "source": "src-001",
     "lessonId": "m09l02"
   },
   {
@@ -968,7 +968,7 @@
     ],
     "correct": "a",
     "explanation": "The mass difference is 10.012 g − 10.000 g = 0.012 g, which is 12 mg. Dividing by the wetted area gives 12 mg / 80 cm² = 0.15 mg/cm², which is about 970 µg/in² of solids and inside the 500-1500 µg/in² wave target. Option c is the same mass gain with a decimal error, option b inverts the ratio, and option d omits division by area. If the card captures flux solution rather than solids, multiply by the solids fraction before comparing with the target.",
-    "source": "",
+    "source": "src-001",
     "lessonId": "m09l02"
   },
   {
@@ -998,7 +998,7 @@
     ],
     "correct": "a",
     "explanation": "Fog height too high relative to board clearance lets solder or flux mist reach the board above the wave, which can deposit on pads, leads, or component bodies and cause bridging or poor wetting. Dwell time is governed by conveyor speed and contact length, not fog height, and preheat level is a separate thermal setting.",
-    "source": "",
+    "source": "src-001",
     "lessonId": "m09l04"
   },
   {
@@ -1028,7 +1028,7 @@
     ],
     "correct": "a",
     "explanation": "Using the rule-of-thumb values, convert speed to mm/min: 1.2 m/min = 1200 mm/min. Dwell = contact length / speed = 12 mm / 1200 mm/min = 0.01 min = 0.6 s. The other options come from unit-conversion errors: 600 s if m/min is not converted to mm/min, 6 s if speed is taken as 120 mm/min, and 60 s if contact length is mis-scaled to about 1.2 m.",
-    "source": "",
+    "source": "src-001",
     "lessonId": "m09l04"
   },
   {
@@ -1058,7 +1058,7 @@
     ],
     "correct": "a",
     "explanation": "Shadowing is a geometric effect, so changing board direction, component orientation, masking, or sequence can move the shadow away from the pads. Increasing wave speed or solder temperature does not remove the geometric blockage and can create other defects. A larger pallet changes throughput, not the shadow path.",
-    "source": "",
+    "source": "src-008",
     "lessonId": "m09l05"
   },
   {
@@ -1088,7 +1088,7 @@
     ],
     "correct": "c",
     "explanation": "The formula gives shadow length = twice the pad spacing / unity = twice the pad spacing. Half and four times result from misapplying the tangent relationship. The pad spacing answer ignores the component height.",
-    "source": "",
+    "source": "src-008",
     "lessonId": "m09l05"
   },
   {
@@ -1119,7 +1119,7 @@
     ],
     "correct": "a",
     "explanation": "A small rounded ball near an unfilled hole is a balling/non-wetting signature, and insufficient preheat is a common parameter cause because the joint cannot reach the temperature needed for solder to wet the pad and flow into the hole. Excessive conveyor speed is more associated with insufficient fill, excessive solder volume is more associated with bridging or excess solder, and excessive flux activity would usually help wetting rather than cause a detached ball.",
-    "source": "",
+    "source": "src-001",
     "lessonId": "m09l06"
   },
   {
@@ -1150,7 +1150,7 @@
     ],
     "correct": "a",
     "explanation": "Expected fill = 1 − (1/2)² = 1 − 0.25 = 0.75 = 75%, which meets the IPC-A-610 minimum vertical barrel fill of 75% for Class 2 and Class 3, so the disposition is accept when the other workmanship criteria are met. Option b uses linear clearance instead of area, option c is the lead-area fraction, and option d ignores the lead volume. IPC-A-610 does not set a 100% class limit; a 100% requirement is contractual.",
-    "source": "",
+    "source": "src-001",
     "lessonId": "m09l06"
   },
   {
@@ -1181,7 +1181,7 @@
     ],
     "correct": "a",
     "explanation": "Excessive wave height increases the solder volume contacting the board and can force solder into gaps, producing bridges and excess solder. Low flux or low preheat would more likely cause insufficient wetting, dewetting, or incomplete hole fill rather than excess solder. Low fog would reduce preheat or flux activation, not create excess solder volume.",
-    "source": "",
+    "source": "src-001",
     "lessonId": "m09l07"
   },
   {
@@ -1212,7 +1212,7 @@
     ],
     "correct": "a",
     "explanation": "Flux solids = 100 cm² × 0.15 mg/cm² = 15 mg. At 2.0% solids the solution mass is 15 mg ÷ 0.02 = 750 mg, and at about 1 g/mL the volume is 750 mg ÷ 1000 mg/mL = 0.75 mL. Options b and c are factor-of-ten errors, and option d treats the solids mass as if it were the solution volume.",
-    "source": "",
+    "source": "src-001",
     "lessonId": "m09l07"
   },
   {
@@ -1243,7 +1243,7 @@
     ],
     "correct": "a",
     "explanation": "The CoC/CoA proves that the lot was manufactured, tested, or analyzed against the specified material and process requirements. The packing list proves what quantities and items were shipped, the MSL label proves moisture sensitivity and floor-life status, and declarations prove regulatory or compliance status rather than lot conformity.",
-    "source": ""
+    "source": "src-003"
   },
   {
     "questionId": "q-m01l02-02",
@@ -1273,7 +1273,7 @@
     ],
     "correct": "a",
     "explanation": "The elapsed floor life is 168 h ÷ 3 = 56 h, so the remaining floor life is 168 h − 56 h = 112 h. Option b is the elapsed time, option c ignores elapsed time, and option d adds elapsed time instead of subtracting it.",
-    "source": ""
+    "source": "src-003"
   },
   {
     "questionId": "q-m01l03-01",
@@ -1303,7 +1303,7 @@
     ],
     "correct": "a",
     "explanation": "An AQL sampling plan is risk-based: it defines acceptance behavior at acceptable quality and the risk of accepting worse quality. It does not guarantee zero defects, ensure representativeness for a poorly defined lot, or eliminate producer risk.",
-    "source": ""
+    "source": "src-003"
   },
   {
     "questionId": "q-m01l03-02",
@@ -1333,7 +1333,7 @@
     ],
     "correct": "b",
     "explanation": "ANSI/ASQ Z1.4 maps lot size 1,201–3,200 at inspection level II to code letter K; code K has sample size 125, and the normal single-sampling table gives Ac = 3 at AQL 1.0%. Option a is the code J plan, which is the level I code letter for the next band up (3201 to 10000) and not for this lot; option d is the level III code L plan for this band; and option c mixes the code K sample size with the code L acceptance number.",
-    "source": ""
+    "source": "src-003"
   },
   {
     "questionId": "q-m01l04-01",
@@ -1363,7 +1363,7 @@
     ],
     "correct": "a",
     "explanation": "A Certificate of Conformance is the lot-specific document that attests the delivered part or material, package or construction, and lot or date code match the purchase specification. A Certificate of Analysis proves test or material results, not identity alone; a packing slip proves shipment contents and quantity; a purchase order proves what was requested, not what was verified as shipped.",
-    "source": ""
+    "source": "src-003"
   },
   {
     "questionId": "q-m01l04-02",
@@ -1394,7 +1394,7 @@
     ],
     "correct": "a",
     "explanation": "The arithmetic is two missing documents plus one counterfeit red flag equals three findings. Because the counterfeit red flag count is one, which is greater than zero, the lot is rejected even though the missing documents alone would be quarantine findings.",
-    "source": ""
+    "source": "src-003"
   },
   {
     "questionId": "q-m01l05-01",
@@ -1424,7 +1424,7 @@
     ],
     "correct": "a",
     "explanation": "Option a is correct because acceptance requires lot-specific evidence of material identity/spec and storage integrity. Option b proves commercial transaction, not technical compliance. Option c proves hazard/product family but not lot-specific alloy, powder, expiry, or cold-chain. Option d cannot prove internal material properties or temperature history.",
-    "source": ""
+    "source": "src-003"
   },
   {
     "questionId": "q-m01l05-02",
@@ -1455,7 +1455,7 @@
     ],
     "correct": "a",
     "explanation": "The minimum overlap is 99.5% + 95% − 100% = 94.5%, so the certificate proves at least 94.5% of the powder is within 25-45 µm. Because J-STD-005 Type 3 requires 80% minimum in range, the lot meets the in-band requirement. The tail limits are met as well: at most 0.5% is above 45 µm against the less-than-1% limit, and at most 5% is below 25 µm, which bounds the below-20 µm fraction at 5% against the 10% limit. Option b applies the requirement as if it were the measured overlap, option c adds the two sieve results instead of taking their minimum overlap, and option d invents a 100% requirement that the standard does not contain.",
-    "source": ""
+    "source": "src-015"
   },
   {
     "questionId": "q-m01l06-01",
@@ -1485,7 +1485,7 @@
     ],
     "correct": "a",
     "explanation": "A Certificate of Conformance states that the received lot was inspected and conforms to the purchase order, drawing, and applicable IPC acceptance criteria. A Material Safety Data Sheet provides safe-handling information, not PCB conformance. A packing list confirms quantities and packing, while a shipping label identifies the shipment; neither proves quality acceptance.",
-    "source": ""
+    "source": "src-003"
   },
   {
     "questionId": "q-m01l06-02",
@@ -1516,7 +1516,7 @@
     ],
     "correct": "a",
     "explanation": "Bow percentage = (0.8 mm / 100 mm) × 100 = 0.8%. IPC-6012 Class 3 allows 0.75%, so 0.8% exceeds the limit and the finding should be recorded as reject. Option b uses the limit instead of the measured value, option c applies the wrong class limit, and option d is a decimal-conversion error.",
-    "source": ""
+    "source": "src-018"
   },
   {
     "questionId": "q-m01l07-01",
@@ -1546,7 +1546,7 @@
     ],
     "correct": "b",
     "explanation": "Damaged packaging and missing moisture indicators create uncertainty about conformity, so quarantine is the correct dock action until verification. Acceptance requires complete conformity evidence; rejection requires confirmed nonconformance or inability to verify; MRB is for disposition of confirmed nonconforming material, not the first action for an uncertain finding.",
-    "source": ""
+    "source": "src-003"
   },
   {
     "questionId": "q-m01l07-02",
@@ -1576,7 +1576,7 @@
     ],
     "correct": "a",
     "explanation": "The observed defect rate is 4 ÷ 200 = 0.02 = 2%. Because the count equals the rejection number, the lot is rejected; quarantine is for uncertain or pending verification, and acceptance would require defects at or below the acceptance number of 3.",
-    "source": ""
+    "source": "src-003"
   },
   {
     "questionId": "q-m02l01-01",
@@ -1606,7 +1606,7 @@
     ],
     "correct": "a",
     "explanation": "Floor life is the time a device may be exposed after opening its moisture barrier bag before reflow. A reflow performed while the device is still within floor life resets the floor-life clock, so only exposure after that reflow counts. The other options are wrong because prior exposure is not added, floor life is not replaced by reflow count, and reflow does not make the device permanently immune to moisture.",
-    "source": ""
+    "source": "src-003"
   },
   {
     "questionId": "q-m02l01-02",
@@ -1636,7 +1636,7 @@
     ],
     "correct": "a",
     "explanation": "MSL 3 has a J-STD-033 floor life of 168 h at 30 °C/60% RH (J-STD-020 assigns the level, J-STD-033 governs handling). Because the device was reflowed while within floor life, the clock resets, so only the post-reflow exposure counts: one-quarter of 168 h is 42 h, leaving 168 h - 42 h = 126 h. Option b incorrectly adds the pre-reflow one-third exposure, option c ignores elapsed post-reflow time, and option d is the elapsed post-reflow time rather than the remaining time.",
-    "source": ""
+    "source": "src-003"
   },
   {
     "questionId": "q-m02l02-01",
@@ -1666,7 +1666,7 @@
     ],
     "correct": "a",
     "explanation": "Floor life begins when the device is removed from its dry pack, so an unopened bag with a good humidity indicator card means the full floor life for the marked MSL rating is still available. The humidity indicator card shows bag condition, not reflow history. The MSL marking gives the rating, but remaining floor life also depends on exposure and reflow history.",
-    "source": ""
+    "source": "src-003"
   },
   {
     "questionId": "q-m02l02-02",
@@ -1696,7 +1696,7 @@
     ],
     "correct": "a",
     "explanation": "J-STD-033 gives MSL 3 a floor life of 168 h and MSL 4 a floor life of 72 h. Remaining floor life is 168 h minus 72 h, which equals 96 h. Option b is the exposure time, not the remaining time; option c ignores the exposure; option d adds the exposure instead of subtracting it.",
-    "source": ""
+    "source": "src-003"
   },
   {
     "questionId": "q-m02l03-01",
@@ -1726,7 +1726,7 @@
     ],
     "correct": "a",
     "explanation": "The floor-life clock starts when the sealed moisture barrier bag is opened and the device is exposed to ambient conditions. Placement on a feeder or entry into reflow occurs after exposure has already begun. Removal from a dry cabinet only matters if the device had been stored under controlled conditions; it does not define the start of the clock.",
-    "source": ""
+    "source": "src-003"
   },
   {
     "questionId": "q-m02l03-02",
@@ -1756,7 +1756,7 @@
     ],
     "correct": "a",
     "explanation": "Remaining floor life is standard floor life minus accumulated exposure: 168 h - 8 h = 160 h. The 168 h option ignores the recorded exposure. The 8 h option reports exposure rather than remaining life. The 0 h option would apply only if accumulated exposure had reached or exceeded the standard floor life.",
-    "source": ""
+    "source": "src-003"
   },
   {
     "questionId": "q-m02l04-01",
@@ -1786,7 +1786,7 @@
     ],
     "correct": "a",
     "explanation": "A compromised dry pack and exceeded humidity indicator threshold indicate moisture exposure, so the batch must be baked to the condition specified for its package moisture sensitivity level and then dry-stored. Reflow is not a substitute for baking, and the humidity indicator card is a control record rather than advisory. Through-hole and surface-mount packages can both be moisture-sensitive, so package assembly type alone does not exempt them.",
-    "source": ""
+    "source": "src-003"
   },
   {
     "questionId": "q-m02l04-02",
@@ -1795,15 +1795,15 @@
     "competencies": [
       "K1"
     ],
-    "prompt": "A 2.5 mm-thick package is baked at 90 °C. The J-STD-033 Table 4-1 bake time for that body thickness is 192 h. If the bake has already run for half of the bake time, how many hours remain before the bake is complete?",
+    "prompt": "A 2.5 mm-thick package is baked at 90 °C with floor life exceeded by more than 72 h. The J-STD-033 Table 4-1 bake time for that body thickness is 10 days. If the bake has already run for half of the bake time, how many hours remain before the bake is complete?",
     "options": [
       {
         "id": "a",
-        "text": "96 h"
+        "text": "120 h"
       },
       {
         "id": "b",
-        "text": "192 h"
+        "text": "240 h"
       },
       {
         "id": "c",
@@ -1811,12 +1811,12 @@
       },
       {
         "id": "d",
-        "text": "24 h"
+        "text": "96 h"
       }
     ],
     "correct": "a",
-    "explanation": "J-STD-033 bake time is indexed to package body thickness, not to the moisture sensitivity level: for 2.0 to 4.5 mm bodies the 90 °C column gives 192 h. Half of that is 96 h, so 96 h remain. The 192 h option is the total bake time; 48 h and 24 h are floor-life values for MSL 5 and MSL 5a, not bake times. Note that the cumulative bake time above 90 °C is limited to 96 h unless the component supplier states otherwise, so a 192 h bake at 90 °C normally requires supplier approval.",
-    "source": ""
+    "explanation": "J-STD-033 bake time is indexed to package body thickness, the moisture sensitivity level and whether floor life was exceeded by more than 72 h or by 72 h or less, so all three must be read off the table before a time is quoted. For a body in the >2.0 to 4.5 mm band at 90 °C, the >72 h column gives 10 days, which is 240 h. Half of that is 120 h, so 120 h remain. The 240 h option is the total bake time; 48 h is the 125 °C bake time for the same thickness band, not a 90 °C time; 96 h is the cumulative bake limit, which applies only above 90 °C — at 90 °C or below there is no cumulative limit, which is precisely why a 240 h bake at 90 °C is permitted at all.",
+    "source": "src-003"
   },
   {
     "questionId": "q-m02l05-01",
@@ -1846,7 +1846,7 @@
     ],
     "correct": "a",
     "explanation": "A failed wrist strap system removes the primary personnel grounding control, so operators can directly discharge ESD-sensitive assemblies. An ionizer imbalance is lower risk when devices are already protected by conductive packaging, and a cosmetic scratch does not change the surface's electrical performance. Poor floor cleaning can degrade control over time but is less immediate than a broken grounding path.",
-    "source": ""
+    "source": "src-012"
   },
   {
     "questionId": "q-m02l05-02",
@@ -1876,7 +1876,7 @@
     ],
     "correct": "a",
     "explanation": "The checklist weights give Likelihood = 2 for an out-of-limit control, Severity = 3 for personnel grounding, and Severity = 2 for ionization. Therefore the wrist strap gap scores 2 × 3 = 6 and the ionizer gap scores 2 × 2 = 4, so the difference is 2. The other options are the ionizer score, the wrist strap score, and the product of the two scores.",
-    "source": ""
+    "source": "src-012"
   },
   {
     "questionId": "q-m02l06-01",
@@ -1907,7 +1907,7 @@
     ],
     "correct": "a",
     "explanation": "A floor-life breach requires baking remaining unplaced moisture-sensitive components according to package type, while already placed boards need containment based on the last verified ESD control point because ESD exposure may affect handled units. Reflow is not a substitute for controlled bake for all package types. Scraping the whole lot is not justified without evidence of damage, and continuing production expands the breach.",
-    "source": ""
+    "source": "src-003"
   },
   {
     "questionId": "q-m02l06-02",
@@ -1920,7 +1920,7 @@
     "options": [
       {
         "id": "a",
-        "text": "One standard 24 h interval over floor life; bake remaining unplaced components at the package-specific bake condition from J-STD-033 Table 4-1, e.g., 125°C for 8 h for a body up to 1.4 mm, 18 h for 1.4-2.0 mm or 48 h for 2.0-4.5 mm, or the 40 °C long bake if the carrier cannot take 125 °C, then return to dry storage at ≤30°C/60%RH with desiccant and HIC."
+        "text": "One standard 24 h interval over floor life; bake remaining unplaced components at the package-specific bake condition from J-STD-033 Table 4-1 — for this MSL 3 lot with the exceedance inside 72 h, 125 °C for 7 h up to 1.4 mm, 17 h for 1.4-2.0 mm or 48 h for 2.0-4.5 mm, or the 40 °C long bake if the carrier cannot take 125 °C — then return to dry storage at ≤30°C/60%RH with desiccant and HIC."
       },
       {
         "id": "b",
@@ -1936,8 +1936,8 @@
       }
     ],
     "correct": "a",
-    "explanation": "168 h + 24 h = 192 h cumulative exposure; 192 h - 168 h = 24 h over floor life. Because cumulative exposure exceeds floor life, remaining unplaced components must be baked; the bake condition comes from J-STD-033 Table 4-1 and is indexed to package body thickness, not to the MSL number: 125°C for 8 h up to 1.4 mm, 18 h for 1.4-2.0 mm and 48 h for 2.0-4.5 mm, with the 40 °C long bake (about 9-38 days) reserved for carriers that cannot take 125 °C. Cumulative bake time above 90 °C is limited to 96 h unless the supplier states otherwise, and the 24 h figure sometimes quoted for a 125 °C bake is the supplier dry-pack condition, not a user bake. Distractors misapply the floor-life subtraction or assume prior bake resets exposure.",
-    "source": ""
+    "explanation": "168 h + 24 h = 192 h cumulative exposure; 192 h − 168 h = 24 h over floor life. Because cumulative exposure exceeds floor life, remaining unplaced components must be baked. The bake condition comes from J-STD-033 Table 4-1 and is indexed to package body thickness, the MSL level and the size of the exceedance: for this MSL 3 lot with a 24 h exceedance, inside the ≤72 h column, 125 °C gives 7 h up to 1.4 mm, 17 h for 1.4-2.0 mm and 48 h for 2.0-4.5 mm. The 40 °C long bake runs 8 to 22 days for a body up to 1.4 mm and 25 to 79 days for 1.4 to 2.0 mm, again by MSL level, and is reserved for carriers that cannot take 125 °C. The 8 h in option b is the >72 h column value for MSL 2a, not the ≤72 h value for MSL 3. Cumulative bake time above 90 °C is limited to 96 h unless the supplier states otherwise, and the 24 h figure sometimes quoted for a 125 °C bake is the supplier dry-pack condition from Table 4-2, not a user bake. Distractors misapply the floor-life subtraction or assume a prior bake resets exposure.",
+    "source": "src-003"
   },
   {
     "questionId": "q-m03l01-01",
@@ -1967,7 +1967,7 @@
     ],
     "correct": "a",
     "explanation": "Area ratio compares aperture area to sidewall area, so a small aperture can have low area ratio even when width exceeds thickness. Aspect ratio alone does not account for perimeter, while high aspect ratio generally helps release. Deposit volume scales with aperture area and stencil thickness, and a smaller perimeter reduces rather than increases sidewall adhesion.",
-    "source": ""
+    "source": "src-004"
   },
   {
     "questionId": "q-m03l01-02",
@@ -1997,7 +1997,7 @@
     ],
     "correct": "a",
     "explanation": "Let t be stencil thickness and the square side be t. Area ratio = t²/(4t·t)=0.25, aspect ratio = t/t=1, and deposit volume = t²·t=t³. Because the area ratio is below the rule-of-thumb release minimum of 0.66 (and the aspect ratio of 1 is also below the 1.5 minimum), release is inadequate; b inverts the ratio, c uses perimeter as aspect ratio, and d uses sidewall area instead of aperture area for volume.",
-    "source": ""
+    "source": "src-004"
   },
   {
     "questionId": "q-m03l02-01",
@@ -2027,7 +2027,7 @@
     ],
     "correct": "a",
     "explanation": "Area ratio = open area / (stencil thickness × perimeter), so with constant area and thickness, larger perimeter lowers area ratio and worsens release. Aspect ratio is thickness divided by aperture width, not perimeter, so it is not the primary effect here. Deposit volume = open area × stencil thickness, so it remains unchanged.",
-    "source": ""
+    "source": "src-004"
   },
   {
     "questionId": "q-m03l02-02",
@@ -2057,7 +2057,7 @@
     ],
     "correct": "a",
     "explanation": "Open area = 0.10 mm × 0.10 mm = 0.0100 mm², perimeter = 4 × 0.10 mm = 0.40 mm, and area ratio = 0.0100 mm² / (0.12 mm × 0.40 mm) = 0.0100 / 0.048 ≈ 0.21. Deposit volume = 0.0100 mm² × 0.12 mm = 0.0012 mm³, and aspect ratio = 0.10 mm / 0.12 mm = 0.83, so option d is neither the area ratio nor the aspect ratio. By the usual rule of thumb, both indices fail: the area ratio of 0.21 is below the 0.66 minimum and the aspect ratio of 0.83 is below the 1.5 minimum, so paste release is poor. Option b inverts the area-ratio calculation and option c misplaces the decimal in volume.",
-    "source": ""
+    "source": "src-004"
   },
   {
     "questionId": "q-m03l03-01",
@@ -2088,7 +2088,7 @@
     ],
     "correct": "a",
     "explanation": "A step stencil varies foil thickness by zone, allowing adequate paste volume on large pads while reducing paste height and volume on fine-pitch pads to prevent bridging. A uniform thickness cannot optimize both paste volume and fine-pitch paste control. Tombstoning, clogging, and wall finish are not primarily solved by changing foil thickness zones.",
-    "source": ""
+    "source": "src-004"
   },
   {
     "questionId": "q-m03l03-02",
@@ -2119,7 +2119,7 @@
     ],
     "correct": "a",
     "explanation": "Aperture area = 0.40 x 0.40 = 0.16 mm^2, and aperture perimeter = 4 x 0.40 = 1.60 mm. The denominator is 0.12 x 1.60 = 0.192 mm^2, so area ratio = 0.16 / 0.192 = 0.83. This is above the IPC-7525 minimum area ratio, so the aperture is acceptable for paste release; the other values result from misapplying the formula or confusing the calculated ratio with the minimum threshold.",
-    "source": ""
+    "source": "src-004"
   },
   {
     "questionId": "q-m03l04-01",
@@ -2150,7 +2150,7 @@
     ],
     "correct": "a",
     "explanation": "Thinner foil raises area ratio and lowers paste volume, while reduced aperture length further limits paste volume. Together they reduce excess paste that can bridge fine-pitch QFP pads. Increasing paste volume would worsen bridging, lowering area ratio would worsen release, and tombstoning is a chip-component defect rather than the primary fine-pitch QFP risk.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m03l04-02",
@@ -2181,7 +2181,7 @@
     ],
     "correct": "b",
     "explanation": "Area ratio = d/(4t). With d = 3t, area ratio = 3t/(4t) = 0.75, which exceeds the IPC-7525 minimum of 0.66. The standard-minimum option is not the calculated value; the half-denominator option inverts the factor; the diameter-only option ignores the foil-thickness and perimeter denominator.",
-    "source": ""
+    "source": "src-004"
   },
   {
     "questionId": "q-m03l05-01",
@@ -2211,7 +2211,7 @@
     ],
     "correct": "a",
     "explanation": "Area ratio is the primary paste-release criterion because it compares aperture area to the sidewall area that can hold paste back; if it is below the issued minimum, release is suspect even if volume and aspect ratio pass. Deposit volume indicates how much paste can be deposited, not whether it releases, and aspect ratio is a supporting geometry check rather than the sole criterion.",
-    "source": ""
+    "source": "src-004"
   },
   {
     "questionId": "q-m03l05-02",
@@ -2241,7 +2241,7 @@
     ],
     "correct": "a",
     "explanation": "Area = 0.40 mm × 0.40 mm = 0.16 mm²; perimeter = 2 × (0.40 mm + 0.40 mm) = 1.60 mm; area ratio = 0.16 mm² ÷ (0.120 mm × 1.60 mm) = 0.83. Aspect ratio = 0.40 mm ÷ 0.120 mm = 3.33, and deposit volume = 0.16 mm² × 0.120 mm = 0.0192 mm³. Because 0.83 exceeds the rule-of-thumb minimum area ratio of 0.66 and 3.33 exceeds the rule-of-thumb minimum aspect ratio of 1.5, the aperture is expected to release paste adequately.",
-    "source": ""
+    "source": "src-004"
   },
   {
     "questionId": "q-m03l06-01",
@@ -2271,7 +2271,7 @@
     ],
     "correct": "a",
     "explanation": "Stencil acceptance compares each reported aperture to the issued specification, not to an average of all apertures. A single out-of-tolerance aperture can cause insufficient paste volume or bridging, so the delivered stencil must be rejected. Accepting based on averages or on the size of the aperture ignores the specification limit for that aperture.",
-    "source": ""
+    "source": "src-004"
   },
   {
     "questionId": "q-m03l06-02",
@@ -2301,7 +2301,7 @@
     ],
     "correct": "a",
     "explanation": "Let the minimum area be 0.66 x perimeter x thickness, so the initial area is 3 x 0.66 = 1.98 x perimeter x thickness. The allowable area loss is 1.98 - 0.66 = 1.32 x perimeter x thickness, and two-thirds of that loss is 0.88 x perimeter x thickness. The current area is 1.98 - 0.88 = 1.10 x perimeter x thickness, giving an area ratio of 1.10, which is above the IPC-7525 minimum, so the stencil remains in service.",
-    "source": ""
+    "source": "src-004"
   },
   {
     "questionId": "q-m05l01-01",
@@ -2331,7 +2331,7 @@
     ],
     "correct": "a",
     "explanation": "The nozzle must support the component without contacting the body, and placement force should be the minimum needed to place reliably while staying within mechanical limits. Repeatability does not justify exceeding mechanical limits, and increasing force can damage the component or substrate. Adjusting pick height alone does not correct an undersized nozzle or excessive force.",
-    "source": ""
+    "source": "src-011"
   },
   {
     "questionId": "q-m05l01-02",
@@ -2361,7 +2361,7 @@
     ],
     "correct": "a",
     "explanation": "The lesson formula is throughput = 3600 / cycle time, so 3600 / 0.25 = 14400 placements/h. Multiplying by 0.25 gives 900, which confuses seconds per placement with placements per second. Dividing by 0.25*60 gives 240, which incorrectly converts to minutes before dividing.",
-    "source": ""
+    "source": "src-011"
   },
   {
     "questionId": "q-m05l02-01",
@@ -2391,7 +2391,7 @@
     ],
     "correct": "b",
     "explanation": "The component's mechanical limits govern nozzle contact, pick height, and placement force; the nozzle must pick the intended surface without interference, and force must not exceed the component rating. The largest nozzle and maximum force can damage brittle parts, pressing into the feeder causes mispicks or damage, and feeder pitch alone does not define nozzle or force limits.",
-    "source": ""
+    "source": "src-011"
   },
   {
     "questionId": "q-m05l02-02",
@@ -2421,7 +2421,7 @@
     ],
     "correct": "a",
     "explanation": "Using pi*d^2/4, area = pi*1.0^2/4 = 0.785 mm^2, so F = 0.3*0.785 = 0.236 N, about 0.24 N, which is below the rule-of-thumb limit. Option b uses the bore diameter as if it were area, option c reports the limit rather than the calculated force, and option d omits the divide-by-four in the area formula.",
-    "source": ""
+    "source": "src-011"
   },
   {
     "questionId": "q-m05l03-01",
@@ -2451,7 +2451,7 @@
     ],
     "correct": "a",
     "explanation": "A uniform vector offset across all components indicates the board coordinate origin or fiducial-based board recognition is shifted, not individual placement errors. Expired calibration would typically produce inconsistent or systematic camera/nozzle errors rather than a single panel-wide vector. Wrong-part and polarity defects are detected by component shape or orientation, not by a common positional offset.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m05l03-02",
@@ -2481,7 +2481,7 @@
     ],
     "correct": "b",
     "explanation": "The lesson formula is skew = atan(transverse component / longitudinal component). With equal components, the ratio is one, so skew = atan(1) = 45 degrees. A zero angle would require no transverse component, 90 degrees would require no longitudinal component, and 180 degrees would indicate reversal along the axis.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m05l04-01",
@@ -2512,7 +2512,7 @@
     ],
     "correct": "a",
     "explanation": "The lesson evidence sequence attributes a defect to placement when printing is centered and reflow is nominal while measured component center data show a repeatable offset. Option b points to printing because the paste is shifted, and tombstoning points to reflow. Option c is a missing-part or feeder issue, not a placement offset mechanism. Option d points to reflow because the rotation appears after reflow with low paste.",
-    "source": ""
+    "source": "src-011"
   },
   {
     "questionId": "q-m05l04-02",
@@ -2543,7 +2543,7 @@
     ],
     "correct": "b",
     "explanation": "The lesson formula is offset magnitude = sqrt(dx^2 + dy^2). With dx = a pad pitch and dy = a pad pitch, offset = sqrt((a pad pitch)^2 + (a pad pitch)^2) = sqrt(two) pad pitches. The other options ignore the vector sum: a pad pitch is only one axis, two pad pitches is an arithmetic sum, and half a pad pitch is not a vector magnitude.",
-    "source": ""
+    "source": "src-011"
   },
   {
     "questionId": "q-m05l05-01",
@@ -2573,7 +2573,7 @@
     ],
     "correct": "a",
     "explanation": "Program verification must confirm the placement program against the BOM and the physical setup before production, and the first-article check validates the result. A missing or expired calibration invalidates the setup because the machine cannot be trusted to place or inspect correctly. Starting production first, relying only on machine alarms, or accepting a file that opens are all incomplete verification.",
-    "source": ""
+    "source": "src-011"
   },
   {
     "questionId": "q-m05l05-02",
@@ -2603,7 +2603,7 @@
     ],
     "correct": "a",
     "explanation": "Using the formula, 120 − 114 = 6 missing components, and 6 + 1 expired calibration = 7 blockers. The rule of thumb is to stop release when blockers are greater than zero. Option b ignores the expired calibration, option c ignores the missing components, and option d ignores both.",
-    "source": ""
+    "source": "src-011"
   },
   {
     "questionId": "q-m05l06-01",
@@ -2634,7 +2634,7 @@
     ],
     "correct": "a",
     "explanation": "The evidence sequence is good solder paste inspection, bad post-placement inspection, then bad reflow inspection, so the defect appeared after placement. If solder paste inspection were bad, printing would be implicated; if post-placement inspection were good, reflow would be implicated; a missing part is a different defect mechanism.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m05l06-02",
@@ -2665,7 +2665,7 @@
     ],
     "correct": "a",
     "explanation": "The lesson's skew definition takes the difference between the left and right average Y offsets and then takes half of that difference. With +A and -A, the difference is A plus A, and half of that is A. The full-difference option omits the half factor, zero would require equal same-sign offsets, and half of A would use only one side's offset.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m07l01-01",
@@ -2695,7 +2695,7 @@
     ],
     "correct": "c",
     "explanation": "Laminar/3D X-ray is best for hidden solder defects under a package because it provides depth information to distinguish bridging from overlapping features. AOI and visual inspection cannot see under the package body. 2D X-ray may reveal some hidden solder features but can lack the depth resolution needed for under-body bridging. Boundary scan tests electrical connectivity, not the physical solder joint shape.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m07l01-02",
@@ -2725,7 +2725,7 @@
     ],
     "correct": "b",
     "explanation": "Using the rule-of-thumb partition formula, X-ray defects = total defects - AOI defects - boundary scan defects. Arithmetic: 120 - 70 - 25 = 45. AOI covers the visible defects and boundary scan covers the electrical defects, so the remaining hidden solder defects require X-ray.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m07l02-01",
@@ -2755,7 +2755,7 @@
     ],
     "correct": "a",
     "explanation": "2D X-ray is appropriate because it can inspect hidden solder joints under a BGA package and detect opens or excessive voiding. AOI and visual inspection cannot see under the package, and boundary scan requires test access and mainly detects electrical faults rather than voiding.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m07l02-02",
@@ -2785,7 +2785,7 @@
     ],
     "correct": "a",
     "explanation": "Detected true calls are 20 true defects minus 5 escapes, giving 15 detected true calls. Total calls are 15 detected true calls plus 15 false calls, giving 30 calls, so escape rate is 5/20 = 25%, false-call rate is 15/30 = 50%, and verification coverage is 20/30 = 66.7%. Option b incorrectly treats raw counts as percentages, option c incorrectly divides false calls by true defects, and option d uses incorrect denominators.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m07l03-01",
@@ -2815,7 +2815,7 @@
     ],
     "correct": "a",
     "explanation": "Escape rate is a missed-defect metric: it compares escapes to the total defects present in the audited population, so it is limited by sampling and by whether the audit method can detect the same defects. False calls are a separate metric and do not reduce escapes. First-pass yield is a broader production outcome and is not the same as escape rate even with full verification.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m07l03-02",
@@ -2845,7 +2845,7 @@
     ],
     "correct": "c",
     "explanation": "Verification coverage is verified calls divided by total calls, so 30 / 40 = 0.75 = 75%. The 25% option is the false-call rate, 10 / 40 = 25%. The 30% option incorrectly divides verified calls by audited boards, 30 / 100, and the 95% option is a yield-like figure, not verification coverage.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m07l04-01",
@@ -2875,7 +2875,7 @@
     ],
     "correct": "a",
     "explanation": "Laminar/3D X-ray separates features by depth, so it can distinguish a real bridge from overlapping ball shadows. AOI cannot see under the BGA package, boundary scan tests electrical connectivity rather than the physical defect, and 2D X-ray can create projection artifacts when balls overlap.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m07l04-02",
@@ -2905,7 +2905,7 @@
     ],
     "correct": "b",
     "explanation": "Fill fraction = solder height / hole depth = two-thirds = 0.667, so fill = 0.667 × 100 = 66.7%. IPC-A-610 Class 3 requires at least 75% fill, so the joint is reject. The 33.3% and 150% options invert the ratio, and the accept option ignores the Class 3 minimum.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m07l05-01",
@@ -2935,7 +2935,7 @@
     ],
     "correct": "a",
     "explanation": "A condition, or process indicator, is a workmanship finding that may lead to a defect but is not itself a defect, and the class must match the product class. Option b assigns the wrong class and the wrong category. Option c lacks class and uses vague language, while option d lacks class and does not identify the specific finding.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m07l05-02",
@@ -2965,7 +2965,7 @@
     ],
     "correct": "a",
     "explanation": "The IPC-A-610 Class 3 number is 3, so defects = 3 and inspected units = 100. Applying the formula gives 3 / 100 × 100 = 3 percent, which does not exceed the Class 3 rule-of-thumb threshold of 3 percent. Option b would require 30 defects per 100 units, option c would require 0.3 defects per 100 units, and option d would require 300 defects per 100 units.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m07l06-01",
@@ -2995,7 +2995,7 @@
     ],
     "correct": "b",
     "explanation": "The finding is insufficient solder paste coverage, not bridging or misalignment. IPC-A-610 requires adequate paste coverage to form an acceptable solder joint, so the board should be reworked by cleaning and reprinting before reflow. Accepting it would risk insufficient solder after reflow, and calling it bridging or misalignment misstates the defect type.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m07l06-02",
@@ -3025,7 +3025,7 @@
     ],
     "correct": "a",
     "explanation": "IPC-A-610 minimum hole fill is three-quarters of the hole depth, so fill percentage = 3/4 x 100 = 75%. Since 75% is at least the 75% minimum, the disposition is accept when all other criteria are met. Rework or reject would require fill below the minimum or another nonconformance, and the conversion is defined by the formula.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m08l01-01",
@@ -3055,7 +3055,7 @@
     ],
     "correct": "a",
     "explanation": "The extra diameter is clearance, allowing the lead to enter and solder to wet the hole wall and annular ring. A larger hole does not by itself increase mechanical load; load depends on joint geometry and wetted area. Solder fill relies on capillary action, so eliminating it would harm the joint. The plated hole is intended to be electrically connected to the lead, not isolated.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m08l01-02",
@@ -3085,7 +3085,7 @@
     ],
     "correct": "a",
     "explanation": "Plated-hole diameter = lead diameter + diametral clearance = 0.50 mm + 0.30 mm = 0.80 mm. IPC-A-610 sets a minimum vertical barrel fill of 75% for both Class 2 and Class 3, with Class 3 additionally requiring visible fillets on both sides; 100% fill is a customer requirement, not an IPC-A-610 class limit. The 0.30 mm clearance is a design rule of thumb rather than an IPC-2221 requirement, so verify it against your drill, plating and lead tolerances.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m08l02-01",
@@ -3115,7 +3115,7 @@
     ],
     "correct": "a",
     "explanation": "Insertion requires the worst-case diametral clearance, so the smallest plated hole must still accept the largest lead. Nominal values ignore tolerance stack-up, and maximum hole minus minimum lead gives only best-case clearance. Placement tolerance affects alignment, not the physical diameter mismatch.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m08l02-02",
@@ -3145,7 +3145,7 @@
     ],
     "correct": "a",
     "explanation": "The annular fill formula is fill = (1 - (lead/hole)^2) × 100. With lead/hole = 1/2, fill = (1 - 1/4) × 100 = 75%. The 50% choice uses linear clearance instead of area, 25% is the lead-area fraction, and 100% ignores the lead.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m08l03-01",
@@ -3176,7 +3176,7 @@
     ],
     "correct": "a",
     "explanation": "The un-soldered pads are a shadowing defect: the tall connector blocks wave solder from reaching the trailing pads. Rotating the board and adjusting clinch/masking changes the shadow path and exposes the pads to the wave. Increasing seating force or clinch length does not address the wave shadow and can cause insertion damage, while masking the pads prevents soldering.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m08l03-02",
@@ -3207,7 +3207,7 @@
     ],
     "correct": "c",
     "explanation": "The formula gives 1.6 mm + 0.8 mm = 2.4 mm. 0.8 mm is only the clinch allowance, 1.6 mm ignores the allowance, and 3.2 mm doubles the board thickness rather than adding the allowance.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m08l04-01",
@@ -3237,7 +3237,7 @@
     ],
     "correct": "a",
     "explanation": "Shadowing is caused by a tall component blocking the wave from reaching pads behind it, so the board should be oriented with the tall component downstream at the trailing edge and the pads exposed. The clinch should be kept low so the component does not add unnecessary height, and masking or taping should protect non-solder areas while leaving the pads open. Masking or taping the pads prevents solder wetting, and increasing wave height is not a layout control and can cause bridging or damage.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m08l04-02",
@@ -3267,7 +3267,7 @@
     ],
     "correct": "a",
     "explanation": "Orientation A scores (10 + 2) / 4 = 12 / 4 = 3, and orientation B scores (6 + 2) / 4 = 8 / 4 = 2, so the difference is 3 - 2 = 1. The option 2 is orientation B's score, option 3 is orientation A's score, and option 4 is the raw height difference rather than the normalized score difference.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m08l05-01",
@@ -3297,7 +3297,7 @@
     ],
     "correct": "a",
     "explanation": "The lesson formula uses hole area minus lead area, so fill is an area ratio rather than a linear clearance. Two joints can have the same clearance but different fill because the squared diameter terms change the annular area. The other options incorrectly reduce fill to a single diameter or to linear clearance.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m08l05-02",
@@ -3327,7 +3327,7 @@
     ],
     "correct": "a",
     "explanation": "Expected fill equals the hole area minus the lead area divided by the hole area, or one minus the square of the lead-to-hole diameter ratio. With a lead-to-hole ratio of three-quarters, the calculation is one minus three-quarters squared, which is one minus nine-sixteenths, or seven-sixteenths, equal to 43.75%. The other options confuse diameter clearance with area fill or use the lead fraction directly.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m09l03-01",
@@ -3357,7 +3357,7 @@
     ],
     "correct": "a",
     "explanation": "Bottom temperature is the primary indicator for flux activation, while top temperature margin protects components; if the flux type, amount, and fog/wave height are appropriate, the settings can be maintained. Forcing top temperature to match bottom temperature can exceed thermal limits, and fog/wave height affects soldering rather than preheat activation.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m09l03-02",
@@ -3387,7 +3387,7 @@
     ],
     "correct": "a",
     "explanation": "Using the lesson formula ΔT = T_target - T_inlet, the rise is 100°C - 25°C = 75°C. The remaining margin is 125°C - 100°C = 25°C. The distractors confuse the target temperature with the rise or compare the limit with the inlet instead of the target.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m10l01-01",
@@ -3417,7 +3417,7 @@
     ],
     "correct": "a",
     "explanation": "The small nozzle and localized flux limit heat and flux spread to the fine-pitch joints and protect heat-sensitive neighbours, while the larger nozzle and longer dwell supply enough heat to the high-thermal-mass through-hole connector. Wave soldering exposes the neighbours to board-wide heat, a large nozzle floods fine-pitch joints, and hand soldering is not a repeatable process strategy.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m10l01-02",
@@ -3447,7 +3447,7 @@
     ],
     "correct": "a",
     "explanation": "Apply the formula: T = 4 × 1 + 1 = 5 seconds. The 4-second option omits the flux application, the 1-second option omits the nozzle time, and the 8-second option doubles the nozzle time without a rule-of-thumb basis.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m10l02-01",
@@ -3477,7 +3477,7 @@
     ],
     "correct": "a",
     "explanation": "A small nozzle with a narrow flux pattern confines flux to the intended joints, and flux-on-the-fly prevents flux from spreading to nearby SMD pads. Broad pre-flux or high-volume wide-nozzle strategies increase the risk of bridging, contamination, and poor solderability. Fixed dwell and a single nozzle ignore the geometry-driven need for selective flux placement.",
-    "source": ""
+    "source": "src-014"
   },
   {
     "questionId": "q-m10l02-02",
@@ -3507,7 +3507,7 @@
     ],
     "correct": "c",
     "explanation": "Total dwell time is calculated as joints multiplied by dwell per joint per pass multiplied by passes: 4 joints × 1 s/joint/pass × 2 passes = 8 s. The 4 s answer ignores the second pass, the 2 s answer ignores both joints and passes, and the 16 s answer double-counts the pass multiplier.",
-    "source": ""
+    "source": "src-014"
   },
   {
     "questionId": "q-m10l03-01",
@@ -3538,7 +3538,7 @@
     ],
     "correct": "a",
     "explanation": "The correct approach links heat load, thermal resistance/path, and duty cycle to estimate exposure, then uses monitoring to verify the predicted margin. Average power can miss peak thermal stress, assuming room temperature ignores conduction and radiation paths, and monitoring detects excursions but does not itself mitigate heat spread.",
-    "source": ""
+    "source": "src-008"
   },
   {
     "questionId": "q-m10l03-02",
@@ -3569,7 +3569,7 @@
     ],
     "correct": "a",
     "explanation": "Using the stated rule-of-thumb values, R_th,max = 20 K / 4 W = 5 K/W. The 80 K/W option multiplies instead of divides, the 0.2 K/W option inverts the division, and the 24 K/W option adds the values instead of applying the formula.",
-    "source": ""
+    "source": "src-008"
   },
   {
     "questionId": "q-m10l04-01",
@@ -3599,7 +3599,7 @@
     ],
     "correct": "a",
     "explanation": "Path and order determine access, simultaneous joints, and air-knife exposure, so dwell and passes are tuned after the route is feasible. Dwell per joint is not fixed by the board file, cycle time is an outcome of the program rather than a prerequisite for air-knife programming, and fixtures influence access but do not set passes independently of order.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m10l04-02",
@@ -3629,7 +3629,7 @@
     ],
     "correct": "a",
     "explanation": "Substitute the rule-of-thumb values into the formula: (joints × dwell unit × pass) ÷ pair = joints ÷ pair, so the cycle time is the joint count divided by the simultaneous pair in dwell units. The other options ignore simultaneous processing, multiply by the pair instead of dividing, or divide by pad count rather than simultaneous joints.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m10l05-01",
@@ -3660,7 +3660,7 @@
     ],
     "correct": "a",
     "explanation": "Selective programs should minimize heat input by ordering joints, using short dwell, and adding passes only where needed; verification by thermocouple or infrared imaging confirms neighboring part exposure. Maximum dwell or a long pass increases heat exposure, and path by height ignores thermal effects.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m10l05-02",
@@ -3691,7 +3691,7 @@
     ],
     "correct": "a",
     "explanation": "The lesson formula multiplies exposure factors, so halving dwell gives one half and halving again gives one quarter. One half ignores the heat sink; three quarters subtracts the reductions instead of multiplying them; one eighth applies an extra halving.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m11l01-01",
@@ -3721,7 +3721,7 @@
     ],
     "correct": "a",
     "explanation": "A heat-sinking plane requires a tip that can deliver enough heat quickly; a larger tip reduces the time needed to reach wetting, limiting thermal budget. A small tip cools and forces longer contact, increasing heat exposure. Higher temperature plus prolonged contact increases thermal budget and can damage the joint or board. Fume extraction and ESD control protect the operator and devices but do not reduce heat input.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m11l01-02",
@@ -3751,7 +3751,7 @@
     ],
     "correct": "a",
     "explanation": "Thermal budget = (350 − 25) × 3 = 325 × 3 = 975 °C·s. Option b multiplies tip temperature by time and ignores ambient temperature. Option c adds ambient temperature instead of subtracting it. Option d gives only the temperature difference and omits contact time.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m11l02-01",
@@ -3781,7 +3781,7 @@
     ],
     "correct": "a",
     "explanation": "Correct sequence heats the joint, feeds solder to the joint, and removes solder before the tip to avoid icicles and poor wetting. Feeding solder to the tip burns flux and creates cold or disturbed joints. High temperature and long dwell exceed the thermal budget and can damage pads or components. Dragging solder from the tip gives insufficient heat transfer and non-wetted joints.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m11l02-02",
@@ -3811,7 +3811,7 @@
     ],
     "correct": "a",
     "explanation": "Tip temperature = 219 °C + 120 °C = 339 °C, which sits inside the 330-350 °C range taught for SAC-type solder on a preheated board. Thermal budget = 339 °C × 2 s = 678 °C·s. Option b omits the dwell time, option c uses half the margin, and option d subtracts the board preheat, which is already accounted for in the tip setpoint. Note that 217 °C is the SAC305 solidus, not the liquidus.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m11l03-01",
@@ -3841,7 +3841,7 @@
     ],
     "correct": "a",
     "explanation": "Preheat raises the board temperature before localized hot-air heating, reducing thermal gradients and mechanical stress during BGA or QFN removal. It does not permit exceeding component temperature limits, does not replace flux or paste-in-pad requirements, and does not cool the joint; the goal is controlled heating, not rapid cooling.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m11l03-02",
@@ -3871,7 +3871,7 @@
     ],
     "correct": "a",
     "explanation": "Using RemainingCycles = AllowedCycles - UsedCycles, the rule-of-thumb calculation is 3 - 2 = 1. Two cycles would remain only if the replacement alone were counted; three cycles would ignore the consumed removal and replacement cycles; zero cycles would overcount the operation.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m11l04-01",
@@ -3902,7 +3902,7 @@
     ],
     "correct": "a",
     "explanation": "IPC-7711/7721 permits repair when the repaired joint meets the required class criteria, and Class 3 requires documented repair basis and residual risk. Scrap is required only when the damage exceeds the class repair limits. There is no automatic downgrade to Class 2, and acceptance without documentation is not acceptable for Class 3.",
-    "source": ""
+    "source": "src-009"
   },
   {
     "questionId": "q-m11l04-02",
@@ -3933,7 +3933,7 @@
     ],
     "correct": "a",
     "explanation": "Let the Class 3 minimum annular ring be 0.05 mm. The pad diameter exceeds the hole diameter by 2 × 0.05 mm = 0.10 mm. The annular ring is (0.10 mm)/2 = 0.05 mm, which meets the Class 3 minimum, so the joint is repairable with documentation. This matches the 0.05 mm minimum used in the m11l04 worked example; confirm the value against the controlled revision and the assembly drawing. The hole diameter is not needed separately because it cancels in the formula.",
-    "source": ""
+    "source": "src-009"
   },
   {
     "questionId": "q-m11l05-01",
@@ -3964,7 +3964,7 @@
     ],
     "correct": "c",
     "explanation": "IPC-7711/7721 acceptance is class-specific, so a Class 3 product must meet Class 3 rework or repair criteria. Class 2 acceptance is not sufficient unless a formal deviation is approved, which is not stated. Class 1 is less demanding, and rework does not reset the product class.",
-    "source": ""
+    "source": "src-009"
   },
   {
     "questionId": "q-m11l05-02",
@@ -3995,7 +3995,7 @@
     ],
     "correct": "b",
     "explanation": "The lesson's residual-risk formula is required class minus accepted class. For a Class 3 product with a Class 2 rework, 3 - 2 = 1. A score of zero would mean the rework meets the required class; two would be a Class 3 requirement versus Class 1; three is the required class alone, not the gap.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m11l06-01",
@@ -4026,7 +4026,7 @@
     ],
     "correct": "a",
     "explanation": "Correct because IPC-7711/7721 rework acceptance is process-controlled: the remaining cycle count and thermal budget must be checked before rework, and the record must show what was applied and which class criteria were used. Appearance or electrical test alone does not prove the joint meets the required class. A repair is not interchangeable with rework in documentation because the thermal exposure and process history differ.",
-    "source": ""
+    "source": "src-009"
   },
   {
     "questionId": "q-m11l06-02",
@@ -4057,7 +4057,7 @@
     ],
     "correct": "b",
     "explanation": "Using the lesson formula remaining cycles = floor((allowed thermal budget - consumed thermal budget) / thermal budget per cycle), the Class 2 rule of thumb gives allowed budget = 2 units and consumed budget = 1 unit, so floor((2 - 1) / 1) = 1. Option a would require consumed budget to equal allowed budget; option c ignores the cycle already consumed; option d ignores the class limit.",
-    "source": ""
+    "source": "src-009"
   },
   {
     "questionId": "q-m12l02-01",
@@ -4087,7 +4087,7 @@
     ],
     "correct": "a",
     "explanation": "Water-soluble flux residues are best removed with aqueous/DI cleaning plus a compatible saponifier; MSL packages require controlled drying/bake to prevent moisture damage, and ESD-sensitive assemblies require grounded/ionized handling. Solvent-only or non-polar chemistry is less effective for ionic water-soluble residues, and omitting drying or ESD controls creates reliability risks.",
-    "source": ""
+    "source": "src-003"
   },
   {
     "questionId": "q-m12l02-02",
@@ -4117,7 +4117,7 @@
     ],
     "correct": "b",
     "explanation": "The dilution formula gives concentrate volume = sump volume × working concentration. With a rule-of-thumb 5% v/v concentration, 5% = 0.05, so 200 L × 0.05 = 10 L. The other options correspond to misplacing the decimal or using 0.5%, 10%, or 50%.",
-    "source": ""
+    "source": "src-003"
   },
   {
     "questionId": "q-m12l03-01",
@@ -4148,7 +4148,7 @@
     ],
     "correct": "a",
     "explanation": "ROSE reports aggregate ionic contamination, while ion chromatography identifies individual ions; if a specific ion exceeds the criterion, the board fails and needs rework. Visual cleanliness and particle count do not override a failed chemical criterion.",
-    "source": ""
+    "source": "src-002"
   },
   {
     "questionId": "q-m12l03-02",
@@ -4179,7 +4179,7 @@
     ],
     "correct": "a",
     "explanation": "The cleanliness level is contamination mass divided by test area: 156 µg ÷ 100 cm² = 1.56 µg/cm². The IPC-TM-650 2.3.25 criterion is pass if the level is at or below 1.56 µg/cm², so the board passes. Keep the unit basis straight: 1.56 µg/cm² is the same level as about 10.06 µg/in², so a limit quoted per square inch is roughly 6.45 times larger numerically than the same limit quoted per square centimetre. Multiplying contamination by area or dividing area by contamination uses the wrong formula and wrong units.",
-    "source": ""
+    "source": "src-013"
   },
   {
     "questionId": "q-m12l04-01",
@@ -4209,7 +4209,7 @@
     ],
     "correct": "a",
     "explanation": "Parylene is low-stress, pinhole-free, and generally compatible with cleaning, while masking pads and connectors preserves solderability and rework. Thick silicone can be difficult to remove cleanly and may leave residues that interfere with rework or probing. UV-cured acrylic can shadow under components and may be brittle or difficult to rework, and urethane's chemical resistance often comes with harder removal than parylene.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m12l04-02",
@@ -4239,7 +4239,7 @@
     ],
     "correct": "a",
     "explanation": "The lesson formula is wet volume = area × dry film thickness ÷ solids fraction. Using the rule-of-thumb values, dry volume = 0.02 square meters × 50 micrometers = 1 milliliter, and wet volume = 1 milliliter ÷ 0.30 = 3.3 milliliters. Option b omits the solids correction, while c and d result from unit or solids-fraction errors.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m12l05-01",
@@ -4270,7 +4270,7 @@
     ],
     "correct": "b",
     "explanation": "Selective coating with removable masking protects only the required zones while leaving connector and rework surfaces accessible for cleaning, soldering, and inspection. Full dip or spray coating can trap residues, block contacts, and make rework difficult, while permanent masking left in place can trap flux residues and interfere with assembly.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m12l05-02",
@@ -4301,7 +4301,7 @@
     ],
     "correct": "c",
     "explanation": "The lesson formula is dry film thickness equals wet film thickness times volume solids fraction. Rearranging gives wet film thickness equals target dry film thickness divided by solids fraction, so WFT = D ÷ one-half = two times D. The other options multiply by the solids fraction or apply it twice, which would under- or over-estimate the required wet film thickness.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m12l06-01",
@@ -4332,7 +4332,7 @@
     ],
     "correct": "b",
     "explanation": "Fish-eye and dewetting are wetting defects usually caused by low-surface-energy contamination, such as silicone or oil, rather than by ionic residue alone. A passing ion test does not rule out nonionic residue, especially white residue left by incompatible masking or cleaning. The corrective action is to remove the masking source, clean with a compatible solvent, verify surface energy or cleanliness, then recoat; options a, c, and d do not address the contamination and wetting mechanism.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m12l06-02",
@@ -4362,7 +4362,7 @@
     ],
     "correct": "a",
     "explanation": "The concentration is (1.56 µg/cm² × area) / area = 1.56 µg NaCl eq/cm², which meets the traditional ROSE acceptance level. J-STD-001 no longer treats a single ROSE number as a pass/fail criterion for every product: it requires objective evidence, normally SIR data, that the specific process is clean enough for the intended life and environment, and high-reliability customers often work tighter than 1.56 µg/cm². Option b double-counts the area, option c divides by it twice, and option d is wrong because the traditional ROSE level is quoted independently of product class, although a customer or product-specific limit may be tighter.",
-    "source": ""
+    "source": "src-002"
   },
   {
     "questionId": "q-m01l01-01",
@@ -4392,7 +4392,7 @@
     ],
     "correct": "a",
     "explanation": "A Certificate of Conformance proves the supplier verified the lot against the specified material and process requirements. A packing slip proves what was shipped, and a purchase order proves the commercial order. An incoming inspection report proves the internal disposition after receipt, not the supplier's original verification.",
-    "source": ""
+    "source": "src-037"
   },
   {
     "questionId": "q-m01l01-02",
@@ -4423,7 +4423,7 @@
     ],
     "correct": "a",
     "explanation": "The lesson formula is stage cost equals incoming-stage cost multiplied by the stage multiplier. Quarantine prevents the defect from reaching assembly, so the avoided cost is the base cost unit times the rule-of-thumb assembly multiplier of ten, which equals ten base cost units. The field-stage option is higher, the incoming-stage option is the base, and the remaining option is not the taught multiplier.",
-    "source": ""
+    "source": "src-037"
   },
   {
     "questionId": "q-m13l01-01",
@@ -4453,7 +4453,7 @@
     ],
     "correct": "a",
     "explanation": "Flying probe is useful when a bed-of-nails fixture is impractical, boundary scan adds coverage for scan-capable digital interconnect, and functional test verifies system behavior. ICT is less suitable here because many nets lack test points. Boundary scan cannot cover all analog, power, or non-scan faults, and functional test alone gives poor fault localization and can miss latent defects.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m13l01-02",
@@ -4483,7 +4483,7 @@
     ],
     "correct": "a",
     "explanation": "Weighted coverage is 0.50 × 0.80 + 0.30 × 0.60 + 0.20 × 0.90 = 0.40 + 0.18 + 0.18 = 0.76, or 76%. The 80% answer incorrectly applies ICT coverage to all defect classes. The 70% answer ignores functional coverage and weighting. The 90% answer incorrectly applies functional coverage to all defect classes.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m13l02-01",
@@ -4514,7 +4514,7 @@
     ],
     "correct": "a",
     "explanation": "Boundary scan is efficient for dense BGA interconnects when physical access is limited, while ICT provides fast component-level coverage for passives and analog circuits. Flying probe is usually too slow for high-volume production, functional test does not isolate many component-level defects, and ICT alone would require inaccessible test points on the BGA.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m13l02-02",
@@ -4545,7 +4545,7 @@
     ],
     "correct": "b",
     "explanation": "The required test-point diameter is the probe tip diameter plus clearance on both sides: 0.8 mm + 2 × 0.2 mm = 1.2 mm. A 1.0 mm result adds clearance only once, 1.6 mm doubles the probe diameter instead of adding clearance, and 0.4 mm is only the total clearance.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m13l03-01",
@@ -4575,7 +4575,7 @@
     ],
     "correct": "a",
     "explanation": "Flying probe wins when fixture cost, lead time, and access constraints dominate and volumes are low, even though its throughput ceiling is limited by probe movement. ICT usually needs a fixture and can be uneconomical for prototypes; boundary scan only tests supported digital devices and interconnects; functional test verifies operation but does not isolate faults as well as in-circuit methods.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m13l03-02",
@@ -4605,7 +4605,7 @@
     ],
     "correct": "a",
     "explanation": "Cycle time = 120 × 1 s + 10 s = 130 s. Throughput ceiling = 3600 s/h ÷ 130 s/board = 27.7 boards/h, rounded to 28 boards/h. The 30 boards/h answer ignores overhead, while 33 boards/h subtracts overhead instead of adding it.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m13l04-01",
@@ -4636,7 +4636,7 @@
     ],
     "correct": "a",
     "explanation": "Boundary scan shifts test data through boundary-scan cells to drive and observe pins, so it can test interconnects between scan-capable pins but not non-scan endpoints or internal logic. Option b is wrong because inaccessible BGA balls are a reason to use boundary scan, not a reason it cannot test scan-capable nets. Option c is wrong because boundary scan does not require probe access to every ball. Option d is wrong because boundary scan is primarily used for digital interconnect testing, not only power distribution.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m13l04-02",
@@ -4667,7 +4667,7 @@
     ],
     "correct": "a",
     "explanation": "The rule-of-thumb formula is scan time = (scan cells × vectors) / TCK frequency. Here, 2,000 × 500 = 1,000,000 bits, and 1,000,000 / 10,000,000 = 0.1 s. The other options result from misplacing decimal points or using an incorrect TCK frequency.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m13l05-01",
@@ -4697,7 +4697,7 @@
     ],
     "correct": "a",
     "explanation": "High node coverage means nodes are accessed, but defect coverage depends on whether the test detects the specific defect modes present. Continuity and power-rail checks can miss wrong value or reversed polarity unless those modes are specifically exercised. Opens on probed nodes are generally detected by continuity, shorts may be detected by power-rail checks, and node coverage does not prove part presence or value.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m13l05-02",
@@ -4727,7 +4727,7 @@
     ],
     "correct": "a",
     "explanation": "Node coverage is 900 divided by 1,200, which equals 75%. Test coverage is node coverage times defect-mode coverage, so 75% times 80% equals 60%. Escape risk is 100% minus test coverage, so 100% minus 60% equals 40%. The other options confuse node coverage or defect-mode coverage with overall test coverage.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m13l06-01",
@@ -4757,7 +4757,7 @@
     ],
     "correct": "a",
     "explanation": "Flying probe is favored for low-volume, complex assemblies because it does not require a dedicated bed-of-nails fixture and can access pads or test points directly. ICT usually needs a fixture, which is costly for low volume. Boundary scan requires JTAG support, so it is not available here. Functional test can provide broad coverage but is typically more expensive and slower than flying probe for this case.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m13l06-02",
@@ -4787,7 +4787,7 @@
     ],
     "correct": "a",
     "explanation": "Total defects are 500. Detected defects are 500 × 0.95 = 475. Uncovered defects are 500 − 475 = 25, or 500 × 0.05 = 25. The 500 option ignores coverage, the 475 option is the detected count rather than the uncovered count, and the 5 option confuses a per-100-board rule of thumb with the uncovered count for the lot.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m14l01-01",
@@ -4817,7 +4817,7 @@
     ],
     "correct": "a",
     "explanation": "Measured data must define what the defect is, where it first appears, and whether the measurement is reliable before opinions guide analysis. Operator hypotheses, corrective actions, and supplier blame can be useful later, but they are premature if the defect problem is not structured and measurement integrity is not confirmed.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m14l01-02",
@@ -4847,7 +4847,7 @@
     ],
     "correct": "a",
     "explanation": "Let insertion = 1, reflow = 2, and placement = 4, so total defects = 1 + 2 + 4 = 7. The cumulative Pareto share for placement and reflow is (4 + 2) / 7 = 6/7, which is about 86%. Four-sevenths is placement alone, while three-quarters and five-sixths are plausible but incorrect cumulative fractions.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m14l02-01",
@@ -4877,7 +4877,7 @@
     ],
     "correct": "a",
     "explanation": "A root cause is the mechanism that, if eliminated, prevents recurrence, while contributing causes are enabling or amplifying conditions. The detection escape is separate: it explains why existing controls failed to catch the defect. The distractors confuse accountability, symptoms, corrective actions, or analysis tools with the causal roles.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m14l02-02",
@@ -4907,7 +4907,7 @@
     ],
     "correct": "a",
     "explanation": "Using the rule-of-thumb probabilities, the AND branch is 0.01 * 0.02 = 0.0002. The OR with C is 0.0002 + 0.05 - (0.0002 * 0.05) = 0.05019. Option b adds probabilities without removing the overlap, option c ignores C, and option d ignores the AND branch.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m14l03-01",
@@ -4937,7 +4937,7 @@
     ],
     "correct": "b",
     "explanation": "Containment must prevent further escape while the root cause is unknown, so the suspect lot and adjacent lots within the process window are quarantined and traced. Quarantining only the suspect lot may miss adjacent suspect lots, quarantining all inventory is overcontainment, and waiting for root cause leaves suspect product uncontrolled.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m14l03-02",
@@ -4967,7 +4967,7 @@
     ],
     "correct": "b",
     "explanation": "The rule of thumb gives one suspect lot plus one lot before plus one lot after, so the arithmetic is 1 + 1 + 1 = 3 lots. Two lots omits one adjacent lot, four lots double counts the suspect lot or adds an extra lot, and five lots overquarantines beyond the stated rule of thumb.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m14l04-01",
@@ -4997,7 +4997,7 @@
     ],
     "correct": "a",
     "explanation": "D3 containment protects the customer and buys time while the root cause is investigated. Permanent elimination of the root cause belongs to D5/D6, closure belongs to D8, and owner/date assignment is part of the action plan rather than the containment purpose.",
-    "source": ""
+    "source": "src-037"
   },
   {
     "questionId": "q-m14l04-02",
@@ -5027,7 +5027,7 @@
     ],
     "correct": "c",
     "explanation": "Using the rule-of-thumb example values, the reduction is 500 - 40 = 460 ppm, and 460 / 500 × 100% = 92%. The 90% value is the rule-of-thumb threshold, not the calculated metric; 8% is the post-containment rate as a percent of baseline; 96% would result from a post-containment rate of 20 ppm, not 40 ppm.",
-    "source": ""
+    "source": "src-037"
   },
   {
     "questionId": "q-m14l05-01",
@@ -5058,7 +5058,7 @@
     ],
     "correct": "b",
     "explanation": "Corrective action effectiveness must be fed back into risk and control documents through change control so the same failure mode is prevented from recurring. Leaving the PFMEA or control plan unchanged preserves the old risk assessment and can allow the problem to return. Permanent inspection is a control, not a substitute for updating the underlying risk and control plan.",
-    "source": ""
+    "source": "src-037"
   },
   {
     "questionId": "q-m14l05-02",
@@ -5089,7 +5089,7 @@
     ],
     "correct": "c",
     "explanation": "The lesson's effectiveness formula is (baseline - post-action) / baseline. If the post-action rate is one-fourth of baseline, let baseline be 4 units and post-action be 1 unit, so effectiveness = (4 - 1) / 4 = 3 / 4 = 75%. The 25% option is the remaining defect rate, not the reduction achieved.",
-    "source": ""
+    "source": "src-037"
   },
   {
     "questionId": "q-m14l06-01",
@@ -5120,7 +5120,7 @@
     ],
     "correct": "a",
     "explanation": "Closing the loop requires change control so that the audit result updates the PFMEA, control plan, and auditor checklist consistently. Option b leaves the risk assessment stale, option c treats training as sufficient without fixing the systemic control, and option d creates checklist drift without updating the underlying risk logic.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m14l06-02",
@@ -5151,7 +5151,7 @@
     ],
     "correct": "a",
     "explanation": "The PFMEA RPN formula is RPN = Severity x Occurrence x Detection. The new RPN is 8 x 2 x 3 = 48. Option b, 96, equals 8 x 2 x 6 and assumes detection was not updated; option c, 120, equals 8 x 5 x 3 and assumes occurrence was not updated; option d, 240, equals 8 x 5 x 6 and is the old RPN before the change.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m14l07-01",
@@ -5181,7 +5181,7 @@
     ],
     "correct": "a",
     "explanation": "The root cause is the condition that, if removed, prevents recurrence; contributing causes make the failure more likely but are not sufficient by themselves; the detection escape explains why the defect was not caught before the customer. The other options confuse prevention with detection or treat a contributing factor as the sole cause.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m14l07-02",
@@ -5211,7 +5211,7 @@
     ],
     "correct": "c",
     "explanation": "The top stage is the rule-of-thumb 80%, leaving 20% for all other stages. Half of that remainder is 10%, so the cumulative top-two percentage is 80% + 10% = 90%. The other options either omit the second stage or misapply the remainder.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m15l01-01",
@@ -5241,7 +5241,7 @@
     ],
     "correct": "a",
     "explanation": "The correct response turns the process limitation into a measurable design rule and a verification step, which is what designers can act on. Avoiding all small holes is too broad and not tied to the limiting mechanism. Changing solder mask color does not address hole filling, and extra inspection detects the defect but does not change the design.",
-    "source": ""
+    "source": "src-024"
   },
   {
     "questionId": "q-m15l01-02",
@@ -5271,7 +5271,7 @@
     ],
     "correct": "b",
     "explanation": "The escape rate is one defect per ten boards, or 1 / 10 = 0.1 escapes per board, and the avoided rework cost per board is 0.1 * 1 = 0.1 labor units. The break-even volume is 10 / 0.1 = 100 boards. Ten boards ignores the escape rate, while one thousand and ten thousand boards use escape rates of one per hundred or one per thousand instead of the stated rule of thumb.",
-    "source": ""
+    "source": "src-024"
   },
   {
     "questionId": "q-m15l02-01",
@@ -5301,7 +5301,7 @@
     ],
     "correct": "a",
     "explanation": "Measured data and scale images make the defect rate traceable and the failure mode identifiable, which is what quantifies process impact. Anecdotal statements, unscaled images, and recollection-based costs do not provide auditable evidence.",
-    "source": ""
+    "source": "src-024"
   },
   {
     "questionId": "q-m15l02-02",
@@ -5331,7 +5331,7 @@
     ],
     "correct": "a",
     "explanation": "Using the rule-of-thumb values, defect rate = twenty-five / one thousand = two and one-half percent = zero point zero two five. Cost of poor quality = zero point zero two five × one thousand × twelve = three hundred dollars. Option b uses the percent value as if it were a decimal and omits the lot size; option c uses two and one-half instead of zero point zero two five; option d omits the defect rate.",
-    "source": ""
+    "source": "src-024"
   },
   {
     "questionId": "q-m15l03-01",
@@ -5361,7 +5361,7 @@
     ],
     "correct": "c",
     "explanation": "The verification section directly answers a qualification objection by defining how the changed assembly will be tested and accepted. The impact assessment is necessary to scope the change, but it does not prove that the qualified state can be restored. The problem statement explains why the change is needed, and the alternatives section justifies the chosen proposal rather than requalification.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m15l03-02",
@@ -5391,7 +5391,7 @@
     ],
     "correct": "a",
     "explanation": "Using the rule-of-thumb formula, twelve affected part count × four affected process steps × three full requalification factor = 144. The 48 option omits the full requalification factor, the 19 option adds the factors instead of multiplying them, and the 16 option uses only the part count and process steps.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m15l04-01",
@@ -5421,7 +5421,7 @@
     ],
     "correct": "a",
     "explanation": "Symmetric, equal lands reduce wetting-force imbalance that causes tombstoning, and the rule can be checked by comparing land areas and centerline symmetry. Increasing paste on one land worsens imbalance, adding a test point does not change the solder joint geometry, and fiducial placement affects alignment rather than tombstoning.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m15l04-02",
@@ -5451,7 +5451,7 @@
     ],
     "correct": "a",
     "explanation": "The lesson formula is aperture area = land area × (1 − relief fraction), so 100% × (1 − 0.20) = 80%. Choosing 100% ignores paste relief, 120% adds relief instead of subtracting it, and 140% doubles the relief addition.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m15l05-01",
@@ -5481,7 +5481,7 @@
     ],
     "correct": "a",
     "explanation": "The strongest ECN/DCR defense quantifies the current design's process impact and links it to the requirement being protected. Supplier preference, competitor layouts, and theoretical simulations do not prove that the current design creates unacceptable SMT/THT process risk or cost.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m15l05-02",
@@ -5511,7 +5511,7 @@
     ],
     "correct": "a",
     "explanation": "Using the lesson's evidence-pack formula, monthly defective boards = 10,000 × 5,000 / 1,000,000 = 50; multiplying by 12 labor units per rework gives 600 labor units. Option b omits the rework cost, option c uses a thousand-fold ppm conversion error, and option d misplaces the decimal.",
-    "source": ""
+    "source": "src-001"
   },
   {
     "questionId": "q-m12l01-01",
@@ -5542,7 +5542,7 @@
     ],
     "correct": "a",
     "explanation": "ROSE and SIR answer different questions. ROSE reports a conductivity equivalent of extracted ionic residue and is a process-control tool; SIR puts the residue under the bias and humidity that cause leakage, dendritic growth and electrochemical migration, so it is the closer proxy for the reliability requirement. When the two disagree, the criterion that models the failure mechanism governs: rework the assembly and address the rinse, not the ROSE reading.",
-    "source": "src-013"
+    "source": "src-002"
   },
   {
     "questionId": "q-m12l01-02",
@@ -5573,7 +5573,7 @@
     ],
     "correct": "a",
     "explanation": "The blank is the contamination contributed by the solvent, container and handling, and it is subtracted from the reading: 0.95 − 0.12 = 0.83 µg NaCl/cm². Compared with the 1.00 µg NaCl/cm² limit, 0.83 passes. Reporting the uncorrected reading overstates the board contamination and can trigger rework that is not needed; skipping the blank does the opposite. Record method, area, blank and units with the result.",
-    "source": "src-013"
+    "source": "src-002"
   },
   {
     "questionId": "q-m12l01-03",
@@ -5604,6 +5604,6 @@
     ],
     "correct": "a",
     "explanation": "ROSE extracts what the solvent can reach and reports a conductivity equivalent; it does not see non-ionic hydrophobic film trapped under a component, and averaging over a large sampled area hides a local residue pocket. Coating then seals the residue in place. The correct response is to re-clean with a chemistry and process qualified for the connector geometry, test the connector area separately with ion chromatography and local ROSE, and re-qualify the cleaning step rather than tightening the global limit.",
-    "source": "src-013"
+    "source": "src-002"
   }
 ]

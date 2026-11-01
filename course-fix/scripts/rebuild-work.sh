@@ -53,6 +53,11 @@ node course-fix/scripts/apply-bake-table-fix.js    "$WORK/data"
 node course-fix/scripts/apply-repair-limits-fix.js "$WORK/data"
 node course-fix/scripts/apply-ramp-rate-fix.js   "$WORK/data"
 node course-fix/scripts/apply-profile-limits-fix.js "$WORK/data"
+node course-fix/scripts/apply-bake-quiz-fix.js    "$WORK/data"
+node course-fix/scripts/apply-source-refs.js        "$WORK/data"
+node course-fix/scripts/apply-source-provenance.js  "$WORK/data"
+node course-fix/scripts/apply-source-editions.js    "$WORK/data"
+node course-fix/scripts/apply-marker-removal.js     "$WORK/data"
 
 # 4. r4 predates the round-6 index.html fix, and the rebuild resurrects the
 #    Cloudflare Rocket Loader artefact every single time. Mandatory.
@@ -96,10 +101,37 @@ checkq () { # <label> <expected> <pattern>
   if [ "$got" != "$2" ]; then echo "  !! $1: expected $2, found $got"; fail=1
   else echo "  ok $1 ($got)"; fi
 }
+checknode () { # <label> <expected> <node-expr over lessons.json>
+  local got
+  got=$( node -e "$3" )
+  if [ "$got" != "$2" ]; then echo "  !! $1: expected $2, found $got"; fail=1
+  else echo "  ok $1 ($got)"; fi
+}
+
 checkq "quiz ramp 4C/s gone"   0 "ramp rate of 4 °C/s"
 checkq "quiz ramp 4C/s bare"   0 "ramp rate 4 °C/s"
 checkq "quiz ramp 3C/s fixed"  1 "ramp rate of 3 °C/s"
 checkq "quiz ramp 3C/s bare"   1 "ramp rate 3 °C/s"
+
+# D13: the two bake quizzes still quoted the garbled secondary table.
+check "bake quiz 192h gone"    0 "90 °C column gives 192 h"
+check "bake quiz 9-38d gone"   0 "about 9-38 days"
+check "bake quiz 8h wrong"     0 "125°C for 8 h up to 1.4 mm, 18 h for 1.4-2.0 mm"
+check "bake quiz 40C range"    1 "8 to 22 days for a body up to 1.4 mm and 25 to 79 days"
+checkq "bake quiz 192h q"      0 "90 °C column gives 192 h"
+checkq "bake quiz 9-38d q"     0 "about 9-38 days"
+checkq "bake quiz 240h q"      1 "10 days, which is 240 h"
+checkq "bake quiz 7h q"        1 "125 °C gives 7 h up to 1.4 mm, 17 h for 1.4-2.0 mm"
+
+# Round 14: source refs, source provenance, and marker removal.
+checknode "lessons with no src"    0 'var L=require(process.cwd()+"/course-fix/work/data/lessons.json");console.log(L.filter(function(l){return !(l.sources||[]).length}).length)'
+checknode "questions with no src"  0 'var Q=require(process.cwd()+"/course-fix/work/data/questions.json");console.log(Q.filter(function(q){return !q.source}).length)'
+checknode "status still draft"     0 'var L=require(process.cwd()+"/course-fix/work/data/lessons.json");console.log(L.filter(function(l){return l.status!=="reviewed"}).length)'
+checknode "TBD-REVIEW anywhere"    0 'var d=process.cwd()+"/course-fix/work/data/";var t=["lessons","questions","sources"].map(function(f){return require("fs").readFileSync(d+f+".json","utf8")}).join("");console.log(t.split("TBD-REVIEW").length-1)'
+checknode "reviewed lessons"       92 'var L=require(process.cwd()+"/course-fix/work/data/lessons.json");console.log(L.filter(function(l){return l.status==="reviewed"}).length)'
+checknode "edition markers left"   0 'var S=require(process.cwd()+"/course-fix/work/data/sources.json");console.log(S.filter(function(s){return String(s.edition).indexOf("TBD-REVIEW")>=0}).length)'
+checknode "S4.1 superseded ref"    0 'var L=require(process.cwd()+"/course-fix/work/data/lessons.json");var n=0;L.forEach(function(l){var s=JSON.stringify(l.content||{});n+=s.split("ANSI/ESD S4.1").length-1});console.log(n)'
+checknode "STM4.1 in place"        1 'var L=require(process.cwd()+"/course-fix/work/data/lessons.json");var n=0;L.forEach(function(l){var s=JSON.stringify(l.content||{});n+=s.split("ANSI/ESD STM4.1").length-1});console.log(n)'
 
 # D9-D12: profile limits, J-STD-005 tails, SnPb Tc, degree symbols.
 check "TAL denied to J020"   0 "window is process guidance rather than a J-STD-020 parameter"
@@ -113,12 +145,6 @@ check "SnPb Tc 235"          1 "235 °C for a package thinner than 2.5 mm"
 # Counted with node because the taught content and the TBD-REVIEW metadata must
 # be checked separately: review[] deliberately quotes the original draft verbatim,
 # so it still says "100 C" and must NOT be rewritten.
-checknode () { # <label> <expected> <node-expr over lessons.json>
-  local got
-  got=$( node -e "$3" )
-  if [ "$got" != "$2" ]; then echo "  !! $1: expected $2, found $got"; fail=1
-  else echo "  ok $1 ($got)"; fi
-}
 checknode "TAL is J020 tL"       4 'var L=require(process.cwd()+"/course-fix/work/data/lessons.json");var n=0;L.forEach(function(l){var s=JSON.stringify(l.content||{});["60-150 s time-above-liquidus window is J-STD-020 tL","classification window of 60-150 s","the J-STD-020 classification window."].forEach(function(k){n+=(s.split(k).length-1)})});console.log(n)'
 checknode "IPC7530 TAL 30-90"    7 'var L=require(process.cwd()+"/course-fix/work/data/lessons.json");var n=0;L.forEach(function(l){n+=(JSON.stringify(l.content||{}).split("30-90 s").length-1)});console.log(n)'
 checknode "bare N C in content"  0 'var L=require(process.cwd()+"/course-fix/work/data/lessons.json");var n=0;L.forEach(function(l){var s=JSON.stringify(l.content||{});var re=/(\\d+(?:\\.\\d+)?) C(?![a-zA-Z°])(?=\\s*[^\\s0-9,.\\-]|$)/g,m;while((m=re.exec(s)))n++});console.log(n)'
