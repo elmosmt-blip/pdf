@@ -328,39 +328,72 @@ function main() {
   });
   RECURRING.sort(function (a, b) { return b.lessons.length - a.lessons.length; });
 
-  /* Round 10 verification verdicts. Keyed by the stable `fact` label, not by
-     index, because RECURRING is sorted by lesson count and the order shifts as
-     the extraction patterns change. Without this the ticks are hand-edits that
-     the next regeneration silently wipes. */
+  /* Verification verdicts, rounds 10 and 11. Keyed by the stable `fact` label,
+     never by index: RECURRING is sorted by lesson count, so the order shifts
+     whenever the extraction patterns change. Hand-edited ticks in the output
+     would be silently wiped by the next regeneration; these survive it.
+       ok       = checked against a primary source
+       conflict = sources disagree, or the claim rests on a clause nobody has read
+       open     = not yet checked */
   var VERDICT = {
+    "IPC-7525 edition": "ok",
     "IPC-7525 stencil area ratio and aspect ratio": "ok",
-    "IPC-A-610 minimum vertical barrel fill": "conflict",
-    "MSL 6 floor life": "ok",
-    "J-STD-033 bake at 90 °C and 40 °C": "conflict",
+    "J-STD-020 classification temperature by package size": "ok",
+    "J-STD-020 tp — time within 5 °C of classification temperature": "ok",
+    "J-STD-020 ramp-down limit": "ok",
     "J-STD-033 cumulative bake cap": "ok",
     "Tape-and-reel dry-pack temperature cap": "ok",
-    "J-STD-020 classification temperature by package size": "ok",
-    "J-STD-020 ramp-down limit": "ok",
-    "IPC-7525 edition": "ok",
+    "MSL 6 floor life": "ok",
+    "SAC305 phase change temperatures": "ok",
+    "Contractual 100 % fill": "ok",
+    "IPC-A-610 Class 3 external annular ring": "ok",
+    "ISO 2859-1 code letter to sample size": "ok",
+    "ISO 2859-1 lot-size to code letter by inspection level": "ok",
+    "ISO 2859-1 single-sampling Ac/Re at AQL 1.0 %": "ok",
+    "J-STD-004/005 solder powder Type 3": "ok",
+    "Wave flux deposition on a solids basis": "ok",
+    "Preheat ramp rate for wave and selective": "ok",
+    "IPC rework document numbers": "ok",
+    "IPC-CC-830 conformal coating type designations": "ok",
+    "IPC-6012 bow and twist limit": "ok",
+    "Cleanliness ionic limit": "ok",
+    "ESD programme and test-method standards": "ok",
+    "IPC-A-610 minimum vertical barrel fill": "conflict",
+    "J-STD-033 bake at 90 °C and 40 °C": "conflict",
     "J-STD-033 bake at 125 °C by thickness": "conflict",
-    "J-STD-020 tp — time within 5 °C of classification temperature": "ok"
+    "IPC-A-610 documented hole-fill exception": "conflict"
   };
-  var ROUND10_NOTE = {
-    "IPC-7525 edition": "RESOLVED in round 10. The current revision is IPC-7525C (November 2021); IPC-7525D does not exist, IPC-7525B (10/2011) is superseded, and src-004 said Rev A. 19 edition references corrected across m03l02, m03l05 and m03l06, and src-004 updated Rev A to Rev C. The course’s own TBD-REVIEW marker had asked for exactly this check.",
+  var VERDICT_NOTE = {
+    "IPC-7525 edition": "RESOLVED in round 10. The current revision is IPC-7525C (November 2021); IPC-7525D does not exist, IPC-7525B (10/2011) is superseded, and src-004 said Rev A. 19 edition references corrected, src-004 Rev A to Rev C. The course’s own TBD-REVIEW marker had asked for exactly this check.",
     "IPC-7525 stencil area ratio and aspect ratio": "DEFINITIONS VERIFIED VERBATIM from IPC-7525B §1.1.2 and §1.1.3 (round 10). The 0.66 and 1.5 FIGURES are still carried only by convergent secondary sources and remain unverified against the standard body text.",
-    "IPC-A-610 minimum vertical barrel fill": "CONTRADICTED — left open. Secondary sources split on this, and one publisher contradicts itself across two of its own articles. The 50 % figure may belong to IPC-6012 (bare board) rather than IPC-A-610 (assembly), which would make the course right, but that is a hypothesis. Needs IPC-A-610H §10 in front of a reviewer. See SOURCES_VERIFIED.md.",
-    "MSL 6 floor life": "VERIFIED VERBATIM from J-STD-033 Table 5-1 (round 10): \"Mandatory bake before use. After bake, must be reflowed within the time limit specified on the label.\"",
-    "J-STD-033 bake at 90 °C and 40 °C": "LEFT OPEN. The J-STD-033B.1 Table 4-1 gives 10 days at 90 °C and 79 days at 40 °C for the >2.0 to 4.5 mm band, which is a different order of magnitude from the course’s figures. The revision-D restructure may explain it; the numbers came out of a garbled PDF text layer and could not be confirmed.",
-    "J-STD-033 cumulative bake cap": "VERIFIED for revision D (round 10). J-STD-033D §4.2.7.1: \"the cumulative bake time at a temperature greater than 90 °C and up to 125 °C should not exceed 96 hours.\" Note that J-STD-033A and B said 48 hours — D relaxed it, so the course is right only if it means D.",
-    "Tape-and-reel dry-pack temperature cap": "VERIFIED (round 10). J-STD-033: tape and reel maximum 40 °C to prevent carrier damage; the 125 °C option cannot be used with tape/reel.",
     "J-STD-020 classification temperature by package size": "THE COURSE WAS WRONG — CORRECTED in round 10. \"260 small / 250 large / 245 very large\" is the 1.6–2.5 mm thickness row only. The table is thickness × volume: below 1.6 mm every volume is 260 °C, and above 2.5 mm the limits fall to 250 °C small and 245 °C large and very large. A small-volume package thicker than 2.5 mm is limited to 250 °C, not 260 °C. Five occurrences corrected.",
-    "J-STD-020 ramp-down limit": "VERIFIED (round 10). J-STD-020D: \"Ramp-down rate (Tp to TL) 6 °C/second max.\"",
     "J-STD-020 tp — time within 5 °C of classification temperature": "THE COURSE WAS WRONG — CORRECTED in round 10. No revision supports 40 s. J-STD-020D Table 5-2 gives tp = 30 s on the Pb-free profile and 20 s for SnPb; J-STD-020E and F datasheets reproduce 20–30 s and <30 s. Four occurrences corrected.",
-    "J-STD-033 bake at 125 °C by thickness": "LIKELY A TABLE CONFLATION — left open. The course’s 8 h comes from J-STD-033D Table 4-1 (user bake), but its 18 h and 48 h come from Table 4-2 (supplier bake, MET = 24 h), and 18 h is the MSL-2 value only. No revision contains that chain, and the two tables mean different things: a supplier bake resets shelf life for dry-pack, a user bake resets floor life after exposure."
+    "J-STD-020 ramp-down limit": "VERIFIED (round 10). J-STD-020D: \"Ramp-down rate (Tp to TL) 6 °C/second max.\"",
+    "J-STD-033 cumulative bake cap": "VERIFIED for revision D (round 10). J-STD-033D §4.2.7.1: \"the cumulative bake time at a temperature greater than 90 °C and up to 125 °C should not exceed 96 hours.\" J-STD-033A and B said 48 hours — D relaxed it, so the course is right only if it means D.",
+    "Tape-and-reel dry-pack temperature cap": "VERIFIED (round 10). J-STD-033: tape and reel maximum 40 °C to prevent carrier damage; the 125 °C option cannot be used with tape/reel.",
+    "MSL 6 floor life": "VERIFIED VERBATIM from J-STD-033 Table 5-1 (round 10): \"Mandatory bake before use. After bake, must be reflowed within the time limit specified on the label.\"",
+    "IPC-A-610 minimum vertical barrel fill": "CONTRADICTED — left open. Secondary sources split, and one publisher contradicts itself across two of its own articles. The 50 % figure may belong to IPC-6012 (bare board) rather than IPC-A-610 (assembly), which would make the course right, but that is a hypothesis. Needs IPC-A-610H §10 in front of a reviewer. See SOURCES_VERIFIED.md.",
+    "J-STD-033 bake at 90 °C and 40 °C": "LEFT OPEN. The J-STD-033B.1 Table 4-1 gives 10 days at 90 °C and 79 days at 40 °C for the >2.0 to 4.5 mm band, a different order of magnitude from the course’s figures. The revision-D restructure may explain it; the numbers came out of a garbled PDF text layer and could not be confirmed.",
+    "J-STD-033 bake at 125 °C by thickness": "LIKELY A TABLE CONFLATION — left open. The course’s 8 h comes from J-STD-033D Table 4-1 (user bake), but its 18 h and 48 h come from Table 4-2 (supplier bake, MET = 24 h), and 18 h is the MSL-2 value only. No revision contains that chain, and the two tables mean different things.",
+    "IPC-A-610 documented hole-fill exception": "CONSISTENTLY DESCRIBED but rests on the same unresolved §10 question as the barrel-fill fact. Secondary sources agree on \"≈50 % fill or 1.2 mm for parts with 14 or more leads tied into internal thermal or conductor planes\", but the publisher that states it also contradicts itself on the base 75 % figure. Not ticked until §10 is read.",
+    "SAC305 phase change temperatures": "VERIFIED (round 11). Kester SAC305 technical data sheet: \"Melting Point 217 to 219 °C (423 to 426 °F)\" — exactly the course’s pair. Solidus 217 °C is unanimous across suppliers; liquidus is 219 °C nominal (EasySpheres, Kester) though Indium and Kapp Alloy quote 220 °C. The course uses 217 as solidus and 219 as liquidus throughout, which is correct.",
+    "Contractual 100 % fill": "VERIFIED (round 11). IPC-A-610 sets acceptance criteria and class minimums, not a 100 % fill requirement; class assignment belongs to the customer, and customer requirements supersede the industry standard. Note that IPC-A-610J removed the \"Target\" condition entirely (it left the standard in Rev H, September 2020), so in the current revision 100 % fill cannot even be expressed as a target condition — it can only be a contractual requirement.",
+    "IPC-A-610 Class 3 external annular ring": "VERIFIED (round 11). Class 3 external annular ring minimum 2 mil = 0.05 mm with no breakout; internal 1 mil = 0.025 mm with no breakout; Class 2 permits up to 90° breakout. Agreed by four independent sources. Caveat: the criterion is documented in IPC-A-600 / IPC-6012 (bare board), not IPC-A-610 (assembly) — the checklist’s \"verify against\" names the wrong document.",
+    "ISO 2859-1 code letter to sample size": "VERIFIED (round 11). A 2, B 3, C 5, D 8, E 13, F 20, G 32, H 50, J 80, K 125, L 200, M 315, N 500, P 800, Q 1250, R 2000 (S 3150). Matches the course exactly; confirmed against a hosted copy of ISO 2859-1 itself and three independent reproductions.",
+    "ISO 2859-1 lot-size to code letter by inspection level": "VERIFIED (round 11) for general inspection level II: 501–1200 → J (80), 1201–3200 → K (125), 3201–10000 → L (200). The course’s middle value of each triple is level II, which is the level used in the m01l03 sampling lesson fixed in W17.",
+    "ISO 2859-1 single-sampling Ac/Re at AQL 1.0 %": "VERIFIED (round 11). K (n=125) → Ac 3, Re 4; L (n=200) → Ac 5, Re 6; J (n=80) → Ac 2, Re 3; H (n=50) → Ac 1, Re 2. Three independent reproductions of ISO 2859-1 Table II-A agree. This is the table behind the W17 correction of m01l03.",
+    "J-STD-004/005 solder powder Type 3": "VERIFIED (round 11) against J-STD-005A, reproduced verbatim by AIM and by the Journal of Welding and Joining: <0.5 % larger than 60 µm, <10 % in the 45–60 µm band, ≥80 % between 25–45 µm, <10 % smaller than 25 µm. That is exactly the course’s claim. Note the original J-STD-005 (January 1995) Table 2A gave different limits — none larger than 50 µm, 80 % between 45–25 µm, 10 % max below 20 µm — so the course is right only for revision A and later.",
+    "Wave flux deposition on a solids basis": "VERIFIED (round 11). AIM wave-solder profile supplement: \"Flux deposition of 500-1500 micrograms of flux per square inch is typical\", and the dry-method note \"Anything remaining on the board will represent a deposit of only flux solids\" — so the range is a solids basis, as the course states. The unit conversion also checks: 500–1500 µg/in² = 77.5–232.5 µg/cm² = 0.775–2.325 g/m², i.e. the course’s 0.78–2.33 g/m².",
+    "Preheat ramp rate for wave and selective": "VERIFIED (round 11). AIM profile supplement, citing IPC/JEDEC: \"Top Side Ramp Up Rate — < 3 °C/Sec (general), 1 - 3 °C/Sec (tin-lead), 1 - 3 °C/Sec (lead-free)\". Caveat: the IPC-7530A industry draft notes component suppliers often recommend a more conservative 2–4 °C/s to avoid thermal shock, so 1–3 °C/s is the process window, not a component-safe limit.",
+    "IPC rework document numbers": "VERIFIED (round 11). IPC-7711 = Rework of Electronic Assemblies; IPC-7721 = Repair and Modification of Printed Boards and Electronic Assemblies; published together as IPC-7711/7721. The numbers are correct. The earlier draft’s \"IPC-7711/7712\" was indeed wrong — 7712 does not cover this subject.",
+    "IPC-CC-830 conformal coating type designations": "THE COURSE WAS WRONG — CORRECTED in round 11. The m12l01 table gave \"Polyurethane (ER)\" and \"Parylene (DR)\". IPC-CC-830C §1.3.1 lists Type AR acrylic, Type ER EPOXY, Type SR silicone, Type UR POLYURETHANE, Type XY PARAXYLYLENE (parylene), Type UT ultra-thin, Type SC styrene block co-polymer. ER is epoxy, not polyurethane, and there is no DR at all. Confirmed from two independent renderings of the standard. Consequence: a reader specifying \"ER\" for a polyurethane coating orders an epoxy, and \"DR\" orders nothing. Two cells corrected.",
+    "IPC-6012 bow and twist limit": "VERIFIED (round 11). Eurocircuits quotes IPC-6012 directly: \"maximum bow and twist of 0.75% for printed boards that use surface mount components and 1.5% for all other printed boards\". IPC-A-600 §2.11 carries the same split, measured per IPC-TM-650 2.4.22. Agreed by four independent sources.",
+    "Cleanliness ionic limit": "VERIFIED (round 11). 1.56 µg NaCl equivalent/cm² tested per IPC-TM-650 2.3.25, and the clause is named exactly as the course names it: \"Per IPC-6012E §3.9.1, ionic contamination must not exceed 1.56 µg/cm² NaCl equivalent for Class 2/3 bare boards\". Useful cross-check the course could carry: 1.56 µg/cm² = 10.06 µg/in². IPC-5704 lists the same 1.56 total ionic figure with per-ion limits of chloride 0.25, bromide 0.25, sulfate 0.50, weak organic acids 1.0.",
+    "ESD programme and test-method standards": "VERIFIED (round 11) from the ESD Association’s own IEC-equivalency chart: \"ANSI/ESD STM3.1 | IEC 61340-4-7 | Ionization\" and \"ANSI/ESD STM97.1 & ANSI/ESD STM97.2 | IEC 61340-4-5 | Footwear and Flooring Systems\". The ESDA endorsed-standards page confirms STM97.1-2015 and STM97.2-2016 are each technically equivalent to IEC 61340-4-5. This also confirms the earlier draft’s error: no STM97.7 or 97.8 covers ionization. ANSI/ESD S20.20 is the programme standard, technically equivalent to IEC 61340-5-1."
   };
   RECURRING.forEach(function (f) {
     f.verdict = VERDICT[f.fact] || 'open';
-    if (ROUND10_NOTE[f.fact]) f.note = ROUND10_NOTE[f.fact];
+    if (VERDICT_NOTE[f.fact]) f.note = VERDICT_NOTE[f.fact];
   });
 
   /* ------------------------------------------------------------- render */

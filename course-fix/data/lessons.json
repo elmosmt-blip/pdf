@@ -5518,7 +5518,7 @@
                   "General purpose, rework-friendly"
                 ],
                 [
-                  "Polyurethane (ER)",
+                  "Polyurethane (UR)",
                   "Good",
                   "Hard — mechanical or chemical",
                   "Abrasion and moisture resistance"
@@ -5530,7 +5530,7 @@
                   "High humidity, condensation"
                 ],
                 [
-                  "Parylene (DR)",
+                  "Parylene (XY)",
                   "Excellent",
                   "Very hard — plasma etch",
                   "Medical, RF, pinhole-free conformality"

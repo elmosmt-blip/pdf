@@ -1028,3 +1028,59 @@ remaining 18 recurring facts and the whole Part B claim list still need a
 primary source. Removing the markers would assert a review that has not
 happened. The three marker entries this pass actually resolved are annotated in
 place so a reviewer does not redo the work.
+
+---
+
+# §9 Round 11 — the rest of Part A adjudicated, and a lesson about idempotency
+
+Round 11 verified the remaining 15 Part A recurring facts. **All 26 now carry a
+verdict: 22 verified, 4 flagged, 0 blank.** See `SOURCES_VERIFIED.md` for the
+evidence trail.
+
+## Defect found and fixed
+
+**IPC-CC-830 type codes — two of four wrong.** The `m12l01` table "Coating
+chemistries (IPC-CC-830 type families)" gave **Polyurethane (ER)** and
+**Parylene (DR)**. IPC-CC-830C §1.3.1 lists Type **UR** – Polyurethane and Type
+**XY** – Paraxylylene; **ER is Epoxy** and there is no DR at all. Two cells
+corrected. A reader specifying "ER" for a polyurethane coating orders an epoxy,
+and "DR" orders nothing.
+
+## Still flagged — four facts, two documents
+
+IPC-A-610H §10 (barrel fill 75 % and the high-lead-count exception) and
+J-STD-033D Tables 4-1/4-2 (the bake chain). Everything else in Part A is now
+adjudicated.
+
+## The round's real lesson: the fix script was not idempotent
+
+A sandbox reset mid-round forced a rebuild of the work tree, and re-running
+`apply-standards-verification.js` on already-fixed data **corrupted seven
+lessons** before it was caught:
+
+- `REV_FIX` rewrote the edition names *inside* the annotations `MARKER_FIX` had
+  just written, turning *"the course cited IPC-7525D, which does not exist"*
+  into *"the course cited IPC-7525C, which does not exist"*.
+- `CT_FIX`'s search text is a prefix of its own replacement, so it appended the
+  thickness caveat a second time on every run.
+
+Both are now guarded and a second run reports `changed: no`; verified by running
+the script three times and comparing. The data was restored from a backup taken
+before the reset and re-verified against the committed round-10 state.
+
+This is the same class of error as the round-8 `JSON.parse` on a
+bracket-extracted substring and the round-9 greedy-regex period capture: **a
+fix that works once is not a fix.** Any script in this repo that mutates parsed
+JSON must be run twice and proven a no-op the second time before it is trusted.
+
+Also re-confirmed: rebuilding the work tree from the r4 zip resurrects the
+round-6 `index.html` Rocket Loader defect. `apply-index-fix.js` is mandatory
+after every rebuild.
+
+## Repo state
+
+`git` came back as a fresh clone at the base commit after the reset; recovery
+was `git fetch` + `git reset --hard origin/arena/a9ab25b3-pdf` plus a rebuild of
+the work tree from the tracked r4 zip. No commit was lost — the remote held all
+of them. The derived round bundles are untracked and ignored; r4 stays tracked
+as the rebuild seed.

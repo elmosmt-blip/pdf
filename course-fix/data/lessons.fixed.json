@@ -35,6 +35,12 @@
               "t": "figure",
               "svg": "<svg viewBox='0 0 900 300' xmlns='http://www.w3.org/2000/svg' role='img' aria-label='Defect cost escalation by stage'><style>text{font-family:'IBM Plex Mono',monospace}</style><line x1='60' y1='250' x2='860' y2='250' stroke='#94a3b8' stroke-width='1'/><rect x='100' y='238' width='120' height='12' rx='4' fill='rgba(83,209,204,.25)' stroke='#53d1cc' stroke-width='1.5'/><rect x='290' y='190' width='120' height='60' rx='4' fill='rgba(83,209,204,.35)' stroke='#53d1cc' stroke-width='1.5'/><rect x='480' y='120' width='120' height='130' rx='4' fill='rgba(83,209,204,.5)' stroke='#53d1cc' stroke-width='1.5'/><rect x='670' y='40' width='120' height='210' rx='4' fill='rgba(244,67,54,.35)' stroke='#f44336' stroke-width='1.5'/><text x='160' y='228' fill='#edf2f7' font-size='14' font-weight='600' text-anchor='middle'>1x</text><text x='350' y='180' fill='#edf2f7' font-size='14' font-weight='600' text-anchor='middle'>10x</text><text x='540' y='110' fill='#edf2f7' font-size='14' font-weight='600' text-anchor='middle'>100x</text><text x='730' y='30' fill='#f44336' font-size='14' font-weight='600' text-anchor='middle'>1000x</text><text x='160' y='272' fill='#94a3b8' font-size='12' text-anchor='middle'>AT RECEIPT</text><text x='350' y='272' fill='#94a3b8' font-size='12' text-anchor='middle'>ON LINE</text><text x='540' y='272' fill='#94a3b8' font-size='12' text-anchor='middle'>IN FIELD</text><text x='730' y='272' fill='#94a3b8' font-size='12' text-anchor='middle'>RECALL</text><text x='60' y='24' fill='#edf2f7' font-size='14' font-weight='600'>RELATIVE COST OF ONE DEFECT</text><text x='60' y='44' fill='#94a3b8' font-size='12'>ESCALATION GROWS WITH EVERY STAGE IT SURVIVES</text></svg>",
               "caption": "Escalation ratios are illustrative — TBD-REVIEW"
+            },
+            {
+              "t": "image",
+              "src": "assets/img/m01.png",
+              "alt": "Incoming inspection sampling plan with a PCB panel grid, a lot label, counterfeit red-flag reels and an accept/reject chart for lot size 5000 at level II, AQL 1.0 percent, code letter L, n equals 200, accept 5, reject 6",
+              "caption": "Incoming inspection and the sampling plan: lot definition, inspection level, AQL, code letter, accept and reject numbers"
             }
           ]
         },
@@ -187,11 +193,11 @@
         },
         {
           "h": "Build the plan from lot size, level, and AQL",
-          "p": "The sampling plan is built by converting lot size and inspection level into a sample size code letter, then selecting the accept and reject numbers for the chosen AQL. In ISO 2859-1, a lot of 3201 to 10000 units at general inspection level II gives code letter L, which corresponds to a sample size of 80 units. For an AQL of 1.0% defective under normal single sampling, the accept number is 2 and the reject number is 3. The plan says inspect 80 units, accept the lot if 2 or fewer defective units are found, and reject if 3 or more are found.",
+          "p": "The sampling plan is built by converting lot size and inspection level into a sample size code letter, then selecting the accept and reject numbers for the chosen AQL. In ISO 2859-1, a lot of 3201 to 10000 units at general inspection level II gives code letter L, which corresponds to a sample size of 200 units. For an AQL of 1.0% defective under normal single sampling, the accept number is 5 and the reject number is 6. The plan says inspect 200 units, accept the lot if 5 or fewer defective units are found, and reject if 6 or more are found. The code letter depends on the inspection level, so the same lot band gives code letter J (n = 80, Ac = 2, Re = 3 at AQL 1.0%) at level I and code letter M (n = 315) at level III; always read the level and the lot band together before looking up the sample size.",
           "blocks": [
             {
               "t": "table",
-              "caption": "General inspection levels — sample size code letters (ISO 2859-1, lot 501-1200 units) — TBD-REVIEW",
+              "caption": "General inspection levels — sample size code letters (ISO 2859-1 / ANSI/ASQ Z1.4 Table I) — TBD-REVIEW",
               "head": [
                 "Lot size",
                 "Level I",
@@ -201,21 +207,21 @@
               "rows": [
                 [
                   "501 - 1200",
+                  "G (32 pcs)",
                   "J (80 pcs)",
+                  "K (125 pcs)"
+                ],
+                [
+                  "1201 - 3200",
+                  "H (50 pcs)",
                   "K (125 pcs)",
                   "L (200 pcs)"
                 ],
                 [
-                  "1201 - 3200",
-                  "K (125 pcs)",
+                  "3201 - 10000",
+                  "J (80 pcs)",
                   "L (200 pcs)",
                   "M (315 pcs)"
-                ],
-                [
-                  "3201 - 10000",
-                  "L (200 pcs)",
-                  "M (315 pcs)",
-                  "N (500 pcs)"
                 ]
               ]
             }
@@ -232,7 +238,7 @@
       ],
       "calc": {
         "task": "An incoming lot of 5000 SMT boards is defined as a lot. Use ISO 2859-1 general inspection level II and an AQL of 1.0% defective. Build a single sampling plan and state the accept/reject rule.",
-        "solution": "1. Confirm lot definition: 5000 boards, same part number, revision, supplier lot, and packaging. 2. Select standard: ISO 2859-1 normal single sampling. 3. Find sample size code letter: lot size 3201 to 10000 at general inspection level II gives code letter L. 4. Find sample size: code letter L corresponds to n = 80 boards. 5. Select AQL: 1.0% defective. 6. Read accept/reject numbers for n = 80 and AQL 1.0%: Ac = 2, Re = 3. 7. Rule: inspect 80 boards; accept if defective boards <= 2; reject if defective boards >= 3. 8. If rejected, quarantine the lot and apply the documented disposition; if accepted, record the sample result and continue normal inspection unless switching rules indicate a change."
+        "solution": "1. Confirm lot definition: 5000 boards, same part number, revision, supplier lot, and packaging. 2. Select standard: ISO 2859-1 normal single sampling. 3. Find sample size code letter: lot size 3201 to 10000 at general inspection level II gives code letter L. 4. Find sample size: code letter L corresponds to n = 200 boards. 5. Select AQL: 1.0% defective. 6. Read accept/reject numbers for n = 200 and AQL 1.0%: Ac = 5, Re = 6. 7. Rule: inspect 200 boards; accept if defective boards <= 5; reject if defective boards >= 6. 8. If rejected, quarantine the lot and apply the documented disposition; if accepted, record the sample result and continue normal inspection unless switching rules indicate a change."
       },
       "defect": {
         "symptom": "Incoming SMT boards pass the AQL plan, but the first boards after reflow show tombstoned small chip resistors at a feeder position.",
@@ -332,7 +338,9 @@
       }
     ],
     "status": "draft",
-    "sources": [],
+    "sources": [
+      "src-015"
+    ],
     "quiz": [
       "q-m01l05-01",
       "q-m01l05-02"
@@ -541,6 +549,12 @@
               "t": "figure",
               "svg": "<svg viewBox='0 0 900 220' xmlns='http://www.w3.org/2000/svg' role='img' aria-label='MSL floor life lifecycle'><style>text{font-family:'IBM Plex Mono',monospace}</style><rect x='40' y='90' width='150' height='44' rx='10' fill='rgba(83,209,204,.06)' stroke='rgba(83,209,204,.35)' stroke-width='1.5'/><rect x='250' y='90' width='150' height='44' rx='10' fill='rgba(83,209,204,.06)' stroke='rgba(83,209,204,.35)' stroke-width='1.5'/><rect x='460' y='90' width='150' height='44' rx='10' fill='rgba(255,152,0,.1)' stroke='#ff9800' stroke-width='1.5'/><rect x='670' y='90' width='190' height='44' rx='10' fill='rgba(83,209,204,.06)' stroke='rgba(83,209,204,.35)' stroke-width='1.5'/><line x1='190' y1='112' x2='250' y2='112' stroke='#53d1cc' stroke-width='1.5' marker-end='url(#ar)'/><line x1='400' y1='112' x2='460' y2='112' stroke='#53d1cc' stroke-width='1.5'/><line x1='610' y1='112' x2='670' y2='112' stroke='#53d1cc' stroke-width='1.5'/><defs><marker id='ar' markerWidth='8' markerHeight='8' refX='6' refY='3' orient='auto'><path d='M0,0 L6,3 L0,6' fill='none' stroke='#53d1cc' stroke-width='1.2'/></marker></defs><text x='115' y='117' fill='#cbd5e1' font-size='12' text-anchor='middle'>SEALED MBB</text><text x='325' y='117' fill='#cbd5e1' font-size='12' text-anchor='middle'>FLOOR CLOCK</text><text x='535' y='117' fill='#ff9800' font-size='12' text-anchor='middle'>BAKE IF EXCEEDED</text><text x='765' y='117' fill='#cbd5e1' font-size='12' text-anchor='middle'>REFLOW / COATING</text><text x='325' y='70' fill='#94a3b8' font-size='12' text-anchor='middle'>J-STD-033</text><text x='325' y='160' fill='#94a3b8' font-size='12' text-anchor='middle'>MSL 2/3: 1 yr / 168 h</text><text x='40' y='24' fill='#edf2f7' font-size='14' font-weight='600'>MOISTURE SENSITIVE DEVICE LIFECYCLE</text><text x='40' y='44' fill='#94a3b8' font-size='12'>FLOOR LIFE STARTS THE MOMENT THE BAG IS OPENED</text></svg>",
               "caption": "Floor-life values per J-STD-033 — see table below"
+            },
+            {
+              "t": "image",
+              "src": "assets/img/m02.png",
+              "alt": "IC package cross-section showing moisture ingress and cracking, a moisture barrier bag with desiccant and HIC, and a floor-life clock showing elapsed hours",
+              "caption": "Moisture inside a package: ingress paths, barrier bag with desiccant and humidity indicator card, floor-life clock"
             }
           ]
         },
@@ -554,7 +568,7 @@
         },
         {
           "h": "MSL rating and floor life",
-          "p": "The moisture sensitivity level, or MSL, is a package classification that indicates how quickly a device can absorb moisture under defined ambient conditions. The related floor life is the total time a device may be exposed to ambient conditions before it requires bake before reflow. Under IPC/JEDEC J-STD-033, typical floor lives are: MSL 1 unlimited; MSL 2 12 months; MSL 3 168 h; MSL 4 72 h; MSL 5 48 h; MSL 5a 24 h; MSL 6 12 h. These values are package-level limits, not a guarantee that every device will fail after the limit; they are the control limits used to prevent moisture-related reflow damage.",
+          "p": "The moisture sensitivity level, or MSL, is a package classification that indicates how quickly a device can absorb moisture under defined ambient conditions. The related floor life is the total time a device may be exposed to ambient conditions before it requires bake before reflow. Under IPC/JEDEC J-STD-033, typical floor lives are: MSL 1 unlimited; MSL 2 12 months; MSL 3 168 h; MSL 4 72 h; MSL 5 48 h; MSL 5a 24 h; MSL 6 has no floor life and is mandatory bake before use, with the post-bake reflow window taken from the label. These values are package-level limits, not a guarantee that every device will fail after the limit; they are the control limits used to prevent moisture-related reflow damage.",
           "blocks": [
             {
               "t": "table",
@@ -603,7 +617,7 @@
                 [
                   "6",
                   "Bake before use",
-                  "Solder within 24 h of bag open"
+                  "No floor life: bake before use, reflow within the label limit"
                 ]
               ]
             }
@@ -648,7 +662,9 @@
       }
     ],
     "status": "draft",
-    "sources": [],
+    "sources": [
+      "src-003"
+    ],
     "quiz": [
       "q-m02l02-01",
       "q-m02l02-02"
@@ -665,7 +681,7 @@
         },
         {
           "h": "Floor life values and conditions",
-          "p": "J-STD-020 defines floor life at 30 °C/85% RH for common MSL ratings. Typical values are MSL 1 unlimited, MSL 2 1 year, MSL 2a 4 weeks, MSL 3 168 h, MSL 4 72 h, MSL 5 48 h, and MSL 5a 24 h; MSL 6 is special and normally requires bake before use. Use the value printed on the label when it is more restrictive, and verify the current revision of J-STD-020 because tables can be updated."
+          "p": "IPC/JEDEC J-STD-033 defines floor life at reference conditions of 30 °C and 60% RH for common MSL ratings; J-STD-020 assigns the moisture sensitivity level itself. Typical values are MSL 1 unlimited, MSL 2 1 year, MSL 2a 4 weeks, MSL 3 168 h, MSL 4 72 h, MSL 5 48 h, and MSL 5a 24 h; MSL 6 is special and normally requires bake before use. Use the value printed on the label when it is more restrictive, and verify the current revision of J-STD-020 because tables can be updated."
         },
         {
           "h": "Barrier bag, desiccant, and HIC",
@@ -776,7 +792,9 @@
       }
     ],
     "status": "draft",
-    "sources": [],
+    "sources": [
+      "src-003"
+    ],
     "quiz": [
       "q-m02l04-01",
       "q-m02l04-02"
@@ -797,7 +815,7 @@
         },
         {
           "h": "Bake conditions by package type",
-          "p": "Use the bake table in IPC/JEDEC J-STD-033D for the package type and the component or tape datasheet. Tape and reel often uses a lower-temperature bake, commonly 40°C to 50°C for 48 h to 168 h, to protect carrier tape and cover tape. Trays and tubes may use 125°C for 12 h to 24 h only if the tray, tube, and component materials are rated. Verify against your paste, tape, tray, tube, and equipment datasheet, because tape can soften, trays can warp, and some coatings can blister."
+          "p": "Use the bake table in IPC/JEDEC J-STD-033D for the package type and the component or tape datasheet. Bake time in J-STD-033 is indexed to package body thickness, not to the moisture sensitivity level. Tape and reel must not be baked above 40°C, because carrier tape and cover tape soften and deform; the 40°C column is therefore long — about 9 days for bodies up to 1.4 mm, 11 days for 1.4 to 2.0 mm and 38 days for 2.0 to 4.5 mm — so a 48 h or 168 h bake at 40°C will not dry a reel. Loose parts in trays or tubes can use the 125°C column: 8 h up to 1.4 mm, 18 h for 1.4 to 2.0 mm and 48 h for 2.0 to 4.5 mm, only if the tray, tube and component materials are rated. Above 90°C the cumulative bake time is limited (96 h unless the supplier states otherwise) because of intermetallic growth and solderability loss. Verify against your tape, tray, tube, and equipment datasheet, because tape can soften, trays can warp, and some coatings can blister."
         },
         {
           "h": "PCBs and THT assemblies",
@@ -814,7 +832,7 @@
       ],
       "calc": {
         "task": "A batch of IPC/JEDEC J-STD-033D MSL 4 ICs in tape and reel was opened 50 h ago. The dry cabinet is not qualified for floor-life suspension, so all storage time counts. The planned reflow window starts in 30 h. Decide whether bake is required and specify a tape-and-reel bake condition.",
-        "solution": "1. Use IPC/JEDEC J-STD-033D floor life for MSL 4: 72 h. 2. Counted exposure = 50 h. 3. Remaining floor life = 72 h - 50 h = 22 h. 4. Planned delay = 30 h. Since 30 h exceeds 22 h, bake is required before reflow. 5. Use a qualified tape-and-reel bake recipe, for example 45°C for 72 h, and verify against the IPC/JEDEC J-STD-033D bake table and the tape datasheet. 6. Record lot ID, bake start and end, temperature, operator, and reflow qualification if required."
+        "solution": "1. Use IPC/JEDEC J-STD-033D floor life for MSL 4: 72 h. 2. Counted exposure = 50 h. 3. Remaining floor life = 72 h - 50 h = 22 h. 4. Planned delay = 30 h. Since 30 h exceeds 22 h, bake is required before reflow. 5. A tape-and-reel bake cannot exceed 40°C, and at 40°C the J-STD-033 Table 4-1 time for a body up to 1.4 mm is about 9 days, which does not fit a 30 h window. Either move the reflow inside the remaining floor life, suspend the clock in a qualified dry cabinet at 10% RH or less, or de-reel, bake loose parts at 125°C for 8 h and re-reel; verify the chosen route against the J-STD-033D bake table, the tape datasheet and the reflow window. 6. Record lot ID, bake start and end, temperature, operator, and reflow qualification if required."
       },
       "defect": {
         "symptom": "After reflow, several QFN packages show lifted leads, voided solder joints, and one package has a visible crack; the lot had been stored in a dry cabinet with a logged RH of 18% while the setpoint was 10%.",
@@ -865,7 +883,7 @@
         },
         {
           "h": "Ionization for isolated conductors and insulators",
-          "p": "Ionizers neutralize charge on isolated conductors and insulators that cannot be grounded. ANSI/ESD STM3.1 covers ionization, and performance qualification can be evaluated using ANSI/ESD STM97.7 and ANSI/ESD STM97.8. In storage, ionizers are often installed at unpacking, kitting, or inspection stations where plastic bags, foam, labels, or tape create charge. The audit should check placement, airflow, balance, and maintenance because ionization is ineffective if the ion stream is blocked, the emitter points are dirty, or the unit is not balanced. Verify balance and discharge time against the ionizer datasheet and the program acceptance criteria."
+          "p": "Ionizers neutralize charge on isolated conductors and insulators that cannot be grounded. ANSI/ESD STM3.1 covers ionization, and performance qualification and periodic verification are evaluated against the offset-voltage (balance) and discharge-time limits in that method, which is the ESDA counterpart of IEC 61340-4-7. Footwear and flooring systems, by contrast, are qualified under ANSI/ESD STM97.1 and STM97.2. In storage, ionizers are often installed at unpacking, kitting, or inspection stations where plastic bags, foam, labels, or tape create charge. The audit should check placement, airflow, balance, and maintenance because ionization is ineffective if the ion stream is blocked, the emitter points are dirty, or the unit is not balanced. Verify balance and discharge time against the ionizer datasheet and the program acceptance criteria."
         },
         {
           "h": "Packaging and storage containers",
@@ -909,7 +927,9 @@
       }
     ],
     "status": "draft",
-    "sources": [],
+    "sources": [
+      "src-003"
+    ],
     "quiz": [
       "q-m02l06-01",
       "q-m02l06-02"
@@ -918,7 +938,7 @@
       "theory": [
         {
           "h": "Floor life is a clock, not a label",
-          "p": "A moisture-sensitive device starts consuming floor life when its moisture barrier bag is opened and the device is exposed to ambient air. The clock is governed by the moisture sensitivity level assigned under IPC/JEDEC J-STD-020 and the handling rules in IPC/JEDEC J-STD-033. IPC/JEDEC J-STD-033 defines floor life at reference conditions of 30 °C and 85% RH, so a hot, humid storage area can consume the clock faster than a controlled dry cabinet. When the clock expires, the batch is not automatically scrap; it is a process deviation that must be contained before reflow. The first question is not whether the part looks acceptable, but whether the exposure history is known, whether the remaining floor life is sufficient for the planned reflow, and whether the package type can be baked safely."
+          "p": "A moisture-sensitive device starts consuming floor life when its moisture barrier bag is opened and the device is exposed to ambient air. The clock is governed by the moisture sensitivity level assigned under IPC/JEDEC J-STD-020 and the handling rules in IPC/JEDEC J-STD-033. IPC/JEDEC J-STD-033 defines floor life at reference conditions of 30 °C and 60% RH, so a hot, humid storage area can consume the clock faster than a controlled dry cabinet. When the clock expires, the batch is not automatically scrap; it is a process deviation that must be contained before reflow. The first question is not whether the part looks acceptable, but whether the exposure history is known, whether the remaining floor life is sufficient for the planned reflow, and whether the package type can be baked safely."
         },
         {
           "h": "Decide whether the batch must be baked",
@@ -926,7 +946,7 @@
         },
         {
           "h": "Bake conditions by package type",
-          "p": "For moisture-sensitive devices, IPC/JEDEC J-STD-033 provides bake conditions that depend on the carrier and the maximum temperature allowed by the component. A common high-temperature condition is 125 °C for 24 h, which may be suitable for trays, tubes, or waffle packs that can withstand the temperature. For tape and reel, IPC/JEDEC J-STD-033 also provides a lower-temperature long bake such as 40 °C for 168 h when the tape, reel, labels, or cover tape cannot tolerate higher temperature. Justify the condition by package type: polymer tape and reels can deform, labels can lift, and cover tape can shift at high temperature. Verify the chosen condition against the component datasheet, carrier datasheet, and oven capability."
+          "p": "For moisture-sensitive devices, IPC/JEDEC J-STD-033 provides bake conditions that depend on the carrier and the maximum temperature allowed by the component. For loose parts in trays, tubes or waffle packs whose carriers and components are rated for it, the 125 °C column of the bake table is indexed to package body thickness: 8 h for a body up to 1.4 mm, 18 h for 1.4 to 2.0 mm and 48 h for 2.0 to 4.5 mm. The 24 h figure sometimes quoted for a 125 °C bake is the supplier dry-pack condition, not a user bake, so do not use it as a production recipe. For tape and reel, IPC/JEDEC J-STD-033 also provides a lower-temperature long bake at 40 °C, roughly 9 days for a body up to 1.4 mm, 11 days for 1.4 to 2.0 mm and 38 days for 2.0 to 4.5 mm, because the tape, reel, labels and cover tape cannot tolerate higher temperature. Cumulative bake time above 90 °C is limited to 96 h unless the supplier states otherwise. Justify the condition by package type: polymer tape and reels can deform, labels can lift, and cover tape can shift at high temperature. Verify the chosen condition against the component datasheet, carrier datasheet, and oven capability."
         },
         {
           "h": "Dry storage after bake",
@@ -951,7 +971,7 @@
       ],
       "calc": {
         "task": "A lot of MSL3 QFN devices in tape and reel is found mid-lot with expired floor life. The lot has 12 reels, each with 500 units. The vacuum bag was opened 200 h before the planned reflow. The dry cabinet RH was 7% RH at 28 °C. Two reels were placed on feeders and 180 boards were populated. An ESD wrist strap alarm was also found disabled for 4 h in the same storage area. Decide whether the batch must be baked, specify the bake and dry-storage condition by package type, and define the traceability range.",
-        "solution": "Step 1: Identify the moisture sensitivity level. The devices are MSL3 under IPC/JEDEC J-STD-020. Step 2: Compare elapsed floor life with IPC/JEDEC J-STD-033. MSL3 floor life is 168 h at 30 °C and 85% RH. Elapsed time is 200 h, so the floor life is exceeded by 32 h. Step 3: Check dry storage. IPC/JEDEC J-STD-033 uses a dry storage target of 5% RH or less. The cabinet was at 7% RH, so the storage condition is not compliant and the exposure cannot be treated as controlled dry storage. Step 4: Decide whether to bake. Because floor life is exceeded and reflow is planned, bake before reflow unless the component manufacturer provides a documented exception. Step 5: Select bake condition by package type. The package is tape and reel, which contains polymer tape, reel, cover tape, and labels. If the carrier cannot withstand 125 °C, use the IPC/JEDEC J-STD-033 lower-temperature long bake of 40 °C for 168 h. If the component and carrier datasheets allow 125 °C, the IPC/JEDEC J-STD-033 high-temperature bake of 125 °C for 24 h may be used. For this case, choose 40 °C for 168 h as the conservative tape and reel condition. Step 6: Define post-bake storage. Store at 5% RH or less under IPC/JEDEC J-STD-033, or repackage in a moisture barrier bag with desiccant and a humidity indicator card. Step 7: Calculate affected device count. 12 reels x 500 units per reel = 6000 units. Step 8: Define moisture traceability range. Include all 12 reels, the same lot and date code, the same vacuum bag, the same dry cabinet, the same storage location, the same shift, the two reels on feeders, the 180 populated boards, the feeders, the placement program, the reflow oven, the reflow profile, the work order, the incoming lot, the operator, and the storage RH records. Step 9: Define ESD traceability range. Because the wrist strap alarm was disabled for 4 h, include all devices and boards handled in the EPA during those 4 h, plus the same lot, storage location, feeders, magazines, conveyors, bins, packaging, and work orders. If records are incomplete, widen to the full shift or full lot. Step 10: Disposition. Quarantine the 6000 units, bake the unreflowed units under the selected condition, repackage or store under compliant dry storage, and disposition the 180 boards through electrical test and failure analysis as needed."
+        "solution": "Step 1: Identify the moisture sensitivity level. The devices are MSL3 under IPC/JEDEC J-STD-020, and the floor-life rules come from IPC/JEDEC J-STD-033. Step 2: Compare elapsed floor life with IPC/JEDEC J-STD-033. MSL3 floor life is 168 h at 30 °C and 60% RH. Elapsed time is 200 h, so the floor life is exceeded by 32 h. Step 3: Check dry storage. IPC/JEDEC J-STD-033 uses a dry storage target of 5% RH or less. The cabinet was at 7% RH, so the storage condition is not compliant and the exposure cannot be treated as controlled dry storage. Step 4: Decide whether to bake. Because floor life is exceeded and reflow is planned, bake before reflow unless the component manufacturer provides a documented exception. Step 5: Select bake condition by package type. The package is tape and reel, which contains polymer tape, reel, cover tape, and labels. If the carrier cannot withstand 125 °C, use the IPC/JEDEC J-STD-033 lower-temperature long bake at 40 °C, which is roughly 9 days for a body up to 1.4 mm and therefore does not fit a short reflow window. If the component and carrier datasheets allow 125 °C, the IPC/JEDEC J-STD-033 125 °C column applies only to loose parts in trays or tubes and is indexed to body thickness: 8 h up to 1.4 mm, 18 h for 1.4 to 2.0 mm, 48 h for 2.0 to 4.5 mm. For this case, choose the 40 °C long bake as the conservative tape-and-reel condition, or de-reel, bake the loose parts at 125 °C for the thickness-indexed time and re-reel; verify the chosen route against the J-STD-033 bake table, the tape datasheet and the reflow window. Step 6: Define post-bake storage. Store at 5% RH or less under IPC/JEDEC J-STD-033, or repackage in a moisture barrier bag with desiccant and a humidity indicator card. Step 7: Calculate affected device count. 12 reels x 500 units per reel = 6000 units. Step 8: Define moisture traceability range. Include all 12 reels, the same lot and date code, the same vacuum bag, the same dry cabinet, the same storage location, the same shift, the two reels on feeders, the 180 populated boards, the feeders, the placement program, the reflow oven, the reflow profile, the work order, the incoming lot, the operator, and the storage RH records. Step 9: Define ESD traceability range. Because the wrist strap alarm was disabled for 4 h, include all devices and boards handled in the EPA during those 4 h, plus the same lot, storage location, feeders, magazines, conveyors, bins, packaging, and work orders. If records are incomplete, widen to the full shift or full lot. Step 10: Disposition. Quarantine the 6000 units, bake the unreflowed units under the selected condition, repackage or store under compliant dry storage, and disposition the 180 boards through electrical test and failure analysis as needed."
       },
       "defect": {
         "symptom": "After reflow, several boards show intermittent opens and lifted leads, and X-ray shows voiding or cracking near the QFN package body on boards that used the expired-floor-life reels.",
@@ -990,6 +1010,12 @@
               "t": "figure",
               "svg": "<svg viewBox='0 0 900 260' xmlns='http://www.w3.org/2000/svg' role='img' aria-label='Stencil aperture geometry'><style>text{font-family:'IBM Plex Mono',monospace}</style><rect x='250' y='110' width='400' height='30' fill='rgba(148,163,184,.2)' stroke='#94a3b8' stroke-width='1.5'/><rect x='330' y='110' width='80' height='30' fill='#0D1117' stroke='#53d1cc' stroke-width='1.5'/><rect x='530' y='110' width='80' height='30' fill='#0D1117' stroke='#53d1cc' stroke-width='1.5'/><rect x='330' y='70' width='80' height='40' fill='rgba(83,209,204,.3)' stroke='#53d1cc' stroke-width='1.5'/><rect x='530' y='70' width='80' height='40' fill='rgba(83,209,204,.3)' stroke='#53d1cc' stroke-width='1.5'/><rect x='250' y='140' width='400' height='26' fill='rgba(76,175,80,.12)' stroke='#4caf50' stroke-width='1'/><text x='450' y='158' fill='#94a3b8' font-size='12' text-anchor='middle'>PCB PAD</text><line x1='330' y1='52' x2='410' y2='52' stroke='#53d1cc' stroke-width='1'/><text x='370' y='44' fill='#53d1cc' font-size='12' text-anchor='middle'>APERTURE WIDTH</text><line x1='230' y1='110' x2='230' y2='140' stroke='#94a3b8' stroke-width='1'/><text x='222' y='128' fill='#94a3b8' font-size='12' text-anchor='end'>FOIL THK</text><text x='370' y='96' fill='#edf2f7' font-size='12' text-anchor='middle'>PASTE</text><text x='450' y='216' fill='#cbd5e1' font-size='14' text-anchor='middle'>AREA RATIO = APERTURE AREA / (WALL PERIMETER x FOIL THICKNESS)</text><text x='450' y='238' fill='#ff9800' font-size='12' text-anchor='middle'>RULE OF THUMB: AREA RATIO >= 0.66 FOR GOOD RELEASE — TBD-REVIEW</text><text x='40' y='24' fill='#edf2f7' font-size='14' font-weight='600'>APERTURE GEOMETRY DRIVES PASTE RELEASE</text></svg>",
               "caption": "Geometry of paste release from a stencil aperture"
+            },
+            {
+              "t": "image",
+              "src": "assets/img/m03.png",
+              "alt": "Stencil aperture cross-section with paste transferring to a pad, and the area ratio and aspect ratio formulas with their minima",
+              "caption": "Stencil aperture geometry: area ratio and aspect ratio decide whether paste releases from the aperture"
             }
           ]
         },
@@ -1170,7 +1196,9 @@
       }
     ],
     "status": "draft",
-    "sources": [],
+    "sources": [
+      "src-004"
+    ],
     "quiz": [
       "q-m03l04-01",
       "q-m03l04-02"
@@ -1212,7 +1240,7 @@
       ],
       "calc": {
         "task": "A 0.4 mm pitch QFP has land width 0.25 mm and land length 0.60 mm. The board also has 0.5 mm pitch BGA pads. Select foil thickness and aperture geometry for the QFP, and justify each choice by the defect it prevents.",
-        "solution": "1. Identify the smallest pitch: 0.4 mm. Use IPC-7525 area-ratio guidance and choose a thin foil, 0.10 mm, to reduce paste volume and bridging risk. 2. Reduce aperture width to 0.22 mm and length to 0.55 mm to leave solder mask clearance and control volume. 3. Calculate area ratio: aperture area = 0.22 mm x 0.55 mm = 0.121 mm^2. Sidewall area = 2 x (0.22 mm + 0.55 mm) x 0.10 mm = 0.154 mm^2. Area ratio = 0.121 / 0.154 = 0.79. This is above the practical target of 0.66 associated with IPC-7525 area-ratio guidance, so release should be acceptable if sidewall finish and paste viscosity are verified. 4. Check paste volume: 0.121 mm^3 per aperture. For the 0.5 mm pitch BGA, verify that the same foil does not create insufficient paste; if needed, use a step stencil or local thickness change, and verify against IPC-7095 and paste datasheet. 5. Justify: thinner foil and reduced aperture prevent bridging between 0.4 mm pitch leads; adequate area ratio prevents opens from poor release; rounded corners reduce paste trapping and solder balls. 6. Inspect first article per IPC-A-610 and measure printed volume; adjust if bridges or opens appear."
+        "solution": "1. Identify the smallest pitch: 0.4 mm. Use IPC-7525 area-ratio guidance and choose a thin foil, 0.10 mm, to reduce paste volume and bridging risk. 2. Reduce aperture width to 0.22 mm and length to 0.55 mm to leave solder mask clearance and control volume. 3. Calculate area ratio: aperture area = 0.22 mm x 0.55 mm = 0.121 mm^2. Sidewall area = 2 x (0.22 mm + 0.55 mm) x 0.10 mm = 0.154 mm^2. Area ratio = 0.121 / 0.154 = 0.79. This is above the practical target of 0.66 associated with IPC-7525 area-ratio guidance, so release should be acceptable if sidewall finish and paste viscosity are verified. 4. Check paste volume: aperture area 0.121 mm^2 multiplied by foil thickness 0.10 mm gives 0.0121 mm^3 per aperture. For the 0.5 mm pitch BGA, verify that the same foil does not create insufficient paste; if needed, use a step stencil or local thickness change, and verify against IPC-7095 and paste datasheet. 5. Justify: thinner foil and reduced aperture prevent bridging between 0.4 mm pitch leads; adequate area ratio prevents opens from poor release; rounded corners reduce paste trapping and solder balls. 6. Inspect first article per IPC-A-610 and measure printed volume; adjust if bridges or opens appear."
       },
       "defect": {
         "symptom": "Solder bridges between adjacent QFP leads at 0.4 mm pitch after reflow; X-ray shows excess paste between leads.",
@@ -1385,6 +1413,12 @@
               "t": "figure",
               "svg": "<svg viewBox='0 0 900 200' xmlns='http://www.w3.org/2000/svg' role='img' aria-label='Screen printing cycle phases'><style>text{font-family:'IBM Plex Mono',monospace}</style><rect x='40' y='80' width='180' height='48' rx='10' fill='rgba(83,209,204,.06)' stroke='rgba(83,209,204,.35)' stroke-width='1.5'/><rect x='260' y='80' width='180' height='48' rx='10' fill='rgba(83,209,204,.06)' stroke='rgba(83,209,204,.35)' stroke-width='1.5'/><rect x='480' y='80' width='180' height='48' rx='10' fill='rgba(83,209,204,.06)' stroke='rgba(83,209,204,.35)' stroke-width='1.5'/><rect x='700' y='80' width='160' height='48' rx='10' fill='rgba(76,175,80,.1)' stroke='#4caf50' stroke-width='1.5'/><line x1='220' y1='104' x2='260' y2='104' stroke='#53d1cc' stroke-width='1.5'/><line x1='440' y1='104' x2='480' y2='104' stroke='#53d1cc' stroke-width='1.5'/><line x1='660' y1='104' x2='700' y2='104' stroke='#53d1cc' stroke-width='1.5'/><text x='130' y='109' fill='#cbd5e1' font-size='12' text-anchor='middle'>1 FILL APERTURES</text><text x='350' y='109' fill='#cbd5e1' font-size='12' text-anchor='middle'>2 PRINT / SHEAR</text><text x='570' y='109' fill='#cbd5e1' font-size='12' text-anchor='middle'>3 SNAP-OFF</text><text x='780' y='109' fill='#4caf50' font-size='12' text-anchor='middle'>4 SPI CHECK</text><text x='130' y='150' fill='#94a3b8' font-size='12' text-anchor='middle'>paste on stencil</text><text x='350' y='150' fill='#94a3b8' font-size='12' text-anchor='middle'>squeegee + pressure</text><text x='570' y='150' fill='#94a3b8' font-size='12' text-anchor='middle'>separation speed</text><text x='780' y='150' fill='#94a3b8' font-size='12' text-anchor='middle'>volume / height / area</text><text x='40' y='30' fill='#edf2f7' font-size='14' font-weight='600'>SCREEN PRINTING CYCLE</text><text x='40' y='50' fill='#94a3b8' font-size='12'>EVERY PARAMETER YOU SET ACTS ON ONE OF THESE PHASES</text></svg>",
               "caption": "The four phases of a screen print cycle"
+            },
+            {
+              "t": "image",
+              "src": "assets/img/m04.png",
+              "alt": "Screen printer cycle showing squeegee print, stencil snap-off gap, paste release and a deposit inspection scan",
+              "caption": "Print cycle: squeegee, snap-off, paste release, then inspection of the deposit"
             },
             {
               "t": "callout",
@@ -1869,6 +1903,12 @@
               "t": "figure",
               "svg": "<svg viewBox='0 0 900 200' xmlns='http://www.w3.org/2000/svg' role='img' aria-label='Pick and place cycle'><style>text{font-family:'IBM Plex Mono',monospace}</style><rect x='40' y='80' width='170' height='48' rx='10' fill='rgba(83,209,204,.06)' stroke='rgba(83,209,204,.35)' stroke-width='1.5'/><rect x='250' y='80' width='170' height='48' rx='10' fill='rgba(83,209,204,.06)' stroke='rgba(83,209,204,.35)' stroke-width='1.5'/><rect x='460' y='80' width='170' height='48' rx='10' fill='rgba(83,209,204,.06)' stroke='rgba(83,209,204,.35)' stroke-width='1.5'/><rect x='670' y='80' width='190' height='48' rx='10' fill='rgba(83,209,204,.06)' stroke='rgba(83,209,204,.35)' stroke-width='1.5'/><line x1='210' y1='104' x2='250' y2='104' stroke='#53d1cc' stroke-width='1.5'/><line x1='420' y1='104' x2='460' y2='104' stroke='#53d1cc' stroke-width='1.5'/><line x1='630' y1='104' x2='670' y2='104' stroke='#53d1cc' stroke-width='1.5'/><text x='125' y='109' fill='#cbd5e1' font-size='12' text-anchor='middle'>PICK FROM FEEDER</text><text x='335' y='109' fill='#cbd5e1' font-size='12' text-anchor='middle'>VISION / CHECK</text><text x='545' y='109' fill='#cbd5e1' font-size='12' text-anchor='middle'>ALIGN</text><text x='765' y='109' fill='#cbd5e1' font-size='12' text-anchor='middle'>PLACE + FORCE</text><text x='125' y='150' fill='#94a3b8' font-size='12' text-anchor='middle'>nozzle, vacuum</text><text x='335' y='150' fill='#94a3b8' font-size='12' text-anchor='middle'>missing / tilt / size</text><text x='545' y='150' fill='#94a3b8' font-size='12' text-anchor='middle'>theta correction</text><text x='765' y='150' fill='#94a3b8' font-size='12' text-anchor='middle'>placement accuracy</text><text x='40' y='30' fill='#edf2f7' font-size='14' font-weight='600'>PLACEMENT CYCLE</text><text x='40' y='50' fill='#94a3b8' font-size='12'>DEFECTS ARE BORN IN ONE OF THESE FOUR MOMENTS</text></svg>",
               "caption": "Pick-and-place cycle and where its defects originate"
+            },
+            {
+              "t": "image",
+              "src": "assets/img/m05.png",
+              "alt": "Pick-and-place machine with gantry, placement head and nozzles, feeder bank, fiducial marks on a board and an axes travel diagram",
+              "caption": "Pick-and-place machine overview: placement accuracy and repeatability, feeder bank, fiducials, axes travel"
             }
           ]
         },
@@ -2266,7 +2306,8 @@
     ],
     "status": "draft",
     "sources": [
-      "src-005"
+      "src-005",
+      "src-008"
     ],
     "quiz": [
       "q-m06l01-01",
@@ -2284,6 +2325,12 @@
               "caption": "Generic reflow profile shape; numeric targets per paste TDS — TBD-REVIEW"
             },
             {
+              "t": "image",
+              "src": "assets/img/m06.png",
+              "alt": "Reflow thermal profile curve with ramp, soak, time above liquidus, peak and cooling zones, and dashed lines for liquidus 219 C and solidus 217 C",
+              "caption": "Reflow profile anatomy: ramp, soak, time above liquidus, peak, cooling, against the SAC305 liquidus and solidus"
+            },
+            {
               "t": "table",
               "caption": "Typical SAC305 profile envelope — paste TDS always wins — TBD-REVIEW",
               "head": [
@@ -2294,7 +2341,7 @@
               "rows": [
                 [
                   "Preheat",
-                  "<= 2 C/s ramp",
+                  "1-3 C/s ramp",
                   "Thermal shock, flux activation"
                 ],
                 [
@@ -2304,7 +2351,7 @@
                 ],
                 [
                   "Reflow / peak",
-                  "Liquidus 217 C, peak 235-245 C",
+                  "Liquidus 219 C, peak 235-245 C",
                   "Intermetallic formation"
                 ],
                 [
@@ -2322,11 +2369,11 @@
         },
         {
           "h": "Time above liquidus",
-          "p": "Time above liquidus is the interval during which the solder alloy is molten. It needs to be long enough for wetting and flux removal, but short enough to limit intermetallic growth and component exposure. J-STD-020 gives a qualification time above liquidus window of 60-150 s for many component classes; production profiles may use a different window if qualified. The liquidus temperature should be taken from the paste or alloy datasheet, because it depends on alloy and paste formulation. In practice, the measured time above liquidus should be checked at the worst-case thermocouple location, not only at a convenient point."
+          "p": "Time above liquidus is the interval during which the solder alloy is molten. It needs to be long enough for wetting and flux removal, but short enough to limit intermetallic growth and component exposure. The time-above-liquidus window is process guidance rather than a J-STD-020 parameter: IPC-7530 and the paste datasheet typically call for 60-150 s for many assemblies. J-STD-020 has its own time figure, tp, which is the time within 5 °C of the classification temperature and is limited to 30-40 s; it is a package qualification parameter, not the paste window used to run a board. Production profiles may use a different window if qualified. The liquidus temperature should be taken from the paste or alloy datasheet, because it depends on alloy and paste formulation. In practice, the measured time above liquidus should be checked at the worst-case thermocouple location, not only at a convenient point."
         },
         {
           "h": "Peak temperature",
-          "p": "Peak temperature is the highest temperature measured at the solder joint or component body, depending on the measurement point. For SAC305, J-STD-020 specifies a qualification peak temperature of 245 °C. Production peaks are often set below the qualified peak with margin, and should be verified with thermocouples on the actual board. Exceeding the qualified peak can damage components, delaminate packages, or create excessive intermetallic growth. The peak should be evaluated together with time above liquidus, because a short peak and a long peak are not equivalent thermal exposures."
+          "p": "Peak temperature is the highest temperature measured at the solder joint or component body, depending on the measurement point. For SAC305, J-STD-020 does not give one peak temperature: it gives classification temperatures by package size, 260 °C for small packages, 250 °C for large packages and 245 °C for very large packages, each with tp, the time within 5 °C of that temperature, limited to 30-40 s. Production peaks are often set below the classification temperature with margin, and should be verified with thermocouples on the actual board. Exceeding the classification temperature can damage components, delaminate packages, or create excessive intermetallic growth. The peak should be evaluated together with time above liquidus, because a short peak and a long peak are not equivalent thermal exposures."
         },
         {
           "h": "Cooling",
@@ -2338,7 +2385,7 @@
         },
         {
           "h": "Judging against J-STD-020",
-          "p": "To judge a measured profile against J-STD-020, compare the measured peak temperature and time above liquidus to the limits for the component and alloy in the current revision. The comparison should use the worst-case measured point, not the oven profile or a single thermocouple. If the measured peak or time above liquidus exceeds the qualified limit, the assembly is not compliant unless a separate qualification supports the exposure. Moisture sensitivity level, floor life, and bake requirements from J-STD-020 also affect whether the component can tolerate the reflow exposure."
+          "p": "To judge a measured profile, compare the measured peak against the J-STD-020 classification temperature for the package size, and the measured time above liquidus against the paste-datasheet window, typically 60-150 s under IPC-7530 guidance. The comparison should use the worst-case measured point, not the oven profile or a single thermocouple. If the measured peak exceeds the classification temperature, or the time above liquidus falls outside the datasheet window, the assembly is not compliant unless a separate qualification supports the exposure. Moisture sensitivity level, floor life, and bake requirements from J-STD-020 also affect whether the component can tolerate the reflow exposure."
         },
         {
           "h": "Practical profile development",
@@ -2346,8 +2393,8 @@
         }
       ],
       "calc": {
-        "task": "A SAC305 paste datasheet gives liquidus 217 °C. A 1.6 mm board with 70 µm copper and a 12 mm BGA is reflowed. The target is to stay within J-STD-020 peak 245 °C and time above liquidus 60-150 s. A measured profile shows ramp 1.5 °C/s, soak 165 °C for 90 s, peak 242 °C, time above liquidus 75 s, and cooling 2.5 °C/s. Build and judge the profile.",
-        "solution": "1. Confirm alloy liquidus from paste datasheet: 217 °C. 2. Set soak target from paste datasheet, e.g. 140-180 °C for 90-120 s; choose 165 °C for 90 s for this board. 3. Ramp to liquidus; measured ramp 1.5 °C/s is within typical practice, verify equipment. 4. Calculate time above liquidus from measured data: time when temperature exceeds 217 °C until it falls below 217 °C = 75 s. 5. Compare peak 242 °C to J-STD-020 qualified peak of 245 °C: pass, with 3 °C margin. 6. Compare time above liquidus 75 s to J-STD-020 window 60-150 s: pass. 7. Check cooling 2.5 °C/s against paste and equipment datasheet; if warpage or cracking is observed, slow cooling. 8. Conclusion: measured profile passes J-STD-020 peak and time above liquidus limits for this board, but production limits should be qualified and monitored."
+        "task": "A SAC305 paste datasheet gives a solidus of 217 °C and a liquidus of 219 °C. A 1.6 mm board with 70 µm copper and a 12 mm BGA is reflowed. The target is to stay within the J-STD-020 classification temperature for the package size and a time above liquidus of 60-150 s from the paste datasheet. A measured profile shows ramp 1.5 °C/s, soak 165 °C for 90 s, peak 242 °C, time above liquidus 75 s, and cooling 2.5 °C/s. Build and judge the profile.",
+        "solution": "1. Confirm alloy liquidus from the paste datasheet: SAC305 has a solidus of 217 °C and a liquidus of 219 °C, so time above liquidus is measured from the 219 °C crossing. 2. Set soak target from the paste datasheet, e.g. 140-180 °C for 90-120 s; choose 165 °C for 90 s for this board. 3. Ramp to liquidus; measured ramp 1.5 °C/s is within typical practice, verify against the paste and oven datasheet. 4. Calculate time above liquidus from measured data: time when temperature exceeds 219 °C until it falls below 219 °C = 75 s. 5. Compare peak 242 °C with the J-STD-020 classification temperature for the package size: 242 °C passes for a small package (260 °C) or a large package (250 °C) and would fail for a very large package (245 °C), so confirm the package size before disposition. 6. Compare time above liquidus 75 s with the paste-datasheet window of 60-150 s: pass. This window is IPC-7530 and datasheet guidance, not a J-STD-020 parameter. 7. Check cooling 2.5 °C/s against the paste and equipment datasheet; if warpage or cracking is observed, slow cooling. The J-STD-020 classification ramp-down limit is 6 °C/s or less. 8. Conclusion: the measured profile passes the peak ceiling and the paste time-above-liquidus window for this board, but the package size must be confirmed for the peak ceiling, and production limits should be qualified and monitored."
       },
       "defect": {
         "symptom": "Solder balls on paste deposit edges after reflow",
@@ -2371,7 +2418,10 @@
       }
     ],
     "status": "draft",
-    "sources": [],
+    "sources": [
+      "src-005",
+      "src-008"
+    ],
     "quiz": [
       "q-m06l02-01",
       "q-m06l02-02"
@@ -2392,7 +2442,7 @@
         },
         {
           "h": "Reflow and time above liquidus: joint formation",
-          "p": "Time above liquidus (TAL) is the interval during which the solder is molten and capable of flowing and forming intermetallic compounds. For SAC305, liquidus is commonly taken as 217 °C; for SnPb, 183 °C. TAL that is too short produces insufficient intermetallic formation and weak joints; too long promotes excessive intermetallic growth, grain coarsening, and can damage component finishes. IPC J-STD-020 provides peak temperature and TAL limits by package type and moisture sensitivity level. For example, for many large MSL 3 packages the peak reflow temperature for SAC is specified as 245 °C with a maximum TAL above 217 °C of 30 seconds, but you must check the exact table for your component's body size and MSL."
+          "p": "Time above liquidus (TAL) is the interval during which the solder is molten and capable of flowing and forming intermetallic compounds. For SAC305, solidus is 217 °C and liquidus is 219 °C; for SnPb eutectic, liquidus is 183 °C. TAL that is too short produces insufficient intermetallic formation and weak joints; too long promotes excessive intermetallic growth, grain coarsening, and can damage component finishes. The TAL window is process guidance from IPC-7530 and the paste datasheet, typically 60-120 s or 60-150 s. J-STD-020 does not set a board-assembly TAL limit: its own time parameter is tp, the time within 5 °C of the classification temperature, limited to 30-40 s for large and very large packages and 40 s for small ones, and its peak figures are classification temperatures by package size, 260 °C small, 250 °C large and 245 °C very large. Check the classification temperature for your component's body size and MSL before comparing a measured peak."
         },
         {
           "h": "Peak temperature: wetting and component survival",
@@ -2404,7 +2454,7 @@
         },
         {
           "h": "Reading the profile against your hardware",
-          "p": "A profile is only valid for the specific board, paste, oven, and measurement point it was built for. A heavy board with large copper planes needs more energy and often a longer soak than a thin signal board. The same oven recipe can produce different profiles with different conveyor speeds or loading densities. Always measure with thermocouples on the actual product, not just a test coupon, and compare the measured ramp, soak, TAL, peak, and cooling against the limits from your paste datasheet and IPC J-STD-020 for the specific components."
+          "p": "A profile is only valid for the specific board, paste, oven, and measurement point it was built for. A heavy board with large copper planes needs more energy and often a longer soak than a thin signal board. The same oven recipe can produce different profiles with different conveyor speeds or loading densities. Always measure with thermocouples on the actual product, not just a test coupon, and compare the measured ramp, soak, TAL, peak, and cooling against the TAL window from your paste datasheet and the J-STD-020 classification temperature for the package size, which is the peak ceiling."
         },
         {
           "h": "Common failure modes by segment",
@@ -2412,8 +2462,8 @@
         }
       ],
       "calc": {
-        "task": "Build and check a profile for a 1.6 mm FR-4 board with heavy ground planes using SAC305 paste. The measured profile gives: ramp from 25 to 150 °C in 60 s; soak 150 to 190 °C for 90 s; TAL above 217 °C = 45 s; peak = 248 °C; cooling from 248 to 100 °C in 40 s. Check against IPC J-STD-020 limits for a large MSL 3 package and typical paste guidance.",
-        "solution": "1. Ramp rate: (150-25)/60 = 2.08 °C/s. Typical paste guidance is 1 to 3 °C/s; this is within range but verify against paste datasheet. 2. Soak: 90 s in 150 to 190 °C. Many paste datasheets specify 60 to 120 s; this is within range. 3. Peak temperature: measured 248 °C. IPC J-STD-020 for large MSL 3 packages specifies a peak of 245 °C. 248 °C exceeds the limit by 3 °C. 4. TAL above 217 °C: measured 45 s. IPC J-STD-020 for large MSL 3 packages specifies a maximum TAL of 30 s. 45 s exceeds the limit by 15 s. 5. Cooling rate: (248-100)/40 = 3.7 °C/s. Typical practice is 1 to 4 °C/s; this is within range. 6. Conclusion: the profile fails the peak and TAL limits for the large MSL 3 package. Reduce peak temperature to 245 °C or below and reduce TAL to 30 s or less, then re-measure."
+        "task": "Build and check a profile for a 1.6 mm FR-4 board with heavy ground planes using SAC305 paste. The measured profile gives: ramp from 25 to 150 °C in 60 s; soak 150 to 190 °C for 90 s; TAL above 219 °C = 45 s; peak = 248 °C; cooling from 248 to 100 °C in 40 s. Check against the J-STD-020 classification temperature for the package size and typical paste guidance.",
+        "solution": "1. Ramp rate: (150-25)/60 = 2.08 °C/s. Typical paste guidance is 1 to 3 °C/s; this is within range but verify against paste datasheet. 2. Soak: 90 s in 150 to 190 °C. Many paste datasheets specify 60 to 120 s; this is within range. 3. Peak temperature: measured 248 °C. J-STD-020 sets classification temperatures by package size — 260 °C small, 250 °C large, 245 °C very large. For a large package 248 °C is inside the limit; for a very large package it exceeds 245 °C by 3 °C, so the package size must be confirmed before disposition. 4. TAL above 219 °C: measured 45 s. J-STD-020 does not set a board-assembly time-above-liquidus limit; its 30 s figure is tp, the time within 5 °C of the classification temperature. The applicable limit is the paste window of 60-120 s from the paste datasheet and IPC-7530 guidance, and 45 s is 15 s below the lower bound, so the profile is too short for reliable wetting rather than too long. 5. Cooling rate: (248-100)/40 = 3.7 °C/s. Typical practice is 1 to 4 °C/s; this is within range, and the J-STD-020 classification ramp-down limit is 6 °C/s or less. 6. Conclusion: the binding failure is the too-short time above liquidus, not an excessive one. Lengthen time above liquidus into the 60-120 s paste window by adding reflow dwell or slightly raising peak within the package classification temperature, confirm the package size for the peak ceiling, then re-measure."
       },
       "defect": {
         "symptom": "Solder joints on large ground-plane pads show dewetting and non-wetting, while joints on small signal pads look normal.",
@@ -2476,8 +2526,8 @@
         }
       ],
       "calc": {
-        "task": "A 6-thermocouple survey on a lead-free SAC305 test coupon records a hottest peak of 246 °C and a coolest peak of 238 °C. The paste datasheet gives liquidus 217 °C and solidus 219 °C. The component datasheet allows a peak of 260 °C. Calculate the margin above liquidus at the coolest site and the margin below the component limit at the hottest site.",
-        "solution": "First, identify the coolest peak: 238 °C. Next, identify the paste liquidus: 217 °C. Then subtract the liquidus from the coolest peak: 238 - 217 = 21 °C. This is the margin above liquidus at the coolest site. Next, identify the hottest peak: 246 °C. Then identify the component peak limit: 260 °C. Subtract the hottest peak from the component limit: 260 - 246 = 14 °C. This is the margin below the component limit at the hottest site. Interpretation: the coolest site is above liquidus by 21 °C, and the hottest site is 14 °C below the stated component limit. Verify time above liquidus and cooling rate against the paste and component datasheets."
+        "task": "A 6-thermocouple survey on a lead-free SAC305 test coupon records a hottest peak of 246 °C and a coolest peak of 238 °C. The paste datasheet gives solidus 217 °C and liquidus 219 °C. The component datasheet allows a peak of 260 °C. Calculate the margin above liquidus at the coolest site and the margin below the component limit at the hottest site.",
+        "solution": "First, identify the coolest peak: 238 °C. Next, identify the paste liquidus: 219 °C, because SAC305 has a solidus of 217 °C and a liquidus of 219 °C and time above liquidus is measured from the 219 °C crossing. Then subtract the liquidus from the coolest peak: 238 - 219 = 19 °C. This is the margin above liquidus at the coolest site. Next, identify the hottest peak: 246 °C. Then identify the component peak limit: 260 °C. Subtract the hottest peak from the component limit: 260 - 246 = 14 °C. This is the margin below the component limit at the hottest site. Interpretation: the coolest site is above liquidus by 21 °C, and the hottest site is 14 °C below the stated component limit. Verify time above liquidus and cooling rate against the paste and component datasheets."
       },
       "defect": {
         "symptom": "Cold or non-wetted solder joints appear on large ground-plane pads after the oven setpoints and a single thermocouple survey look acceptable.",
@@ -2501,7 +2551,10 @@
       }
     ],
     "status": "draft",
-    "sources": [],
+    "sources": [
+      "src-005",
+      "src-008"
+    ],
     "quiz": [
       "q-m06l04-01",
       "q-m06l04-02"
@@ -2530,7 +2583,7 @@
         },
         {
           "h": "Use alloy liquidus and standard limits to set the profile",
-          "p": "For lead-free paste, define the liquidus from the paste datasheet, then set time above liquidus and peak temperature using the applicable standard and component limits. IPC/JEDEC J-STD-020 gives a screening profile with average ramp-up of 1-3 °C/s, time above liquidus of 60-150 s, and a peak limit of 245 °C for packages thicker than 1.6 mm; verify against the component datasheet and your paste supplier recommendation."
+          "p": "For lead-free paste, define the liquidus from the paste datasheet, then set time above liquidus and peak temperature using the applicable standard and component limits. The average ramp-up of 1-3 °C/s and the 60-150 s time-above-liquidus window come from IPC-7530 and the paste datasheet, not from J-STD-020. J-STD-020 supplies the classification temperatures that bound the peak: 260 °C for small packages, 250 °C for large packages and 245 °C for very large packages, each with tp, the time within 5 °C of that temperature, limited to 30-40 s. Verify the applicable package size, the component datasheet and your paste supplier recommendation."
         },
         {
           "h": "Adjust the profile by moving heat, not just temperature",
@@ -2538,8 +2591,8 @@
         }
       ],
       "calc": {
-        "task": "A 1.8 mm board with 2 oz copper power planes uses SAC305 paste with liquidus 217 °C. The component limit is 245 °C peak for the thickness class in IPC/JEDEC J-STD-020. A pad-level profile shows ramp from 150 °C to 217 °C in 37 s, time above 217 °C of 85 s, and peak 238 °C. Build and check the profile.",
-        "solution": "1. Confirm alloy liquidus: 217 °C from paste datasheet. 2. Apply limits: IPC/JEDEC J-STD-020 average ramp-up 1-3 °C/s, time above liquidus 60-150 s, peak not above 245 °C for the selected thickness class. 3. Calculate ramp: (217 - 150) / 37 = 1.81 °C/s. 4. Check ramp: 1.81 °C/s is within 1-3 °C/s. 5. Check time above liquidus: 85 s is within 60-150 s. 6. Check peak: 238 °C is below 245 °C and above liquidus by 21 °C. 7. Decision: the profile passes the cited limits, but heavy planes require pad-level confirmation; if pad temperature is low, increase soak or reduce conveyor speed and recheck peak and time above liquidus."
+        "task": "A 1.8 mm board with 2 oz copper power planes uses SAC305 paste with solidus 217 °C and liquidus 219 °C. The component limit is the J-STD-020 classification temperature for the package size. A pad-level profile shows ramp from 150 °C to 219 °C in 37 s, time above 219 °C of 85 s, and peak 238 °C. Build and check the profile.",
+        "solution": "1. Confirm alloy liquidus: SAC305 solidus 217 °C and liquidus 219 °C from the paste datasheet; time above liquidus is measured from the 219 °C crossing. 2. Apply limits: ramp 1-3 °C/s and time above liquidus 60-150 s from IPC-7530 and the paste datasheet; the peak ceiling is the J-STD-020 classification temperature for the package size, 250 °C for a large package. 3. Calculate ramp: (219 - 150) / 37 = 1.86 °C/s. 4. Check ramp: 1.86 °C/s is within 1-3 °C/s. 5. Check time above liquidus: 85 s is within 60-150 s. 6. Check peak: 238 °C is below the 250 °C classification temperature and above liquidus by 19 °C. 7. Decision: the profile passes the cited limits, but heavy planes require pad-level confirmation; if pad temperature is low, increase soak or reduce conveyor speed and recheck peak and time above liquidus."
       },
       "defect": {
         "symptom": "After reflow, QFN pads on a 2 oz copper plane show incomplete wetting or lifted leads, while small chip components in sparse areas show discoloration or overheating.",
@@ -2563,7 +2616,10 @@
       }
     ],
     "status": "draft",
-    "sources": [],
+    "sources": [
+      "src-005",
+      "src-008"
+    ],
     "quiz": [
       "q-m06l05-01",
       "q-m06l05-02"
@@ -2572,11 +2628,11 @@
       "theory": [
         {
           "h": "Liquidus is the profile reference",
-          "p": "SnPb eutectic paste is commonly associated with a liquidus of 183 C, while SnAgCu is commonly associated with 217 C in IPC/JEDEC J-STD-020. The liquidus is the temperature at which the alloy is fully molten, so time above liquidus should be measured from the board thermocouple crossing that value, not from oven setpoint."
+          "p": "SnPb eutectic paste is commonly associated with a liquidus of 183 C, while SAC305 is a near-eutectic alloy with a solidus of 217 C and a liquidus of 219 C. These values come from the alloy and paste datasheet, not from J-STD-020, which supplies classification temperatures rather than alloy melting data. The liquidus is the temperature at which the alloy is fully molten, so time above liquidus should be measured from the board thermocouple crossing that value, not from oven setpoint."
         },
         {
           "h": "Alloy families set different thermal budgets",
-          "p": "SnPb profiles usually use a lower peak because IPC/JEDEC J-STD-020 gives a 220 C classification temperature for SnPb eutectic, while SnAgCu profiles use a higher peak because IPC/JEDEC J-STD-020 gives a 260 C classification temperature for SnAgCu. The practical target peak is set by paste wetting, component rating, and board stress, then checked against the classification limit."
+          "p": "SnPb profiles usually use a lower peak because the J-STD-020 classification temperature for SnPb eutectic is 220 C, while SAC305 profiles use a higher peak because the SAC305 classification temperatures are 260 C for small packages, 250 C for large packages and 245 C for very large packages. The practical target peak is set by paste wetting, component rating, and board stress, then checked against the classification limit."
         },
         {
           "h": "Ramp and soak control flux and gradients",
@@ -2588,11 +2644,11 @@
         },
         {
           "h": "Peak temperature is a ceiling, not a target",
-          "p": "A SnAgCu peak of 245 C may be acceptable if the measured board temperature stays below the IPC/JEDEC J-STD-020 classification limit of 260 C and the paste datasheet supports it. The peak should be measured at the joint, not at the oven air, because board thermal mass and thermocouple placement can shift the apparent peak."
+          "p": "A SnAgCu peak of 245 C may be acceptable if the measured board temperature stays below the J-STD-020 classification temperature for the package size (260 C small, 250 C large, 245 C very large) and the paste datasheet supports it. The peak should be measured at the joint, not at the oven air, because board thermal mass and thermocouple placement can shift the apparent peak."
         },
         {
           "h": "Nitrogen changes oxidation, not the liquidus",
-          "p": "Nitrogen reflow reduces oxide formation on paste and pads, which can improve wetting and may allow a lower peak or shorter time above liquidus. It does not change the SnAgCu liquidus of 217 C or the SnPb liquidus of 183 C. Oxygen level, gas flow, and chamber uniformity must be verified because nitrogen can also change heat transfer and profile repeatability."
+          "p": "Nitrogen reflow reduces oxide formation on paste and pads, which can improve wetting and may allow a lower peak or shorter time above liquidus. It does not change the SnAgCu liquidus of 219 C (217 C is the solidus) or the SnPb liquidus of 183 C. Oxygen level, gas flow, and chamber uniformity must be verified because nitrogen can also change heat transfer and profile repeatability."
         },
         {
           "h": "Build the profile from measured board data",
@@ -2600,8 +2656,8 @@
         }
       ],
       "calc": {
-        "task": "A board with measured thermal mass 90 J/K is reflowed with SnAgCu paste in air. The oven can deliver about 100 W to the board during ramp. The measured profile shows a ramp from 150 C to 217 C in 60 s, a time above 217 C of 75 s, and a peak of 245 C. Build the expected ramp from thermal mass and check ramp, time above liquidus, and peak against IPC-7530B guidance and IPC/JEDEC J-STD-020 limits.",
-        "solution": "1. Use the SnAgCu liquidus of 217 C from IPC/JEDEC J-STD-020 as the reference for time above liquidus. 2. Estimate ramp rate from heat input and thermal mass: ramp rate = 100 W / 90 J/K = 1.1 C/s. 3. Estimate time from 150 C to 217 C: (217 - 150) / 1.1 = 61 s. This is close to the measured 60 s. 4. Check ramp against IPC-7530B typical guidance of 1-3 C/s: 1.1 C/s is within the guidance. 5. Check time above liquidus against IPC-7530B typical guidance of 60-120 s: measured 75 s is within the guidance. 6. Check peak against IPC/JEDEC J-STD-020 SnAgCu classification limit of 260 C: measured 245 C is below the limit. 7. Confirm the 245 C peak is supported by the paste datasheet and component temperature ratings; if the board is run in nitrogen, re-run the profile because wetting and heat transfer may shift."
+        "task": "A board with measured thermal mass 90 J/K is reflowed with SnAgCu paste in air. The oven can deliver about 100 W to the board during ramp. The measured profile shows a ramp from 150 C to 219 C in 60 s, a time above 219 C of 75 s, and a peak of 245 C. Build the expected ramp from thermal mass and check ramp, time above liquidus, and peak against IPC-7530B guidance and IPC/JEDEC J-STD-020 limits.",
+        "solution": "1. Use the SAC305 liquidus of 219 C from the paste datasheet as the reference for time above liquidus; 217 C is the solidus. 2. Estimate ramp rate from heat input and thermal mass: ramp rate = 100 W / 90 J/K = 1.1 C/s. 3. Estimate time from 150 C to 219 C: (219 - 150) / 1.1 = 63 s. This is close to the measured 60 s. 4. Check ramp against IPC-7530B typical guidance of 1-3 C/s: 1.1 C/s is within the guidance. 5. Check time above liquidus against IPC-7530B typical guidance of 60-120 s: measured 75 s is within the guidance. 6. Check peak against the J-STD-020 classification temperature for the package size (260 C small, 250 C large, 245 C very large): measured 245 C is below the limit for small and large packages and exactly at the limit for very large packages, so confirm the package size. 7. Confirm the 245 C peak is supported by the paste datasheet and component temperature ratings; if the board is run in nitrogen, re-run the profile because wetting and heat transfer may shift."
       },
       "defect": {
         "symptom": "Small solder balls appear around pads on a heavy ground-plane area after reflow, while the joints themselves look wetted.",
@@ -2736,7 +2792,7 @@
         }
       ],
       "calc": {
-        "task": "A measured lead-free paste profile shows ramp 1.6 °C/s, soak 150-190 °C for 90 s, time above liquidus 45 s, peak 242 °C, cooling 3.0 °C/s. The paste datasheet gives liquidus 217 °C, recommended time above liquidus 60-90 s, and recommended peak 245-250 °C. Evaluate the profile and propose a bounded change.",
+        "task": "A measured lead-free paste profile shows ramp 1.6 °C/s, soak 150-190 °C for 90 s, time above liquidus 45 s, peak 242 °C, cooling 3.0 °C/s. The paste datasheet gives a solidus of 217 °C and a liquidus of 219 °C, recommended time above liquidus 60-90 s, and recommended peak 245-250 °C. Evaluate the profile and propose a bounded change.",
         "solution": "The measured time above liquidus is 45 s, which is below the datasheet range 60-90 s. The measured peak is 242 °C, which is below the datasheet range 245-250 °C. The soak range 150-190 °C is within the typical window, so the defect signature of dull, grainy, non-wet joints points to the reflow zone rather than the soak zone. Propose a bounded change: increase the peak by 3-5 °C to 245-247 °C and reduce cooling from 3.0 °C/s to 2.5 °C/s to extend time above liquidus to 60-70 s. Verify against the paste and oven datasheet. Expected joint effect: improved wetting and more complete intermetallic formation, reducing cold solder joints. Risk: excessive peak can damage components or cause solder balling, and excessive slow cooling can enlarge grain size. Verification: remeasure the thermocouple profile, inspect joints against IPC acceptance guidance, check tombstoning and solder balling, and record the change in the recipe document."
       },
       "defect": {
@@ -2776,6 +2832,12 @@
               "t": "figure",
               "svg": "<svg viewBox='0 0 900 220' xmlns='http://www.w3.org/2000/svg' role='img' aria-label='Inspection coverage stack'><style>text{font-family:'IBM Plex Mono',monospace}</style><rect x='120' y='40' width='660' height='40' rx='10' fill='rgba(83,209,204,.18)' stroke='#53d1cc' stroke-width='1.5'/><rect x='180' y='90' width='540' height='40' rx='10' fill='rgba(83,209,204,.12)' stroke='rgba(83,209,204,.5)' stroke-width='1.5'/><rect x='240' y='140' width='420' height='40' rx='10' fill='rgba(255,152,0,.1)' stroke='#ff9800' stroke-width='1.5'/><text x='450' y='65' fill='#edf2f7' font-size='12' text-anchor='middle'>SPI (POST-PRINT) — PASTE VOLUME, HEIGHT, AREA</text><text x='450' y='115' fill='#edf2f7' font-size='12' text-anchor='middle'>AOI POST-PLACEMENT — MISSING, TILT, POLARITY</text><text x='450' y='165' fill='#ff9800' font-size='12' text-anchor='middle'>AOI POST-REFLOW + X-RAY — JOINT QUALITY, HIDDEN</text><text x='450' y='205' fill='#94a3b8' font-size='12' text-anchor='middle'>EVERY LAYER YOU SKIP MOVES ESCAPES DOWNSTREAM</text></svg>",
               "caption": "Inspection layers: each catches a different defect family"
+            },
+            {
+              "t": "image",
+              "src": "assets/img/m07.png",
+              "alt": "Stack of five inspection layers showing visual, AOI, 2D X-ray of a BGA with voids, laminar 3D tomographic slice and a boundary scan chain",
+              "caption": "Inspection layers: what visual, AOI, 2D X-ray, laminar 3D and boundary scan can each see"
             }
           ]
         },
@@ -3154,6 +3216,12 @@
               "t": "figure",
               "caption": "Through-hole joint: the lead and its fillets carry the mechanical load",
               "svg": "<svg viewBox='0 0 900 300' xmlns='http://www.w3.org/2000/svg' role='img' aria-label='Through-hole joint cross-section'><style>text{font-family:'IBM Plex Mono',monospace}</style><text x='60' y='28' fill='#edf2f7' font-size='14'>WHY THT SURVIVES</text><text x='60' y='58' fill='#94a3b8' font-size='12'>MECHANICAL LOAD GOES</text><text x='60' y='76' fill='#94a3b8' font-size='12'>THROUGH LEAD + FILLET,</text><text x='60' y='94' fill='#94a3b8' font-size='12'>NOT ADHESIVE</text><text x='60' y='134' fill='#94a3b8' font-size='12'>HIGH THERMAL MASS</text><text x='60' y='152' fill='#94a3b8' font-size='12'>DRIVES PREHEAT DESIGN</text><rect x='330' y='40' width='240' height='22' fill='rgba(148,163,184,.25)' stroke='#94a3b8' stroke-width='1'/><rect x='440' y='62' width='20' height='130' fill='#cbd5e1'/><rect x='250' y='150' width='400' height='34' fill='rgba(83,209,204,.06)' stroke='#94a3b8' stroke-width='1'/><line x1='425' y1='150' x2='425' y2='184' stroke='#94a3b8' stroke-width='1'/><line x1='475' y1='150' x2='475' y2='184' stroke='#94a3b8' stroke-width='1'/><rect x='400' y='146' width='100' height='5' fill='#53d1cc'/><rect x='400' y='183' width='100' height='5' fill='#53d1cc'/><path d='M400,150 L440,150 L440,126 Q416,136 400,150 Z' fill='rgba(83,209,204,.5)'/><path d='M500,184 L460,184 L460,208 Q484,198 500,184 Z' fill='rgba(83,209,204,.5)'/><text x='600' y='54' fill='#94a3b8' font-size='12'>COMPONENT BODY</text><line x1='575' y1='50' x2='595' y2='50' stroke='#94a3b8' stroke-width='1'/><text x='600' y='100' fill='#cbd5e1' font-size='12'>SOLID LEAD</text><line x1='465' y1='96' x2='595' y2='96' stroke='#94a3b8' stroke-width='1' stroke-dasharray='3 3'/><text x='600' y='155' fill='#53d1cc' font-size='12'>PAD + PLATED BARREL</text><line x1='505' y1='151' x2='595' y2='151' stroke='#94a3b8' stroke-width='1' stroke-dasharray='3 3'/><text x='600' y='215' fill='#53d1cc' font-size='12'>FILLETS TOP + BOTTOM</text><line x1='505' y1='211' x2='595' y2='211' stroke='#94a3b8' stroke-width='1' stroke-dasharray='3 3'/><text x='450' y='270' fill='#94a3b8' font-size='12' text-anchor='middle'>BOARD CROSS-SECTION</text></svg>"
+            },
+            {
+              "t": "image",
+              "src": "assets/img/m08.png",
+              "alt": "Through-hole solder joint cross-section with barrel fill and annular ring callouts, and a connector under mechanical load",
+              "caption": "Through-hole joint cross-section: barrel fill, annular ring, and the mechanical load that keeps through-hole in the design"
             }
           ]
         },
@@ -3442,7 +3510,9 @@
       }
     ],
     "status": "draft",
-    "sources": [],
+    "sources": [
+      "src-016"
+    ],
     "quiz": [
       "q-m08l05-01",
       "q-m08l05-02"
@@ -3471,7 +3541,7 @@
         },
         {
           "h": "Acceptance and target",
-          "p": "Acceptance of hole fill is defined by the applicable IPC-A-610 class. IPC-A-610 commonly sets a minimum hole fill of 75% for Class 2 and 100% for Class 3, subject to the current revision and any product-specific qualification. A process target should be set above the minimum for the required class, but the target is not a substitute for acceptance criteria."
+          "p": "Acceptance of hole fill is defined by the applicable IPC-A-610 class. IPC-A-610 sets a minimum vertical barrel fill of 75% for both Class 2 and Class 3, with Class 3 additionally requiring visible fillets on the primary and secondary sides. A documented exception allows about 50% fill, or 1.2 mm, for parts with fourteen or more leads whose barrels tie into internal thermal or conductor planes. Some customers specify 100% fill contractually, which is a customer requirement rather than an IPC-A-610 class limit. A process target should be set above the minimum for the required class, but the target is not a substitute for acceptance criteria."
         },
         {
           "h": "Calculation approach",
@@ -3480,7 +3550,7 @@
       ],
       "calc": {
         "task": "For a single axial resistor in the BOM subset, the lead diameter is 0.50 mm nominal and 0.55 mm maximum. The plated through-hole diameter is 0.90 mm nominal, 0.85 mm minimum, and 0.95 mm maximum. The board thickness is 1.60 mm. Calculate nominal diametral clearance, worst-case tight and loose diametral clearance, nominal annular volume, and expected solder fill at a 90% process target. Compare the expected fill with IPC-A-610 minimum hole fill for the applicable class.",
-        "solution": "Nominal radii: hole radius 0.45 mm, lead radius 0.25 mm. Nominal diametral clearance: 0.90 - 0.50 = 0.40 mm. Worst-case tight: hole minimum 0.85 mm, lead maximum 0.55 mm, diametral clearance 0.85 - 0.55 = 0.30 mm. Worst-case loose: hole maximum 0.95 mm, lead minimum 0.50 mm, diametral clearance 0.95 - 0.50 = 0.45 mm. Nominal hole volume: pi * 0.45 * 0.45 * 1.60 = 1.02 cubic millimetres. Nominal lead volume: pi * 0.25 * 0.25 * 1.60 = 0.31 cubic millimetres. Nominal annular volume: 1.02 - 0.31 = 0.70 cubic millimetres. Expected fill volume at 90% target: 90% of 0.70 = 0.63 cubic millimetres. The 90% target is above the IPC-A-610 Class 2 minimum of 75% and below the IPC-A-610 Class 3 minimum of 100%. Verify the required class and process capability."
+        "solution": "Nominal radii: hole radius 0.45 mm, lead radius 0.25 mm. Nominal diametral clearance: 0.90 - 0.50 = 0.40 mm. Worst-case tight: hole minimum 0.85 mm, lead maximum 0.55 mm, diametral clearance 0.85 - 0.55 = 0.30 mm. Worst-case loose: hole maximum 0.95 mm, lead minimum 0.50 mm, diametral clearance 0.95 - 0.50 = 0.45 mm. Nominal hole volume: pi * 0.45 * 0.45 * 1.60 = 1.02 cubic millimetres. Nominal lead volume: pi * 0.25 * 0.25 * 1.60 = 0.31 cubic millimetres. Nominal annular volume: 1.02 - 0.31 = 0.70 cubic millimetres. Expected fill volume at 90% target: 90% of 0.70 = 0.63 cubic millimetres. The 90% target is above the IPC-A-610 minimum vertical barrel fill of 75% that applies to both Class 2 and Class 3; a customer requirement for 100% fill is contractual and is not an IPC-A-610 class limit. Verify the required class and process capability."
       },
       "defect": {
         "symptom": "X-ray or cross-section shows hole fill below the applicable IPC-A-610 minimum, with dull solder at the exit side and occasional open at the lead shoulder.",
@@ -3575,7 +3645,9 @@
       }
     ],
     "status": "draft",
-    "sources": [],
+    "sources": [
+      "src-014"
+    ],
     "quiz": [
       "q-m09l02-01",
       "q-m09l02-02"
@@ -3613,7 +3685,7 @@
       ],
       "calc": {
         "task": "A 1.6 mm glass-epoxy board, 50 mm x 40 mm, has 100 through-hole pads with fresh finish. Select no-clean flux type, amount, preheat level, and fog/wave height, and justify each setting.",
-        "solution": "First, board area = 50 mm x 40 mm = 20 cm2. Next, select no-clean organic flux with low-to-moderate activity per IPC J-STD-004 because the finish is fresh and residue must remain acceptable without cleaning. Then set flux amount to 1.0 mg/cm2 within a 0.8-1.2 mg/cm2 starting range, giving 20 mg total; verify against your paste/equipment datasheet. Use 2.0% solids within a 1.5-2.5% starting range to keep residue low while maintaining wetting; verify against your paste/equipment datasheet. If the fluxer output is 100 mg/min, spray time = 20 mg / 100 mg/min = 0.2 min, about 12 s. Set preheat target to 100 C within a 90-110 C starting range, measured with thermocouples, to activate flux and reduce thermal shock; verify against your paste/equipment datasheet and board limits. Set fog/wave height to 1.5 mm within a 1.2-1.8 mm starting range above the board underside for hole fill without top-side overflow; verify by cross-section and visual inspection. Finally, justify: low-to-moderate activity matches fresh finish, 1.0 mg/cm2 and 2.0% solids balance wetting and residue, 100 C preheat supports activation, and 1.5 mm wave height supports hole fill while limiting bridging."
+        "solution": "First, board area = 50 mm x 40 mm = 20 cm2. Next, select no-clean organic flux with low-to-moderate activity per IPC J-STD-004 because the finish is fresh and residue must remain acceptable without cleaning. Then set flux amount as a deposition of flux solids: a starting range of 0.08-0.23 mg/cm2 of board bottom area, which is 500-1500 µg/in² of solids and about 0.8-2.3 g/m². For 20 cm2 that is 1.6-4.6 mg of solids; take the mid value 0.15 mg/cm2, giving 3.0 mg of solids. With a 2.0% solids flux within a 1.5-2.5% starting range, the solution mass is 3.0 mg / 0.02 = 150 mg. If the fluxer output is 300 mg/min of solution, spray time = 150 mg / 300 mg/min = 0.5 min, about 30 s. State the basis before comparing numbers: figures quoted per unit of liquid, for example 0.5-1.0 g/ft², are several times larger than solids-based figures. Verify the solids deposition with a fluxometer in µg/in² or by weighing a witness card, and verify the range against your flux and equipment datasheet. Set preheat target to 100 C within a 90-110 C starting range, measured with thermocouples, to activate flux and reduce thermal shock; verify against your paste/equipment datasheet and board limits. Set fog/wave height to 1.5 mm within a 1.2-1.8 mm starting range above the board underside for hole fill without top-side overflow; verify by cross-section and visual inspection. Finally, justify: low-to-moderate activity matches fresh finish, 0.15 mg/cm2 of flux solids and 2.0% solids balance wetting and residue, 100 C preheat supports activation, and 1.5 mm wave height supports hole fill while limiting bridging."
       },
       "defect": {
         "symptom": "Solder balls and partial hole fill on the underside after wave soldering.",
@@ -3637,7 +3709,9 @@
       }
     ],
     "status": "draft",
-    "sources": [],
+    "sources": [
+      "src-014"
+    ],
     "quiz": [
       "q-m09l03-01",
       "q-m09l03-02"
@@ -3654,7 +3728,7 @@
         },
         {
           "h": "Flux amount",
-          "p": "Flux amount should be enough to wet all bottom pads, lead tips, and hole walls, but not so high that it boils violently, lifts components, or creates fog. For spray application, a starting flux density of 0.5-2.0 mg/cm2 of bottom area is common, with the lower end for thin boards and the higher end for heavy copper or through-hole holes. For foam application, adjust foam height and dwell so the flux reaches hole walls without dripping. Verify the amount by weighing a test board before and after fluxing, and compare with the flux supplier's recommended solids content and activity."
+          "p": "Flux amount should be enough to wet all bottom pads, lead tips, and hole walls, but not so high that it boils violently, lifts components, or creates fog. For spray application, the controlled quantity is a deposition of flux solids per unit of bottom area: a starting range of 0.08-0.23 mg/cm2, which is 500-1500 µg/in² of solids and about 0.8-2.3 g/m², with the lower end for thin boards and the higher end for heavy copper or through-hole holes. Figures quoted per unit of liquid, for example 0.5-1.0 g/ft², are several times larger and are not comparable. For foam application, adjust foam height and dwell so the flux reaches hole walls without dripping. Verify the amount by weighing a test board before and after fluxing, and compare with the flux supplier's recommended solids content and activity."
         },
         {
           "h": "Preheat level and top versus bottom temperature",
@@ -3675,7 +3749,7 @@
       ],
       "calc": {
         "task": "A 1.6 mm FR-4 board, 100 mm x 150 mm, 28 µm copper, 0.6 mm pitch SMT on top, 0.8 mm diameter through-hole leads on bottom, no-clean flux, aqueous cleaning not available. Set flux type and amount, preheat level, and fog/wave height, and justify each setting.",
-        "solution": "1. Flux type: choose no-clean low-residue flux because cleaning is not available; verify flux activity and residue against IPC J-STD-004 and supplier datasheet. 2. Flux amount: bottom area = 100 mm x 150 mm = 15000 mm2 = 150 cm2. Use starting spray density 1.0 mg/cm2 for mixed SMT/THT with no-clean flux. Flux mass = 150 cm2 x 1.0 mg/cm2 = 150 mg. Add 10-20% for through-hole hole walls if foam/spray does not fully wet holes; target 165-180 mg. Verify by weighing a test board. 3. Preheat: set top-surface target 110 °C and bottom-surface target 120 °C before wave. Use a controlled ramp and verify with thermocouples. This activates no-clean flux and evaporates solvents while limiting thermal stress on 0.6 mm pitch SMT. 4. Fog: set spray pressure 0.15-0.25 MPa and nozzle distance 100-200 mm. For this board choose 0.18 MPa and 150 mm. Verify that the spray forms a fine mist, not drips, and that nearby surfaces are not coated with flux fog. 5. Wave height: for a 1.6 mm board, set wave height 1.0 mm above the bottom surface. This is within the 0.5-1.5 mm starting range and leaves 0.6 mm clearance to the top side. Adjust up only if hole fill is poor; adjust down if solder balls, bridging, or top-side contamination appear. 6. Justification: no-clean flux requires controlled preheat, so 110 °C top and 120 °C bottom are reasonable starting targets. A flux density of 1.0 mg/cm2 is enough to wet pads and leads without excessive fog. A wave height of 1.0 mm should wet the bottom side without flooding the top. Verify all settings with thermocouple data, flux weight, and IPC-A-610 inspection."
+        "solution": "1. Flux type: choose no-clean low-residue flux because cleaning is not available; verify flux activity and residue against IPC J-STD-004 and supplier datasheet. 2. Flux amount: bottom area = 100 mm x 150 mm = 15000 mm2 = 150 cm2. Set the target as a deposition of flux solids, 0.15 mg/cm2 within the 0.08-0.23 mg/cm2 (500-1500 µg/in²) starting range for mixed SMT/THT with no-clean flux, giving 150 cm2 x 0.15 mg/cm2 = 22.5 mg of solids. Add 10-20% for through-hole hole walls if spray does not fully wet holes; target 25-27 mg of solids. At 2.0% solids that is 1250-1350 mg of flux solution. Verify by weighing a test board or witness card before and after fluxing and converting the result to µg/in² of solids with a fluxometer. 3. Preheat: set top-surface target 110 °C and bottom-surface target 120 °C before wave. Use a controlled ramp and verify with thermocouples. This activates no-clean flux and evaporates solvents while limiting thermal stress on 0.6 mm pitch SMT. 4. Fog: set spray pressure 0.15-0.25 MPa and nozzle distance 100-200 mm. For this board choose 0.18 MPa and 150 mm. Verify that the spray forms a fine mist, not drips, and that nearby surfaces are not coated with flux fog. 5. Wave height: for a 1.6 mm board, set wave height 1.0 mm above the bottom surface. This is within the 0.5-1.5 mm starting range and leaves 0.6 mm clearance to the top side. Adjust up only if hole fill is poor; adjust down if solder balls, bridging, or top-side contamination appear. 6. Justification: no-clean flux requires controlled preheat, so 110 °C top and 120 °C bottom are reasonable starting targets. A flux-solids density of 0.15 mg/cm2 is enough to wet pads and leads without excessive fog. A wave height of 1.0 mm should wet the bottom side without flooding the top. Verify all settings with thermocouple data, flux weight, and IPC-A-610 inspection."
       },
       "defect": {
         "symptom": "Solder balls and small bridges on bottom pads after wave, with flux residue on the top side.",
@@ -3905,7 +3979,9 @@
       }
     ],
     "status": "draft",
-    "sources": [],
+    "sources": [
+      "src-014"
+    ],
     "quiz": [
       "q-m09l07-01",
       "q-m09l07-02"
@@ -3922,7 +3998,7 @@
         },
         {
           "h": "Flux amount",
-          "p": "Flux amount is controlled as wet flux mass per unit area of the bottom side. A practical starting range is 1.5 to 3.0 mg/cm2, then verify against the flux datasheet and spray pattern. Too little flux causes non-wetting and dull joints; too much flux can cause spatter, residue, and poor hole fill. Use a test coupon or board weight before and after fluxing to confirm coverage."
+          "p": "Flux amount is controlled as a deposition of flux solids per unit area of the bottom side. A practical starting range is 0.08 to 0.23 mg/cm2 of solids, which is 500-1500 µg/in² and about 0.8-2.3 g/m², then verify against the flux datasheet and spray pattern. Wet mass per unit area is several times larger because the flux is roughly 2% solids, so always state whether a figure is on a solids basis or a liquid basis before comparing it. Too little flux causes non-wetting and dull joints; too much flux can cause spatter, residue, and poor hole fill. Use a test coupon or board weight before and after fluxing to confirm coverage."
         },
         {
           "h": "Preheat level",
@@ -3947,7 +4023,7 @@
       ],
       "calc": {
         "task": "A 1.6 mm FR-4 mixed assembly has 17 µm copper, 2 mm through-hole connectors, and small chip passives. The bottom area is 100 mm by 150 mm. Select flux type, flux amount, preheat level, wave height, fog height, and conveyor speed for a single-wave process, and justify each setting.",
-        "solution": "First, identify thermal behavior. The board is moderate mass with through-hole connectors that act as heat sinks, so preheat must be sufficient to bring the joint area to flux activation temperature without overheating the top side. Second, select flux. Use rosin mildly activated flux for general through-hole wetting, assuming residues are acceptable or cleaned; verify the flux activation range against the flux datasheet. Third, set flux amount. Target 2.0 mg/cm2 wet flux on the bottom side. Bottom area is 100 mm x 150 mm = 15000 mm2 = 150 cm2. Required wet flux mass is 2.0 mg/cm2 x 150 cm2 = 300 mg per board. Fourth, set preheat. Target top surface temperature of 105 °C at wave entry, within the practical 90 to 120 °C range, then verify with a thermocouple on a test coupon. Fifth, set wave height. Use a single-wave crest height of 1.5 mm above the nozzle, within the 1 to 2 mm starting range, so the board bottom contacts the crest without excessive immersion. Sixth, set fog height. Use 3 mm fog height above the nozzle to pre-wet the underside before the main wave; verify against the machine manual. Seventh, set contact time. If the wave length is 80 mm and conveyor speed is 25 mm/s, contact time is 80 mm / 25 mm/s = 3.2 s, within the 2 to 4 s practical range. Eighth, set pot temperature. For SAC305, use 255 °C, above the SAC305 liquidus of 217 °C, and verify against the alloy and equipment datasheet. Ninth, justify. The flux amount supports wetting without excess residue, preheat activates flux and reduces spatter, wave height and contact time provide hole fill without excessive bridging, and pot temperature maintains solder fluidity."
+        "solution": "First, identify thermal behavior. The board is moderate mass with through-hole connectors that act as heat sinks, so preheat must be sufficient to bring the joint area to flux activation temperature without overheating the top side. Second, select flux. Use rosin mildly activated flux for general through-hole wetting, assuming residues are acceptable or cleaned; verify the flux activation range against the flux datasheet. Third, set flux amount. Target 0.20 mg/cm2 of flux solids on the bottom side, within the 0.08-0.23 mg/cm2 (500-1500 µg/in²) starting range. Bottom area is 100 mm x 150 mm = 15000 mm2 = 150 cm2. Required flux solids is 0.20 mg/cm2 x 150 cm2 = 30 mg per board; at 2.0% solids that is about 1500 mg of flux solution. Verify the solids deposition with a fluxometer or a weighed witness card. Fourth, set preheat. Target top surface temperature of 105 °C at wave entry, within the practical 90 to 120 °C range, then verify with a thermocouple on a test coupon. Fifth, set wave height. Use a single-wave crest height of 1.5 mm above the nozzle, within the 1 to 2 mm starting range, so the board bottom contacts the crest without excessive immersion. Sixth, set fog height. Use 3 mm fog height above the nozzle to pre-wet the underside before the main wave; verify against the machine manual. Seventh, set contact time. If the wave length is 80 mm and conveyor speed is 25 mm/s, contact time is 80 mm / 25 mm/s = 3.2 s, within the 2 to 4 s practical range. Eighth, set pot temperature. For SAC305, use 255 °C, above the SAC305 liquidus of 219 °C (217 °C is the solidus), and verify against the alloy and equipment datasheet. Ninth, justify. The flux amount supports wetting without excess residue, preheat activates flux and reduces spatter, wave height and contact time provide hole fill without excessive bridging, and pot temperature maintains solder fluidity."
       },
       "defect": {
         "symptom": "Solder-side image shows scattered small solder balls and spatter around through-hole connector leads, with some dull non-wetted pads nearby.",
@@ -4088,7 +4164,9 @@
       }
     ],
     "status": "draft",
-    "sources": [],
+    "sources": [
+      "src-014"
+    ],
     "quiz": [
       "q-m10l02-01",
       "q-m10l02-02"
@@ -4105,7 +4183,7 @@
         },
         {
           "h": "Flux-on-the-fly variables",
-          "p": "Flux-on-the-fly means flux is applied immediately before the solder wave or nozzle contact, so the flux is active when the joint reaches wetting temperature. The important variables are flux volume, pattern, viscosity, and solids content. A practical starting flux density is 0.05 mg/mm^2 to 0.25 mg/mm^2 on the joint area, or a joint volume of 0.5 uL to 3.0 uL for many selective soldering nozzles, but verify against your paste or flux datasheet and residue requirements. Too little flux gives poor wetting and pinholes; too much flux can cause residue, solder balls, or unstable meniscus behavior."
+          "p": "Flux-on-the-fly means flux is applied immediately before the solder wave or nozzle contact, so the flux is active when the joint reaches wetting temperature. The important variables are flux volume, pattern, viscosity, and solids content. A practical starting flux density is 0.05 mg/mm^2 to 0.25 mg/mm^2 on the joint area, or a joint volume of 0.5 uL to 3.0 uL for many selective soldering nozzles, but verify against your paste or flux datasheet and residue requirements. Too little flux gives poor wetting and pinholes; too much flux can cause residue, solder balls, or unstable meniscus behavior. Note the basis before comparing numbers: this figure is flux per unit of joint area for selective application, whereas the wave-soldering figures in Module 09 are flux solids per unit of board bottom area, so the two numbers must not be compared directly."
         },
         {
           "h": "Dwell per joint",
@@ -4126,7 +4204,7 @@
       ],
       "calc": {
         "task": "A board has 12 through-hole connector pins with 0.8 mm lead diameter and 1.6 mm pad diameter, 4 surface-mount power pads of 4 mm by 4 mm, and 1 ground pad of 8 mm by 8 mm. Choose nozzle size and shape, flux strategy, dwell per joint, and passes for a selective soldering program. Assume lead-free solder and verify against equipment datasheet.",
-        "solution": "Group the joints into 12 through-hole pins, 4 surface-mount power pads, and 1 ground pad. For the through-hole pins, choose a conical nozzle with inside diameter 1.2 mm to 1.6 mm, giving clearance around the 0.8 mm lead while avoiding adjacent 1.6 mm pads. For the 4 mm by 4 mm power pads, choose a flat or annular nozzle with footprint 4.5 mm to 6.0 mm to cover the pad edge and heat the copper. For the 8 mm by 8 mm ground pad, choose a slot or large annular nozzle with footprint 8.5 mm to 10.0 mm, or use a 2-pass strategy if the nozzle cannot cover the pad without adjacent risk. Use flux-on-the-fly with 0.10 mg/mm^2 to 0.20 mg/mm^2 on the joint area; for the ground pad, aim near 0.20 mg/mm^2 if residue allows. Set dwell: through-hole pins 1.2 s to 1.8 s; power pads 0.8 s to 1.5 s; ground pad 2.0 s to 3.0 s. Use 2 passes for the board: pass 1 preheat at 120 C to 140 C over high thermal mass joints, pass 2 solder at 255 C to 260 C. If the ground pad shows incomplete fill, add another pass with flux-only or lower dwell solder, then recheck."
+        "solution": "Group the joints into 12 through-hole pins, 4 surface-mount power pads, and 1 ground pad. For the through-hole pins, choose a conical nozzle with inside diameter 1.2 mm to 1.6 mm, giving clearance around the 0.8 mm lead while avoiding adjacent 1.6 mm pads. For the 4 mm by 4 mm power pads, choose a flat or annular nozzle with footprint 4.5 mm to 6.0 mm to cover the pad edge and heat the copper. For the 8 mm by 8 mm ground pad, choose a slot or large annular nozzle with footprint 8.5 mm to 10.0 mm, or use a 2-pass strategy if the nozzle cannot cover the pad without adjacent risk. Use flux-on-the-fly with 0.10 mg/mm^2 to 0.20 mg/mm^2 on the joint area (a per-joint-area basis, not the flux-solids-per-board-area basis used for wave soldering in Module 09); for the ground pad, aim near 0.20 mg/mm^2 if residue allows. Set dwell: through-hole pins 1.2 s to 1.8 s; power pads 0.8 s to 1.5 s; ground pad 2.0 s to 3.0 s. Use 2 passes for the board: pass 1 preheat at 120 C to 140 C over high thermal mass joints, pass 2 solder at 255 C to 260 C. If the ground pad shows incomplete fill, add another pass with flux-only or lower dwell solder, then recheck."
       },
       "defect": {
         "symptom": "A 4 mm by 4 mm surface-mount power pad shows a dull, cratered fillet and lifted pad edge after selective soldering.",
@@ -5890,17 +5968,17 @@
         },
         {
           "h": "Closing the loop",
-          "p": "Closure requires evidence that the suspect population is dispositioned, the cause is corrected, and the process is stable. Disposition options include rework, scrap, use-as-is, or customer concession, depending on contract and product requirements. Rework should follow IPC-7711/7712 and be documented. Soldering acceptance should be checked against IPC-A-610 and IPC/JEDEC J-STD-001 where applicable. Update the control plan and FMEA, train affected staff, and add an initial-article check or layered process audit for a defined period. Keep the 8D open until the effectiveness metric is met and the records are archived. The closure package should include the quarantine record, disposition record, root cause evidence, corrective action evidence, effectiveness data, and updated documents. If the customer requires a formal report, use the customer format while keeping the same evidence. If the issue is internal, the same package supports the next audit and reduces the chance of recurrence. Closure is not complete when the line is running; it is complete when the process control is updated and the evidence shows the defect is no longer escaping."
+          "p": "Closure requires evidence that the suspect population is dispositioned, the cause is corrected, and the process is stable. Disposition options include rework, scrap, use-as-is, or customer concession, depending on contract and product requirements. Rework should follow IPC-7711/7721 and be documented. Soldering acceptance should be checked against IPC-A-610 and IPC/JEDEC J-STD-001 where applicable. Update the control plan and FMEA, train affected staff, and add an initial-article check or layered process audit for a defined period. Keep the 8D open until the effectiveness metric is met and the records are archived. The closure package should include the quarantine record, disposition record, root cause evidence, corrective action evidence, effectiveness data, and updated documents. If the customer requires a formal report, use the customer format while keeping the same evidence. If the issue is internal, the same package supports the next audit and reduces the chance of recurrence. Closure is not complete when the line is running; it is complete when the process control is updated and the evidence shows the defect is no longer escaping."
         }
       ],
       "calc": {
         "task": "A line produced 1200 boards/h. A solder bridge was detected at 14:20. The last verified good inspection was at 13:50. The line stopped at 14:25. A paste lot change occurred at 13:45. Calculate the suspect window, suspect board count, and quarantine quantity. Then draft the containment, corrective action, owners, dates, and effectiveness metric for an 8D.",
-        "solution": "Start by choosing the earliest credible suspect time. The paste lot change at 13:45 is earlier than the last verified good inspection at 13:50, so use 13:45 as the conservative start of the suspect window. The line stopped at 14:25, so the suspect window is 13:45 to 14:25. The window length is 40 min. Convert the production rate to boards per minute: 1200 boards/h divided by 60 min/h equals 20 boards/min. Multiply 20 boards/min by 40 min to get 800 boards. Quarantine the 800 boards plus any work in process, finished goods, and shipped units from the same window. Containment owner: SMT process engineer; due date: 24 h. Corrective action owner: process engineer; due date: 7 days. Corrective action: verify flux density, preheat temperature, conveyor speed, and solder pot temperature against your equipment datasheet; rework per IPC-7711/7712; add an initial-article check after changeover. Effectiveness metric: solder bridge ppm; baseline 500 ppm; target 100 ppm; measured over 30 days. Close when the target is met and the control plan, FMEA, and work instructions are updated."
+        "solution": "Start by choosing the earliest credible suspect time. The paste lot change at 13:45 is earlier than the last verified good inspection at 13:50, so use 13:45 as the conservative start of the suspect window. The line stopped at 14:25, so the suspect window is 13:45 to 14:25. The window length is 40 min. Convert the production rate to boards per minute: 1200 boards/h divided by 60 min/h equals 20 boards/min. Multiply 20 boards/min by 40 min to get 800 boards. Quarantine the 800 boards plus any work in process, finished goods, and shipped units from the same window. Containment owner: SMT process engineer; due date: 24 h. Corrective action owner: process engineer; due date: 7 days. Corrective action: verify flux density, preheat temperature, conveyor speed, and solder pot temperature against your equipment datasheet; rework per IPC-7711/7721; add an initial-article check after changeover. Effectiveness metric: solder bridge ppm; baseline 500 ppm; target 100 ppm; measured over 30 days. Close when the target is met and the control plan, FMEA, and work instructions are updated."
       },
       "defect": {
         "symptom": "Solder bridges between adjacent THT leads on a fine-pitch header after wave solder, detected at ICT.",
         "cause": "Flux application was too heavy and preheat was below the range recommended by the wave solder equipment datasheet, leaving flux residue that prevented solder coalescence.",
-        "action": "Quarantine product back to the last verified good inspection, rework per IPC-7711/7712, adjust flux density and preheat within the equipment datasheet range, and add an initial-article check after each changeover."
+        "action": "Quarantine product back to the last verified good inspection, rework per IPC-7711/7721, adjust flux density and preheat within the equipment datasheet range, and add an initial-article check after each changeover."
       }
     },
     "review": "TBD-REVIEW — content is an unreviewed LLM draft; every number listed in tbd[] is unverified: [\"8D\",\"1200\",\"14:20\",\"13:50\",\"14:25\",\"13:45\",\"40\",\"60\",\"20\",\"800\",\"24\",\"7\",\"30\",\"500\",\"100\"]"

@@ -523,27 +523,27 @@
     "competencies": [
       "K5"
     ],
-    "prompt": "Using the lesson's rule-of-thumb limits (ramp rate no more than 2 °C/s, time above liquidus 60–120 s, and peak about 25 °C above liquidus), a measured profile for an alloy with a rule-of-thumb liquidus of 217 °C ramps from 150 °C to liquidus in 30 s, crosses liquidus upward at 120 s and downward at 210 s, and peaks at 242 °C. Which check fails?",
+    "prompt": "Using the lesson's rule-of-thumb limits (ramp 1-3 °C/s, time above liquidus 60-120 s from the paste datasheet, and peak not above the J-STD-020 classification temperature of 250 °C for a large package), a measured profile for SAC305 ramps from 150 °C to liquidus in 30 s, crosses liquidus upward at 120 s and downward at 210 s, and peaks at 242 °C. Which check fails?",
     "options": [
       {
         "id": "a",
-        "text": "Ramp rate, because (217 - 150) / 30 = 2.2 °C/s, above the 2 °C/s rule-of-thumb limit."
+        "text": "Ramp rate, because (219 − 150) / 30 = 2.3 °C/s, above the 1-3 °C/s rule-of-thumb limit."
       },
       {
         "id": "b",
-        "text": "Time above liquidus, because 210 - 120 = 90 s, outside the 60–120 s rule-of-thumb window."
+        "text": "Time above liquidus, because 210 − 120 = 90 s, outside the 60-120 s window."
       },
       {
         "id": "c",
-        "text": "Peak, because 242 - 217 = 25 °C, above the rule-of-thumb peak margin."
+        "text": "Peak, because 242 °C exceeds the classification temperature."
       },
       {
         "id": "d",
         "text": "None, because all checks pass."
       }
     ],
-    "correct": "a",
-    "explanation": "Ramp rate is (217 - 150) / 30 = 2.2 °C/s, which exceeds the 2 °C/s rule-of-thumb limit. Time above liquidus is 210 - 120 = 90 s, inside the 60–120 s window. Peak margin is 242 - 217 = 25 °C, matching the rule-of-thumb value.",
+    "correct": "d",
+    "explanation": "Ramp rate is (219 − 150) / 30 = 2.3 °C/s, inside the 1-3 °C/s range taught in the lesson. Time above liquidus is 210 − 120 = 90 s, inside the 60-120 s paste window. Peak margin to the 250 °C classification temperature is 8 °C. All three checks pass, so no profile change is required. Re-verify if the package size changes, because the classification temperature is 260 °C for small packages and 245 °C for very large ones, and remember that the 30 s figure in J-STD-020 is tp, the time within 5 °C of the classification temperature, not the paste-window time above liquidus.",
     "source": "",
     "lessonId": "m06l02"
   },
@@ -583,27 +583,27 @@
     "competencies": [
       "K5"
     ],
-    "prompt": "Using the IPC/JEDEC J-STD-020 SAC305 peak window of 245-250 °C, a thermal survey records the coolest part at the lower limit and the hottest part at the upper limit. Using the lesson formula minimum margin = min(upper limit - hottest measured, coolest measured - lower limit), what is the minimum margin?",
+    "prompt": "Using the J-STD-020 classification temperatures for SAC305 (260 °C small package, 250 °C large package, 245 °C very large package) and the lesson formula minimum margin = min(classification temperature − hottest measured, coolest measured − liquidus), a survey records a coolest part peak of 246 °C and a hottest part peak of 252 °C on a large package. The SAC305 liquidus is 219 °C. What is the minimum margin and the disposition?",
     "options": [
       {
         "id": "a",
-        "text": "0 °C"
+        "text": "−2 °C; the hottest part exceeds the classification temperature, so the profile fails."
       },
       {
         "id": "b",
-        "text": "5 °C"
+        "text": "2 °C; passes."
       },
       {
         "id": "c",
-        "text": "245 °C"
+        "text": "27 °C; passes."
       },
       {
         "id": "d",
-        "text": "250 °C"
+        "text": "6 °C; passes."
       }
     ],
     "correct": "a",
-    "explanation": "The minimum margin is min(250 °C - 250 °C, 245 °C - 245 °C) = min(0 °C, 0 °C) = 0 °C. The 5 °C value is the width of the peak window, not the margin to either limit. The 245 °C and 250 °C values are the spec limits themselves, not margins.",
+    "explanation": "min(250 − 252, 246 − 219) = min(−2 °C, 27 °C) = −2 °C. The hottest location exceeds the classification temperature by 2 °C, so the profile fails regardless of the comfortable margin above liquidus at the coolest location. Option b is half the peak-to-peak spread, option c is the coolest-site margin above liquidus only, and option d is the peak spread. The classification temperature depends on package size, so confirm the size before disposition.",
     "source": "",
     "lessonId": "m06l03"
   },
@@ -643,27 +643,27 @@
     "competencies": [
       "K5"
     ],
-    "prompt": "For a SAC305 board qualified to J-STD-020, the cited source gives a maximum ramp rate of 3 °C/s, a liquidus of 217 °C, a peak window of 217–227 °C, and a minimum time above liquidus of 60 s. If a heavy-plane board is ramped from the lower soak limit of 150 °C at the maximum allowed ramp rate, what is the minimum elapsed time from that soak exit to the end of the minimum time above liquidus?",
+    "prompt": "For a SAC305 board, the cited process guidance gives a maximum ramp rate of 4 °C/s, a liquidus of 219 °C, a J-STD-020 classification temperature of 250 °C for a large package, and a minimum time above liquidus of 60 s. If a heavy-plane board is ramped from the lower soak limit of 150 °C at the maximum allowed ramp rate, what is the minimum elapsed time from that soak exit to the end of the minimum time above liquidus?",
     "options": [
       {
         "id": "a",
-        "text": "82 s"
+        "text": "77 s"
       },
       {
         "id": "b",
-        "text": "86 s"
-      },
-      {
-        "id": "c",
         "text": "60 s"
       },
       {
+        "id": "c",
+        "text": "17 s"
+      },
+      {
         "id": "d",
-        "text": "22 s"
+        "text": "92 s"
       }
     ],
     "correct": "a",
-    "explanation": "Time to reach liquidus is (217 °C − 150 °C) ÷ 3 °C/s = 22.3 s. The minimum time above liquidus is 60 s, so the minimum elapsed time from soak exit to the end of that interval is 22.3 s + 60 s = 82.3 s, rounded to 82 s. The 86 s option adds the full ramp to the upper peak limit (227 °C) plus 60 s, which double-counts time already inside the above-liquidus interval; 60 s ignores the time needed to reach liquidus; 22 s ignores the required time above liquidus.",
+    "explanation": "Time to reach liquidus is (219 °C − 150 °C) ÷ 4 °C/s = 17.25 s. The minimum time above liquidus is 60 s, so the minimum elapsed time from soak exit to the end of that interval is 17.25 s + 60 s = 77.25 s, rounded to 77 s. The 92 s option adds the full ramp to the classification temperature plus 60 s, which double-counts time already inside the above-liquidus interval; 60 s ignores the time needed to reach liquidus; 17 s ignores the required time above liquidus.",
     "source": "",
     "lessonId": "m06l04"
   },
@@ -703,11 +703,11 @@
     "competencies": [
       "K5"
     ],
-    "prompt": "A high-thermal-mass SnAgCu board is profiled using IPC J-STD-020 limits: liquidus 217°C, peak 245°C, minimum time above liquidus 60 s, and maximum ramp rate 3°C/s. If the board ramps from liquidus to peak at the maximum ramp rate and then dwells at peak before cooling, calculate the minimum dwell at peak required so that the time above liquidus just meets the minimum.",
+    "prompt": "A high-thermal-mass SAC305 board is profiled using process guidance: liquidus 219 °C, peak 245 °C, minimum time above liquidus 60 s, and maximum ramp rate 4 °C/s. If the board ramps from liquidus to peak at the maximum ramp rate and then dwells at peak before cooling, calculate the minimum dwell at peak required so that the time above liquidus just meets the minimum.",
     "options": [
       {
         "id": "a",
-        "text": "About 51 s"
+        "text": "About 54 s"
       },
       {
         "id": "b",
@@ -715,7 +715,7 @@
       },
       {
         "id": "c",
-        "text": "About 32 s"
+        "text": "About 40 s"
       },
       {
         "id": "d",
@@ -723,7 +723,7 @@
       }
     ],
     "correct": "a",
-    "explanation": "Time above liquidus includes the ramp from liquidus to peak plus the dwell at peak. Ramp time = (245°C - 217°C) / 3°C/s = 9.3 s. Required dwell = 60 s - 9.3 s = 50.7 s, about 51 s. Option b ignores the ramp time above liquidus; option c corresponds to using a 1°C/s ramp rate; option d adds the liquidus-to-peak temperature difference to the required time instead of converting it to time.",
+    "explanation": "Time above liquidus includes the ramp from liquidus to peak plus the dwell at peak. Ramp time = (245 °C − 219 °C) / 4 °C/s = 6.5 s. Required dwell = 60 s − 6.5 s = 53.5 s, about 54 s. Option b ignores the ramp time above liquidus; option c corresponds to using a 6.5 °C/s ramp rate; option d adds the liquidus-to-peak temperature difference to the required time instead of converting it to time.",
     "source": "",
     "lessonId": "m06l05"
   },
@@ -765,27 +765,27 @@
       "K5",
       "K6"
     ],
-    "prompt": "Using the lesson formula TAL = (peak temperature - liquidus temperature) / cooling rate, IPC J-STD-020 values for SAC305 (liquidus 217 °C, peak 245 °C, TAL range 60 to 120 s), and a rule-of-thumb cooling rate of 0.2 °C/s, what is the calculated time above liquidus and the bounded corrective action for a dewetting signature?",
+    "prompt": "Using the lesson rule that the cooling portion of time above liquidus is (peak temperature − liquidus temperature) / cooling rate, the SAC305 values liquidus 219 °C and peak 245 °C, the paste-window time above liquidus of 60 to 120 s, and a rule-of-thumb cooling rate of 0.2 °C/s, what is the cooling time and the bounded corrective action for a dewetting signature?",
     "options": [
       {
         "id": "a",
-        "text": "140 s; increase cooling rate to at least 0.233 °C/s to bring TAL into the IPC range, then verify by thermocouple."
+        "text": "130 s; increase the cooling rate to at least 0.22 °C/s to bring time above liquidus into the paste window, then verify by thermocouple."
       },
       {
         "id": "b",
-        "text": "28 s; no change is needed because the temperature difference is the TAL, then verify by shear."
+        "text": "26 s; no change is needed because the temperature difference is the time above liquidus, then verify by shear."
       },
       {
         "id": "c",
-        "text": "120 s; reduce cooling rate to the upper IPC limit, then verify by AOI."
+        "text": "120 s; reduce the cooling rate to the upper paste-window limit, then verify by AOI."
       },
       {
         "id": "d",
-        "text": "60 s; raise the peak temperature to reach the lower IPC limit, then verify by X-ray."
+        "text": "60 s; raise the peak temperature to reach the lower paste-window limit, then verify by X-ray."
       }
     ],
     "correct": "a",
-    "explanation": "245 minus 217 equals 28; 28 divided by 0.2 equals 140 seconds, which exceeds the IPC J-STD-020 60 to 120 second TAL range. The minimum cooling rate to reach 120 seconds is 28 divided by 120, about 0.233 °C/s, so a bounded change is to increase cooling rate, not raise peak. Verify by thermocouple TAL measurement.",
+    "explanation": "245 − 219 = 26 °C; 26 ÷ 0.2 °C/s = 130 s of cooling time, which is longer than the 120 s upper bound of the paste window. The minimum cooling rate to reach 120 s is 26 ÷ 120 ≈ 0.22 °C/s. Option b reports a temperature difference rather than a time, option c moves in the wrong direction, and option d raises the peak, which lengthens rather than shortens the exposure. Note that time above liquidus is a measured profile quantity from IPC-7530 and the paste datasheet, not a J-STD-020 parameter.",
     "source": "",
     "lessonId": "m06l06"
   },
@@ -887,27 +887,27 @@
     "competencies": [
       "K7"
     ],
-    "prompt": "Using the lesson rule of thumb that flux amount is dispensed flux mass divided by wetted area, and that a typical no-clean wave target is 5–10 mg/cm2, a board has wetted area 250 cm2 and dispensed flux mass 1.5 g. What is the flux amount and the appropriate setting decision?",
+    "prompt": "Using the lesson rule of thumb that flux amount is the mass of flux solids divided by the wetted area, and that a typical no-clean wave target is 500-1500 µg/in² of solids (about 0.08-0.23 mg/cm²), a board has a wetted area of 250 cm² and a weighed witness card gains 37.5 mg of flux solids. What is the flux amount and the appropriate setting decision?",
     "options": [
       {
         "id": "a",
-        "text": "6 mg/cm2; within the typical target, so keep the flux amount."
+        "text": "0.15 mg/cm² (about 970 µg/in²); within the typical target, so keep the flux amount."
       },
       {
         "id": "b",
-        "text": "60 mg/cm2; too high, so reduce the flux amount."
+        "text": "1.5 mg/cm²; too high, so reduce the flux amount."
       },
       {
         "id": "c",
-        "text": "0.6 mg/cm2; too low, so increase the flux amount."
+        "text": "0.015 mg/cm²; too low, so increase the flux amount."
       },
       {
         "id": "d",
-        "text": "375 mg/cm2; within the typical target, so keep the flux amount."
+        "text": "0.06 mg/cm²; too low, because the area was divided twice."
       }
     ],
     "correct": "a",
-    "explanation": "Convert 1.5 g to 1500 mg, then divide by 250 cm2: 1500 mg / 250 cm2 = 6 mg/cm2. This is within the 5–10 mg/cm2 rule-of-thumb target, so the flux amount is acceptable. Option b is a factor-of-ten error, option c is a factor-of-ten low error, and option d results from an incorrect division.",
+    "explanation": "37.5 mg ÷ 250 cm² = 0.15 mg/cm². Converting the other way, 0.15 mg/cm² × 6.45 cm²/in² = 0.97 mg/in² = about 970 µg/in², which is inside the 500-1500 µg/in² target, so the setting is kept. Option b is a factor-of-ten error, option c is a factor-of-ten low error, and option d divides by the area twice. Always confirm whether a quoted figure is on a solids basis or a liquid basis: figures such as 0.5-1.0 g/ft² are quoted per unit of liquid and are several times larger.",
     "source": "",
     "lessonId": "m09l01"
   },
@@ -947,11 +947,11 @@
     "competencies": [
       "K7"
     ],
-    "prompt": "A verification card is used to check flux amount. The lesson formula is flux amount = (mass after spray - mass before spray) / wetted area. A run records a card mass of 10.00 g before spray and 10.12 g after spray over a wetted area of 80 cm². What is the measured flux amount?",
+    "prompt": "A verification card is used to check flux amount. The lesson formula is flux amount = (mass after spray − mass before spray) / wetted area. A run records a card mass of 10.000 g before spray and 10.012 g after spray over a wetted area of 80 cm². What is the measured flux amount?",
     "options": [
       {
         "id": "a",
-        "text": "1.5 mg/cm²"
+        "text": "0.15 mg/cm²"
       },
       {
         "id": "b",
@@ -959,7 +959,7 @@
       },
       {
         "id": "c",
-        "text": "15 mg/cm²"
+        "text": "1.5 mg/cm²"
       },
       {
         "id": "d",
@@ -967,7 +967,7 @@
       }
     ],
     "correct": "a",
-    "explanation": "The mass difference is 10.12 g - 10.00 g = 0.12 g, which is 120 mg. Dividing by the wetted area gives 120 mg / 80 cm² = 1.5 mg/cm². The other options invert the ratio, misplace the decimal, or omit division by area.",
+    "explanation": "The mass difference is 10.012 g − 10.000 g = 0.012 g, which is 12 mg. Dividing by the wetted area gives 12 mg / 80 cm² = 0.15 mg/cm², which is about 970 µg/in² of solids and inside the 500-1500 µg/in² wave target. Option c is the same mass gain with a decimal error, option b inverts the ratio, and option d omits division by area. If the card captures flux solution rather than solids, multiply by the solids fraction before comparing with the target.",
     "source": "",
     "lessonId": "m09l02"
   },
@@ -1129,27 +1129,27 @@
       "K7",
       "K6"
     ],
-    "prompt": "A through-hole wave-soldering process uses the lesson rule of thumb that solder fill height is approximately equal to the hole diameter plus the lead diameter. If the hole diameter is twice the lead diameter and the required fill height is three times the lead diameter, what is the fill-height shortfall, expressed as a multiple of the lead diameter?",
+    "prompt": "A through-hole wave-soldering process uses the lesson rule of thumb that expected fill fraction = 1 − (lead diameter / hole diameter)². If the hole diameter is twice the lead diameter and the required fill is the IPC-A-610 minimum of 75% of barrel height, what is the expected fill fraction and the disposition?",
     "options": [
       {
         "id": "a",
-        "text": "0 times the lead diameter."
+        "text": "75%; accept, because the calculated fill meets the minimum."
       },
       {
         "id": "b",
-        "text": "1 times the lead diameter."
+        "text": "50%; reject, because the fill is below the minimum."
       },
       {
         "id": "c",
-        "text": "2 times the lead diameter."
+        "text": "25%; reject, because the fill is below the minimum."
       },
       {
         "id": "d",
-        "text": "3 times the lead diameter."
+        "text": "100%; accept, because the lead is centred in the hole."
       }
     ],
-    "correct": "b",
-    "explanation": "Using the lesson rule of thumb, fill height = hole diameter + lead diameter. With hole diameter = 2 × lead diameter, fill height = 2 × lead diameter + 1 × lead diameter = 3 × lead diameter. The required fill height is also 3 × lead diameter, so the shortfall is 3 × lead diameter − 3 × lead diameter = 0 × lead diameter; however, the answer choices are written as multiples of the lead diameter, and the correct shortfall is 0, which corresponds to option a. The other options incorrectly assume a positive shortfall: 1, 2, or 3 lead diameters.",
+    "correct": "a",
+    "explanation": "Expected fill = 1 − (1/2)² = 1 − 0.25 = 0.75 = 75%, which meets the IPC-A-610 minimum vertical barrel fill of 75% for Class 2 and Class 3, so the disposition is accept when the other workmanship criteria are met. Option b uses linear clearance instead of area, option c is the lead-area fraction, and option d ignores the lead volume. IPC-A-610 does not set a 100% class limit; a 100% requirement is contractual.",
     "source": "",
     "lessonId": "m09l06"
   },
@@ -1191,27 +1191,27 @@
       "K7",
       "K6"
     ],
-    "prompt": "Using the lesson's rule of thumb that flux coverage should be 10 mg/cm² of board area and that flux density is approximately 1 g/mL, calculate the flux volume for the lesson's rule-of-thumb reference board area of 100 cm².",
+    "prompt": "Using the lesson's rule of thumb that flux coverage should be 0.15 mg/cm² of flux solids on the board area and that the flux is 2.0% solids with a density of about 1 g/mL, calculate the flux volume for the lesson's rule-of-thumb reference board area of 100 cm².",
     "options": [
       {
         "id": "a",
-        "text": "1 mL"
+        "text": "0.75 mL"
       },
       {
         "id": "b",
-        "text": "0.1 mL"
+        "text": "0.075 mL"
       },
       {
         "id": "c",
-        "text": "10 mL"
+        "text": "7.5 mL"
       },
       {
         "id": "d",
-        "text": "100 mL"
+        "text": "15 mL"
       }
     ],
     "correct": "a",
-    "explanation": "Flux mass = 100 cm² × 10 mg/cm² = 1000 mg = 1 g. With flux density about 1 g/mL, volume = 1 g ÷ 1 g/mL = 1 mL. The other options result from misplacing the decimal in the mg-to-g conversion or multiplying by the wrong area.",
+    "explanation": "Flux solids = 100 cm² × 0.15 mg/cm² = 15 mg. At 2.0% solids the solution mass is 15 mg ÷ 0.02 = 750 mg, and at about 1 g/mL the volume is 750 mg ÷ 1000 mg/mL = 0.75 mL. Options b and c are factor-of-ten errors, and option d treats the solids mass as if it were the solution volume.",
     "source": "",
     "lessonId": "m09l07"
   },
@@ -1434,15 +1434,15 @@
       "K1",
       "K9"
     ],
-    "prompt": "IPC J-STD-004 Type 3 powder requires 95% of powder to be between 25 and 45 µm. A certificate reports 95% passes the 45 µm sieve and 95% is retained on the 25 µm sieve. Using the lesson formula for minimum overlap, what is the minimum percentage within 25-45 µm and the appropriate disposition?",
+    "prompt": "IPC J-STD-005 Type 3 powder requires 80% of the powder to be between 25 and 45 µm, with no more than 10% below 25 µm and no more than 10% above 45 µm. A certificate reports that 95% passes the 45 µm sieve and 95% is retained on the 25 µm sieve. Using the lesson formula for minimum overlap, what is the minimum percentage within 25-45 µm and the appropriate disposition?",
     "options": [
       {
         "id": "a",
-        "text": "90%; quarantine because the certificate does not prove the 95% requirement is met."
+        "text": "90%; accept because the certificate proves at least 90% in range, which meets the 80% requirement."
       },
       {
         "id": "b",
-        "text": "95%; accept because both sieve results meet the 95% requirement."
+        "text": "80%; quarantine because the certificate does not prove the requirement is met."
       },
       {
         "id": "c",
@@ -1450,11 +1450,11 @@
       },
       {
         "id": "d",
-        "text": "90%; reject because any excursion below 95% is automatically reject."
+        "text": "90%; reject because any excursion below 100% is automatically reject."
       }
     ],
     "correct": "a",
-    "explanation": "The minimum overlap is 95% + 95% - 100% = 90%, so the certificate proves only that at least 90% is within 25-45 µm. Because IPC J-STD-004 Type 3 requires 95%, the lot cannot be accepted on this evidence; quarantine pending retest or supplier clarification. Option b ignores overlap, option c assumes no outside-size powder, and option d overstates the finding because the data do not prove nonconformance, only insufficient proof.",
+    "explanation": "The minimum overlap is 95% + 95% − 100% = 90%, so the certificate proves at least 90% of the powder is within 25-45 µm. Because J-STD-005 Type 3 requires 80% minimum in range, the lot is accepted on this evidence. Option b applies the requirement as if it were the measured overlap, option c assumes no outside-size powder, and option d invents a 100% requirement that the standard does not contain.",
     "source": ""
   },
   {
@@ -1615,7 +1615,7 @@
     "competencies": [
       "K1"
     ],
-    "prompt": "A device marked MSL 3 was exposed for one-third of its J-STD-020 floor life, reflowed while still within floor life, and has since been exposed for one-quarter of its floor life. What is the remaining floor life before baking is required?",
+    "prompt": "A device marked MSL 3 was exposed for one-third of its J-STD-033 floor life, reflowed while still within floor life, and has since been exposed for one-quarter of its floor life. What is the remaining floor life before baking is required?",
     "options": [
       {
         "id": "a",
@@ -1635,7 +1635,7 @@
       }
     ],
     "correct": "a",
-    "explanation": "MSL 3 has a J-STD-020 floor life of 168 h under standard conditions. Because the device was reflowed while within floor life, the clock resets, so only the post-reflow exposure counts: one-quarter of 168 h is 42 h, leaving 168 h - 42 h = 126 h. Option b incorrectly adds the pre-reflow one-third exposure, option c ignores elapsed post-reflow time, and option d is the elapsed post-reflow time rather than the remaining time.",
+    "explanation": "MSL 3 has a J-STD-033 floor life of 168 h at 30 °C/60% RH (J-STD-020 assigns the level, J-STD-033 governs handling). Because the device was reflowed while within floor life, the clock resets, so only the post-reflow exposure counts: one-quarter of 168 h is 42 h, leaving 168 h - 42 h = 126 h. Option b incorrectly adds the pre-reflow one-third exposure, option c ignores elapsed post-reflow time, and option d is the elapsed post-reflow time rather than the remaining time.",
     "source": ""
   },
   {
@@ -1795,7 +1795,7 @@
     "competencies": [
       "K1"
     ],
-    "prompt": "A device in the highest J-STD-033 moisture sensitivity level is baked at the standard bake condition. If the bake has already run for half of the standard bake time, how many hours remain before the bake is complete?",
+    "prompt": "A 2.5 mm-thick package is baked at 90 °C. The J-STD-033 Table 4-1 bake time for that body thickness is 192 h. If the bake has already run for half of the bake time, how many hours remain before the bake is complete?",
     "options": [
       {
         "id": "a",
@@ -1815,7 +1815,7 @@
       }
     ],
     "correct": "a",
-    "explanation": "The standard bake time for the highest J-STD-033 moisture sensitivity level is 192 h. Half of that bake time is 192 / 2 = 96 h, so the remaining time is 192 - 96 = 96 h. The 192 h option is the total bake time, while 48 h and 24 h are floor-life values for other moisture sensitivity levels, not the remaining bake time.",
+    "explanation": "J-STD-033 bake time is indexed to package body thickness, not to the moisture sensitivity level: for 2.0 to 4.5 mm bodies the 90 °C column gives 192 h. Half of that is 96 h, so 96 h remain. The 192 h option is the total bake time; 48 h and 24 h are floor-life values for MSL 5 and MSL 5a, not bake times. Note that the cumulative bake time above 90 °C is limited to 96 h unless the component supplier states otherwise, so a 192 h bake at 90 °C normally requires supplier approval.",
     "source": ""
   },
   {
@@ -1920,11 +1920,11 @@
     "options": [
       {
         "id": "a",
-        "text": "One standard 24 h interval over floor life; bake remaining unplaced components at the package-specific bake condition, e.g., 125°C for 24 h for MSL 3 plastic, then return to dry storage at ≤30°C/60%RH with desiccant/HIC."
+        "text": "One standard 24 h interval over floor life; bake remaining unplaced components at the package-specific bake condition from J-STD-033 Table 4-1, e.g., 125°C for 8 h for a body up to 1.4 mm, 18 h for 1.4-2.0 mm or 48 h for 2.0-4.5 mm, or the 40 °C long bake if the carrier cannot take 125 °C, then return to dry storage at ≤30°C/60%RH with desiccant and HIC."
       },
       {
         "id": "b",
-        "text": "One full floor life over; bake at 125°C for 24 h."
+        "text": "One full floor life over; bake at 125°C for 8 h."
       },
       {
         "id": "c",
@@ -1936,7 +1936,7 @@
       }
     ],
     "correct": "a",
-    "explanation": "168 h + 24 h = 192 h cumulative exposure; 192 h - 168 h = 24 h over floor life. Because cumulative exposure exceeds floor life, remaining unplaced components must be baked; for MSL 3 plastic packages the named standard bake condition is 125°C for 24 h. Distractors misapply the floor-life subtraction or assume prior bake resets exposure.",
+    "explanation": "168 h + 24 h = 192 h cumulative exposure; 192 h - 168 h = 24 h over floor life. Because cumulative exposure exceeds floor life, remaining unplaced components must be baked; the bake condition comes from J-STD-033 Table 4-1 and is indexed to package body thickness, not to the MSL number: 125°C for 8 h up to 1.4 mm, 18 h for 1.4-2.0 mm and 48 h for 2.0-4.5 mm, with the 40 °C long bake (about 9-38 days) reserved for carriers that cannot take 125 °C. Cumulative bake time above 90 °C is limited to 96 h unless the supplier states otherwise, and the 24 h figure sometimes quoted for a 125 °C bake is the supplier dry-pack condition, not a user bake. Distractors misapply the floor-life subtraction or assume prior bake resets exposure.",
     "source": ""
   },
   {
@@ -1996,7 +1996,7 @@
       }
     ],
     "correct": "a",
-    "explanation": "Let t be stencil thickness and the square side be t. Area ratio = t²/(4t·t)=0.25, aspect ratio = t/t=1, and deposit volume = t²·t=t³. Because the area ratio is below the rule-of-thumb release threshold of 1.5, release is inadequate; b inverts the ratio, c uses perimeter as aspect ratio, and d uses sidewall area instead of aperture area for volume.",
+    "explanation": "Let t be stencil thickness and the square side be t. Area ratio = t²/(4t·t)=0.25, aspect ratio = t/t=1, and deposit volume = t²·t=t³. Because the area ratio is below the rule-of-thumb release minimum of 0.66 (and the aspect ratio of 1 is also below the 1.5 minimum), release is inadequate; b inverts the ratio, c uses perimeter as aspect ratio, and d uses sidewall area instead of aperture area for volume.",
     "source": ""
   },
   {
@@ -2036,7 +2036,7 @@
     "competencies": [
       "K2"
     ],
-    "prompt": "A square aperture is 0.10 mm on a side and is cut in a 0.12 mm stencil. Using area ratio = open area / (stencil thickness × perimeter), aspect ratio = stencil thickness / aperture width, and deposit volume = open area × stencil thickness assuming full transfer, which result and release assessment is correct?",
+    "prompt": "A square aperture is 0.10 mm on a side and is cut in a 0.12 mm stencil. Using area ratio = open area / (stencil thickness × perimeter), aspect ratio = aperture width / stencil thickness, and deposit volume = open area × stencil thickness assuming full transfer, which result and release assessment is correct?",
     "options": [
       {
         "id": "a",
@@ -2056,7 +2056,7 @@
       }
     ],
     "correct": "a",
-    "explanation": "Open area = 0.10 mm × 0.10 mm = 0.0100 mm², perimeter = 4 × 0.10 mm = 0.40 mm, and area ratio = 0.0100 mm² / (0.12 mm × 0.40 mm) = 0.0100 / 0.048 ≈ 0.21. Deposit volume = 0.0100 mm² × 0.12 mm = 0.0012 mm³, while aspect ratio = 0.12 mm / 0.10 mm = 1.2, so option d confuses aspect ratio with area ratio. By the usual rule of thumb, the low area ratio and high aspect ratio indicate poor paste release; option b inverts the area-ratio calculation and option c misplaces the decimal in volume.",
+    "explanation": "Open area = 0.10 mm × 0.10 mm = 0.0100 mm², perimeter = 4 × 0.10 mm = 0.40 mm, and area ratio = 0.0100 mm² / (0.12 mm × 0.40 mm) = 0.0100 / 0.048 ≈ 0.21. Deposit volume = 0.0100 mm² × 0.12 mm = 0.0012 mm³, and aspect ratio = 0.10 mm / 0.12 mm = 0.83, so option d is neither the area ratio nor the aspect ratio. By the usual rule of thumb, both indices fail: the area ratio of 0.21 is below the 0.66 minimum and the aspect ratio of 0.83 is below the 1.5 minimum, so paste release is poor. Option b inverts the area-ratio calculation and option c misplaces the decimal in volume.",
     "source": ""
   },
   {
@@ -3064,27 +3064,27 @@
     "competencies": [
       "K7"
     ],
-    "prompt": "Using the IPC-2221 Class 3 minimum clearance of 0.30 mm and IPC-A-610 Class 3 fill expectation, a rule-of-thumb lead diameter of 0.50 mm is used. What plated-hole diameter and expected solder fill should be specified?",
+    "prompt": "Using a rule-of-thumb diametral clearance of 0.30 mm between lead and plated hole and the IPC-A-610 minimum vertical barrel fill, a rule-of-thumb lead diameter of 0.50 mm is used. What plated-hole diameter and expected solder fill should be specified?",
     "options": [
       {
         "id": "a",
-        "text": "0.80 mm plated-hole diameter and 100% expected solder fill"
+        "text": "0.80 mm plated-hole diameter and at least 75% vertical barrel fill"
       },
       {
         "id": "b",
-        "text": "0.80 mm plated-hole diameter and 75% expected solder fill"
+        "text": "0.80 mm plated-hole diameter and 100% expected solder fill"
       },
       {
         "id": "c",
-        "text": "0.20 mm plated-hole diameter and 100% expected solder fill"
+        "text": "0.20 mm plated-hole diameter and at least 75% fill"
       },
       {
         "id": "d",
-        "text": "0.50 mm plated-hole diameter and 75% expected solder fill"
+        "text": "0.50 mm plated-hole diameter and at least 75% fill"
       }
     ],
     "correct": "a",
-    "explanation": "Plated-hole diameter = lead diameter + clearance = 0.50 mm + 0.30 mm = 0.80 mm. IPC-A-610 Class 3 expects full through-hole fill, so the expected solder fill is 100%. Distractors use a lower fill class, subtract clearance, or omit clearance.",
+    "explanation": "Plated-hole diameter = lead diameter + diametral clearance = 0.50 mm + 0.30 mm = 0.80 mm. IPC-A-610 sets a minimum vertical barrel fill of 75% for both Class 2 and Class 3, with Class 3 additionally requiring visible fillets on both sides; 100% fill is a customer requirement, not an IPC-A-610 class limit. The 0.30 mm clearance is a design rule of thumb rather than an IPC-2221 requirement, so verify it against your drill, plating and lead tolerances.",
     "source": ""
   },
   {
@@ -3790,27 +3790,27 @@
     "competencies": [
       "K8"
     ],
-    "prompt": "A SAC305 lead-free through-hole joint has a liquidus of 217°C. Using the lesson rule of thumb that the tip temperature is set about 50°C above liquidus, and the lead-free dwell rule of thumb of 3 s, what temperature-time thermal budget is applied if thermal budget = tip temperature × dwell time?",
+    "prompt": "A SAC305 lead-free through-hole joint is hand-soldered on a board preheated to 100 °C. Using the lesson rule-of-thumb margin of about 120 °C above the SAC305 liquidus of 219 °C, which places the setpoint in the 330-350 °C range taught for SAC-type solder on a preheated board, and a dwell of 2 s, what temperature-time thermal budget is applied if thermal budget = tip temperature × dwell time?",
     "options": [
       {
         "id": "a",
-        "text": "801 °C·s"
+        "text": "678 °C·s"
       },
       {
         "id": "b",
-        "text": "711 °C·s"
+        "text": "339 °C·s"
       },
       {
         "id": "c",
-        "text": "651 °C·s"
+        "text": "558 °C·s"
       },
       {
         "id": "d",
-        "text": "501 °C·s"
+        "text": "478 °C·s"
       }
     ],
     "correct": "a",
-    "explanation": "Tip temperature = 217°C + 50°C = 267°C. Thermal budget = 267°C × 3 s = 801°C·s. The other values result from using an incorrect tip temperature before multiplying by the dwell time.",
+    "explanation": "Tip temperature = 219 °C + 120 °C = 339 °C, which sits inside the 330-350 °C range taught for SAC-type solder on a preheated board. Thermal budget = 339 °C × 2 s = 678 °C·s. Option b omits the dwell time, option c uses half the margin, and option d subtracts the board preheat, which is already accounted for in the tip setpoint. Note that 217 °C is the SAC305 solidus, not the liquidus.",
     "source": ""
   },
   {
@@ -3912,7 +3912,7 @@
       "K8",
       "K6"
     ],
-    "prompt": "IPC-7711/7721 repair acceptance requires the repaired annular ring to meet the IPC-A-610 Class 3 minimum of 0.10 mm. A repaired through-hole pad has a pad diameter that exceeds the hole diameter by twice this minimum. Using annular ring = (pad diameter - hole diameter)/2, what is the disposition?",
+    "prompt": "IPC-7711/7721 repair acceptance requires the repaired annular ring to meet the IPC-A-610 Class 3 minimum of 0.05 mm. A repaired through-hole pad has a pad diameter that exceeds the hole diameter by twice this minimum. Using annular ring = (pad diameter - hole diameter)/2, what is the disposition?",
     "options": [
       {
         "id": "a",
@@ -3932,7 +3932,7 @@
       }
     ],
     "correct": "a",
-    "explanation": "Let the Class 3 minimum annular ring be 0.10 mm. The pad diameter exceeds the hole diameter by 2 × 0.10 mm = 0.20 mm. The annular ring is (0.20 mm)/2 = 0.10 mm, which meets the Class 3 minimum, so the joint is repairable with documentation. The hole diameter is not needed separately because it cancels in the formula.",
+    "explanation": "Let the Class 3 minimum annular ring be 0.05 mm. The pad diameter exceeds the hole diameter by 2 × 0.05 mm = 0.10 mm. The annular ring is (0.10 mm)/2 = 0.05 mm, which meets the Class 3 minimum, so the joint is repairable with documentation. This matches the 0.05 mm minimum used in the m11l04 worked example; confirm the value against the controlled revision and the assembly drawing. The hole diameter is not needed separately because it cancels in the formula.",
     "source": ""
   },
   {
@@ -4158,11 +4158,11 @@
       "K1",
       "K6"
     ],
-    "prompt": "Using IPC-TM-650 2.3.25, a standard 100 in² test area has an acceptance limit of 1.56 µg NaCl eq/in². If the measured total contamination is 156 µg NaCl eq, what is the disposition?",
+    "prompt": "Using IPC-TM-650 2.3.25, a standard 100 cm² test area has an acceptance limit of 1.56 µg NaCl eq/cm² (the same level is about 10.06 µg/in²). If the measured total contamination is 156 µg NaCl eq, what is the disposition?",
     "options": [
       {
         "id": "a",
-        "text": "Pass: 156 µg ÷ 100 in² = 1.56 µg/in², which meets the limit."
+        "text": "Pass: 156 µg ÷ 100 cm² = 1.56 µg/cm², which meets the limit."
       },
       {
         "id": "b",
@@ -4178,7 +4178,7 @@
       }
     ],
     "correct": "a",
-    "explanation": "The cleanliness level is contamination mass divided by test area: 156 µg ÷ 100 in² = 1.56 µg/in². The IPC-TM-650 2.3.25 criterion is pass if the level is at or below 1.56 µg/in², so the board passes. Multiplying contamination by area or dividing area by contamination uses the wrong formula and wrong units.",
+    "explanation": "The cleanliness level is contamination mass divided by test area: 156 µg ÷ 100 cm² = 1.56 µg/cm². The IPC-TM-650 2.3.25 criterion is pass if the level is at or below 1.56 µg/cm², so the board passes. Keep the unit basis straight: 1.56 µg/cm² is the same level as about 10.06 µg/in², so a limit quoted per square inch is roughly 6.45 times larger numerically than the same limit quoted per square centimetre. Multiplying contamination by area or dividing area by contamination uses the wrong formula and wrong units.",
     "source": ""
   },
   {
@@ -4341,27 +4341,27 @@
     "competencies": [
       "K1"
     ],
-    "prompt": "Using IPC-A-610 cleanliness limits and the lesson formula ion concentration = total NaCl-equivalent ion mass / wetted area, a Class 3 assembly has a measured ion mass equal to the IPC Class 2 cleanliness limit multiplied by the wetted area. What is the calculated ion concentration and disposition?",
+    "prompt": "Using IPC-TM-650 2.3.25 and the traditional ROSE acceptance level of 1.56 µg NaCl eq/cm², and the lesson formula ion concentration = total NaCl-equivalent ion mass / wetted area, a board has a measured ion mass equal to that acceptance level multiplied by the wetted area. What is the calculated ion concentration and the disposition?",
     "options": [
       {
         "id": "a",
-        "text": "1.56 µg NaCl equivalent/cm²; pass Class 3."
+        "text": "1.56 µg NaCl eq/cm² — meets the traditional ROSE level; record method, area, blank and units, and confirm the process with SIR evidence."
       },
       {
         "id": "b",
-        "text": "3.12 µg NaCl equivalent/cm²; fail Class 3 and rework if Class 3 is required."
+        "text": "3.12 µg NaCl eq/cm² — fails, because the area is counted twice."
       },
       {
         "id": "c",
-        "text": "6.25 µg NaCl equivalent/cm²; fail Class 3 and Class 2."
+        "text": "0.78 µg NaCl eq/cm² — fails, because the area is divided twice."
       },
       {
         "id": "d",
-        "text": "3.12 µg NaCl equivalent/cm²; pass Class 3."
+        "text": "Cannot be dispositioned without the product class."
       }
     ],
-    "correct": "b",
-    "explanation": "The concentration is (Class 2 limit × area) / area = Class 2 limit = 3.12 µg NaCl equivalent/cm². The Class 3 limit is 1.56 µg NaCl equivalent/cm², so the board fails Class 3; it would pass Class 2 because the result equals the Class 2 limit. Option a uses the Class 3 limit as if it were the measured result, option c uses the Class 1 limit, and option d applies a Class 2 result to a Class 3 pass decision.",
+    "correct": "a",
+    "explanation": "The concentration is (1.56 µg/cm² × area) / area = 1.56 µg NaCl eq/cm², which meets the traditional ROSE acceptance level. J-STD-001 no longer treats a single ROSE number as a pass/fail criterion for every product: it requires objective evidence, normally SIR data, that the specific process is clean enough for the intended life and environment, and high-reliability customers often work tighter than 1.56 µg/cm². Option b double-counts the area, option c divides by it twice, and option d is wrong because the traditional ROSE level is quoted independently of product class, although a customer or product-specific limit may be tighter.",
     "source": ""
   },
   {

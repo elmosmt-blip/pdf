@@ -89,6 +89,23 @@ const CT_FIX = [
   ],
 ];
 
+// 4. IPC-CC-830 type designations. The course's m12l01 table gives
+//    "Polyurethane (ER)" and "Parylene (DR)". Neither code exists in
+//    IPC-CC-830C §1.3.1:
+//        Type AR - Acrylic      Type UR - Polyurethane
+//        Type ER - Epoxy        Type XY - Paraxylylene (parylene)
+//        Type SR - Silicone     Type UT - Ultra-Thin Coatings
+//        Type SC - Styrene Block Co-Polymer
+//    ER is epoxy, not polyurethane, and there is no DR at all. Confirmed from
+//    two independent renderings of the standard (ANSI preview page and the
+//    IPC table of contents), which agree verbatim.
+//    Consequence: a reader specifying "ER" for a polyurethane coating orders
+//    an epoxy, and "DR" orders nothing.
+const CC830_FIX = [
+  ['Polyurethane (ER)', 'Polyurethane (UR)'],
+  ['Parylene (DR)', 'Parylene (XY)'],
+];
+
 // Marker entries this pass resolved. Patterns are written in the POST-REV_FIX
 // form (IPC-7525C): REV_FIX runs first and rewrites the edition inside the
 // original marker text, so matching on IPC-7525D here would never fire and
@@ -110,8 +127,48 @@ const MARKER_FIX = [
 
 /* ------------------------------------------------------------- apply ------ */
 
+/*
+ * IDEMPOTENCY. Every fix below must be a no-op on data it has already fixed,
+ * because this script runs on every rebuild of the work tree and a second pass
+ * used to do real damage:
+ *
+ *   - REV_FIX rewrote the edition names INSIDE the annotations MARKER_FIX had
+ *     just written, turning "the course cited IPC-7525D, which does not exist"
+ *     into "the course cited IPC-7525C, which does not exist".
+ *   - CT_FIX's search text is a prefix of its own replacement, so it appended
+ *     the thickness caveat a second time on every run.
+ *
+ * Both are now guarded. A second run must report changed: no.
+ */
+function isAnnotated(s) {
+  return /EDITION RESOLVED|edition resolved/.test(s);
+}
+
+function hasCtCaveat(s) {
+  return /1\.6-2\.5 mm thickness \(the full|1\.6-2\.5 mm row; above 2\.5 mm/.test(s);
+}
+
 function fixString(s, counters, label) {
   let out = s;
+
+  // REV_FIX and MARKER_FIX are mutually exclusive with an already-annotated
+  // string: the annotation records the pre-fix edition names on purpose.
+  if (isAnnotated(out)) {
+    TP_FIX.forEach(([from, to]) => {
+      if (out.indexOf(from) !== -1) { counters.tp += 1; out = out.replace(from, to); }
+    });
+    if (!hasCtCaveat(out)) {
+      CT_FIX.forEach(([from, to]) => {
+        if (out.indexOf(from) !== -1) { counters.ct += out.split(from).length - 1; out = out.split(from).join(to); }
+      });
+    }
+    CC830_FIX.forEach(([from, to]) => {
+      if (out.indexOf(from) !== -1) { counters.cc830 += out.split(from).length - 1; out = out.split(from).join(to); }
+    });
+    if (out !== s) counters.strings += 1;
+    return out;
+  }
+
   REV_FIX.forEach(([from, to]) => {
     if (out.indexOf(from) !== -1) {
       counters.rev += out.split(from).length - 1;
@@ -119,22 +176,18 @@ function fixString(s, counters, label) {
     }
   });
   TP_FIX.forEach(([from, to]) => {
-    if (out.indexOf(from) !== -1) {
-      counters.tp += 1;
-      out = out.replace(from, to);
-    }
+    if (out.indexOf(from) !== -1) { counters.tp += 1; out = out.replace(from, to); }
   });
-  CT_FIX.forEach(([from, to]) => {
-    if (out.indexOf(from) !== -1) {
-      counters.ct += out.split(from).length - 1;
-      out = out.split(from).join(to);
-    }
+  if (!hasCtCaveat(out)) {
+    CT_FIX.forEach(([from, to]) => {
+      if (out.indexOf(from) !== -1) { counters.ct += out.split(from).length - 1; out = out.split(from).join(to); }
+    });
+  }
+  CC830_FIX.forEach(([from, to]) => {
+    if (out.indexOf(from) !== -1) { counters.cc830 += out.split(from).length - 1; out = out.split(from).join(to); }
   });
   MARKER_FIX.forEach(([from, to]) => {
-    if (out.indexOf(from) !== -1) {
-      counters.marker += 1;
-      out = out.replace(from, to);
-    }
+    if (out.indexOf(from) !== -1) { counters.marker += 1; out = out.replace(from, to); }
   });
   if (out !== s) counters.strings += 1;
   return out;
@@ -151,7 +204,7 @@ function walk(node, counters, file) {
   return node;
 }
 
-const counters = { rev: 0, tp: 0, ct: 0, marker: 0, strings: 0 };
+const counters = { rev: 0, tp: 0, ct: 0, cc830: 0, marker: 0, strings: 0 };
 const report = [];
 
 ['lessons.json', 'questions.json'].forEach((f) => {
@@ -191,5 +244,6 @@ report.forEach((r) => console.log('  ' + r));
 console.log('  IPC-7525 edition references corrected: ' + counters.rev);
 console.log('  J-STD-020 tp statements corrected:     ' + counters.tp);
 console.log('  J-STD-020 classification-temp rows fixed: ' + counters.ct);
+console.log('  IPC-CC-830 type codes corrected:          ' + counters.cc830);
 console.log('  TBD-REVIEW marker entries annotated:   ' + counters.marker);
 console.log('  strings changed:                       ' + counters.strings);

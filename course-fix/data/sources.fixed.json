@@ -139,5 +139,35 @@
     "verifiedBy": "TBD-REVIEW",
     "verifiedOn": null,
     "url": "https://www.aimsolder.com/wp-content/uploads/wave_solder_profile_supplement.pdf"
+  },
+  {
+    "id": "src-015",
+    "type": "standard",
+    "title": "J-STD-005 Requirements for Soldering Pastes (powder size distribution, Type 3 = 25-45 µm, 80% minimum in range)",
+    "edition": "TBD-REVIEW",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-016",
+    "type": "standard",
+    "title": "IPC-A-610H section 10 — through-hole solder fill (75% minimum vertical barrel fill, Class 2 and Class 3)",
+    "edition": "TBD-REVIEW",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
+  },
+  {
+    "id": "src-017",
+    "type": "standard",
+    "title": "J-STD-020 classification temperatures (260/250/245 °C by package size, tp 30-40 s, ramp-down ≤ 6 °C/s)",
+    "edition": "TBD-REVIEW",
+    "section": "TBD-REVIEW",
+    "licenseNote": "paraphrase only",
+    "verifiedBy": "TBD-REVIEW",
+    "verifiedOn": null
   }
 ]

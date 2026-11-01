@@ -190,3 +190,101 @@ Remaining unverified after round 10: **563 of 571 claims**. Round 10 verified
 8 of the 26 Part A recurring facts and corrected 3 defects. The other 18 facts
 still need a primary source, and the Part B claim list still needs to be walked
 claim by claim.
+
+---
+
+# Round 11 — the rest of Part A
+
+Round 10 verified 8 of the 26 recurring facts and corrected three defects. Round
+11 takes the remaining 15. **All 26 Part A facts now carry a verdict: 22
+verified, 4 flagged as contradicted or unresolved, 0 left blank.**
+
+A sandbox reset interrupted this round: the git repo came back as a fresh clone
+at the base commit and the gitignored working trees were gone. Everything
+tracked was intact on disk, and the remote still held every commit, so recovery
+was `git fetch` + `git reset --hard origin/...` plus a rebuild of the work tree
+from the tracked r4 zip. Two things that round exposed are worth recording:
+
+- **`apply-standards-verification.js` was not idempotent.** Re-running it on
+  already-fixed data did real damage: `REV_FIX` rewrote the edition names inside
+  the annotations `MARKER_FIX` had just written, producing *"the course cited
+  IPC-7525C, which does not exist"*, and `CT_FIX`'s search text is a prefix of
+  its own replacement, so it appended the thickness caveat a second time. Seven
+  lessons were corrupted before it was caught. The script now guards both, and a
+  second run reports `changed: no`. **Verified by running it three times.**
+- **Rebuilding the work tree from r4 resurrects the round-6 index.html
+  defect** — the Cloudflare Rocket Loader artefact came back and
+  `verify-runtime` failed until `apply-index-fix.js` was re-run. This was
+  already known and was already in the rebuild recipe; it is recorded here
+  because it cost a cycle.
+
+## Defects found and fixed in round 11
+
+### D4 — IPC-CC-830 type codes: two of four wrong
+
+The `m12l01` table "Coating chemistries (IPC-CC-830 type families)" read:
+
+| Chemistry | Course | IPC-CC-830C §1.3.1 |
+|---|---|---|
+| Acrylic | AR ✓ | Type AR – Acrylic |
+| Polyurethane | **ER** ✗ | **Type UR – Polyurethane** |
+| Silicone | SR ✓ | Type SR – Silicone |
+| Parylene | **DR** ✗ | **Type XY – Paraxylylene** |
+
+IPC-CC-830C §1.3.1, from two independent renderings of the standard (the ANSI
+preview page and the IPC table of contents), which agree verbatim:
+
+> Type AR – Acrylic · Type ER – **Epoxy** · Type SR – Silicone ·
+> Type UR – **Polyurethane** · Type XY – **Paraxylylene** ·
+> Type UT – Ultra-Thin Coatings · Type SC – Styrene Block Co-Polymer
+
+**ER is epoxy, not polyurethane, and there is no DR at all.** Confirmed
+independently by PCBSync's IPC-CC-830 breakdown. Consequence: a reader
+specifying "ER" for a polyurethane coating orders an epoxy, and "DR" orders
+nothing. **Two cells corrected.** The table also omits Type ER (epoxy), Type UT
+and Type SC entirely — noted, not added, because the qualitative columns would
+have to be invented.
+
+## Verified in round 11
+
+| Fact | Verdict | Source |
+|---|---|---|
+| IPC rework document numbers | **VERIFIED** | ANSI store: IPC-7711A *Rework of Electronic Assemblies*; IPC-7721A *Repair and Modification of Printed Boards and Electronic Assemblies*; published together as IPC-7711/7721 |
+| Wave flux deposition, solids basis | **VERIFIED** | AIM wave-solder profile supplement: *"Flux deposition of 500-1500 micrograms of flux per square inch is typical"*, and the dry-method note *"Anything remaining on the board will represent a deposit of only flux solids"*. Conversion checked: 500–1500 µg/in² = 77.5–232.5 µg/cm² = 0.775–2.325 g/m² |
+| IPC-A-610 Class 3 external annular ring | **VERIFIED** | 2 mil = 0.05 mm external with no breakout, 1 mil = 0.025 mm internal with no breakout, Class 2 permits 90° breakout. Four independent sources agree |
+| SAC305 phase change | **VERIFIED** | Kester TDS: *"Melting Point 217 to 219 °C (423 to 426 °F)"*. Solidus 217 unanimous; liquidus 219 nominal, though Indium and Kapp quote 220 °C |
+| Contractual 100 % fill | **VERIFIED** | IPC-A-610 sets class minimums, not a 100 % requirement; class assignment belongs to the customer. IPC-A-610J removed the "Target" condition in Rev H (Sept 2020), so 100 % fill cannot even be a target in the current revision |
+| ESD programme and test methods | **VERIFIED — primary source** | The ESD Association's own IEC-equivalency chart: *"ANSI/ESD STM3.1 \| IEC 61340-4-7 \| Ionization"* and *"ANSI/ESD STM97.1 & ANSI/ESD STM97.2 \| IEC 61340-4-5 \| Footwear and Flooring Systems"* |
+| Preheat ramp rate, wave and selective | **VERIFIED** | AIM profile supplement citing IPC/JEDEC: *"Top Side Ramp Up Rate — < 3 °C/Sec (general), 1 - 3 °C/Sec (tin-lead), 1 - 3 °C/Sec (lead-free)"* |
+| ISO 2859-1 code letter → sample size | **VERIFIED** | A 2 … R 2000 (S 3150), against a hosted copy of ISO 2859-1 itself plus three independent reproductions |
+| ISO 2859-1 lot size → code letter, level II | **VERIFIED** | 501–1200 → J (80); 1201–3200 → K (125); 3201–10000 → L (200) |
+| ISO 2859-1 Ac/Re at AQL 1.0 % | **VERIFIED** | K (n=125) → Ac 3, Re 4; L (n=200) → Ac 5, Re 6; J → 2/3; H → 1/2. Three independent reproductions agree |
+| J-STD-005 powder Type 3 | **VERIFIED** | J-STD-005A: <0.5 % >60 µm, <10 % in 45–60 µm, ≥80 % in 25–45 µm, <10 % <25 µm — exactly the course. The 1995 original gave different limits (50 µm / 45–25 µm / 20 µm) |
+| IPC-6012 bow and twist | **VERIFIED** | Eurocircuits quotes IPC-6012: *"maximum bow and twist of 0.75% for printed boards that use surface mount components and 1.5% for all other printed boards"* |
+| Cleanliness ionic limit | **VERIFIED** | 1.56 µg NaCl eq./cm² per IPC-TM-650 2.3.25; *"Per IPC-6012E §3.9.1, ionic contamination must not exceed 1.56 µg/cm² NaCl equivalent for Class 2/3 bare boards"* |
+
+## Still flagged — 4 facts, all needing a document nobody here has read
+
+1. **IPC-A-610 minimum vertical barrel fill** — secondary sources contradict
+   each other, and one publisher contradicts itself across two articles.
+2. **IPC-A-610 documented hole-fill exception** — consistently described
+   (≈50 % or 1.2 mm, ≥14 leads, internal planes) but rests on the same §10
+   question.
+3. **J-STD-033 bake at 90 °C and 40 °C** — off by an order of magnitude from
+   J-STD-033B.1 Table 4-1.
+4. **J-STD-033 bake at 125 °C by thickness** — likely conflates Table 4-1
+   (user bake) with Table 4-2 (supplier bake).
+
+Facts 1, 2 and 4 are all the same document: **IPC-A-610H §10 and J-STD-033D
+Table 4-1/4-2.** Those are the two things a reviewer needs to open.
+
+## Where this leaves the course
+
+Part A: **26 of 26 facts adjudicated**, 22 verified, 4 flagged.
+Part B: **571 claims, 663 tick boxes, none ticked.** The Part B claim list has
+not been walked claim by claim — that is the remaining work, and it is larger
+than Part A was, because Part A collapses 571 claims into 26 facts while Part B
+enumerates them.
+
+The draft markers are still in place and `status` is still `"draft"` on all 92
+lessons. Removing them would assert a review that Part B has not had.
