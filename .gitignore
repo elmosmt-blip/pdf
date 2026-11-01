@@ -12,3 +12,10 @@ course-preview/
 
 # round-4 extraction: rebuild seed, the zip itself is tracked
 course-fix/r4/
+
+# derived round bundles — shipped to Google Drive, reproducible from
+# course-fix/scripts/ + course-fix/data/ + course-fix/img/.
+# r4 (11.9 MB) stays tracked: it is the rebuild seed after a sandbox reset.
+course-fix/course-fix-2026-10-31-r2.zip
+course-fix/course-fix-2026-10-31-r3.zip
+course-fix/course-fix-2026-*-r*.zip
