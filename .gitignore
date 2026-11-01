@@ -9,3 +9,6 @@ course-fix/r3/
 
 # live preview server root (served on :8080, not part of the deliverable)
 course-preview/
+
+# round-4 extraction: rebuild seed, the zip itself is tracked
+course-fix/r4/

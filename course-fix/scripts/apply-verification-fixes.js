@@ -499,6 +499,219 @@ function main() {
   note('FIX V12d q-m12l06-02 rewritten: the previous prompt invented a "Class 2 cleanliness limit of 3.12 µg/cm²" that no source supports');
 
   // =====================================================================
+  // V13 — module 06 questions still grade the learner on the wrong
+  // premises (2 °C/s ramp limit, a single "245-250 °C" or "217-227 °C"
+  // peak window, a 217 °C liquidus, and a fabricated TAL formula).
+  // =====================================================================
+  const q_m06l02 = findQuestion(questions, 'q-m06l02-02');
+  q_m06l02.prompt = "Using the lesson's rule-of-thumb limits (ramp 1-4 °C/s, time above liquidus 60-120 s from the paste datasheet, and peak not above the J-STD-020 classification temperature of 250 °C for a large package), a measured profile for SAC305 ramps from 150 °C to liquidus in 30 s, crosses liquidus upward at 120 s and downward at 210 s, and peaks at 242 °C. Which check fails?";
+  q_m06l02.options = [
+    { id: 'a', text: 'Ramp rate, because (219 − 150) / 30 = 2.3 °C/s, above the rule-of-thumb limit.' },
+    { id: 'b', text: 'Time above liquidus, because 210 − 120 = 90 s, outside the 60-120 s window.' },
+    { id: 'c', text: 'Peak, because 242 °C exceeds the classification temperature.' },
+    { id: 'd', text: 'None, because all checks pass.' }
+  ];
+  q_m06l02.correct = 'd';
+  q_m06l02.explanation = 'Ramp rate is (219 − 150) / 30 = 2.3 °C/s, inside the 1-4 °C/s range. Time above liquidus is 210 − 120 = 90 s, inside the 60-120 s paste window. Peak margin to the 250 °C classification temperature is 8 °C. All three checks pass, so no profile change is required. Re-verify if the package size changes, because the classification temperature is 260 °C for small packages and 245 °C for very large ones, and remember that the 30 s figure in J-STD-020 is tp, the time within 5 °C of the classification temperature, not the paste-window time above liquidus.';
+  note('FIX V13a q-m06l02-02 rewritten: the previous 2 °C/s ramp limit contradicted the lesson and produced a false failure');
+
+  const q_m06l03 = findQuestion(questions, 'q-m06l03-02');
+  q_m06l03.prompt = 'Using the J-STD-020 classification temperatures for SAC305 (260 °C small package, 250 °C large package, 245 °C very large package) and the lesson formula minimum margin = min(classification temperature − hottest measured, coolest measured − liquidus), a survey records a coolest part peak of 246 °C and a hottest part peak of 252 °C on a large package. The SAC305 liquidus is 219 °C. What is the minimum margin and the disposition?';
+  q_m06l03.options = [
+    { id: 'a', text: '−2 °C; the hottest part exceeds the classification temperature, so the profile fails.' },
+    { id: 'b', text: '2 °C; passes.' },
+    { id: 'c', text: '27 °C; passes.' },
+    { id: 'd', text: '6 °C; passes.' }
+  ];
+  q_m06l03.correct = 'a';
+  q_m06l03.explanation = 'min(250 − 252, 246 − 219) = min(−2 °C, 27 °C) = −2 °C. The hottest location exceeds the classification temperature by 2 °C, so the profile fails regardless of the comfortable margin above liquidus at the coolest location. Option b is half the peak-to-peak spread, option c is the coolest-site margin above liquidus only, and option d is the peak spread. The classification temperature depends on package size, so confirm the size before disposition.';
+  note('FIX V13b q-m06l03-02 rewritten: there is no single J-STD-020 "245-250 °C SAC305 peak window"');
+
+  const q_m06l04 = findQuestion(questions, 'q-m06l04-02');
+  q_m06l04.prompt = 'For a SAC305 board, the cited process guidance gives a maximum ramp rate of 4 °C/s, a liquidus of 219 °C, a J-STD-020 classification temperature of 250 °C for a large package, and a minimum time above liquidus of 60 s. If a heavy-plane board is ramped from the lower soak limit of 150 °C at the maximum allowed ramp rate, what is the minimum elapsed time from that soak exit to the end of the minimum time above liquidus?';
+  q_m06l04.options = [
+    { id: 'a', text: '77 s' },
+    { id: 'b', text: '60 s' },
+    { id: 'c', text: '17 s' },
+    { id: 'd', text: '92 s' }
+  ];
+  q_m06l04.correct = 'a';
+  q_m06l04.explanation = 'Time to reach liquidus is (219 °C − 150 °C) ÷ 4 °C/s = 17.25 s. The minimum time above liquidus is 60 s, so the minimum elapsed time from soak exit to the end of that interval is 17.25 s + 60 s = 77.25 s, rounded to 77 s. The 92 s option adds the full ramp to the classification temperature plus 60 s, which double-counts time already inside the above-liquidus interval; 60 s ignores the time needed to reach liquidus; 17 s ignores the required time above liquidus.';
+  note('FIX V13c q-m06l04-02 rewritten: the previous "peak window of 217-227 °C" is not a real window');
+
+  const q_m06l05 = findQuestion(questions, 'q-m06l05-02');
+  q_m06l05.prompt = 'A high-thermal-mass SAC305 board is profiled using process guidance: liquidus 219 °C, peak 245 °C, minimum time above liquidus 60 s, and maximum ramp rate 4 °C/s. If the board ramps from liquidus to peak at the maximum ramp rate and then dwells at peak before cooling, calculate the minimum dwell at peak required so that the time above liquidus just meets the minimum.';
+  q_m06l05.options = [
+    { id: 'a', text: 'About 54 s' },
+    { id: 'b', text: '60 s' },
+    { id: 'c', text: 'About 40 s' },
+    { id: 'd', text: 'About 88 s' }
+  ];
+  q_m06l05.correct = 'a';
+  q_m06l05.explanation = 'Time above liquidus includes the ramp from liquidus to peak plus the dwell at peak. Ramp time = (245 °C − 219 °C) / 4 °C/s = 6.5 s. Required dwell = 60 s − 6.5 s = 53.5 s, about 54 s. Option b ignores the ramp time above liquidus; option c corresponds to using a 6.5 °C/s ramp rate; option d adds the liquidus-to-peak temperature difference to the required time instead of converting it to time.';
+  note('FIX V13d q-m06l05-02 rewritten: liquidus 219 °C, ramp 4 °C/s, and the limits are process guidance not J-STD-020 parameters');
+
+  const q_m06l06 = findQuestion(questions, 'q-m06l06-02');
+  q_m06l06.prompt = 'Using the lesson rule that the cooling portion of time above liquidus is (peak temperature − liquidus temperature) / cooling rate, the SAC305 values liquidus 219 °C and peak 245 °C, the paste-window time above liquidus of 60 to 120 s, and a rule-of-thumb cooling rate of 0.2 °C/s, what is the cooling time and the bounded corrective action for a dewetting signature?';
+  q_m06l06.options = [
+    { id: 'a', text: '130 s; increase the cooling rate to at least 0.22 °C/s to bring time above liquidus into the paste window, then verify by thermocouple.' },
+    { id: 'b', text: '26 s; no change is needed because the temperature difference is the time above liquidus, then verify by shear.' },
+    { id: 'c', text: '120 s; reduce the cooling rate to the upper paste-window limit, then verify by AOI.' },
+    { id: 'd', text: '60 s; raise the peak temperature to reach the lower paste-window limit, then verify by X-ray.' }
+  ];
+  q_m06l06.correct = 'a';
+  q_m06l06.explanation = '245 − 219 = 26 °C; 26 ÷ 0.2 °C/s = 130 s of cooling time, which is longer than the 120 s upper bound of the paste window. The minimum cooling rate to reach 120 s is 26 ÷ 120 ≈ 0.22 °C/s. Option b reports a temperature difference rather than a time, option c moves in the wrong direction, and option d raises the peak, which lengthens rather than shortens the exposure. Note that time above liquidus is a measured profile quantity from IPC-7530 and the paste datasheet, not a J-STD-020 parameter.';
+  note('FIX V13e q-m06l06-02 rewritten: the previous prompt presented TAL = (peak − liquidus)/cooling rate as a J-STD-020 formula');
+
+  // =====================================================================
+  // V14 — q-m08l01-02: IPC-2221 does not set hole/lead clearance, and
+  // IPC-A-610 does not set a 100% Class 3 fill.
+  // =====================================================================
+  const q_m08l01 = findQuestion(questions, 'q-m08l01-02');
+  q_m08l01.prompt = 'Using a rule-of-thumb diametral clearance of 0.30 mm between lead and plated hole and the IPC-A-610 minimum vertical barrel fill, a rule-of-thumb lead diameter of 0.50 mm is used. What plated-hole diameter and expected solder fill should be specified?';
+  q_m08l01.options = [
+    { id: 'a', text: '0.80 mm plated-hole diameter and at least 75% vertical barrel fill' },
+    { id: 'b', text: '0.80 mm plated-hole diameter and 100% expected solder fill' },
+    { id: 'c', text: '0.20 mm plated-hole diameter and at least 75% fill' },
+    { id: 'd', text: '0.50 mm plated-hole diameter and at least 75% fill' }
+  ];
+  q_m08l01.correct = 'a';
+  q_m08l01.explanation = 'Plated-hole diameter = lead diameter + diametral clearance = 0.50 mm + 0.30 mm = 0.80 mm. IPC-A-610 sets a minimum vertical barrel fill of 75% for both Class 2 and Class 3, with Class 3 additionally requiring visible fillets on both sides; 100% fill is a customer requirement, not an IPC-A-610 class limit. The 0.30 mm clearance is a design rule of thumb rather than an IPC-2221 requirement, so verify it against your drill, plating and lead tolerances.';
+  note('FIX V14 q-m08l01-02 rewritten: removed the IPC-2221 attribution and the "Class 3 expects 100% fill" claim');
+
+  // =====================================================================
+  // V15 — q-m11l02-02: a "liquidus + 50 °C" tip rule contradicts both
+  // m11l01 (340-360 °C) and m11l02 (330-350 °C) and uses the solidus.
+  // =====================================================================
+  const q_m11l02 = findQuestion(questions, 'q-m11l02-02');
+  q_m11l02.prompt = 'A SAC305 lead-free through-hole joint is hand-soldered on a board preheated to 100 °C. Using the lesson rule-of-thumb margin of about 120 °C above the SAC305 liquidus of 219 °C, which places the setpoint in the 330-350 °C range taught for SAC-type solder on a preheated board, and a dwell of 2 s, what temperature-time thermal budget is applied if thermal budget = tip temperature × dwell time?';
+  q_m11l02.options = [
+    { id: 'a', text: '678 °C·s' },
+    { id: 'b', text: '339 °C·s' },
+    { id: 'c', text: '558 °C·s' },
+    { id: 'd', text: '478 °C·s' }
+  ];
+  q_m11l02.correct = 'a';
+  q_m11l02.explanation = 'Tip temperature = 219 °C + 120 °C = 339 °C, which sits inside the 330-350 °C range taught for SAC-type solder on a preheated board. Thermal budget = 339 °C × 2 s = 678 °C·s. Option b omits the dwell time, option c uses half the margin, and option d subtracts the board preheat, which is already accounted for in the tip setpoint. Note that 217 °C is the SAC305 solidus, not the liquidus.';
+  note('FIX V15 q-m11l02-02 rewritten: the previous "liquidus 217 °C" and "+50 °C" tip rule contradicted m11l01 and m11l02');
+
+  // =====================================================================
+  // V16 — m06l01 still carried the single "245 °C qualified peak" and
+  // attributed time above liquidus to J-STD-020 in two more blocks.
+  // =====================================================================
+  const m06l01x = findLesson(lessons, 'm06l01');
+  findTheory(m06l01x, 'Peak temperature').p = applyReplace(
+    'V16a m06l01 peak temperature classification',
+    findTheory(m06l01x, 'Peak temperature').p,
+    'For SAC305, J-STD-020 specifies a qualification peak temperature of 245 °C. Production peaks are often set below the qualified peak with margin, and should be verified with thermocouples on the actual board. Exceeding the qualified peak can damage components, delaminate packages, or create excessive intermetallic growth.',
+    'For SAC305, J-STD-020 does not give one peak temperature: it gives classification temperatures by package size, 260 °C for small packages, 250 °C for large packages and 245 °C for very large packages, each with tp, the time within 5 °C of that temperature, limited to 30-40 s. Production peaks are often set below the classification temperature with margin, and should be verified with thermocouples on the actual board. Exceeding the classification temperature can damage components, delaminate packages, or create excessive intermetallic growth.'
+  );
+  findTheory(m06l01x, 'Judging against J-STD-020').p = applyReplace(
+    'V16b m06l01 judging the profile',
+    findTheory(m06l01x, 'Judging against J-STD-020').p,
+    'To judge a measured profile against J-STD-020, compare the measured peak temperature and time above liquidus to the limits for the component and alloy in the current revision. The comparison should use the worst-case measured point, not the oven profile or a single thermocouple. If the measured peak or time above liquidus exceeds the qualified limit, the assembly is not compliant unless a separate qualification supports the exposure.',
+    'To judge a measured profile, compare the measured peak against the J-STD-020 classification temperature for the package size, and the measured time above liquidus against the paste-datasheet window, typically 60-150 s under IPC-7530 guidance. The comparison should use the worst-case measured point, not the oven profile or a single thermocouple. If the measured peak exceeds the classification temperature, or the time above liquidus falls outside the datasheet window, the assembly is not compliant unless a separate qualification supports the exposure.'
+  );
+  m06l01x.content.calc.task = applyReplace(
+    'V16c m06l01 calc task basis',
+    m06l01x.content.calc.task,
+    'A SAC305 paste datasheet gives liquidus 217 °C. A 1.6 mm board with 70 µm copper and a 12 mm BGA is reflowed. The target is to stay within J-STD-020 peak 245 °C and time above liquidus 60-150 s.',
+    'A SAC305 paste datasheet gives a solidus of 217 °C and a liquidus of 219 °C. A 1.6 mm board with 70 µm copper and a 12 mm BGA is reflowed. The target is to stay within the J-STD-020 classification temperature for the package size and a time above liquidus of 60-150 s from the paste datasheet.'
+  );
+  m06l01x.content.calc.solution = applyReplace(
+    'V16d m06l01 calc solution',
+    m06l01x.content.calc.solution,
+    '1. Confirm alloy liquidus from paste datasheet: 217 °C. 2. Set soak target from paste datasheet, e.g. 140-180 °C for 90-120 s; choose 165 °C for 90 s for this board. 3. Ramp to liquidus; measured ramp 1.5 °C/s is within typical practice, verify equipment. 4. Calculate time above liquidus from measured data: time when temperature exceeds 217 °C until it falls below 217 °C = 75 s. 5. Compare peak 242 °C to J-STD-020 qualified peak of 245 °C: pass, with 3 °C margin. 6. Compare time above liquidus 75 s to J-STD-020 window 60-150 s: pass. 7. Check cooling 2.5 °C/s against paste and equipment datasheet; if warpage or cracking is observed, slow cooling. 8. Conclusion: measured profile passes J-STD-020 peak and time above liquidus limits for this board, but production limits should be qualified and monitored.',
+    '1. Confirm alloy liquidus from the paste datasheet: SAC305 has a solidus of 217 °C and a liquidus of 219 °C, so time above liquidus is measured from the 219 °C crossing. 2. Set soak target from the paste datasheet, e.g. 140-180 °C for 90-120 s; choose 165 °C for 90 s for this board. 3. Ramp to liquidus; measured ramp 1.5 °C/s is within typical practice, verify against the paste and oven datasheet. 4. Calculate time above liquidus from measured data: time when temperature exceeds 219 °C until it falls below 219 °C = 75 s. 5. Compare peak 242 °C with the J-STD-020 classification temperature for the package size: 242 °C passes for a small package (260 °C) or a large package (250 °C) and would fail for a very large package (245 °C), so confirm the package size before disposition. 6. Compare time above liquidus 75 s with the paste-datasheet window of 60-150 s: pass. This window is IPC-7530 and datasheet guidance, not a J-STD-020 parameter. 7. Check cooling 2.5 °C/s against the paste and equipment datasheet; if warpage or cracking is observed, slow cooling. The J-STD-020 classification ramp-down limit is 6 °C/s or less. 8. Conclusion: the measured profile passes the peak ceiling and the paste time-above-liquidus window for this board, but the package size must be confirmed for the peak ceiling, and production limits should be qualified and monitored.'
+  );
+
+  // =====================================================================
+  // V17 — m06l07 liquidus basis
+  // =====================================================================
+  const m06l07 = findLesson(lessons, 'm06l07');
+  m06l07.content.calc.task = applyReplace(
+    'V17 m06l07 calc task liquidus',
+    m06l07.content.calc.task,
+    'The paste datasheet gives liquidus 217 °C, recommended time above liquidus 60-90 s, and recommended peak 245-250 °C.',
+    'The paste datasheet gives a solidus of 217 °C and a liquidus of 219 °C, recommended time above liquidus 60-90 s, and recommended peak 245-250 °C.'
+  );
+
+  // =====================================================================
+  // V18 — m09l03 justification sentence still on the liquid basis
+  // =====================================================================
+  const m09l03x = findLesson(lessons, 'm09l03');
+  m09l03x.content.calc.solution = applyReplace(
+    'V18 m09l03 calc justification flux density',
+    m09l03x.content.calc.solution,
+    'A flux density of 1.0 mg/cm2 is enough to wet pads and leads without excessive fog.',
+    'A flux-solids density of 0.15 mg/cm2 is enough to wet pads and leads without excessive fog.'
+  );
+
+  // =====================================================================
+  // V19 — m06l02 theory still carried "peak 245 °C with a maximum TAL of
+  // 30 s" and a 217 °C liquidus.
+  // =====================================================================
+  const m06l02t = findLesson(lessons, 'm06l02');
+  findTheory(m06l02t, 'Reflow and time above liquidus: joint formation').p = applyReplace(
+    'V19a m06l02 TAL block',
+    findTheory(m06l02t, 'Reflow and time above liquidus: joint formation').p,
+    'For SAC305, liquidus is commonly taken as 217 °C; for SnPb, 183 °C. TAL that is too short produces insufficient intermetallic formation and weak joints; too long promotes excessive intermetallic growth, grain coarsening, and can damage component finishes. IPC J-STD-020 provides peak temperature and TAL limits by package type and moisture sensitivity level. For example, for many large MSL 3 packages the peak reflow temperature for SAC is specified as 245 °C with a maximum TAL above 217 °C of 30 seconds, but you must check the exact table for your component\'s body size and MSL.',
+    'For SAC305, solidus is 217 °C and liquidus is 219 °C; for SnPb eutectic, liquidus is 183 °C. TAL that is too short produces insufficient intermetallic formation and weak joints; too long promotes excessive intermetallic growth, grain coarsening, and can damage component finishes. The TAL window is process guidance from IPC-7530 and the paste datasheet, typically 60-120 s or 60-150 s. J-STD-020 does not set a board-assembly TAL limit: its own time parameter is tp, the time within 5 °C of the classification temperature, limited to 30-40 s for large and very large packages and 40 s for small ones, and its peak figures are classification temperatures by package size, 260 °C small, 250 °C large and 245 °C very large. Check the classification temperature for your component\'s body size and MSL before comparing a measured peak.'
+  );
+  findTheory(m06l02t, 'Reading the profile against your hardware').p = applyReplace(
+    'V19b m06l02 comparison basis',
+    findTheory(m06l02t, 'Reading the profile against your hardware').p,
+    'compare the measured ramp, soak, TAL, peak, and cooling against the limits from your paste datasheet and IPC J-STD-020 for the specific components.',
+    'compare the measured ramp, soak, TAL, peak, and cooling against the TAL window from your paste datasheet and the J-STD-020 classification temperature for the package size, which is the peak ceiling.'
+  );
+
+  // =====================================================================
+  // V20 — align q-m06l02-02 with the lesson's 1-3 °C/s ramp guidance
+  // =====================================================================
+  const q_m06l02x = findQuestion(questions, 'q-m06l02-02');
+  q_m06l02x.prompt = applyReplace(
+    'V20a q-m06l02-02 prompt ramp limit',
+    q_m06l02x.prompt,
+    "Using the lesson's rule-of-thumb limits (ramp 1-4 °C/s,",
+    "Using the lesson's rule-of-thumb limits (ramp 1-3 °C/s,"
+  );
+  q_m06l02x.options[0].text = applyReplace(
+    'V20b q-m06l02-02 option a',
+    q_m06l02x.options[0].text,
+    'above the rule-of-thumb limit.',
+    'above the 1-3 °C/s rule-of-thumb limit.'
+  );
+  q_m06l02x.explanation = applyReplace(
+    'V20c q-m06l02-02 explanation ramp limit',
+    q_m06l02x.explanation,
+    'Ramp rate is (219 − 150) / 30 = 2.3 °C/s, inside the 1-4 °C/s range.',
+    'Ramp rate is (219 − 150) / 30 = 2.3 °C/s, inside the 1-3 °C/s range taught in the lesson.'
+  );
+
+  // =====================================================================
+  // V21 — m10l02 calc sentence gains the same basis note as its theory
+  // =====================================================================
+  const m10l02x = findLesson(lessons, 'm10l02');
+  m10l02x.content.calc.solution = applyReplace(
+    'V21 m10l02 calc basis note',
+    m10l02x.content.calc.solution,
+    'Use flux-on-the-fly with 0.10 mg/mm^2 to 0.20 mg/mm^2 on the joint area; for the ground pad, aim near 0.20 mg/mm^2 if residue allows.',
+    'Use flux-on-the-fly with 0.10 mg/mm^2 to 0.20 mg/mm^2 on the joint area (a per-joint-area basis, not the flux-solids-per-board-area basis used for wave soldering in Module 09); for the ground pad, aim near 0.20 mg/mm^2 if residue allows.'
+  );
+
+  // =====================================================================
+  // V22 — m06l04 task still ramps to 217 °C (the solidus) while its own
+  // solution now ramps to 219 °C.
+  // =====================================================================
+  const m06l04x = findLesson(lessons, 'm06l04');
+  m06l04x.content.calc.task = applyReplace(
+    'V22 m06l04 calc task ramp target',
+    m06l04x.content.calc.task,
+    'A pad-level profile shows ramp from 150 °C to 217 °C in 37 s, time above 217 °C of 85 s, and peak 238 °C.',
+    'A pad-level profile shows ramp from 150 °C to 219 °C in 37 s, time above 219 °C of 85 s, and peak 238 °C.'
+  );
+
+  // =====================================================================
   // Sources added by this round
   // =====================================================================
   const NEW_SOURCES = [
