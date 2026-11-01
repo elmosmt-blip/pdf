@@ -1279,12 +1279,20 @@ sign-off that is not ours to give — and over `factchecked`, which the UI still
 styles as a draft. The `review` string is replaced with a factual audit record,
 never blanked: it is the only place the D1–D14 history lives.
 
-**The scope disclaimer is kept, deliberately.** The original footer text
-bundled two claims of very different standing. "Unreviewed draft" and
-"TBD-REVIEW" were status claims and are now false. "Nothing here is a work
-instruction until a human reviewer signs it off" is not a status claim — it is
-a statement about what this deliverable is, and it stays true forever. Deleting
-it would have been the one dishonest option available.
+**Two claims, two fates.** The original footer bundled a status claim and a
+scope note. "Unreviewed draft" was the status claim and is now false. "A
+training course is not a work instruction" is the scope note; the author
+confirmed it stays, and the footer still says it.
+
+The sign-off demand did not stay. The round-17 banner ended by requiring that
+"a work instruction has to be released by your own process authority before it
+goes on the line", and the review checklist carried a matching "Human sign-off"
+item under what was still open. Both were removed at the author's instruction
+in round 19: a requirement to obtain someone else's release is not a statement
+about the deliverable, and the course does not get to impose one. The banner now
+ends where the footer does — "this course teaches the method, it is not a work
+instruction" — and the checklist's open list holds only the two items that are
+genuinely still open.
 
 ## Three markers lived in the shell, not in the data
 

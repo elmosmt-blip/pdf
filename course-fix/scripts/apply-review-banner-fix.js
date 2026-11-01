@@ -38,17 +38,21 @@
  * Replaces the three with statements that are true of the current build:
  *   - the review record, naming what was actually checked
  *   - what every lesson carries
- *   - and the scope disclaimer, which is kept rather than deleted
+ *   - and the scope note, which stays
  *
- * On the scope disclaimer, deliberately: the original text bundled two claims
- * of very different standing. "Unreviewed draft" and "TBD-REVIEW" were status
- * claims, and they are now false — the audit record in REVIEW_CHECKLIST.md is
- * real. "Nothing here is a work instruction until a human reviewer signs it
- * off" is not a status claim, it is a statement about what this deliverable
- * is, and it stays true forever: a training course is not a work instruction,
- * and a work instruction has to be released by the reader's own process
- * authority. Deleting it would be the one dishonest option available here, so
- * it is kept and made the load-bearing line instead.
+ * The original footer bundled two claims of very different standing.
+ * "Unreviewed draft" and "TBD-REVIEW" were status claims, and they are now
+ * false — the audit record in REVIEW_CHECKLIST.md is real. "A training course
+ * is not a work instruction" is not a status claim, it is what this
+ * deliverable is, and it stays true forever; the footer keeps it and the
+ * author confirmed it should stay.
+ *
+ * Round 18 removed the rest. The round-17 banner had ended by demanding that
+ * "a work instruction has to be released by your own process authority before
+ * it goes on the line" — a sign-off requirement, not a statement about the
+ * deliverable. The author asked for it to come off, and the review checklist
+ * no longer carries a human-sign-off item either. Step 1b patches trees that
+ * already have the round-17 wording.
  *
  * Idempotent: each substitution is guarded on the presence of its old text.
  *
@@ -94,9 +98,16 @@ sub('index banner', APP,
     "      '<p class=\"measure flush\">Every lesson carries a source reference, and every quiz answer ' +\n" +
     "      'names the source it is graded against. The audit record — what was checked, and the ' +\n" +
     "      'defects it found — is in <code>REVIEW_CHECKLIST.md</code>. Standards are named, never ' +\n" +
+    "      'quoted: this course teaches the method, it is not a work instruction.</p></div>';\n");
+
+/* 1b. the round-17 wording carried a sign-off demand in its last clause. The
+     author asked for it to go; the footer line, which says only that this is a
+     training course and not a work instruction, was explicitly kept. */
+sub('index banner (round-17 wording)', APP,
     "      'quoted: this course teaches the method, it is not a work instruction, and a work ' +\n" +
     "      'instruction has to be released by your own process authority before it goes on the ' +\n" +
-    "      'line.</p></div>';\n");
+    "      'line.</p></div>';\n",
+    "      'quoted: this course teaches the method, it is not a work instruction.</p></div>';\n");
 
 /* 2. the stat-card label */
 sub('stat-card label', APP,

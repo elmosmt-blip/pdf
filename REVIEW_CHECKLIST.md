@@ -1158,9 +1158,6 @@ should still confirm the judgement calls:
 - Standards cited but absent from `sources.json` are flagged in Part B as
   "Registry entry: none". All 39 are now in the registry; the check stays so a
   future citation cannot slip through.
-- **Human sign-off.** The audit was done by an agent, not by a process engineer
-  with authority over your line. `status: "reviewed"` records that the content was
-  checked and sourced; it does not record that anyone released it.
 
 ### What "done" looks like
 
@@ -1174,8 +1171,4 @@ should still confirm the judgement calls:
 5. The `review` string is rewritten or cleared by the reviewer, not before.
    **Done — it now carries the audit record, and is never blanked.**
 
-The scope disclaimer is kept on purpose. "Unreviewed draft" and `TBD-REVIEW` were
-status claims and are now false. "A training course is not a work instruction, and
-a work instruction has to be released by your own process authority" is not a
-status claim — it is what this deliverable is, and it stays true forever.
 

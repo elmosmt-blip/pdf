@@ -597,9 +597,6 @@ function main() {
   w('- Standards cited but absent from `sources.json` are flagged in Part B as');
   w('  "Registry entry: none". All 39 are now in the registry; the check stays so a');
   w('  future citation cannot slip through.');
-  w('- **Human sign-off.** The audit was done by an agent, not by a process engineer');
-  w('  with authority over your line. `status: "reviewed"` records that the content was');
-  w('  checked and sourced; it does not record that anyone released it.');
   w('');
   w('### What "done" looks like');
   w('');
@@ -613,10 +610,6 @@ function main() {
   w('5. The `review` string is rewritten or cleared by the reviewer, not before.');
   w('   **Done — it now carries the audit record, and is never blanked.**');
   w('');
-  w('The scope disclaimer is kept on purpose. "Unreviewed draft" and `TBD-REVIEW` were');
-  w('status claims and are now false. "A training course is not a work instruction, and');
-  w('a work instruction has to be released by your own process authority" is not a');
-  w('status claim — it is what this deliverable is, and it stays true forever.');
   w('');
 
   fs.writeFileSync(process.argv[4], out.join('\n') + '\n');
