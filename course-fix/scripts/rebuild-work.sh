@@ -88,6 +88,13 @@ node course-fix/scripts/apply-review-banner-fix.js "$WORK"
 #        app.js and style.css, both of which are re-seeded from r4.
 node course-fix/scripts/apply-sources-spoiler.js "$WORK"
 
+# 4b-3. the sidebar's "Data: …" badge comes off. It was a build diagnostic
+#        wearing user-facing copy — the "Re-run node scripts/embed.js after
+#        editing data" clause is an instruction to whoever maintains the
+#        bundle, not to whoever is studying. The branch loadCourse took is
+#        still recorded, invisibly, so verify-runtime.js keeps its proof.
+node course-fix/scripts/apply-remove-data-note.js "$WORK"
+
 # 4c. Two things the r4 seed carries that are now wrong rather than merely old:
 #     the *.fixed.json trio (a round-4 migration artefact, referenced by
 #     nothing, and stale — sources.fixed.json still lists 17 sources against
@@ -188,6 +195,11 @@ checknode "no LLM in README"      0 'var fs=require("fs");var t=fs.readFileSync(
 checknode "sources behind spoiler" 1 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/assets/app.js","utf8");console.log(t.split("<details class=\"spoiler\">").length-1)'
 checknode "no plain Sources h2"    0 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/assets/app.js","utf8");console.log(t.split("<h2>Sources</h2>").length-1)'
 checknode "spoiler CSS present"    1 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/assets/style.css","utf8");console.log(t.indexOf(".sources details")>=0?1:0)'
+# Round 23: the sidebar data badge is gone, and the branch it reported is still
+# recorded invisibly so verify-runtime.js keeps its regression proof.
+checknode "no data badge in html"  0 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/index.html","utf8");console.log(t.split("data-source").length-1)'
+checknode "no data note text"      0 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/assets/app.js","utf8");console.log(t.split("Data: data/lessons.json").length-1+t.split("Data: assets/data-embed.js").length-1+t.split("Data: unavailable").length-1)'
+checknode "branch still recorded"  1 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/assets/app.js","utf8");console.log(t.indexOf("dataset.courseData")>=0?1:0)'
 checknode "README not stale"      0 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/README.txt","utf8");console.log(t.split("keeps status").length-1)'
 checknode "README sources 39"     1 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/README.txt","utf8");console.log(t.split("39 named standards").length-1)'
 # m07l06's theory shape. The data must be uniform objects, and the renderer

@@ -16,7 +16,8 @@
  *   3. loads them in that order into a vm context with a stubbed DOM, with
  *      window.fetch removed to simulate the file:// case
  *   4. asserts the course really rendered: #toc filled, #main no longer showing
- *      the loading placeholder, and #data-source reporting the embedded snapshot
+ *      the loading placeholder, and #app carrying the data-course-data branch
+ *      loadCourse reported
  *
  * Usage: node verify-runtime.js <dir-containing-index.html>
  */
@@ -210,14 +211,18 @@ async function main() {
     console.log('  #toc: ' + tocLinks + ' module link(s) rendered');
   }
 
-  var note = elements['data-source'] ? elements['data-source']._text : '';
-  console.log('  #data-source: "' + note + '"');
-  if (/^Data: loading/i.test(note) || !note) {
-    problems.push('#data-source still shows the loading placeholder — loadCourse never reported back');
-  } else if (fetchOk && !/fetched/i.test(note)) {
-    problems.push("#data-source reports \"" + note + "\" but a working fetch was provided, so it should have used the live JSON");
-  } else if (!fetchOk && !/embedded snapshot/i.test(note)) {
-    problems.push('#data-source reports "' + note + '" but fetch is unavailable, so it should have fallen back to the embedded snapshot');
+  /* The reader-facing "Data: …" badge is gone (round 23), but the branch it
+     reported is still the only proof that loadCourse reported back and which
+     path it took — that proof is what caught the round-5 bundle that never
+     ran at all. app.js now records it invisibly on #app as data-course-data. */
+  var via = (elements['app'] && elements['app'].dataset) ? elements['app'].dataset.courseData : '';
+  console.log('  #app[data-course-data]: "' + via + '"');
+  if (!via) {
+    problems.push('#app carries no data-course-data — loadCourse never reported back');
+  } else if (fetchOk && via !== 'fetch') {
+    problems.push('data-course-data is "' + via + '" but a working fetch was provided, so it should have been fetch');
+  } else if (!fetchOk && via !== 'embed') {
+    problems.push('data-course-data is "' + via + '" but fetch is unavailable, so it should have fallen back to embed');
   }
 
   if (problems.length) {

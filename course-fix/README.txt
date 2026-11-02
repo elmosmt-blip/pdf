@@ -37,8 +37,8 @@ CONTENTS
 
 FILES
 -----
-  index.html                    entry point (3,218 bytes)
-  assets/app.js                 renderer and router (50,722 bytes)
+  index.html                    entry point (3,157 bytes)
+  assets/app.js                 renderer and router (50,681 bytes)
   assets/style.css              design system (25,136 bytes)
   assets/data-embed.js          embedded snapshot for the file:// runtime
                                  (1,034,636 bytes) — MUST be replaced together
@@ -179,3 +179,9 @@ course: `rebuild-preview.sh` was copying the unfixed round-4 `index.html` into
 the preview, resurrecting the round-6 Rocket Loader delivery defect, and
 `rebuild-work.sh` was globbing a stale `*.fixed.json` trio back into the work
 tree on every rebuild.
+
+Round 23 took the sidebar's "Data: …" badge off the course. It was a build
+diagnostic wearing user-facing copy — the "Re-run node scripts/embed.js after
+editing data" clause is an instruction to whoever maintains the bundle, not to
+whoever is studying. The branch the data actually loaded from is still recorded,
+invisibly, so the boot harness keeps the proof it needs.

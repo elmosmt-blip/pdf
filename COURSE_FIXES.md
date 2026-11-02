@@ -1621,3 +1621,45 @@ data rather than written, so it cannot drift from the number of cards.
 
 **Round 22: one shell change, no course-data change.** `lessons.json`,
 `questions.json` and `sources.json` are untouched and remain a fixed point.
+
+## Round 23 — the sidebar's "Data: …" badge came off
+
+The sidebar footer carried a line telling the reader where the course data came
+from: the live JSON over http, or the embedded snapshot over file://. It ended
+with "Re-run `node scripts/embed.js` after editing data."
+
+That clause is the giveaway. The badge was a build and runtime diagnostic
+wearing the costume of user-facing copy — an instruction to whoever maintains
+the bundle, printed to whoever is studying. The author asked for it to go.
+
+`apply-remove-data-note.js` deletes the `<p id="data-source">` placeholder from
+`index.html` outright and rewrites `setDataNote()` so it writes no text.
+
+### The part that is easy to get wrong
+
+`setDataNote`'s output was not just cosmetic. `verify-runtime.js` asserted on
+it, and that assertion is the only proof that `loadCourse` reported back at all
+and which branch it took. It is the regression test for the worst defect this
+course has had: in round 5, Cloudflare's Rocket Loader had rewritten the script
+tags in `index.html` with a MIME type no browser executes, so `app.js` never
+ran, nothing ever reported back, and the delivered bundle showed a static
+"Loading course data…" shell. An HTTP 200 check passed the whole time, because
+a 200 says the bytes are reachable, not that the browser executes them.
+
+Deleting the badge without preserving the signal would have quietly disabled
+that regression test while leaving every check green. So `setDataNote` now
+records the branch invisibly, as `data-course-data` on `#app` — `fetch`, `embed`
+or `none` — and `verify-runtime.js` asserts on that instead. It is invisible to
+a reader and trivially readable by the harness.
+
+Verified in both directions: the patched tree reports `embed` under file:// and
+`fetch` with `--fetch-ok`; and a deliberately broken copy in which the write is
+neutered fails with "#app carries no data-course-data — loadCourse never
+reported back".
+
+The error path is unaffected. When the data cannot be loaded at all, `#main`
+already renders "Course data not found" with the reason; the badge was never
+what told the reader the course was broken.
+
+**Round 23: one shell change, no course-data change.** `lessons.json`,
+`questions.json` and `sources.json` are untouched and remain a fixed point.
