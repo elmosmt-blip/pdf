@@ -19,3 +19,7 @@ course-fix/r4/
 course-fix/course-fix-2026-10-31-r2.zip
 course-fix/course-fix-2026-10-31-r3.zip
 course-fix/course-fix-2026-*-r*.zip
+
+# NPI checklist tool: jsdom is a dev-only dependency for the UI smoke test
+npi/node_modules/
+npi/package-lock.json

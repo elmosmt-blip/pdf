@@ -1,0 +1,17 @@
+{
+  "name": "npi-checklist",
+  "version": "2026.11.1",
+  "private": true,
+  "description": "Последовательный NPI-чек-лист для производства SMT и THT: гейты, находки с фото, отчёт. Всё считается в браузере.",
+  "scripts": {
+    "start": "node serve.js",
+    "test": "node tests/run-all.js",
+    "check-data": "node scripts/check-data.js"
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "devDependencies": {
+    "jsdom": "^24.0.0"
+  }
+}
