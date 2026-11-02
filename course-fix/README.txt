@@ -22,7 +22,8 @@ CONTENTS
       grid beats a paragraph
     - a worked calculation with the arithmetic shown
     - a real defect, with symptom, cause and the action that clears it
-    - a source reference naming the standard or document it rests on
+    - a source reference naming the standard or document it rests on, collapsed
+      behind a spoiler with the count in its title
 
   Every one of the 92 lessons has a generated illustration, drawn in the course
   design system (background #0D1117, single signal teal #53d1cc, slate
@@ -37,8 +38,8 @@ CONTENTS
 FILES
 -----
   index.html                    entry point (3,218 bytes)
-  assets/app.js                 renderer and router (51,078 bytes)
-  assets/style.css              design system (24,727 bytes)
+  assets/app.js                 renderer and router (50,722 bytes)
+  assets/style.css              design system (25,136 bytes)
   assets/data-embed.js          embedded snapshot for the file:// runtime
                                  (1,034,636 bytes) — MUST be replaced together
                                  with the JSON files or the offline runtime
@@ -90,6 +91,9 @@ SCRIPTS
 
     apply-index-fix.js           the Cloudflare Rocket Loader defect that
                                  stopped app.js from executing at all
+    apply-sources-spoiler.js     collapses the per-lesson Sources list behind
+                                 a spoiler, reusing the course's own
+                                 "Show worked solution" pattern
     apply-marker-removal.js      per-lesson draft markers and TBD-REVIEW
     apply-review-banner-fix.js   the four shell-level markers, including the
                                  one that hid in a <meta> tag

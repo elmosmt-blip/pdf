@@ -83,6 +83,11 @@ node course-fix/scripts/apply-index-fix.js "$WORK"
 #     rather than in the data. Mandatory.
 node course-fix/scripts/apply-review-banner-fix.js "$WORK"
 
+# 4b-2. the per-lesson Sources list goes behind a spoiler, reusing the
+#        "Show worked solution" pattern the course already has. Touches both
+#        app.js and style.css, both of which are re-seeded from r4.
+node course-fix/scripts/apply-sources-spoiler.js "$WORK"
+
 # 4c. Two things the r4 seed carries that are now wrong rather than merely old:
 #     the *.fixed.json trio (a round-4 migration artefact, referenced by
 #     nothing, and stale — sources.fixed.json still lists 17 sources against
@@ -179,6 +184,10 @@ checknode "no audit pointer"      0 'var fs=require("fs");var t=fs.readFileSync(
 checknode "no LLM in app.js"      0 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/assets/app.js","utf8");var re=/\bLLM\b|language model|ChatGPT|GPT-[0-9]|Claude|Gemini|Qwen|Kimi|Grok|OpenAI|Anthropic/i;console.log(t.split(re).length-1)'
 checknode "no LLM in index.html"  0 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/index.html","utf8");var re=/\bLLM\b|language model|ChatGPT|GPT-[0-9]|Claude|Gemini|Qwen|Kimi|Grok|OpenAI|Anthropic/i;console.log(t.split(re).length-1)'
 checknode "no LLM in README"      0 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/README.txt","utf8");var re=/\bLLM\b|language model|ChatGPT|GPT-[0-9]|Claude|Gemini|Qwen|Kimi|Grok|OpenAI|Anthropic/i;console.log(t.split(re).length-1)'
+# Round 22: the Sources list is collapsed by default.
+checknode "sources behind spoiler" 1 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/assets/app.js","utf8");console.log(t.split("<details class=\"spoiler\">").length-1)'
+checknode "no plain Sources h2"    0 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/assets/app.js","utf8");console.log(t.split("<h2>Sources</h2>").length-1)'
+checknode "spoiler CSS present"    1 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/assets/style.css","utf8");console.log(t.indexOf(".sources details")>=0?1:0)'
 checknode "README not stale"      0 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/README.txt","utf8");console.log(t.split("keeps status").length-1)'
 checknode "README sources 39"     1 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/README.txt","utf8");console.log(t.split("39 named standards").length-1)'
 # m07l06's theory shape. The data must be uniform objects, and the renderer
@@ -214,5 +223,10 @@ checknode "bare N C in content"  0 'var L=require(process.cwd()+"/course-fix/wor
 #    reads, which is how m07l06 lost 4,318 characters (D15).
 node course-fix/scripts/check-calc-arithmetic.js "$WORK/data" | tail -2
 node course-fix/scripts/per-lesson-audit.js "$WORK" course-fix/img | tail -3
+
+# 7b. the README ships inside the bundle and is the first file a reader opens,
+#     so its byte counts and quoted figures must match what is actually there.
+#     Round 20 found it still asserting the round-4 build.
+node course-fix/scripts/check-readme.js "$WORK" course-fix/img | tail -6
 
 [ "$fail" = 0 ] && echo "rebuild-work: OK" || { echo "rebuild-work: FAILED"; exit 1; }

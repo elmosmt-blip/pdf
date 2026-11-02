@@ -1587,3 +1587,37 @@ markers. That is the round-6 delivery defect, resurrected by the script that is
 supposed to prevent it. It had been masked for four rounds by copying
 `work/index.html` by hand. Now fixed to copy the work-tree file, with a guard
 that exits 2 if the work tree is missing.
+
+## Round 22 — the Sources list went behind a spoiler
+
+The author asked for the per-lesson Sources section to be collapsible.
+
+It is the longest thing on a lesson page: one card per cited source, each
+carrying the edition, the clause, the licence, and who verified it and when. The
+distribution is what makes it worth collapsing — 25 lessons cite one source, but
+18 cite three, 10 cite five, and `m01l04` cites seven. The reader working through
+the method should not have to scroll past seven provenance cards to reach the
+next lesson; the reader who wants the trail opens it.
+
+The course already had a spoiler — "Show worked solution" in the calc block uses
+`<details><summary>…</summary><div class="details-body">…</div></details>`.
+This reuses that pattern exactly rather than inventing a second one, so the
+Sources section looks and behaves like something the course already does.
+
+`apply-sources-spoiler.js` does two things. In `app.js`, `sourcesHtml()`'s
+`<h2>Sources</h2>` heading becomes the `<summary>`, with the count folded into
+it, and the `<ul>` moves inside the wrapper. In `style.css`, `.sources details`
+drops the panel, border and padding that the generic `details` rule gives every
+details element — the source cards inside already carry their own panel, so
+without that override it renders as a box inside a box.
+
+Both files are re-seeded from the r4 zip on every rebuild, so both patches live
+in the rebuild chain as one step, and `rebuild-work.sh` grew three guards.
+
+Verified by rendering the real `app.js` in a stubbed DOM: `m01l04` produces
+`<summary>Sources — 7</summary>` with seven cards inside and no `open` attribute,
+and `m01l01` produces `Sources — 1` with one. The count is derived from the
+data rather than written, so it cannot drift from the number of cards.
+
+**Round 22: one shell change, no course-data change.** `lessons.json`,
+`questions.json` and `sources.json` are untouched and remain a fixed point.
