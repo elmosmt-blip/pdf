@@ -416,13 +416,24 @@
     if (gateNA[gateId]) {
       verdict = GATE_VERDICT.NA;
       done = true;
-    } else if (cov.percent < 100 || open.length > 0) {
-      verdict = openB.length > 0 ? GATE_VERDICT.NOT_RELEASED : GATE_VERDICT.OPEN;
+    } else if (openB.length > 0) {
+      // Блокирующая находка: гейт непройден, и он запирает все следующие.
+      verdict = GATE_VERDICT.NOT_RELEASED;
+    } else if (cov.percent < 100) {
+      // Проход неполон: гейт открыт, следующий не начинается.
+      verdict = GATE_VERDICT.OPEN;
+    } else if (openC.length > 0) {
+      // Проход полон, блокирующих находок нет, но есть открытая уровня C.
+      // Гейт пройден условно: следующий начинается, выпуск — нет.
+      // Наблюдения уровня W на вердикт гейта не влияют, ровно как и на
+      // вердикт по изделию.
+      verdict = GATE_VERDICT.CONDITIONAL;
     } else {
       verdict = GATE_VERDICT.RELEASED;
     }
 
-    if (verdict === GATE_VERDICT.RELEASED || verdict === GATE_VERDICT.NA) {
+    if (verdict === GATE_VERDICT.RELEASED || verdict === GATE_VERDICT.NA ||
+        verdict === GATE_VERDICT.CONDITIONAL) {
       done = true;
     }
 

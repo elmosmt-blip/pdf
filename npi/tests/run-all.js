@@ -13,11 +13,13 @@ var files = [
   'report.test.js',
   'store.test.js',
   'serve.test.js',
-  'ui-smoke.test.js'
+  'ui-smoke.test.js',
+  '../scripts/check-report-style.js'   // оформление отчёта, а не его логика
 ];
 
+var abspath = function (f) { return path.join(__dirname, f); };
 var missing = files.filter(function (f) {
-  return !fs.existsSync(path.join(__dirname, f));
+  return !fs.existsSync(abspath(f));
 });
 if (missing.length) {
   console.error('нет файлов тестов: ' + missing.join(', '));
@@ -39,7 +41,7 @@ var pending = [];   // [{ file, promise }] — имя нужно, индекс �
 files.forEach(function (f) {
   console.log('\n=== ' + f + ' ' + '='.repeat(Math.max(0, 52 - f.length)));
   try {
-    var exported = require(path.join(__dirname, f));
+    var exported = require(abspath(f));
     // Набор, который отдаёт промис, сообщает о конце сам. Иначе он молча
     // продолжает считаться идущим, и его сводка убегает после итоговой.
     if (exported && typeof exported.then === 'function') {

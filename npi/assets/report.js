@@ -11,7 +11,7 @@
  * Экспортирует одну глобаль: Report
  *   Report.buildReportHtml(project, checklist, opts) -> HTML-строка (экранировано)
  *   Report.exportDocument(project, checklist, opts)  -> standalone HTML-документ
- *   Report.printCss()                                -> светлая тема + печать
+ *   Report.reportCss() / Report.printCss()           -> светлая тема + печать
  *   Report.esc(value)                                -> экранирование HTML
  *
  * Правило безопасности: каждая динамическая строка проходит через esc()
@@ -128,10 +128,15 @@
       : 'vb--muted';
     var html = '<section class="verdict-banner ' + cls + '" aria-label="Итоговый вердикт">' +
       '<div class="verdict-row">' +
-      '<span class="verdict-badge vb-badge--' + cls.slice(3) + '">' + esc(v) + '</span>' +
-      '<span class="coverage-line">Покрытие ' + fmtPct(ex.coverage.percent) + ' % (' +
-      esc(ex.coverage.answered) + ' из ' + esc(ex.coverage.total) + ' применимых шагов)' +
-      ' · порог ' + esc(ex.threshold) + ' %</span>' +
+      '<span class="verdict-badge vb-badge--' + cls.slice(4) + '">' + esc(v) + '</span>' +
+      '<span class="coverage-line">Покрытие ' + fmtPct(ex.coverage.percent) + ' % · порог ' +
+      esc(ex.threshold) + ' %</span>' +
+      '</div>' +
+      '<div class="cov">' +
+      '<div class="cov-track"><div class="cov-fill" style="width:' +
+      Math.max(0, Math.min(100, ex.coverage.percent)) + '%"></div></div>' +
+      '<p class="cov-num">' + esc(ex.coverage.answered) + ' из ' + esc(ex.coverage.total) +
+      ' применимых шагов отвечено</p>' +
       '</div>';
     if (ex.reasons.length) {
       html += '<p class="verdict-why">На основании:</p><ul class="reasons">';
@@ -463,85 +468,273 @@
     return html + '</article>';
   }
 
-  function printCss() {
-    return [
-      'body{font-family:"Segoe UI","Helvetica Neue",Arial,sans-serif;color:#111;background:#fff;margin:0;line-height:1.45}',
-      'main{max-width:960px;margin:0 auto;padding:24px}',
-      'h1{font-size:1.6rem;margin:0 0 6px}h2{font-size:1.2rem;margin:28px 0 10px;padding-bottom:4px;border-bottom:2px solid #111}',
-      'h3{font-size:1rem;margin:22px 0 8px}',
-      'a{color:#000;text-decoration:none}',
-      '.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}',
-      '.muted{color:#555}.gid{color:#777;font-weight:400;font-size:.85em}',
-      'table{border-collapse:collapse;width:100%;margin:0 0 16px;font-size:.86rem}',
-      'th,td{border:1px solid #999;padding:6px 8px;text-align:left;vertical-align:top}',
-      'thead th{background:#f2f2f2}',
-      '.cover{border:1px solid #111;border-radius:4px;padding:18px 20px;margin:0 0 20px}',
-      '.cover-kicker{text-transform:uppercase;letter-spacing:.14em;font-size:.72rem;color:#555;margin:0 0 6px}',
-      '.cover h1{margin:0 0 2px}.cover-sub{margin:0 0 14px;color:#444;font-size:.92rem}',
-      '.cover-meta th{width:34%;background:#fafafa;font-weight:600}',
-      '.verdict-banner{border:1px solid #999;border-left:6px solid #555;border-radius:4px;padding:14px 16px;margin:0 0 20px}',
-      '.vb--ok{border-left-color:#1a7f37}.vb--warn{border-left-color:#9a6700}',
-      '.vb--risk{border-left-color:#b62324}.vb--muted{border-left-color:#57606a}',
-      '.verdict-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}',
-      '.verdict-badge{font-size:1.15rem;font-weight:700;letter-spacing:.02em}',
-      '.vb-badge--ok{color:#1a7f37}.vb-badge--warn{color:#9a6700}',
-      '.vb-badge--risk{color:#b62324}.vb-badge--muted{color:#57606a}',
-      '.coverage-line{color:#444;font-size:.9rem}',
-      '.verdict-why{margin:12px 0 4px;font-weight:600;font-size:.88rem}',
-      '.reasons{margin:6px 0 0;padding-left:22px;font-size:.88rem}',
-      '.verdict-rule{margin:12px 0 0;font-size:.78rem;color:#555;border-top:1px dotted #999;padding-top:8px}',
-      '.llm-summary{border:1px dashed #999;border-radius:4px;padding:12px 14px;margin:0 0 20px}',
-      '.llm-tag{font-size:.76rem;color:#555;margin:0 0 8px;font-family:ui-monospace,Menlo,Consolas,monospace}',
-      '.llm-text p{margin:0 0 8px}.llm-text ul{margin:0 0 8px;padding-left:22px}',
-      '.llm-caveat{font-size:.78rem;color:#555;margin:8px 0 0;border-top:1px dotted #999;padding-top:8px}',
-      '.gate-summary tbody tr.gs--ok{background:#f2fbf3}',
-      '.gate-summary tbody tr.gs--warn{background:#fffaf0}',
-      '.gate-summary tbody tr.gs--risk,.gate-summary tbody tr.gs--open{background:#fff5f5}',
-      '.gate-summary tbody tr.gs--muted{background:#f6f8fa;color:#555}',
-      '.gs-badge{display:inline-block;border:1px solid #555;border-radius:999px;padding:1px 9px;font-size:.76rem;font-weight:600;white-space:nowrap}',
-      '.gs--ok .gs-badge{border-color:#1a7f37;color:#1a7f37}',
-      '.gs--warn .gs-badge{border-color:#9a6700;color:#9a6700}',
-      '.gs--risk .gs-badge{border-color:#b62324;color:#b62324}',
-      '.gs--muted .gs-badge{border-color:#57606a;color:#57606a}',
-      '.open-items tbody tr.oi--B{background:#fff5f5}.open-items tbody tr.oi--C{background:#fffaf0}',
-      '.badge{display:inline-block;border:1px solid #555;border-radius:999px;padding:1px 9px;font-size:.76rem;font-weight:600;white-space:nowrap}',
-      '.badge--ok{border-color:#1a7f37;color:#1a7f37}.badge--risk{border-color:#b62324;color:#b62324}',
-      '.badge--muted{border-color:#57606a;color:#57606a}.badge--open{border-style:dashed;border-color:#9a6700;color:#9a6700}',
-      '.sev{display:inline-block;border:1px solid #555;border-radius:4px;padding:0 6px;font-size:.74rem;font-weight:700;margin-left:4px}',
-      '.sev--B{border-color:#b62324;color:#b62324}.sev--C{border-color:#9a6700;color:#9a6700}',
-      '.sev--W{border-color:#57606a;color:#57606a}',
-      '.chip{display:inline-block;border:1px solid #999;border-radius:999px;padding:0 8px;font-size:.7rem;color:#444}',
-      '.chip--unreviewed{color:#9a6700;border-color:#9a6700}',
-      '.finding{border:1px solid #999;border-radius:4px;padding:12px 14px;margin:0 0 14px}',
-      '.finding-head{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin:0 0 8px}',
-      '.finding-head h3{margin:0;font-size:1rem;flex:1 1 260px}',
-      '.finding-num{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;color:#555}',
-      '.fstatus{font-size:.76rem;border:1px solid #999;border-radius:999px;padding:1px 9px;color:#444}',
-      '.fs--open{border-color:#b62324;color:#b62324}.fs--contained{border-color:#9a6700;color:#9a6700}',
-      '.fs--closed{border-color:#1a7f37;color:#1a7f37}',
-      '.finding-fields th{width:26%;background:#fafafa;font-weight:600}',
-      '.plates{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 0}',
-      '.plate{margin:0;flex:1 1 300px;max-width:340px}',
-      '.plate img{width:100%;height:auto;border:1px solid #999;border-radius:3px;display:block}',
-      '.plate figcaption{font-size:.74rem;color:#555;margin-top:4px}',
-      '.plate--missing{border:1px dashed #b62324;padding:10px}',
-      '.plate-missing{color:#b62324;font-size:.8rem;margin:0}',
-      '.appendix-gate{border:1px solid #ddd;border-radius:4px;padding:10px 12px;margin:0 0 14px}',
-      '.appendix-gate.gate--na{background:#f6f8fa}',
-      '.steps{font-size:.78rem}',
-      '.steps td,.steps th{padding:4px 6px}',
-      '.step--unanswered td{background:#fffaf0}',
-      '.step--risk td{background:#fff5f5}',
-      '.step-id{white-space:nowrap;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.72rem}',
-      '.signoff-table td.sig-blank{height:34px}',
-      '.notes{border:1px solid #999;border-radius:4px;padding:12px 14px;background:#fafafa}',
-      '.notes ul{margin:8px 0 0;padding-left:22px;font-size:.84rem}',
-      '.report-foot{margin-top:24px;border-top:1px solid #999;padding-top:8px;font-size:.76rem;color:#555}',
-      '@media print{@page{size:A4;margin:14mm 12mm}main{max-width:none;padding:0}',
-      'h2,h3{page-break-after:avoid}.finding,.plate,.appendix-gate,tr,.verdict-banner,.llm-summary{page-break-inside:avoid;break-inside:avoid}',
-      'a{color:#000;text-decoration:none}.notes{background:#fff}}'
-    ].join('\n');
+  /*
+   * Таблица стилей отчёта. Одна на весь документ: и для предпросмотра в
+   * приложении, и для exportDocument. Светлая, печатная, с одним акцентом
+   * и семантическими цветами уровней. Внешних шрифтов и картинок нет —
+   * документ остаётся самодостаточным.
+   *
+   * Порядок правил значим: сначала общее, потом частные случаи. Так цвет
+   * плашки внутри тёмной обложки не зависит от того, чья специфичность
+   * окажется выше, — частное правило просто идёт позже.
+   */
+  function reportCss() {
+    return `/* ============================================================
+   Оформление отчёта NPI.
+
+   Светлое, печатное. Один акцент и семантические цвета уровней.
+   Внешних шрифтов и картинок нет — документ самодостаточен.
+
+   Порядок правил имеет значение: сначала общее, потом частные случаи.
+   Так плашка внутри тёмной обложки не зависит от того, чья специфичность
+   окажется выше, — частное правило просто идёт позже.
+   ============================================================ */
+
+*{box-sizing:border-box}
+
+:root{
+  --ink:#0b1f2d; --ink-2:#1c3242; --body:#35485a;
+  --muted:#6d8090; --faint:#94a5b2;
+  --hair:#dbe3ea;
+  --tint:#f5f8fa; --surf:#ffffff;
+  --acc:#0d6b7c; --acc-d:#095260;
+  --b:#a51d1d; --b-bg:#fdf2f2; --b-br:#ecc4c4;
+  --c:#8a5a08; --c-bg:#fdf8ec; --c-br:#ecd9ac;
+  --w:#55697a; --w-bg:#f3f6f8; --w-br:#d5dee5;
+  --ok:#166f3c; --ok-bg:#eef8f2; --ok-br:#b6d9c3;
+  --mono:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,"Liberation Mono",monospace;
+}
+
+/* ------------------------------------------------------------- основа */
+
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  font-size:14px;line-height:1.5;color:var(--body);background:#eef2f5;margin:0;
+  -webkit-font-smoothing:antialiased;
+}
+
+main{max-width:1000px;margin:0 auto;padding:34px 30px 48px;background:var(--surf);
+     box-shadow:0 1px 3px rgba(11,31,45,.06),0 18px 48px rgba(11,31,45,.07)}
+
+/* Корень документа: он же рамка предпросмотра в приложении. */
+.report{display:block}
+
+p{margin:0 0 10px}
+a{color:var(--acc);text-decoration:none}
+strong{color:var(--ink-2)}
+
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
+  clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.muted{color:var(--muted)}
+.gid{color:var(--faint);font-weight:400;font-size:.86em;font-family:var(--mono)}
+
+/* ---------------------------------------------------- общее: заголовки */
+
+h2{font-size:17px;font-weight:700;color:var(--ink);letter-spacing:-.012em;
+   margin:36px 0 14px;padding-bottom:9px;border-bottom:1px solid var(--hair);position:relative}
+h2::after{content:"";position:absolute;left:0;bottom:-1px;width:48px;height:2px;background:var(--acc)}
+h2:first-child{margin-top:0}
+h3{font-size:13.5px;font-weight:700;color:var(--ink-2);margin:22px 0 9px;letter-spacing:-.005em}
+
+/* ------------------------------------------------------ общее: таблицы */
+
+table{width:100%;border-collapse:collapse;margin:0 0 18px;font-size:12.5px;
+      font-variant-numeric:tabular-nums}
+
+thead th{
+  background:var(--acc);color:#fff;font-weight:600;font-size:10.5px;text-align:left;
+  text-transform:uppercase;letter-spacing:.075em;padding:9px 11px;border:1px solid var(--acc-d);
+  vertical-align:bottom;
+}
+tbody th,tbody td{border:1px solid var(--hair);padding:7px 11px;text-align:left;vertical-align:top}
+tbody th{font-weight:600;color:var(--ink-2);background:var(--tint);width:26%}
+tbody tr:nth-child(even) td{background:#fbfcfd}
+
+/* ------------------------------------------------ общее: плашки статуса */
+
+.badge{display:inline-block;padding:2px 9px;font-size:10.5px;font-weight:600;border-radius:3px;
+       white-space:nowrap;letter-spacing:.01em}
+.badge--ok{color:var(--ok);background:var(--ok-bg)}
+.badge--risk{color:var(--b);background:var(--b-bg)}
+.badge--muted{color:var(--w);background:var(--w-bg)}
+.badge--open{color:var(--c);background:var(--c-bg)}
+
+.sev{display:inline-block;min-width:24px;text-align:center;padding:2px 7px;font-size:11px;
+     font-weight:800;border-radius:3px;color:#fff;letter-spacing:.05em;line-height:1.35}
+.sev--B{background:var(--b)}
+.sev--C{background:var(--c)}
+.sev--W{background:var(--w)}
+
+.chip{display:inline-block;padding:1px 7px;font-size:10px;border-radius:3px;color:var(--c);
+      background:var(--c-bg);font-weight:600;letter-spacing:.02em}
+
+/* ------------------------------------------------------------- обложка */
+
+.cover{
+  background:linear-gradient(135deg,#073d49 0%,#0a5666 48%,#0f7386 100%);
+  color:#fff;border-radius:5px;padding:30px 34px 26px;position:relative;overflow:hidden;
+}
+.cover::after{
+  content:"";position:absolute;right:-60px;top:-60px;width:230px;height:230px;
+  border-radius:50%;background:rgba(255,255,255,.05);
+}
+.cover-kicker{
+  text-transform:uppercase;letter-spacing:.16em;font-size:10.5px;font-weight:600;
+  color:rgba(255,255,255,.72);margin:0 0 10px;
+}
+.cover h1{margin:0 0 4px;font-size:29px;font-weight:700;letter-spacing:-.022em;line-height:1.15}
+.cover-sub{margin:0;color:rgba(255,255,255,.8);font-size:13.5px}
+
+.cover-meta{margin:20px 0 0;font-size:12.5px;border-collapse:collapse;width:100%;
+            font-variant-numeric:tabular-nums}
+.cover-meta tbody tr:nth-child(even) td{background:transparent}
+.cover-meta th,.cover-meta td{
+  border:0;border-top:1px solid rgba(255,255,255,.15);padding:7px 10px;width:auto;
+  background:transparent;color:#fff;font-weight:500;text-align:left;vertical-align:top;
+}
+.cover-meta th{width:29%;background:rgba(255,255,255,.07);color:rgba(255,255,255,.66)}
+
+/* -------------------------------------------------------------- вердикт */
+
+.verdict-banner{
+  border:1px solid var(--w-br);border-left:5px solid var(--w);
+  background:var(--w-bg);border-radius:5px;padding:20px 22px 18px;margin:22px 0 0;
+}
+/* Варианты раскрыты явно, без косвенных переменных: вердикт — самый важный
+   элемент документа, и его цвет не должен зависеть от каскада переменных. */
+.vb--ok{border-color:var(--ok-br);border-left-color:var(--ok);background:var(--ok-bg)}
+.vb--warn{border-color:var(--c-br);border-left-color:var(--c);background:var(--c-bg)}
+.vb--risk{border-color:var(--b-br);border-left-color:var(--b);background:var(--b-bg)}
+.vb--muted{border-color:var(--w-br);border-left-color:var(--w);background:var(--w-bg)}
+
+.verdict-row{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin:0 0 12px}
+.verdict-badge{font-size:23px;font-weight:800;letter-spacing:-.015em;color:var(--ink-2);
+               line-height:1.1}
+.vb-badge--ok{color:var(--ok)}.vb-badge--warn{color:var(--c)}
+.vb-badge--risk{color:var(--b)}.vb-badge--muted{color:var(--w)}
+.coverage-line{color:var(--ink-2);font-size:12.5px;font-variant-numeric:tabular-nums}
+
+.cov{margin:0 0 14px}
+.cov-track{height:9px;background:rgba(11,31,45,.09);border-radius:99px;overflow:hidden}
+.cov-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--acc-d),#1596ab)}
+.cov-num{font-size:11px;color:var(--muted);margin:6px 0 0;font-variant-numeric:tabular-nums;
+         letter-spacing:.02em}
+
+.verdict-why{margin:0 0 6px;font-weight:700;font-size:12px;color:var(--ink-2);
+             text-transform:uppercase;letter-spacing:.07em}
+.reasons{margin:0;padding-left:20px;font-size:13px}
+.reasons li{margin:0 0 4px}
+.reasons-empty{margin:0;font-size:13px;color:var(--ink-2)}
+.verdict-rule{margin:16px 0 0;font-size:11.5px;color:var(--muted);line-height:1.55;
+              border-top:1px solid var(--hair);padding-top:11px}
+
+/* -------------------------------------------------------- резюме модели */
+
+.llm-summary{border:1px solid var(--hair);border-left:4px solid var(--acc);border-radius:5px;
+             padding:15px 17px;margin:20px 0 0;background:var(--tint)}
+.llm-tag{font-family:var(--mono);font-size:10.5px;color:var(--muted);margin:0 0 9px;
+         letter-spacing:.01em}
+.llm-text p{margin:0 0 9px;font-size:13px}
+.llm-text ul{margin:0 0 9px;padding-left:20px;font-size:13px}
+.llm-caveat{font-size:11.5px;color:var(--muted);margin:11px 0 0;line-height:1.55;
+            border-top:1px solid var(--hair);padding-top:10px}
+
+/* -------------------------------------------- частные случаи: таблицы */
+
+.gate-summary tbody tr.gs--ok{background:var(--ok-bg)}
+.gate-summary tbody tr.gs--warn{background:var(--c-bg)}
+.gate-summary tbody tr.gs--risk,.gate-summary tbody tr.gs--open{background:var(--b-bg)}
+.gate-summary tbody tr.gs--muted{background:var(--w-bg)}
+.gs-badge{display:inline-block;padding:2px 10px;font-size:11px;font-weight:600;border-radius:99px;
+          white-space:nowrap;letter-spacing:.01em;background:#fff}
+.gs--ok .gs-badge{color:var(--ok);box-shadow:inset 0 0 0 1px var(--ok-br)}
+.gs--warn .gs-badge{color:var(--c);box-shadow:inset 0 0 0 1px var(--c-br)}
+.gs--risk .gs-badge,.gs--open .gs-badge{color:var(--b);box-shadow:inset 0 0 0 1px var(--b-br)}
+.gs--muted .gs-badge{color:var(--w);box-shadow:inset 0 0 0 1px var(--w-br)}
+
+.open-items tbody tr.oi--B{background:var(--b-bg)}
+.open-items tbody tr.oi--C{background:var(--c-bg)}
+.open-items tbody tr.oi--W,.open-items tbody tr.oi--N{background:var(--w-bg)}
+
+.finding-fields tbody th{width:24%}
+.finding-fields tbody tr:nth-child(even) td{background:transparent}
+
+/* ------------------------------------------------------- реестр находок */
+
+.finding{border:1px solid var(--hair);border-radius:5px;margin:0 0 18px;overflow:hidden;
+         background:var(--surf);box-shadow:0 1px 2px rgba(11,31,45,.04)}
+.finding-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:11px 15px;
+              background:var(--tint);border-bottom:1px solid var(--hair)}
+.finding-head h3{margin:0;font-size:14px;flex:1 1 240px;color:var(--ink);letter-spacing:-.008em}
+.finding-num{font-family:var(--mono);font-size:10.5px;color:var(--muted);background:var(--surf);
+             border:1px solid var(--hair);border-radius:3px;padding:1px 7px;font-weight:600}
+.fstatus{font-size:10.5px;padding:2px 10px;border-radius:99px;font-weight:600;white-space:nowrap;
+         letter-spacing:.02em}
+.fs--open{color:var(--b);border:1px solid var(--b-br);background:var(--b-bg)}
+.fs--contained{color:var(--c);border:1px solid var(--c-br);background:var(--c-bg)}
+.fs--closed{color:var(--ok);border:1px solid var(--ok-br);background:var(--ok-bg)}
+.finding-fields{margin:0;font-size:12.5px}
+
+.plates{display:flex;flex-wrap:wrap;gap:13px;padding:14px 15px 4px}
+.plate{margin:0;flex:1 1 250px;max-width:320px}
+.plate img{width:100%;height:auto;display:block;border:1px solid var(--hair);border-radius:3px;
+           background:#fff}
+.plate figcaption{font-size:10.5px;color:var(--muted);margin-top:6px;
+                  font-variant-numeric:tabular-nums}
+.plate--missing{border:1px dashed var(--b-br);border-radius:3px;padding:12px;background:var(--b-bg)}
+.plate-missing{color:var(--b);font-size:11.5px;margin:0}
+
+/* ------------------------------------------------- приложение по гейтам */
+
+.appendix-gate{border:1px solid var(--hair);border-radius:5px;margin:0 0 16px;overflow:hidden}
+.appendix-gate > h3{margin:0;padding:9px 13px;background:var(--tint);
+                    border-bottom:1px solid var(--hair);font-size:13px;
+                    display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.appendix-gate.gate--na{background:var(--w-bg)}
+.appendix-gate table{margin:0;border:0}
+.appendix-gate thead th{background:var(--ink-2);border-color:var(--ink)}
+
+.steps{font-size:11.5px}
+.steps th,.steps td{padding:5px 9px}
+.steps thead th{padding:7px 9px}
+.step-id{font-family:var(--mono);font-size:10.5px;white-space:nowrap;color:var(--ink-2)}
+.step--unanswered td{background:var(--c-bg)}
+.step--risk td{background:var(--b-bg)}
+
+/* -------------------------------------------------- подписи и примечания */
+
+.signoff-table td.sig-blank{height:42px;background:#fcfdfe}
+.signoff-table tbody th{width:22%}
+
+.notes{border:1px solid var(--hair);border-radius:5px;padding:15px 17px;background:var(--tint)}
+.notes h2{margin-top:0}
+.notes ul{margin:9px 0 0;padding-left:20px;font-size:12.5px}
+.notes li{margin:0 0 6px;line-height:1.55}
+
+.report-foot{margin-top:36px;padding-top:13px;border-top:2px solid var(--hair);
+             font-size:11px;color:var(--muted);display:flex;justify-content:space-between;
+             gap:14px;flex-wrap:wrap;letter-spacing:.01em}
+
+/* ---------------------------------------------------------------- печать */
+
+@media print{
+  @page{size:A4;margin:14mm 13mm}
+  body{background:#fff;font-size:11pt}
+  main{max-width:none;padding:0;box-shadow:none}
+  .cover,.cover::after,thead th,.gs-badge,.badge,.sev,.cov-fill{
+    -webkit-print-color-adjust:exact;print-color-adjust:exact
   }
+  h2,h3{page-break-after:avoid;break-after:avoid}
+  .finding,.plate,.appendix-gate,.verdict-banner,.llm-summary,.signoff,.notes,tr{
+    page-break-inside:avoid;break-inside:avoid
+  }
+  .finding{box-shadow:none}
+  a{color:var(--ink);text-decoration:none}
+}`;
+  }
+
+  /** Обратная совместимость: раньше вся таблица стилей звалась printCss. */
+  function printCss() { return reportCss(); }
 
   /**
    * exportDocument(project, checklist, opts) -> полный standalone HTML-документ.
@@ -554,7 +747,7 @@
     var title = (meta.product || 'Изделие') + ' — отчёт NPI';
     return '<!doctype html>\n<html lang="ru">\n<head>\n<meta charset="utf-8">\n' +
       '<meta name="viewport" content="width=device-width, initial-scale=1">\n' +
-      '<title>' + esc(title) + '</title>\n<style>\n' + printCss() +
+      '<title>' + esc(title) + '</title>\n<style>\n' + reportCss() +
       '\n</style>\n</head>\n<body>\n<main>\n' +
       buildReportHtml(project, checklist, opts) +
       '\n</main>\n</body>\n</html>\n';
@@ -564,6 +757,7 @@
     esc: esc,
     buildReportHtml: buildReportHtml,
     exportDocument: exportDocument,
+    reportCss: reportCss,
     printCss: printCss,
     GATE_NAMES: GATE_NAMES,
     SEV_LABEL: SEV_LABEL,

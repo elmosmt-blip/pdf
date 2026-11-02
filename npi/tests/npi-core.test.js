@@ -240,6 +240,40 @@ var gsGB = NC.gateStates(pGB, NPI, []);
 ok(gsGB[0].verdict === 'не пройден', 'открытая находка B делает гейт непройденным');
 ok(gsGB[1].blocked === true, 'и блокирует следующий гейт');
 
+// Открытая находка уровня C при полном проходе — гейт пройден УСЛОВНО.
+// До правки вердикт 'условно пройден' был объявлен в GATE_VERDICT, но ни один
+// путь кода его не возвращал: гейт с открытой C-находкой назывался «открыт»,
+// а класс gs--warn в отчёте оказался мёртвым.
+var pGC = allOk();
+pGC.findings = [{ id: 'f-2', stepId: 'g0-01', gateId: 'g0', title: 'X', sev: 'C',
+  status: 'open', photos: [] }];
+var gsGC = NC.gateStates(pGC, NPI, []);
+ok(gsGC[0].verdict === 'условно пройден', 'открытая находка C даёт «условно пройден»');
+ok(gsGC[0].done === true, 'условно пройденный гейт считается пройденным');
+ok(gsGC[1].blocked === false, 'и не блокирует следующий гейт');
+ok(gsGC[1].verdict === 'пройден', 'следующий гейт при этом пройден');
+
+// Неполный проход важнее открытой находки: пока шаги не отвечены, гейт открыт.
+var pGCpart = fresh();
+pGCpart.findings = [{ id: 'f-3', stepId: 'g0-01', gateId: 'g0', title: 'X', sev: 'C',
+  status: 'open', photos: [] }];
+ok(NC.gateStates(pGCpart, NPI, [])[0].verdict === 'открыт',
+  'неполный проход с открытой C остаётся «открыт»');
+
+// Наблюдение уровня W вердикт гейта не меняет.
+var pGW = allOk();
+pGW.findings = [{ id: 'f-4', stepId: 'g0-01', gateId: 'g0', title: 'X', sev: 'W',
+  status: 'open', photos: [] }];
+ok(NC.gateStates(pGW, NPI, [])[0].verdict === 'пройден',
+  'открытое наблюдение W не меняет вердикт гейта');
+
+// Закрытая находка на вердикт не влияет.
+var pGClosed = allOk();
+pGClosed.findings = [{ id: 'f-5', stepId: 'g0-01', gateId: 'g0', title: 'X', sev: 'B',
+  status: 'closed', photos: [] }];
+ok(NC.gateStates(pGClosed, NPI, [])[0].verdict === 'пройден',
+  'закрытая находка B гейт не закрывает');
+
 /* ============================================================ находки */
 
 group('Нормализация находок');
