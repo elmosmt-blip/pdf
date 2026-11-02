@@ -45,7 +45,7 @@ D exists.
 
 The course's own TBD-REVIEW marker asked for exactly this check —
 *"0.66 (IPC-7525D recommended area ratio; verify current revision)"* — so the
-author-LLM flagged it and nobody followed up. **19 edition references corrected
+author flagged it and nobody followed up. **19 edition references corrected
 to IPC-7525C; `src-004` edition updated Rev A → Rev C.**
 
 ### D2 — J-STD-020 `tp` stated as 40 s
@@ -902,3 +902,67 @@ legitimately names the concept — `draftBannerHtml()`, `chip--draft`, the
   registry guard.
 
 **Round 20 defects: D19.** D16, D17, D18 from round 19 were already fixed.
+
+# Round 21 — the review banner is off the course, and so is every mention of the tooling
+
+## What the author asked for
+
+Two things: take the "Reviewed against the standards it cites" banner off the
+course, and remove every mention of the tooling the course was built with.
+
+The banner is deleted outright from `app.js`, not reworded. Because its text had
+already been rewritten once, `apply-review-banner-fix.js` now carries **two**
+deletion paths — one from the r4 wording and one from the round-18 wording —
+plus the round-17 waypoint, so a tree in any of the three states converges on
+no banner. Verified from a clean r4 extraction and from the current tree.
+
+Five places named the tooling or said how the course was made: the questions
+stat card, the `app.js` file header, the index banner itself (which also pointed
+at `REVIEW_CHECKLIST.md`), the README, and four lines across `COURSE_REVIEW.md`,
+`COURSE_AUDIT_FULL.md` and `SOURCES_VERIFIED.md`. This record describes them
+rather than reproducing the wording.
+
+Two of the five were invisible to every earlier sweep for the same reason D19
+was: the file header is a comment, and the README is a text file nobody had
+grepped for it.
+
+## `banner-check.js` was checking the wrong route
+
+It rendered a lesson. The review banner lived on the module index. It now
+renders both `#/l/<id>` and `#/` and asserts on each: no draft banner, no
+`TBD-REVIEW`, no draft chip, no review banner, no audit-record pointer, and no
+string naming the tooling or its vendors. `rebuild-work.sh` grew five matching
+source-level guards.
+
+## The reset found a real defect in the preview script
+
+`rebuild-preview.sh` copied `r4/index.html` into the preview root instead of
+`work/index.html`. The r4 copy carries the Cloudflare Rocket Loader artefact —
+`app.js` and `data-embed.js` get a `type` no browser executes, so the course
+renders a static shell and never loads its data — plus the round-4 draft
+markers. That is the round-6 delivery defect, resurrected by the script meant to
+prevent it, and masked for four rounds by copying the work-tree file by hand.
+Fixed to copy the work-tree file, with a guard that exits 2 if it is missing.
+
+Also: `course-fix/data/` was still tracking the three stale `*.fixed.json`
+files, and `rebuild-work.sh` step 2 globbed `*.json` straight over them, putting
+a second contradictory copy of the data back into the work tree on every
+rebuild. Both fixed — the files are untracked and step 2 names the three real
+ones explicitly.
+
+## Verified as correct in this tranche
+
+- `rebuild-work.sh` 65 checks, green, from the r4 seed and from the current tree.
+- `check-course` OK; `gates` OK; `check-calc-arithmetic` 42 expressions, zero
+  defects; `per-lesson-audit` 92 lessons / 185 questions clean.
+- `verify-runtime` OK in both the embedded-snapshot and fetch modes.
+- `banner-check` renders both routes and reports no markers on either.
+- The module index renders three stat cards, one heading and no banner at all.
+- No string naming the tooling or its vendors in `app.js`, `index.html` or
+  `README.txt`.
+- Data unchanged: `lessons.json`, `questions.json` and `sources.json` are a
+  fixed point against the tracked store.
+
+**Round 21 defects: none in the course data.** The banner and the five tooling
+mentions were shell and documentation defects, plus one real defect in
+`rebuild-preview.sh` and one in `rebuild-work.sh` step 2.

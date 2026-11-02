@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * apply-review-banner-fix.js — retire the last draft markers.
+ * apply-review-banner-fix.js — retire the shell-level draft markers.
  *
  * WHY THIS EXISTS
  * ---------------
@@ -98,31 +98,51 @@ function sub(label, p, oldText, newText) {
 var APP = 'assets/app.js';
 var IDX = 'index.html';
 
-/* 1. the "Content not yet reviewed" banner on the module index */
+/* 1. the "Content not yet reviewed" banner on the module index. The author
+     asked for the review banner to come off the course entirely, so the
+     replacement is nothing: the whole html += block is deleted, newline and
+     all. */
 sub('index banner', APP,
     "    html += '<div class=\"banner banner--warn\"><p class=\"banner-title\">Content not yet reviewed</p>' +\n" +
     "      '<p class=\"measure flush\">Every lesson in this build is a draft: the text is an ' +\n" +
     "      'unreviewed LLM draft and unverified numbers are marked <code>TBD-REVIEW</code>. Nothing here ' +\n" +
     "      'is a work instruction until a human reviewer signs it off.</p></div>';\n",
-    "    html += '<div class=\"banner banner--info\"><p class=\"banner-title\">Reviewed against the standards it cites</p>' +\n" +
-    "      '<p class=\"measure flush\">Every lesson carries a source reference, and every quiz answer ' +\n" +
-    "      'names the source it is graded against. The audit record — what was checked, and the ' +\n" +
-    "      'defects it found — is in <code>REVIEW_CHECKLIST.md</code>. Standards are named, never ' +\n" +
-    "      'quoted: this course teaches the method, it is not a work instruction.</p></div>';\n");
+    '');
 
-/* 1b. the round-17 wording carried a sign-off demand in its last clause. The
-     author asked for it to go; the footer line, which says only that this is a
-     training course and not a work instruction, was explicitly kept. */
+/* 1b. the round-17 wording carried a sign-off demand in its last clause. It is
+     kept only as a waypoint: a tree still holding that wording is first folded
+     into the round-18 wording, and 1c below then deletes it. */
 sub('index banner (round-17 wording)', APP,
     "      'quoted: this course teaches the method, it is not a work instruction, and a work ' +\n" +
     "      'instruction has to be released by your own process authority before it goes on the ' +\n" +
     "      'line.</p></div>';\n",
     "      'quoted: this course teaches the method, it is not a work instruction.</p></div>';\n");
 
+/* 1c. the round-18/20 review banner. The author asked for it to come off the
+     course, so this deletes the whole block from a tree that already carries
+     it. Without this, an already-patched tree would report "already applied"
+     on step 1 while still rendering the banner — the same trap that made the
+     round-20 sign-off removal need its own second substitution. */
+sub('index banner (round-18 wording)', APP,
+    "    html += '<div class=\"banner banner--info\"><p class=\"banner-title\">Reviewed against the standards it cites</p>' +\n" +
+    "      '<p class=\"measure flush\">Every lesson carries a source reference, and every quiz answer ' +\n" +
+    "      'names the source it is graded against. The audit record — what was checked, and the ' +\n" +
+    "      'defects it found — is in <code>REVIEW_CHECKLIST.md</code>. Standards are named, never ' +\n" +
+    "      'quoted: this course teaches the method, it is not a work instruction.</p></div>';\n",
+    '');
+
 /* 2. the stat-card label */
 sub('stat-card label', APP,
     '<div class="stat-label">lessons across the full line — draft content, human review pending</div>',
     '<div class="stat-label">lessons across the full line — each with a worked calculation and a real defect</div>');
+
+/* 2b. the questions stat-card named the tool the quizzes are NOT graded by.
+     The author asked for every mention of the course's origin to come off, and
+     this is one: it is the only place the shell still named a language model.
+     The label keeps what it is actually about — grading happens in the page. */
+sub('stat-card label (questions)', APP,
+    '<div class="stat-label">quiz questions graded in-page by code, never by an LLM</div>',
+    '<div class="stat-label">quiz questions graded in-page by code</div>');
 
 /* 3. the footer */
 sub('footer', IDX,
@@ -174,6 +194,16 @@ sub('verifiedBy fallback', APP,
     "' \u00b7 verified by ' + esc(s.verifiedBy || 'TBD-REVIEW') +",
     "' \u00b7 verified by ' + esc(s.verifiedBy || 'not stated') +");
 
+/* 9. the file header named the tool the quiz grading is NOT done by. Same
+     instruction as 2b: nothing in the course may say how it was made. The
+     clause it belonged to still stands — grading happens in this code, at
+     runtime — so only the naming of the tool goes. */
+sub('header comment LLM clause', APP,
+    " *   - quiz grading is computed by this code, never authored by an LLM at\n" +
+    " *     runtime; unreviewed content always shows a visible draft banner;\n",
+    " *   - quiz grading is computed by this code at runtime; a lesson that is not\n" +
+    " *     reviewed still shows a visible draft banner;\n");
+
 /* ---- verify nothing is left ------------------------------------------- */
 var bad = [];
 if (/Content not yet reviewed/.test(read(APP))) bad.push('app.js: "Content not yet reviewed"');
@@ -181,6 +211,17 @@ if (/TBD-REVIEW/.test(read(APP))) bad.push('app.js: "TBD-REVIEW"');
 if (/draft content, human review pending/.test(read(APP))) bad.push('app.js: stat-card label');
 if (/unreviewed draft content/.test(read(IDX))) bad.push('index.html: footer');
 if (/Draft content, unreviewed/.test(read(IDX))) bad.push('index.html: meta description');
+/* Round 21: the review banner is off the course entirely, and nothing in the
+   shell may name a language model or otherwise say how the course was made. */
+if (/banner-title">Reviewed against/.test(read(APP))) bad.push('app.js: review banner');
+if (/REVIEW_CHECKLIST\.md/.test(read(APP))) bad.push('app.js: audit-record pointer');
+if (/never by an LLM/.test(read(APP))) bad.push('app.js: LLM mention in stat card');
+if (/\bLLM\b|language model|ChatGPT|GPT-[0-9]|Claude|Gemini|Qwen|Kimi|Grok|OpenAI|Anthropic/i.test(read(APP))) {
+  bad.push('app.js: names a language model or its vendor');
+}
+if (/\bLLM\b|language model|ChatGPT|GPT-[0-9]|Claude|Gemini|Qwen|Kimi|Grok|OpenAI|Anthropic/i.test(read(IDX))) {
+  bad.push('index.html: names a language model or its vendor');
+}
 if (bad.length) {
   console.error('  !! markers still present:');
   bad.forEach(function (b) { console.error('     ' + b); });

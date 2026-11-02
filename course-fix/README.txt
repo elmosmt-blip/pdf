@@ -1,5 +1,5 @@
 SMT & THT PROCESS ENGINEER — SELF-STUDY COURSE
-Round 20 build (2026-11-02). Static HTML/CSS/JS: no framework, no build step.
+Round 21 build (2026-11-02). Static HTML/CSS/JS: no framework, no build step.
 
 WHAT THIS BUNDLE IS
 -------------------
@@ -28,7 +28,7 @@ CONTENTS
   design system (background #0D1117, single signal teal #53d1cc, slate
   hairlines, translucent glass panels, IBM Plex Mono labels) at 1024x717.
 
-  Quizzes are graded in the page by code, never by a language model. 94
+  Quizzes are graded in the page by code. 94
   single-answer and 91 calculation questions, exactly 4 options each.
 
   Standards are named, never quoted: the course teaches the method and cites
@@ -162,3 +162,16 @@ WHAT WAS FIXED, IN BRIEF
   D17     a worked solution contradicting its own arithmetic
   D18     a calculation drill subtracting rounded intermediates
   D19     a draft marker hiding in the page's meta description
+
+Round 21, on the author's instruction, took the review banner off the course
+and removed every mention of how it was made:
+
+  D20     the review banner itself, deleted from the module index
+  D21     five places that named the tooling the course was built with, two of
+          them invisible to every earlier sweep (a code comment and the README)
+
+Plus two defects the sandbox reset exposed in the toolchain rather than the
+course: `rebuild-preview.sh` was copying the unfixed round-4 `index.html` into
+the preview, resurrecting the round-6 Rocket Loader delivery defect, and
+`rebuild-work.sh` was globbing a stale `*.fixed.json` trio back into the work
+tree on every rebuild.

@@ -1526,3 +1526,64 @@ names the concept — `draftBannerHtml()`, `chip--draft`, the `draft:` enum valu
 and the `status === 'reviewed'` guard are all mechanism and stay.
 
 **Round 20 defects: D19 (meta description).** All four shell markers now gone.
+
+## Round 21 — the review banner came off, and so did every mention of the tooling
+
+Two instructions, both from the author: take the "Reviewed against the standards
+it cites" banner off the course, and remove every mention of the tooling the
+course was built with.
+
+### The banner
+
+The banner was one I had put there myself, in round 17, to replace the
+"Content not yet reviewed" one. The author asked for it to go. It is deleted
+outright — not reworded — from `app.js`, and the replacement text in
+`apply-review-banner-fix.js` step 1 is now the empty string, so the whole
+`html +=` block, newline and all, disappears.
+
+Because the banner's target text had already been rewritten once, deleting it
+needed the same treatment the round-20 sign-off removal needed: **a patch from
+the previous target as well as from the original**. Step 1 now handles the r4
+wording and step 1c handles the round-18 wording; step 1b stays as a waypoint so
+a tree still holding the round-17 wording folds into round-18 first and is then
+deleted. Verified from a clean r4 extraction: step 1 fires, and from the current
+tree: step 1c fires. Both converge on no banner.
+
+### The mentions
+
+Five places named the tooling the course was built with, or otherwise said how
+it was made. Each is reworded to state only what it is actually about; this
+record describes them rather than reproducing the wording, since reproducing it
+would defeat the point of removing it:
+
+| Where | What it said | Now |
+|---|---|---|
+| `app.js` stat card | named the tool the quizzes are *not* graded by | "quiz questions graded in-page by code" |
+| `app.js` file header | same claim, in a comment | "quiz grading is computed by this code at runtime" |
+| `README.txt` | same claim, in the bundle's entry document | "graded in the page by code" |
+| `app.js` index banner | the whole review banner, incl. a pointer to `REVIEW_CHECKLIST.md` | deleted |
+| `COURSE_REVIEW.md`, `COURSE_AUDIT_FULL.md`, `SOURCES_VERIFIED.md` | four lines across the three audit documents | reworded |
+
+Two of these were invisible to every earlier sweep for the same reason D19 was:
+the `app.js` file header is a comment, and the README is a text file nobody had
+grepped for it.
+
+### The guard
+
+`banner-check.js` now renders **two** routes, not one. It always rendered a
+lesson, which is why the review banner — which lives on the module index — was
+never caught by it. It now renders `#/l/<id>` and `#/` and asserts on both:
+no draft banner, no `TBD-REVIEW`, no draft chip, no review banner, no
+audit-record pointer, and no string naming the tooling or its vendors.
+`rebuild-work.sh` grew five matching source-level guards.
+
+### One more thing the reset found
+
+`rebuild-preview.sh` copied `r4/index.html` into the preview root instead of
+`work/index.html`. The r4 copy carries the Cloudflare Rocket Loader artefact —
+`app.js` and `data-embed.js` get a `type` no browser executes, so the course
+renders a static shell and never loads its data — plus the round-4 draft
+markers. That is the round-6 delivery defect, resurrected by the script that is
+supposed to prevent it. It had been masked for four rounds by copying
+`work/index.html` by hand. Now fixed to copy the work-tree file, with a guard
+that exits 2 if the work tree is missing.

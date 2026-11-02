@@ -40,8 +40,12 @@ mkdir -p "$R4"
 unzip -q "$ZIP" -d "$R4"
 cp -r "$R4" "$WORK"
 
-# 2. overlay the fixed data — the tracked copy is canonical
-cp course-fix/data/*.json "$WORK/data/"
+# 2. overlay the fixed data — the tracked copy is canonical. Only the three
+#    running files: course-fix/data/ also carries a stale *.fixed.json trio
+#    left over from the round-4 upload set, and a glob would copy those back
+#    in and put a second, contradictory copy of the data into the work tree.
+cp course-fix/data/lessons.json course-fix/data/questions.json \
+   course-fix/data/sources.json "$WORK/data/"
 
 # 3. re-apply the data fixes that r4 predates, in dependency order.
 #    Every one of these is idempotent, so this is safe to re-run.
@@ -168,6 +172,13 @@ checknode "no draft stat label"   0 'var fs=require("fs");var t=fs.readFileSync(
 checknode "verifiedBy fallback"   0 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/assets/app.js","utf8");console.log(t.split("verified by TBD-REVIEW").length-1)'
 # D19/round-20: no stale duplicate data and no stale README may ship.
 checknode "fixed.json gone"       0 'var fs=require("fs");var d=process.cwd()+"/course-fix/work/data/";console.log(fs.readdirSync(d).filter(function(f){return /\.fixed\.json$/.test(f)}).length)'
+# Round 21: the review banner is off the course, and nothing in the shell or
+# the README may name a language model or say how the course was made.
+checknode "no review banner"      0 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/assets/app.js","utf8");console.log(t.split("banner-title\">Reviewed against").length-1)'
+checknode "no audit pointer"      0 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/assets/app.js","utf8");console.log(t.split("REVIEW_CHECKLIST.md").length-1)'
+checknode "no LLM in app.js"      0 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/assets/app.js","utf8");var re=/\bLLM\b|language model|ChatGPT|GPT-[0-9]|Claude|Gemini|Qwen|Kimi|Grok|OpenAI|Anthropic/i;console.log(t.split(re).length-1)'
+checknode "no LLM in index.html"  0 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/index.html","utf8");var re=/\bLLM\b|language model|ChatGPT|GPT-[0-9]|Claude|Gemini|Qwen|Kimi|Grok|OpenAI|Anthropic/i;console.log(t.split(re).length-1)'
+checknode "no LLM in README"      0 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/README.txt","utf8");var re=/\bLLM\b|language model|ChatGPT|GPT-[0-9]|Claude|Gemini|Qwen|Kimi|Grok|OpenAI|Anthropic/i;console.log(t.split(re).length-1)'
 checknode "README not stale"      0 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/README.txt","utf8");console.log(t.split("keeps status").length-1)'
 checknode "README sources 39"     1 'var fs=require("fs");var t=fs.readFileSync(process.cwd()+"/course-fix/work/README.txt","utf8");console.log(t.split("39 named standards").length-1)'
 # m07l06's theory shape. The data must be uniform objects, and the renderer

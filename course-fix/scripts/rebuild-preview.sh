@@ -44,8 +44,19 @@ node "$ROOT/scripts/apply-course-images.js" "$ROOT/work/data"
 node "$ROOT/work/scripts/embed.js" "$ROOT/work/data" "$ROOT/work/assets/data-embed.js"
 
 # 3. Assemble the preview root.
+#    index.html comes from the WORK tree, never from r4. The r4 copy carries
+#    the Cloudflare Rocket Loader artefact — app.js and data-embed.js are
+#    rewritten with a type no browser executes, so the course renders a static
+#    shell and never loads its data — plus the round-4 draft markers. That is
+#    the round-6 delivery defect, and copying r4/index.html here resurrects it
+#    every single time. rebuild-work.sh applies apply-index-fix.js and
+#    apply-review-banner-fix.js and produces the shippable file.
+if [ ! -f "$ROOT/work/index.html" ]; then
+  echo "rebuild-preview: $ROOT/work/index.html is missing — run rebuild-work.sh first" >&2
+  exit 2
+fi
 mkdir -p "$PREVIEW/assets/img" "$PREVIEW/data"
-cp "$ROOT/r4/index.html" "$PREVIEW/"
+cp "$ROOT/work/index.html" "$PREVIEW/"
 cp "$ROOT/work/assets/app.js" "$ROOT/work/assets/style.css" \
    "$ROOT/work/assets/data-embed.js" "$PREVIEW/assets/"
 cp "$ROOT/img/"*.png "$PREVIEW/assets/img/"
