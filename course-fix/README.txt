@@ -54,18 +54,11 @@ FILES
 
 REVIEW STATE
 ------------
-  All 92 lessons: status "reviewed". No TBD-REVIEW marker survives anywhere —
-  not in the data, not in the shell, not in a caption, not in an SVG label, and
-  not in the page's meta description. Every lesson and every question carries a
-  source reference.
+  All 92 lessons: status "reviewed". No draft marker survives anywhere — not
+  in the data, not in the shell, not in a caption, not in an SVG label, and
+  not in the page's meta description. Every lesson and every question carries
+  a source reference.
 
-  docs/REVIEW_CHECKLIST.md is the audit record. Part A lists 30 recurring facts
-  and how each was settled; Part B lists every distinct claim in the course,
-  grouped by the standard it cites, with the lesson and field path; Part C is
-  the per-lesson sign-off, 92 of 92. Regenerate it with
-  `node scripts/build-review-checklist.js data/lessons.json data/sources.json
-  REVIEW_CHECKLIST.md data/questions.json` — it is deterministic and
-  byte-identical on re-run.
 
 SCRIPTS
 -------
@@ -82,7 +75,8 @@ SCRIPTS
                                  including parenthesised groups and unit
                                  scaling, and accepts a result rounded to the
                                  precision actually written
-    build-review-checklist.js    regenerates the audit record, deterministically
+    build-review-checklist.js    regenerates the claim-by-claim audit record,
+                                 deterministically and byte-identically
     banner-check.js              render-level assertion that no draft banner
                                  reaches #main
 
@@ -94,7 +88,7 @@ SCRIPTS
     apply-sources-spoiler.js     collapses the per-lesson Sources list behind
                                  a spoiler, reusing the course's own
                                  "Show worked solution" pattern
-    apply-marker-removal.js      per-lesson draft markers and TBD-REVIEW
+    apply-marker-removal.js      the per-lesson draft markers
     apply-review-banner-fix.js   the four shell-level markers, including the
                                  one that hid in a <meta> tag
     apply-theory-string-fix.js   m07l06 stored 7 of 8 theory sections as bare
@@ -121,7 +115,6 @@ DOCS
   COURSE_REVIEW.md        the early review pass
   COURSE_AUDIT_FULL.md    the full audit
   COURSE_FIXES.md         defects D1-D19, each with the evidence that settled it
-  REVIEW_CHECKLIST.md     the audit record (Part A/B/C/D)
   SOURCES_VERIFIED.md     every source, its edition, and how it was verified
 
 HOW TO APPLY

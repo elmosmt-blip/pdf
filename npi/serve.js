@@ -310,13 +310,21 @@ function startServer(portOrOpts, maybeOpts) {
   const root = path.resolve(opts.root || __dirname);
   const server = http.createServer(createHandler(root, opts.llm));
 
+  // По умолчанию инструмент слушает только локальный адрес: он работает с
+  // данными о реальном производстве и не имеет ни входа, nor прав.
+  // Выход в сеть — осознанное действие через HOST или --host, а не то,
+  // во что инструмент попадает случайно.
+  let host = typeof opts.host === 'string' && opts.host ? opts.host
+    : (process.env.HOST || '127.0.0.1');
+  if (host === '*' || host === 'all') host = '0.0.0.0';
+
   return new Promise(function (resolve, reject) {
     server.once('error', reject);
-    server.listen(port, '127.0.0.1', function () {
+    server.listen(port, host, function () {
       server.removeListener('error', reject);
       const addr = server.address();
       resolve({
-        server: server, port: addr.port, address: addr,
+        server: server, port: addr.port, address: addr, host: host,
         close: function () {
           return new Promise(function (done) { server.close(done); });
         }
@@ -330,7 +338,14 @@ module.exports = { startServer, resolveTarget, MIME, readLlmConfig, LLM_PATHS };
 if (require.main === module) {
   const cfg = readLlmConfig(__dirname);
   startServer().then(function (h) {
-    console.log('NPI Checklist: http://127.0.0.1:' + h.port + '/');
+    // При слушании 0.0.0.0 напечатать его в строке запуска бессмысленно —
+    // это «все адреса», а не тот, по которому откроет человек.
+    var shown = h.host === '0.0.0.0' ? '127.0.0.1' : h.host;
+    console.log('NPI Checklist: http://' + shown + ':' + h.port + '/');
+    if (h.host === '0.0.0.0') {
+      console.log('Внимание: сервер слушает все адреса, а не только локальный.');
+      console.log('У инструмента нет входа — не оставляйте его так в сети.');
+    }
     console.log('Прокси модели:  ' + cfg.baseUrl + '  (модель: ' + cfg.model + ')');
     console.log('Без запущенного сервера модели чек-лист работает полностью,');
     console.log('кроме функций, которым модель нужна.');

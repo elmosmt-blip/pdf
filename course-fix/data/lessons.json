@@ -81,7 +81,7 @@
         "action": "Quarantine the lot, record lot code, quantity, packaging condition, indicator status, and pad appearance; notify supplier; request corrective action for packaging and storage; do not release until bake or replacement is approved by the applicable moisture sensitivity standard and your process qualification."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m01l02",
@@ -166,7 +166,7 @@
         "action": "Quarantine the lot, record the label and card status, inspect for oxidation or coplanarity issues, and follow IPC/JEDEC J-STD-033 bake and re-bag requirements if the lot is to be used; notify the supplier with photos and lot traceability."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m01l03",
@@ -270,7 +270,7 @@
         "action": "Quarantine the lot, increase sample size for solderability and coplanarity checks, verify moisture sensitivity level and floor life against J-STD-033, review the feeder setup and reflow profile against your paste/equipment datasheet, and revise the incoming inspection plan if the characteristic should be included."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m01l04",
@@ -357,7 +357,7 @@
         "action": "Stop the machine, quarantine the reel and the remaining lot, photograph the outer label, inner label, tape, and markings, and record the lot number, date codes, quantity, and purchase order. Quarantine the lot pending supplier traceability and counterfeit assessment. If traceability cannot be proven or the parts fail verification, reject the lot, issue a corrective action request to the supplier, and review the approved supplier list and incoming inspection plan."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m01l05",
@@ -442,7 +442,7 @@
         "action": "Quarantine the lot, retain the container and shipping record, measure viscosity and printability against the supplier datasheet, and issue a supplier corrective action request with the lot number, storage temperature record, observed print defects, and request for batch test data and retest or replacement."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m01l06",
@@ -526,7 +526,7 @@
         "action": "Quarantine the lot. Record the lot identifier, seal date, humidity indicator reading, storage temperature, and number of affected boards. Verify the supplier-stated shelf life and storage conditions. If the boards are within the supplier requalification window and the surface finish is still solderable by your incoming test, request engineering disposition. If the surface finish fails solderability or the moisture exposure cannot be traced, reject the lot and ask the supplier for root cause, corrected packaging, and updated shelf-life documentation."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m01l07",
@@ -602,7 +602,7 @@
         "action": "Quarantine the reel and lot, notify the supplier with photos and reel traceability, request packaging containment, and have the MRB decide whether to return, sort, or accept only after verified inspection."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m02l01",
@@ -732,7 +732,7 @@
         "action": "Quarantine affected lots. Verify MSL markings, bag opening time, humidity indicator card status, desiccant condition, reflow time, and bake records against IPC/JEDEC J-STD-033. Bake devices that exceeded floor life or humidity indicator card threshold before reflow. Review storage, bag opening, floor-life tracking, and reflow scheduling controls. Inspect suspect packages with X-ray or acoustic microscopy and update the process control plan to prevent recurrence."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m02l02",
@@ -808,7 +808,7 @@
         "action": "Quarantine the lot, verify the MSL label, bag open time, HIC, and reflow records, bake per J-STD-033 or the manufacturer's limits, then reflow a sample and inspect. Correct the storage control by adding a bag-open timestamp and HIC check before kitting."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m02l03",
@@ -886,7 +886,7 @@
         "action": "Quarantine the remaining lot and any related lots with incomplete exposure records. Verify the bag-open time, storage conditions, reflow handling time, and any bake records. If the cumulative exposure cannot be bounded, treat the material as requiring bake or supplier evaluation before reflow. Correct the storage record so that bag-open time, cumulative open-air time, and reset events are captured in the MES or WMS."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m02l04",
@@ -960,7 +960,7 @@
         "action": "Quarantine the lot, verify MSL and open date, bake per a qualified tape-and-reel recipe, requalify reflow, repair the cabinet, and add alarm and log review."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m02l05",
@@ -1044,7 +1044,7 @@
         "action": "Isolate the rack, verify the bonding path to the EPA ground reference, clean or replace the shelf contact surfaces, require closed shielding bags for stored parts, and requalify the rack storage configuration against the control plan. Add a rack bonding check to the shift audit and verify closure with a follow-up inspection of the affected part family."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m02l06",
@@ -1133,7 +1133,7 @@
         "action": "Stop the line, quarantine all reels from the same lot, date code, vacuum bag, and dry cabinet, and isolate the affected boards. Do not reflow the remaining batch. Bake the unreflowed devices using an IPC/JEDEC J-STD-033 condition allowed by the tape and reel carrier, then store at 5% RH or less or repackage with desiccant and a humidity indicator card. Trace all boards from the affected reels, feeders, work order, reflow oven, and shift, and disposition them through electrical test, X-ray, and failure analysis."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m03l01",
@@ -1210,7 +1210,7 @@
         "action": "Measure paste deposit volume, compare with required joint volume, reduce stencil thickness or enlarge aperture within pad, adjust paste and print parameters, and re-run a print trial with inspection."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m03l02",
@@ -1284,7 +1284,7 @@
         "action": "Review the aperture area ratio and aspect ratio against IPC-7525C guidance and your paste/equipment datasheet. Reduce foil thickness or increase aperture size within the pad if allowed, improve stencil wall finish, verify paste selection, and optimize print parameters. Confirm the result with SPI and reflow inspection."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m03l03",
@@ -1359,7 +1359,7 @@
         "action": "Reduce the fine-pitch aperture size, then reduce local foil thickness or add a thin step if volume is still too high. Recheck area ratio and aspect ratio against IPC-7525, request a smoother wall finish or verified taper from the stencil maker, and rerun SPI to confirm the change."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m03l04",
@@ -1442,7 +1442,7 @@
         "action": "Reduce foil to 0.10 mm, reduce aperture width to 0.22 mm, use rounded or trapezoidal apertures, verify area ratio of at least 0.66 against IPC-7525, adjust paste viscosity and squeegee pressure, re-run first article and inspect per IPC-A-610."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m03l05",
@@ -1522,7 +1522,7 @@
         "action": "Stop printing with the stencil, quarantine it, and verify aperture dimensions, foil thickness, wall taper, area ratio, and cleanliness. Reject or rework the stencil if it is outside the issued specification, then qualify the corrected design with SPI and cross-section before release."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m03l06",
@@ -1597,7 +1597,7 @@
         "action": "Quarantine the stencil, inspect apertures under magnification, clean with a qualified method, re-measure area ratio and wall condition, and requalify cleaning frequency and dryness before release; if wall damage is found, retire or rework."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m04l01",
@@ -1686,7 +1686,7 @@
         "action": "Reduce foil thickness to 0.10 mm or increase the aperture within the pad boundary while keeping the area reduction controlled. Recalculate area ratio and aspect ratio, confirm they meet IPC-7525 targets of 0.66 and 1.5, and verify with paste inspection and reflow cross-sections."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m04l02",
@@ -1771,7 +1771,7 @@
         "action": "Stop the line, inspect the squeegee blade and stencil underside, clean or replace the blade, verify wipe pressure and cleaning cycle, run a verification board, and review the SPI limits for the affected aperture class against the paste and equipment datasheet."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m04l03",
@@ -1845,7 +1845,7 @@
         "action": "Increase squeegee pressure to 0.8 to 1.2 N/mm, reduce print speed to 30 mm/s, reduce separation to 1.0 mm if it is above the recommended range, and verify against your paste/equipment datasheet."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m04l04",
@@ -1926,7 +1926,7 @@
         "action": "Reduce squeegee speed, increase squeegee pressure slightly, reduce snap-off speed, reduce separation, reduce wipe pressure or length if excessive, clean the stencil underside, and verify paste temperature and open time against the paste datasheet. Re-run SPI after each change."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m04l05",
@@ -2001,7 +2001,7 @@
         "action": "Stop the line, verify stencil tension and alignment, inspect aperture fill using SPI area and height maps, adjust squeegee pressure and speed according to the paste and stencil datasheet, run verification prints, and quarantine boards printed after the step change until the cause is confirmed."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m04l06",
@@ -2077,7 +2077,7 @@
         "action": "Increase cleaning frequency, verify cleaning solvent condition and wipe quality, inspect stencil underside for residue, and confirm paste release behavior against the paste datasheet. Re-run SPI after adjustment and monitor the high-volume trend."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m04l07",
@@ -2158,7 +2158,7 @@
         "action": "Increase snap-off distance from 1.5 mm to 2.0 mm while holding pressure, speed, and wipe frequency constant. Run 10 boards, measure 30 deposits, and verify volume, tails, and smearing. If tails appear, reduce snap-off distance to 1.75 mm. If volume remains low, test squeegee speed separately."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m05l01",
@@ -2241,7 +2241,7 @@
         "action": "Stop the setup, verify the calibration certificate and scope, recalibrate the affected axes and nozzle changer, reload the correct nozzle map and feeder setup, run a low-speed dry cycle, inspect the first article, and release for production only after measured offsets are within the verified process window."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m05l02",
@@ -2315,7 +2315,7 @@
         "action": "Stop the line, verify the component supplier's maximum placement force, reduce force to a validated lower value, replace or realign the nozzle, and run a controlled trial with inspection for cracks, nozzle marks, and paste contact. If cracks persist, escalate to the component supplier and review nozzle geometry and board support."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m05l03",
@@ -2400,7 +2400,7 @@
         "action": "Stop the setup. Verify the fiducial coordinates, fiducial type, and search window against the board drawing and the approved program. Re-run a dry run or test board with fiducial measurement and component vision enabled. Check the 0402 feeder pitch, pick position, nozzle condition, and vacuum. If the offset remains, verify camera and nozzle calibration status and perform the required calibration before releasing production."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m05l04",
@@ -2485,7 +2485,7 @@
         "action": "Contain the affected feeder slot, re-teach feeder pickup position, inspect tape peel and pocket, verify nozzle vacuum, then run a verification lot and confirm offset distribution against your AOI limits and equipment datasheet."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m05l05",
@@ -2559,7 +2559,7 @@
         "action": "Stop the line, quarantine affected boards, correct the library and feeder orientation, run a pre-production sample, inspect polarity and rotation, update the change record, and release only after verification."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m05l06",
@@ -2647,7 +2647,7 @@
         "action": "Stop the line if the defect exceeds the internal placement limit. Verify the feeder for the QFP, inspect the tape peel force and cover tape alignment, and check the nozzle for wear, vacuum, and centring. Re-run a placement verification test with a known-good feeder and nozzle. If the defect moves with the feeder, replace or recalibrate the feeder. If the defect remains, check placement camera calibration, fiducial recognition, and nozzle transfer settings. After correction, confirm with SPI, placement verification, and post-placement AOI before releasing production."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m06l01",
@@ -2761,7 +2761,7 @@
         "action": "Measure with board thermocouples, increase soak time or lower ramp rate to reach paste soak range, verify paste datasheet, check stencil and paste viscosity"
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m06l02",
@@ -2841,7 +2841,7 @@
         "action": "Increase soak time or raise the soak temperature band slightly to allow the heavy pads to reach thermal equilibrium. Verify with thermocouples on the actual board that the pad temperature enters the soak window before the liquidus is reached. Re-measure the profile and run wetting tests."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m06l03",
@@ -2917,7 +2917,7 @@
         "action": "Rerun the survey with a calibrated logger and a test coupon that includes the ground plane and component. Attach the thermocouple junction to the pad or component body at the worst-case site, secure the wire, and compare the coolest and hottest curves. Adjust the soak or peak only after confirming the measurement location."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m06l04",
@@ -2993,7 +2993,7 @@
         "action": "Profile at the pad, increase soak or reduce conveyor speed to raise pad temperature before liquidus, adjust airflow or zone setpoints, and verify against paste and component limits; if needed, add thermal relief or paste volume and requalify."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m06l05",
@@ -3069,7 +3069,7 @@
         "action": "Reduce the ramp rate toward IPC-7530B guidance, extend the soak, verify thermocouple placement on the heavy area, and re-run the profile while checking the paste datasheet for recommended ramp and soak limits."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m06l06",
@@ -3144,7 +3144,7 @@
         "action": "Reduce ramp rate and extend soak within paste and oven limits; add thermal relief or copper balance if layout change is allowed; verify with thermocouple and trial article inspection against the IPC visual acceptance standard."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m06l07",
@@ -3229,7 +3229,7 @@
         "action": "Raise the peak temperature within the paste datasheet limit and extend time above liquidus by a bounded amount, then remeasure the profile and inspect joints against IPC acceptance guidance."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m07l01",
@@ -3310,7 +3310,7 @@
         "action": "Stop the line and quarantine the lot. Confirm the failure with boundary scan and 2D X-ray, then use laminar/3D X-ray to measure void size and ball collapse. Review stencil aperture area ratio, paste type, print pressure, squeegee speed, and reflow profile against IPC-7525 Stencil Design Guidelines and IPC-7095 Design and Assembly Process Implementation for BGAs. Verify ball coplanarity and land pattern, then re-run a qualification lot and accept results against the customer-specified IPC-A-610 Acceptability Requirements for Electronic Assemblies class."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m07l02",
@@ -3390,7 +3390,7 @@
         "action": "Measure the actual placement and reflow shift in millimeters, widen the window to cover the verified variation, reduce or rebalance the solder lighting exposure, retrain the fillet threshold from golden and defect samples, then run a verification audit before releasing the program."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m07l03",
@@ -3464,7 +3464,7 @@
         "action": "Verify panel and fiducial quality, retune the AOI program with golden boards, audit verified rejects, and monitor false-call rate and verification coverage."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m07l04",
@@ -3546,7 +3546,7 @@
         "action": "Confirm the bridge with 2D X-ray and, if overlapping features make the extent unclear, use laminar or 3D X-ray. If the bridge is repairable without lifting pads or damaging adjacent balls, rework and re-inspect by X-ray. If the bridge cannot be removed reliably, reject the board. Correct the process by reducing paste volume, adjusting stencil design, improving paste alignment, or modifying the reflow profile, then verify with X-ray and electrical test."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m07l05",
@@ -3622,7 +3622,7 @@
         "action": "Quarantine the affected panel, verify the bridge with microscopy or X-ray if needed, adjust the printer or stencil process, rework confirmed bridges per IPC-7711/7721, then reinspect with AOI and record the disposition using the same workmanship vocabulary."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m07l06",
@@ -3697,7 +3697,7 @@
         "action": "Quarantine the board, inspect adjacent joints, rework per IPC-7711/7721 if the hole wall and lead are sound, verify solderability and reflow profile against equipment datasheet, and update incoming inspection if contamination is confirmed."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m08l01",
@@ -3808,7 +3808,7 @@
         "action": "Measure finished hole diameter and lead diameter, then calculate actual clearance. Increase preheat or board temperature within the flux and board limits, increase dwell time, verify flux activity and application, and check hole plating quality. If the geometry is the limiting factor, revise the finished hole diameter or lead diameter and re-run a solderability trial with cross-section or X-ray verification."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m08l02",
@@ -3883,7 +3883,7 @@
         "action": "Measure the finished plated-hole diameter and lead diameter on the assembly line. Recalculate the worst-case clearance including placement tolerance. If clearance is marginal, adjust the PCB hole tolerance, tighten lead tolerance, improve placement calibration, or verify the wave-solder process window. Confirm the corrected process with insertion-force data and solder-fill cross-sections."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m08l03",
@@ -3973,7 +3973,7 @@
         "action": "Change the board direction or wave approach angle so the shadow falls away from the joint. Increase stand-off slightly within the component and process limits, or adjust the clinch to hold the part without closing the solder-access gap. If the layout is dense, revise the mask opening or component spacing to expose the annular ring and allow solder flow. Run a trial board and inspect the joint against IPC-A-610 acceptance criteria and your wave solder process specification."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m08l04",
@@ -4047,7 +4047,7 @@
         "action": "Rotate the board 90 degrees, replace the mask with high-temperature tape sealed at the edges, extend the mask 5 mm past the connector, and run a verification board before releasing the lot."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m08l05",
@@ -4123,7 +4123,7 @@
         "action": "Quarantine the lot, measure finished hole diameter and lead diameter, check drill and plating records, adjust preheat and contact time within equipment limits, and requalify with cross-section or X-ray."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m09l01",
@@ -4203,7 +4203,7 @@
         "action": "Verify flux density and activation, profile board temperature, reduce oxygen, clean nozzle, and run cross-section."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m09l02",
@@ -4281,7 +4281,7 @@
         "action": "Reduce flux amount or solids, increase preheat until board top reaches the verified activation range, and adjust wave height upward only after checking for bridging; verify with cross-section and residue inspection."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m09l03",
@@ -4359,7 +4359,7 @@
         "action": "Reduce flux density to the lower end, reduce spray pressure or adjust nozzle distance, increase preheat slightly, lower wave height, then re-profile and inspect a representative board."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m09l04",
@@ -4441,7 +4441,7 @@
         "action": "Increase dwell by reducing conveyor speed or increasing effective contact length; raise wave height or reduce board clearance within machine limits; verify flux coverage and preheat; re-run a coupon and inspect against IPC-A-610 acceptability criteria."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m09l05",
@@ -4516,7 +4516,7 @@
         "action": "Rotate the panel or component, open the pallet around the pads, and re-run a coupon; if the defect persists, adjust wave angle or use masking to expose the joint."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m09l06",
@@ -4596,7 +4596,7 @@
         "action": "Increase preheat ramp and dwell within the verified paste/equipment datasheet range, confirm top-side temperature at the hole, and re-run with a single parameter change."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m09l07",
@@ -4683,7 +4683,7 @@
         "action": "Increase preheat so the top surface reaches 100 to 110 °C at wave entry, verify with a thermocouple, confirm flux activation range from the flux datasheet, and re-run first article. If spatter persists, reduce wave height or fog height slightly and check for board moisture or excessive flux volume."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m10l01",
@@ -4805,7 +4805,7 @@
         "action": "Re-profile the joint group with a higher preheat and longer dwell, verify board surface temperature at the connector, confirm flux volume and nozzle standoff against the equipment datasheet, and rework affected joints according to IPC-7711/7721. Re-inspect against IPC-A-610."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m10l02",
@@ -4885,7 +4885,7 @@
         "action": "Increase nozzle footprint to 4.5 mm to 6.0 mm, raise flux density to 0.10 mg/mm^2 to 0.20 mg/mm^2, add a preheat pass at 120 °C to 140 C, and increase dwell to 0.8 s to 1.5 s; verify with thermocouples and visual acceptance criteria."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m10l03",
@@ -4961,7 +4961,7 @@
         "action": "Stop the line, attach a thermocouple to the capacitor body, rerun the wave-soldering profile, increase spacing or add a thermal shield or selective soldering, then verify the peak body temperature and functional performance."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m10l04",
@@ -5037,7 +5037,7 @@
         "action": "Measure board temperature at the first and last joints with thermocouples. Check fixture support near the connector and verify board height. Review the path direction and consider reversing the row or splitting it into two groups. Verify flux coverage and air-knife pressure, distance, and timing. If the far-end joints are cooler, increase preheat or add a short cooling pause before the row rather than only increasing dwell. Qualify the change with cross-sections and acceptance review against IPC-A-610."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m10l05",
@@ -5121,7 +5121,7 @@
         "action": "Reduce dwell, lower preheat within paste limits, add a thermal shield, rerun the thermal profile at the capacitor, inspect the joint and capacitor, perform cross-section if needed, and update the program revision with revalidation evidence."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m11l01",
@@ -5235,7 +5235,7 @@
         "action": "Reduce the setpoint within the paste and iron datasheet range, use a larger or better-tinned tip to improve heat transfer, shorten contact time, pre-tin the pad, and inspect the board with IPC-A-610. If laminate damage is visible, reject or rework according to IPC J-STD-001 and record the corrected thermal budget."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m11l02",
@@ -5310,7 +5310,7 @@
         "action": "Recheck iron calibration and tip condition, increase preheat or use a higher thermal mass tip, repeat with correct contact order, and verify against your paste/equipment datasheet."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m11l03",
@@ -5389,7 +5389,7 @@
         "action": "Stop the rework. Inspect the pads and component under magnification, clean the pads, verify alignment, and repeat only if the cycle count and thermal budget allow it. Use a more uniform preheat and a qualified nozzle or profile. After replacement, inspect by X-ray and record the corrected profile, materials, and inspection result."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m11l04",
@@ -5472,7 +5472,7 @@
         "action": "Measure the annular ring and trace width, compare them with the applicable IPC-A-600 class limits, and record the result. If the annular ring or conductor width reduction is outside the IPC-A-600 limit, scrap the assembly or request a customer deviation. If within limits, inspect for delamination, blistering, and exposed conductors, qualify the repair method, and document the residual risk."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m11l05",
@@ -5556,7 +5556,7 @@
         "action": "Stop the repair, inspect the pad, trace, and adjacent joints, and compare the condition against IPC-A-610 Acceptability of Electronic Assemblies and IPC-7711/7721 Acceptability of Rework, Modifications, and Repairs for Electronic Assemblies. If the required class cannot be restored with a qualified repair method, scrap the assembly or route it for engineering disposition. Record the defect, required class, repairability decision, and residual risk."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m11l06",
@@ -5639,7 +5639,7 @@
         "action": "Stop further rework, quarantine the assembly, and evaluate the condition under IPC-7711/7721. If a repair is approved and the joint can meet IPC-A-610 Class 2, perform the approved repair and document it; otherwise scrap or route for engineering disposition."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m12l01",
@@ -5768,7 +5768,7 @@
         "action": "Quarantine the lot. Re-clean using a semi-aqueous or compatible solvent step followed by deionized water rinse. Verify cleanliness with IPC-TM-650 methods and contact resistance or SIR testing. Control MSL exposure per IPC/JEDEC J-STD-033 and ESD handling per ANSI/ESD S20.20 or IEC 61340-5-1. If component rework is needed, follow IPC-7711/7721."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m12l02",
@@ -5851,7 +5851,7 @@
         "action": "Stop coating release. Re-clean affected assemblies using a validated semi-aqueous or aqueous process with extended rinse and drying, then verify dryness and cleanliness before re-coating. Add through-hole drainage orientation, increased drying time, and post-clean surface insulation resistance or ion contamination checks. Update the cleaning process to include trapped-liquid inspection and coating adhesion qualification."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m12l03",
@@ -5932,7 +5932,7 @@
         "action": "Quarantine the lot, remove coating if possible, re-clean with validated ultrasonic or flush process, retest the connector area with ion chromatography and local ROSE, verify particle control, then recoat and retest."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m12l04",
@@ -6014,7 +6014,7 @@
         "action": "Stop the lot and quarantine affected boards. Remove the coating from the affected area using a qualified rework method that does not damage the pads or adjacent components, following IPC-7711/7721 guidance. Re-clean the area and verify solderability and insulation resistance. Correct the process by reducing coating viscosity or application pressure, adding a mask or cap over the test-point array, and verifying UV energy dose in shadowed areas. Add a post-cure inspection step for shadowed regions and requalify the coating process against IPC-CC-830 and IPC-A-610 requirements."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m12l05",
@@ -6097,7 +6097,7 @@
         "action": "Stop the affected lot and inspect other boards for coating creep. Remove the assembly from the line and clean or replace affected connectors according to IPC-7711 and IPC-7721 rework and repair guidance. Requalify the masking layout or selective coating path with a larger keep-out margin, reduce dispense volume or spray pressure, and verify coating creep on a connector test coupon. If cleaning is required, confirm solvent compatibility with the coating and connector materials before returning to production."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m12l06",
@@ -6188,7 +6188,7 @@
         "action": "Stop coating release for the affected lot. Remove the coating locally or fully if needed, clean the board with a validated cleaning process, retest cleanliness using visual inspection and ionic or surface insulation resistance testing, and verify surface energy or coating adhesion on a test coupon. Replace or qualify the masking material if adhesive residue is found, control silicone sources in the area, and rework only after the cleanliness and coating wetting criteria are met."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m13l01",
@@ -6296,7 +6296,7 @@
         "action": "Re-run boundary scan with known good boards, inspect with X-ray or cross-section if available, exercise the net under load and temperature, and rework or reject the board if the fault persists."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m13l02",
@@ -6382,7 +6382,7 @@
         "action": "Stop production release, inspect and replace worn probes, clean the fixture and board test points, verify alignment with a golden board, and confirm contact resistance below the accepted limit. Re-run limit development with golden-board data, then review test-point placement and guard design for the next fixture revision."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m13l03",
@@ -6458,7 +6458,7 @@
         "action": "Clean the board and probe tips, verify probe force and dwell against the tester datasheet, inspect pad finish and probe marks against IPC-A-610 acceptability criteria, and re-run the program with a contact-resistance check or calibration standard before releasing the lot."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m13l04",
@@ -6544,7 +6544,7 @@
         "action": "Add test points or functional vectors for reset, clock, and power rails; review the coverage report for untested nets; verify the BGA escape routing and decoupling layout; re-run boundary scan, functional test, and a targeted flying-probe check on the affected nets."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m13l05",
@@ -6618,7 +6618,7 @@
         "action": "check stencil aperture and paste release, verify paste height with SPI, review reflow profile, and add X-ray or boundary scan coverage for hidden pad nets; rework per IPC acceptability guidance."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m13l06",
@@ -6703,7 +6703,7 @@
         "action": "Check stencil aperture, paste release, SPI data, alignment, and pad cleanliness; review reflow profile; add stress screening or targeted inspection if the defect class is not covered by the chosen test strategy."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m14l01",
@@ -6821,7 +6821,7 @@
         "action": "Freeze the current Pareto, rebuild the defect table with separate fields for AOI call, confirmed defect, false call, escape, disposition, and IPC-A-610 acceptance decision. Run an AOI false-call and detection audit using known-good boards and seeded defects. Correct the Pareto using confirmed defects only. If the corrected reflow Pareto still dominates, stratify by component, package, board location, paste lot, stencil design, and oven profile. If the corrected paste print Pareto rises, review stencil condition, aperture design, paste rheology, squeegee settings, and SPI data against IPC-7525, IPC-7526, and IPC-7530 guidance and your equipment datasheets."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m14l02",
@@ -6896,7 +6896,7 @@
         "action": "Quarantine the suspect paste lot and verify viscosity and metal content against the paste datasheet. Requalify stencil alignment, reflow profile, and placement setup. Update the AOI program and add targeted X-ray or functional test coverage. Run an effectiveness check on subsequent lots and update the control plan and FMEA."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m14l03",
@@ -6973,7 +6973,7 @@
         "action": "Quarantine product back to the last verified good inspection, rework per IPC-7711/7721, adjust flux density and preheat within the equipment datasheet range, and add an initial-article check after each changeover."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m14l04",
@@ -7046,7 +7046,7 @@
         "action": "Quarantine suspect lots, sort outgoing stock, reduce aperture imbalance, adjust reflow profile per paste and component datasheets, update AOI program, validate with short runs, and monitor defect rate in ppm."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m14l05",
@@ -7130,7 +7130,7 @@
         "action": "Quarantine suspect boards, recalibrate the thermocouple, verify the pot temperature against the equipment datasheet, restore the approved setpoint through change control, revalidate with wetting and X-ray checks, update the PFMEA and control plan, and add a daily thermocouple check to the auditor checklist."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m14l06",
@@ -7211,7 +7211,7 @@
         "action": "Open a change-control record for the paste substitution. Requalify the stencil aperture and reflow profile using the new paste datasheet and verify against IPC-7530 Guidelines for Convection Reflow Soldering where applicable. Add paste lot traceability, paste height or volume measurement, and QFN X-ray sampling to the control plan. Update the PFMEA to include paste rheology change as a cause of insufficient solder. Add a checklist item requiring the auditor to verify that the current paste lot, stencil revision, reflow profile, and X-ray results match the approved control plan. Run a verification lot and close the change only when the defect rate returns to the target range and the documents are updated."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m14l07",
@@ -7297,7 +7297,7 @@
         "action": "Containment: quarantine suspect lots and perform full inspection with boundary samples; owner: wave solder process engineer; date: containment due at end of shift. Corrective action: restore preheat setpoint, add a logged preheat check, and update inspection to include hole fill criteria from IPC-A-610; owner: wave solder process engineer; date: corrective action due before next monthly review. Effectiveness metric: no escapes in the next 10 verification lots."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m15l01",
@@ -7415,7 +7415,7 @@
         "action": "Stop release of the affected stencil, quarantine suspect boards, rework or scrap as required, correct the stencil apertures to symmetric geometry, verify SPI paste volume within ±15% of nominal, and update the design rule to require aperture area balance within ±10%."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m15l02",
@@ -7493,7 +7493,7 @@
         "action": "Reduce the defect rate by adjusting the stencil aperture area balance for the affected pads, verifying paste release with 3D solder paste inspection, and slowing the preheat ramp rate within the paste and component thermal limits. Re-run a short production window, collect images with scale, record defect rate by panel location, and update the evidence pack with before and after data."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m15l03",
@@ -7571,7 +7571,7 @@
         "action": "Stop the lane, quarantine suspect boards, measure paste volume, check stencil thickness and aperture condition, verify printer and placement parameters against the equipment datasheet, clean or replace the nozzle and feeder, then run a first article and requalify before release."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m15l04",
@@ -7657,7 +7657,7 @@
         "action": "Reduce thermal-pad aperture to 58% to 62% area, split into 4 sub-apertures with 0.10 mm gaps, re-run SPI with height window 0.10 mm to 0.13 mm, and verify seating by X-ray per IPC-A-610."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   },
   {
     "lessonId": "m15l05",
@@ -7740,6 +7740,6 @@
         "action": "Stop the changeover, retain the old stencil and paste lot for comparison, measure SPI deposit volume and height, requalify the aperture and stencil thickness against the paste datasheet, then run a controlled pilot with thermocouple profiling and X-ray before releasing production."
       }
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md."
+    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced."
   }
 ]

@@ -63,6 +63,14 @@ node course-fix/scripts/apply-source-provenance.js  "$WORK/data"
 node course-fix/scripts/apply-source-editions.js    "$WORK/data"
 node course-fix/scripts/apply-marker-removal.js     "$WORK/data"
 
+# 3a-2. Round 24 (D20). Every lesson's review note ended with "The claim-by-
+#      claim trail … is in REVIEW_CHECKLIST.md" — a pointer out of the course
+#      shell into the reviewer's own audit trail, in both lessons.json and
+#      data-embed.js. apply-marker-removal.js only writes REVIEW_TEXT when the
+#      field still starts with TBD-REVIEW, so an already-written note keeps
+#      the pointer forever. This pass strips it and is idempotent.
+node course-fix/scripts/apply-review-note-fix.js    "$WORK/data"
+
 # 3b. m07l06 stores 7 of its 8 theory sections as bare strings, which
 #     theoryHtml() silently drops — 4,318 characters of the drill itself.
 #     Fixes both the data and the renderer.
@@ -171,6 +179,14 @@ checknode "questions with no src"  0 'var Q=require(process.cwd()+"/course-fix/w
 checknode "status still draft"     0 'var L=require(process.cwd()+"/course-fix/work/data/lessons.json");console.log(L.filter(function(l){return l.status!=="reviewed"}).length)'
 checknode "TBD-REVIEW anywhere"    0 'var d=process.cwd()+"/course-fix/work/data/";var t=["lessons","questions","sources"].map(function(f){return require("fs").readFileSync(d+f+".json","utf8")}).join("");console.log(t.split("TBD-REVIEW").length-1)'
 checknode "reviewed lessons"       92 'var L=require(process.cwd()+"/course-fix/work/data/lessons.json");console.log(L.filter(function(l){return l.status==="reviewed"}).length)'
+
+# D20: the review note must not point out of the course shell. This guard is
+# the only thing that stands between a rebuild and the pointer coming back:
+# apply-marker-removal.js no longer writes it, but a note already on disk
+# keeps it, which is exactly how it survived rounds 21-23.
+checknode "REVIEW_CHECKLIST ref"   0 'var d=process.cwd()+"/course-fix/work/data/";var t=["lessons","questions","sources"].map(function(f){return require("fs").readFileSync(d+f+".json","utf8")}).join("");console.log(t.split("REVIEW_CHECKLIST").length-1)'
+checknode "review note present"   92 'var L=require(process.cwd()+"/course-fix/work/data/lessons.json");console.log(L.filter(function(l){return typeof l.review==="string"&&l.review.indexOf("primary standard text")>=0}).length)'
+checknode "review note pointer"    0 'var L=require(process.cwd()+"/course-fix/work/data/lessons.json");console.log(L.filter(function(l){return String(l.review).indexOf("REVIEW_CHECKLIST")>=0}).length)'
 checknode "edition markers left"   0 'var S=require(process.cwd()+"/course-fix/work/data/sources.json");console.log(S.filter(function(s){return String(s.edition).indexOf("TBD-REVIEW")>=0}).length)'
 checknode "S4.1 superseded ref"    0 'var L=require(process.cwd()+"/course-fix/work/data/lessons.json");var n=0;L.forEach(function(l){var s=JSON.stringify(l.content||{});n+=s.split("ANSI/ESD S4.1").length-1});console.log(n)'
 # The shell-level markers live in app.js / index.html, not the data, so they

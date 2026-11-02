@@ -27,9 +27,9 @@
  * it is only ever rendered inside the draft banner, so at status "reviewed" it is
  * inert — but leaving a sentence that says "content is an unreviewed LLM draft;
  * every number listed in tbd[] is unverified" would be a false statement in the
- * shipped data. The replacement records what was actually done and points at
- * REVIEW_CHECKLIST.md, which holds the claim-by-claim trail with lesson id and
- * field path for all 575 claims.
+ * shipped data. The replacement records what was actually done, and says nothing
+ * about the tooling: the claim-by-claim trail lives in the reviewer's own
+ * working notes, which are not part of the shipped course.
  *
  * The caption suffixes are stripped, not the captions. Where a caption carried a
  * substantive qualifier — "illustrative", "paste TDS always wins", "thresholds
@@ -51,9 +51,7 @@ var lessons = JSON.parse(raw);
 var REVIEW_TEXT =
   'Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring ' +
   'facts verified. Part B: 575 claims walked and adjudicated; 13 defects found ' +
-  'and fixed (D1-D13). Every number this lesson originally flagged is now sourced. ' +
-  'The claim-by-claim trail, with lesson id and field path, is in ' +
-  'REVIEW_CHECKLIST.md.';
+  'and fixed (D1-D13). Every number this lesson originally flagged is now sourced.';
 
 var nStatus = 0, nReview = 0, nCaption = 0;
 

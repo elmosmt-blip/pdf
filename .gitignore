@@ -23,3 +23,9 @@ course-fix/course-fix-2026-*-r*.zip
 # NPI checklist tool: jsdom is a dev-only dependency for the UI smoke test
 npi/node_modules/
 npi/package-lock.json
+
+# NPI tool: jsdom is dev-only, and the demo is reproducible from demo-walk.js
+# plus the generated photos. The report and walkthrough are regenerated, so
+# only the generator, the photos and the checklist stay tracked.
+npi/node_modules/
+npi/package-lock.json
