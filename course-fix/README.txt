@@ -38,14 +38,14 @@ CONTENTS
 FILES
 -----
   index.html                    entry point (3,157 bytes)
-  assets/app.js                 renderer and router (50,681 bytes)
+  assets/app.js                 renderer and router (50,678 bytes)
   assets/style.css              design system (25,136 bytes)
   assets/data-embed.js          embedded snapshot for the file:// runtime
-                                 (1,034,636 bytes) — MUST be replaced together
+                                 (1,026,908 bytes) — MUST be replaced together
                                  with the JSON files or the offline runtime
                                  serves stale content
   assets/img/mNNlNN.png         one illustration per lesson, 1024x717, 92 files
-  data/lessons.json             92 lessons (890,273 bytes)
+  data/lessons.json             92 lessons (882,545 bytes)
   data/questions.json           185 questions (236,232 bytes)
   data/sources.json             39 sources with provenance and edition
                                  (24,343 bytes)

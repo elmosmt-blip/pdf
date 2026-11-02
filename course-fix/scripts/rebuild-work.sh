@@ -91,6 +91,12 @@ node course-fix/scripts/apply-index-fix.js "$WORK"
 #     rather than in the data. Mandatory.
 node course-fix/scripts/apply-review-banner-fix.js "$WORK"
 
+# 4b-4. Round 24 (D20). The app.js header explained where the embedded
+#        snapshot comes from and named the script that builds it. A comment
+#        only a maintainer reads still names build tooling inside the
+#        shipped course. The meaning stays, the name goes.
+node course-fix/scripts/apply-shell-comment-fix.js "$WORK"
+
 # 4b-2. the per-lesson Sources list goes behind a spoiler, reusing the
 #        "Show worked solution" pattern the course already has. Touches both
 #        app.js and style.css, both of which are re-seeded from r4.
@@ -256,5 +262,16 @@ node course-fix/scripts/per-lesson-audit.js "$WORK" course-fix/img | tail -3
 #     so its byte counts and quoted figures must match what is actually there.
 #     Round 20 found it still asserting the round-4 build.
 node course-fix/scripts/check-readme.js "$WORK" course-fix/img | tail -6
+
+# 7c. Round 24 (D20). The shipping shell — index.html, assets/*, data/*,
+#     README.txt — must carry neither a pointer into the reviewer's own audit
+#     trail nor any mention of the tooling the course was made with. Every
+#     earlier check looked at one specific shape, which is how the pointer in
+#     the review note survived rounds 21-23 and how the README's own
+#     "REVIEW STATE" section went unnoticed. This one sweeps every shipping
+#     file, so a marker in an unexpected place stops being invisible.
+#     scripts/ and docs/ are deliberately out of scope: they are the working
+#     record, where naming the mechanism is the point.
+node course-fix/scripts/check-shell-clean.js "$WORK" | tail -4
 
 [ "$fail" = 0 ] && echo "rebuild-work: OK" || { echo "rebuild-work: FAILED"; exit 1; }
