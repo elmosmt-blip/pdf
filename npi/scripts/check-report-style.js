@@ -3,14 +3,19 @@
  *
  * node scripts/check-report-style.js [файл.html]
  *
- * Без аргумента строит отчёт по образцу (включая неотвеченные шаги и открытую
- * находку B) и проверяет его. С аргументом проверяет готовый файл.
+ * Без аргумента строит отчёт по образцу (включая неотвеченные шаги и находки
+ * всех трёх статусов) и проверяет его. С аргументом проверяет готовый файл.
  *
  * Зачем отдельно от report.test.js: тот проверяет содержимое и экранирование,
  * а этот — что таблица стилей действительно применяется. jsdom не вычисляет
  * var(--…) и не разворачивает shorthand-ы, поэтому переменные здесь
  * разворачиваются вручную по :root, и только потом стили сдаются в jsdom.
  * Так проверяются настоящие цвета, а не их текстовые заглушки.
+ *
+ * Ожидания сверены с дизайн-системой курса (course-fix/work/assets/style.css):
+ * #0D1117, tech-grid 60px, сигнальный тил #53d1cc, стеклянные панели,
+ * IBM Plex, радиусы 14/20/28. Если токены курса изменятся — меняются и эти
+ * числа, иначе проверка начнёт защищать не тот дизайн.
  */
 'use strict';
 
@@ -108,7 +113,6 @@ var doc = '<!doctype html><html><head><meta charset="utf-8"><style>' + flat +
 var dom = new JSDOM(doc, { pretendToBeVisual: true });
 var win = dom.window;
 
-var COVW = (html.match(/cov-fill" style="width:([^"]+)"/) || [])[1] || '0%';
 var checks = [];
 var notes = [];
 // На внешнем файле состояние документа может просто не содержать нужного
@@ -123,87 +127,172 @@ function chk(name, sel, prop, want) {
     return;
   }
   var got = String(win.getComputedStyle(el).getPropertyValue(prop)).replace(/\s+/g, ' ').trim();
-  checks.push([got === want, name + ' [' + sel + ' ' + prop + '] → ' + JSON.stringify(got) +
-    (got === want ? '' : '  ЖДАЛИ ' + JSON.stringify(want))]);
+  // Список шрифтов jsdom квотирует иначе, чем написано в таблице стилей.
+  // Сравниваем нормализованно: без кавычек и пробелов вокруг запятых.
+  var norm = function (v) {
+    return String(v).replace(/['"]/g, '').replace(/\s*,\s*/g, ',').trim();
+  };
+  var ok = got === want || norm(got) === norm(want);
+  checks.push([ok, name + ' [' + sel + ' ' + prop + '] → ' + JSON.stringify(got) +
+    (ok ? '' : '  ЖДАЛИ ' + JSON.stringify(want))]);
 }
-function rule(name, selector) {
-  checks.push([flat.indexOf(selector) !== -1,
-    name + ' — правило ' + selector + (flat.indexOf(selector) !== -1 ? ' есть' : ' ОТСУТСТВУЕТ')]);
+function rule(name, needle) {
+  checks.push([flat.indexOf(needle) !== -1,
+    name + ' — ' + (flat.indexOf(needle) !== -1 ? 'есть' : 'ОТСУТСТВУЕТ') + ': ' + needle]);
 }
 
-/* ------------------------------------------------ обложка */
-chk('обложка: тёмный градиент', '.cover', 'background-image',
-  'linear-gradient(135deg,#073d49 0%,#0a5666 48%,#0f7386 100%)');
-chk('обложка: белый текст', '.cover', 'color', 'rgb(255, 255, 255)');
-chk('обложка: заголовок 29px', '.cover h1', 'font-size', '29px');
-chk('обложка: трекинг кикшапки', '.cover-kicker', 'letter-spacing', '.16em');
-chk('обложка: мета-подпись', '.cover-meta th', 'color', 'rgba(255, 255, 255, 0.66)');
-chk('обложка: мета-фон', '.cover-meta th', 'background-color', 'rgba(255, 255, 255, 0.07)');
+/* ------------------------------------------------ основа: токены курса */
+rule('tech-grid 60px', 'background-size:60px 60px');
+rule('сигнальный тил', '--signal:#53d1cc');
+rule('фон #0D1117', '--bg:#0D1117');
+rule('стеклянная панель', '--panel:rgba(15,23,34,.78)');
+rule('радиус 28', '--r-lg:28px');
+rule('тень курса', '--sh-2:0 24px 60px rgba(0,0,0,.28)');
+rule('IBM Plex Sans', "--font:'IBM Plex Sans'");
+rule('IBM Plex Serif', "--serif:'IBM Plex Serif'");
+rule('IBM Plex Mono', "--mono:'IBM Plex Mono'");
+chk('фон документа', 'body', 'background-color', 'rgb(13, 17, 23)');
+chk('цвет текста', 'body', 'color', 'rgb(237, 242, 247)');
+chk('межстрочный', 'body', 'line-height', '1.65');
 
-/* ------------------------------------------------ шапка таблицы */
-chk('шапка: акцентный фон', 'thead th', 'background-color', 'rgb(13, 107, 124)');
-chk('шапка: белый текст', 'thead th', 'color', 'rgb(255, 255, 255)');
+/* ------------------------------------------------------------- обложка */
+chk('обложка: градиент панели', '.cover', 'background-image',
+  'linear-gradient(160deg,rgba(18,51,58,.55) 0%,rgba(15,23,34,.78) 55%,rgba(12,17,25,.94) 100%)');
+chk('обложка: радиус 28', '.cover', 'border-radius', '28px');
+chk('обложка: тень курса', '.cover', 'box-shadow', '0 24px 60px rgba(0,0,0,.28)');
+chk('обложка: рамка', '.cover', 'border-top-color', 'rgba(146, 165, 185, 0.18)');
+chk('обложка: заголовок серифным', '.cover h1', 'font-family',
+  '\'IBM Plex Serif\',Georgia,\'Times New Roman\',serif');
+chk('обложка: подзаголовок', '.cover-sub', 'color', 'rgb(203, 213, 225)');
+chk('обложка: трекинг кикшапки', '.kicker', 'letter-spacing', '.18em');
+chk('обложка: цвет кикшапки', '.kicker', 'color', 'rgb(83, 209, 204)');
+chk('обложка: регистр кикшапки', '.kicker', 'text-transform', 'uppercase');
+chk('обложка: мета-подпись', '.cover-meta th', 'color', 'rgb(255, 255, 255)');
+chk('обложка: панель меты', '.cover-meta', 'font-variant-numeric', 'tabular-nums');
+
+/* --------------------------------------------------- панель таблицы */
+chk('панель: фон', '.tbl-wrap', 'background-color', 'rgba(15, 23, 34, 0.78)');
+rule('панель: размытие 18px', 'backdrop-filter:blur(18px)');
+chk('панель: радиус 20', '.tbl-wrap', 'border-radius', '20px');
+chk('панель: тень', '.tbl-wrap', 'box-shadow',
+  '0 12px 32px -10px rgba(0,0,0,.45)');
+rule('панель: обрезка', 'overflow:hidden');
+
+/* -------------------------------------------------------- шапка таблицы */
+chk('шапка: подложка тил', 'thead th', 'background-color', 'rgba(83, 209, 204, 0.05)');
+chk('шапка: цвет #94a3b8', 'thead th', 'color', 'rgb(148, 163, 184)');
+chk('шапка: моно', 'thead th', 'font-family',
+  '\'IBM Plex Mono\',\'SF Mono\',Consolas,Menlo,monospace');
 chk('шапка: капитель', 'thead th', 'text-transform', 'uppercase');
-chk('шапка: трекинг', 'thead th', 'letter-spacing', '.075em');
+chk('шапка: трекинг', 'thead th', 'letter-spacing', '.06em');
+chk('шапка: линия снизу', 'thead th', 'border-bottom-color', 'rgba(146, 165, 185, 0.18)');
+chk('ячейка: цвет #cbd5e1', 'tbody td', 'color', 'rgb(203, 213, 225)');
+chk('ячейка: подписи белые', 'tbody th', 'color', 'rgb(255, 255, 255)');
+chk('таблица: числа столбцом', 'table', 'font-variant-numeric', 'tabular-nums');
 
-/* ------------------------------------------------ вердикт */
-chk('вердикт: 23px', '.verdict-badge', 'font-size', '23px');
-chk('вердикт: жирность 800', '.verdict-badge', 'font-weight', '800');
-chk('вердикт: красная полоса', '.verdict-banner', 'border-left-color', 'rgb(165, 29, 29)');
-chk('вердикт: красная подложка', '.verdict-banner', 'background-color', 'rgb(253, 242, 242)');
-chk('вердикт: цвет плашки', '.verdict-badge', 'color', 'rgb(165, 29, 29)');
-chk('вердикт: ширина полосы 5px', '.verdict-banner', 'border-left-style', 'solid');
+/* -------------------------------------------------------------- вердикт */
+chk('вердикт: серифный 30px', '.verdict-badge', 'font-size', '30px');
+chk('вердикт: серифный шрифт', '.verdict-badge', 'font-family',
+  "'IBM Plex Serif',Georgia,'Times New Roman',serif");
+chk('вердикт: жирность 600', '.verdict-badge', 'font-weight', '600');
+chk('вердикт: радиус 20', '.verdict-banner', 'border-radius', '20px');
+chk('вердикт: красная подложка', '.verdict-banner', 'background-color', 'rgba(244, 67, 54, 0.06)');
+chk('вердикт: цвет плашки', '.vb-badge--risk', 'color', 'rgb(244, 67, 54)');
+rule('вердикт: зелёный вариант', '.vb-badge--ok{color:#4caf50}');
+rule('вердикт: оранжевый вариант', '.vb-badge--warn{color:#ff9800}');
+chk('вердикт: строка покрытия моно', '.coverage-line', 'font-family',
+  "'IBM Plex Mono','SF Mono',Consolas,Menlo,monospace");
+chk('вердикт: «на основании» капителью', '.verdict-why', 'text-transform', 'uppercase');
+chk('вердикт: трекинг «на основании»', '.verdict-why', 'letter-spacing', '.15em');
 
-/* ------------------------------------------------ полоса покрытия */
-chk('покрытие: трек 9px', '.cov-track', 'height', '9px');
-chk('покрытие: заливка', '.cov-fill', 'width', COVW);
-chk('покрытие: пилюля', '.cov-track', 'border-radius', '99px');
+/* ------------------------------------------------------ полоса покрытия */
+chk('покрытие: трек 8px', '.progress', 'height', '8px');
+chk('покрытие: пилюля', '.progress', 'border-radius', '99px');
+chk('покрытие: трек-подложка', '.progress', 'background-color', 'rgba(255, 255, 255, 0.07)');
+chk('покрытие: градиент заливки', '.progress span', 'background-image',
+  'linear-gradient(90deg,#53d1cc,#53d1cc)');
+chk('покрытие: подпись моно', '.cov-num', 'font-family',
+  "'IBM Plex Mono','SF Mono',Consolas,Menlo,monospace");
 
-/* ------------------------------------------------ серьёзность */
-chk('B: залитый фон', '.sev--B', 'background-color', 'rgb(165, 29, 29)');
+/* ---------------------------------------------------- резюме модели */
+rule('резюме: тиловая подложка', '.llm-summary{border-radius:20px;padding:16px 20px');
+
+/* ------------------------------------------------------------ плашки */
+chk('чип: моно 12px', '.chip', 'font-family',
+  "'IBM Plex Mono','SF Mono',Consolas,Menlo,monospace");
+chk('чип: пилюля', '.chip', 'border-radius', '99px');
+chk('чип не сверено: оранжевый', '.chip--unreviewed', 'color', 'rgb(255, 152, 0)');
+chk('бейдж: зелёный', '.badge--ok', 'color', 'rgb(76, 175, 80)');
+chk('бейдж: красный', '.badge--risk', 'color', 'rgb(244, 67, 54)');
+chk('бейдж: оранжевый', '.badge--open', 'color', 'rgb(255, 152, 0)');
+chk('бейдж: пилюля', '.badge', 'border-radius', '99px');
+chk('гейт пройден: зелёный', '.gs--ok .gs-badge', 'color', 'rgb(76, 175, 80)');
+chk('гейт условно: оранжевый', '.gs--warn .gs-badge', 'color', 'rgb(255, 152, 0)');
+chk('гейт непройден: красный', '.gs--risk .gs-badge', 'color', 'rgb(244, 67, 54)');
+chk('гейт не применим: серый', '.gs--muted .gs-badge', 'color', 'rgb(148, 163, 184)');
+
+/* --------------------------------------------------- серьёзность находки */
+chk('B: красная заливка', '.sev--B', 'background-color', 'rgb(244, 67, 54)');
 chk('B: белый текст', '.sev--B', 'color', 'rgb(255, 255, 255)');
-chk('C: залитый фон', '.sev--C', 'background-color', 'rgb(138, 90, 8)');
-chk('W: залитый фон', '.sev--W', 'background-color', 'rgb(85, 105, 122)');
+chk('C: оранжевая заливка', '.sev--C', 'background-color', 'rgb(255, 152, 0)');
+chk('C: тёмный текст', '.sev--C', 'color', 'rgb(13, 17, 23)');
+chk('W: серая заливка', '.sev--W', 'background-color', 'rgba(146, 165, 185, 0.3)');
+chk('серьёзность: моно', '.sev', 'font-family',
+  "'IBM Plex Mono','SF Mono',Consolas,Menlo,monospace");
 
-/* ------------------------------------------------ карточка находки */
-chk('находка: шапка-подложка', '.finding-head', 'background-color', 'rgb(245, 248, 250)');
-chk('находка: заголовок 14px', '.finding-head h3', 'font-size', '14px');
-chk('находка: статус открыт', '.fs--open', 'color', 'rgb(165, 29, 29)');
-chk('находка: статус закрыт', '.fs--closed', 'color', 'rgb(22, 111, 60)');
-chk('находка: статус локализован', '.fs--contained', 'color', 'rgb(138, 90, 8)');
+/* ----------------------------------------------------- реестр находок */
+chk('находка: панель', '.finding', 'background-color', 'rgba(15, 23, 34, 0.78)');
+chk('находка: радиус 28', '.finding', 'border-radius', '28px');
+chk('находка: тень курса', '.finding', 'box-shadow', '0 24px 60px rgba(0,0,0,.28)');
+rule('находка: размытие 18px', '.finding{background:rgba(15,23,34,.78);backdrop-filter:blur(18px)');
+chk('находка: номер тилом', '.finding-num', 'color', 'rgb(83, 209, 204)');
+chk('находка: статус открыт красный', '.fs--open', 'color', 'rgb(244, 67, 54)');
+chk('находка: статус локализован', '.fs--contained', 'color', 'rgb(255, 152, 0)');
+chk('находка: статус закрыт зелёный', '.fs--closed', 'color', 'rgb(76, 175, 80)');
+chk('находка: подписи полей тилом', '.finding-fields tbody th', 'color', 'rgb(83, 209, 204)');
+chk('находка: подписи полей моно', '.finding-fields tbody th', 'font-family',
+  "'IBM Plex Mono','SF Mono',Consolas,Menlo,monospace");
+chk('находка: подписи полей капителью', '.finding-fields tbody th',
+  'text-transform', 'uppercase');
 
-/* ------------------------------------------------ фото */
-chk('фото: рамка сверху', '.plate img', 'border-top-width', '1px');
-chk('фото: цвет рамки', '.plate img', 'border-top-color', 'rgb(219, 227, 234)');
-chk('фото: подпись 10.5px', '.plate figcaption', 'font-size', '10.5px');
+/* ---------------------------------------------------------------- фото */
+chk('фото: скругление 14', '.plate img', 'border-radius', '14px');
+chk('фото: рамка', '.plate img', 'border-top-color', 'rgba(146, 165, 185, 0.18)');
+chk('фото: подпись моно', '.plate figcaption', 'font-family',
+  "'IBM Plex Mono','SF Mono',Consolas,Menlo,monospace");
+chk('фото: подпись серая', '.plate figcaption', 'color', 'rgb(148, 163, 184)');
 
-/* ------------------------------------------------ приложение */
-chk('гейт: шапка-подложка', '.appendix-gate > h3', 'background-color', 'rgb(245, 248, 250)');
-chk('шаги: 11.5px', '.steps', 'font-size', '11.5px');
-chk('шаги: моно id', '.step-id', 'font-family',
-  'ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, "Liberation Mono", monospace');
-chk('шаги: риск подсвечен', '.step--risk td', 'background-color', 'rgb(253, 242, 242)');
-chk('шаги: неотвеченный', '.step--unanswered td', 'background-color', 'rgb(253, 248, 236)');
+/* ------------------------------------------------------ приложение */
+chk('гейт: панель', '.appendix-gate', 'background-color', 'rgba(15, 23, 34, 0.78)');
+chk('гейт: радиус 20', '.appendix-gate', 'border-radius', '20px');
+chk('гейт: шапка тиловая', '.appendix-gate > h3', 'background-color', 'rgba(83, 209, 204, 0.05)');
+chk('гейт: id шага тилом', '.step-id', 'color', 'rgb(83, 209, 204)');
+chk('шаги: неотвеченный оранжевый', '.step--unanswered td', 'background-color',
+  'rgba(255, 152, 0, 0.05)');
+chk('шаги: риск красный', '.step--risk td', 'background-color', 'rgba(244, 67, 54, 0.05)');
 
-/* ------------------------------------------------ разделы */
-chk('раздел: 17px', 'h2', 'font-size', '17px');
-chk('раздел: линия снизу', 'h2', 'border-bottom-color', 'rgb(219, 227, 234)');
-chk('раздел: акцентная черта', 'h2', 'border-bottom-style', 'solid');
+/* ------------------------------------------------------------ разделы */
+chk('раздел: серифный 28px', 'h2', 'font-family',
+  "'IBM Plex Serif',Georgia,'Times New Roman',serif");
+chk('раздел: размер 28', 'h2', 'font-size', '28px');
+chk('раздел: белый', 'h2', 'color', 'rgb(255, 255, 255)');
+rule('раздел: тиловая черта 44px', 'width:44px;height:3px');
 
-/* ------------------------------------------------ прочее */
-chk('подписи: ячейка 42px', '.signoff-table td.sig-blank', 'height', '42px');
-chk('примечания: подложка', '.notes', 'background-color', 'rgb(245, 248, 250)');
-chk('гейт-бейдж пройден', '.gs--ok .gs-badge', 'color', 'rgb(22, 111, 60)');
-chk('гейт-бейдж не пройден', '.gs--risk .gs-badge', 'color', 'rgb(165, 29, 29)');
-chk('гейт-бейдж условно', '.gs--warn .gs-badge', 'color', 'rgb(138, 90, 8)');
-chk('гейт-бейдж не применим', '.gs--muted .gs-badge', 'color', 'rgb(85, 105, 122)');
-chk('бейдж соответствует', '.badge--ok', 'color', 'rgb(22, 111, 60)');
-chk('бейдж риск', '.badge--risk', 'color', 'rgb(165, 29, 29)');
+/* ------------------------------------------------------ подписи, прочее */
+chk('подписи: подписи полей тилом', '.signoff-table tbody th', 'color', 'rgb(83, 209, 204)');
+chk('подписи: высота ячейки', '.signoff-table td.sig-blank', 'height', '48px');
+chk('примечания: подложка', '.notes', 'background-color', 'rgba(255, 255, 255, 0.02)');
+chk('примечания: радиус 14', '.notes', 'border-radius', '14px');
+chk('подвал: моно', '.report-foot', 'font-family',
+  "'IBM Plex Mono','SF Mono',Consolas,Menlo,monospace");
+chk('подвал: серый', '.report-foot', 'color', 'rgb(148, 163, 184)');
 
-/* ------------------------------------------------ печать */
+/* --------------------------------------------------------------- печать */
 rule('печать: А4', '@page{size:A4');
+rule('печать: белая бумага', 'body{background:#fff;color:#000');
+rule('печать: панели снимаются', 'background:#fff!important');
 rule('печать: без разрыва карточки', '.finding,.plate,.appendix-gate');
-rule('печать: цвет не выцветает', 'print-color-adjust:exact');
+rule('печать: без разрыва строки', 'tr{');
 
 var bad = checks.filter(function (c) { return !c[0]; });
 checks.forEach(function (c) { console.log((c[0] ? '  ok   ' : '  ПЛОХО ') + c[1]); });
