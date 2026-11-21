@@ -45,8 +45,8 @@ const TARGET = {
   positionTolerancePP: 10,      // percentage points away from uniform
   lengthRatioMin: 0.75,         // distractor length / keyed length
   lengthRatioMax: 1.35,
-  examPerLessonQuestionMin: 2,   // exam-bank depth per lesson question
-  examPerLessonMin: 2            // exam-bank depth per LESSON (agreed target)
+  examPerLessonMin: 2,          // exam-bank depth per LESSON (agreed target)
+  examPerLessonMinTop: 3        // the band the brief allowed: 2-3 per lesson
 };
 
 const K_ALL = ['K1', 'K2', 'K3', 'K4', 'K5', 'K6', 'K7', 'K8', 'K9', 'K10'];
@@ -342,7 +342,13 @@ function analyse(questions, lessons) {
     if (!lessonQ) return;
     const ratio = examQ / lessonQ;
     if (depthWorst === null || ratio < depthWorst.ratio) {
-      depthWorst = { lesson: id, lessonQ: lessonQ, examQ: examQ, ratio: ratio };
+      depthWorst = {
+        lesson: id,
+        lessonQ: lessonQ,
+        examQ: examQ,
+        ratio: ratio,
+        perLesson: examQ / 1          // one lesson, so per-lesson depth is examQ
+      };
     }
     const m = moduleOf[id] || '?';
     depthByModule[m] = depthByModule[m] || { lessonQ: 0, examQ: 0, lessons: 0 };
@@ -382,9 +388,13 @@ function analyse(questions, lessons) {
   if (compOff.length) soft.push('competencies off even coverage by >10 pp: ' + compOff.join(', '));
   if (missingBloom.length) soft.push(missingBloom.length + ' question(s) carry no bloom level');
   if (missingCompetency.length) soft.push(missingCompetency.length + ' question(s) carry no competency tag');
-  if (depthWorst && depthWorst.ratio < TARGET.examPerLessonQuestionMin) {
-    soft.push('exam bank shallower than ' + TARGET.examPerLessonQuestionMin +
-      'x at ' + depthWorst.lesson + ' (' + depthWorst.examQ + ' exam / ' + depthWorst.lessonQ + ' lesson)');
+  /* Depth is judged per lesson against the agreed band of 2-3 exam questions,
+     not per lesson question: a lesson with 5 lesson questions and 2 exam
+     questions is inside the brief, and a ratio rule would flag it. */
+  if (depthWorst && depthWorst.perLesson < TARGET.examPerLessonMin) {
+    soft.push('exam bank below ' + TARGET.examPerLessonMin +
+      ' per lesson at ' + depthWorst.lesson + ' (' + depthWorst.examQ +
+      ' exam for ' + depthWorst.lessonQ + ' lesson)');
   }
 
   /* Per-module depth against the agreed target of 2-3 exam questions per LESSON
