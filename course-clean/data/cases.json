@@ -730,6 +730,12 @@
           "name": "profile.csv",
           "kind": "csv",
           "content": "interval,from_c,to_c,seconds,rate_c_per_s\nramp,25,150,60,\nsoak,150,190,90,\napproach,190,219,30,\nabove_liquidus,219,248,65,\npeak_hold,248,248,4,\ncooling,248,100,40,\n"
+        },
+        {
+          "name": "thermocouples.csv",
+          "kind": "csv",
+          "note": "One profile, three sites. The middle column is the peak at that thermocouple; the offsets are why a single-point profile flatters the board.",
+          "content": "site,location,peak_c,tal_s,offset_from_reference_c\nTC1,BGA centre joint,242,60,-6\nTC2,QFP lead board edge,249,65,+1\nTC3,0402 chip near edge,254,70,+6\n"
         }
       ],
       "steps": [
@@ -770,11 +776,29 @@
           "explanation": "65 s clears the 60 s floor of the paste window by 5 s. The course treats that as passing but thin: a slower line or a colder zone could drop the board below the window without anyone changing the recipe."
         },
         {
+          "id": "s2b",
+          "type": "numeric",
+          "prompt": "The survey ran three thermocouples. Using thermocouples.csv, what is the peak-to-peak spread across the board, in °C?",
+          "answer": {
+            "value": 12.0,
+            "tolerance": 0.5,
+            "unit": "°C"
+          },
+          "hints": [
+            "Spread is the hottest site minus the coldest, not a distance to a limit.",
+            "Hottest is the 0402 near the edge, coldest is the BGA centre joint.",
+            "254 - 242."
+          ],
+          "feedbackCorrect": "12 °C across the board — and the mean of the three is the 248 °C the single-point profile reported.",
+          "feedbackWrong": "Subtract the coldest peak from the hottest; ignore the middle site.",
+          "explanation": "254 - 242 = 12 °C. The mean of the three sites is 248 °C, exactly the peak the single-point profile reported, which is why one thermocouple makes a graded board look uniform. The coldest site, the BGA centre joint, peaks at 242 °C, 3 °C under the paste window top; the 0402 near the edge peaks at 254 °C, 4 °C over the 250 °C classification ceiling. Both are reasons to record the spread, not just the average."
+        },
+        {
           "id": "s3",
           "type": "numeric",
           "prompt": "Peak is 248 °C and the large-package classification temperature is 250 °C. What margin is left, in °C?",
           "answer": {
-            "value": 2,
+            "value": 2.0,
             "tolerance": 0.5,
             "unit": "°C"
           },
@@ -915,6 +939,13 @@
           ]
         },
         {
+          "criterion": "Spread read from the three-site survey, not from the average peak",
+          "points": 8,
+          "steps": [
+            "s2b"
+          ]
+        },
+        {
           "criterion": "Cooling rate computed and interpreted",
           "points": 10,
           "steps": [
@@ -923,7 +954,7 @@
         },
         {
           "criterion": "Disposition states the margins rather than just 'pass'",
-          "points": 20,
+          "points": 14,
           "steps": [
             "s5"
           ]
@@ -937,7 +968,7 @@
         },
         {
           "criterion": "Evidence ranked above the estimate",
-          "points": 15,
+          "points": 13,
           "steps": [
             "s7"
           ]

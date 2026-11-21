@@ -15,7 +15,8 @@ cx-m02-01,s5,numeric,J-STD-033 tape-and-reel ceiling,40,0.5,°C,"{""limit"": 40}
 cx-m02-01,s6,choice,choice key = b,b,0,,{}
 cx-m06-01,s1,numeric,(150-25)/60,2.0833333333333335,0.05,°C/s,"{""seconds"": 60, ""t1_c"": 25, ""t2_c"": 150}"
 cx-m06-01,s2,numeric,65-60,5.0,0.5,s,"{""min_s"": 60, ""tal_s"": 65}"
-cx-m06-01,s3,numeric,250-248,2,0.5,°C,"{""limit"": 250, ""measured"": 248}"
+cx-m06-01,s2b,numeric,max(tc)-min(tc),12.0,0.5,°C,"{""tc_peaks"": [242.0, 249.0, 254.0]}"
+cx-m06-01,s3,numeric,250-248,2.0,0.5,°C,"{""limit"": 250, ""measured"": 248.0}"
 cx-m06-01,s4,numeric,(248-100)/40,3.7,0.05,°C/s,"{""s"": 40, ""t1"": 248, ""t2"": 100}"
 cx-m06-01,s5,choice,choice key = b,b,0,,{}
 cx-m06-01,s6,numeric,100/90,1.1111111111111112,0.05,°C/s,"{""power_w"": 100, ""thermal_mass_j_per_k"": 90}"

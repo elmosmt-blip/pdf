@@ -259,3 +259,38 @@ table, SVG chart, points per step, Score chip), and the `.solved` variants.
    compact one wins, the "average peak hides the spread" idea moves into ours.
 3. The other three cases get the compact treatment only after 3–5 people have
    taken them.
+
+---
+
+# Decision on m06 (after the limits review)
+
+Asked whether to keep the seven-step m06 case or adopt the compact mock-up
+scenario, the answer was: **keep our case, add the one idea from the mock-up
+that ours lacked — "the average peak hides the spread" — but on our numbers.**
+
+What changed, and only for m06:
+
+| | Before | After |
+|---|---|---|
+| Steps | 7 | **8** |
+| Rubric | 100 | **100** (a new 8-point criterion; s5 20→14 and s7 15→13 rebalanced) |
+| Data files | `profile.csv` | `profile.csv` + **`thermocouples.csv`** |
+| Key new answer | — | **12 °C** spread, 254 − 242 |
+
+The three sites are declared once in the generator and everything else reads
+them: `TC1 BGA centre 242 °C · TC2 QFP lead 249 °C · TC3 0402 near edge 254 °C`,
+offsets −6 / +1 / +6 from the 248 °C reference. So the mean is exactly the
+single-point peak the rest of the case reports — which is the point of the step.
+The 242 °C site is 3 °C under the paste-window top; the 254 °C site is 4 °C over
+the 250 °C ceiling. Both facts now live in one number a learner can compute.
+
+`check-cases.js` recomputes the spread from `thermocouples.csv` itself rather
+than from the generator's offsets, so the key is still independently verified.
+
+**TAL stays at 60–90 s**, the Board X paste window, as decided: it is the course's
+own stated window (m06l07), not a figure taken from a named datasheet, and it is
+now labelled that way in the case, the chips and the lesson text.
+
+Tests: **159 passed, 0 failed** (two tests were updated because m06 legitimately
+has two data tables and eight steps now). Integrity: 4 cases / 32 steps / 23
+numeric. The other three cases are untouched.

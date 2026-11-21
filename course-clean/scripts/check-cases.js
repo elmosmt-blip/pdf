@@ -159,6 +159,12 @@ const EXPECTED = {
     const r = dataFile(c, 'profile.csv').filter(function (x) { return x.interval === 'above_liquidus'; })[0];
     return (+r.seconds) - 60;                           /* paste window floor, m06l07 */
   },
+  'cx-m06-01.s2b': function (c) {
+    /* read every thermocouple's peak and take the span — the case's own claim is
+     * that the average hides this, so the check must not use the average */
+    const peaks = dataFile(c, 'thermocouples.csv').map(function (r) { return +r.peak_c; });
+    return Math.max.apply(null, peaks) - Math.min.apply(null, peaks);
+  },
   'cx-m06-01.s3': function (c) {
     const r = dataFile(c, 'profile.csv').filter(function (x) { return x.interval === 'peak_hold'; })[0];
     return 250 - (+r.from_c);                           /* J-STD-020 large package */

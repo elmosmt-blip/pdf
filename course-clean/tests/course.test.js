@@ -664,8 +664,14 @@ async function renderLayer() {
   const casePage = load('#/c/cx-m06-01');
   const cpd = casePage.window.document;
   ok(!!cpd.querySelector('.case-table'), 'the data file renders as a table');
-  const rows = cpd.querySelectorAll('.case-table tbody tr');
-  eq(rows.length, 6, 'the table has one row per recorded interval');
+  /* m06 now ships two data files: the interval profile (6 rows) and the
+     three-site thermocouple survey (3 rows). Both are tables. */
+  const tables = cpd.querySelectorAll('.case-table');
+  eq(tables.length, 2, 'both m06 data files render as tables');
+  eq(tables[0].querySelectorAll('tbody tr').length, 6,
+    'the profile table has one row per recorded interval');
+  eq(tables[1].querySelectorAll('tbody tr').length, 3,
+    'the thermocouple table has one row per site');
   const svg = cpd.querySelector('svg.profile-chart');
   ok(!!svg, 'the profile is drawn as a chart from the same file');
   if (svg) {
@@ -689,7 +695,9 @@ async function renderLayer() {
   ok(/Step 1 \(15 points\)/.test(stepHeads[0]), 'a step heading states its points', stepHeads[0]);
   ok(/Score 0 of 100/.test(cpd.querySelector('.meta-line').textContent),
     'the header carries a score chip');
-  ok(cpd.querySelectorAll('[data-act="case-check"]').length === 7,
+  eq(cpd.querySelectorAll('[data-act="case-check"]').length,
+    (JSON.parse(fs.readFileSync(path.join(BUILD, 'data', 'cases.json'), 'utf8'))
+      .cases.filter(function (c) { return c.caseId === 'cx-m06-01'; })[0].steps.length),
     'every step has its own Check answer button');
   casePage.window.close();
 

@@ -2,7 +2,7 @@ Rendered outline of #/c/cx-m06-01
 Produced by scripts/capture-case.js from the built tree (build/course-clean).
 This is the live DOM from the shipped engine, not a mock-up.
 
-main #main   [8921 chars]
+main #main   [10349 chars]
   p .kicker   [38 chars]
     "Toolkit · Module 06 · Reflow Soldering"
   header .page-head   [94 chars]
@@ -15,26 +15,26 @@ main #main   [8921 chars]
         span .chip   [6 chars]
           "25 min"
         span .chip   [7 chars]
-          "7 steps"
+          "8 steps"
         span .chip   [14 chars]
           "rubric 100 pts"
         span .chip   [14 chars]
           "Score 0 of 100"
-  section .case-scenario   [599 chars]
+  section .case-scenario   [735 chars]
     p   [280 chars]
       "Board X is a 1.6 mm six-layer board with heavy ground planes and a large BGA. The thermal survey from the wors…"
-    p   [193 chars]
-      "Paste is SAC305 with a datasheet window of 60-90 s above liquidus and a peak of 245-250 °C. The BGA is a large…"
+    p   [329 chars]
+      "Paste is SAC305. The paste window for this board is 60-90 s above liquidus (IPC-7530B guidance is 30-90 s; the…"
     p   [126 chars]
       "Validate the profile, compute the margins, and decide whether it can be released with a documentation note or …"
-  details .case-board   [672 chars]
+  details .case-board   [749 chars]
     summary   [38 chars]
       "Board X — the product behind this case"
-    div .details-body   [634 chars]
+    div .details-body   [711 chars]
       p .muted.flush   [158 chars]
         "6-layer 1.6 mm FR-4 controller board: QFP-64 at 0.5 mm pitch, QFP-48 at 0.4 mm pitch, one 256-ball BGA at 0.8 …"
-      table .case-facts   [476 chars]
-        tbody   [476 chars]
+      table .case-facts   [553 chars]
+        tbody   [553 chars]
           tr   [23 chars]
             th   [20 chars]
               "Board thickness (mm)"
@@ -135,12 +135,22 @@ main #main   [8921 chars]
               "Time above liquidus (s)"
             td   [5 chars]
               "60–90"
-          tr   [23 chars]
-            th   [16 chars]
-              "Peak window (°C)"
+          tr   [30 chars]
+            th   [23 chars]
+              "Peak window, paste (°C)"
             td   [7 chars]
-              "235–250"
-  ul .spec-chips   [61 chars]
+              "235–245"
+          tr   [35 chars]
+            th   [28 chars]
+              "Typical production peak (°C)"
+            td   [7 chars]
+              "235–245"
+          tr   [35 chars]
+            th   [32 chars]
+              "Peak ceiling, large package (°C)"
+            td   [3 chars]
+              "250"
+  ul .spec-chips   [101 chars]
     li .spec-chip   [14 chars]
       span .spec-chip-label   [8 chars]
         "Liquidus"
@@ -151,15 +161,20 @@ main #main   [8921 chars]
         "Time above liquidus"
       span .spec-chip-value   [7 chars]
         "60–90 s"
-    li .spec-chip   [21 chars]
-      span .spec-chip-label   [11 chars]
-        "Peak window"
+    li .spec-chip   [28 chars]
+      span .spec-chip-label   [18 chars]
+        "Peak window, paste"
       span .spec-chip-value   [10 chars]
-        "235–250 °C"
-  details .case-data   [354 chars]
+        "235–245 °C"
+    li .spec-chip   [33 chars]
+      span .spec-chip-label   [27 chars]
+        "Peak ceiling, large package"
+      span .spec-chip-value   [6 chars]
+        "250 °C"
+  details .case-data   [345 chars]
     summary   [23 chars]
       "Data file — profile.csv"
-    div .details-body   [331 chars]
+    div .details-body   [322 chars]
       div .case-table-wrap   [129 chars]
         table .case-table   [129 chars]
           thead   [37 chars]
@@ -235,28 +250,10 @@ main #main   [8921 chars]
               td .num   [2 chars]
                 "40"
               td
-      svg role=img   [58 chars]
-        line
-        text   [1 chars]
-          "0"
-        line
-        text   [2 chars]
-          "50"
-        line
-        text   [3 chars]
-          "100"
-        line
-        text   [3 chars]
-          "150"
-        line
-        text   [3 chars]
-          "200"
-        line
-        text   [3 chars]
-          "250"
+      svg role=img   [49 chars]
         rect
-        text   [22 chars]
-          "Peak window 235–250 °C"
+        text   [28 chars]
+          "Peak window 250–undefined °C"
         line
         text   [15 chars]
           "Liquidus 219 °C"
@@ -273,8 +270,65 @@ main #main   [8921 chars]
       p .flush   [20 chars]
         button .btn.btn--small type=button data-act=case-data   [20 chars]
           "Download profile.csv"
-  form .case-form   [4337 chars]
-    ol .case-steps   [4315 chars]
+  details .case-data   [325 chars]
+    summary   [29 chars]
+      "Data file — thermocouples.csv"
+    div .details-body   [296 chars]
+      p .muted.flush   [140 chars]
+        "One profile, three sites. The middle column is the peak at that thermocouple; the offsets are why a single-poi…"
+      div .case-table-wrap   [130 chars]
+        table .case-table   [130 chars]
+          thead   [46 chars]
+            tr   [46 chars]
+              th   [4 chars]
+                "site"
+              th   [8 chars]
+                "location"
+              th   [6 chars]
+                "peak_c"
+              th   [5 chars]
+                "tal_s"
+              th   [23 chars]
+                "offset_from_reference_c"
+          tbody   [84 chars]
+            tr   [26 chars]
+              td   [3 chars]
+                "TC1"
+              td   [16 chars]
+                "BGA centre joint"
+              td .num   [3 chars]
+                "242"
+              td .num   [2 chars]
+                "60"
+              td .num   [2 chars]
+                "-6"
+            tr   [29 chars]
+              td   [3 chars]
+                "TC2"
+              td   [19 chars]
+                "QFP lead board edge"
+              td .num   [3 chars]
+                "249"
+              td .num   [2 chars]
+                "65"
+              td   [2 chars]
+                "+1"
+            tr   [29 chars]
+              td   [3 chars]
+                "TC3"
+              td   [19 chars]
+                "0402 chip near edge"
+              td .num   [3 chars]
+                "254"
+              td .num   [2 chars]
+                "70"
+              td   [2 chars]
+                "+6"
+      p .flush   [26 chars]
+        button .btn.btn--small type=button data-act=case-data   [26 chars]
+          "Download thermocouples.csv"
+  form .case-form   [5063 chars]
+    ol .case-steps   [5041 chars]
       li #step-s1 .case-step.case-step--ok   [423 chars]
         div .case-step-head   [32 chars]
           span .case-step-n   [18 chars]
@@ -333,10 +387,39 @@ main #main   [8921 chars]
             "Worked reasoning"
           p   [203 chars]
             "65 s clears the 60 s floor of the paste window by 5 s. The course treats that as passing but thin: a slower li…"
+      li #step-s2b .case-step.case-step--ok   [726 chars]
+        div .case-step-head   [31 chars]
+          span .case-step-n   [17 chars]
+            "Step 3 (8 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [117 chars]
+          "The survey ran three thermocouples. Using thermocouples.csv, what is the peak-to-peak spread across the board,…"
+        div .case-input-row   [33 chars]
+          label .case-input-label   [16 chars]
+            "Your answer"
+            span .muted   [4 chars]
+              "(°C)"
+          input #in-s2b .case-input type=text name=c-s2b value=12
+          span .case-tol.muted   [17 chars]
+            "tolerance ±0.5 °C"
+        p #err-s2b .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [99 chars]
+          "12 °C across the board — and the mean of the three is the 248 °C the single-point profile reported."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [426 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [410 chars]
+            "254 - 242 = 12 °C. The mean of the three sites is 248 °C, exactly the peak the single-point profile reported, …"
       li #step-s3 .case-step.case-step--ok   [479 chars]
         div .case-step-head   [32 chars]
           span .case-step-n   [18 chars]
-            "Step 3 (15 points)"
+            "Step 4 (15 points)"
           span .case-step-type   [14 chars]
             "numeric answer"
         p .case-prompt   [102 chars]
@@ -365,7 +448,7 @@ main #main   [8921 chars]
       li #step-s4 .case-step.case-step--ok   [467 chars]
         div .case-step-head   [32 chars]
           span .case-step-n   [18 chars]
-            "Step 4 (10 points)"
+            "Step 5 (10 points)"
           span .case-step-type   [14 chars]
             "numeric answer"
         p .case-prompt   [77 chars]
@@ -394,7 +477,7 @@ main #main   [8921 chars]
       li #step-s5 .case-step.case-step--ok   [881 chars]
         div .case-step-head   [24 chars]
           span .case-step-n   [18 chars]
-            "Step 5 (20 points)"
+            "Step 6 (14 points)"
           span .case-step-type   [6 chars]
             "choice"
         p .case-prompt   [40 chars]
@@ -434,7 +517,7 @@ main #main   [8921 chars]
       li #step-s6 .case-step.case-step--ok   [593 chars]
         div .case-step-head   [32 chars]
           span .case-step-n   [18 chars]
-            "Step 6 (10 points)"
+            "Step 7 (10 points)"
           span .case-step-type   [14 chars]
             "numeric answer"
         p .case-prompt   [147 chars]
@@ -463,7 +546,7 @@ main #main   [8921 chars]
       li #step-s7 .case-step.case-step--ok   [966 chars]
         div .case-step-head   [24 chars]
           span .case-step-n   [18 chars]
-            "Step 7 (15 points)"
+            "Step 8 (13 points)"
           span .case-step-type   [6 chars]
             "choice"
         p .case-prompt   [85 chars]
@@ -505,15 +588,15 @@ main #main   [8921 chars]
         "Check my answers"
       button .btn type=button data-act=case-reset   [5 chars]
         "Clear"
-  div #case-result-slot   [518 chars]
-    section #case-result .case-result   [518 chars]
+  div #case-result-slot   [585 chars]
+    section #case-result .case-result   [585 chars]
       h2   [6 chars]
         "Result"
       p .case-score.case-score--pass   [32 chars]
         "100 % — 100 of 100 rubric points"
       p .flush   [66 chars]
         "Mastered. The rubric threshold is 80 %. Best result so far: 100 %."
-      table .case-rubric   [360 chars]
+      table .case-rubric   [427 chars]
         thead   [21 chars]
           tr   [21 chars]
             th   [9 chars]
@@ -522,7 +605,7 @@ main #main   [8921 chars]
               "Points"
             th   [6 chars]
               "Earned"
-        tbody   [339 chars]
+        tbody   [406 chars]
           tr   [49 chars]
             td   [45 chars]
               "Ramp rate computed from the recorded interval"
@@ -544,6 +627,13 @@ main #main   [8921 chars]
               "15"
             td .num   [2 chars]
               "15"
+          tr   [67 chars]
+            td   [65 chars]
+              "Spread read from the three-site survey, not from the average peak"
+            td .num   [1 chars]
+              "8"
+            td .num   [1 chars]
+              "8"
           tr   [41 chars]
             td   [37 chars]
               "Cooling rate computed and interpreted"
@@ -555,9 +645,9 @@ main #main   [8921 chars]
             td   [54 chars]
               "Disposition states the margins rather than just 'pass'"
             td .num   [2 chars]
-              "20"
+              "14"
             td .num   [2 chars]
-              "20"
+              "14"
           tr   [44 chars]
             td   [40 chars]
               "Model-versus-measurement check performed"
@@ -569,26 +659,26 @@ main #main   [8921 chars]
             td   [34 chars]
               "Evidence ranked above the estimate"
             td .num   [2 chars]
-              "15"
+              "13"
             td .num   [2 chars]
-              "15"
+              "13"
       div .quiz-actions   [54 chars]
         button .btn type=button data-act=case-retake   [28 chars]
           "Try again from a clean sheet"
         button .btn type=button data-act=case-csv   [25 chars]
           "Download my answers (CSV)"
-  details .case-rubric-box   [488 chars]
+  details .case-rubric-box   [554 chars]
     summary   [32 chars]
       "Rubric — how this case is scored"
-    div .details-body   [456 chars]
-      table .case-rubric   [340 chars]
+    div .details-body   [522 chars]
+      table .case-rubric   [406 chars]
         thead   [15 chars]
           tr   [15 chars]
             th   [9 chars]
               "Criterion"
             th   [6 chars]
               "Points"
-        tbody   [325 chars]
+        tbody   [391 chars]
           tr   [47 chars]
             td   [45 chars]
               "Ramp rate computed from the recorded interval"
@@ -604,6 +694,11 @@ main #main   [8921 chars]
               "Peak margin taken against the correct package class"
             td .num   [2 chars]
               "15"
+          tr   [66 chars]
+            td   [65 chars]
+              "Spread read from the three-site survey, not from the average peak"
+            td .num   [1 chars]
+              "8"
           tr   [39 chars]
             td   [37 chars]
               "Cooling rate computed and interpreted"
@@ -613,7 +708,7 @@ main #main   [8921 chars]
             td   [54 chars]
               "Disposition states the margins rather than just 'pass'"
             td .num   [2 chars]
-              "20"
+              "14"
           tr   [42 chars]
             td   [40 chars]
               "Model-versus-measurement check performed"
@@ -623,7 +718,7 @@ main #main   [8921 chars]
             td   [34 chars]
               "Evidence ranked above the estimate"
             td .num   [2 chars]
-              "15"
+              "13"
       p .muted.flush   [116 chars]
         "Criteria are scored in proportion to the steps they name. A criterion spanning two steps pays half per correct…"
   section .sources   [1725 chars]

@@ -219,6 +219,13 @@ def ramp_rate(t1_c: float, t2_c: float, seconds: float):
             {"t1_c": t1_c, "t2_c": t2_c, "seconds": seconds})
 
 
+def spread(peaks):
+    """Peak-to-peak spread across the board's thermocouples."""
+    if len(peaks) < 2:
+        raise ValueError("a spread needs at least two thermocouples")
+    return (max(peaks) - min(peaks), "°C", "max(tc)-min(tc)", {"tc_peaks": peaks})
+
+
 def margin(limit: float, measured: float):
     value = limit - measured
     return (value, "°C", "%g-%g" % (limit, measured),
@@ -846,7 +853,16 @@ def build_cases():
     # =====================================================================
     ramp = ramp_rate(25, 150, 60)
     tal_margin = (65.0 - TAL_MIN_S, "s", "65-60", {"tal_s": 65, "min_s": TAL_MIN_S})
-    peak_margin = margin(JSTD020_LARGE_PACKAGE_C, 248)
+    # The survey ran three thermocouples. Their offsets from the reference site are
+    # the one place the spread is declared; the data file, the step and the
+    # explanation all read them from here.
+    PROFILE_PEAK_C = 248.0
+    TC_SITES = [(-6, "TC1", "BGA centre joint", 60),
+                (1, "TC2", "QFP lead board edge", 65),
+                (6, "TC3", "0402 chip near edge", 70)]
+    tc_peaks = [PROFILE_PEAK_C + off for off, _, _, _ in TC_SITES]
+    peak_spread = spread(tc_peaks)
+    peak_margin = margin(JSTD020_LARGE_PACKAGE_C, PROFILE_PEAK_C)
     cooling_rate = (248 - 100) / 40.0
     model_ramp = expected_ramp(100, 90)
 
@@ -882,7 +898,17 @@ def build_cases():
                     "peak_hold,248,248,4,\n"
                     "cooling,248,100,40,\n"
                 ),
-            }
+            },
+            {
+                "name": "thermocouples.csv",
+                "kind": "csv",
+                "note": "One profile, three sites. The middle column is the peak at "
+                        "that thermocouple; the offsets are why a single-point profile "
+                        "flatters the board.",
+                "content": ("site,location,peak_c,tal_s,offset_from_reference_c\n" +
+                            "".join("%s,%s,%d,%d,%+d\n" % (sid, name, PROFILE_PEAK_C + off, tal, off)
+                                    for off, sid, name, tal in TC_SITES)),
+            },
         ],
         "steps": [],
         "rubric": [],
@@ -923,6 +949,24 @@ def build_cases():
         "65 s clears the 60 s floor of the paste window by 5 s. The course treats that as "
         "passing but thin: a slower line or a colder zone could drop the board below the "
         "window without anyone changing the recipe."))
+
+    add_step(c, step_numeric(
+        "s2b",
+        "The survey ran three thermocouples. Using thermocouples.csv, what is the "
+        "peak-to-peak spread across the board, in °C?",
+        peak_spread, 0.5,
+        ["Spread is the hottest site minus the coldest, not a distance to a limit.",
+         "Hottest is the 0402 near the edge, coldest is the BGA centre joint.",
+         "%d - %d." % (max(tc_peaks), min(tc_peaks))],
+        "12 °C across the board — and the mean of the three is the 248 °C the "
+        "single-point profile reported.",
+        "Subtract the coldest peak from the hottest; ignore the middle site.",
+        "254 - 242 = 12 °C. The mean of the three sites is 248 °C, exactly the peak "
+        "the single-point profile reported, which is why one thermocouple makes a "
+        "graded board look uniform. The coldest site, the BGA centre joint, peaks at "
+        "242 °C, 3 °C under the paste window top; the 0402 near the edge peaks at "
+        "254 °C, 4 °C over the 250 °C classification ceiling. Both are reasons to "
+        "record the spread, not just the average."))
 
     add_step(c, step_numeric(
         "s3",
@@ -1031,10 +1075,12 @@ def build_cases():
         {"criterion": "Ramp rate computed from the recorded interval", "points": 15, "steps": ["s1"]},
         {"criterion": "Time above liquidus compared with the paste window", "points": 15, "steps": ["s2"]},
         {"criterion": "Peak margin taken against the correct package class", "points": 15, "steps": ["s3"]},
+        {"criterion": "Spread read from the three-site survey, not from the average peak",
+         "points": 8, "steps": ["s2b"]},
         {"criterion": "Cooling rate computed and interpreted", "points": 10, "steps": ["s4"]},
-        {"criterion": "Disposition states the margins rather than just 'pass'", "points": 20, "steps": ["s5"]},
+        {"criterion": "Disposition states the margins rather than just 'pass'", "points": 14, "steps": ["s5"]},
         {"criterion": "Model-versus-measurement check performed", "points": 10, "steps": ["s6"]},
-        {"criterion": "Evidence ranked above the estimate", "points": 15, "steps": ["s7"]},
+        {"criterion": "Evidence ranked above the estimate", "points": 13, "steps": ["s7"]},
     ]
     cases.append(c)
 
