@@ -685,3 +685,7 @@ table.tbl{width:100%;border-collapse:collapse}
 .toc-case-item--done .toc-case-m{color:var(--green)}
 .toc-case-m{font-family:var(--mono);font-size:11px;color:var(--mut);flex:0 0 auto}
 .toc-case-t{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* the running build, so "am I seeing the new code?" has an answer on screen */
+.side-build{margin:14px 0 0;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;
+  color:var(--mut);opacity:.55}

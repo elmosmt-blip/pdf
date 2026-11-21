@@ -69,6 +69,34 @@ function main(argv) {
     files++;
   });
 
+  /* Cache-busting by content, not by date.
+
+   * The ?v= stamp in index.html was a DATE, so it stayed identical across builds
+     within a day. A browser that had cached app.js then kept serving the old one
+     after a rebuild — which is exactly how a reader ended up looking at a home
+     page that did not contain the Toolkit cases block. The stamp is now a hash of
+     the file's own bytes: change the file and the URL changes with it. */
+  const crypto = require('crypto');
+  const idxPath = path.join(out, 'index.html');
+  let idx = fs.readFileSync(idxPath, 'utf8');
+
+  function hashOf(rel) {
+    const f = path.join(out, rel);
+    if (!fs.existsSync(f)) return '0';
+    return crypto.createHash('sha1').update(fs.readFileSync(f)).digest('hex').slice(0, 8);
+  }
+
+  let stamped = 0;
+  idx = idx.replace(/(assets\/[a-z0-9-]+\.(?:js|css))\?v=[0-9a-f]*/gi, function (m, rel) {
+    stamped++;
+    return rel + '?v=' + hashOf(rel);
+  });
+  fs.writeFileSync(idxPath, idx);
+  if (stamped < 3) {
+    throw new Error('cache-busting rewrite matched ' + stamped + ' asset URLs; expected the ' +
+      'font, style, embed and app links to carry ?v=');
+  }
+
   /* fonts and images are whole directories */
   files += copyDir(path.join(ROOT, 'assets', 'fonts'), path.join(out, 'assets', 'fonts'));
   files += copyDir(path.join(ROOT, 'assets', 'img'), path.join(out, 'assets', 'img'),

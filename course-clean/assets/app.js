@@ -2085,8 +2085,21 @@
 
   /* ------------------------------------------------- sidebar & topbar chrome */
 
+  /* Read from the script's own URL, so it always names the build that is
+   * actually running — the answer to "am I looking at the new version?". */
+  function buildStamp() {
+    try {
+      var scripts = document.querySelectorAll('script[src*="app.js"]');
+      var src = scripts.length ? scripts[scripts.length - 1].getAttribute('src') : '';
+      var m = src.match(/v=([0-9a-f]+)/i);
+      return m ? m[1] : 'dev';
+    } catch (e) { return 'dev'; }
+  }
+
   function renderSidebar() {
     var pct = LESSONS.length ? Math.round((totalMastered() / LESSONS.length) * 100) : 0;
+    var stampEl = document.getElementById('side-build');
+    if (stampEl) stampEl.textContent = 'build ' + buildStamp();
     var pctEl = document.getElementById('side-pct');
     var barEl = document.getElementById('side-bar');
     if (pctEl) pctEl.textContent = pct + '%';
