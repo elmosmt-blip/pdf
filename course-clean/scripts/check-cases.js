@@ -218,7 +218,13 @@ function main() {
     Object.keys(doc.thresholds).forEach(function (k) {
       const row = doc.thresholds[k];
       if (!Array.isArray(row) || row.length !== 3) fail('threshold-shape', k);
-      else if (!sourceIds.has(row[1])) fail('threshold-source', k + ' cites unknown ' + row[1]);
+      /* A null source id is legitimate and meaningful: the number is carried by
+       * the course text itself (a typical band, a paste datasheet), not by a
+       * standard. What is never allowed is a citation of a source that does not
+       * exist — that is how the 235-245 band was once credited to IPC-7530. */
+      else if (row[1] !== null && !sourceIds.has(row[1])) {
+        fail('threshold-source', k + ' cites unknown ' + row[1]);
+      }
       else if (!lessonIds.has(row[2])) fail('threshold-lesson', k + ' cites unknown lesson ' + row[2]);
     });
   }
@@ -391,6 +397,51 @@ function main() {
         fail('keys-csv-key', r.caseId + '/' + r.stepId);
       }
     });
+  }
+
+  /* ---- m06 limits agree with the course text ----------------------------
+   * The case does not get its own idea of the peak: every number it prints must
+   * appear in the module's own prose, and the stale pairing (a 245-250 paste
+   * window, a 60-120 s TAL) must be gone. This is the check that would have
+   * caught the confusion documented in docs/m06-limits-review.md. */
+  const m06 = cases.filter(function (c) { return c.moduleId === 'm06'; })[0];
+  if (m06) {
+    const m06Text = lessons.filter(function (l) { return l.moduleId === 'm06'; })
+      .map(function (l) { return JSON.stringify(l.content); }).join(' ');
+    const spec = {};
+    (m06.spec || []).forEach(function (s) { spec[s.label] = s; });
+
+    const need = [
+      ['Peak ceiling, large package', 250],
+      ['Peak window, paste', 235],
+      ['Liquidus', 219]
+    ];
+    need.forEach(function (pair) {
+      const s = spec[pair[0]];
+      if (!s) { fail('m06-spec', 'missing spec chip ' + pair[0]); return; }
+      if (s.value !== pair[1]) fail('m06-spec', pair[0] + ' is ' + s.value + ', expected ' + pair[1]);
+      if (m06Text.indexOf(String(pair[1])) === -1) {
+        fail('m06-spec', pair[0] + ' value ' + pair[1] + ' does not appear in the m06 lessons');
+      }
+    });
+    if ('Peak ceiling, large package' in spec && spec['Peak ceiling, large package'].to !== undefined) {
+      fail('m06-spec', 'the ceiling is a single number, not a range');
+    }
+    if (m06Text.indexOf('245-250') !== -1) {
+      fail('m06-stale', 'the m06 lessons still call 245-250 a paste window');
+    }
+    if (m06Text.indexOf('60-120 s above liquidus') !== -1) {
+      fail('m06-stale', 'the m06 lessons still call 60-120 s a TAL window');
+    }
+    /* the scenario must say "ceiling" for 250 and stop calling 245-250 a window */
+    const scen = (m06.scenario || []).join(' ');
+    if (scen.indexOf('245-250') !== -1) fail('m06-stale', 'the case scenario still says 245-250');
+    if (!/ceiling/i.test(scen)) fail('m06-scenario', 'the scenario never uses the word ceiling');
+    /* and the TAL the case grades against must match the case scenario */
+    const tal = spec['Time above liquidus'];
+    if (!tal || tal.value !== 60 || tal.to !== 90) {
+      fail('m06-spec', 'the TAL chip no longer matches the 60-90 s case window');
+    }
   }
 
   /* ---- templates: three variants, example equals a data file ------------- */

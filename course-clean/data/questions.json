@@ -542,7 +542,7 @@
     "competencies": [
       "K5"
     ],
-    "prompt": "Using the lesson's rule-of-thumb limits (ramp 1-3 °C/s, time above liquidus 60-120 s from the paste datasheet, and peak not above the J-STD-020 classification temperature of 250 °C for a large package), a measured profile for SAC305 ramps from 150 °C to liquidus in 30 s, crosses liquidus upward at 120 s and downward at 210 s, and peaks at 242 °C. Which check fails?",
+    "prompt": "Using the lesson's rule-of-thumb limits (ramp 1-3 °C/s, time above liquidus 30-90 s from the paste datasheet and IPC-7530, and peak not above the J-STD-020 classification temperature of 250 °C for a large package), a measured profile for SAC305 ramps from 150 °C to liquidus in 30 s, crosses liquidus upward at 120 s and downward at 210 s, and peaks at 242 °C. Which check fails?",
     "options": [
       {
         "id": "a",
@@ -550,7 +550,7 @@
       },
       {
         "id": "b",
-        "text": "Time above liquidus, because 210 − 120 = 90 s, outside the 60-120 s window."
+        "text": "Time above liquidus, because 210 − 120 = 90 s, outside the 30-90 s window."
       },
       {
         "id": "c",
@@ -562,7 +562,7 @@
       }
     ],
     "correct": "d",
-    "explanation": "Ramp rate is (219 − 150) / 30 = 2.3 °C/s, inside the 1-3 °C/s range taught in the lesson. Time above liquidus is 210 − 120 = 90 s, inside the 60-120 s paste window. Peak margin to the 250 °C classification temperature is 8 °C. All three checks pass, so no profile change is required. Re-verify if the package size changes, because the classification temperature is 260 °C for small packages and 245 °C for very large ones, and remember that the 30 s figure in J-STD-020 is tp, the time within 5 °C of the classification temperature, not the paste-window time above liquidus.",
+    "explanation": "Ramp rate is (219 − 150) / 30 = 2.3 °C/s, inside the 1-3 °C/s range taught in the lesson. Time above liquidus is 210 − 120 = 90 s, inside the 30-90 s paste window at its top edge. Peak margin to the 250 °C classification temperature is 8 °C. All three checks pass, so no profile change is required. Re-verify if the package size changes, because the classification temperature is 260 °C for small packages and 245 °C for very large ones, and remember that the 30 s figure in J-STD-020 is tp, the time within 5 °C of the classification temperature, not the paste-window time above liquidus.",
     "source": "src-005",
     "lessonId": "m06l02",
     "bloom": "apply"
@@ -13150,7 +13150,7 @@
     ],
     "bloom": "apply",
     "lessonId": "m06l07",
-    "prompt": "A measured profile shows TAL 45 s against a datasheet range of 60-90 s, peak 242 °C against 245-250 °C, with dull grainy joints. Which finding does the lesson treat as primary?",
+    "prompt": "A measured profile shows TAL 45 s against a datasheet range of 60-90 s, peak 242 °C inside a 235-245 °C datasheet band, with dull grainy joints. Which finding does the lesson treat as primary?",
     "options": [
       {
         "id": "a",
@@ -13170,7 +13170,7 @@
       }
     ],
     "correct": "c",
-    "explanation": "This is the lesson case: 45 s is below the 60 s floor, and the dull, grainy, non-wetting appearance points to the reflow zone, so the reflow zone is the first candidate and the change is bounded. The peak is also below its band, but the lesson pairs the visible signature with the reflow zone rather than with the soak, and neither value is inside tolerance.",
+    "explanation": "This is the lesson case: 45 s is below the 60 s floor, and the dull, grainy, non-wetting appearance points to the reflow zone, so the reflow zone is the first candidate and the change is bounded. The peak is inside its band, so it is not the finding; the lesson pairs the visible signature with the reflow zone rather than with the soak, and the TAL is the value that failed.",
     "source": "src-008"
   },
   {

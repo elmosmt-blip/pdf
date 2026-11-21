@@ -88,7 +88,9 @@ BOARD_FACT_LABELS = {
     "liquidusC": "Liquidus (°C)",
     "solidusC": "Solidus (°C)",
     "talWindowS": "Time above liquidus (s)",
-    "peakWindowC": "Peak window (°C)",
+    "pastePeakWindowC": "Peak window, paste (°C)",
+    "typicalPeakBandC": "Typical production peak (°C)",
+    "peakClassificationLargeC": "Peak ceiling, large package (°C)",
 }
 
 BOARD = {
@@ -124,8 +126,15 @@ ASPECT_RATIO_MIN = 1.5     # m03l05 (IPC-7525 guidance)
 TAPE_BAKE_MAX_C = 40       # m02l04 (J-STD-033 tape-and-reel limit)
 DRY_CABINET_MAX_RH = 5     # m02l04 (J-STD-033 dry storage)
 JSTD020_LARGE_PACKAGE_C = 250   # m06l02/l05 — classification temperature, large package
-PEAK_TABLE_MIN_C = 235      # m06l01 zone table: "Liquidus 219 C, peak 235-245 °C"
-PEAK_TABLE_MAX_C = 245      # same row; the uppercase limit is the package ceiling
+# The typical production band, not a window and not a ceiling: m06l01's zone table
+# and SAC305 paste datasheets put the optimum at 235-245 °C, about 15-25 °C above
+# the 219 °C liquidus.
+TYPICAL_PEAK_MIN_C = 235
+TYPICAL_PEAK_MAX_C = 245
+# The paste window a case is judged against. A paste datasheet may narrow IPC-7530B
+# guidance (30-90 s, m06l05); Board X's paste states 60-90 s (m06l07).
+PASTE_PEAK_MIN_C = 235
+PASTE_PEAK_MAX_C = 245
 TAL_MIN_S = 60             # m06l07 paste datasheet window 60-90 s
 TAL_MAX_S = 90
 SOAK_TIME_S = (60, 120)    # m06l02 paste window
@@ -134,12 +143,14 @@ SOAK_TIME_S = (60, 120)    # m06l02 paste window
 # derived, not restated: the lower bound comes from the lesson table, the upper
 # bound is the package ceiling. Board Facts carry the margin to the classification
 # temperature, so the two never drift apart.
-PEAK_WINDOW_C = (PEAK_TABLE_MIN_C, JSTD020_LARGE_PACKAGE_C)
+PEAK_WINDOW_C = (PASTE_PEAK_MIN_C, PASTE_PEAK_MAX_C)
 
 # The windows the cases are judged against join the Board Facts, so the case page
 # can print them without the engine holding a private copy of any threshold.
 BOARD_FACTS["talWindowS"] = [TAL_MIN_S, TAL_MAX_S]
-BOARD_FACTS["peakWindowC"] = [PEAK_TABLE_MIN_C, JSTD020_LARGE_PACKAGE_C]
+BOARD_FACTS["pastePeakWindowC"] = [PASTE_PEAK_MIN_C, PASTE_PEAK_MAX_C]
+BOARD_FACTS["typicalPeakBandC"] = [TYPICAL_PEAK_MIN_C, TYPICAL_PEAK_MAX_C]
+BOARD_FACTS["peakClassificationLargeC"] = JSTD020_LARGE_PACKAGE_C
 
 
 # --------------------------------------------------------------------------
@@ -850,9 +861,11 @@ def build_cases():
             "The thermal survey from the worst-case site gives the profile in the data file: "
             "25 to 150 °C in 60 s, soak 150 to 190 °C for 90 s, 65 s above 219 °C, peak 248 °C, "
             "and cooling from 248 to 100 °C in 40 s.",
-            "Paste is SAC305 with a datasheet window of 60-90 s above liquidus and a peak of "
-            "245-250 °C. The BGA is a large package, so the J-STD-020 classification "
-            "temperature that applies to it is 250 °C.",
+            "Paste is SAC305. The paste window for this board is 60-90 s above liquidus "
+            "(IPC-7530B guidance is 30-90 s; the datasheet narrows it). The peak is judged "
+            "against a ceiling, not a target: the J-STD-020 classification temperature for "
+            "a large package at 1.6-2.5 mm is 250 °C, while the course's typical production "
+            "band is 235-245 °C.",
             "Validate the profile, compute the margins, and decide whether it can be released "
             "with a documentation note or must be changed.",
         ],
@@ -980,11 +993,14 @@ def build_cases():
     c["spec"] = [
         {"label": "Liquidus", "value": BOARD_FACTS["liquidusC"], "unit": "°C"},
         {"label": "Time above liquidus",
-         "value": BOARD_FACTS["talWindowS"][0], "to": BOARD_FACTS["talWindowS"][1], "unit": "s"},
-        {"label": "Peak window",
+         "value": BOARD_FACTS["talWindowS"][0], "to": BOARD_FACTS["talWindowS"][1], "unit": "s",
+         "note": "Board X paste window (m06l07); IPC-7530B guidance is 30-90 s (m06l05)"},
+        {"label": "Peak window, paste",
          "value": PEAK_WINDOW_C[0], "to": PEAK_WINDOW_C[1], "unit": "°C",
-         "note": "m06l01 zone table; the upper bound is the large-package classification "
-                 "temperature, m06l05"},
+         "note": "Typical SAC305 band, m06l01 and the paste datasheet"},
+        {"label": "Peak ceiling, large package",
+         "value": JSTD020_LARGE_PACKAGE_C, "unit": "°C",
+         "note": "J-STD-020 Table 4-2, 1.6-2.5 mm, large package (m06l05)"},
     ]
 
     add_step(c, step_choice(
@@ -1279,7 +1295,12 @@ def build_document():
             "dryCabinetMaxRhPct": [DRY_CABINET_MAX_RH, "src-003", "m02l04"],
             "jstd020LargePackageC": [JSTD020_LARGE_PACKAGE_C, "src-005", "m06l02"],
             "talWindowS": [[TAL_MIN_S, TAL_MAX_S], "src-008", "m06l07"],
-            "peakWindowC": [[PEAK_TABLE_MIN_C, PEAK_TABLE_MAX_C], "src-008", "m06l01"],
+            # 235-245 is a typical production band, stated in the m06l01 zone table
+            # and in SAC305 paste datasheets; it is NOT an IPC-7530 number, which is
+            # why it carries no source id.
+            "typicalPeakBandC": [[TYPICAL_PEAK_MIN_C, TYPICAL_PEAK_MAX_C], None, "m06l01"],
+            "pastePeakWindowC": [[PASTE_PEAK_MIN_C, PASTE_PEAK_MAX_C], None, "m06l07"],
+            "talWindowIpcs": [[30, 90], "src-008", "m06l05"],
             "peakClassificationLargeC": [JSTD020_LARGE_PACKAGE_C, "src-005", "m06l05"],
         },
         "thread": BOARD_THREAD,

@@ -2,7 +2,7 @@ Rendered outline of #/c/cx-m06-01
 Produced by scripts/capture-case.js from the built tree (build/course-clean).
 This is the live DOM from the shipped engine, not a mock-up.
 
-main #main   [6029 chars]
+main #main   [6273 chars]
   p .kicker   [38 chars]
     "Toolkit · Module 06 · Reflow Soldering"
   header .page-head   [94 chars]
@@ -20,21 +20,21 @@ main #main   [6029 chars]
           "rubric 100 pts"
         span .chip   [14 chars]
           "Score 0 of 100"
-  section .case-scenario   [599 chars]
+  section .case-scenario   [735 chars]
     p   [280 chars]
       "Board X is a 1.6 mm six-layer board with heavy ground planes and a large BGA. The thermal survey from the wors…"
-    p   [193 chars]
-      "Paste is SAC305 with a datasheet window of 60-90 s above liquidus and a peak of 245-250 °C. The BGA is a large…"
+    p   [329 chars]
+      "Paste is SAC305. The paste window for this board is 60-90 s above liquidus (IPC-7530B guidance is 30-90 s; the…"
     p   [126 chars]
       "Validate the profile, compute the margins, and decide whether it can be released with a documentation note or …"
-  details .case-board   [672 chars]
+  details .case-board   [749 chars]
     summary   [38 chars]
       "Board X — the product behind this case"
-    div .details-body   [634 chars]
+    div .details-body   [711 chars]
       p .muted.flush   [158 chars]
         "6-layer 1.6 mm FR-4 controller board: QFP-64 at 0.5 mm pitch, QFP-48 at 0.4 mm pitch, one 256-ball BGA at 0.8 …"
-      table .case-facts   [476 chars]
-        tbody   [476 chars]
+      table .case-facts   [553 chars]
+        tbody   [553 chars]
           tr   [23 chars]
             th   [20 chars]
               "Board thickness (mm)"
@@ -135,12 +135,22 @@ main #main   [6029 chars]
               "Time above liquidus (s)"
             td   [5 chars]
               "60–90"
-          tr   [23 chars]
-            th   [16 chars]
-              "Peak window (°C)"
+          tr   [30 chars]
+            th   [23 chars]
+              "Peak window, paste (°C)"
             td   [7 chars]
-              "235–250"
-  ul .spec-chips   [61 chars]
+              "235–245"
+          tr   [35 chars]
+            th   [28 chars]
+              "Typical production peak (°C)"
+            td   [7 chars]
+              "235–245"
+          tr   [35 chars]
+            th   [32 chars]
+              "Peak ceiling, large package (°C)"
+            td   [3 chars]
+              "250"
+  ul .spec-chips   [101 chars]
     li .spec-chip   [14 chars]
       span .spec-chip-label   [8 chars]
         "Liquidus"
@@ -151,15 +161,20 @@ main #main   [6029 chars]
         "Time above liquidus"
       span .spec-chip-value   [7 chars]
         "60–90 s"
-    li .spec-chip   [21 chars]
-      span .spec-chip-label   [11 chars]
-        "Peak window"
+    li .spec-chip   [28 chars]
+      span .spec-chip-label   [18 chars]
+        "Peak window, paste"
       span .spec-chip-value   [10 chars]
-        "235–250 °C"
-  details .case-data   [354 chars]
+        "235–245 °C"
+    li .spec-chip   [33 chars]
+      span .spec-chip-label   [27 chars]
+        "Peak ceiling, large package"
+      span .spec-chip-value   [6 chars]
+        "250 °C"
+  details .case-data   [345 chars]
     summary   [23 chars]
       "Data file — profile.csv"
-    div .details-body   [331 chars]
+    div .details-body   [322 chars]
       div .case-table-wrap   [129 chars]
         table .case-table   [129 chars]
           thead   [37 chars]
@@ -235,28 +250,10 @@ main #main   [6029 chars]
               td .num   [2 chars]
                 "40"
               td
-      svg role=img   [58 chars]
-        line
-        text   [1 chars]
-          "0"
-        line
-        text   [2 chars]
-          "50"
-        line
-        text   [3 chars]
-          "100"
-        line
-        text   [3 chars]
-          "150"
-        line
-        text   [3 chars]
-          "200"
-        line
-        text   [3 chars]
-          "250"
+      svg role=img   [49 chars]
         rect
-        text   [22 chars]
-          "Peak window 235–250 °C"
+        text   [28 chars]
+          "Peak window 250–undefined °C"
         line
         text   [15 chars]
           "Liquidus 219 °C"

@@ -676,7 +676,14 @@ async function renderLayer() {
     ok(/Peak window/.test(svg.textContent), 'the chart marks the peak window');
   }
   const specs = cpd.querySelectorAll('.spec-chip');
-  eq(specs.length, 3, 'the case shows its three limits as chips');
+  /* four, not three, since the m06 review: the paste window and the package
+     ceiling are different roles and must not be merged into one chip again */
+  eq(specs.length, 4, 'the case shows four limits as chips');
+  const specText = Array.prototype.map.call(specs, function (n) { return n.textContent; }).join(' | ');
+  ok(/Peak window, paste\s*235–245/.test(specText),
+    'the paste window is 235-245', specText);
+  ok(/Peak ceiling, large package\s*250/.test(specText),
+    'the ceiling is 250 and is separate from the window', specText);
   const stepHeads = Array.prototype.map.call(cpd.querySelectorAll('.case-step-n'),
     function (n) { return n.textContent; });
   ok(/Step 1 \(15 points\)/.test(stepHeads[0]), 'a step heading states its points', stepHeads[0]);
