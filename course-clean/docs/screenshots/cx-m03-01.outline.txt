@@ -2,7 +2,7 @@ Rendered outline of #/c/cx-m03-01
 Produced by scripts/capture-case.js from the built tree (build/course-clean).
 This is the live DOM from the shipped engine, not a mock-up.
 
-main #main   [6368 chars]
+main #main   [6445 chars]
   p .kicker   [53 chars]
     "Toolkit · Module 03 · Stencil Design and Verification"
   header .page-head   [108 chars]
@@ -27,14 +27,14 @@ main #main   [6368 chars]
       "The stencil drawing issued to the supplier carries a single foil thickness of 0.125 mm and apertures of 0.20 m…"
     p   [163 chars]
       "Work through the release indicators in the order the course uses them: area ratio, aspect ratio, then the aper…"
-  details .case-board   [672 chars]
+  details .case-board   [749 chars]
     summary   [38 chars]
       "Board X — the product behind this case"
-    div .details-body   [634 chars]
+    div .details-body   [711 chars]
       p .muted.flush   [158 chars]
         "6-layer 1.6 mm FR-4 controller board: QFP-64 at 0.5 mm pitch, QFP-48 at 0.4 mm pitch, one 256-ball BGA at 0.8 …"
-      table .case-facts   [476 chars]
-        tbody   [476 chars]
+      table .case-facts   [553 chars]
+        tbody   [553 chars]
           tr   [23 chars]
             th   [20 chars]
               "Board thickness (mm)"
@@ -135,11 +135,21 @@ main #main   [6368 chars]
               "Time above liquidus (s)"
             td   [5 chars]
               "60–90"
-          tr   [23 chars]
-            th   [16 chars]
-              "Peak window (°C)"
+          tr   [30 chars]
+            th   [23 chars]
+              "Peak window, paste (°C)"
             td   [7 chars]
-              "235–250"
+              "235–245"
+          tr   [35 chars]
+            th   [28 chars]
+              "Typical production peak (°C)"
+            td   [7 chars]
+              "235–245"
+          tr   [35 chars]
+            th   [32 chars]
+              "Peak ceiling, large package (°C)"
+            td   [3 chars]
+              "250"
   details .case-data   [370 chars]
     summary   [30 chars]
       "Data file — aperture-table.csv"

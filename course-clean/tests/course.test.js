@@ -251,6 +251,23 @@ async function renderLayer() {
     return dom;
   }
 
+  /* 0. the four cases are reachable from the home page, not only from inside a
+     module — this was the actual complaint from the reader's side */
+  {
+    const homeCases = load('#/');
+    const hd = homeCases.window.document;
+    eq(hd.querySelectorAll('.home-case-card').length, 4,
+      'the home page lists all four Toolkit cases');
+    const links = Array.prototype.map.call(hd.querySelectorAll('.home-case-link'),
+      function (a) { return a.getAttribute('href'); });
+    ['cx-m02-01', 'cx-m03-01', 'cx-m06-01', 'cx-m14-01'].forEach(function (id) {
+      ok(links.indexOf('#/c/' + id) !== -1, 'the home page links to ' + id);
+    });
+    eq(hd.querySelectorAll('.toc-case-item').length, 4,
+      'the sidebar lists the four cases');
+    homeCases.window.close();
+  }
+
   /* 1. the course index renders */
   const home = load('#/');
   const homeText = home.window.document.getElementById('main').textContent;

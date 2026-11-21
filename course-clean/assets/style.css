@@ -651,3 +651,37 @@ table.tbl{width:100%;border-collapse:collapse}
 @media print{
   .bx-thread,.case-card-actions,.case-step-actions{display:none!important}
 }
+
+/* ---- home: the four cases, visible without hunting ------------------ */
+.home-cases{margin:36px 0 8px}
+.home-cases-head{max-width:74ch}
+.home-cases-head h2{margin-bottom:6px}
+.home-cases-head .muted{margin-top:0}
+.home-case-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;
+  margin:18px 0 0;padding:0;list-style:none}
+.home-case-link{display:flex;flex-direction:column;gap:8px;height:100%;padding:18px 20px;
+  border:1px solid var(--line2);border-radius:var(--r-md);text-decoration:none;color:inherit;
+  background:linear-gradient(180deg,rgba(83,209,204,.06),rgba(12,17,25,.94));
+  transition:border-color .15s,transform .15s,box-shadow .15s}
+.home-case-link:hover{border-color:var(--signal);transform:translateY(-2px);box-shadow:var(--sh-1)}
+.home-case-mod{font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--signal)}
+.home-case-title{font-weight:600;font-size:16px;line-height:1.35;color:var(--txt)}
+.home-case-meta{display:flex;flex-wrap:wrap;gap:10px;font-family:var(--mono);font-size:12px;color:var(--mut)}
+.home-case-state{margin-top:auto;padding-top:10px;font-size:12.5px;color:var(--mut);
+  border-top:1px solid var(--line)}
+.home-case-card--done .home-case-state{color:var(--green)}
+.home-case-card--done .home-case-link{border-color:rgba(76,175,80,.35)}
+
+/* ---- sidebar: pinned cases block ----------------------------------- */
+.toc-cases{margin:0 0 14px;padding:10px 10px 4px;border:1px solid var(--line);border-radius:12px;
+  background:rgba(83,209,204,.03)}
+.toc-cases-head{margin:0 0 8px;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--mut)}
+.toc-case-item{display:flex;gap:8px;align-items:baseline;padding:6px 8px;border-radius:8px;
+  text-decoration:none;color:var(--body);font-size:13px;line-height:1.3}
+.toc-case-item:hover{background:rgba(83,209,204,.08);color:var(--txt)}
+.toc-case-item--active{background:rgba(83,209,204,.12);color:var(--signal)}
+.toc-case-item--done .toc-case-m{color:var(--green)}
+.toc-case-m{font-family:var(--mono);font-size:11px;color:var(--mut);flex:0 0 auto}
+.toc-case-t{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
