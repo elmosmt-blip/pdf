@@ -149,6 +149,34 @@ function run() {
   info.lessonSourceRefs = lessonSourceRefs;
   if (missingLSource.length) problems.push({ code: 'lesson-source', count: missingLSource.length, sample: missingLSource.slice(0, 10) });
 
+  /* ---- 4b. edition registry (Phase 2) ----
+   * Every source must carry an editionStatus, and every standard the registry
+   * names must still be cited somewhere in the course. A registry row whose
+   * standard vanished from the course would be a stale claim. */
+  const missingStatus = sources.filter(function (s) { return !s.editionStatus; })
+    .map(function (s) { return s.id; });
+  if (missingStatus.length) {
+    problems.push({ code: 'source-edition-status', count: missingStatus.length, sample: missingStatus.slice(0, 10) });
+  }
+  const registryFile = path.join(ROOT, 'data', 'edition-registry.json');
+  if (fs.existsSync(registryFile)) {
+    const registry = readJson(registryFile);
+    const rows = registry.rows || [];
+    const citedStandards = new Set(lessons.map(function (l) { return String(l.title); }).concat(
+      lessons.map(function (l) { return JSON.stringify(l.content); })
+    ).join(' ').match(/IPC-[A-Z0-9\/-]+|J-STD-\d+/g) || []);
+    const absent = Array.from(new Set(rows.map(function (r) { return r.standard; })))
+      .filter(function (std) { return !citedStandards.has(std); });
+    info.registry = { rows: rows.length, notInCourse: absent.length };
+    if (absent.length) {
+      problems.push({ code: 'registry-standard-absent', count: absent.length, sample: absent });
+    }
+    const badRow = rows.filter(function (r) { return !r.recheckRequired && !r.editionStatus; });
+    if (badRow.length) problems.push({ code: 'registry-row', count: badRow.length, sample: [] });
+  } else {
+    warn.push('data/edition-registry.json missing — run scripts/build-edition-registry.js');
+  }
+
   /* ---- 5/6. images ---- */
   const onDisk = fs.existsSync(PATHS.images) ? fs.readdirSync(PATHS.images) : [];
   const referenced = new Set();
@@ -292,6 +320,10 @@ function render(result, baseline) {
   p('  lessons                 ' + i.counts.lessons);
   p('  questions               ' + i.counts.questions);
   p('  sources                 ' + i.counts.sources);
+  if (i.registry) {
+    p('  edition registry rows   ' + i.registry.rows +
+      (i.registry.notInCourse ? '  (' + i.registry.notInCourse + ' standard(s) cited but absent)' : ''));
+  }
   p('');
   p('References');
   p('  lesson -> question ids  ' + i.quizRefs);

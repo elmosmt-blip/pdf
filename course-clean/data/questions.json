@@ -162,27 +162,27 @@
     "competencies": [
       "K3"
     ],
-    "prompt": "Using the lesson formula squeegee pressure = force / blade length, a rule-of-thumb setup applies 200 N to a 100 mm blade. What pressure is set?",
+    "prompt": "Using the lesson formula squeegee pressure = force / blade length, a rule-of-thumb setup applies 60 N to a 100 mm blade. What pressure is set?",
     "options": [
       {
         "id": "a",
-        "text": "2 N/cm"
+        "text": "0.6 N/mm"
       },
       {
         "id": "b",
-        "text": "20 N/cm"
+        "text": "6 N/mm"
       },
       {
         "id": "c",
-        "text": "200 N/cm"
+        "text": "60 N/mm"
       },
       {
         "id": "d",
-        "text": "2000 N/cm"
+        "text": "600 N/mm"
       }
     ],
-    "correct": "b",
-    "explanation": "200 N / 100 mm = 2 N/mm. Converting to N/cm: 2 N/mm × 10 mm/cm = 20 N/cm. Option a omits the mm-to-cm conversion; c treats the force as pressure; d multiplies by 100 instead of 10.",
+    "correct": "a",
+    "explanation": "60 N / 100 mm = 0.6 N/mm of blade length, the top of the usual band, and 0.6 N/mm on a 100 mm blade is 60 N. The other options each drop or shift a decimal: 6 N/mm treats the blade as 10 mm long, 60 N/mm reports the force as pressure, and 600 N/mm divides by 0.1 instead of 100. State the blade length with any per-length figure or it means nothing.",
     "source": "src-004",
     "lessonId": "m04l03",
     "bloom": "apply"
@@ -8153,7 +8153,7 @@
       }
     ],
     "correct": "d",
-    "explanation": "The cabinet did not meet the dry-storage requirement stated in this lesson, so the exposure cannot be discounted: 200 - 168 = 32 h over. The 10 % RH defence belongs to a different threshold statement and does not apply here; a cabinet out of range does not reset anything; and the indicator card is separate evidence, not a condition for counting the excess.",
+    "explanation": "The cabinet did not meet the dry-storage requirement stated in this lesson, so the exposure cannot be discounted: 200 - 168 = 32 h over. A 10 % RH cabinet is not a suspension condition at any point in this course: it only slows the clock, and the lesson requires 5 % RH or less before exposure is discounted; a cabinet out of range does not reset anything; and the indicator card is separate evidence, not a condition for counting the excess.",
     "source": "src-003"
   },
   {
@@ -9880,27 +9880,27 @@
     ],
     "bloom": "apply",
     "lessonId": "m04l03",
-    "prompt": "A 250 mm blade is loaded with 125 N against a recommended 0.8 to 1.2 N/mm. What force range does that recommend for this blade?",
+    "prompt": "A 250 mm blade is loaded with 125 N. Against a recommended 0.2 to 0.6 N/mm of blade length, what force range does that recommend for this blade?",
     "options": [
       {
         "id": "a",
-        "text": "100 N to 150 N, against a current 0.5 N/mm"
+        "text": "50 N to 150 N, against a current 0.5 N/mm"
       },
       {
         "id": "b",
-        "text": "125 N to 188 N, against a current 0.5 N/mm"
+        "text": "20 N to 60 N, against a current 0.5 N/mm"
       },
       {
         "id": "c",
-        "text": "200 N to 300 N, against a current 0.5 N/mm"
+        "text": "200 N to 600 N, against a current 0.5 N/mm"
       },
       {
         "id": "d",
-        "text": "800 N to 1200 N, against a current 5.0 N/mm"
+        "text": "500 N to 1,500 N, against a current 5.0 N/mm"
       }
     ],
-    "correct": "c",
-    "explanation": "0.8 x 250 = 200 N and 1.2 x 250 = 300 N, so the current 125 N is 0.5 N/mm and sits below the band. The 100-150 N answer applies the band to the force rather than to the per-length value, 125-188 N divides instead of multiplying, and 800-1200 N treats the blade length as 1000 mm.",
+    "correct": "a",
+    "explanation": "0.2 x 250 = 50 N and 0.6 x 250 = 150 N, so the 125 N setting is 0.5 N/mm and sits near the top of the band. The 20-60 N answer forgets that the band is per length and applies it to a 100 mm blade, 200-600 N multiplies by 1,000 mm of blade, and 500-1,500 N reads the band as N/cm on a 250 mm blade.",
     "source": "src-004"
   },
   {
@@ -16013,23 +16013,23 @@
     "options": [
       {
         "id": "a",
-        "text": "Roughly 10.8 s of dwell"
+        "text": "Roughly 10.8 s of dwell — outside the 2-5 s window"
       },
       {
         "id": "b",
-        "text": "About 1.8 s"
+        "text": "About 1.8 s of dwell — inside the window"
       },
       {
         "id": "c",
-        "text": "About 18 s"
+        "text": "About 18 s of dwell — far above the window"
       },
       {
         "id": "d",
-        "text": "About 3.0 s"
+        "text": "About 3.0 s of dwell — inside the window"
       }
     ],
     "correct": "a",
-    "explanation": "1.0 m/min is 16.7 mm/s, and 180 / 16.7 = 10.8 s — inside the datasheet window but near its top. The 1.8 s answer slips a decimal, 18 s divides by 10 instead of by 16.7, and 3.0 s corresponds to a much faster line.",
+    "explanation": "1.0 m/min is 16.7 mm/s, and 180 / 16.7 = 10.8 s — more than twice the upper bound of the 2-5 s window, so the arithmetic is right and the line is wrong. The 1.8 s answer slips a decimal, 18 s divides by 10 instead of by 16.7, and 3.0 s is a correct mid-window dwell on a much faster line, not this one.",
     "source": "src-019"
   },
   {
@@ -16106,27 +16106,27 @@
     ],
     "bloom": "apply",
     "lessonId": "m09l04",
-    "prompt": "The same 180 mm contact length should give 8 s of dwell. What speed does that need?",
+    "prompt": "The same 180 mm contact length should give 3 s of dwell at mid-window. What speed does that need?",
     "options": [
       {
         "id": "a",
-        "text": "About 2.25 m/min"
+        "text": "About 0.90 m/min"
       },
       {
         "id": "b",
-        "text": "About 0.68 m/min"
+        "text": "About 0.17 m/min"
       },
       {
         "id": "c",
-        "text": "About 22.5 m/min"
+        "text": "About 60 m/min"
       },
       {
         "id": "d",
-        "text": "About 1.35 m/min"
+        "text": "About 3.6 m/min"
       }
     ],
     "correct": "d",
-    "explanation": "180 / 8 = 22.5 mm/s, which is 1.35 m/min — the lesson's own target-setting example. The 2.25 m/min answer slips a decimal, 0.68 m/min inverts the calculation, and 22.5 m/min leaves the seconds-to-minutes step out.",
+    "explanation": "180 mm / 3 s = 60 mm/s, which is 3.6 m/min — the lesson's own target-setting example, and a speed that puts the board through the wave inside the 2-5 s window. The 0.90 m/min answer divides 180 by 200 s, 0.17 m/min inverts the calculation, and 60 m/min leaves the seconds-to-minutes step out.",
     "source": "src-019"
   },
   {

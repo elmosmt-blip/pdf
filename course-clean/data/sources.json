@@ -8,7 +8,13 @@
     "licenseNote": "paraphrase only",
     "verifiedBy": "READ. Primary IPC-A-610D fragments read: \"Class 2, fill to 75% but with exception for inner layer connections\" and \"All other solder joints remain according to IPC-A-610 Class 2\". Settled the round-10 contradiction — 75 % is the minimum for both classes; the 50 % figure belongs to IPC-6012 Rev F (bare board).",
     "verifiedOn": "2026-11-01",
-    "currency": "Superseded. IPC-A-610 Rev J was released in April 2024 and is the current revision; Rev J also removed the \"Target\" condition category (Acceptable / Process Indicator / Defect). This course was written against Rev H and the criteria quoted here were not re-read against Rev J."
+    "currency": "Superseded. IPC-A-610 Rev J was released in April 2024 and is the current revision; Rev J also removed the \"Target\" condition category (Acceptable / Process Indicator / Defect). This course was written against Rev H and the criteria quoted here were not re-read against Rev J.",
+    "currentEdition": "Rev J (March 2024)",
+    "editionStatus": "superseded",
+    "currentCheckedOn": "2026-10-31",
+    "currentSource": "https://www.electronics.org/ipc-document-revision-table",
+    "editionNote": "Written against Rev H. Rev J was published in March 2024 and is listed by IPC as current; the criteria quoted here were not re-read against Rev J.",
+    "scopeOnly": false
   },
   {
     "id": "src-002",
@@ -19,7 +25,13 @@
     "licenseNote": "paraphrase only",
     "verifiedBy": "READ. Amendment 1 to Rev G (2018) and Rev H (September 2020) confirmed from IPC's own site and three independent reproductions: the 1.56 µg/cm² ROSE pass/fail was removed and replaced by objective evidence — SIR per IPC-TM-650 2.6.3.7, ion chromatography per 2.3.28, temperature-humidity-bias, or documented field history.",
     "verifiedOn": "2026-11-01",
-    "currency": "Superseded. J-STD-001 Rev J was released in 2024 and is the current revision. This course was written against Rev G/H and was not re-read against Rev J."
+    "currency": "Superseded. J-STD-001 Rev J was released in 2024 and is the current revision. This course was written against Rev G/H and was not re-read against Rev J.",
+    "currentEdition": "Rev J (April 2024)",
+    "editionStatus": "superseded",
+    "currentCheckedOn": "2026-10-31",
+    "currentSource": "https://www.electronics.org/ipc-document-revision-table",
+    "editionNote": "Written against Rev G/H. IPC lists J-STD-001 Rev J, April 2024, as current. Some vendor pages assert a \"Rev J 2024\" and others a later \"Rev H 2026\" — the publisher table shows J, April 2024.",
+    "scopeOnly": false
   },
   {
     "id": "src-003",
@@ -29,7 +41,13 @@
     "section": "Table 4-1 (user bake) and Table 4-2 (supplier dry-pack); Table 5-1 floor life; §4.2.7.1 cumulative bake",
     "licenseNote": "paraphrase only",
     "verifiedBy": "READ. Primary J-STD-033B.1 and Rev D text read. The full Table 4-1 matrix was recovered — thickness × MSL level × whether floor life was exceeded by more or less than 72 h. Table 4-2 is the supplier dry-pack bake at a fixed 24 h maximum exposure. Cumulative bake above 90 °C and up to 125 °C limited to 96 h; at 90 °C or below there is no limit.",
-    "verifiedOn": "2026-11-01"
+    "verifiedOn": "2026-11-01",
+    "currentEdition": "Rev D (May 2018) — no longer maintained",
+    "editionStatus": "no-longer-maintained",
+    "currentCheckedOn": "2026-10-31",
+    "currentSource": "https://www.electronics.org/ipc-document-revision-table",
+    "editionNote": "IPC still lists Rev D as the newest J-STD-033 and marks the document \"no longer maintained\"; an E revision is a project, not a published standard. The course therefore cites the current edition.",
+    "scopeOnly": false
   },
   {
     "id": "src-004",
@@ -39,7 +57,13 @@
     "section": "§1.1.2 area ratio; §1.1.3 aspect ratio",
     "licenseNote": "paraphrase only",
     "verifiedBy": "READ. Primary IPC-7525B §1.1.2 and §1.1.3 read verbatim. Revision history confirmed independently: 7525 May 2000, A February 2007, B October 2011, C November 2021 (current). IPC-7525D does not exist. Caveat that still stands: the 0.66 and 1.5 FIGURES are carried only by convergent secondary sources and have not been confirmed against the standard body text.",
-    "verifiedOn": "2026-11-01"
+    "verifiedOn": "2026-11-01",
+    "currentEdition": "Rev C (November 2021; English release February 2022)",
+    "editionStatus": "current",
+    "currentCheckedOn": "2026-10-31",
+    "currentSource": "https://www.electronics.org/ipc-document-revision-table",
+    "editionNote": "Rev C is the newest IPC-7525 in the IPC table.",
+    "scopeOnly": false
   },
   {
     "id": "src-005",
@@ -50,7 +74,13 @@
     "licenseNote": "paraphrase only",
     "verifiedBy": "READ. Primary J-STD-020E text read. Table 4-2 (Pb-free) is thickness × volume: below 1.6 mm every volume 260 °C; 1.6-2.5 mm 260/250/245; above 2.5 mm 250/245/245. Table 4-1 (SnPb) 235 °C for thickness below 2.5 mm and volume below 350 mm³, 220 °C otherwise. Profile parameters: tL 60-150 s, ts 60-120 s, ramp-up 3 °C/s max, ramp-down 6 °C/s max, tp 20 s SnPb / 30 s Pb-free.",
     "verifiedOn": "2026-11-01",
-    "currency": "Edition mismatch. The label says Rev D, the text actually read was Rev E. Rev E is the later revision; quote the Rev E values."
+    "currency": "Edition mismatch. The label says Rev D, the text actually read was Rev E. Rev E is the later revision; quote the Rev E values.",
+    "currentEdition": "Rev F (November 2022)",
+    "editionStatus": "edition-mismatch",
+    "currentCheckedOn": "2026-10-31",
+    "currentSource": "https://www.electronics.org/ipc-document-revision-table",
+    "editionNote": "The source label says Rev D while the text read was Rev E; IPC lists Rev F, November 2022, as current. Two revision gaps.",
+    "scopeOnly": false
   },
   {
     "id": "src-006",
@@ -60,7 +90,13 @@
     "section": "Table I sample size code letters; Table II-A single sampling plans",
     "licenseNote": "paraphrase only",
     "verifiedBy": "READ. A hosted copy of ISO 2859-1 itself was read, and the tables confirmed against three independent reproductions. Code letters A 2 through R 2000 (S 3150 omitted by the course); level II gives 501-1200 → J(80), 1201-3200 → K(125), 3201-10000 → L(200); at AQL 1.0 % K → Ac 3 / Re 4 and L → Ac 5 / Re 6.",
-    "verifiedOn": "2026-11-01"
+    "verifiedOn": "2026-11-01",
+    "currentEdition": "ISO 2859-1:1999 with 2011 amendments",
+    "editionStatus": "not-ipc",
+    "currentCheckedOn": "2026-10-31",
+    "currentSource": "https://www.electronics.org/ipc-document-revision-table",
+    "editionNote": "Not an IPC document; the edition is checked against ISO, not the IPC table.",
+    "scopeOnly": false
   },
   {
     "id": "src-007",
@@ -70,7 +106,13 @@
     "section": "BGA design and assembly process implementation — scope only",
     "licenseNote": "paraphrase only",
     "verifiedBy": "SCOPE. Designation and scope confirmed from published references; the clause text was not read. Any clause-level claim resting on this source is unverified.",
-    "verifiedOn": "2026-11-01"
+    "verifiedOn": "2026-11-01",
+    "currentEdition": "Rev E (September 2024)",
+    "editionStatus": "current",
+    "currentCheckedOn": "2026-10-31",
+    "currentSource": "https://www.electronics.org/ipc-document-revision-table",
+    "editionNote": "Rev E is the newest IPC-7095 in the IPC table.",
+    "scopeOnly": true
   },
   {
     "id": "src-008",
@@ -80,7 +122,13 @@
     "section": "Reflow and wave profile guidance — ramp, soak, time above liquidus, cooling",
     "licenseNote": "paraphrase only",
     "verifiedBy": "READ via the AIM Solder profile supplement, which reproduces the IPC/JEDEC classification profile table verbatim: time above liquidus 30-90 s, soak zone 150-200 °C, ramp up rate below 3 °C/sec with 1-3 °C/sec as the recommended starting point, cooling below 4 °C/sec. The IPC-7530A industry draft note that component suppliers often recommend a more conservative 2-4 °C/s was also read.",
-    "verifiedOn": "2026-11-01"
+    "verifiedOn": "2026-11-01",
+    "currentEdition": "Rev B (January 2025)",
+    "editionStatus": "current",
+    "currentCheckedOn": "2026-10-31",
+    "currentSource": "https://www.electronics.org/ipc-document-revision-table",
+    "editionNote": "Rev B is the newest IPC-7530 in the IPC table.",
+    "scopeOnly": false
   },
   {
     "id": "src-009",
@@ -90,7 +138,13 @@
     "section": "Rework and repair procedures; acceptable rework and repair methods",
     "licenseNote": "paraphrase only",
     "verifiedBy": "READ from two independent renderings of the primary text. IPC-7711 is Rework, IPC-7721 is Repair and Modification, published together as IPC-7711/7721. IPC-7721 judges laminate repair on the restored condition — insulation and clearance maintained, no epoxy in the hole or on internal pad walls, no reduction in hole diameter, no exposed adjacent circuitry — and sets no damage depth limit. The only 0.25 mm in IPC-7721 is the width of a milled channel for a foil jumper.",
-    "verifiedOn": "2026-11-01"
+    "verifiedOn": "2026-11-01",
+    "currentEdition": "Rev D (January 2024)",
+    "editionStatus": "superseded",
+    "currentCheckedOn": "2026-10-31",
+    "currentSource": "https://www.electronics.org/ipc-document-revision-table",
+    "editionNote": "Written against Rev C (January 2017). IPC lists IPC-7711/7721 Rev D, January 2024, as current.",
+    "scopeOnly": false
   },
   {
     "id": "src-010",
@@ -100,7 +154,13 @@
     "section": "§1.3.1 coating type designations; qualification and performance requirements",
     "licenseNote": "paraphrase only",
     "verifiedBy": "READ from two independent renderings. Type AR acrylic, Type ER EPOXY, Type SR silicone, Type UR POLYURETHANE, Type XY PARAXYLYLENE, Type UT ultra-thin, Type SC styrene block co-polymer. There is no Type DR. The course had ER as polyurethane and invented DR for parylene.",
-    "verifiedOn": "2026-11-01"
+    "verifiedOn": "2026-11-01",
+    "currentEdition": "Rev C (January 2019)",
+    "editionStatus": "current",
+    "currentCheckedOn": "2026-10-31",
+    "currentSource": "https://www.electronics.org/ipc-document-revision-table",
+    "editionNote": "Rev C is the newest IPC-CC-830 in the IPC table.",
+    "scopeOnly": false
   },
   {
     "id": "src-011",
@@ -110,7 +170,13 @@
     "section": "Surface mount design and land pattern requirements — scope only",
     "licenseNote": "paraphrase only",
     "verifiedBy": "SCOPE. Designation and scope confirmed from published references; the clause text was not read. Any clause-level claim resting on this source is unverified.",
-    "verifiedOn": "2026-11-01"
+    "verifiedOn": "2026-11-01",
+    "currentEdition": "Rev B (June 2010) — no longer maintained",
+    "editionStatus": "no-longer-maintained",
+    "currentCheckedOn": "2026-10-31",
+    "currentSource": "https://www.electronics.org/ipc-document-revision-table",
+    "editionNote": "IPC lists IPC-7351 Rev B as the newest revision and marks the document \"no longer maintained\". IPC-7352, a land-pattern guideline issued in 2023, is a separate document and is not a replacement edition.",
+    "scopeOnly": true
   },
   {
     "id": "src-012",
@@ -120,7 +186,12 @@
     "section": "ESD control programme — grounded personnel, protective packaging, verified work surfaces, controlled handling",
     "licenseNote": "paraphrase only",
     "verifiedBy": "READ from the ESD Association's own IEC-equivalency chart and endorsed-standards page. ANSI/ESD S20.20-2021 is the programme standard, technically equivalent to IEC 61340-5-1.",
-    "verifiedOn": "2026-11-01"
+    "verifiedOn": "2026-11-01",
+    "currentEdition": "ANSI/ESD S20.20-2021",
+    "editionStatus": "not-ipc",
+    "currentCheckedOn": "2026-10-31",
+    "editionNote": "Outside the IPC revision table; the edition above is the one cited and was not re-checked in Phase 2.",
+    "scopeOnly": false
   },
   {
     "id": "src-013",
@@ -130,7 +201,13 @@
     "section": "Method 2.3.25 (ROSE, soluble ionic contamination) and method 2.3.28 (ion chromatography)",
     "licenseNote": "paraphrase only",
     "verifiedBy": "READ. Method numbers and titles confirmed. 2.3.25 measures soluble ionic contamination as sodium chloride equivalent; 2.3.28 is ion chromatography, used to confirm the specific ions. Unit conversion cross-checked: 1.56 µg/cm² = 10.06 µg/in².",
-    "verifiedOn": "2026-11-01"
+    "verifiedOn": "2026-11-01",
+    "currentEdition": "rolling document",
+    "editionStatus": "rolling",
+    "currentCheckedOn": "2026-10-31",
+    "currentSource": "https://www.electronics.org/ipc-document-revision-table",
+    "editionNote": "IPC-TM-650 is revised per test method, so it has no single edition.",
+    "scopeOnly": false
   },
   {
     "id": "src-014",
@@ -141,7 +218,13 @@
     "licenseNote": "public vendor document; confirm current revision before publication",
     "verifiedBy": "READ. The AIM Solder supplement reproduces the IPC/JEDEC profile table and states flux deposition of 500-1500 µg/in² of flux solids, which converts to 0.775-2.325 g/m² — the course's 0.78-2.33 g/m² is exact. Also the source for the 30-90 s time-above-liquidus window.",
     "verifiedOn": "2026-11-01",
-    "url": "https://www.aimsolder.com/wp-content/uploads/wave_solder_profile_supplement.pdf"
+    "url": "https://www.aimsolder.com/wp-content/uploads/wave_solder_profile_supplement.pdf",
+    "currentEdition": "vendor document Rev 4",
+    "editionStatus": "not-ipc",
+    "currentCheckedOn": "2026-10-31",
+    "currentSource": "https://www.electronics.org/ipc-document-revision-table",
+    "editionNote": "Consumable supplier document, not an IPC standard; the revision is the supplier's.",
+    "scopeOnly": false
   },
   {
     "id": "src-015",
@@ -151,7 +234,13 @@
     "section": "Table 3-2 solder powder size distribution",
     "licenseNote": "paraphrase only",
     "verifiedBy": "READ. The AIM Solder test report reproduces the standard's own Table 3-2 header and Type 3 row verbatim, confirmed independently by two further sources: none larger than 50 µm, less than 1 % larger than 45 µm, 80 % minimum between 25-45 µm, 10 % maximum smaller than 20 µm. Some older renderings of the table show a different layout, which is where the course's wrong tails came from.",
-    "verifiedOn": "2026-11-01"
+    "verifiedOn": "2026-11-01",
+    "currentEdition": "Rev B (April 2024)",
+    "editionStatus": "superseded",
+    "currentCheckedOn": "2026-10-31",
+    "currentSource": "https://www.electronics.org/ipc-document-revision-table",
+    "editionNote": "Written against J-STD-005 Rev A. IPC lists Rev B, April 2024, as current.",
+    "scopeOnly": false
   },
   {
     "id": "src-016",
@@ -162,7 +251,13 @@
     "licenseNote": "paraphrase only",
     "verifiedBy": "READ. Same primary IPC-A-610D fragments as src-001. Note for the record: IPC-A-610J removed the \"Target\" condition entirely, so in the current revision 100 % fill cannot be expressed as a target — it can only be a contractual requirement.",
     "verifiedOn": "2026-11-01",
-    "currency": "Superseded. The through-hole fill criteria quoted here were read against Rev H (and, for some figures, against Rev D fragments); IPC-A-610 Rev J is the current revision."
+    "currency": "Superseded. The through-hole fill criteria quoted here were read against Rev H (and, for some figures, against Rev D fragments); IPC-A-610 Rev J is the current revision.",
+    "currentEdition": "Rev J (March 2024)",
+    "editionStatus": "superseded",
+    "currentCheckedOn": "2026-10-31",
+    "currentSource": "https://www.electronics.org/ipc-document-revision-table",
+    "editionNote": "The through-hole fill criteria quoted here were read against Rev H. Rev J is current and was not re-read.",
+    "scopeOnly": false
   },
   {
     "id": "src-017",
@@ -173,7 +268,13 @@
     "licenseNote": "paraphrase only",
     "verifiedBy": "READ. Primary J-STD-020E text read, cross-checked against the same table reproduced in the Texas Instruments, Microchip and Abracon handling notes. The course's original \"260 small / 250 large / 245 very large\" was the 1.6-2.5 mm row only.",
     "verifiedOn": "2026-11-01",
-    "currency": "Edition mismatch. The label says Rev D, the text actually read was Rev E. Rev E is the later revision; quote the Rev E values."
+    "currency": "Edition mismatch. The label says Rev D, the text actually read was Rev E. Rev E is the later revision; quote the Rev E values.",
+    "currentEdition": "Rev F (November 2022)",
+    "editionStatus": "edition-mismatch",
+    "currentCheckedOn": "2026-10-31",
+    "currentSource": "https://www.electronics.org/ipc-document-revision-table",
+    "editionNote": "The source label says Rev D while the text read was Rev E; IPC lists Rev F, November 2022, as current.",
+    "scopeOnly": false
   },
   {
     "id": "src-018",
@@ -184,7 +285,13 @@
     "licenseNote": "paraphrase only",
     "verifiedBy": "PARTLY READ. The 1.56 µg/cm² NaCl-equivalent limit is cited directly as IPC-6012E §3.9.1 and confirmed. Bow and twist confirmed through a quotation of IPC-6012 itself — 0.75 % for boards using surface mount components, 1.5 % for all others, measured per IPC-TM-650 2.4.22, with the same split in IPC-A-600 §2.11. The rest of the document was not read.",
     "verifiedOn": "2026-11-01",
-    "currency": "Partly superseded. IPC-6012 Rev F (October 2023) is the current revision; the cleanliness figure used in the course is cited from Rev E and was not re-verified in Rev F."
+    "currency": "Partly superseded. IPC-6012 Rev F (October 2023) is the current revision; the cleanliness figure used in the course is cited from Rev E and was not re-verified in Rev F.",
+    "currentEdition": "Rev F (September 2023) plus addenda 6012FA (December 2025), 6012FS (February 2024), 6012EM (August 2020)",
+    "editionStatus": "current",
+    "currentCheckedOn": "2026-10-31",
+    "currentSource": "https://www.electronics.org/ipc-document-revision-table",
+    "editionNote": "Rev F is current; the cleanliness figure in the course comes from Rev E §3.9.1 and is noted as such in the source entry.",
+    "scopeOnly": false
   },
   {
     "id": "src-019",
@@ -194,7 +301,13 @@
     "section": "Flux classification by residue type and activity; residue requirements",
     "licenseNote": "paraphrase only",
     "verifiedBy": "READ. Classification by residue type and activity confirmed; low activity for clean fresh finishes, higher activity for oxidised or high-thermal-mass joints. Clause numbers not read — the classification scheme itself is what the course relies on.",
-    "verifiedOn": "2026-11-01"
+    "verifiedOn": "2026-11-01",
+    "currentEdition": "Rev D (December 2023)",
+    "editionStatus": "superseded",
+    "currentCheckedOn": "2026-10-31",
+    "currentSource": "https://www.electronics.org/ipc-document-revision-table",
+    "editionNote": "Written against J-STD-004 Rev B. IPC lists Rev D, December 2023, as current (Rev C was January 2022).",
+    "scopeOnly": false
   },
   {
     "id": "src-020",
@@ -204,7 +317,13 @@
     "section": "Soft solder alloys — scope only",
     "licenseNote": "paraphrase only",
     "verifiedBy": "SCOPE. Designation and scope confirmed from published references; the clause text was not read. Any clause-level claim resting on this source is unverified.",
-    "verifiedOn": "2026-11-01"
+    "verifiedOn": "2026-11-01",
+    "currentEdition": "Rev C with Amendment 1 (November 2017)",
+    "editionStatus": "current",
+    "currentCheckedOn": "2026-10-31",
+    "currentSource": "https://www.electronics.org/ipc-document-revision-table",
+    "editionNote": "Rev C with Amendment 1 is the newest J-STD-006 in the IPC table.",
+    "scopeOnly": true
   },
   {
     "id": "src-021",
@@ -214,7 +333,13 @@
     "section": "Solderability tests for component leads and terminations — scope only",
     "licenseNote": "paraphrase only",
     "verifiedBy": "SCOPE. Designation and scope confirmed from published references; the clause text was not read. Any clause-level claim resting on this source is unverified.",
-    "verifiedOn": "2026-11-01"
+    "verifiedOn": "2026-11-01",
+    "currentEdition": "Rev E (November 2017)",
+    "editionStatus": "superseded",
+    "currentCheckedOn": "2026-10-31",
+    "currentSource": "https://www.electronics.org/ipc-document-revision-table",
+    "editionNote": "Written against J-STD-002 Rev C. IPC lists Rev E, November 2017, as current.",
+    "scopeOnly": true
   },
   {
     "id": "src-022",
@@ -224,7 +349,13 @@
     "section": "§2.10.3 annular ring; §3.5.3.1 conductor width reduction",
     "licenseNote": "paraphrase only",
     "verifiedBy": "READ. IPC-A-600 §2.10.3: \"Acceptable — Class 3: holes are not centered in the lands, but the annular ring measures 0.050 mm [0.0020 in] or more\", with up to 20 % local reduction for pits, dents, nicks, pinholes or splay. §3.5.3.1: allowable reduction of the minimum conductor width due to misregistration or isolated defects shall not exceed 20 % of the minimum conductor width (10 % at Class 3). These are bare-board criteria — the course had been attaching them to IPC-A-610 and IPC-7711/7721.",
-    "verifiedOn": "2026-11-01"
+    "verifiedOn": "2026-11-01",
+    "currentEdition": "Rev M (May 2025)",
+    "editionStatus": "current",
+    "currentCheckedOn": "2026-10-31",
+    "currentSource": "https://www.electronics.org/ipc-document-revision-table",
+    "editionNote": "Rev M is the newest IPC-A-600 in the IPC table.",
+    "scopeOnly": false
   },
   {
     "id": "src-023",
@@ -234,7 +365,13 @@
     "section": "Base materials for rigid and multilayer printed boards — scope only",
     "licenseNote": "paraphrase only",
     "verifiedBy": "SCOPE. Designation and scope confirmed from published references; the clause text was not read. Any clause-level claim resting on this source is unverified.",
-    "verifiedOn": "2026-11-01"
+    "verifiedOn": "2026-11-01",
+    "currentEdition": "Rev E with Amendment 1 (April 2022)",
+    "editionStatus": "current",
+    "currentCheckedOn": "2026-10-31",
+    "currentSource": "https://www.electronics.org/ipc-document-revision-table",
+    "editionNote": "Rev E with Amendment 1 is the newest IPC-4101 in the IPC table.",
+    "scopeOnly": true
   },
   {
     "id": "src-024",
@@ -244,7 +381,13 @@
     "section": "Generic standard on printed board design — scope only",
     "licenseNote": "paraphrase only",
     "verifiedBy": "SCOPE. Designation and scope confirmed from published references; the clause text was not read. Any clause-level claim resting on this source is unverified.",
-    "verifiedOn": "2026-11-01"
+    "verifiedOn": "2026-11-01",
+    "currentEdition": "Rev C (December 2023)",
+    "editionStatus": "current",
+    "currentCheckedOn": "2026-10-31",
+    "currentSource": "https://www.electronics.org/ipc-document-revision-table",
+    "editionNote": "Rev C is the newest IPC-2221 in the IPC table.",
+    "scopeOnly": true
   },
   {
     "id": "src-025",
@@ -254,7 +397,13 @@
     "section": "Sectional design standard for rigid organic printed boards — scope only",
     "licenseNote": "paraphrase only",
     "verifiedBy": "SCOPE. Designation and scope confirmed from published references; the clause text was not read. Any clause-level claim resting on this source is unverified.",
-    "verifiedOn": "2026-11-01"
+    "verifiedOn": "2026-11-01",
+    "currentEdition": "Rev B (October 2020)",
+    "editionStatus": "current",
+    "currentCheckedOn": "2026-10-31",
+    "currentSource": "https://www.electronics.org/ipc-document-revision-table",
+    "editionNote": "Rev B is the newest IPC-2222 in the IPC table.",
+    "scopeOnly": true
   },
   {
     "id": "src-026",
@@ -264,7 +413,13 @@
     "section": "Stencil and misprinted board cleaning — scope only",
     "licenseNote": "paraphrase only",
     "verifiedBy": "SCOPE. Designation and scope confirmed from published references; the clause text was not read. Any clause-level claim resting on this source is unverified.",
-    "verifiedOn": "2026-11-01"
+    "verifiedOn": "2026-11-01",
+    "currentEdition": "Rev A (March 2022)",
+    "editionStatus": "current",
+    "currentCheckedOn": "2026-10-31",
+    "currentSource": "https://www.electronics.org/ipc-document-revision-table",
+    "editionNote": "Rev A is the newest IPC-7526 in the IPC table.",
+    "scopeOnly": true
   },
   {
     "id": "src-027",
@@ -274,7 +429,12 @@
     "section": "Wrist straps — scope only",
     "licenseNote": "paraphrase only",
     "verifiedBy": "SCOPE. Designation and scope confirmed from the ESD Association's published standards list; the method text was not read. Any clause-level claim resting on this source is unverified.",
-    "verifiedOn": "2026-11-01"
+    "verifiedOn": "2026-11-01",
+    "currentEdition": "ANSI/ESD S1.1-2021",
+    "editionStatus": "not-ipc",
+    "currentCheckedOn": "2026-10-31",
+    "editionNote": "Outside the IPC revision table; the edition above is the one cited and was not re-checked in Phase 2.",
+    "scopeOnly": true
   },
   {
     "id": "src-028",
@@ -284,7 +444,12 @@
     "section": "Worksurfaces — resistance measurements — scope only",
     "licenseNote": "paraphrase only",
     "verifiedBy": "SCOPE. Designation and scope confirmed from the ESD Association's published standards list; the method text was not read. Any clause-level claim resting on this source is unverified.",
-    "verifiedOn": "2026-11-01"
+    "verifiedOn": "2026-11-01",
+    "currentEdition": "ANSI/ESD STM4.1-2017 (supersedes S4.1)",
+    "editionStatus": "not-ipc",
+    "currentCheckedOn": "2026-10-31",
+    "editionNote": "Outside the IPC revision table; the edition above is the one cited and was not re-checked in Phase 2.",
+    "scopeOnly": true
   },
   {
     "id": "src-029",
@@ -294,7 +459,12 @@
     "section": "Grounding — equipotential bonding of racks, carts, shelving, tables and floor systems",
     "licenseNote": "paraphrase only",
     "verifiedBy": "SCOPE. Designation and scope confirmed from the ESD Association's published standards list; the method text was not read. The course's claim is a scope statement, not a clause citation.",
-    "verifiedOn": "2026-11-01"
+    "verifiedOn": "2026-11-01",
+    "currentEdition": "ANSI/ESD S6.1-2019",
+    "editionStatus": "not-ipc",
+    "currentCheckedOn": "2026-10-31",
+    "editionNote": "Outside the IPC revision table; the edition above is the one cited and was not re-checked in Phase 2.",
+    "scopeOnly": false
   },
   {
     "id": "src-030",
@@ -304,7 +474,12 @@
     "section": "Packaging materials for ESD sensitive items — shielding bags, conductive containers, closure methods",
     "licenseNote": "paraphrase only",
     "verifiedBy": "SCOPE. Designation and scope confirmed from the ESD Association's published standards list; the method text was not read. The course's claim is a scope statement, not a clause citation.",
-    "verifiedOn": "2026-11-01"
+    "verifiedOn": "2026-11-01",
+    "currentEdition": "ANSI/ESD S541-2019",
+    "editionStatus": "not-ipc",
+    "currentCheckedOn": "2026-10-31",
+    "editionNote": "Outside the IPC revision table; the edition above is the one cited and was not re-checked in Phase 2.",
+    "scopeOnly": false
   },
   {
     "id": "src-031",
@@ -314,7 +489,12 @@
     "section": "Ionization — offset voltage (balance) and discharge time",
     "licenseNote": "paraphrase only",
     "verifiedBy": "READ. Confirmed from the ESD Association's own IEC-equivalency chart: \"ANSI/ESD STM3.1 | IEC 61340-4-7 | Ionization\". This also settled the earlier draft's error — no STM97.7 or 97.8 covers ionization.",
-    "verifiedOn": "2026-11-01"
+    "verifiedOn": "2026-11-01",
+    "currentEdition": "ANSI/ESD STM3.1-2024",
+    "editionStatus": "not-ipc",
+    "currentCheckedOn": "2026-10-31",
+    "editionNote": "Outside the IPC revision table; the edition above is the one cited and was not re-checked in Phase 2.",
+    "scopeOnly": false
   },
   {
     "id": "src-032",
@@ -324,7 +504,12 @@
     "section": "Surface resistance measurements of static dissipative planar materials — scope only",
     "licenseNote": "paraphrase only",
     "verifiedBy": "SCOPE. Designation and scope confirmed from the ESD Association's published standards list; the method text was not read. Any clause-level claim resting on this source is unverified.",
-    "verifiedOn": "2026-11-01"
+    "verifiedOn": "2026-11-01",
+    "currentEdition": "ANSI/ESD STM11.11-2022",
+    "editionStatus": "not-ipc",
+    "currentCheckedOn": "2026-10-31",
+    "editionNote": "Outside the IPC revision table; the edition above is the one cited and was not re-checked in Phase 2.",
+    "scopeOnly": true
   },
   {
     "id": "src-033",
@@ -334,7 +519,12 @@
     "section": "Floor materials and footwear — resistance measurement",
     "licenseNote": "paraphrase only",
     "verifiedBy": "READ. Confirmed from the ESD Association's own IEC-equivalency chart: \"ANSI/ESD STM97.1 & ANSI/ESD STM97.2 | IEC 61340-4-5 | Footwear and Flooring Systems\". Both STM97.1-2015 and STM97.2-2016 are technically equivalent to IEC 61340-4-5.",
-    "verifiedOn": "2026-11-01"
+    "verifiedOn": "2026-11-01",
+    "currentEdition": "ANSI/ESD STM97.1-2015",
+    "editionStatus": "not-ipc",
+    "currentCheckedOn": "2026-10-31",
+    "editionNote": "Outside the IPC revision table; the edition above is the one cited and was not re-checked in Phase 2.",
+    "scopeOnly": false
   },
   {
     "id": "src-034",
@@ -344,7 +534,12 @@
     "section": "Footwear/flooring system — voltage measurement in combination with a person",
     "licenseNote": "paraphrase only",
     "verifiedBy": "READ. Confirmed from the ESD Association's own IEC-equivalency chart, paired with STM97.1 as the IEC 61340-4-5 equivalent.",
-    "verifiedOn": "2026-11-01"
+    "verifiedOn": "2026-11-01",
+    "currentEdition": "ANSI/ESD STM97.2-2016",
+    "editionStatus": "not-ipc",
+    "currentCheckedOn": "2026-10-31",
+    "editionNote": "Outside the IPC revision table; the edition above is the one cited and was not re-checked in Phase 2.",
+    "scopeOnly": false
   },
   {
     "id": "src-035",
@@ -354,7 +549,12 @@
     "section": "Protection of electronic devices from electrostatic phenomena — requirements",
     "licenseNote": "paraphrase only",
     "verifiedBy": "READ. Confirmed from the ESD Association's equivalency material that ANSI/ESD S20.20 is technically equivalent to IEC 61340-5-1. The equivalence is what the course claims, not the clause text.",
-    "verifiedOn": "2026-11-01"
+    "verifiedOn": "2026-11-01",
+    "currentEdition": "IEC 61340-5-1:2024 (edition 3.0)",
+    "editionStatus": "not-ipc",
+    "currentCheckedOn": "2026-10-31",
+    "editionNote": "Outside the IPC revision table; the edition above is the one cited and was not re-checked in Phase 2.",
+    "scopeOnly": false
   },
   {
     "id": "src-036",
@@ -364,7 +564,12 @@
     "section": "Standard test methods for specific applications — ionization tests",
     "licenseNote": "paraphrase only",
     "verifiedBy": "READ. Confirmed from the ESD Association's own IEC-equivalency chart as the IEC counterpart of ANSI/ESD STM3.1.",
-    "verifiedOn": "2026-11-01"
+    "verifiedOn": "2026-11-01",
+    "currentEdition": "IEC 61340-4-7 (ESDA counterpart of ANSI/ESD STM3.1-2024)",
+    "editionStatus": "not-ipc",
+    "currentCheckedOn": "2026-10-31",
+    "editionNote": "Outside the IPC revision table; the edition above is the one cited and was not re-checked in Phase 2.",
+    "scopeOnly": false
   },
   {
     "id": "src-037",
@@ -374,7 +579,12 @@
     "section": "Clause 8.4 control of externally provided processes, products and services; nonconforming output",
     "licenseNote": "paraphrase only",
     "verifiedBy": "READ. Clause 8.4 (control of externally provided processes, products and services) confirmed. The course uses it to justify recording the evidence behind an accept, quarantine or reject decision at goods-in.",
-    "verifiedOn": "2026-11-01"
+    "verifiedOn": "2026-11-01",
+    "currentEdition": "ISO 9001:2015",
+    "editionStatus": "not-ipc",
+    "currentCheckedOn": "2026-10-31",
+    "editionNote": "Outside the IPC revision table; the edition above is the one cited and was not re-checked in Phase 2.",
+    "scopeOnly": false
   },
   {
     "id": "src-038",
@@ -384,7 +594,12 @@
     "section": "Quality management systems requirements for aviation, space and defence — nonconforming output",
     "licenseNote": "paraphrase only",
     "verifiedBy": "READ. Scope confirmed: control and documentation of nonconforming output. The course cites it alongside ISO 9001 as an example QMS under which a disposition must be documented.",
-    "verifiedOn": "2026-11-01"
+    "verifiedOn": "2026-11-01",
+    "currentEdition": "ANSI/AS9100 Rev D",
+    "editionStatus": "not-ipc",
+    "currentCheckedOn": "2026-10-31",
+    "editionNote": "Outside the IPC revision table; the edition above is the one cited and was not re-checked in Phase 2.",
+    "scopeOnly": false
   },
   {
     "id": "src-039",
@@ -394,6 +609,12 @@
     "section": "Tests for flammability of plastic materials for parts in devices and appliances",
     "licenseNote": "paraphrase only",
     "verifiedBy": "SCOPE. Designation and scope confirmed from published references; the clause text was not read. The course references it only as the flammability basis a material declaration may cite.",
-    "verifiedOn": "2026-11-01"
+    "verifiedOn": "2026-11-01",
+    "currentEdition": "rolling document",
+    "editionStatus": "not-ipc",
+    "currentCheckedOn": "2026-10-31",
+    "currentSource": "https://www.electronics.org/ipc-document-revision-table",
+    "editionNote": "UL standard; edition checked against UL, not the IPC table.",
+    "scopeOnly": false
   }
 ]

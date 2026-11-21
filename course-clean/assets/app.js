@@ -549,6 +549,34 @@
     return html;
   }
 
+  /* Edition currency for one source. Phase 2: every source entry carries
+   * editionStatus / currentEdition, so the reader can see whether the number in
+   * the lesson was read against the edition the publisher lists today. Nothing
+   * here changes a value; a superseded edition is disclosed, not papered over. */
+  var EDITION_LABEL = {
+    'current': 'Current edition',
+    'superseded': 'Superseded edition',
+    'edition-mismatch': 'Edition mismatch',
+    'no-longer-maintained': 'Document no longer maintained',
+    'rolling': 'Rolling document',
+    'not-ipc': 'Edition not checked here'
+  };
+
+  function editionHtml(s) {
+    if (!s.editionStatus) return '';
+    var label = EDITION_LABEL[s.editionStatus] || s.editionStatus;
+    var cls = s.editionStatus === 'current' ? 'src-edition src-edition--ok' : 'src-edition';
+    var bits = ['<strong>' + esc(label) + '</strong>'];
+    if (s.currentEdition && s.currentEdition !== s.edition) {
+      bits.push('publisher lists ' + esc(s.currentEdition));
+    } else if (s.currentEdition) {
+      bits.push(esc(s.currentEdition));
+    }
+    var html = '<span class="' + cls + '">' + bits.join(' · ');
+    if (s.editionNote) html += '<span class="src-edition-note">' + esc(s.editionNote) + '</span>';
+    return html + '</span>';
+  }
+
   function sourcesHtml(lesson) {
     var refs = Array.isArray(lesson.sources) ? lesson.sources : [];
     var html = '<section class="sources"><details class="spoiler">' +
@@ -573,10 +601,13 @@
       if (s.type) bits.push(esc(s.type));
       html += '<li><span class="src-id">' + esc(ref) + '</span> <strong>' + esc(s.title) + '</strong>' +
         (bits.length ? ' — ' + bits.join(', ') : '') +
+        (s.scopeOnly ? '<span class="src-scope" title="Cited for background and vocabulary; no acceptance limit is taken from this document.">' +
+          'Scope only — no limit taken</span>' : '') +
         '<span class="src-note">License: ' + esc(s.licenseNote || 'not stated') +
         ' · verified by ' + esc(s.verifiedBy || 'not stated') +
         (s.verifiedOn ? ' on ' + esc(s.verifiedOn) : '') + '</span>' +
         (s.currency ? '<span class="src-currency">' + esc(s.currency) + '</span>' : '') +
+        editionHtml(s) +
         '</li>';
     });
     return html + '</ul></div></details></section>';

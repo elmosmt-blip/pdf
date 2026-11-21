@@ -316,6 +316,14 @@ details summary:hover{color:var(--signal-light)}
 .src-currency{display:block;margin-top:6px;padding:8px 12px;border-left:2px solid var(--warn,#e3a008);
   background:rgba(227,160,8,.08);color:#e3c08a;font-size:12px;line-height:1.55;border-radius:0 6px 6px 0}
 
+/* Phase 2 — source currency and scope marks */
+.src-scope{display:inline-block;margin-left:10px;padding:2px 8px;border:1px solid var(--line2);
+  border-radius:999px;font-family:var(--mono);font-size:11px;color:var(--mut);vertical-align:1px}
+.src-edition{display:block;margin-top:6px;padding:8px 12px;border-left:2px solid var(--line2);
+  background:rgba(148,163,184,.06);color:var(--mut);font-size:12px;line-height:1.55;border-radius:0 6px 6px 0}
+.src-edition--ok{border-left-color:rgba(76,175,80,.55);background:rgba(76,175,80,.06)}
+.src-edition-note{display:block;margin-top:4px;color:var(--dim)}
+
 /* ---------- pager ---------- */
 .pager{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:44px 0 0}
 .pager a{display:block;background:var(--panel);border:1px solid var(--line);border-radius:var(--r-md);
