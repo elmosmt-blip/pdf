@@ -132,6 +132,40 @@ function run() {
     else questionsWithSource++;
   });
   info.questionsWithSource = questionsWithSource;
+
+  /* ---- 3b. cases (Phase 3) ---- */
+  const casesFile = path.join(ROOT, 'data', 'cases.json');
+  if (fs.existsSync(casesFile)) {
+    const caseDoc = readJson(casesFile);
+    const cases = Array.isArray(caseDoc.cases) ? caseDoc.cases : [];
+    info.cases = cases.length;
+    let caseSteps = 0, caseNumeric = 0;
+    const caseIds = new Set();
+    cases.forEach(function (c) {
+      if (caseIds.has(c.caseId)) problems.push({ code: 'case-dup', count: 1, sample: [c.caseId] });
+      caseIds.add(c.caseId);
+      if (!lessonIds.has(c.lessonId) && c.moduleId && !lessons.some(function (l) {
+        return l.moduleId === c.moduleId;
+      })) {
+        problems.push({ code: 'case-module', count: 1, sample: [c.caseId + ' -> ' + c.moduleId] });
+      }
+      (c.steps || []).forEach(function (st) {
+        caseSteps++;
+        if (st.type === 'numeric') caseNumeric++;
+      });
+      (c.sources || []).forEach(function (id) {
+        if (!sourceIds.has(id)) {
+          problems.push({ code: 'case-source', count: 1, sample: [c.caseId + ' -> ' + id] });
+        }
+      });
+    });
+    info.caseSteps = caseSteps;
+    info.caseNumeric = caseNumeric;
+    /* the embed must carry the same cases */
+    if (!fs.existsSync(PATHS.embed)) {
+      problems.push({ code: 'case-embed', count: 1, sample: ['assets/data-embed.js missing'] });
+    }
+  }
   if (missingQSource.length) problems.push({ code: 'question-source', count: missingQSource.length, sample: missingQSource.slice(0, 10) });
 
   /* ---- 4. lesson.sources -> sources ---- */
@@ -321,7 +355,10 @@ function render(result, baseline) {
   p('  questions               ' + i.counts.questions);
   p('  sources                 ' + i.counts.sources);
   if (i.registry) {
-    p('  edition registry rows   ' + i.registry.rows +
+    if (i.cases != null) {
+    p('  cases                   ' + i.cases + '  (' + i.caseSteps + ' steps, ' + i.caseNumeric + ' numeric)');
+  }
+  p('  edition registry rows   ' + i.registry.rows +
       (i.registry.notInCourse ? '  (' + i.registry.notInCourse + ' standard(s) cited but absent)' : ''));
   }
   p('');

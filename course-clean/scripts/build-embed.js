@@ -27,12 +27,16 @@ const ROOT = path.resolve(__dirname, '..');
 const DATA = path.join(ROOT, 'data');
 const TARGET = path.join(ROOT, 'assets', 'data-embed.js');
 
-/* Fixed order: lessons, questions, sources. */
+/* Fixed order: lessons, questions, sources, then the case document. */
 const FILES = [
   ['lessons', 'lessons.json'],
   ['questions', 'questions.json'],
   ['sources', 'sources.json']
 ];
+
+/* cases.json is a single object, not an array, so it is loaded separately and
+ * exposed as COURSE_DATA.caseDoc. A build without cases still works. */
+const CASE_FILE = 'cases.json';
 
 function readJson(file) {
   let raw = fs.readFileSync(file, 'utf8');
@@ -52,6 +56,17 @@ function build() {
     payload[key] = value;
     counts[key] = value.length;
   });
+
+  /* The case document travels inside the same embed so the course keeps
+   * working from file:// with no server and no extra request. */
+  const casePath = path.join(DATA, CASE_FILE);
+  if (fs.existsSync(casePath)) {
+    const caseDoc = readJson(casePath);
+    payload.caseDoc = caseDoc;
+    counts.cases = Array.isArray(caseDoc.cases) ? caseDoc.cases.length : 0;
+  } else {
+    counts.cases = 0;
+  }
 
   /* JSON.stringify with no indentation keeps the file small; the trailing
      newline is deliberate so `git diff` stays clean when only the tail moves. */
@@ -103,16 +118,18 @@ function main(argv) {
       Object.keys(counts).forEach(function (k) {
         counts[k] = (Array.isArray(parsed[k]) ? parsed[k].length : 0);
       });
+      counts.cases = parsed.caseDoc && Array.isArray(parsed.caseDoc.cases) ? parsed.caseDoc.cases.length : 0;
       console.error('build-embed --check: STALE');
       console.error('  embed  lessons ' + counts.lessons + ', questions ' + counts.questions +
-        ', sources ' + counts.sources);
+        ', sources ' + counts.sources + ', cases ' + counts.cases);
       console.error('  data   lessons ' + built.counts.lessons + ', questions ' + built.counts.questions +
-        ', sources ' + built.counts.sources);
+        ', sources ' + built.counts.sources + ', cases ' + built.counts.cases);
       console.error('  run: node scripts/build-embed.js');
       return 1;
     }
     console.log('build-embed --check: OK (' + built.counts.lessons + ' lessons, ' +
-      built.counts.questions + ' questions, ' + built.counts.sources + ' sources)');
+      built.counts.questions + ' questions, ' + built.counts.sources + ' sources, ' +
+      built.counts.cases + ' cases)');
     return 0;
   }
 
@@ -120,7 +137,8 @@ function main(argv) {
   fs.writeFileSync(outFile, built.text, 'utf8');
   console.log('build-embed: wrote ' + path.relative(ROOT, outFile) +
     ' (' + built.bytes + ' bytes: ' + built.counts.lessons + ' lessons, ' +
-    built.counts.questions + ' questions, ' + built.counts.sources + ' sources)');
+    built.counts.questions + ' questions, ' + built.counts.sources + ' sources, ' +
+    built.counts.cases + ' cases)');
   return 0;
 }
 

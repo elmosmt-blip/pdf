@@ -100,7 +100,16 @@
 
   var PASS_PCT = 80; // pass mark for lesson mastery and module exams
 
-  function freshProgress() { return { v: 1, visited: {}, quiz: {}, exams: {} }; }
+  /* Cases (Phase 3). MASTERED_PCT is the rubric share a learner must reach
+     before the case counts as mastered — the brief's 80 %. */
+  var CASES = [];
+  var CASE_DOC = null;
+  var CASE_MASTERED_PCT = 80;
+  var casesByModule = {};
+  var byCase = {};
+  var caseState = { caseId: null, answers: {}, shown: {}, hints: {}, result: null };
+
+  function freshProgress() { return { v: 1, visited: {}, quiz: {}, exams: {}, cases: {} }; }
 
   function loadProgress() {
     var raw = lsGet(STORE_KEY);
@@ -112,7 +121,8 @@
           v: 1,
           visited: (p.visited && typeof p.visited === 'object' && !Array.isArray(p.visited)) ? p.visited : {},
           quiz: (p.quiz && typeof p.quiz === 'object' && !Array.isArray(p.quiz)) ? p.quiz : {},
-          exams: (p.exams && typeof p.exams === 'object' && !Array.isArray(p.exams)) ? p.exams : {}
+          exams: (p.exams && typeof p.exams === 'object' && !Array.isArray(p.exams)) ? p.exams : {},
+          cases: (p.cases && typeof p.cases === 'object' && !Array.isArray(p.cases)) ? p.cases : {}
         };
       }
     } catch (e) { /* corrupt -> start fresh */ }
@@ -175,10 +185,12 @@
   var bySource = {};
   var moduleLessons = {}; // moduleId -> lessons[]
 
-  function indexData(lessons, questions, sources) {
+  function indexData(lessons, questions, sources, caseDoc) {
     LESSONS = Array.isArray(lessons) ? lessons : [];
     QUESTIONS = Array.isArray(questions) ? questions : [];
     SOURCES = Array.isArray(sources) ? sources : [];
+    CASE_DOC = caseDoc || null;
+    indexCases((caseDoc && Array.isArray(caseDoc.cases)) ? caseDoc.cases : []);
     byLesson = {}; byQuestion = {}; bySource = {}; moduleLessons = {};
     LESSONS.forEach(function (l) {
       if (!l || typeof l.lessonId !== 'string') return;
@@ -201,7 +213,7 @@
     function useEmbed(reason) {
       var cd = window.COURSE_DATA;
       if (cd && Array.isArray(cd.lessons)) {
-        indexData(cd.lessons, cd.questions, cd.sources);
+        indexData(cd.lessons, cd.questions, cd.sources, cd.caseDoc);
         done('embed', reason);
       } else {
         done('none', reason + '; assets/data-embed.js is missing — run `node scripts/embed.js`');
@@ -215,9 +227,11 @@
     window.Promise.all([
       fetchJson('data/lessons.json'),
       fetchJson('data/questions.json'),
-      fetchJson('data/sources.json')
+      fetchJson('data/sources.json'),
+      /* cases are optional: an old build without cases.json still runs */
+      fetchJson('data/cases.json').catch(function () { return null; })
     ]).then(function (parts) {
-      indexData(parts[0], parts[1], parts[2]);
+      indexData(parts[0], parts[1], parts[2], parts[3]);
       done('fetch', null);
     }).catch(function (e) {
       useEmbed('fetch failed (' + (e && e.message ? e.message : String(e)) + ')');
@@ -381,6 +395,8 @@
         (mins ? '<span>&#8776;' + esc(mins) + ' min</span>' : '') +
         (mastered ? '<span class="module-progress">' + esc(mastered) + ' of ' +
           esc(ls.length || m.lessons) + ' mastered</span>' : '') +
+      (casesOf(m.id).length ? '<span class="module-cases">' + esc(casesOf(m.id).length) +
+          ' case' + (casesOf(m.id).length === 1 ? '' : 's') + '</span>' : '') +
         (passed && passed.best >= PASS_PCT ? '<span class="module-exam-pass">exam passed</span>' : '') +
         '</span></a></li>';
     });
@@ -428,6 +444,8 @@
         ' &#8594;</a></p></section>';
     }
 
+    html += toolkitHtml(moduleId);
+
     if (!ls.length) {
       html += emptyBox('No lessons in the data yet',
         'data/lessons.json has no lessons for ' + moduleId + ' in this build.');
@@ -454,7 +472,449 @@
     return html;
   }
 
-  /* ------------------------------------------------------ view: lesson #/l/ */
+  /* ================================================== cases (Phase 3) #/c/ */
+
+  function indexCases(list) {
+    CASES = Array.isArray(list) ? list : [];
+    casesByModule = {};
+    byCase = {};
+    CASES.forEach(function (c) {
+      if (!c || !c.caseId) return;
+      byCase[c.caseId] = c;
+      (casesByModule[c.moduleId] = casesByModule[c.moduleId] || []).push(c);
+    });
+  }
+
+  function casesOf(moduleId) { return casesByModule[moduleId] || []; }
+
+  function caseRecord(caseId) {
+    var rec = progress.cases && progress.cases[caseId];
+    return rec && typeof rec === 'object' ? rec : null;
+  }
+
+  function caseMastered(caseId) {
+    var rec = caseRecord(caseId);
+    return !!(rec && rec.best >= CASE_MASTERED_PCT);
+  }
+
+  function casesMasteredIn(moduleId) {
+    var n = 0;
+    casesOf(moduleId).forEach(function (c) { if (caseMastered(c.caseId)) n++; });
+    return n;
+  }
+
+  function casePoints(c) {
+    var total = 0;
+    (c.rubric || []).forEach(function (r) { total += r.points || 0; });
+    return total;
+  }
+
+  /* ---------------------------------------------------------- number input */
+  /* A learner types "0,64" in half of Europe and "0.64" in the other half, and
+   * a spreadsheet paste can arrive with a thin space or a non-breaking space.
+   * Normalise before parsing, and treat anything unparseable as empty rather
+   * than as zero — zero is a legitimate answer in several steps. */
+  function parseNumeric(raw) {
+    var s = String(raw == null ? '' : raw).trim();
+    if (!s) return null;
+    s = s.replace(/\u00a0|\u202f|\s/g, '').replace(',', '.');
+    s = s.replace(/\u2212/g, '-');           // true minus sign
+    if (!/^[-+]?(\d+(\.\d*)?|\.\d+)([eE][-+]?\d+)?$/.test(s)) return null;
+    var v = parseFloat(s);
+    return isFinite(v) ? v : null;
+  }
+
+  function fmtNum(v, unit) {
+    if (typeof v !== 'number' || !isFinite(v)) return String(v);
+    var abs = Math.abs(v);
+    var digits = abs >= 1000 ? 0 : abs >= 100 ? 1 : abs >= 1 ? 2 : 3;
+    var text = v.toFixed(digits).replace(/\.?0+$/, function (m) { return m.indexOf('.') === 0 ? '' : m; });
+    return text + (unit && unit !== 'dimensionless' ? ' ' + unit : '');
+  }
+
+  /* ---------------------------------------------------------------- grading */
+  function judgeStep(step, raw) {
+    if (step.type === 'choice') {
+      if (!raw) return { empty: true };
+      return { correct: raw === step.answer.value };
+    }
+    var got = parseNumeric(raw);
+    if (got === null) return { empty: true };
+    var want = step.answer.value;
+    var tol = Math.abs(step.answer.tolerance || 0);
+    var diff = Math.abs(got - want);
+    return { correct: diff <= tol + 1e-9, got: got, want: want, tol: tol };
+  }
+
+  function gradeCase(c) {
+    var answers = caseState.answers;
+    var earned = 0, possible = 0, perStep = {};
+    (c.steps || []).forEach(function (st) {
+      perStep[st.id] = judgeStep(st, answers[st.id]).correct === true;
+    });
+    (c.rubric || []).forEach(function (r) {
+      var pts = r.points || 0;
+      possible += pts;
+      var ids = r.steps || [];
+      if (!ids.length) { earned += 0; return; }
+      var hit = ids.filter(function (id) { return perStep[id]; }).length;
+      earned += pts * (hit / ids.length);
+    });
+    var pctScore = possible ? Math.round((earned / possible) * 100) : 0;
+    var prev = caseRecord(c.caseId);
+    var best = Math.max(pctScore, prev && typeof prev.best === 'number' ? prev.best : 0);
+    progress.cases[c.caseId] = {
+      best: best,
+      last: pctScore,
+      attempts: ((prev && prev.attempts) || 0) + 1,
+      at: Date.now()
+    };
+    saveProgress();
+    caseState.result = {
+      earned: Math.round(earned * 10) / 10,
+      possible: possible,
+      pct: pctScore,
+      mastered: pctScore >= CASE_MASTERED_PCT,
+      perStep: perStep,
+      best: best
+    };
+    return caseState.result;
+  }
+
+  /* ------------------------------------------------------------- rendering */
+  function hintHtml(step, caseId) {
+    var shown = caseState.hints[caseId + '/' + step.id] || 0;
+    var hints = step.hints || [];
+    var html = '<div class="case-hints">';
+    if (shown > 0) {
+      html += '<ol class="case-hint-list">';
+      for (var i = 0; i < shown && i < hints.length; i++) {
+        html += '<li>' + esc(hints[i]) + '</li>';
+      }
+      html += '</ol>';
+    }
+    if (shown < hints.length) {
+      html += '<button type="button" class="btn btn--small case-hint-btn" data-act="case-hint" ' +
+        'data-hint="' + esc(caseId + '/' + step.id) + '">' +
+        (shown === 0 ? 'Show a hint' : 'Next hint') +
+        ' <span class="muted">(' + (hints.length - shown) + ' left)</span></button>';
+    } else {
+      html += '<p class="muted flush case-hint-done">All ' + hints.length +
+        ' hints shown. Hints cost nothing in the rubric; a guess costs the step.</p>';
+    }
+    return html + '</div>';
+  }
+
+  function stepHtml(c, step, index) {
+    var res = caseState.result;
+    var value = caseState.answers[step.id] == null ? '' : caseState.answers[step.id];
+    var graded = res && res.perStep.hasOwnProperty(step.id) ? res.perStep[step.id] : null;
+    var cls = 'case-step' + (graded === true ? ' case-step--ok' : graded === false ? ' case-step--bad' : '');
+    var html = '<li class="' + cls + '" id="step-' + esc(step.id) + '">' +
+      '<div class="case-step-head"><span class="case-step-n">Step ' + esc(index + 1) + '</span>' +
+      '<span class="case-step-type">' + (step.type === 'numeric' ? 'numeric answer' : 'choice') +
+      '</span></div>' +
+      '<p class="case-prompt">' + esc(step.prompt) + '</p>';
+
+    if (step.type === 'numeric') {
+      var unit = step.answer.unit && step.answer.unit !== 'dimensionless' ? step.answer.unit : '';
+      html += '<div class="case-input-row">' +
+        '<label class="case-input-label" for="in-' + esc(step.id) + '">Your answer' +
+        (unit ? ' <span class="muted">(' + esc(unit) + ')</span>' : '') + '</label>' +
+        '<input class="case-input" id="in-' + esc(step.id) + '" name="c-' + esc(step.id) + '"' +
+        ' type="text" inputmode="decimal" autocomplete="off" spellcheck="false"' +
+        ' value="' + esc(value) + '"' +
+        ' aria-describedby="err-' + esc(step.id) + '">' +
+        '<span class="case-tol muted">tolerance ±' + esc(step.answer.tolerance) +
+        (unit ? ' ' + esc(unit) : '') + '</span>' +
+        '</div>' +
+        '<p class="case-error" id="err-' + esc(step.id) + '" role="alert" hidden></p>';
+    } else {
+      html += '<fieldset class="case-options"><legend class="sr-only">Choose one</legend>';
+      (step.options || []).forEach(function (o) {
+        var id = 'in-' + step.id + '-' + o.id;
+        html += '<label class="case-opt' + (value === o.id ? ' case-opt--picked' : '') + '" for="' + esc(id) + '">' +
+          '<input type="radio" id="' + esc(id) + '" name="c-' + esc(step.id) + '" value="' + esc(o.id) + '"' +
+          (value === o.id ? ' checked' : '') + '>' +
+          '<span class="case-opt-text">' + esc(o.text) + '</span></label>';
+      });
+      html += '</fieldset>' +
+        '<p class="case-error" id="err-' + esc(step.id) + '" role="alert" hidden></p>';
+    }
+
+    if (graded === true) {
+      html += '<p class="case-feedback case-feedback--ok">' + esc(step.feedbackCorrect || 'Correct.') + '</p>';
+    } else if (graded === false) {
+      html += '<p class="case-feedback case-feedback--bad">' + esc(step.feedbackWrong || 'Not yet.') + '</p>';
+    }
+    html += hintHtml(step, c.caseId);
+    if (res && step.explanation) {
+      html += '<details class="case-expl"><summary>Worked reasoning</summary>' +
+        '<p>' + esc(step.explanation) + '</p></details>';
+    }
+    return html + '</li>';
+  }
+
+  function rubricHtml(c) {
+    var res = caseState.result;
+    var html = '<table class="case-rubric"><thead><tr><th scope="col">Criterion</th>' +
+      '<th scope="col">Points</th>' + (res ? '<th scope="col">Earned</th>' : '') + '</tr></thead><tbody>';
+    (c.rubric || []).forEach(function (r) {
+      var ids = r.steps || [];
+      var hit = res ? ids.filter(function (id) { return res.perStep[id]; }).length : 0;
+      var frac = ids.length ? hit / ids.length : 0;
+      html += '<tr><td>' + esc(r.criterion) + '</td><td class="num">' + esc(r.points) + '</td>' +
+        (res ? '<td class="num">' + esc(Math.round(r.points * frac * 10) / 10) + '</td>' : '') + '</tr>';
+    });
+    html += '</tbody></table>';
+    return html;
+  }
+
+  function caseScoresHtml(c) {
+    var res = caseState.result;
+    if (!res) return '';
+    var cls = res.mastered ? 'case-score case-score--pass' : 'case-score case-score--fail';
+    var html = '<section class="case-result" id="case-result" tabindex="-1">' +
+      '<h2>Result</h2>' +
+      '<p class="' + cls + '">' + esc(res.pct) + ' % — ' +
+      esc(res.earned) + ' of ' + esc(res.possible) + ' rubric points</p>' +
+      '<p class="flush">' + (res.mastered
+        ? 'Mastered. The rubric threshold is ' + esc(CASE_MASTERED_PCT) + ' %.'
+        : 'Not mastered yet: the threshold is ' + esc(CASE_MASTERED_PCT) +
+          ' %. Read the worked reasoning under each step and try again — the best result is kept.') +
+      ' Best result so far: ' + esc(res.best) + ' %.</p>' +
+      rubricHtml(c) +
+      '<div class="quiz-actions">' +
+      '<button type="button" class="btn" data-act="case-retake">' + 'Try again from a clean sheet</button> ' +
+      '<button type="button" class="btn" data-act="case-csv">Download my answers (CSV)</button>' +
+      '</div></section>';
+    return html;
+  }
+
+  function toolkitHtml(moduleId) {
+    var cs = casesOf(moduleId);
+    if (!cs.length) return '';
+    var html = '<section class="toolkit"><h2>Toolkit</h2>' +
+      '<p class="flush muted">Apply the module on Board X. Each case is scored against a rubric; ' +
+      esc(CASE_MASTERED_PCT) + ' % of the rubric marks it mastered.</p><ul class="toolkit-list">';
+    cs.forEach(function (c) {
+      var rec = caseRecord(c.caseId);
+      var mastered = caseMastered(c.caseId);
+      html += '<li class="toolkit-item' + (mastered ? ' toolkit-item--done' : '') + '">' +
+        '<div class="toolkit-main">' +
+        '<a class="toolkit-title" href="#/c/' + encodeURIComponent(c.caseId) + '">' + esc(c.title) + '</a>' +
+        '<div class="toolkit-meta"><span>' + esc(c.estMinutes) + ' min</span>' +
+        '<span>' + esc((c.steps || []).length) + ' steps</span>' +
+        '<span>' + esc(c.level || 'core') + '</span>' +
+        (rec ? '<span>best ' + esc(rec.best) + ' %</span>' : '<span>not attempted</span>') +
+        '</div></div>' +
+        '<a class="btn btn--small" href="#/c/' + encodeURIComponent(c.caseId) + '">' +
+        (mastered ? 'Revisit' : rec ? 'Retry' : 'Open case') + '</a></li>';
+    });
+    html += '</ul>';
+    (cs[0].templates || []).length && [];
+    /* the templates and tools the cases point at, deduplicated */
+    var tools = {}, tpls = {};
+    cs.forEach(function (c) {
+      (c.toolLinks || []).forEach(function (t) { tools[t.href + '|' + t.label] = t; });
+      (c.templates || []).forEach(function (t) { tpls[t.templateId] = t; });
+    });
+    var tplKeys = Object.keys(tpls);
+    if (tplKeys.length) {
+      html += '<div class="toolkit-shelf"><h3>Templates</h3><ul class="toolkit-chips">';
+      tplKeys.forEach(function (k) {
+        var t = tpls[k];
+        html += '<li class="chip' + (t.status === 'planned' ? ' chip--draft' : '') + '">' +
+          esc(t.name) + (t.status === 'planned' ? ' · in preparation' : '') + '</li>';
+      });
+      html += '</ul></div>';
+    }
+    var toolKeys = Object.keys(tools);
+    if (toolKeys.length) {
+      html += '<div class="toolkit-shelf"><h3>Related lessons</h3><ul class="toolkit-chips">';
+      toolKeys.forEach(function (k) {
+        html += '<li><a class="chip" href="' + esc(tools[k].href) + '">' + esc(tools[k].label) + '</a></li>';
+      });
+      html += '</ul></div>';
+    }
+    return html + '</section>';
+  }
+
+  function caseView(caseId) {
+    var c = byCase[caseId];
+    if (!c) {
+      return notFoundView('Case not found', 'No case "' + caseId + '" in this build.');
+    }
+    if (caseState.caseId !== caseId) {
+      caseState = { caseId: caseId, answers: caseState.caseId === caseId ? caseState.answers : {},
+        shown: {}, hints: {}, result: null };
+    }
+    var m = moduleById(c.moduleId);
+    var rec = caseRecord(c.caseId);
+
+    var html = '<p class="kicker">Toolkit · ' + esc(m ? 'Module ' + pad2(m.n) + ' · ' + m.title : 'Case') + '</p>';
+    html += '<header class="page-head"><div><h1 tabindex="-1">' + esc(c.title) + '</h1>' +
+      '<div class="meta-line">' +
+      '<span class="chip chip--stage">Board X</span>' +
+      '<span class="chip">' + esc(c.estMinutes) + ' min</span>' +
+      '<span class="chip">' + esc((c.steps || []).length) + ' steps</span>' +
+      '<span class="chip">rubric ' + esc(casePoints(c)) + ' pts</span>' +
+      (rec ? '<span class="chip' + (caseMastered(c.caseId) ? ' chip--ok' : '') + '">best ' +
+        esc(rec.best) + ' %</span>' : '') +
+      '</div></div></header>';
+
+    html += '<section class="case-scenario">';
+    (c.scenario || []).forEach(function (p) { html += '<p>' + esc(p) + '</p>'; });
+    html += '</section>';
+
+    var board = CASE_DOC && CASE_DOC.board;
+    if (board && board.facts) {
+      html += '<details class="case-board"><summary>Board X — the product behind this case</summary>' +
+        '<div class="details-body"><p class="muted flush">' + esc(board.description || '') + '</p>' +
+        '<table class="case-facts"><tbody>';
+      Object.keys(board.facts).forEach(function (k) {
+        html += '<tr><th scope="row">' + esc(k.replace(/([A-Z])/g, ' $1').replace(/^./, function (x) {
+          return x.toUpperCase();
+        })) + '</th><td>' + esc(board.facts[k]) + '</td></tr>';
+      });
+      html += '</tbody></table></div></details>';
+    }
+
+    (c.dataFiles || []).forEach(function (f) {
+      html += '<details class="case-data"><summary>Data file — ' + esc(f.name) + '</summary>' +
+        '<div class="details-body"><pre class="case-pre">' + esc(f.content) + '</pre>' +
+        '<p class="flush"><button type="button" class="btn btn--small" data-act="case-data" ' +
+        'data-file="' + esc(c.caseId + '/' + f.name) + '">Download ' + esc(f.name) + '</button></p>' +
+        '</div></details>';
+    });
+
+    html += '<form class="case-form" data-case="' + esc(c.caseId) + '" novalidate>' +
+      '<ol class="case-steps">';
+    (c.steps || []).forEach(function (st, i) { html += stepHtml(c, st, i); });
+    html += '</ol>' +
+      '<div class="quiz-actions">' +
+      '<button type="submit" class="btn btn--primary">Check my answers</button> ' +
+      '<button type="button" class="btn" data-act="case-reset">Clear</button>' +
+      '</div></form>';
+
+    html += '<div id="case-result-slot">' + caseScoresHtml(c) + '</div>';
+
+    html += '<details class="case-rubric-box"><summary>Rubric — how this case is scored</summary>' +
+      '<div class="details-body">' + rubricHtml(c) +
+      '<p class="muted flush">Criteria are scored in proportion to the steps they name. ' +
+      'A criterion spanning two steps pays half per correct step.</p></div></details>';
+
+    if ((c.sources || []).length) {
+      html += sourcesBlock(c.sources);
+    }
+    html += '<nav class="pager">' +
+      '<a class="pager-prev" href="#/m/' + encodeURIComponent(c.moduleId) + '">' +
+      '<span class="pager-label">Back to</span><span class="pager-title">' +
+      esc(m ? 'Module ' + pad2(m.n) + ' — ' + m.title : 'the module') + '</span></a>' +
+      '<span></span></nav>';
+    return html;
+  }
+
+  /* Same renderer as a lesson's Sources block, for sources held by a case. */
+  function sourcesBlock(ids) {
+    var html = '<section class="sources"><details class="spoiler">' +
+      '<summary>Sources — ' + ids.length + '</summary><div class="details-body"><ul>';
+    ids.forEach(function (ref) { html += sourceItemHtml(ref); });
+    return html + '</ul></div></details></section>';
+  }
+
+  /* --------------------------------------------------------------- exports */
+  function download(name, mime, text) {
+    try {
+      var blob = new window.Blob(['\ufeff' + text], { type: mime });
+      var url = window.URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = name;
+      a.rel = 'noopener';
+      document.body.appendChild(a);
+      a.click();
+      window.setTimeout(function () {
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      }, 0);
+      return true;
+    } catch (e) { return false; }
+  }
+
+  function csvCell(v) {
+    var s = String(v == null ? '' : v);
+    return /[",\n;]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+  }
+
+  function caseCsv(c) {
+    var res = caseState.result;
+    var lines = [['caseId', 'stepId', 'type', 'prompt', 'yourAnswer', 'verdict',
+      'correctValue', 'unit', 'tolerance'].map(csvCell).join(',')];
+    (c.steps || []).forEach(function (st) {
+      var raw = caseState.answers[st.id];
+      var judged = judgeStep(st, raw);
+      var verdict = judged.empty ? 'no answer' : judged.correct ? 'correct' : 'wrong';
+      var correct = st.type === 'choice'
+        ? ((st.options || []).filter(function (o) { return o.id === st.answer.value; })[0] || {}).text || st.answer.value
+        : st.answer.value;
+      lines.push([c.caseId, st.id, st.type, st.prompt, raw == null ? '' : raw, verdict,
+        correct, st.answer.unit || '', st.answer.tolerance == null ? '' : st.answer.tolerance]
+        .map(csvCell).join(','));
+    });
+    if (res) {
+      lines.push(['', '', 'RESULT', '', '', res.pct + ' % of the rubric (' + res.earned +
+        ' of ' + res.possible + ' points)', '', '', ''].map(csvCell).join(','));
+    }
+    return lines.join('\r\n') + '\r\n';
+  }
+
+  /* -------------------------------------------------------------- handlers */
+  function rerenderCaseScores(c) {
+    var slot = app.querySelector('#case-result-slot');
+    if (slot) slot.innerHTML = caseScoresHtml(c);
+    var title = app.querySelector('h1');
+    if (title) title.focus();
+  }
+
+  function handleCaseSubmit(form) {
+    var c = byCase[form.getAttribute('data-case')];
+    if (!c) return;
+    var ok = true, firstBad = null;
+    (c.steps || []).forEach(function (st) {
+      var field = form.querySelector('[name="c-' + st.id + '"]');
+      var err = form.querySelector('#err-' + st.id);
+      var judged = judgeStep(st, caseState.answers[st.id]);
+      if (judged.empty) {
+        ok = false;
+        if (err) {
+          err.hidden = false;
+          err.textContent = st.type === 'choice'
+            ? 'Choose one option before checking — an empty step scores zero.'
+            : 'Enter a number before checking. Leave nothing blank: an empty step scores zero.';
+        }
+        var li = form.querySelector('#step-' + st.id);
+        if (li) li.classList.add('case-step--missing');
+        if (!firstBad) firstBad = field;
+      } else if (err) {
+        err.hidden = true;
+        err.textContent = '';
+      }
+      var li2 = form.querySelector('#step-' + st.id);
+      if (li2 && !judged.empty) li2.classList.remove('case-step--missing');
+    });
+    if (!ok) {
+      if (firstBad && firstBad.focus) firstBad.focus();
+      return;
+    }
+    gradeCase(c);
+    /* repaint the step feedback in place: the marks, the worked reasoning */
+    var list = form.querySelector('.case-steps');
+    if (list) list.innerHTML = (c.steps || []).map(function (st, i) { return stepHtml(c, st, i); }).join('');
+    rerenderCaseScores(c);
+  }
+
+    /* ------------------------------------------------------ view: lesson #/l/ */
 
   function goalsHtml(lesson) {
     var goals = Array.isArray(lesson.goals) ? lesson.goals : [];
@@ -577,6 +1037,28 @@
     return html + '</span>';
   }
 
+  function sourceItemHtml(ref) {
+    var s = bySource[ref];
+    if (!s) {
+      return '<li><span class="src-id">' + esc(ref) + '</span> — <span class="muted">' +
+        'unknown source id (not in data/sources.json)</span></li>';
+    }
+    var bits = [];
+    if (s.edition) bits.push(esc(s.edition));
+    if (s.section) bits.push('section ' + esc(s.section));
+    if (s.type) bits.push(esc(s.type));
+    return '<li><span class="src-id">' + esc(ref) + '</span> <strong>' + esc(s.title) + '</strong>' +
+      (bits.length ? ' — ' + bits.join(', ') : '') +
+      (s.scopeOnly ? '<span class="src-scope" title="Cited for background and vocabulary; no acceptance limit is taken from this document.">' +
+        'Scope only — no limit taken</span>' : '') +
+      '<span class="src-note">License: ' + esc(s.licenseNote || 'not stated') +
+      ' · verified by ' + esc(s.verifiedBy || 'not stated') +
+      (s.verifiedOn ? ' on ' + esc(s.verifiedOn) : '') + '</span>' +
+      (s.currency ? '<span class="src-currency">' + esc(s.currency) + '</span>' : '') +
+      editionHtml(s) +
+      '</li>';
+  }
+
   function sourcesHtml(lesson) {
     var refs = Array.isArray(lesson.sources) ? lesson.sources : [];
     var html = '<section class="sources"><details class="spoiler">' +
@@ -588,28 +1070,7 @@
         '</div></details></section>';
     }
     html += '<ul>';
-    refs.forEach(function (ref) {
-      var s = bySource[ref];
-      if (!s) {
-        html += '<li><span class="src-id">' + esc(ref) + '</span> — <span class="muted">' +
-          'unknown source id (not in data/sources.json)</span></li>';
-        return;
-      }
-      var bits = [];
-      if (s.edition) bits.push(esc(s.edition));
-      if (s.section) bits.push('section ' + esc(s.section));
-      if (s.type) bits.push(esc(s.type));
-      html += '<li><span class="src-id">' + esc(ref) + '</span> <strong>' + esc(s.title) + '</strong>' +
-        (bits.length ? ' — ' + bits.join(', ') : '') +
-        (s.scopeOnly ? '<span class="src-scope" title="Cited for background and vocabulary; no acceptance limit is taken from this document.">' +
-          'Scope only — no limit taken</span>' : '') +
-        '<span class="src-note">License: ' + esc(s.licenseNote || 'not stated') +
-        ' · verified by ' + esc(s.verifiedBy || 'not stated') +
-        (s.verifiedOn ? ' on ' + esc(s.verifiedOn) : '') + '</span>' +
-        (s.currency ? '<span class="src-currency">' + esc(s.currency) + '</span>' : '') +
-        editionHtml(s) +
-        '</li>';
-    });
+    refs.forEach(function (ref) { html += sourceItemHtml(ref); });
     return html + '</ul></div></details></section>';
   }
 
@@ -1268,7 +1729,8 @@
     var toc = document.getElementById('toc');
     if (!toc) return;
     var activeModule = route.view === 'module' ? route.moduleId :
-      (route.view === 'lesson' && byLesson[route.lessonId] ? byLesson[route.lessonId].moduleId : null);
+      (route.view === 'lesson' && byLesson[route.lessonId] ? byLesson[route.lessonId].moduleId :
+        (route.view === 'case' && byCase[route.caseId] ? byCase[route.caseId].moduleId : null));
     var activeLesson = route.view === 'lesson' ? route.lessonId : null;
     var html = '';
     MODULES.forEach(function (m) {
@@ -1289,6 +1751,12 @@
               '">' + esc(l.title) + '</a></li>';
           });
           html += '</ul>';
+        }
+        var mcs = casesOf(m.id);
+        if (mcs.length) {
+          html += '<a class="toc-case' + (route.view === 'case' ? ' toc-case--active' : '') +
+            '" href="#/c/' + encodeURIComponent(mcs[0].caseId) + '">Toolkit (' + mcs.length +
+            ' case' + (mcs.length === 1 ? '' : 's') + ')</a>';
         }
         if (moduleExamQuestions(m.id).length) {
           var examCls = 'toc-exam';
@@ -1315,6 +1783,14 @@
       if (em) html += '<span class="sep">·</span><a href="#/m/' + encodeURIComponent(em.id) +
         '">Module ' + esc(pad2(em.n)) + ' · ' + esc(em.title) + '</a>';
       html += '<span class="sep">&#8594;</span><strong>Module exam</strong>';
+    } else if (route.view === 'case') {
+      var cx = byCase[route.caseId];
+      if (cx) {
+        var cm = moduleById(cx.moduleId);
+        if (cm) html += '<span class="sep">·</span><a href="#/m/' + encodeURIComponent(cm.id) +
+          '">Module ' + esc(pad2(cm.n)) + ' · ' + esc(cm.title) + '</a>';
+      }
+      html += '<span class="sep">&#8594;</span><strong>Toolkit case</strong>';
     } else if (route.view === 'lesson') {
       var l = byLesson[route.lessonId];
       if (l) {
@@ -1338,6 +1814,7 @@
     if ((m = h.match(/^#\/m\/([^\/?#]+)$/))) return { view: 'module', moduleId: safeDecode(m[1]).toLowerCase() };
     if ((m = h.match(/^#\/l\/([^\/?#]+)$/))) return { view: 'lesson', lessonId: safeDecode(m[1]).toLowerCase() };
     if ((m = h.match(/^#\/e\/([^\/?#]+)$/))) return { view: 'exam', moduleId: safeDecode(m[1]).toLowerCase() };
+    if ((m = h.match(/^#\/c\/([^\/?#]+)$/))) return { view: 'case', caseId: safeDecode(m[1]).toLowerCase() };
     return { view: 'notfound', hash: h };
   }
 
@@ -1353,6 +1830,10 @@
       html = moduleView(route.moduleId);
       var mm = moduleById(route.moduleId);
       if (mm) title = 'Module ' + pad2(mm.n) + ' — ' + mm.title;
+    } else if (route.view === 'case') {
+      html = caseView(route.caseId);
+      var cx2 = byCase[route.caseId];
+      if (cx2) title = cx2.title;
     } else if (route.view === 'lesson') {
       html = lessonView(route.lessonId);
       var ll = byLesson[route.lessonId];
@@ -1361,6 +1842,10 @@
       html = examView(route.moduleId);
       var me = moduleById(route.moduleId);
       if (me) title = 'Module ' + pad2(me.n) + ' exam — ' + me.title;
+    } else if (route.view === 'case') {
+      html = caseView(route.caseId);
+      var cc = byCase[route.caseId];
+      if (cc) title = cc.title;
     } else {
       html = notFoundView('Page not found', 'Unrecognised address "' + route.hash + '".');
       title = 'Not found';
@@ -1385,9 +1870,40 @@
 
   /* ---------------------------------------------------------- event wiring */
 
+  /* Case answers live in caseState.answers, not in the DOM: repainting a step
+     must never depend on what the browser kept in the field. Text fields are
+     captured on every keystroke so a hint click (a repaint) loses nothing. */
+  app.addEventListener('input', function (e) {
+    var el = e.target;
+    if (!el || !el.name || el.name.indexOf('c-') !== 0) return;
+    caseState.answers[el.name.slice(2)] = el.value;
+    var li = el.closest ? el.closest('.case-step') : null;
+    var err = li ? li.querySelector('.case-error') : null;
+    if (el.value.trim() && err) { err.hidden = true; err.textContent = ''; }
+    if (li) li.classList.remove('case-step--missing');
+  });
+
   app.addEventListener('change', function (e) {
     var el = e.target;
     if (!el || !el.name) return;
+    if (el.name.indexOf('c-') === 0) {
+      if (el.checked) {
+        caseState.answers[el.name.slice(2)] = el.value;
+        var field = el.closest ? el.closest('.case-options') : null;
+        if (field) {
+          Array.prototype.forEach.call(field.querySelectorAll('.case-opt'), function (l) {
+            l.classList.remove('case-opt--picked');
+          });
+          var lab = el.closest('.case-opt');
+          if (lab) lab.classList.add('case-opt--picked');
+        }
+        var holder = el.closest ? el.closest('.case-step') : null;
+        var e2 = holder ? holder.querySelector('.case-error') : null;
+        if (e2) { e2.hidden = true; e2.textContent = ''; }
+        if (holder) holder.classList.remove('case-step--missing');
+      }
+      return;
+    }
     if (el.name.indexOf('q-') === 0) {
       if (el.checked) quizState.answers[el.name.slice(2)] = el.value;
     } else if (el.name.indexOf('e-') === 0) {
@@ -1397,7 +1913,13 @@
 
   app.addEventListener('submit', function (e) {
     var form = e.target;
-    if (!form || !form.classList || !form.classList.contains('quiz-form')) return;
+    if (!form || !form.classList) return;
+    if (form.classList.contains('case-form')) {
+      e.preventDefault();
+      handleCaseSubmit(form);
+      return;
+    }
+    if (!form.classList.contains('quiz-form')) return;
     e.preventDefault();
     if (form.classList.contains('exam-form')) {
       gradeExam(form.getAttribute('data-module'));
@@ -1418,6 +1940,46 @@
       rerenderQuiz(lesson);
       var first = app.querySelector('.quiz input[type=radio]');
       if (first) first.focus();
+    } else if (act === 'case-hint') {
+      var key = btn.getAttribute('data-hint');
+      var cW = byCase[caseState.caseId];
+      if (!cW || !key) return;
+      var parts = key.split('/');
+      var stepW = null;
+      (cW.steps || []).forEach(function (x) { if (x.id === parts[1]) stepW = x; });
+      if (!stepW) return;
+      var have = caseState.hints[key] || 0;
+      var total = (stepW.hints || []).length;
+      if (have >= total) return;
+      caseState.hints[key] = have + 1;
+      var wrap = btn.closest ? btn.closest('.case-hints') : null;
+      if (wrap) wrap.outerHTML = hintHtml(stepW, cW.caseId);
+      var fresh = app.querySelector('.case-hint-btn[data-hint="' + key + '"]');
+      if (fresh) fresh.focus();
+    } else if (act === 'case-reset') {
+      var cR = byCase[caseState.caseId];
+      if (!cR) return;
+      var keepId = caseState.caseId;
+      caseState = { caseId: keepId, answers: {}, shown: {}, hints: {}, result: null };
+      render();
+    } else if (act === 'case-retake') {
+      var cT = byCase[caseState.caseId];
+      if (!cT) return;
+      caseState = { caseId: cT.caseId, answers: {}, shown: {}, hints: {}, result: null };
+      render();
+      var firstStep = app.querySelector('.case-step');
+      if (firstStep && firstStep.scrollIntoView) firstStep.scrollIntoView({ block: 'start' });
+    } else if (act === 'case-csv') {
+      var cC = byCase[caseState.caseId];
+      if (!cC) return;
+      download(cC.caseId + '-answers.csv', 'text/csv;charset=utf-8', caseCsv(cC));
+    } else if (act === 'case-data') {
+      var cD = byCase[caseState.caseId];
+      var ref = btn.getAttribute('data-file') || '';
+      var fname = ref.split('/')[1];
+      if (!cD || !fname) return;
+      var file = (cD.dataFiles || []).filter(function (f) { return f.name === fname; })[0];
+      if (file) download(fname, 'text/csv;charset=utf-8', file.content);
     } else if (act === 'exam-retake') {
       if (!examState.moduleId) return;
       resetExam(examState.moduleId);

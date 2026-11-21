@@ -1,0 +1,51 @@
+{
+  "info": {
+    "counts": {
+      "lessons": 92,
+      "questions": 734,
+      "sources": 39
+    },
+    "quizRefs": 459,
+    "questionsOutsideQuiz": 0,
+    "questionsWithSource": 734,
+    "cases": 4,
+    "caseSteps": 31,
+    "caseNumeric": 22,
+    "lessonSourceRefs": 262,
+    "registry": {
+      "rows": 31,
+      "notInCourse": 0
+    },
+    "imageRefs": 92,
+    "imagesOnDisk": 92,
+    "imagesOrphaned": 0,
+    "lessonsWithCalc": 92,
+    "lessonsWithDefect": 92,
+    "embed": {
+      "present": true,
+      "parseable": true,
+      "matches": {
+        "lessons": true,
+        "questions": true,
+        "sources": true
+      }
+    },
+    "statuses": {
+      "draft": 92
+    },
+    "contract": {
+      "indexLoadsEmbed": true,
+      "indexLoadsApp": true,
+      "appFetchesJson": true,
+      "appReadsEmbed": true,
+      "embedBeforeApp": true
+    },
+    "scriptOrder": [
+      "data-embed.js?v=2611211830",
+      "app.js?v=2611211830"
+    ],
+    "gradableQuestions": 734,
+    "questionsWithValidOptionCount": 734
+  },
+  "problems": 0
+}

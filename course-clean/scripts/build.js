@@ -34,7 +34,8 @@ const INCLUDE = [
   'assets/data-embed.js',
   'data/lessons.json',
   'data/questions.json',
-  'data/sources.json'
+  'data/sources.json',
+  'data/cases.json'
 ];
 
 function copyDir(from, to, filter) {
