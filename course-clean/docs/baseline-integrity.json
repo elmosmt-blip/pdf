@@ -1,0 +1,44 @@
+{
+  "info": {
+    "counts": {
+      "lessons": 92,
+      "questions": 185,
+      "sources": 39
+    },
+    "quizRefs": 185,
+    "questionsOutsideQuiz": 0,
+    "questionsWithSource": 185,
+    "lessonSourceRefs": 262,
+    "imageRefs": 92,
+    "imagesOnDisk": 92,
+    "imagesOrphaned": 0,
+    "lessonsWithCalc": 92,
+    "lessonsWithDefect": 92,
+    "embed": {
+      "present": true,
+      "parseable": true,
+      "matches": {
+        "lessons": true,
+        "questions": true,
+        "sources": true
+      }
+    },
+    "statuses": {
+      "reviewed": 92
+    },
+    "contract": {
+      "indexLoadsEmbed": true,
+      "indexLoadsApp": true,
+      "appFetchesJson": true,
+      "appReadsEmbed": true,
+      "embedBeforeApp": true
+    },
+    "scriptOrder": [
+      "data-embed.js?v=2611211830",
+      "app.js?v=2611211830"
+    ],
+    "gradableQuestions": 185,
+    "questionsWithValidOptionCount": 185
+  },
+  "problems": 0
+}
