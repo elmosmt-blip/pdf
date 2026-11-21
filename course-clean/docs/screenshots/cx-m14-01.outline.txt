@@ -2,14 +2,14 @@ Rendered outline of #/c/cx-m14-01
 Produced by scripts/capture-case.js from the built tree (build/course-clean).
 This is the live DOM from the shipped engine, not a mock-up.
 
-main #main   [6338 chars]
+main #main   [6642 chars]
   p .kicker   [51 chars]
     "Toolkit · Module 14 · Defect Analysis and CAPA / 8D"
-  header .page-head   [115 chars]
-    div   [115 chars]
+  header .page-head   [129 chars]
+    div   [129 chars]
       h1   [80 chars]
         "AOI over-rejection on Board X: DPMO, sampling scope and an 8D that is not closed"
-      div .meta-line   [35 chars]
+      div .meta-line   [49 chars]
         span .chip.chip--stage   [7 chars]
           "Board X"
         span .chip   [6 chars]
@@ -18,6 +18,8 @@ main #main   [6338 chars]
           "10 steps"
         span .chip   [14 chars]
           "rubric 100 pts"
+        span .chip   [14 chars]
+          "Score 0 of 100"
   section .case-scenario   [710 chars]
     p   [213 chars]
       "Board X runs 1,240 boards a day with 620 solder opportunities per board. Last week AOI raised 47 calls against…"
@@ -27,17 +29,17 @@ main #main   [6338 chars]
       "A corrective action has been running for six weeks on a different defect family: 96 defects in 6,000 boards be…"
     p   [91 chars]
       "Compute the metrics the 8D needs, and be honest about what the numbers do and do not prove."
-  details .case-board   [590 chars]
+  details .case-board   [672 chars]
     summary   [38 chars]
       "Board X — the product behind this case"
-    div .details-body   [552 chars]
+    div .details-body   [634 chars]
       p .muted.flush   [158 chars]
         "6-layer 1.6 mm FR-4 controller board: QFP-64 at 0.5 mm pitch, QFP-48 at 0.4 mm pitch, one 256-ball BGA at 0.8 …"
-      table .case-facts   [394 chars]
-        tbody   [394 chars]
-          tr   [21 chars]
-            th   [18 chars]
-              "Board Thickness Mm"
+      table .case-facts   [476 chars]
+        tbody   [476 chars]
+          tr   [23 chars]
+            th   [20 chars]
+              "Board thickness (mm)"
             td   [3 chars]
               "1.6"
           tr   [7 chars]
@@ -47,113 +49,192 @@ main #main   [6338 chars]
               "6"
           tr   [18 chars]
             th   [14 chars]
-              "Surface Finish"
+              "Surface finish"
             td   [4 chars]
               "ENIG"
           tr   [25 chars]
             th   [13 chars]
-              "Base Material"
+              "Base material"
             td   [12 chars]
               "FR-4, Tg 170"
-          tr   [25 chars]
-            th   [20 chars]
-              "Stencil Thickness Mm"
+          tr   [17 chars]
+            th   [12 chars]
+              "Stencil (mm)"
             td   [5 chars]
               "0.125"
           tr   [34 chars]
             th   [31 chars]
-              "Fine Pitch Stencil Thickness Mm"
+              "Stencil, fine-pitch region (mm)"
             td   [3 chars]
               "0.1"
-          tr   [29 chars]
-            th   [5 chars]
-              "Paste"
+          tr   [36 chars]
+            th   [12 chars]
+              "Solder paste"
             td   [24 chars]
               "SAC305, Type 4, no-clean"
-          tr   [15 chars]
-            th   [12 chars]
-              "Qfp Pitch Mm"
-            td   [3 chars]
-              "0.5"
-          tr   [10 chars]
-            th   [8 chars]
-              "Qfp Pins"
-            td   [2 chars]
-              "64"
-          tr   [17 chars]
-            th   [14 chars]
-              "Fine Pitch Ppm"
-            td   [3 chars]
-              "0.4"
           tr   [20 chars]
             th   [17 chars]
-              "Bga Ball Pitch Mm"
+              "QFP-64 pitch (mm)"
+            td   [3 chars]
+              "0.5"
+          tr   [13 chars]
+            th   [11 chars]
+              "QFP-64 pins"
+            td   [2 chars]
+              "64"
+          tr   [20 chars]
+            th   [17 chars]
+              "QFP-48 pitch (mm)"
+            td   [3 chars]
+              "0.4"
+          tr   [22 chars]
+            th   [19 chars]
+              "BGA ball pitch (mm)"
             td   [3 chars]
               "0.8"
           tr   [12 chars]
             th   [9 chars]
-              "Bga Balls"
+              "BGA balls"
             td   [3 chars]
               "256"
-          tr   [11 chars]
-            th   [7 chars]
-              "Passive"
+          tr   [20 chars]
+            th   [16 chars]
+              "Smallest passive"
             td   [4 chars]
               "0402"
           tr   [69 chars]
             th   [13 chars]
-              "Tht Connector"
+              "THT connector"
             td   [56 chars]
               "20-pin, 2.54 mm pitch, 0.8 mm finished hole, 0.5 mm lead"
-          tr   [12 chars]
-            th   [8 chars]
-              "Lot Size"
+          tr   [21 chars]
+            th   [17 chars]
+              "Lot size (boards)"
             td   [4 chars]
               "1240"
           tr   [26 chars]
             th   [23 chars]
-              "Opportunities Per Board"
+              "Solder joints per board"
             td   [3 chars]
               "620"
-          tr   [18 chars]
-            th   [12 chars]
-              "Reflow Alloy"
+          tr   [11 chars]
+            th   [5 chars]
+              "Alloy"
             td   [6 chars]
               "SAC305"
-          tr   [13 chars]
-            th   [10 chars]
-              "Liquidus C"
+          tr   [16 chars]
+            th   [13 chars]
+              "Liquidus (°C)"
             td   [3 chars]
               "219"
-          tr   [12 chars]
-            th   [9 chars]
-              "Solidus C"
+          tr   [15 chars]
+            th   [12 chars]
+              "Solidus (°C)"
             td   [3 chars]
               "217"
-  details .case-data   [157 chars]
+          tr   [28 chars]
+            th   [23 chars]
+              "Time above liquidus (s)"
+            td   [5 chars]
+              "60–90"
+          tr   [23 chars]
+            th   [16 chars]
+              "Peak window (°C)"
+            td   [7 chars]
+              "235–250"
+  details .case-data   [142 chars]
     summary   [26 chars]
       "Data file — defect-log.csv"
-    div .details-body   [131 chars]
-      pre .case-pre   [107 chars]
-        "family,calls,confirmed,false_calls,boards_in_window BGA void / non-wet,47,38,9,1240 QFP bridging,0,0,0,1240"
+    div .details-body   [116 chars]
+      div .case-table-wrap   [93 chars]
+        table .case-table   [93 chars]
+          thead   [47 chars]
+            tr   [47 chars]
+              th   [6 chars]
+                "family"
+              th   [5 chars]
+                "calls"
+              th   [9 chars]
+                "confirmed"
+              th   [11 chars]
+                "false_calls"
+              th   [16 chars]
+                "boards_in_window"
+          tbody   [46 chars]
+            tr   [27 chars]
+              td   [18 chars]
+                "BGA void / non-wet"
+              td .num   [2 chars]
+                "47"
+              td .num   [2 chars]
+                "38"
+              td .num   [1 chars]
+                "9"
+              td .num   [4 chars]
+                "1240"
+            tr   [19 chars]
+              td   [12 chars]
+                "QFP bridging"
+              td .num   [1 chars]
+                "0"
+              td .num   [1 chars]
+                "0"
+              td .num   [1 chars]
+                "0"
+              td .num   [4 chars]
+                "1240"
       p .flush   [23 chars]
         button .btn.btn--small type=button data-act=case-data   [23 chars]
           "Download defect-log.csv"
-  details .case-data   [121 chars]
+  details .case-data   [105 chars]
     summary   [27 chars]
       "Data file — capa-window.csv"
-    div .details-body   [94 chars]
-      pre .case-pre   [69 chars]
-        "phase,defects,boards,ppm before,96,6000, after,21,7500, target,,,1000"
+    div .details-body   [78 chars]
+      div .case-table-wrap   [54 chars]
+        table .case-table   [54 chars]
+          thead   [21 chars]
+            tr   [21 chars]
+              th   [5 chars]
+                "phase"
+              th   [7 chars]
+                "defects"
+              th   [6 chars]
+                "boards"
+              th   [3 chars]
+                "ppm"
+          tbody   [33 chars]
+            tr   [12 chars]
+              td   [6 chars]
+                "before"
+              td .num   [2 chars]
+                "96"
+              td .num   [4 chars]
+                "6000"
+              td
+            tr   [11 chars]
+              td   [5 chars]
+                "after"
+              td .num   [2 chars]
+                "21"
+              td .num   [4 chars]
+                "7500"
+              td
+            tr   [10 chars]
+              td   [6 chars]
+                "target"
+              td
+              td
+              td .num   [4 chars]
+                "1000"
       p .flush   [24 chars]
         button .btn.btn--small type=button data-act=case-data   [24 chars]
           "Download capa-window.csv"
-  form .case-form   [2134 chars]
-    ol .case-steps   [2112 chars]
-      li #step-s1 .case-step   [207 chars]
-        div .case-step-head   [20 chars]
-          span .case-step-n   [6 chars]
-            "Step 1"
+  form .case-form   [2373 chars]
+    ol .case-steps   [2351 chars]
+      li #step-s1 .case-step   [231 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 1 (10 points)"
           span .case-step-type   [14 chars]
             "numeric answer"
         p .case-prompt   [130 chars]
@@ -167,15 +248,18 @@ main #main   [6338 chars]
           span .case-tol.muted   [19 chars]
             "tolerance ±0.3 DPMO"
         p #err-s1 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
         div .case-hints   [20 chars]
           button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
             "Show a hint"
             span .muted   [8 chars]
               "(3 left)"
-      li #step-s2 .case-step   [172 chars]
-        div .case-step-head   [20 chars]
-          span .case-step-n   [6 chars]
-            "Step 2"
+      li #step-s2 .case-step   [196 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 2 (10 points)"
           span .case-step-type   [14 chars]
             "numeric answer"
         p .case-prompt   [101 chars]
@@ -189,15 +273,18 @@ main #main   [6338 chars]
           span .case-tol.muted   [16 chars]
             "tolerance ±0.3 %"
         p #err-s2 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
         div .case-hints   [20 chars]
           button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
             "Show a hint"
             span .muted   [8 chars]
               "(3 left)"
-      li #step-s3 .case-step   [139 chars]
-        div .case-step-head   [12 chars]
-          span .case-step-n   [6 chars]
-            "Step 3"
+      li #step-s3 .case-step   [163 chars]
+        div .case-step-head   [24 chars]
+          span .case-step-n   [18 chars]
+            "Step 3 (10 points)"
           span .case-step-type   [6 chars]
             "choice"
         p .case-prompt   [93 chars]
@@ -222,15 +309,18 @@ main #main   [6338 chars]
             span .case-opt-text   [1 chars]
               "M"
         p #err-s3 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
         div .case-hints   [20 chars]
           button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
             "Show a hint"
             span .muted   [8 chars]
               "(3 left)"
-      li #step-s4 .case-step   [154 chars]
-        div .case-step-head   [20 chars]
-          span .case-step-n   [6 chars]
-            "Step 4"
+      li #step-s4 .case-step   [178 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 4 (10 points)"
           span .case-step-type   [14 chars]
             "numeric answer"
         p .case-prompt   [73 chars]
@@ -244,15 +334,18 @@ main #main   [6338 chars]
           span .case-tol.muted   [21 chars]
             "tolerance ±0.5 pieces"
         p #err-s4 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
         div .case-hints   [20 chars]
           button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
             "Show a hint"
             span .muted   [8 chars]
               "(3 left)"
-      li #step-s5 .case-step   [397 chars]
-        div .case-step-head   [12 chars]
-          span .case-step-n   [6 chars]
-            "Step 5"
+      li #step-s5 .case-step   [421 chars]
+        div .case-step-head   [24 chars]
+          span .case-step-n   [18 chars]
+            "Step 5 (15 points)"
           span .case-step-type   [6 chars]
             "choice"
         p .case-prompt   [99 chars]
@@ -277,15 +370,18 @@ main #main   [6338 chars]
             span .case-opt-text   [58 chars]
               "Reject and double the sample until zero defects are found."
         p #err-s5 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
         div .case-hints   [20 chars]
           button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
             "Show a hint"
             span .muted   [8 chars]
               "(3 left)"
-      li #step-s6 .case-step   [176 chars]
-        div .case-step-head   [20 chars]
-          span .case-step-n   [6 chars]
-            "Step 6"
+      li #step-s6 .case-step   [200 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 6 (10 points)"
           span .case-step-type   [14 chars]
             "numeric answer"
         p .case-prompt   [95 chars]
@@ -299,15 +395,18 @@ main #main   [6338 chars]
           span .case-tol.muted   [21 chars]
             "tolerance ±0.5 pieces"
         p #err-s6 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
         div .case-hints   [20 chars]
           button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
             "Show a hint"
             span .muted   [8 chars]
               "(3 left)"
-      li #step-s7 .case-step   [153 chars]
-        div .case-step-head   [20 chars]
-          span .case-step-n   [6 chars]
-            "Step 7"
+      li #step-s7 .case-step   [177 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 7 (10 points)"
           span .case-step-type   [14 chars]
             "numeric answer"
         p .case-prompt   [79 chars]
@@ -321,15 +420,18 @@ main #main   [6338 chars]
           span .case-tol.muted   [17 chars]
             "tolerance ±30 ppm"
         p #err-s7 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
         div .case-hints   [20 chars]
           button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
             "Show a hint"
             span .muted   [8 chars]
               "(3 left)"
-      li #step-s8 .case-step   [144 chars]
-        div .case-step-head   [20 chars]
-          span .case-step-n   [6 chars]
-            "Step 8"
+      li #step-s8 .case-step   [168 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 8 (10 points)"
           span .case-step-type   [14 chars]
             "numeric answer"
         p .case-prompt   [70 chars]
@@ -343,15 +445,18 @@ main #main   [6338 chars]
           span .case-tol.muted   [17 chars]
             "tolerance ±30 ppm"
         p #err-s8 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
         div .case-hints   [20 chars]
           button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
             "Show a hint"
             span .muted   [8 chars]
               "(3 left)"
-      li #step-s9 .case-step   [140 chars]
-        div .case-step-head   [20 chars]
-          span .case-step-n   [6 chars]
-            "Step 9"
+      li #step-s9 .case-step   [163 chars]
+        div .case-step-head   [31 chars]
+          span .case-step-n   [17 chars]
+            "Step 9 (5 points)"
           span .case-step-type   [14 chars]
             "numeric answer"
         p .case-prompt   [69 chars]
@@ -365,15 +470,18 @@ main #main   [6338 chars]
           span .case-tol.muted   [16 chars]
             "tolerance ±0.5 %"
         p #err-s9 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
         div .case-hints   [20 chars]
           button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
             "Show a hint"
             span .muted   [8 chars]
               "(3 left)"
-      li #step-s10 .case-step   [430 chars]
-        div .case-step-head   [13 chars]
-          span .case-step-n   [7 chars]
-            "Step 10"
+      li #step-s10 .case-step   [454 chars]
+        div .case-step-head   [25 chars]
+          span .case-step-n   [19 chars]
+            "Step 10 (10 points)"
           span .case-step-type   [6 chars]
             "choice"
         p .case-prompt   [101 chars]
@@ -398,6 +506,9 @@ main #main   [6338 chars]
             span .case-opt-text   [52 chars]
               "Change the target to 3,000 ppm so the action passes."
         p #err-s10 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
         div .case-hints   [20 chars]
           button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
             "Show a hint"

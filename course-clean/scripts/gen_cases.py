@@ -65,6 +65,32 @@ BOARD_FACTS = {
     "solidusC": 217,
 }
 
+# Human labels for the Board Facts. They live beside the facts so the page never
+# has to invent a name for a key it was not told about.
+BOARD_FACT_LABELS = {
+    "boardThicknessMm": "Board thickness (mm)",
+    "layers": "Layers",
+    "surfaceFinish": "Surface finish",
+    "baseMaterial": "Base material",
+    "stencilThicknessMm": "Stencil (mm)",
+    "finePitchStencilThicknessMm": "Stencil, fine-pitch region (mm)",
+    "paste": "Solder paste",
+    "qfpPitchMm": "QFP-64 pitch (mm)",
+    "qfpPins": "QFP-64 pins",
+    "finePitchPpm": "QFP-48 pitch (mm)",
+    "bgaBallPitchMm": "BGA ball pitch (mm)",
+    "bgaBalls": "BGA balls",
+    "passive": "Smallest passive",
+    "thtConnector": "THT connector",
+    "lotSize": "Lot size (boards)",
+    "opportunitiesPerBoard": "Solder joints per board",
+    "reflowAlloy": "Alloy",
+    "liquidusC": "Liquidus (°C)",
+    "solidusC": "Solidus (°C)",
+    "talWindowS": "Time above liquidus (s)",
+    "peakWindowC": "Peak window (°C)",
+}
+
 BOARD = {
     "id": "board-x",
     "name": "Board X",
@@ -74,7 +100,22 @@ BOARD = {
                    "QFP-48 at 0.4 mm pitch, one 256-ball BGA at 0.8 mm, 0402 passives, "
                    "and one 20-pin THT connector.",
     "facts": BOARD_FACTS,
+    "labels": BOARD_FACT_LABELS,
 }
+
+# The Board X through-line. One row per module that carries a case; the module
+# page draws it as a strip so the learner can see where the case sits in the
+# product's life. The label is what the page shows, the case is what it links to.
+BOARD_THREAD = [
+    {"step": 1, "moduleId": "m02", "label": "MSL log", "asset": "MSL exposure log",
+     "caseId": "cx-m02-01"},
+    {"step": 2, "moduleId": "m03", "label": "Stencil", "asset": "Stencil data sheet",
+     "caseId": "cx-m03-01"},
+    {"step": 3, "moduleId": "m06", "label": "Reflow profile", "asset": "Reflow profile log",
+     "caseId": "cx-m06-01"},
+    {"step": 4, "moduleId": "m14", "label": "8D report", "asset": "8D problem report",
+     "caseId": "cx-m14-01"},
+]
 
 # Thresholds used by the cases. Each one is taken from the course text or from a
 # cited source — never invented here. check-cases.js verifies the citation.
@@ -82,10 +123,23 @@ AREA_RATIO_MIN = 0.66      # m03l02, m03l05, m04l01 (IPC-7525 guidance)
 ASPECT_RATIO_MIN = 1.5     # m03l05 (IPC-7525 guidance)
 TAPE_BAKE_MAX_C = 40       # m02l04 (J-STD-033 tape-and-reel limit)
 DRY_CABINET_MAX_RH = 5     # m02l04 (J-STD-033 dry storage)
-JSTD020_LARGE_PACKAGE_C = 250   # m06l02 (classification temperature)
+JSTD020_LARGE_PACKAGE_C = 250   # m06l02/l05 — classification temperature, large package
+PEAK_TABLE_MIN_C = 235      # m06l01 zone table: "Liquidus 219 C, peak 235-245 °C"
+PEAK_TABLE_MAX_C = 245      # same row; the uppercase limit is the package ceiling
 TAL_MIN_S = 60             # m06l07 paste datasheet window 60-90 s
 TAL_MAX_S = 90
 SOAK_TIME_S = (60, 120)    # m06l02 paste window
+
+# The peak window a case is judged against is the paste-table window, and it is
+# derived, not restated: the lower bound comes from the lesson table, the upper
+# bound is the package ceiling. Board Facts carry the margin to the classification
+# temperature, so the two never drift apart.
+PEAK_WINDOW_C = (PEAK_TABLE_MIN_C, JSTD020_LARGE_PACKAGE_C)
+
+# The windows the cases are judged against join the Board Facts, so the case page
+# can print them without the engine holding a private copy of any threshold.
+BOARD_FACTS["talWindowS"] = [TAL_MIN_S, TAL_MAX_S]
+BOARD_FACTS["peakWindowC"] = [PEAK_TABLE_MIN_C, JSTD020_LARGE_PACKAGE_C]
 
 
 # --------------------------------------------------------------------------
@@ -211,6 +265,200 @@ def step_choice(sid, prompt, options, correct_id, hints, ok, bad, explanation):
         "explanation": explanation,
         "_key": {"formula": "choice key = " + correct_id, "inputs": {}, "raw": correct_id},
     }
+
+
+# --------------------------------------------------------------------------
+# Templates. A template is shipped in three variants — blank, example, guide —
+# because a tool the learner cannot fill in is a picture, not a tool. The blank
+# variant is derived from the case's own data file (header row only), the example
+# is the data file filled in, and the guide is generated from the step and rubric
+# text. No number here is typed by hand.
+# --------------------------------------------------------------------------
+TEMPLATE_DEFS = {
+    "stencil-sheet": {
+        "name": "Stencil data sheet",
+        "kind": "csv",
+        "sourceFile": "aperture-table.csv",
+        "lesson": "m03l05",
+        "use": "Record every aperture, its foil thickness and its area ratio before the "
+               "stencil is ordered.",
+        "rowNoun": "aperture",
+    },
+    "msl-log": {
+        "name": "MSL exposure log",
+        "kind": "csv",
+        "sourceFile": "msl-log.csv",
+        "lesson": "m02l04",
+        "use": "Track bag-open time, cabinet humidity and line exposure against each "
+               "package's floor life.",
+        "rowNoun": "reel",
+    },
+    "reflow-log": {
+        "name": "Reflow profile log",
+        "kind": "csv",
+        "sourceFile": "profile.csv",
+        "lesson": "m06l07",
+        "use": "Record the measured interval, its rate and where each thermocouple sat "
+               "before a profile is released.",
+        "rowNoun": "interval or thermocouple",
+    },
+    "pareto": {
+        "name": "Defect Pareto",
+        "kind": "csv",
+        "sourceFile": "defect-log.csv",
+        "lesson": "m14l01",
+        "use": "Rank defect families by count so the largest loss gets the first action, "
+               "and keep the ranking next to the 8D it justified.",
+    },
+    "8d": {
+        "name": "8D problem report",
+        "kind": "csv",
+        "lesson": "m14l05",
+        "use": "Carry a defect from containment through root cause to a verified action "
+               "and a closed-out escape check.",
+        "rowNoun": "8D report",
+        # An 8D is not a reshaped defect log, so its columns are its own. The
+        # example row is not typed either: each cell names a step of this case and
+        # is filled with that step's verified answer.
+        "columns": ["d", "title", "content", "evidence", "owner", "status"],
+        "exampleFromSteps": [
+            ("D2", "Describe the problem", "step:s1", "AOI/BGA void family, Board X lot"),
+            ("D4", "Root cause verified", "step:s1", "false-call audit"),
+            ("D6", "Action implemented and measured", "step:s7", "before-window count"),
+            ("D7", "Action verified in a second window", "step:s8", "after-window count"),
+            ("D8", "Effectiveness against the target", "step:s10", "agreed metric"),
+        ],
+    },
+}
+
+
+def _csv_header(text):
+    """First line of a CSV, with the BOM and line ending removed."""
+    first = text.splitlines()[0] if text else ""
+    return first.lstrip("\ufeff")
+
+
+def _csv_rows(text):
+    lines = [ln for ln in text.splitlines() if ln.strip()]
+    return lines[0].lstrip("\ufeff"), lines[1:]
+
+
+def csv_quote(cell):
+    """Quote a cell only when it has to be quoted, so the files stay readable."""
+    s = str(cell)
+    return '"' + s.replace('"', '""') + '"' if any(ch in s for ch in ',"\r\n') else s
+
+
+def _plain(v):
+    """A number as a person writes it: 16000, not 16000.0; 49.4277, not 49.427700."""
+    if isinstance(v, float):
+        if v == int(v):
+            return str(int(v))
+        return ("%.4f" % v).rstrip("0").rstrip(".")
+    return str(v)
+
+
+def answer_text(step):
+    """The human-readable answer of a step, for filling in an example row."""
+    if step["type"] == "numeric":
+        unit = step["answer"].get("unit", "")
+        return _plain(step["answer"]["value"]) + ("" if unit in ("", "dimensionless") else " " + unit)
+    opts = step.get("options", [])
+    chosen = [o["text"] for o in opts if o["id"] == step["answer"]["value"]]
+    return chosen[0] if chosen else str(step["answer"]["value"])
+
+
+def example_from_steps(tdef, c):
+    """Build the example from the case's verified answers, not from prose.
+
+    Each cell that names "step:<id>" is filled with that step's answer, so the
+    example cannot disagree with the key the case grades against.
+    """
+    by_id = {st["id"]: st for st in c["steps"]}
+    header = ",".join(tdef["columns"])
+    rows = [header]
+    for letter, title, ref, evidence in tdef["exampleFromSteps"]:
+        if not ref.startswith("step:"):
+            raise ValueError("example cell must cite a step: " + ref)
+        sid = ref[5:]
+        if sid not in by_id:
+            raise ValueError("template %s cites missing step %s" % (tdef["name"], sid))
+        rows.append(",".join(csv_quote(x) for x in
+                             [letter, title, answer_text(by_id[sid]), evidence,
+                              "process engineer", "open"]))
+    return "\r\n".join(rows) + "\r\n"
+
+
+def template_variants(tid, tdef, c, base_name=None):
+    """Blank, example and guide for one template — all derived from case data."""
+    name = tdef["name"]
+    derived = base_name is not None
+    header = _csv_header(base_name) if derived else ",".join(tdef["columns"])
+    example = base_name.replace("\ufeff", "") if derived else example_from_steps(tdef, c)
+    usage = tdef["use"]
+    noun = tdef.get("rowNoun", "item")
+
+    guide = [
+        "# " + name,
+        "",
+        "## What this template is for",
+        usage,
+        "",
+        "## How to fill it in",
+        "1. Copy one row per " + noun + ". Do not merge rows: one aperture, one reel, "
+        "one interval or one 8D discipline per line.",
+        "2. Keep the column order. The columns below are the ones the course's own "
+        "worked examples use.",
+        "3. Leave a cell blank rather than writing a guess. A blank cell is a question "
+        "for the engineer; a guessed number is a defect in the record.",
+        "",
+        "## Columns",
+    ]
+    for col in header.split(","):
+        guide.append("- `" + col.strip() + "`")
+    guide += [
+        "",
+        "## Worked example",
+        "The example variant of this file is the data file from case " + c["caseId"] +
+        " (" + c["title"] + "), filled in with Board X numbers.",
+        "",
+        "## Where the numbers come from",
+        "Every value in the example is produced by scripts/gen_cases.py and checked by "
+        "scripts/check-cases.js. If you change a number in the example, the checker "
+        "fails: that is deliberate.",
+        "",
+        "## Course link",
+        "See lesson " + tdef["lesson"] + " for the reasoning behind each column.",
+        "",
+    ]
+
+    blank_lines = [header] + [",".join([""] * len(header.split(","))) for _ in range(3)]
+    return [
+        {"variant": "blank", "file": tid + "-blank.csv",
+         "mime": "text/csv", "label": "Blank", "content": "\r\n".join(blank_lines) + "\r\n"},
+        {"variant": "example", "file": tid + "-example.csv",
+         "mime": "text/csv", "label": "Example", "content": example},
+        {"variant": "guide", "file": tid + "-guide.md",
+         "mime": "text/markdown", "label": "Guide", "content": "\n".join(guide)},
+    ]
+
+
+def attach_templates(case):
+    """Replace the planned-template stubs with generated three-variant templates."""
+    base_by_file = {f["name"]: f["content"] for f in case["dataFiles"]}
+    out = []
+    for stub in case.get("templates", []):
+        tdef = TEMPLATE_DEFS[stub["templateId"]]
+        base = base_by_file.get(tdef.get("sourceFile"))
+        out.append({
+            "templateId": stub["templateId"],
+            "name": tdef["name"],
+            "status": "available",
+            "use": tdef["use"],
+            "lesson": tdef["lesson"],
+            "variants": template_variants(stub["templateId"], tdef, case, base),
+        })
+    case["templates"] = out
 
 
 def build_cases():
@@ -726,6 +974,19 @@ def build_cases():
         "measured rate above the model is expected — but a factor of two is worth checking "
         "before the model is used to set a recipe."))
 
+    # The peak window this case is judged against is the same window the lesson
+    # table quotes, carried on the case so the page can print it without the
+    # engine holding a copy of it.
+    c["spec"] = [
+        {"label": "Liquidus", "value": BOARD_FACTS["liquidusC"], "unit": "°C"},
+        {"label": "Time above liquidus",
+         "value": BOARD_FACTS["talWindowS"][0], "to": BOARD_FACTS["talWindowS"][1], "unit": "s"},
+        {"label": "Peak window",
+         "value": PEAK_WINDOW_C[0], "to": PEAK_WINDOW_C[1], "unit": "°C",
+         "note": "m06l01 zone table; the upper bound is the large-package classification "
+                 "temperature, m06l05"},
+    ]
+
     add_step(c, step_choice(
         "s7",
         "What should be done with the factor-of-two gap between the model and the measurement?",
@@ -996,6 +1257,17 @@ def build_cases():
 
 def build_document():
     cases, keys = build_cases()
+    for c in cases:
+        attach_templates(c)
+    # every case in the thread must exist, and every case with a module in the
+    # thread must be reachable from it — a dangling strip link is worse than none
+    known = {c["caseId"] for c in cases}
+    for item in BOARD_THREAD:
+        if item["caseId"] not in known:
+            raise SystemExit("thread points at missing case " + item["caseId"])
+    for c in cases:
+        if not any(t["moduleId"] == c["moduleId"] for t in BOARD_THREAD):
+            raise SystemExit("case " + c["caseId"] + " is missing from the Board X thread")
     return {
         "schemaVersion": 1,
         "generatedBy": "scripts/gen_cases.py",
@@ -1007,7 +1279,10 @@ def build_document():
             "dryCabinetMaxRhPct": [DRY_CABINET_MAX_RH, "src-003", "m02l04"],
             "jstd020LargePackageC": [JSTD020_LARGE_PACKAGE_C, "src-005", "m06l02"],
             "talWindowS": [[TAL_MIN_S, TAL_MAX_S], "src-008", "m06l07"],
+            "peakWindowC": [[PEAK_TABLE_MIN_C, PEAK_TABLE_MAX_C], "src-008", "m06l01"],
+            "peakClassificationLargeC": [JSTD020_LARGE_PACKAGE_C, "src-005", "m06l05"],
         },
+        "thread": BOARD_THREAD,
         "board": BOARD,
         "cases": cases,
     }, keys

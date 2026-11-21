@@ -428,20 +428,27 @@
 
     html += progressLine(started, mastered, ls.length, moduleMinutes(moduleId));
     html += progressBar(mastered, ls.length);
+    html += threadHtml(moduleId);
 
     var examQs = moduleExamQuestions(moduleId);
     if (examQs.length) {
       var rec = examRecord(moduleId);
       var bankN = examBankFor(moduleId).length;
-      html += '<section class="exam-card"><h2>Module exam</h2><p class="flush">' +
+      var locked = ls.length > 0 && mastered < ls.length;
+      html += '<section class="exam-card' + (locked ? ' exam-card--locked' : '') +
+        '"><h2>Module exam</h2><p class="flush">' +
         esc(examQs.length) + ' question' + (examQs.length === 1 ? '' : 's') +
         (bankN ? ' randomly drawn from a bank of ' + esc(bankN) + '. ' : ' drawn from this module&#8217;s lessons. ') +
         'Pass mark: ' + esc(PASS_PCT) + '%.' +
         (rec ? ' Best result so far: ' + esc(rec.best) + '% — ' +
           (rec.best >= PASS_PCT ? 'passed.' : 'not passed yet.') : ' Not attempted yet.') +
-        '</p><p class="flush"><a class="btn btn--primary" href="#/e/' +
-        encodeURIComponent(moduleId) + '">' + (rec ? 'Retake the module exam' : 'Open the module exam') +
-        ' &#8594;</a></p></section>';
+        '</p><p class="flush">' + (locked
+          ? '<span class="chip chip--locked">Opens after all lessons are mastered</span> ' +
+            '<span class="muted">' + esc(mastered) + ' of ' + esc(ls.length) +
+            ' lessons mastered so far.</span>'
+          : '<a class="btn btn--primary" href="#/e/' + encodeURIComponent(moduleId) + '">' +
+            (rec ? 'Retake the module exam' : 'Open the module exam') + ' &#8594;</a>') +
+        '</p></section>';
     }
 
     html += toolkitHtml(moduleId);
@@ -469,6 +476,9 @@
         '</li>';
     });
     html += '</ul>';
+
+    /* The case card comes after the lessons, because it assumes them. */
+    casesOf(moduleId).forEach(function (c) { html += caseCardHtml(c); });
     return html;
   }
 
@@ -605,15 +615,50 @@
     return html + '</div>';
   }
 
+  /* How many points a step is worth: the sum of the criteria that name it,
+   * split evenly when a criterion spans several steps. Derived from the rubric,
+   * so the number in the heading cannot disagree with the scoring. */
+  function stepPoints(c, stepId) {
+    var pts = 0;
+    (c.rubric || []).forEach(function (r) {
+      var ids = r.steps || [];
+      if (ids.indexOf(stepId) !== -1) pts += (r.points || 0) / ids.length;
+    });
+    return Math.round(pts * 10) / 10;
+  }
+
+  /* The mark earned so far, in rubric points. Before a result exists this is
+   * the count of steps graded individually — the Score chip in the header says
+   * "0 of 8" on a fresh page and moves as the learner checks answers. */
+  function caseScoreSoFar(c) {
+    var res = caseState.result;
+    if (res) return Math.round(res.earned * 10) / 10;
+    var got = 0;
+    (c.steps || []).forEach(function (st) {
+      if (caseState.shown[st.id] === true && judgeStep(st, caseState.answers[st.id]).correct === true) {
+        got += stepPoints(c, st.id);
+      }
+    });
+    return Math.round(got * 10) / 10;
+  }
+
   function stepHtml(c, step, index) {
     var res = caseState.result;
     var value = caseState.answers[step.id] == null ? '' : caseState.answers[step.id];
     var graded = res && res.perStep.hasOwnProperty(step.id) ? res.perStep[step.id] : null;
+    var shown = caseState.shown[step.id] === true;   // graded on its own
+    var jitter = shown && !res ? judgeStep(step, value) : null;
     var cls = 'case-step' + (graded === true ? ' case-step--ok' : graded === false ? ' case-step--bad' : '');
+    var pts = stepPoints(c, step.id);
     var html = '<li class="' + cls + '" id="step-' + esc(step.id) + '">' +
-      '<div class="case-step-head"><span class="case-step-n">Step ' + esc(index + 1) + '</span>' +
+      '<div class="case-step-head"><span class="case-step-n">Step ' + esc(index + 1) +
+      (pts ? ' (' + esc(pts) + ' point' + (pts === 1 ? '' : 's') + ')' : '') + '</span>' +
       '<span class="case-step-type">' + (step.type === 'numeric' ? 'numeric answer' : 'choice') +
-      '</span></div>' +
+      '</span>' +
+      (shown && jitter && !jitter.empty ? '<span class="case-step-mark ' +
+        (jitter.correct ? 'case-step-mark--ok">correct' : 'case-step-mark--bad">not yet') +
+        '</span>' : '') +
+      '</div>' +
       '<p class="case-prompt">' + esc(step.prompt) + '</p>';
 
     if (step.type === 'numeric') {
@@ -647,8 +692,13 @@
     } else if (graded === false) {
       html += '<p class="case-feedback case-feedback--bad">' + esc(step.feedbackWrong || 'Not yet.') + '</p>';
     }
+    if (!res) {
+      html += '<div class="case-step-actions">' +
+        '<button type="button" class="btn btn--small" data-act="case-check" data-case="' +
+        esc(c.caseId) + '" data-step="' + esc(step.id) + '">Check answer</button></div>';
+    }
     html += hintHtml(step, c.caseId);
-    if (res && step.explanation) {
+    if ((res || shown) && step.explanation) {
       html += '<details class="case-expl"><summary>Worked reasoning</summary>' +
         '<p>' + esc(step.explanation) + '</p></details>';
     }
@@ -719,16 +769,7 @@
       (c.toolLinks || []).forEach(function (t) { tools[t.href + '|' + t.label] = t; });
       (c.templates || []).forEach(function (t) { tpls[t.templateId] = t; });
     });
-    var tplKeys = Object.keys(tpls);
-    if (tplKeys.length) {
-      html += '<div class="toolkit-shelf"><h3>Templates</h3><ul class="toolkit-chips">';
-      tplKeys.forEach(function (k) {
-        var t = tpls[k];
-        html += '<li class="chip' + (t.status === 'planned' ? ' chip--draft' : '') + '">' +
-          esc(t.name) + (t.status === 'planned' ? ' · in preparation' : '') + '</li>';
-      });
-      html += '</ul></div>';
-    }
+    html += templateShelfHtml(cs);
     var toolKeys = Object.keys(tools);
     if (toolKeys.length) {
       html += '<div class="toolkit-shelf"><h3>Related lessons</h3><ul class="toolkit-chips">';
@@ -738,6 +779,285 @@
       html += '</ul></div>';
     }
     return html + '</section>';
+  }
+
+  /* ============================================ case figures (Phase 3b, U1) */
+
+  /* A CSV parser that is small on purpose: the course's own data files are
+   * comma-separated, quoted only when a cell contains a comma, and have no
+   * embedded newlines. Anything more elaborate would be untested code in the
+   * path that draws a chart. */
+  function parseCsv(text) {
+    var lines = String(text || '').replace(/^\ufeff/, '').split(/\r?\n/);
+    var rows = [];
+    lines.forEach(function (line) {
+      if (!line.trim()) return;
+      var cells = [], cell = '', q = false;
+      for (var i = 0; i < line.length; i++) {
+        var ch = line.charAt(i);
+        if (q) {
+          if (ch === '"' && line.charAt(i + 1) === '"') { cell += '"'; i++; }
+          else if (ch === '"') q = false;
+          else cell += ch;
+        } else if (ch === '"') q = true;
+        else if (ch === ',') { cells.push(cell); cell = ''; }
+        else cell += ch;
+      }
+      cells.push(cell);
+      rows.push(cells);
+    });
+    if (!rows.length) return { head: [], rows: [] };
+    return { head: rows[0], rows: rows.slice(1) };
+  }
+
+  function num(v) {
+    var n = parseNumeric(v == null ? '' : String(v).replace(/[^\d.,+-]/g, ''));
+    return n === null ? null : n;
+  }
+
+  /* Turn an interval table (from_c, to_c, seconds) into the time/temperature
+   * points a curve is drawn through. Rates are left to the steps: this only
+   * reconstructs the recorded shape. Returns null when the file is not a
+   * profile, so an unrelated data file never draws a chart. */
+  function profilePoints(file) {
+    var t = parseCsv(file && file.content);
+    var need = ['from_c', 'to_c', 'seconds'];
+    if (!need.every(function (k) { return t.head.indexOf(k) !== -1; })) return null;
+    var iFrom = t.head.indexOf('from_c'), iTo = t.head.indexOf('to_c'), iS = t.head.indexOf('seconds');
+    var time = 0, pts = [], label = t.head.indexOf('interval');
+    t.rows.forEach(function (r) {
+      var a = num(r[iFrom]), b = num(r[iTo]), secs = num(r[iS]);
+      if (a === null || b === null || secs === null) return;
+      if (a === b) {                       // a hold: two points, no rise
+        pts.push({ t: time, c: a, to: time + secs, c2: b,
+          label: label !== -1 ? r[label] : '' });
+      } else {
+        pts.push({ t: time, c: a, to: time + secs, c2: b,
+          label: label !== -1 ? r[label] : '' });
+      }
+      time += secs;
+    });
+    if (pts.length < 2) return null;
+    return { points: pts, totalS: time,
+      minC: Math.min.apply(null, pts.map(function (x) { return Math.min(x.c, x.c2); })),
+      maxC: Math.max.apply(null, pts.map(function (x) { return Math.max(x.c, x.c2); })) };
+  }
+
+  /* An inline SVG, not a canvas: it prints, it scales, and a test can read the
+   * path data. The y axis is padded so the liquidus line is never clipped. */
+  function profileSvg(prof, spec) {
+    var W = 720, H = 300, padL = 46, padR = 16, padT = 16, padB = 34;
+    var liquidus = null, win = null;
+    (spec || []).forEach(function (s) {
+      if (/^liquidus$/i.test(s.label)) liquidus = s.value;
+      if (/peak/i.test(s.label)) win = [s.value, s.to];
+    });
+    var tMax = prof.totalS || 1;
+    var yLo = Math.floor(Math.min(prof.minC, liquidus == null ? prof.minC : liquidus) / 50) * 50;
+    var cs = prof.points.reduce(function (acc, p) { return acc.concat([p.c, p.c2]); }, []);
+    if (win) cs = cs.concat(win);
+    var yHi = Math.ceil(Math.max.apply(null, cs) / 50) * 50;
+    if (yHi <= yLo) yHi = yLo + 50;
+    var x = function (t) { return padL + (t / tMax) * (W - padL - padR); };
+    var y = function (c) { return padT + (1 - (c - yLo) / (yHi - yLo)) * (H - padT - padB); };
+
+    var out = '<svg class="profile-chart" viewBox="0 0 ' + W + ' ' + H + '" role="img" ' +
+      'aria-label="Recorded reflow profile: temperature against time, with the liquidus ' +
+      'and the peak window marked">';
+
+    /* grid + y labels, every 50 °C */
+    for (var c = yLo; c <= yHi; c += 50) {
+      out += '<line class="pc-grid" x1="' + padL + '" y1="' + y(c).toFixed(1) + '" x2="' +
+        (W - padR) + '" y2="' + y(c).toFixed(1) + '"></line>' +
+        '<text class="pc-tick" x="' + (padL - 8) + '" y="' + (y(c) + 4).toFixed(1) +
+        '" text-anchor="end">' + c + '</text>';
+    }
+    /* peak window band */
+    if (win) {
+      out += '<rect class="pc-band" x="' + padL + '" y="' + y(win[1]).toFixed(1) +
+        '" width="' + (W - padL - padR) + '" height="' +
+        Math.max(0, y(win[0]) - y(win[1])).toFixed(1) + '"></rect>' +
+        '<text class="pc-label" x="' + (W - padR) + '" y="' + (y(win[1]) - 6).toFixed(1) +
+        '" text-anchor="end">Peak window ' + win[0] + '–' + win[1] + ' °C</text>';
+    }
+    /* liquidus */
+    if (liquidus != null) {
+      out += '<line class="pc-liquidus" x1="' + padL + '" y1="' + y(liquidus).toFixed(1) +
+        '" x2="' + (W - padR) + '" y2="' + y(liquidus).toFixed(1) + '"></line>' +
+        '<text class="pc-label" x="' + (padL + 4) + '" y="' + (y(liquidus) - 6).toFixed(1) +
+        '">Liquidus ' + liquidus + ' °C</text>';
+    }
+    /* the curve, one segment per interval: a straight ramp, not a bezier, so the
+     * drawing cannot imply data the file does not contain */
+    var d = '';
+    prof.points.forEach(function (p, i) {
+      d += (i === 0 ? 'M' : 'L') + x(p.t).toFixed(1) + ' ' + y(p.c).toFixed(1) + ' ';
+      d += 'L' + x(p.to).toFixed(1) + ' ' + y(p.c2).toFixed(1) + ' ';
+    });
+    out += '<path class="pc-curve" d="' + d.trim() + '"></path>';
+
+    /* measured peaks, drawn as dots */
+    prof.points.forEach(function (p) {
+      if (p.c2 === Math.max(prof.maxC, p.c2)) {
+        out += '<circle class="pc-dot" cx="' + x(p.to).toFixed(1) + '" cy="' +
+          y(p.c2).toFixed(1) + '" r="4"></circle>';
+      }
+    });
+
+    /* x axis */
+    out += '<line class="pc-axis" x1="' + padL + '" y1="' + (H - padB) + '" x2="' +
+      (W - padR) + '" y2="' + (H - padB) + '"></line>' +
+      '<text class="pc-tick" x="' + padL + '" y="' + (H - padB + 20) + '">0</text>' +
+      '<text class="pc-tick" x="' + (W - padR) + '" y="' + (H - padB + 20) +
+      '" text-anchor="end">' + tMax + ' s</text>';
+    return out + '</svg>';
+  }
+
+  /* A data file is shown as a table when it is a table, and as text when it is
+   * not. The download is offered in both cases. */
+  function dataFileHtml(c, f) {
+    var t = parseCsv(f.content);
+    var prof = profilePoints(f);
+    var html = '<details class="case-data"><summary>Data file — ' + esc(f.name) + '</summary>' +
+      '<div class="details-body">';
+    if (f.note) html += '<p class="muted flush">' + esc(f.note) + '</p>';
+    if (t.head.length > 1) {
+      html += '<div class="case-table-wrap"><table class="case-table"><thead><tr>';
+      t.head.forEach(function (h) { html += '<th scope="col">' + esc(h) + '</th>'; });
+      html += '</tr></thead><tbody>';
+      t.rows.forEach(function (r) {
+        html += '<tr>';
+        r.forEach(function (cell, i) {
+          html += '<td' + (i > 0 && /^-?\d+([.,]\d+)?$/.test(cell) ? ' class="num"' : '') +
+            '>' + esc(cell) + '</td>';
+        });
+        html += '</tr>';
+      });
+      html += '</tbody></table></div>';
+    } else {
+      html += '<pre class="case-pre">' + esc(f.content) + '</pre>';
+    }
+    if (prof) {
+      html += profileSvg(prof, c.spec);
+      html += '<p class="muted flush">Drawn from ' + esc(f.name) +
+        ': one segment per recorded interval, no smoothing. The chart and the table ' +
+        'above are the same numbers.</p>';
+    }
+    html += '<p class="flush"><button type="button" class="btn btn--small" data-act="case-data" ' +
+      'data-file="' + esc(c.caseId + '/' + f.name) + '">Download ' + esc(f.name) + '</button></p>' +
+      '</div></details>';
+    return html;
+  }
+
+  /* The limits a case is judged against, as chips above the data. Every chip is
+   * a value the case carries; none of them is written in the engine. */
+  function specHtml(c) {
+    if (!(c.spec || []).length) return '';
+    var html = '<ul class="spec-chips">';
+    (c.spec || []).forEach(function (s) {
+      var val = s.to == null ? s.value : (s.value + '–' + s.to);
+      html += '<li class="spec-chip"' + (s.note ? ' title="' + esc(s.note) + '"' : '') + '>' +
+        '<span class="spec-chip-label">' + esc(s.label) + '</span>' +
+        '<span class="spec-chip-value">' + esc(val) + (s.unit ? ' ' + esc(s.unit) : '') +
+        '</span></li>';
+    });
+    return html + '</ul>';
+  }
+
+  /* ---------------------------------------------------------- Board X thread */
+  function threadOf(moduleId) {
+    var thread = (CASE_DOC && CASE_DOC.thread) || [];
+    return { items: thread, index: thread.map(function (t) { return t.moduleId; }).indexOf(moduleId) };
+  }
+
+  function threadHtml(moduleId) {
+    var t = threadOf(moduleId);
+    if (!t.items.length || t.index === -1) return '';
+    var html = '<nav class="bx-thread" aria-label="Board X thread"><p class="bx-thread-head">' +
+      'Board X thread<span class="muted"> — where this module sits in the product</span></p>' +
+      '<ol class="bx-thread-list">';
+    t.items.forEach(function (item, i) {
+      var here = i === t.index;
+      var done = caseMastered(item.caseId);
+      html += '<li class="bx-thread-item' + (here ? ' bx-thread-item--here' : '') +
+        (done ? ' bx-thread-item--done' : '') + '">' +
+        '<a href="#/c/' + encodeURIComponent(item.caseId) + '"' +
+        (here ? ' aria-current="step"' : '') + '>' +
+        '<span class="bx-thread-m">M' + esc(item.moduleId.replace(/^m0?/, '')) + ' ' +
+        esc(item.label) + '</span>' +
+        '<span class="bx-thread-asset">' + esc(item.asset) + (done ? ' · mastered' : '') +
+        '</span></a></li>';
+    });
+    return html + '</ol></nav>';
+  }
+
+  /* ------------------------------------------------------------ case card */
+  /* The case card sits after the lessons on the module page: what it is, how
+   * long it takes, what data it hands you, and the mark it has to reach. */
+  function caseCardHtml(c) {
+    var rec = caseRecord(c.caseId);
+    var mastered = caseMastered(c.caseId);
+    var files = (c.dataFiles || []);
+    var html = '<section class="case-card"><div class="case-card-head">' +
+      '<h3><span class="case-card-icon" aria-hidden="true">&#9998;</span> Case: ' +
+      esc(c.title) + '</h3>' +
+      '<span class="chip chip--stage">About ' + esc(c.estMinutes) + ' min</span></div>' +
+      '<p class="flush case-card-lead">' + esc((c.scenario || [])[0] || '') + '</p>' +
+      '<p class="case-card-actions"><a class="btn btn--primary" href="#/c/' +
+      encodeURIComponent(c.caseId) + '">' + (mastered ? 'Revisit the case' : rec ?
+        'Continue the case' : 'Start case') + ' &#8599;</a>' +
+      files.map(function (f) {
+        return '<button type="button" class="linkbtn" data-act="case-data" data-file="' +
+          esc(c.caseId + '/' + f.name) + '">&#8595; ' + esc(f.name) + '</button>';
+      }).join(' ') + '</p>' +
+      '<p class="case-card-foot muted flush">Fictional data. Rubric pass mark: ' +
+      esc(CASE_MASTERED_PCT) + ' %' +
+      (rec ? ' · best so far ' + esc(rec.best) + ' %' : ' · not attempted yet') +
+      (mastered ? ' · <span class="case-card-done">mastered</span>' : '') + '</p></section>';
+    return html;
+  }
+
+  /* ------------------------------------------------------- template shelf */
+  /* Blank · Example · Guide, one download each. The files are generated by
+   * scripts/gen_cases.py from the case's own data, so a template cannot drift
+   * from the numbers the case grades against. */
+  function templateShelfHtml(cs) {
+    var seen = {}, list = [];
+    cs.forEach(function (c) {
+      (c.templates || []).forEach(function (t) {
+        if (!seen[t.templateId]) { seen[t.templateId] = true; list.push(t); }
+      });
+    });
+    if (!list.length) return '';
+    var html = '<div class="toolkit-shelf"><h3>Templates</h3>' +
+      '<p class="muted flush">Each template ships blank, filled in with Board X data, ' +
+      'and with a guide.</p><ul class="tpl-grid">';
+    list.forEach(function (t) {
+      html += '<li class="tpl-card"><p class="tpl-name">' + esc(t.name) + '</p>' +
+        '<p class="tpl-use muted flush">' + esc(t.use || '') + '</p>' +
+        '<p class="tpl-variants">';
+      (t.variants || []).forEach(function (v) {
+        html += '<button type="button" class="linkbtn" data-act="case-tpl" data-file="' +
+          esc(t.templateId + '/' + v.variant) + '">' + esc(v.label) + '</button>';
+      });
+      html += '</p></li>';
+    });
+    return html + '</ul></div>';
+  }
+
+  function findTemplate(ref) {
+    var parts = String(ref || '').split('/');
+    var tid = parts[0], variant = parts[1];
+    var out = null;
+    CASES.forEach(function (c) {
+      (c.templates || []).forEach(function (t) {
+        if (t.templateId !== tid) return;
+        (t.variants || []).forEach(function (v) {
+          if (v.variant === variant) out = v;
+        });
+      });
+    });
+    return out;
   }
 
   function caseView(caseId) {
@@ -759,6 +1079,8 @@
       '<span class="chip">' + esc(c.estMinutes) + ' min</span>' +
       '<span class="chip">' + esc((c.steps || []).length) + ' steps</span>' +
       '<span class="chip">rubric ' + esc(casePoints(c)) + ' pts</span>' +
+      '<span class="chip">Score ' + esc(caseScoreSoFar(c)) + ' of ' +
+        esc(casePoints(c)) + '</span>' +
       (rec ? '<span class="chip' + (caseMastered(c.caseId) ? ' chip--ok' : '') + '">best ' +
         esc(rec.best) + ' %</span>' : '') +
       '</div></div></header>';
@@ -773,20 +1095,18 @@
         '<div class="details-body"><p class="muted flush">' + esc(board.description || '') + '</p>' +
         '<table class="case-facts"><tbody>';
       Object.keys(board.facts).forEach(function (k) {
-        html += '<tr><th scope="row">' + esc(k.replace(/([A-Z])/g, ' $1').replace(/^./, function (x) {
-          return x.toUpperCase();
-        })) + '</th><td>' + esc(board.facts[k]) + '</td></tr>';
+        var label = (board.labels && board.labels[k]) || k.replace(/([A-Z])/g, ' $1')
+          .replace(/^./, function (x) { return x.toUpperCase(); });
+        var v = board.facts[k];
+        /* a window is two numbers, and "235,250" in a table cell reads as one */
+        if (Array.isArray(v)) v = v.join('\u2013');
+        html += '<tr><th scope="row">' + esc(label) + '</th><td>' + esc(v) + '</td></tr>';
       });
       html += '</tbody></table></div></details>';
     }
 
-    (c.dataFiles || []).forEach(function (f) {
-      html += '<details class="case-data"><summary>Data file — ' + esc(f.name) + '</summary>' +
-        '<div class="details-body"><pre class="case-pre">' + esc(f.content) + '</pre>' +
-        '<p class="flush"><button type="button" class="btn btn--small" data-act="case-data" ' +
-        'data-file="' + esc(c.caseId + '/' + f.name) + '">Download ' + esc(f.name) + '</button></p>' +
-        '</div></details>';
-    });
+    html += specHtml(c);
+    (c.dataFiles || []).forEach(function (f) { html += dataFileHtml(c, f); });
 
     html += '<form class="case-form" data-case="' + esc(c.caseId) + '" novalidate>' +
       '<ol class="case-steps">';
@@ -1581,6 +1901,20 @@
   }
 
   function examView(moduleId) {
+    /* The exam opens when every lesson in the module is mastered. The check
+     * lives on the route, not only on the button: a bookmarked or pasted
+     * #/e/... address must not walk around the gate. */
+    var gateLessons = lessonsOf(moduleId);
+    if (gateLessons.length && masteredIn(moduleId) < gateLessons.length) {
+      var gm = moduleById(moduleId);
+      return '<p class="kicker">Course program · Module ' + esc(gm ? pad2(gm.n) : '') + '</p>' +
+        '<header class="page-head"><div><h1 tabindex="-1">Module exam is locked</h1></div></header>' +
+        '<section class="empty-box"><p>Master every lesson first: ' +
+        esc(masteredIn(moduleId)) + ' of ' + esc(gateLessons.length) + ' mastered. ' +
+        'The pass mark for a lesson is ' + esc(PASS_PCT) + ' %.</p>' +
+        '<p class="flush"><a class="btn btn--primary" href="#/m/' + encodeURIComponent(moduleId) +
+        '">Back to the module &#8594;</a></p></section>';
+    }
     var m = moduleById(moduleId);
     if (!m) {
       return notFoundView('Module not found', 'No module "' + moduleId + '" in the curriculum (' +
@@ -1761,10 +2095,13 @@
         if (moduleExamQuestions(m.id).length) {
           var examCls = 'toc-exam';
           var erec = examRecord(m.id);
+          var gateLocked = ls.length > 0 && masteredIn(m.id) < ls.length;
           if (erec && erec.best >= PASS_PCT) examCls += ' toc-exam--passed';
+          if (gateLocked) examCls += ' toc-exam--locked';
           if (route.view === 'exam' && route.moduleId === m.id) examCls += ' toc-exam--active';
           html += '<a class="' + examCls + '" href="#/e/' + encodeURIComponent(m.id) +
-            '">Module exam' + (erec && erec.best >= PASS_PCT ? ' &#10003;' : '') + '</a>';
+            '"' + (gateLocked ? ' aria-describedby="exam-lock-note"' : '') + '>Module exam' +
+            (erec && erec.best >= PASS_PCT ? ' &#10003;' : gateLocked ? ' &#128274;' : '') + '</a>';
         }
       }
     });
@@ -1973,6 +2310,38 @@
       var cC = byCase[caseState.caseId];
       if (!cC) return;
       download(cC.caseId + '-answers.csv', 'text/csv;charset=utf-8', caseCsv(cC));
+    } else if (act === 'case-check') {
+      var ckId = btn.getAttribute('data-case');
+      var stId = btn.getAttribute('data-step');
+      var ck = byCase[ckId];
+      if (!ck) return;
+      var step = (ck.steps || []).filter(function (x) { return x.id === stId; })[0];
+      if (!step) return;
+      var errEl = app.querySelector('#err-' + stId);
+      var judgedOne = judgeStep(step, caseState.answers[stId]);
+      if (judgedOne.empty) {
+        if (errEl) {
+          errEl.hidden = false;
+          errEl.textContent = step.type === 'choice'
+            ? 'Choose one option before checking — an empty step scores zero.'
+            : 'Enter a number before checking. Leave nothing blank: an empty step scores zero.';
+        }
+        var liBad = app.querySelector('#step-' + stId);
+        if (liBad) liBad.classList.add('case-step--missing');
+        var inp = app.querySelector('[name="c-' + stId + '"]');
+        if (inp && inp.focus) inp.focus();
+        return;
+      }
+      if (errEl) errEl.hidden = true;
+      caseState.shown[stId] = true;
+      caseState.result = null;               // a single-step check is not a result
+      render();
+      var back = app.querySelector('#step-' + stId);
+      if (back && back.scrollIntoView) back.scrollIntoView({ block: 'center' });
+    } else if (act === 'case-tpl') {
+      var tpl = findTemplate(btn.getAttribute('data-file'));
+      if (!tpl) return;
+      download(tpl.file, tpl.mime + ';charset=utf-8', tpl.content);
     } else if (act === 'case-data') {
       var cD = byCase[caseState.caseId];
       var ref = btn.getAttribute('data-file') || '';

@@ -183,3 +183,79 @@ module order; m08 (fill fraction) and m09 (wave dwell) are the natural next two
 because both read Board X facts the m03 and m06 cases already fixed. Templates
 referenced from the cases (`stencil-sheet`, `msl-log`, `reflow-log`, `8d`,
 `pareto`) are listed as `planned` in the Toolkit and are Phase 4 work.
+
+---
+
+# Phase 3b — the module/case furniture (U1)
+
+Scope agreed with the product owner: **the frame and the UI only**. The numbers,
+scenarios and rubrics of the four cases are untouched — verified by diffing every
+step's answer, options, prompt, rubric and scenario against the pre-change file:
+`ALL existing steps, rubrics and scenarios identical`.
+
+## What was added
+
+| Element | Where | Note |
+|---|---|---|
+| Board X thread | module page, under the progress bar | Four steps (m02 → m03 → m06 → m14). The current module is marked, mastered steps say so, each links to its case |
+| Case card | module page, **after the lessons** | Time chip, CSV buttons, "Fictional data. Rubric pass mark: 80 %", best result |
+| Templates in three variants | Toolkit | Blank · Example · Guide; 5 templates, 15 files, all generated |
+| Exam gate | module page + sidebar + the `#/e/...` route | "Opens after all lessons are mastered"; the route refuses too, so a bookmark cannot walk around it |
+| Data as a table | case page | Any CSV-shaped data file renders as a table, not a `<pre>` |
+| Profile chart | case page, m06 | Inline SVG built from the same `profile.csv`: one segment per recorded interval, no smoothing, liquidus line and peak band marked |
+| Spec chips | case page | Liquidus 219 °C · TAL 60–90 s · Peak window 235–250 °C, from the data, not from the engine |
+| Points per step | case step heading | `Step 1 (15 points)`, derived from the rubric so it cannot disagree with the scoring |
+| Score chip | case header | `Score 0 of 100` on a fresh page, moves as steps are checked |
+| Per-step Check answer | every step | Marks that step, updates the chip, does **not** produce a result; an empty field still raises the inline error |
+
+## The template example is not typed
+
+`stencil-sheet`, `msl-log`, `reflow-log` — the example **is** the case's data file,
+byte for byte. `8d` is not a reshaped defect log, so its example rows are built
+from the case's own verified answers: each cell names `step:s1`, `step:s2`, … and
+is filled with that answer. Both `check-cases.js` and `check-integrity.js` refuse
+an example that is neither a data file nor traceable to the case's answers — this
+check caught the first 8D, which was wrongly derived from `defect-log.csv`.
+
+## Deliberate deviations from the mock-up
+
+1. **Design stays ours** — dark `#0D1117`, teal signal, IBM Plex. The mock-up is
+   light; only its structure and behaviour were taken.
+2. **100-point rubrics stay.** Mastery is already a percentage of the case maximum,
+   so an 8-point and a 100-point case coexist without touching the engine (the
+   product owner's own point).
+3. **No answer order shuffling.** The mock-up note says "answer order is shuffled
+   on the live page"; ours is stable, so a reviewer can refer to "option b". Not
+   changed without a decision.
+4. **No hint/rubric penalty.** Hints remain free, as agreed.
+5. **The peak window is the union of two course texts, and it is in tension.**
+   The m06l01 zone table says `Liquidus 219 C, peak 235-245 °C`; m06l05 says the
+   J-STD-020 classification temperature is `250 °C` for a large package. The m06
+   case grades peak margin against **250 °C** and passes 248 °C, while the chip
+   prints **235–250 °C**. Both bounds are real and sourced, but a reader can
+   reasonably ask which one governs. This is the first item for the m06 review.
+
+## Verification
+
+| Check | Result |
+|---|---|
+| `tests/course.test.js` | **155 passed, 0 failed** (was 123) |
+| `check-cases.js` | 31/31 keys recomputed; 5 templates, 15 files; thread 4 steps; OK |
+| `check-integrity.js` | OK — cases 4 (31 steps), templates 5 (15 files), thread 4 |
+| `gen_cases.py --check` | OK (4 cases, 31 steps) |
+| Numbers unchanged | every existing step answer, option, prompt, rubric and scenario identical to the pre-3b file |
+| Build | 141 files / 11.1 MB, embed 1,598,939 B |
+
+Render captured from the shipped engine (no browser in this sandbox):
+`docs/screenshots/module-m06.outline.txt` (thread, locked exam card, template
+cards, case card), `docs/screenshots/cx-m06-01.outline.txt` (spec chips, data
+table, SVG chart, points per step, Score chip), and the `.solved` variants.
+
+## Next, in the order agreed
+
+1. **m06 limits cross-check** — compare the mock-up's limits against the lesson
+   text and sources, decide the peak window conflict above. No edits in that step.
+2. **m06 decision** — keep the seven-step case, or adopt the compact one. If the
+   compact one wins, the "average peak hides the spread" idea moves into ours.
+3. The other three cases get the compact treatment only after 3–5 people have
+   taken them.

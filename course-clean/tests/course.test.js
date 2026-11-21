@@ -225,7 +225,11 @@ async function renderLayer() {
   ok(fs.existsSync(path.join(BUILD, 'assets', 'img')), 'built tree has images');
   eq(fs.existsSync(path.join(BUILD, 'node_modules')), false, 'built tree excludes node_modules');
 
-  function load(hash) {
+  /* load(hash, seed) — seed is a progress object written to localStorage before
+     the engine boots. The module exam is gated on lesson mastery from Phase 3b,
+     so a test that wants the exam form has to say which lessons are mastered
+     rather than reach around the gate. */
+  function load(hash, seed) {
     const index = fs.readFileSync(path.join(BUILD, 'index.html'), 'utf8');
     const dom = new JSDOM(index, {
       url: 'http://localhost/' + (hash || ''),
@@ -233,6 +237,7 @@ async function renderLayer() {
       pretendToBeVisual: true
     });
     const win = dom.window;
+    if (seed) win.localStorage.setItem('dfm-course-progress-v1', JSON.stringify(seed));
     /* The engine's fetch path would hit the network; feed it the embed
        instead so the test exercises the same code with known data. */
     win.fetch = undefined;
@@ -575,11 +580,16 @@ async function renderLayer() {
 
   /* 5. the module exam renders a frozen sample and can be graded */
   const examQ = JSON.parse(fs.readFileSync(path.join(BUILD, 'data', 'questions.json'), 'utf8'));
+  const lessonsAll = JSON.parse(fs.readFileSync(path.join(BUILD, 'data', 'lessons.json'), 'utf8'));
+  const lessonsArr = lessonsAll.lessons || lessonsAll;
+  /* every lesson mastered at 100 % — the state in which the exam opens */
+  const allMastered = { v: 1, visited: {}, exams: {}, cases: {}, quiz: {} };
+  lessonsArr.forEach(function (l) { allMastered.quiz[l.lessonId] = { best: 100, tries: 1 }; });
   modules.forEach(function (mid) {
     const bank = examQ.filter(function (q) {
       return q.pool === 'exam' && q.lessonId.indexOf(mid) === 0;
     });
-    const dom = load('#/e/' + mid);
+    const dom = load('#/e/' + mid, allMastered);
     const d2 = dom.window.document;
     const radios = d2.querySelectorAll('#exam input[type=radio]');
     /* With a dedicated bank the exam draws min(15, bank size) questions; without
@@ -595,8 +605,115 @@ async function renderLayer() {
     dom.window.close();
   });
 
+  /* 5b. the exam gate: locked until every lesson in the module is mastered,
+     and the lock is on the route, not only on the button */
+  const freshGate = load('#/e/m01');
+  const gateDoc = freshGate.window.document;
+  ok(!gateDoc.querySelector('#exam form.exam-form'),
+    'the exam form is absent when no lesson is mastered');
+  ok(/locked/i.test(gateDoc.getElementById('main').textContent || ''),
+    'a gated exam route says it is locked');
+  /* half the lessons mastered is still locked */
+  const halfMastered = { v: 1, visited: {}, exams: {}, cases: {}, quiz: {} };
+  lessonsArr.filter(function (l) { return l.moduleId === 'm01'; })
+    .slice(0, Math.max(1, Math.floor(lessonsArr.filter(function (l) {
+      return l.moduleId === 'm01';
+    }).length / 2)))
+    .forEach(function (l) { halfMastered.quiz[l.lessonId] = { best: 100 }; });
+  const halfGate = load('#/e/m01', halfMastered);
+  ok(!halfGate.window.document.querySelector('#exam form.exam-form'),
+    'a half-mastered module still has a locked exam');
+  halfGate.window.close();
+  freshGate.window.close();
+  /* the module page says why, and the sidebar marks it */
+  const lockedModule = load('#/m/m01');
+  const lockedText = lockedModule.window.document.getElementById('main').textContent || '';
+  ok(/Opens after all lessons are mastered/i.test(lockedText),
+    'the module page explains the exam lock', lockedText.slice(0, 80));
+  const sideLock = lockedModule.window.document.querySelector('.toc-exam--locked');
+  ok(!!sideLock, 'the sidebar marks the exam as locked');
+  lockedModule.window.close();
+
+  /* 5c. the Board X thread, the case card, templates and the score chip */
+  const mod6 = load('#/m/m06');
+  const m6d = mod6.window.document;
+  const threadItems = m6d.querySelectorAll('.bx-thread-item');
+  eq(threadItems.length, 4, 'the Board X thread lists four steps');
+  const hereStep = m6d.querySelector('.bx-thread-item--here');
+  ok(!!hereStep && /Reflow profile/.test(hereStep.textContent),
+    'the current module is marked on the thread');
+  ok(/MSL log/.test(m6d.querySelector('.bx-thread').textContent || ''),
+    'the thread names the other modules');
+  const card = m6d.querySelector('.case-card');
+  ok(!!card, 'the module page shows a case card');
+  if (card) {
+    ok(/About 25 min/.test(card.textContent), 'the case card carries the time');
+    ok(/Rubric pass mark: 80 %/.test(card.textContent), 'the case card carries the pass mark');
+    ok(/Fictional data/.test(card.textContent), 'the case card marks the data as fictional');
+    ok(!!card.querySelector('[data-act="case-data"]'), 'the case card offers the CSV');
+  }
+  const tplCards = m6d.querySelectorAll('.toolkit .tpl-card');
+  ok(tplCards.length >= 1, 'the toolkit lists template cards');
+  if (tplCards.length) {
+    const variants = tplCards[0].querySelectorAll('[data-act="case-tpl"]');
+    eq(variants.length, 3, 'a template ships blank, example and guide');
+  }
+  mod6.window.close();
+
+  /* 5d. a case page: data table, chart, spec chips, points per step, score chip */
+  const casePage = load('#/c/cx-m06-01');
+  const cpd = casePage.window.document;
+  ok(!!cpd.querySelector('.case-table'), 'the data file renders as a table');
+  const rows = cpd.querySelectorAll('.case-table tbody tr');
+  eq(rows.length, 6, 'the table has one row per recorded interval');
+  const svg = cpd.querySelector('svg.profile-chart');
+  ok(!!svg, 'the profile is drawn as a chart from the same file');
+  if (svg) {
+    const d = (svg.querySelector('path.pc-curve') || {}).getAttribute
+      ? svg.querySelector('path.pc-curve').getAttribute('d') : '';
+    ok(/\(M/.test('(' + d), 'the curve has path data', d.slice(0, 40));
+    ok(/Liquidus 219/.test(svg.textContent), 'the chart marks the liquidus');
+    ok(/Peak window/.test(svg.textContent), 'the chart marks the peak window');
+  }
+  const specs = cpd.querySelectorAll('.spec-chip');
+  eq(specs.length, 3, 'the case shows its three limits as chips');
+  const stepHeads = Array.prototype.map.call(cpd.querySelectorAll('.case-step-n'),
+    function (n) { return n.textContent; });
+  ok(/Step 1 \(15 points\)/.test(stepHeads[0]), 'a step heading states its points', stepHeads[0]);
+  ok(/Score 0 of 100/.test(cpd.querySelector('.meta-line').textContent),
+    'the header carries a score chip');
+  ok(cpd.querySelectorAll('[data-act="case-check"]').length === 7,
+    'every step has its own Check answer button');
+  casePage.window.close();
+
+  /* 5e. checking one step marks it and moves the score chip, without grading */
+  const oneStep = load('#/c/cx-m06-01');
+  const osd = oneStep.window.document;
+  const input1 = osd.querySelector('#in-s1');
+  input1.value = '2.08';
+  input1.dispatchEvent(new oneStep.window.Event('input', { bubbles: true }));
+  osd.querySelector('[data-act="case-check"][data-step="s1"]').click();
+  const osd2 = oneStep.window.document;
+  ok(/Step 1/.test(osd2.querySelector('#step-s1').textContent), 'the checked step is still there');
+  ok(!!osd2.querySelector('.case-step-mark'), 'a checked step shows correct / not yet');
+  ok(/Score 15 of 100/.test(osd2.querySelector('.meta-line').textContent),
+    'the score chip counts the checked step', osd2.querySelector('.meta-line').textContent.slice(-30));
+  ok(!osd2.querySelector('#case-result'), 'one checked step is not a full result');
+  /* an empty step still gets its own inline error, not a score */
+  osd2.querySelector('[data-act="case-check"][data-step="s2"]').click();
+  const err2 = oneStep.window.document.querySelector('#err-s2');
+  ok(!!err2 && !err2.hidden, 'checking an empty step raises an inline error');
+  oneStep.window.close();
+
+  /* 5f. an unrelated data file does not grow a chart */
+  const caseM14 = load('#/c/cx-m14-01');
+  const m14d = caseM14.window.document;
+  ok(!m14d.querySelector('svg.profile-chart'), 'a defect log draws no profile chart');
+  ok(m14d.querySelectorAll('.case-table').length >= 2, 'both m14 data files render as tables');
+  caseM14.window.close();
+
   /* 6. grading an exam produces a score */
-  const examDom = load('#/e/m01');
+  const examDom = load('#/e/m01', allMastered);
   const ed = examDom.window.document;
   const eInputs = Array.prototype.slice.call(ed.querySelectorAll('#exam input[type=radio]'));
   const eNames = {};

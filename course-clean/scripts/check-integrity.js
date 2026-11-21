@@ -161,6 +161,85 @@ function run() {
     });
     info.caseSteps = caseSteps;
     info.caseNumeric = caseNumeric;
+
+    /* Templates (Phase 3b): each one must ship blank, example and guide, and the
+     * example must be the case's own data file — a template that drifts from the
+     * numbers the case grades against is worse than no template. */
+    let tplCount = 0, tplVariants = 0;
+    cases.forEach(function (c) {
+      const files = {};
+      (c.dataFiles || []).forEach(function (f) { files[f.name] = f.content; });
+      (c.templates || []).forEach(function (t) {
+        tplCount++;
+        const variants = t.variants || [];
+        tplVariants += variants.length;
+        const got = variants.map(function (v) { return v.variant; }).sort().join(',');
+        if (got !== 'blank,example,guide') {
+          problems.push({ code: 'template-variants', count: 1, sample: [c.caseId + '/' + t.templateId + ' -> ' + got] });
+        }
+        if (t.status !== 'available') {
+          problems.push({ code: 'template-status', count: 1, sample: [c.caseId + '/' + t.templateId + ' -> ' + t.status] });
+        }
+        const blank = variants.filter(function (v) { return v.variant === 'blank'; })[0];
+        const example = variants.filter(function (v) { return v.variant === 'example'; })[0];
+        const guide = variants.filter(function (v) { return v.variant === 'guide'; })[0];
+        if (!blank || !example || !guide) return;
+        const head = function (txt) { return String(txt).replace(/^\ufeff/, '').split(/\r?\n/)[0]; };
+        if (head(blank.content) !== head(example.content)) {
+          problems.push({ code: 'template-header', count: 1,
+            sample: [c.caseId + '/' + t.templateId + ' blank header differs from example'] });
+        }
+        /* The example must be traceable: either a copy of one of the case's data
+         * files, or rows whose value cells are the case's own answers (the 8D is
+         * not a reshaped defect log). A hand-typed example is refused. */
+        const owner = Object.keys(files).filter(function (n) {
+          return String(files[n]).replace(/^\ufeff/, '') === String(example.content).replace(/^\ufeff/, '');
+        });
+        if (!owner.length) {
+          const answers = new Set((c.steps || []).map(function (st) { return String(st.answer.value); }));
+          (c.steps || []).forEach(function (st) {
+            (st.options || []).forEach(function (o) {
+              if (o.id === st.answer.value) answers.add(o.text);
+            });
+          });
+          const body = String(example.content).split(/\r?\n/).slice(1)
+            .filter(function (l) { return l.trim(); });
+          const cited = body.reduce(function (a, l) { return a.concat(l.split(',')); }, [])
+            .filter(function (cell) {
+              const v = String(cell).replace(/^"|"$/g, '').trim();
+              if (!v) return false;
+              if (answers.has(v)) return true;
+              const m = v.match(/^(-?[\d.]+)\s+\S+$/);
+              return !!(m && answers.has(m[1]));
+            });
+          if (body.length < 3 || cited.length < 2) {
+            problems.push({ code: 'template-example', count: 1,
+              sample: [c.caseId + '/' + t.templateId +
+                ' example is neither a data file nor built from the case answers'] });
+          }
+        }
+        if (String(guide.content).length < 200) {
+          problems.push({ code: 'template-guide', count: 1, sample: [c.caseId + '/' + t.templateId + ' guide is thin'] });
+        }
+      });
+    });
+    info.templates = tplCount;
+    info.templateVariants = tplVariants;
+
+    /* The Board X thread: every entry names a real case, and every case appears. */
+    const thread = Array.isArray(caseDoc.thread) ? caseDoc.thread : [];
+    const threadedModules = new Set(thread.map(function (t) { return t.moduleId; }));
+    thread.forEach(function (t) {
+      if (!caseIds.has(t.caseId)) {
+        problems.push({ code: 'thread-case', count: 1, sample: [t.caseId] });
+      }
+    });
+    cases.forEach(function (c) {
+      if (!threadedModules.has(c.moduleId)) {
+        problems.push({ code: 'thread-missing', count: 1, sample: [c.caseId + ' (' + c.moduleId + ')'] });
+      }
+    });
+    info.thread = thread.length;
     /* the embed must carry the same cases */
     if (!fs.existsSync(PATHS.embed)) {
       problems.push({ code: 'case-embed', count: 1, sample: ['assets/data-embed.js missing'] });
@@ -357,6 +436,8 @@ function render(result, baseline) {
   if (i.registry) {
     if (i.cases != null) {
     p('  cases                   ' + i.cases + '  (' + i.caseSteps + ' steps, ' + i.caseNumeric + ' numeric)');
+    p('  templates               ' + i.templates + ' (' + i.templateVariants + ' files: blank, example, guide)');
+    p('  Board X thread          ' + i.thread + ' step(s)');
   }
   p('  edition registry rows   ' + i.registry.rows +
       (i.registry.notInCourse ? '  (' + i.registry.notInCourse + ' standard(s) cited but absent)' : ''));

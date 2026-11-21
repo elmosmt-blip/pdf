@@ -552,3 +552,102 @@ table.tbl{width:100%;border-collapse:collapse}
 @media print{
   .toolkit,.case-form,.case-hints{display:none!important}
 }
+
+/* =========================================================
+   Phase 3b — module page furniture: the Board X thread, the
+   case card, templates in three variants, the exam gate;
+   and on the case page: spec chips, data table, profile
+   chart, per-step scoring. Same dark system, no new hues:
+   teal for "this is the path", green for mastered, amber
+   for locked, red only for a wrong answer.
+   ========================================================= */
+
+/* ---- Board X thread ------------------------------------------------ */
+.bx-thread{margin:0 0 28px;padding:18px 20px;border:1px solid var(--line);
+  border-radius:var(--r-md);background:rgba(83,209,204,.03)}
+.bx-thread-head{margin:0 0 12px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--signal)}
+.bx-thread-head .muted{text-transform:none;letter-spacing:0;font-family:var(--font)}
+.bx-thread-list{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+.bx-thread-item{flex:1 1 150px;min-width:0}
+.bx-thread-item a{display:block;height:100%;padding:10px 12px;border:1px solid var(--line2);
+  border-radius:12px;background:var(--panel2);color:var(--body);text-decoration:none;
+  transition:border-color .15s,background .15s}
+.bx-thread-item a:hover{border-color:var(--signal);background:rgba(83,209,204,.06)}
+.bx-thread-m{display:block;font-family:var(--mono);font-size:12px;font-weight:600;color:var(--txt)}
+.bx-thread-asset{display:block;font-size:12px;color:var(--mut)}
+.bx-thread-item--here a{border-color:var(--signal);background:rgba(83,209,204,.10);
+  box-shadow:inset 0 0 0 1px rgba(83,209,204,.25)}
+.bx-thread-item--here .bx-thread-m{color:var(--signal)}
+.bx-thread-item--done .bx-thread-asset{color:var(--green)}
+
+/* ---- case card ------------------------------------------------------ */
+.case-card{margin:28px 0;padding:20px 22px;border:1px solid var(--line2);border-radius:var(--r-md);
+  background:linear-gradient(180deg,rgba(83,209,204,.06),rgba(12,17,25,.94))}
+.case-card-head{display:flex;flex-wrap:wrap;gap:12px;align-items:baseline;justify-content:space-between}
+.case-card-head h3{margin:0;font-size:19px;line-height:1.35}
+.case-card-icon{color:var(--signal);margin-right:2px}
+.case-card-lead{margin:10px 0 0;color:var(--body);max-width:70ch}
+.case-card-actions{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin:16px 0 0}
+.case-card-foot{margin-top:12px;font-size:13px}
+.case-card-done{color:var(--green);font-weight:600}
+.linkbtn{all:unset;cursor:pointer;color:var(--signal);font:inherit;font-size:14px;
+  border-bottom:1px dotted rgba(83,209,204,.5)}
+.linkbtn:hover{color:var(--signal-light);border-bottom-style:solid}
+.linkbtn:focus-visible{outline:2px solid var(--signal);outline-offset:3px;border-radius:4px}
+
+/* ---- templates: blank / example / guide ------------------------------ */
+.tpl-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;
+  margin:12px 0 0;padding:0;list-style:none}
+.tpl-card{padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--panel2)}
+.tpl-name{margin:0;font-weight:600;color:var(--txt)}
+.tpl-use{margin:4px 0 0;font-size:13px}
+.tpl-variants{display:flex;flex-wrap:wrap;gap:14px;margin:10px 0 0;font-size:13px}
+
+/* ---- exam gate ------------------------------------------------------- */
+.exam-card--locked{border-color:rgba(255,152,0,.35)}
+.chip--locked{color:var(--yellow);border-color:rgba(255,152,0,.4);background:rgba(255,152,0,.08)}
+.toc-exam--locked{opacity:.75}
+
+/* ---- spec chips on the case page ------------------------------------- */
+.spec-chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px;padding:0;list-style:none}
+.spec-chip{display:flex;align-items:baseline;gap:8px;padding:6px 12px;border-radius:999px;
+  border:1px solid var(--line2);background:var(--panel2);font-family:var(--mono);font-size:12.5px}
+.spec-chip-label{color:var(--mut)}
+.spec-chip-value{color:var(--txt);font-weight:600}
+
+/* ---- data as a table, and the profile chart -------------------------- */
+.case-table-wrap{overflow-x:auto;margin:0 0 16px;border:1px solid var(--line);border-radius:12px}
+.case-table{width:100%;border-collapse:collapse;font-size:13.5px}
+.case-table th,.case-table td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:left;
+  white-space:nowrap}
+.case-table thead th{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--mut);background:rgba(146,165,185,.06)}
+.case-table tbody tr:last-child td{border-bottom:0}
+.case-table td.num{text-align:right;font-family:var(--mono);color:var(--txt)}
+.case-table tbody tr:hover{background:rgba(83,209,204,.04)}
+
+.profile-chart{display:block;width:100%;height:auto;margin:4px 0 12px;
+  border:1px solid var(--line);border-radius:12px;background:rgba(12,17,25,.6)}
+.pc-grid{stroke:rgba(146,165,185,.14);stroke-width:1}
+.pc-axis{stroke:rgba(146,165,185,.35);stroke-width:1}
+.pc-tick{fill:var(--mut);font-family:var(--mono);font-size:11px}
+.pc-label{fill:var(--mut);font-family:var(--mono);font-size:11px}
+.pc-band{fill:rgba(76,175,80,.12);stroke:rgba(76,175,80,.35);stroke-width:1}
+.pc-liquidus{stroke:rgba(83,209,204,.55);stroke-width:1.5;stroke-dasharray:6 5}
+.pc-curve{fill:none;stroke:var(--signal);stroke-width:2.5;stroke-linejoin:round;
+  stroke-linecap:round}
+.pc-dot{fill:var(--bg);stroke:var(--signal);stroke-width:2.5}
+
+/* ---- per-step scoring ------------------------------------------------ */
+.case-step-head{display:flex;flex-wrap:wrap;gap:10px;align-items:baseline}
+.case-step-mark{margin-left:auto;font-family:var(--mono);font-size:11.5px;
+  letter-spacing:.04em;text-transform:uppercase}
+.case-step-mark--ok{color:var(--green)}
+.case-step-mark--bad{color:var(--red)}
+.case-step-actions{margin:10px 0 0}
+.case-step--missing .case-error{display:block}
+
+@media print{
+  .bx-thread,.case-card-actions,.case-step-actions{display:none!important}
+}

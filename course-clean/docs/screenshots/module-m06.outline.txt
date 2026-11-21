@@ -1,0 +1,221 @@
+Rendered outline of #/m/m06 (module page) — produced by the shipped engine.
+
+main #main
+  p .kicker
+    "Course program · Module 06"
+  header .page-head
+    div
+      h1
+        "06 — Reflow Soldering"
+      div .meta-line
+        span .chip
+          "prereq: m04"
+  p .progress-line
+    "0/7 lessons started · 0/7 mastered (quiz ≥ 80%) · ≈210 min of planned study"
+  div .progress
+    span
+  nav .bx-thread
+    p .bx-thread-head
+      "Board X thread"
+      span .muted
+        "— where this module sits in the product"
+    ol .bx-thread-list
+      li .bx-thread-item
+        a href=#/c/cx-m02-01
+          span .bx-thread-m
+            "M2 MSL log"
+          span .bx-thread-asset
+            "MSL exposure log"
+      li .bx-thread-item
+        a href=#/c/cx-m03-01
+          span .bx-thread-m
+            "M3 Stencil"
+          span .bx-thread-asset
+            "Stencil data sheet"
+      li .bx-thread-item.bx-thread-item--here
+        a href=#/c/cx-m06-01
+          span .bx-thread-m
+            "M6 Reflow profile"
+          span .bx-thread-asset
+            "Reflow profile log"
+      li .bx-thread-item
+        a href=#/c/cx-m14-01
+          span .bx-thread-m
+            "M14 8D report"
+          span .bx-thread-asset
+            "8D problem report"
+  section .exam-card.exam-card--locked
+    h2
+      "Module exam"
+    p .flush
+      "15 questions randomly drawn from a bank of 21. Pass mark: 80%. Not attempted yet."
+    p .flush
+      span .chip.chip--locked
+        "Opens after all lessons are mastered"
+      span .muted
+        "0 of 7 lessons mastered so far."
+  section .toolkit
+    h2
+      "Toolkit"
+    p .flush.muted
+      "Apply the module on Board X. Each case is scored against a rubric; 80 % of the rubric marks it mastered."
+    ul .toolkit-list
+      li .toolkit-item
+        div .toolkit-main
+          a .toolkit-title href=#/c/cx-m06-01
+            "Profile validation: Board X runs a 248 °C peak"
+          div .toolkit-meta
+            span
+              "25 min"
+            span
+              "7 steps"
+            span
+              "core"
+            span
+              "not attempted"
+        a .btn.btn--small href=#/c/cx-m06-01
+          "Open case"
+    div .toolkit-shelf
+      h3
+        "Templates"
+      p .muted.flush
+        "Each template ships blank, filled in with Board X data, and with a guide."
+      ul .tpl-grid
+        li .tpl-card
+          p .tpl-name
+            "Reflow profile log"
+          p .tpl-use.muted.flush
+            "Record the measured interval, its rate and where each thermocouple sat before a profile is released."
+          p .tpl-variants
+            button .linkbtn data-act=case-tpl
+              "Blank"
+            button .linkbtn data-act=case-tpl
+              "Example"
+            button .linkbtn data-act=case-tpl
+              "Guide"
+    div .toolkit-shelf
+      h3
+        "Related lessons"
+      ul .toolkit-chips
+        li
+          a .chip href=#/l/m06l02
+            "Profile anatomy (lesson m06l02)"
+        li
+          a .chip href=#/l/m06l05
+            "Alloy systems and profile families (lesson m06l05)"
+  ul .lesson-list
+    li .lesson-row
+      span .lesson-num
+        "01"
+      div .lesson-main
+        a .lesson-title href=#/l/m06l01
+          "Heat transfer in the oven: convection, conduction, radiation, zone structure"
+        div .lesson-meta
+          span
+            "25 min"
+          span
+            "5 quiz questions"
+      div .lesson-side
+        a .btn.btn--small href=#/l/m06l01
+          "Open"
+    li .lesson-row
+      span .lesson-num
+        "02"
+      div .lesson-main
+        a .lesson-title href=#/l/m06l02
+          "Profile anatomy: ramp, soak, time above liquidus, peak, cooling — what each controls"
+        div .lesson-meta
+          span
+            "30 min"
+          span
+            "5 quiz questions"
+      div .lesson-side
+        a .btn.btn--small href=#/l/m06l02
+          "Open"
+    li .lesson-row
+      span .lesson-num
+        "03"
+      div .lesson-main
+        a .lesson-title href=#/l/m06l03
+          "Running a thermal survey: thermocouple attachment, test coupon, worst-case site"
+        div .lesson-meta
+          span
+            "35 min"
+          span
+            "5 quiz questions"
+      div .lesson-side
+        a .btn.btn--small href=#/l/m06l03
+          "Open"
+    li .lesson-row
+      span .lesson-num
+        "04"
+      div .lesson-main
+        a .lesson-title href=#/l/m06l04
+          "Board thermal mass and layout: heavy planes, thermal relief, mixed population, dense vs sparse"
+        div .lesson-meta
+          span
+            "35 min"
+          span
+            "5 quiz questions"
+      div .lesson-side
+        a .btn.btn--small href=#/l/m06l04
+          "Open"
+    li .lesson-row
+      span .lesson-num
+        "05"
+      div .lesson-main
+        a .lesson-title href=#/l/m06l05
+          "Alloy systems and profile families: SnAgCu vs SnPb, liquidus basis, nitrogen vs air"
+        div .lesson-meta
+          span
+            "30 min"
+          span
+            "5 quiz questions"
+      div .lesson-side
+        a .btn.btn--small href=#/l/m06l05
+          "Open"
+    li .lesson-row
+      span .lesson-num
+        "06"
+      div .lesson-main
+        a .lesson-title href=#/l/m06l06
+          "Reflow defect atlas: tombstone, balling, beading, dewetting, voids, distortion"
+        div .lesson-meta
+          span
+            "30 min"
+          span
+            "5 quiz questions"
+      div .lesson-side
+        a .btn.btn--small href=#/l/m06l06
+          "Open"
+    li .lesson-row
+      span .lesson-num
+        "07"
+      div .lesson-main
+        a .lesson-title href=#/l/m06l07
+          "Profile validation, documentation and change control"
+        div .lesson-meta
+          span
+            "25 min"
+          span
+            "5 quiz questions"
+      div .lesson-side
+        a .btn.btn--small href=#/l/m06l07
+          "Open"
+  section .case-card
+    div .case-card-head
+      h3
+        span .case-card-icon
+          "✎"
+        "Case: Profile validation: Board X runs a 248 °C peak"
+      span .chip.chip--stage
+        "About 25 min"
+    p .flush.case-card-lead
+      "Board X is a 1.6 mm six-layer board with heavy ground planes and a large BGA. The thermal survey from the worst-case sit"
+    p .case-card-actions
+      a .btn.btn--primary href=#/c/cx-m06-01
+        "Start case ↗"
+      button .linkbtn data-act=case-data
+        "↓ profile.csv"
+    p .case-card-foot.muted.flush
+      "Fictional data. Rubric pass mark: 80 % · not attempted yet"

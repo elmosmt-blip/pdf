@@ -393,6 +393,76 @@ function main() {
     });
   }
 
+  /* ---- templates: three variants, example equals a data file ------------- */
+  let tplCount = 0, tplFiles = 0;
+  cases.forEach(function (c) {
+    const files = {};
+    (c.dataFiles || []).forEach(function (f) { files[f.name] = String(f.content).replace(/^\ufeff/, ''); });
+    (c.templates || []).forEach(function (t) {
+      tplCount++;
+      const vs = t.variants || [];
+      tplFiles += vs.length;
+      const names = vs.map(function (v) { return v.variant; }).sort().join(',');
+      if (names !== 'blank,example,guide') {
+        fail('template-variants', c.caseId + '/' + t.templateId + ' -> ' + names);
+        return;
+      }
+      const by = {};
+      vs.forEach(function (v) { by[v.variant] = String(v.content).replace(/^\ufeff/, ''); });
+      const head = function (txt) { return txt.split(/\r?\n/)[0]; };
+      if (head(by.blank) !== head(by.example)) {
+        fail('template-header', c.caseId + '/' + t.templateId);
+      }
+      /* The example must be traceable to something verified. Two legitimate
+       * shapes: a copy of one of the case's data files (stencil, MSL, reflow),
+       * or — where the template is not a reshaped log, as with the 8D — rows
+       * whose value cells are the case's own answers. Anything else is a
+       * hand-typed example and is refused. */
+      if (!Object.keys(files).some(function (n) { return files[n] === by.example; })) {
+        const body = by.example.split(/\r?\n/).slice(1).filter(function (l) { return l.trim(); });
+        const answers = new Set((c.steps || []).map(function (st) { return String(st.answer.value); }));
+        const texts = new Set();
+        (c.steps || []).forEach(function (st) {
+          (st.options || []).forEach(function (o) {
+            if (o.id === st.answer.value) { texts.add(o.text); answers.add(o.text); }
+          });
+        });
+        const cells = body.map(function (l) { return l.split(','); }).reduce(function (a, r) { return a.concat(r); }, []);
+        const cited = cells.filter(function (cell) {
+          const v = cell.replace(/^"|"$/g, '').trim();
+          if (!v) return false;
+          if (answers.has(v)) return true;
+          /* "16000 ppm" cites the answer 16000 with its unit attached */
+          const m = v.match(/^(-?[\d.]+)\s+\S+$/);
+          return !!(m && answers.has(m[1]));
+        });
+        if (body.length < 3 || cited.length < 2) {
+          fail('template-example', c.caseId + '/' + t.templateId +
+            ' example is neither a data file nor built from the case answers');
+        }
+      }
+      if (by.guide.length < 200) fail('template-guide', c.caseId + '/' + t.templateId);
+      vs.forEach(function (v) {
+        if (!/^[a-z0-9-]+\.(csv|md)$/.test(v.file)) {
+          fail('template-filename', c.caseId + '/' + t.templateId + ' -> ' + v.file);
+        }
+        const wantMime = /\.csv$/.test(v.file) ? 'text/csv' : 'text/markdown';
+        if (v.mime !== wantMime) fail('template-mime', c.caseId + '/' + t.templateId + ' -> ' + v.file);
+      });
+    });
+  });
+
+  /* ---- thread: every step points at a case that exists, every case is on it */
+  const thread = Array.isArray(doc.thread) ? doc.thread : [];
+  const caseIdsNow = new Set(cases.map(function (c) { return c.caseId; }));
+  const threadedModules = new Set(thread.map(function (t) { return t.moduleId; }));
+  thread.forEach(function (t) {
+    if (!caseIdsNow.has(t.caseId)) fail('thread-case', t.caseId);
+  });
+  cases.forEach(function (c) {
+    if (!threadedModules.has(c.moduleId)) fail('thread-missing', c.caseId);
+  });
+
   /* ----------------------------------------------------------- module query */
   const perModule = {};
   cases.forEach(function (c) { perModule[c.moduleId] = (perModule[c.moduleId] || 0) + 1; });
@@ -408,7 +478,10 @@ function main() {
     }, 0),
     perModule: perModule,
     independentlyVerified: verified.length,
-    controlNumbers: controlResults
+    controlNumbers: controlResults,
+    templates: tplCount,
+    templateFiles: tplFiles,
+    thread: thread.length
   };
 
   if (JSON_OUT) {
@@ -426,6 +499,9 @@ function main() {
     return k + ':' + perModule[k];
   }).join('  '));
   console.log('keys recomputed        ' + summary.independentlyVerified + ' of ' + summary.steps);
+  console.log('templates              ' + summary.templates + ' (' + summary.templateFiles +
+    ' files: blank, example, guide)');
+  console.log('Board X thread         ' + summary.thread + ' step(s)');
   console.log('\nPhase-3 control numbers');
   controlResults.forEach(function (r) {
     console.log('  ' + (r.ok ? 'ok  ' : 'FAIL') + '  ' + r.label + '  -> ' + r.got);

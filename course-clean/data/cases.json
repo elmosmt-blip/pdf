@@ -35,8 +35,51 @@
       ],
       "src-008",
       "m06l07"
+    ],
+    "peakWindowC": [
+      [
+        235,
+        245
+      ],
+      "src-008",
+      "m06l01"
+    ],
+    "peakClassificationLargeC": [
+      250,
+      "src-005",
+      "m06l05"
     ]
   },
+  "thread": [
+    {
+      "step": 1,
+      "moduleId": "m02",
+      "label": "MSL log",
+      "asset": "MSL exposure log",
+      "caseId": "cx-m02-01"
+    },
+    {
+      "step": 2,
+      "moduleId": "m03",
+      "label": "Stencil",
+      "asset": "Stencil data sheet",
+      "caseId": "cx-m03-01"
+    },
+    {
+      "step": 3,
+      "moduleId": "m06",
+      "label": "Reflow profile",
+      "asset": "Reflow profile log",
+      "caseId": "cx-m06-01"
+    },
+    {
+      "step": 4,
+      "moduleId": "m14",
+      "label": "8D report",
+      "asset": "8D problem report",
+      "caseId": "cx-m14-01"
+    }
+  ],
   "board": {
     "id": "board-x",
     "name": "Board X",
@@ -61,7 +104,38 @@
       "opportunitiesPerBoard": 620,
       "reflowAlloy": "SAC305",
       "liquidusC": 219,
-      "solidusC": 217
+      "solidusC": 217,
+      "talWindowS": [
+        60,
+        90
+      ],
+      "peakWindowC": [
+        235,
+        250
+      ]
+    },
+    "labels": {
+      "boardThicknessMm": "Board thickness (mm)",
+      "layers": "Layers",
+      "surfaceFinish": "Surface finish",
+      "baseMaterial": "Base material",
+      "stencilThicknessMm": "Stencil (mm)",
+      "finePitchStencilThicknessMm": "Stencil, fine-pitch region (mm)",
+      "paste": "Solder paste",
+      "qfpPitchMm": "QFP-64 pitch (mm)",
+      "qfpPins": "QFP-64 pins",
+      "finePitchPpm": "QFP-48 pitch (mm)",
+      "bgaBallPitchMm": "BGA ball pitch (mm)",
+      "bgaBalls": "BGA balls",
+      "passive": "Smallest passive",
+      "thtConnector": "THT connector",
+      "lotSize": "Lot size (boards)",
+      "opportunitiesPerBoard": "Solder joints per board",
+      "reflowAlloy": "Alloy",
+      "liquidusC": "Liquidus (°C)",
+      "solidusC": "Solidus (°C)",
+      "talWindowS": "Time above liquidus (s)",
+      "peakWindowC": "Peak window (°C)"
     }
   },
   "cases": [
@@ -322,7 +396,32 @@
         {
           "templateId": "stencil-sheet",
           "name": "Stencil data sheet",
-          "status": "planned"
+          "status": "available",
+          "use": "Record every aperture, its foil thickness and its area ratio before the stencil is ordered.",
+          "lesson": "m03l05",
+          "variants": [
+            {
+              "variant": "blank",
+              "file": "stencil-sheet-blank.csv",
+              "mime": "text/csv",
+              "label": "Blank",
+              "content": "aperture_id,component,shape,width_mm,length_mm,diameter_mm,foil_mm,pitch_mm\r\n,,,,,,,\r\n,,,,,,,\r\n,,,,,,,\r\n"
+            },
+            {
+              "variant": "example",
+              "file": "stencil-sheet-example.csv",
+              "mime": "text/csv",
+              "label": "Example",
+              "content": "aperture_id,component,shape,width_mm,length_mm,diameter_mm,foil_mm,pitch_mm\nA-01,0402 passive,rect,0.55,0.60,,0.125,0.50\nA-02,QFP-64 0.5 mm,rect,0.22,0.90,,0.125,0.50\nA-03,QFP-48 0.4 mm (current),rect,0.20,0.80,,0.125,0.40\nA-04,QFP-48 0.4 mm (thin region),rect,0.20,0.80,,0.100,0.40\nA-05,BGA 0.8 mm,round,,,0.50,0.125,0.80\nA-06,THT connector,rect,0.18,0.80,,0.125,2.54\n"
+            },
+            {
+              "variant": "guide",
+              "file": "stencil-sheet-guide.md",
+              "mime": "text/markdown",
+              "label": "Guide",
+              "content": "# Stencil data sheet\n\n## What this template is for\nRecord every aperture, its foil thickness and its area ratio before the stencil is ordered.\n\n## How to fill it in\n1. Copy one row per aperture. Do not merge rows: one aperture, one reel, one interval or one 8D discipline per line.\n2. Keep the column order. The columns below are the ones the course's own worked examples use.\n3. Leave a cell blank rather than writing a guess. A blank cell is a question for the engineer; a guessed number is a defect in the record.\n\n## Columns\n- `aperture_id`\n- `component`\n- `shape`\n- `width_mm`\n- `length_mm`\n- `diameter_mm`\n- `foil_mm`\n- `pitch_mm`\n\n## Worked example\nThe example variant of this file is the data file from case cx-m03-01 (Stencil release audit: the QFP-48 apertures will not release), filled in with Board X numbers.\n\n## Where the numbers come from\nEvery value in the example is produced by scripts/gen_cases.py and checked by scripts/check-cases.js. If you change a number in the example, the checker fails: that is deliberate.\n\n## Course link\nSee lesson m03l05 for the reasoning behind each column.\n"
+            }
+          ]
         }
       ],
       "toolLinks": [
@@ -548,7 +647,32 @@
         {
           "templateId": "msl-log",
           "name": "MSL exposure log",
-          "status": "planned"
+          "status": "available",
+          "use": "Track bag-open time, cabinet humidity and line exposure against each package's floor life.",
+          "lesson": "m02l04",
+          "variants": [
+            {
+              "variant": "blank",
+              "file": "msl-log-blank.csv",
+              "mime": "text/csv",
+              "label": "Blank",
+              "content": "reel,part,package,msl,bag_open_h_ago,cabinet_rh_pct,line_exposure_h,reflow_in_h\r\n,,,,,,,\r\n,,,,,,,\r\n,,,,,,,\r\n"
+            },
+            {
+              "variant": "example",
+              "file": "msl-log-example.csv",
+              "mime": "text/csv",
+              "label": "Example",
+              "content": "reel,part,package,msl,bag_open_h_ago,cabinet_rh_pct,line_exposure_h,reflow_in_h\nR-4412,BGA-256 14x14,FBGA,4,58,7,6,10\nR-4413,QFP-64 0.5 mm,QFP,3,58,7,0,10\nR-4414,0402 100 nF,chip,1,58,7,0,10\n"
+            },
+            {
+              "variant": "guide",
+              "file": "msl-log-guide.md",
+              "mime": "text/markdown",
+              "label": "Guide",
+              "content": "# MSL exposure log\n\n## What this template is for\nTrack bag-open time, cabinet humidity and line exposure against each package's floor life.\n\n## How to fill it in\n1. Copy one row per reel. Do not merge rows: one aperture, one reel, one interval or one 8D discipline per line.\n2. Keep the column order. The columns below are the ones the course's own worked examples use.\n3. Leave a cell blank rather than writing a guess. A blank cell is a question for the engineer; a guessed number is a defect in the record.\n\n## Columns\n- `reel`\n- `part`\n- `package`\n- `msl`\n- `bag_open_h_ago`\n- `cabinet_rh_pct`\n- `line_exposure_h`\n- `reflow_in_h`\n\n## Worked example\nThe example variant of this file is the data file from case cx-m02-01 (Moisture breach: the BGA reel sat in a 7 % RH cabinet), filled in with Board X numbers.\n\n## Where the numbers come from\nEvery value in the example is produced by scripts/gen_cases.py and checked by scripts/check-cases.js. If you change a number in the example, the checker fails: that is deliberate.\n\n## Course link\nSee lesson m02l04 for the reasoning behind each column.\n"
+            }
+          ]
         }
       ],
       "toolLinks": [
@@ -800,7 +924,32 @@
         {
           "templateId": "reflow-log",
           "name": "Reflow profile log",
-          "status": "planned"
+          "status": "available",
+          "use": "Record the measured interval, its rate and where each thermocouple sat before a profile is released.",
+          "lesson": "m06l07",
+          "variants": [
+            {
+              "variant": "blank",
+              "file": "reflow-log-blank.csv",
+              "mime": "text/csv",
+              "label": "Blank",
+              "content": "interval,from_c,to_c,seconds,rate_c_per_s\r\n,,,,\r\n,,,,\r\n,,,,\r\n"
+            },
+            {
+              "variant": "example",
+              "file": "reflow-log-example.csv",
+              "mime": "text/csv",
+              "label": "Example",
+              "content": "interval,from_c,to_c,seconds,rate_c_per_s\nramp,25,150,60,\nsoak,150,190,90,\napproach,190,219,30,\nabove_liquidus,219,248,65,\npeak_hold,248,248,4,\ncooling,248,100,40,\n"
+            },
+            {
+              "variant": "guide",
+              "file": "reflow-log-guide.md",
+              "mime": "text/markdown",
+              "label": "Guide",
+              "content": "# Reflow profile log\n\n## What this template is for\nRecord the measured interval, its rate and where each thermocouple sat before a profile is released.\n\n## How to fill it in\n1. Copy one row per interval or thermocouple. Do not merge rows: one aperture, one reel, one interval or one 8D discipline per line.\n2. Keep the column order. The columns below are the ones the course's own worked examples use.\n3. Leave a cell blank rather than writing a guess. A blank cell is a question for the engineer; a guessed number is a defect in the record.\n\n## Columns\n- `interval`\n- `from_c`\n- `to_c`\n- `seconds`\n- `rate_c_per_s`\n\n## Worked example\nThe example variant of this file is the data file from case cx-m06-01 (Profile validation: Board X runs a 248 °C peak), filled in with Board X numbers.\n\n## Where the numbers come from\nEvery value in the example is produced by scripts/gen_cases.py and checked by scripts/check-cases.js. If you change a number in the example, the checker fails: that is deliberate.\n\n## Course link\nSee lesson m06l07 for the reasoning behind each column.\n"
+            }
+          ]
         }
       ],
       "toolLinks": [
@@ -817,7 +966,27 @@
         "src-008",
         "src-005"
       ],
-      "generatedBy": "scripts/gen_cases.py"
+      "generatedBy": "scripts/gen_cases.py",
+      "spec": [
+        {
+          "label": "Liquidus",
+          "value": 219,
+          "unit": "°C"
+        },
+        {
+          "label": "Time above liquidus",
+          "value": 60,
+          "to": 90,
+          "unit": "s"
+        },
+        {
+          "label": "Peak window",
+          "value": 235,
+          "to": 250,
+          "unit": "°C",
+          "note": "m06l01 zone table; the upper bound is the large-package classification temperature, m06l05"
+        }
+      ]
     },
     {
       "caseId": "cx-m14-01",
@@ -1148,13 +1317,63 @@
       "templates": [
         {
           "templateId": "8d",
-          "name": "8D report",
-          "status": "planned"
+          "name": "8D problem report",
+          "status": "available",
+          "use": "Carry a defect from containment through root cause to a verified action and a closed-out escape check.",
+          "lesson": "m14l05",
+          "variants": [
+            {
+              "variant": "blank",
+              "file": "8d-blank.csv",
+              "mime": "text/csv",
+              "label": "Blank",
+              "content": "d,title,content,evidence,owner,status\r\n,,,,,\r\n,,,,,\r\n,,,,,\r\n"
+            },
+            {
+              "variant": "example",
+              "file": "8d-example.csv",
+              "mime": "text/csv",
+              "label": "Example",
+              "content": "d,title,content,evidence,owner,status\r\nD2,Describe the problem,49.4277 DPMO,\"AOI/BGA void family, Board X lot\",process engineer,open\r\nD4,Root cause verified,49.4277 DPMO,false-call audit,process engineer,open\r\nD6,Action implemented and measured,16000 ppm,before-window count,process engineer,open\r\nD7,Action verified in a second window,2800 ppm,after-window count,process engineer,open\r\nD8,Effectiveness against the target,\"Keep the 8D open: the action improved the rate but did not reach the agreed metric, so effectiveness is not demonstrated.\",agreed metric,process engineer,open\r\n"
+            },
+            {
+              "variant": "guide",
+              "file": "8d-guide.md",
+              "mime": "text/markdown",
+              "label": "Guide",
+              "content": "# 8D problem report\n\n## What this template is for\nCarry a defect from containment through root cause to a verified action and a closed-out escape check.\n\n## How to fill it in\n1. Copy one row per 8D report. Do not merge rows: one aperture, one reel, one interval or one 8D discipline per line.\n2. Keep the column order. The columns below are the ones the course's own worked examples use.\n3. Leave a cell blank rather than writing a guess. A blank cell is a question for the engineer; a guessed number is a defect in the record.\n\n## Columns\n- `d`\n- `title`\n- `content`\n- `evidence`\n- `owner`\n- `status`\n\n## Worked example\nThe example variant of this file is the data file from case cx-m14-01 (AOI over-rejection on Board X: DPMO, sampling scope and an 8D that is not closed), filled in with Board X numbers.\n\n## Where the numbers come from\nEvery value in the example is produced by scripts/gen_cases.py and checked by scripts/check-cases.js. If you change a number in the example, the checker fails: that is deliberate.\n\n## Course link\nSee lesson m14l05 for the reasoning behind each column.\n"
+            }
+          ]
         },
         {
           "templateId": "pareto",
-          "name": "Pareto worksheet",
-          "status": "planned"
+          "name": "Defect Pareto",
+          "status": "available",
+          "use": "Rank defect families by count so the largest loss gets the first action, and keep the ranking next to the 8D it justified.",
+          "lesson": "m14l01",
+          "variants": [
+            {
+              "variant": "blank",
+              "file": "pareto-blank.csv",
+              "mime": "text/csv",
+              "label": "Blank",
+              "content": "family,calls,confirmed,false_calls,boards_in_window\r\n,,,,\r\n,,,,\r\n,,,,\r\n"
+            },
+            {
+              "variant": "example",
+              "file": "pareto-example.csv",
+              "mime": "text/csv",
+              "label": "Example",
+              "content": "family,calls,confirmed,false_calls,boards_in_window\nBGA void / non-wet,47,38,9,1240\nQFP bridging,0,0,0,1240\n"
+            },
+            {
+              "variant": "guide",
+              "file": "pareto-guide.md",
+              "mime": "text/markdown",
+              "label": "Guide",
+              "content": "# Defect Pareto\n\n## What this template is for\nRank defect families by count so the largest loss gets the first action, and keep the ranking next to the 8D it justified.\n\n## How to fill it in\n1. Copy one row per item. Do not merge rows: one aperture, one reel, one interval or one 8D discipline per line.\n2. Keep the column order. The columns below are the ones the course's own worked examples use.\n3. Leave a cell blank rather than writing a guess. A blank cell is a question for the engineer; a guessed number is a defect in the record.\n\n## Columns\n- `family`\n- `calls`\n- `confirmed`\n- `false_calls`\n- `boards_in_window`\n\n## Worked example\nThe example variant of this file is the data file from case cx-m14-01 (AOI over-rejection on Board X: DPMO, sampling scope and an 8D that is not closed), filled in with Board X numbers.\n\n## Where the numbers come from\nEvery value in the example is produced by scripts/gen_cases.py and checked by scripts/check-cases.js. If you change a number in the example, the checker fails: that is deliberate.\n\n## Course link\nSee lesson m14l01 for the reasoning behind each column.\n"
+            }
+          ]
         }
       ],
       "toolLinks": [
