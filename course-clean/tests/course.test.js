@@ -221,6 +221,64 @@ async function renderLayer() {
   grade.window.close();
   ok(!!expectedKeyId, 'the probe lesson has a question in the bank');
 
+  /* 4. every module route renders */
+  const modules = ['m01','m02','m03','m04','m05','m06','m07','m08','m09','m10','m11','m12','m13','m14','m15'];
+  let modulesOk = 0;
+  const badModules = [];
+  modules.forEach(function (mid) {
+    const dom = load('#/m/' + mid);
+    const text = dom.window.document.getElementById('main').textContent || '';
+    if (text.length > 300) modulesOk++;
+    else badModules.push(mid);
+    dom.window.close();
+  });
+  eq(modulesOk, 15, 'all 15 module routes render' +
+    (badModules.length ? ' (empty: ' + badModules.join(', ') + ')' : ''));
+
+  /* 5. the module exam renders a frozen sample and can be graded */
+  const examQ = JSON.parse(fs.readFileSync(path.join(BUILD, 'data', 'questions.json'), 'utf8'));
+  modules.forEach(function (mid) {
+    const bank = examQ.filter(function (q) {
+      return q.pool === 'exam' && q.lessonId.indexOf(mid) === 0;
+    });
+    const dom = load('#/e/' + mid);
+    const d2 = dom.window.document;
+    const radios = d2.querySelectorAll('#exam input[type=radio]');
+    /* With a dedicated bank the exam draws min(15, bank size) questions; without
+       one it falls back to the lesson pool, so only the bank case is exact. */
+    if (bank.length) {
+      const want = Math.min(15, bank.length) * 1;
+      const groups = {};
+      Array.prototype.forEach.call(radios, function (r) { groups[r.name] = true; });
+      eq(Object.keys(groups).length, want,
+        'exam ' + mid + ' draws ' + want + ' question(s) from a bank of ' + bank.length);
+    }
+    ok(!!d2.querySelector('#exam form.exam-form'), 'exam ' + mid + ' renders a submittable form');
+    dom.window.close();
+  });
+
+  /* 6. grading an exam produces a score */
+  const examDom = load('#/e/m01');
+  const ed = examDom.window.document;
+  const eInputs = Array.prototype.slice.call(ed.querySelectorAll('#exam input[type=radio]'));
+  const eNames = {};
+  eInputs.forEach(function (i) { eNames[i.name] = true; });
+  Object.keys(eNames).forEach(function (nm) {
+    const first = ed.querySelector('input[name="' + nm + '"]');
+    if (first) first.click();
+  });
+  const eForm = ed.querySelector('#exam form.exam-form');
+  if (eForm) {
+    eForm.dispatchEvent(new examDom.window.Event('submit', { bubbles: true, cancelable: true }));
+    const eScore = ed.querySelector('#exam .score');
+    ok(!!eScore, 'submitting an exam renders a score line');
+    if (eScore) ok(/\d+\s*\/\s*\d+/.test(eScore.textContent),
+      'the exam score line is in n / m form', eScore.textContent);
+  } else {
+    ok(false, 'the exam is a form.exam-form that can be submitted');
+  }
+  examDom.window.close();
+
   home.window.close();
 }
 

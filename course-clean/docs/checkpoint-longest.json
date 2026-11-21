@@ -1,0 +1,281 @@
+{
+  "n": 299,
+  "exact": 96,
+  "exactPct": 32.1,
+  "tied": 71,
+  "tiedPct": 23.7,
+  "strict": 96,
+  "strictPct": 32.1,
+  "free": 22,
+  "freePct": 7.4,
+  "meanSpreadPct": 25.8,
+  "byModule": {
+    "m04": {
+      "n": 14,
+      "exact": 5,
+      "strict": 5,
+      "free": 2,
+      "exactPct": 35.7,
+      "strictPct": 35.7,
+      "freePct": 14.3
+    },
+    "m06": {
+      "n": 14,
+      "exact": 10,
+      "strict": 10,
+      "free": 2,
+      "exactPct": 71.4,
+      "strictPct": 71.4,
+      "freePct": 14.3
+    },
+    "m09": {
+      "n": 14,
+      "exact": 6,
+      "strict": 6,
+      "free": 0,
+      "exactPct": 42.9,
+      "strictPct": 42.9,
+      "freePct": 0
+    },
+    "m01": {
+      "n": 56,
+      "exact": 6,
+      "strict": 6,
+      "free": 1,
+      "exactPct": 10.7,
+      "strictPct": 10.7,
+      "freePct": 1.8
+    },
+    "m02": {
+      "n": 48,
+      "exact": 7,
+      "strict": 7,
+      "free": 0,
+      "exactPct": 14.6,
+      "strictPct": 14.6,
+      "freePct": 0
+    },
+    "m03": {
+      "n": 48,
+      "exact": 9,
+      "strict": 9,
+      "free": 5,
+      "exactPct": 18.8,
+      "strictPct": 18.8,
+      "freePct": 10.4
+    },
+    "m05": {
+      "n": 12,
+      "exact": 7,
+      "strict": 7,
+      "free": 1,
+      "exactPct": 58.3,
+      "strictPct": 58.3,
+      "freePct": 8.3
+    },
+    "m07": {
+      "n": 12,
+      "exact": 6,
+      "strict": 6,
+      "free": 1,
+      "exactPct": 50,
+      "strictPct": 50,
+      "freePct": 8.3
+    },
+    "m08": {
+      "n": 10,
+      "exact": 6,
+      "strict": 6,
+      "free": 2,
+      "exactPct": 60,
+      "strictPct": 60,
+      "freePct": 20
+    },
+    "m10": {
+      "n": 10,
+      "exact": 5,
+      "strict": 5,
+      "free": 0,
+      "exactPct": 50,
+      "strictPct": 50,
+      "freePct": 0
+    },
+    "m11": {
+      "n": 12,
+      "exact": 5,
+      "strict": 5,
+      "free": 3,
+      "exactPct": 41.7,
+      "strictPct": 41.7,
+      "freePct": 25
+    },
+    "m12": {
+      "n": 13,
+      "exact": 6,
+      "strict": 6,
+      "free": 0,
+      "exactPct": 46.2,
+      "strictPct": 46.2,
+      "freePct": 0
+    },
+    "m13": {
+      "n": 12,
+      "exact": 6,
+      "strict": 6,
+      "free": 2,
+      "exactPct": 50,
+      "strictPct": 50,
+      "freePct": 16.7
+    },
+    "m14": {
+      "n": 14,
+      "exact": 6,
+      "strict": 6,
+      "free": 3,
+      "exactPct": 42.9,
+      "strictPct": 42.9,
+      "freePct": 21.4
+    },
+    "m15": {
+      "n": 10,
+      "exact": 6,
+      "strict": 6,
+      "free": 0,
+      "exactPct": 60,
+      "strictPct": 60,
+      "freePct": 0
+    }
+  },
+  "worst": [
+    {
+      "id": "q-m05l06-02",
+      "module": "m05",
+      "pool": "lesson",
+      "exact": false,
+      "tied": false,
+      "strict": false,
+      "free": false,
+      "keyLen": 1,
+      "minLen": 1,
+      "maxLen": 19,
+      "spread": 0.9473684210526315
+    },
+    {
+      "id": "q-m12l05-02",
+      "module": "m12",
+      "pool": "lesson",
+      "exact": false,
+      "tied": false,
+      "strict": false,
+      "free": false,
+      "keyLen": 11,
+      "minLen": 1,
+      "maxLen": 12,
+      "spread": 0.9166666666666666
+    },
+    {
+      "id": "q-m02l06-02",
+      "module": "m02",
+      "pool": "lesson",
+      "exact": true,
+      "tied": false,
+      "strict": true,
+      "free": false,
+      "keyLen": 394,
+      "minLen": 48,
+      "maxLen": 394,
+      "spread": 0.8781725888324873
+    },
+    {
+      "id": "q-m06l03-02",
+      "module": "m06",
+      "pool": "lesson",
+      "exact": true,
+      "tied": false,
+      "strict": true,
+      "free": false,
+      "keyLen": 85,
+      "minLen": 13,
+      "maxLen": 85,
+      "spread": 0.8470588235294118
+    },
+    {
+      "id": "q-m07l02-01",
+      "module": "m07",
+      "pool": "lesson",
+      "exact": false,
+      "tied": false,
+      "strict": false,
+      "free": false,
+      "keyLen": 8,
+      "minLen": 3,
+      "maxLen": 17,
+      "spread": 0.8235294117647058
+    },
+    {
+      "id": "q-m07l01-01",
+      "module": "m07",
+      "pool": "lesson",
+      "exact": true,
+      "tied": false,
+      "strict": true,
+      "free": false,
+      "keyLen": 16,
+      "minLen": 3,
+      "maxLen": 16,
+      "spread": 0.8125
+    },
+    {
+      "id": "q-m07l04-01",
+      "module": "m07",
+      "pool": "lesson",
+      "exact": true,
+      "tied": false,
+      "strict": true,
+      "free": false,
+      "keyLen": 16,
+      "minLen": 3,
+      "maxLen": 16,
+      "spread": 0.8125
+    },
+    {
+      "id": "q-m01l02-01",
+      "module": "m01",
+      "pool": "lesson",
+      "exact": true,
+      "tied": false,
+      "strict": true,
+      "free": false,
+      "keyLen": 63,
+      "minLen": 12,
+      "maxLen": 63,
+      "spread": 0.8095238095238095
+    },
+    {
+      "id": "q-m02l06-01",
+      "module": "m02",
+      "pool": "lesson",
+      "exact": true,
+      "tied": false,
+      "strict": true,
+      "free": false,
+      "keyLen": 339,
+      "minLen": 90,
+      "maxLen": 339,
+      "spread": 0.7345132743362832
+    },
+    {
+      "id": "q-m12l06-01",
+      "module": "m12",
+      "pool": "lesson",
+      "exact": true,
+      "tied": false,
+      "strict": true,
+      "free": false,
+      "keyLen": 195,
+      "minLen": 55,
+      "maxLen": 195,
+      "spread": 0.717948717948718
+    }
+  ]
+}

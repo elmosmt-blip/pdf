@@ -6944,5 +6944,2296 @@
     "correct": "b",
     "explanation": "The lesson closes on the handoff: if material is released, the line must receive the approved status and any special handling notes, and the disposition must state who approved it and what verification is required. A verbal handover, a log entry nobody on the line reads, or a supplier notification does not carry the conditions of release to the people who will run the material.",
     "source": "src-037"
+  },
+  {
+    "questionId": "q-m02l01-03",
+    "type": "single",
+    "competencies": [
+      "K1"
+    ],
+    "bloom": "understand",
+    "lessonId": "m02l01",
+    "prompt": "Why can a plastic package that passed final test at the supplier still be damaged by the customer reflow oven?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Absorbed moisture vaporises during reflow, and the expanding vapour can separate internal interfaces."
+      },
+      {
+        "id": "b",
+        "text": "The reflow oven runs hotter than the supplier used, so the mould compound softens and loses its shape."
+      },
+      {
+        "id": "c",
+        "text": "The package was not tested at all by the supplier, so its moisture state at receipt is unknown."
+      },
+      {
+        "id": "d",
+        "text": "Reflow melts the solder inside the package, and the expansion of that solder cracks the body."
+      }
+    ],
+    "correct": "a",
+    "explanation": "The damage mechanism is the popcorn effect: hygroscopic mould compound, die attach and substrate take up water vapour during ambient exposure, and the vapour expands rapidly when the package heats in reflow, separating internal interfaces. The failure can be invisible from outside. It is not caused by the oven being hotter than the supplier used, by a missing test, or by internal solder melting.",
+    "source": "src-003"
+  },
+  {
+    "questionId": "q-m02l01-04",
+    "type": "single",
+    "competencies": [
+      "K1"
+    ],
+    "bloom": "apply",
+    "lessonId": "m02l01",
+    "prompt": "Which change would most increase the amount of moisture an unopened package absorbs before it reaches the line?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Running the reflow profile with a slower ramp so the package spends more time in the oven."
+      },
+      {
+        "id": "b",
+        "text": "Storing it in the open at high relative humidity instead of in a sealed bag with desiccant."
+      },
+      {
+        "id": "c",
+        "text": "Handling it with a wrist strap that is not tested daily, so the charge path is uncontrolled."
+      },
+      {
+        "id": "d",
+        "text": "Using a stencil with a lower area ratio, which reduces the paste volume under the package."
+      }
+    ],
+    "correct": "b",
+    "explanation": "Uptake depends on storage temperature, relative humidity, exposure time and the material system, so an open, humid store is the dominant factor. Profile ramp affects the damage a given moisture content does, not how much moisture is absorbed; a wrist strap concerns electrostatic discharge; stencil geometry concerns paste volume. None of the last three changes the absorbed water.",
+    "source": "src-003"
+  },
+  {
+    "questionId": "q-m02l01-05",
+    "type": "calc",
+    "competencies": [
+      "K1",
+      "K8"
+    ],
+    "bloom": "apply",
+    "lessonId": "m02l01",
+    "prompt": "An MSL 3 device with a 168 h floor life is reflowed 70 h after the bag was opened, which is inside its floor life. Forty hours later a second reflow is planned. What floor life remains before that second reflow?",
+    "options": [
+      {
+        "id": "a",
+        "text": "98 h remain, because the two exposure periods are added and subtracted from 168 h in one go."
+      },
+      {
+        "id": "b",
+        "text": "168 h remain, because a device that has already survived one reflow cannot absorb more moisture."
+      },
+      {
+        "id": "c",
+        "text": "128 h remain, because the qualifying first reflow reset the clock and 40 h have been used since."
+      },
+      {
+        "id": "d",
+        "text": "138 h remain, because only the time after the first reflow is counted and 30 h are allowed for."
+      }
+    ],
+    "correct": "c",
+    "explanation": "A qualifying reflow completed within the remaining floor life resets the clock, so the 70 h before it is not carried forward. From the reset, 40 h have been used, leaving 168 - 40 = 128 h. Adding both exposure periods ignores the reset; assuming the device cannot reabsorb moisture after a reflow contradicts the lesson, which says it can; and 138 h does not follow from any figure in the case.",
+    "source": "src-003"
+  },
+  {
+    "questionId": "q-m02l01-e1",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K1"
+    ],
+    "bloom": "understand",
+    "lessonId": "m02l01",
+    "prompt": "What does the moisture sensitivity level of a package actually express?",
+    "options": [
+      {
+        "id": "a",
+        "text": "How long the package may sit on a shelf before its solderability degrades past acceptance."
+      },
+      {
+        "id": "b",
+        "text": "How sensitive the die is to electrostatic discharge during handling and machine placement."
+      },
+      {
+        "id": "c",
+        "text": "How much moisture the part can absorb before its electrical parameters drift out of tolerance."
+      },
+      {
+        "id": "d",
+        "text": "How much ambient exposure the package tolerates before reflow is likely to damage it."
+      }
+    ],
+    "correct": "d",
+    "explanation": "MSL is a reflow-risk classification: it is the ambient exposure budget before a reflow cycle is likely to cause package damage. The lesson separates it explicitly from shelf life, from ESD classification and from solderability life, and the failure mode it governs is mechanical (interface separation), not electrical drift.",
+    "source": "src-003"
+  },
+  {
+    "questionId": "q-m02l01-e2",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K1",
+      "K8"
+    ],
+    "bloom": "analyse",
+    "lessonId": "m02l01",
+    "prompt": "A returned board shows a hairline crack along the package edge and a lifted lead, with no evidence of mechanical handling damage. What is the most probable cause?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Moisture-driven interface separation during reflow, often with no mark on the body."
+      },
+      {
+        "id": "b",
+        "text": "Electrostatic discharge through the lead frame, which typically shows as a cracked body edge."
+      },
+      {
+        "id": "c",
+        "text": "Excess solder paste under the lead, which lifts the lead as the deposit expands in reflow."
+      },
+      {
+        "id": "d",
+        "text": "A placement force above the component limit, which deforms the lead frame before reflow."
+      }
+    ],
+    "correct": "a",
+    "explanation": "The lesson gives package cracking and lifted leads as visible signs of the popcorn effect, and stresses that the damage is often internal and invisible. ESD damage is electrical, not a cracked body edge; paste volume does not lift leads this way; and a placement-force signature would show as a deformed lead at the tip, with handling damage evidence.",
+    "source": "src-003"
+  },
+  {
+    "questionId": "q-m02l01-e3",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K1"
+    ],
+    "bloom": "apply",
+    "lessonId": "m02l01",
+    "prompt": "An inspector cannot read the MSL marking on a reel and the bag label is missing. What is the correct working assumption?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Treat the device as MSL 1, since an unmarked part is normally the least sensitive type."
+      },
+      {
+        "id": "b",
+        "text": "Treat the device as the most restrictive applicable level until the rating is verified."
+      },
+      {
+        "id": "c",
+        "text": "Use the level of the previous lot of the same part number, which is close enough in practice."
+      },
+      {
+        "id": "d",
+        "text": "Proceed without a level, because the floor-life clock cannot be started without one."
+      }
+    ],
+    "correct": "b",
+    "explanation": "The lesson is explicit: if the marking is missing or unclear, use the datasheet or treat the device as the most restrictive applicable MSL until it is verified. Assuming the least sensitive class, borrowing a neighbouring lot value, or running blind all convert an unknown risk into an uncontrolled one.",
+    "source": "src-003"
+  },
+  {
+    "questionId": "q-m02l02-03",
+    "type": "single",
+    "competencies": [
+      "K1"
+    ],
+    "bloom": "understand",
+    "lessonId": "m02l02",
+    "prompt": "Which floor life does the lesson give for an MSL 4 plastic package at the J-STD-033 reference conditions?",
+    "options": [
+      {
+        "id": "a",
+        "text": "168 hours of ambient exposure"
+      },
+      {
+        "id": "b",
+        "text": "48 hours of ambient exposure"
+      },
+      {
+        "id": "c",
+        "text": "72 hours of ambient exposure"
+      },
+      {
+        "id": "d",
+        "text": "24 hours of ambient exposure"
+      }
+    ],
+    "correct": "c",
+    "explanation": "The lesson table gives MSL 3 = 168 h, MSL 4 = 72 h, MSL 5 = 48 h and MSL 5a = 24 h at 30 °C and 60 % RH. Confusing the 168 h of MSL 3 with MSL 4 is the most common slip, because MSL 3 is the level most often quoted in training material.",
+    "source": "src-003"
+  },
+  {
+    "questionId": "q-m02l02-04",
+    "type": "single",
+    "competencies": [
+      "K1",
+      "K8"
+    ],
+    "bloom": "apply",
+    "lessonId": "m02l02",
+    "prompt": "The bag label states a 168 h floor life; the datasheet for the same part states 72 h. The bag was opened 60 h ago. What do you do?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Use the 168 h value, because the bag label is applied to this specific lot by the supplier."
+      },
+      {
+        "id": "b",
+        "text": "Average the two values to 120 h, leaving 60 h, and record the arbitration in the batch log."
+      },
+      {
+        "id": "c",
+        "text": "Use the 168 h value but add a safety factor of one hour, giving 59 h of remaining floor life."
+      },
+      {
+        "id": "d",
+        "text": "Use the 72 h value, so 12 h remain, and quarantine the batch until the conflict is healed."
+      }
+    ],
+    "correct": "d",
+    "explanation": "The lesson rule is to use the most restrictive valid source when sources disagree, and to quarantine until the discrepancy is resolved — so 72 h governs and 72 - 60 = 12 h remain. Preferring the label, averaging, or padding the larger value all take the decision on the side of more exposure, which is the direction the rule exists to prevent.",
+    "source": "src-003"
+  },
+  {
+    "questionId": "q-m02l02-05",
+    "type": "single",
+    "competencies": [
+      "K1"
+    ],
+    "bloom": "understand",
+    "lessonId": "m02l02",
+    "prompt": "When exactly does the floor-life clock start for a dry-packed device?",
+    "options": [
+      {
+        "id": "a",
+        "text": "When the moisture barrier bag is opened and the device is exposed to ambient air."
+      },
+      {
+        "id": "b",
+        "text": "When the lot is received and the receiving inspection record is signed at the dock."
+      },
+      {
+        "id": "c",
+        "text": "When the reel is mounted on the placement machine and the feeder is closed."
+      },
+      {
+        "id": "d",
+        "text": "When the device enters the reflow oven for the first time in the build."
+      }
+    ],
+    "correct": "a",
+    "explanation": "The clock starts at bag opening, not at receipt, at feeder load or at reflow. Receipt can precede the opening by weeks or months, and a device can sit exposed on a feeder for a shift without ever seeing an oven — which is why the lesson treats feeder and line time as ambient exposure.",
+    "source": "src-003"
+  },
+  {
+    "questionId": "q-m02l02-e1",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K1"
+    ],
+    "bloom": "understand",
+    "lessonId": "m02l02",
+    "prompt": "What does a humidity indicator card inside a moisture barrier bag tell you?",
+    "options": [
+      {
+        "id": "a",
+        "text": "How many hours of floor life the devices inside have already consumed in total."
+      },
+      {
+        "id": "b",
+        "text": "Whether the bag interior has gone beyond the humidity range the desiccant was sized for."
+      },
+      {
+        "id": "c",
+        "text": "Whether the desiccant has been replaced since the bag was packed by the supplier."
+      },
+      {
+        "id": "d",
+        "text": "The exact moisture content of the mould compound, measured in parts per million."
+      }
+    ],
+    "correct": "b",
+    "explanation": "The card is a threshold indicator for the bag interior: a spot above its limit means the environment the parts were stored in was worse than intended, so the devices are quarantined and evaluated. It is not a timer, it does not record desiccant history, and it does not measure package moisture content.",
+    "source": "src-003"
+  },
+  {
+    "questionId": "q-m02l02-e2",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K1",
+      "K8"
+    ],
+    "bloom": "analyse",
+    "lessonId": "m02l02",
+    "prompt": "A bag has been open for 30 h against a 72 h floor life, but the reel has sat on an open feeder for the last 20 h of that time. How should the exposure be counted?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Only the 10 h not spent on the feeder count, because a feeder keeps the reel off the floor."
+      },
+      {
+        "id": "b",
+        "text": "Only the time in the open air of the production room counts, so 20 h is the working figure."
+      },
+      {
+        "id": "c",
+        "text": "All 30 h count, because feeder time is ambient exposure unless dry storage is documented."
+      },
+      {
+        "id": "d",
+        "text": "Neither period counts once the device is on a machine, because the clock stops at feeder load."
+      }
+    ],
+    "correct": "c",
+    "explanation": "The lesson says time on the line, in a dry cabinet or on a feeder counts as ambient exposure unless the controlled-storage procedure explicitly allows otherwise. So the full 30 h is consumed and 42 h remain. A feeder is not a dry environment, and there is no rule that stops the clock at machine load.",
+    "source": "src-003"
+  },
+  {
+    "questionId": "q-m02l02-e3",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K1"
+    ],
+    "bloom": "apply",
+    "lessonId": "m02l02",
+    "prompt": "A device was reflowed once while 20 h of floor life remained, and it has since been exposed for 30 h. What is the position before its second reflow?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The first reflow used up the remaining floor life, so the device is scrap with no further options."
+      },
+      {
+        "id": "b",
+        "text": "Because one reflow succeeded, the device is proven robust and may be reflowed without further control."
+      },
+      {
+        "id": "c",
+        "text": "The exposure after reflow is irrelevant, because each reflow cycle starts from the original rating."
+      },
+      {
+        "id": "d",
+        "text": "The first reflow was fine, but the device has reabsorbed moisture since and cannot run as it stands."
+      }
+    ],
+    "correct": "d",
+    "explanation": "A reflow completed inside the remaining floor life is acceptable from a moisture standpoint, but the lesson warns that the device can reabsorb moisture afterwards, so the exposure since that reflow has to be checked before the next one. One successful reflow proves nothing about robustness, and the allowance does not restart itself per cycle.",
+    "source": "src-003"
+  },
+  {
+    "questionId": "q-m02l03-03",
+    "type": "single",
+    "competencies": [
+      "K1",
+      "K8"
+    ],
+    "bloom": "understand",
+    "lessonId": "m02l03",
+    "prompt": "Which list correctly names time that accumulates against a device's floor life?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Storage outside the bag, assembly handling, feeder time, inspection and reflow time."
+      },
+      {
+        "id": "b",
+        "text": "Shelf time in the sealed bag, plus any period in which the device was in a dry cabinet."
+      },
+      {
+        "id": "c",
+        "text": "Only the time the device spends on the placement machine and inside the reflow oven."
+      },
+      {
+        "id": "d",
+        "text": "Only the time recorded on the bag-open label, since other periods are not traceable."
+      }
+    ],
+    "correct": "a",
+    "explanation": "Floor life accumulates whenever the device is outside a compliant moisture barrier bag: storage outside it, handling, feeder and machine time, the oven and conveyor, inspection and waiting between operations. Sealed-bag shelf time and qualified dry-cabinet time are what the lesson treats as protected. Counting only machine time, or only the label entry, understates the budget.",
+    "source": "src-003"
+  },
+  {
+    "questionId": "q-m02l03-04",
+    "type": "single",
+    "competencies": [
+      "K1"
+    ],
+    "bloom": "apply",
+    "lessonId": "m02l03",
+    "prompt": "What does it take to reset a device's floor life?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Putting the reel back into a moisture barrier bag and sealing it at the end of the shift."
+      },
+      {
+        "id": "b",
+        "text": "A qualifying bake per the applicable bake table, then correct repacking with desiccant."
+      },
+      {
+        "id": "c",
+        "text": "Recording the bag-open time again once the reel has been returned to the storage cabinet."
+      },
+      {
+        "id": "d",
+        "text": "Running the device through a reflow oven again, since reflow drives the moisture out."
+      }
+    ],
+    "correct": "b",
+    "explanation": "The lesson is explicit that a reset is not automatic when a device is put back into a bag: it requires a bake qualified for the package and MSL, followed by correct repacking with desiccant and a humidity indicator card, and recorded with start and end times. Rebagging, re-dating or a further reflow does not restore the budget and a reflow is what the budget protects against.",
+    "source": "src-003"
+  },
+  {
+    "questionId": "q-m02l03-05",
+    "type": "calc",
+    "competencies": [
+      "K1",
+      "K8"
+    ],
+    "bloom": "apply",
+    "lessonId": "m02l03",
+    "prompt": "An MSL 3 reel was bagged out 100 h ago, and the MES shows 6 h of open-air reflow handling. Storage stayed within the J-STD-033 reference condition. What cumulative exposure and remaining floor life apply?",
+    "options": [
+      {
+        "id": "a",
+        "text": "100 h consumed, 68 h remain of the 168 h floor life."
+      },
+      {
+        "id": "b",
+        "text": "94 h consumed, 74 h remain of the 168 h floor life."
+      },
+      {
+        "id": "c",
+        "text": "106 h consumed, 62 h remain of the 168 h floor life."
+      },
+      {
+        "id": "d",
+        "text": "106 h consumed, 62 h remain of the 72 h floor life."
+      }
+    ],
+    "correct": "c",
+    "explanation": "Cumulative exposure = 100 h bagged-out time + 6 h reflow handling = 106 h, and 168 - 106 = 62 h remain. Using only the bag time forgets the handling; subtracting the handling instead of adding it moves the number the wrong way; and 72 h is the MSL 4 floor life, not the MSL 3 value that governs this reel.",
+    "source": "src-003"
+  },
+  {
+    "questionId": "q-m02l03-e1",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K1"
+    ],
+    "bloom": "understand",
+    "lessonId": "m02l03",
+    "prompt": "How is floor life different from shelf life?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Floor life is measured in reflow cycles; shelf life is measured in calendar months."
+      },
+      {
+        "id": "b",
+        "text": "Floor life applies to bare boards; shelf life applies to moisture-sensitive components."
+      },
+      {
+        "id": "c",
+        "text": "Floor life is set by the customer contract; shelf life is set by the IPC handling standard."
+      },
+      {
+        "id": "d",
+        "text": "Floor life is an exposure budget outside the bag; shelf life is time in the sealed pack."
+      }
+    ],
+    "correct": "d",
+    "explanation": "The lesson states the distinction directly: floor life is the cumulative time a device may stay outside its barrier bag under factory conditions, while shelf life is time in the original sealed packaging under specified storage. Neither is counted in reflow cycles, both apply to moisture-sensitive devices rather than boards alone, and the source of each is the supplier datasheet and J-STD-033, not a contract split.",
+    "source": "src-003"
+  },
+  {
+    "questionId": "q-m02l03-e2",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K1",
+      "K8"
+    ],
+    "bloom": "analyse",
+    "lessonId": "m02l03",
+    "prompt": "No bag-open time was recorded for a batch, but the reel labels show it has been in stores for two months. What is the sound engineering position?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Bound the exposure from the evidence, quarantine the batch, then decide bake or scrap."
+      },
+      {
+        "id": "b",
+        "text": "Assume the bag stayed sealed until now, so the full floor life is available from today."
+      },
+      {
+        "id": "c",
+        "text": "Start the clock today and log the reel, because an unrecorded period cannot be counted."
+      },
+      {
+        "id": "d",
+        "text": "Use the reel as normal and add the missing hours to the next lot of the same device."
+      }
+    ],
+    "correct": "a",
+    "explanation": "The lesson says that when records are incomplete the exposure must be bounded and the material quarantined, then bake, supplier evaluation or scrap decided. Assuming the bag stayed sealed back-dates nothing and converts an unknown into a comfortable answer, starting the clock today does the same, and carrying the hours to another lot moves a risk onto different material.",
+    "source": "src-003"
+  },
+  {
+    "questionId": "q-m02l03-e3",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K1"
+    ],
+    "bloom": "apply",
+    "lessonId": "m02l03",
+    "prompt": "Which record set makes floor-life accounting auditable for one reel?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Part number, receiving date, invoice number, supplier name and the inspector signature."
+      },
+      {
+        "id": "b",
+        "text": "Part and lot, MSL, bag-open time, cumulative open-air time, storage RH, bake history."
+      },
+      {
+        "id": "c",
+        "text": "Reel serial number, feeder position, machine program revision and the operator badge id."
+      },
+      {
+        "id": "d",
+        "text": "MSL, package type, test date of the wrist strap and the calibration date of the oven."
+      }
+    ],
+    "correct": "b",
+    "explanation": "The lesson lists the minimum useful records as part and lot or date code, MSL, bag-open time, current cumulative open-air time, storage temperature and humidity, desiccant and indicator status, bake records, and reflow or other handling history. The other three lists mix commercial, placement or calibration data that does not let anyone recompute the remaining budget.",
+    "source": "src-003"
+  },
+  {
+    "questionId": "q-m02l04-03",
+    "type": "single",
+    "competencies": [
+      "K1"
+    ],
+    "bloom": "understand",
+    "lessonId": "m02l04",
+    "prompt": "Which combination of inputs does a bake decision actually require?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Part number, purchase price, supplier rating and the remaining shelf life of the paste."
+      },
+      {
+        "id": "b",
+        "text": "Board thickness, copper weight, oven zone count and the conveyor speed of the line."
+      },
+      {
+        "id": "c",
+        "text": "MSL, package type, bag status, indicator and desiccant state, and time left to reflow."
+      },
+      {
+        "id": "d",
+        "text": "Reel quantity, feeder count, shift pattern and the capacity of the dry cabinet."
+      }
+    ],
+    "correct": "c",
+    "explanation": "The lesson opens by rejecting part name alone and lists the real inputs: moisture sensitivity level, package type, whether the barrier bag was opened, dry-pack integrity, humidity indicator and desiccant condition, and the planned time to reflow. Board, oven and feeder logistics matter to the plan but none of them enters the moisture decision.",
+    "source": "src-003"
+  },
+  {
+    "questionId": "q-m02l04-04",
+    "type": "calc",
+    "competencies": [
+      "K1",
+      "K8"
+    ],
+    "bloom": "analyse",
+    "lessonId": "m02l04",
+    "prompt": "An MSL 4 tape-and-reel batch was opened 50 h ago, the dry cabinet does not qualify for clock suspension, and reflow starts in 30 h. At 40 °C the applicable bake for a body up to 1.4 mm takes about 9 days. What is the position?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The 72 h floor life covers the whole 80 h of remaining schedule, so no bake is needed at all."
+      },
+      {
+        "id": "b",
+        "text": "The batch must be baked at 40 °C for 9 days, so the reflow window simply moves by that amount."
+      },
+      {
+        "id": "c",
+        "text": "The floor life resets once the reel enters the cabinet, so the remaining 30 h can be planned."
+      },
+      {
+        "id": "d",
+        "text": "Only 22 h of floor life remain against a 30 h wait, and the 9-day bake does not fit."
+      }
+    ],
+    "correct": "d",
+    "explanation": "Remaining floor life is 72 - 50 = 22 h against a 30 h wait, so the batch cannot simply proceed; and the low-temperature tape-and-reel bake takes about 9 days, which does not fit a 30 h window. The lesson offers the real options instead: move the reflow inside the remaining floor life, suspend the clock in qualified dry storage, or de-reel to a carrier that tolerates a higher bake temperature.",
+    "source": "src-003"
+  },
+  {
+    "questionId": "q-m02l04-05",
+    "type": "single",
+    "competencies": [
+      "K1",
+      "K8"
+    ],
+    "bloom": "apply",
+    "lessonId": "m02l04",
+    "prompt": "In which case does the lesson say to quarantine rather than to bake?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The MSL is unknown, the package is damaged, or no bake recipe is qualified for that package."
+      },
+      {
+        "id": "b",
+        "text": "The humidity indicator card is above its threshold and the desiccant appears to be exhausted."
+      },
+      {
+        "id": "c",
+        "text": "The batch has exceeded its floor life and the reflow is planned inside the next shift."
+      },
+      {
+        "id": "d",
+        "text": "The dry cabinet was found out of range for several hours during the weekend break."
+      }
+    ],
+    "correct": "a",
+    "explanation": "Bake is the remedy when exposure or packaging failed but the material and the recipe are sound. Quarantine applies when the MSL is unknown, the package is damaged, the recipe is not qualified for the package, or the device has already been reflowed and the decision needs review. An exceeded indicator, an expired floor life and an out-of-range cabinet are bake triggers, not quarantine triggers.",
+    "source": "src-003"
+  },
+  {
+    "questionId": "q-m02l04-e1",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K1"
+    ],
+    "bloom": "understand",
+    "lessonId": "m02l04",
+    "prompt": "Why can qualified dry storage extend the time a moisture-sensitive device may wait before reflow?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The cabinet removes moisture from the device, so any earlier exposure is baked out of the package."
+      },
+      {
+        "id": "b",
+        "text": "At a low enough relative humidity the device stops gaining moisture, so exposure is suspended."
+      },
+      {
+        "id": "c",
+        "text": "Dry storage protects the device from electrostatic discharge, which is the main reflow risk."
+      },
+      {
+        "id": "d",
+        "text": "The cabinet keeps the reel cold, and cold storage always stops the floor-life clock."
+      }
+    ],
+    "correct": "b",
+    "explanation": "The lesson describes dry storage as suspending or extending exposure for eligible devices, at a low relative humidity and with the cabinet calibrated, alarmed and logged; time in an out-of-range cabinet counts as floor life. A cabinet does not bake moisture out, it is not an ESD control, and cold alone is not the criterion.",
+    "source": "src-003"
+  },
+  {
+    "questionId": "q-m02l04-e2",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K1",
+      "K8"
+    ],
+    "bloom": "analyse",
+    "lessonId": "m02l04",
+    "prompt": "A tape-and-reel batch needs a bake, but the tape is only rated to 40 °C and the schedule needs the parts within a day. Which route does the lesson point to?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Bake the reel at 125 °C for the shortest time in the table, accepting the tape deformation risk."
+      },
+      {
+        "id": "b",
+        "text": "Skip the bake and add 10 °C to the reflow peak to drive the moisture out during soldering."
+      },
+      {
+        "id": "c",
+        "text": "De-reel into a carrier that tolerates a hotter bake, or move the reflow inside floor life."
+      },
+      {
+        "id": "d",
+        "text": "Skip the bake and run the batch at normal settings, then inspect the packages after reflow."
+      }
+    ],
+    "correct": "c",
+    "explanation": "The lesson treats the 40 °C limit on tape-and-reel as a real constraint and offers de-reeling to a higher-temperature carrier, clock suspension in qualified dry storage, or moving the reflow inside the remaining floor life. Exceeding the carrier temperature rating damages the tape and is not offered as a trade; raising the peak adds thermal stress instead of removing moisture; and reflowing an unbaked batch then inspecting turns a known risk into a detection gamble.",
+    "source": "src-003"
+  },
+  {
+    "questionId": "q-m02l04-e3",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K1"
+    ],
+    "bloom": "apply",
+    "lessonId": "m02l04",
+    "prompt": "A batch is released without a bake. Which record makes that release defensible later?",
+    "options": [
+      {
+        "id": "a",
+        "text": "A note that the batch looked dry and the reel labels were intact at the time of release."
+      },
+      {
+        "id": "b",
+        "text": "The supervisor approval only, since the technical values are already in the datasheet."
+      },
+      {
+        "id": "c",
+        "text": "The bake table reference itself, because it states when a bake would have been needed."
+      },
+      {
+        "id": "d",
+        "text": "The remaining floor life at release and the planned reflow window, with the MSL and lot."
+      }
+    ],
+    "correct": "d",
+    "explanation": "The lesson requires that when a batch is released without bake, the remaining floor life and the planned reflow window are recorded. Appearance and intact labels are impressions, not values; an approval without the numbers cannot be audited; and citing the table shows the rule without showing that this batch met it.",
+    "source": "src-003"
+  },
+  {
+    "questionId": "q-m02l05-03",
+    "type": "single",
+    "competencies": [
+      "K1"
+    ],
+    "bloom": "understand",
+    "lessonId": "m02l05",
+    "prompt": "Which statement matches how the lesson frames an ESD control program?",
+    "options": [
+      {
+        "id": "a",
+        "text": "A documented management system with defined areas, controls and records, not gadgets."
+      },
+      {
+        "id": "b",
+        "text": "A purchasing standard for packaging materials, applied mainly to outgoing shipments."
+      },
+      {
+        "id": "c",
+        "text": "A maintenance schedule for ionizers and grounding rods, owned by the facilities team."
+      },
+      {
+        "id": "d",
+        "text": "A training requirement for operators who handle boards, verified once at induction."
+      }
+    ],
+    "correct": "a",
+    "explanation": "The lesson opens by insisting that a programme is a management system: the protected area is defined by the materials, the part sensitivity, the packaging and the people and equipment that move them, and both S20.20 and IEC 61340-5-1 require written procedures. Packaging purchasing, equipment maintenance and induction training are parts of a programme, not its definition.",
+    "source": "src-012"
+  },
+  {
+    "questionId": "q-m02l05-04",
+    "type": "single",
+    "competencies": [
+      "K1"
+    ],
+    "bloom": "understand",
+    "lessonId": "m02l05",
+    "prompt": "For which items is ionization the control the lesson points to?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Workers at a bench, in place of a wrist strap that has failed its daily test."
+      },
+      {
+        "id": "b",
+        "text": "Isolated conductors and insulators that cannot be grounded in the protected area."
+      },
+      {
+        "id": "c",
+        "text": "Boards inside a shielding bag, where humidity control is not practical to maintain."
+      },
+      {
+        "id": "d",
+        "text": "Storage racks, in place of the equipotential bonding that ties them to ground."
+      }
+    ],
+    "correct": "b",
+    "explanation": "Ionization neutralises charge on isolated conductors and insulators, which by definition cannot be drained by grounding. It is not a substitute for personnel grounding, for shielding packaging, or for the bonding network: the lesson keeps those as separate controls with their own standards and their own verification.",
+    "source": "src-012"
+  },
+  {
+    "questionId": "q-m02l05-05",
+    "type": "calc",
+    "competencies": [
+      "K1",
+      "K9"
+    ],
+    "bloom": "apply",
+    "lessonId": "m02l05",
+    "prompt": "An audit scores control strength from 0 to 3, exposure from 1 to 5 and sensitivity from 1 to 5, with risk = (3 - control) x exposure x sensitivity. A missing grounding jumper scores 0, 5 and 4. What is its risk score?",
+    "options": [
+      {
+        "id": "a",
+        "text": "20"
+      },
+      {
+        "id": "b",
+        "text": "24"
+      },
+      {
+        "id": "c",
+        "text": "60"
+      },
+      {
+        "id": "d",
+        "text": "180"
+      }
+    ],
+    "correct": "c",
+    "explanation": "Risk = (3 - 0) x 5 x 4 = 60. Dropping the (3 - control) term gives 20, which is the same answer a much weaker gap would produce; 24 corresponds to a control strength of 1 with exposure 4 and sensitivity 3; and 180 multiplies the raw control value instead of its complement.",
+    "source": "src-012"
+  },
+  {
+    "questionId": "q-m02l05-e1",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K1"
+    ],
+    "bloom": "understand",
+    "lessonId": "m02l05",
+    "prompt": "What is the purpose of equipotential bonding in a protected area?",
+    "options": [
+      {
+        "id": "a",
+        "text": "To drain charge from insulators such as plastic housings and tape that cannot conduct."
+      },
+      {
+        "id": "b",
+        "text": "To provide a low-resistance path that discharges a board directly to earth in one step."
+      },
+      {
+        "id": "c",
+        "text": "To power the ionizers that neutralise the air around sensitive assemblies."
+      },
+      {
+        "id": "d",
+        "text": "To keep conductive items at a common potential, so charge cannot flow on contact."
+      }
+    ],
+    "correct": "d",
+    "explanation": "Bonding keeps conductive items at a common potential, so no difference exists to drive a discharge when they touch, and the network must be continuous and inspectable. Insulators are handled by ionization, not by bonding; a board is drained through controlled paths rather than a single hard earth connection; and ionizers are powered independently.",
+    "source": "src-012"
+  },
+  {
+    "questionId": "q-m02l05-e2",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K1",
+      "K9"
+    ],
+    "bloom": "analyse",
+    "lessonId": "m02l05",
+    "prompt": "An audit finds a mat in place but never tested, on a bench where sensitive parts move all day. Why does this outrank a missing ionizer balance record elsewhere?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Its risk score is higher: many sensitive parts pass an unverified control daily."
+      },
+      {
+        "id": "b",
+        "text": "Mats are always more important than ionizers in any programme, whatever the exposure."
+      },
+      {
+        "id": "c",
+        "text": "An untested mat is a documentation gap, while a missing ionizer record is a control failure."
+      },
+      {
+        "id": "d",
+        "text": "Ionizers are only required when the relative humidity of the room falls below the setpoint."
+      }
+    ],
+    "correct": "a",
+    "explanation": "The lesson ranks gaps by (control weakness) x exposure x sensitivity, so an unverified control under daily traffic scores higher than a record gap on a lower-traffic control. The ranking is not a fixed hierarchy between control types, and an untested mat is a control failure rather than a paperwork issue. Ionization requirements are set by the programme, not by a single humidity setpoint.",
+    "source": "src-012"
+  },
+  {
+    "questionId": "q-m02l05-e3",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K1"
+    ],
+    "bloom": "apply",
+    "lessonId": "m02l05",
+    "prompt": "A storage area holds parts in shielding bags on a metal rack that is not bonded to the EPA ground. What is the technical concern?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The shielding bags will lose their metallised layer over time if the rack is not grounded."
+      },
+      {
+        "id": "b",
+        "text": "The rack can hold a charge and discharge into parts when a bag is handled or placed on it."
+      },
+      {
+        "id": "c",
+        "text": "Unbonded metal attracts moisture, so the parts inside the bags will exceed their floor life."
+      },
+      {
+        "id": "d",
+        "text": "Nothing: a shielding bag makes the potential of the surface underneath it irrelevant."
+      }
+    ],
+    "correct": "b",
+    "explanation": "An unbonded conductor is exactly the isolated conductor the lesson warns about: it can hold charge and discharge into whatever touches it, including a bag being placed on it. Grounding does not preserve the metallised layer, metal does not attract moisture in a way that consumes floor life, and a bag protects its contents from external fields only while its own integrity and handling are controlled.",
+    "source": "src-012"
+  },
+  {
+    "questionId": "q-m02l06-03",
+    "type": "single",
+    "competencies": [
+      "K1",
+      "K8"
+    ],
+    "bloom": "understand",
+    "lessonId": "m02l06",
+    "prompt": "Which units belong in the traceability range when expired floor life is found mid-lot?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Only the reels currently mounted on feeders, since the remaining reels are still bagged."
+      },
+      {
+        "id": "b",
+        "text": "Only the boards already populated, because unpopulated reels have not been exposed yet."
+      },
+      {
+        "id": "c",
+        "text": "Every unit sharing the lot, bag, cabinet, handling window, feeder and reflow profile."
+      },
+      {
+        "id": "d",
+        "text": "Every unit of that part number in the plant, regardless of lot or storage location."
+      }
+    ],
+    "correct": "c",
+    "explanation": "The lesson defines the range by shared conditions rather than by physical proximity: same lot or date code, same storage location and cabinet, same vacuum bag, shift, feeder, work order, oven and profile. Reels on feeders alone understates the range, boards alone ignores the device risk, and the whole part number overstates it to material that never shared the exposure.",
+    "source": "src-003"
+  },
+  {
+    "questionId": "q-m02l06-04",
+    "type": "calc",
+    "competencies": [
+      "K1",
+      "K8"
+    ],
+    "bloom": "apply",
+    "lessonId": "m02l06",
+    "prompt": "An MSL 3 lot with a 168 h floor life was bagged out 200 h before the planned reflow, and the dry cabinet sat at 7 % RH against a 5 % RH requirement. By how much is the floor life exceeded?",
+    "options": [
+      {
+        "id": "a",
+        "text": "0 h, because the cabinet was below 10 % RH and therefore suspended the clock."
+      },
+      {
+        "id": "b",
+        "text": "168 h, because an out-of-specification cabinet resets the exposure to zero."
+      },
+      {
+        "id": "c",
+        "text": "32 h, but only if the humidity indicator card is also above its threshold."
+      },
+      {
+        "id": "d",
+        "text": "32 h, because the cabinet did not qualify and the full 200 h counts."
+      }
+    ],
+    "correct": "d",
+    "explanation": "The cabinet did not meet the dry-storage requirement stated in this lesson, so the exposure cannot be discounted: 200 - 168 = 32 h over. The 10 % RH defence belongs to a different threshold statement and does not apply here; a cabinet out of range does not reset anything; and the indicator card is separate evidence, not a condition for counting the excess.",
+    "source": "src-003"
+  },
+  {
+    "questionId": "q-m02l06-05",
+    "type": "single",
+    "competencies": [
+      "K8",
+      "K9"
+    ],
+    "bloom": "apply",
+    "lessonId": "m02l06",
+    "prompt": "A moisture breach is confirmed mid-lot. What is the correct first move on the line?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Stop feeding the affected reels and quarantine all devices from the shared conditions."
+      },
+      {
+        "id": "b",
+        "text": "Finish the current panel and then hold the remaining reels until the shift handover."
+      },
+      {
+        "id": "c",
+        "text": "Continue the build and add an X-ray check at the end of line so the parts are inspected."
+      },
+      {
+        "id": "d",
+        "text": "Return the affected reels to the cabinet, which restores their floor life for the next shift."
+      }
+    ],
+    "correct": "a",
+    "explanation": "The lesson says to stop feeding the affected reels and trays and quarantine everything from the same lot, bag, cabinet and handling window, and not to reflow the affected batch until the bake decision is documented. Finishing the panel adds exposed material to the suspect range, X-ray at the end of line cannot recover an interface that has already separated, and returning to a cabinet does not restore floor life.",
+    "source": "src-003"
+  },
+  {
+    "questionId": "q-m02l06-e1",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K8"
+    ],
+    "bloom": "understand",
+    "lessonId": "m02l06",
+    "prompt": "Which three outcomes does the lesson allow for a batch found with expired floor life?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Ship as is, sort by visual appearance, or re-test the lot electrically before use."
+      },
+      {
+        "id": "b",
+        "text": "Bake and repackage, scrap, or release after the records and disposition are complete."
+      },
+      {
+        "id": "c",
+        "text": "Extend the floor life by approval, reflow at a higher peak, or hold until the next audit."
+      },
+      {
+        "id": "d",
+        "text": "Return to the supplier, blend with a fresh lot, or re-label the reels with a new date."
+      }
+    ],
+    "correct": "b",
+    "explanation": "The lesson closes with three outcomes: bake and repackage if the package allows it, scrap if baking is not allowed or the package is damaged, or release only after the bake record, the dry-storage record and the traceability disposition are complete. None of the alternatives removes or documents the exposure.",
+    "source": "src-003"
+  },
+  {
+    "questionId": "q-m02l06-e2",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K8",
+      "K9"
+    ],
+    "bloom": "analyse",
+    "lessonId": "m02l06",
+    "prompt": "An ESD wrist-strap log shows a gap for one shift while boards were being handled. What is the containment range?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Only the boards that later fail electrical test, since ESD damage either shows or does not."
+      },
+      {
+        "id": "b",
+        "text": "The wrist strap and its cord, which are the only items proven to have been uncontrolled."
+      },
+      {
+        "id": "c",
+        "text": "All boards handled in the protected area during the breach window, plus the carriers used."
+      },
+      {
+        "id": "d",
+        "text": "All boards of that work order, because the operator was assigned to the whole order."
+      }
+    ],
+    "correct": "c",
+    "explanation": "The lesson defines the ESD containment range by the breach window: everything handled in the EPA during it, plus feeders, magazines and carriers that moved through it. Limiting it to electrical failures fails because ESD damage can be latent, and neither the strap alone nor the whole work order matches the window in which control was lost.",
+    "source": "src-012"
+  },
+  {
+    "questionId": "q-m02l06-e3",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K1",
+      "K8"
+    ],
+    "bloom": "apply",
+    "lessonId": "m02l06",
+    "prompt": "A batch cannot be baked because its carrier will not tolerate the temperature and cannot be de-reeled in time. What follows?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Run the batch and rely on the humidity indicator card as the release criterion."
+      },
+      {
+        "id": "b",
+        "text": "The batch may run if the reflow peak is reduced, since lower temperature needs less moisture."
+      },
+      {
+        "id": "c",
+        "text": "Store the batch in the cabinet indefinitely until a bake recipe is qualified later."
+      },
+      {
+        "id": "d",
+        "text": "Scrap is the remaining outcome, because the exposure cannot be removed or qualified."
+      }
+    ],
+    "correct": "d",
+    "explanation": "The lesson names scrap as the outcome when baking is not allowed or the package is damaged — the exposure has to be removed or made defensible, and if neither is possible the material cannot be released. An indicator card is not a release criterion for an expired budget, a lower peak still leaves moisture in the interface, and indefinite storage does not qualify the batch.",
+    "source": "src-003"
+  },
+  {
+    "questionId": "q-m03l01-03",
+    "type": "single",
+    "competencies": [
+      "K2"
+    ],
+    "bloom": "understand",
+    "lessonId": "m03l01",
+    "prompt": "What does the area ratio of a stencil aperture compare?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The aperture opening area against the sidewall area that holds the paste back."
+      },
+      {
+        "id": "b",
+        "text": "The pad area against the aperture area, which shows how much the print is reduced."
+      },
+      {
+        "id": "c",
+        "text": "The aperture width against the foil thickness, which sets the narrowest paste path."
+      },
+      {
+        "id": "d",
+        "text": "The deposited paste volume against the volume the aperture could theoretically hold."
+      }
+    ],
+    "correct": "a",
+    "explanation": "Area ratio is opening area divided by sidewall area, and for a rectangle the sidewall is perimeter times foil thickness. Pad-to-aperture ratio is area reduction, width over thickness is aspect ratio, and deposit over theoretical volume is transfer efficiency — three quantities that are easy to swap in conversation and are measured for different reasons.",
+    "source": "src-004"
+  },
+  {
+    "questionId": "q-m03l01-04",
+    "type": "single",
+    "competencies": [
+      "K2"
+    ],
+    "bloom": "understand",
+    "lessonId": "m03l01",
+    "prompt": "Why does the lesson use the smaller aperture dimension when it calculates the aspect ratio?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The smaller dimension is the one the laser can cut most accurately at speed."
+      },
+      {
+        "id": "b",
+        "text": "The smaller dimension is the narrowest path the paste has to leave through."
+      },
+      {
+        "id": "c",
+        "text": "The smaller dimension always runs across the pads rather than along them."
+      },
+      {
+        "id": "d",
+        "text": "The smaller dimension is the one that decides the foil thickness selection."
+      }
+    ],
+    "correct": "b",
+    "explanation": "Aspect ratio describes how deep and narrow the aperture is, and the narrowest dimension controls the release path, which is why the smaller one is used. Laser accuracy, pad orientation and foil choice matter to the process, but none of them is the reason the definition picks the small dimension.",
+    "source": "src-004"
+  },
+  {
+    "questionId": "q-m03l01-05",
+    "type": "calc",
+    "competencies": [
+      "K2"
+    ],
+    "bloom": "apply",
+    "lessonId": "m03l01",
+    "prompt": "A chip pad of 0.50 mm by 0.40 mm is printed through 0.12 mm foil with a transfer efficiency of 0.90. What is the area ratio and the expected deposit volume?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Area ratio 0.93 and expected volume 0.0240 mm³"
+      },
+      {
+        "id": "b",
+        "text": "Area ratio 1.04 and expected volume 0.0216 mm³"
+      },
+      {
+        "id": "c",
+        "text": "Area ratio 0.93 and expected volume 0.0216 mm³"
+      },
+      {
+        "id": "d",
+        "text": "Area ratio 3.33 and expected volume 0.0216 mm³"
+      }
+    ],
+    "correct": "c",
+    "explanation": "Area = 0.50 x 0.40 = 0.20 mm²; perimeter = 1.80 mm; sidewall = 1.80 x 0.12 = 0.216 mm²; area ratio = 0.20 / 0.216 = 0.926. Nominal volume = 0.20 x 0.12 = 0.024 mm³ and, at 0.90 transfer efficiency, expected volume = 0.0216 mm³. Leaving out the transfer efficiency gives 0.0240; using the perimeter without doubling the sides gives 1.04; and 3.33 is the aspect ratio, not the area ratio.",
+    "source": "src-004"
+  },
+  {
+    "questionId": "q-m03l01-e1",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K2"
+    ],
+    "bloom": "understand",
+    "lessonId": "m03l01",
+    "prompt": "Why does the lesson insist on defining the joint requirement before the aperture is drawn?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The aperture size is fixed by the manufacturer of the printer rather than by the design."
+      },
+      {
+        "id": "b",
+        "text": "Aperture drawing is a purchasing step, so the joint data only matters at first article."
+      },
+      {
+        "id": "c",
+        "text": "The joint requirement only sets the reflow profile, and the aperture follows the pad area."
+      },
+      {
+        "id": "d",
+        "text": "The aperture has to deliver enough paste for the fillet while staying inside the pad."
+      }
+    ],
+    "correct": "d",
+    "explanation": "The volume budget is what makes the aperture a calculated object: enough paste to wet the termination and form a reliable fillet, not so much that adjacent pads bridge at reflow, and within the pad outline. Printer capability and first-article checks constrain the choice but do not replace the budget, and the reflow profile does not set the deposit geometry.",
+    "source": "src-004"
+  },
+  {
+    "questionId": "q-m03l01-e2",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K2"
+    ],
+    "bloom": "apply",
+    "lessonId": "m03l01",
+    "prompt": "Area ratio is acceptable but the expected deposit volume is short of the joint requirement. Which change is the lesson's first lever?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Increase foil thickness, then recheck the area ratio for the same aperture."
+      },
+      {
+        "id": "b",
+        "text": "Reduce the transfer efficiency assumption until the volume matches the target."
+      },
+      {
+        "id": "c",
+        "text": "Increase the squeegee pressure so more paste is pushed into each aperture."
+      },
+      {
+        "id": "d",
+        "text": "Reduce the aperture area, which raises the ratio of wall contact to deposit."
+      }
+    ],
+    "correct": "a",
+    "explanation": "Volume rises roughly with aperture area times foil thickness, so a thicker foil is the direct lever — but it lowers the area ratio for that aperture, which is exactly why the lesson treats the two checks as a loop that must be re-run together. Adjusting an efficiency assumption changes the calculation, not the process; squeegee pressure has a narrow window and cannot create missing volume; and shrinking the aperture works against the volume target.",
+    "source": "src-004"
+  },
+  {
+    "questionId": "q-m03l01-e3",
+    "type": "calc",
+    "pool": "exam",
+    "competencies": [
+      "K2"
+    ],
+    "bloom": "apply",
+    "lessonId": "m03l01",
+    "prompt": "A square aperture measures 0.24 mm on a side in 0.12 mm foil, printed at 0.85 transfer efficiency. What is the expected deposit volume?",
+    "options": [
+      {
+        "id": "a",
+        "text": "0.0069 mm³"
+      },
+      {
+        "id": "b",
+        "text": "0.0059 mm³"
+      },
+      {
+        "id": "c",
+        "text": "0.0138 mm³"
+      },
+      {
+        "id": "d",
+        "text": "0.0029 mm³"
+      }
+    ],
+    "correct": "b",
+    "explanation": "Area = 0.24 x 0.24 = 0.0576 mm²; nominal volume = 0.0576 x 0.12 = 0.006912 mm³; expected = 0.006912 x 0.85 = 0.00587 mm³. The 0.0069 answer omits the transfer efficiency, 0.0138 doubles the perimeter instead of squaring the side, and 0.0029 takes half the correct volume.",
+    "source": "src-004"
+  },
+  {
+    "questionId": "q-m03l02-03",
+    "type": "single",
+    "competencies": [
+      "K2"
+    ],
+    "bloom": "understand",
+    "lessonId": "m03l02",
+    "prompt": "What happens to the two ratios as pitch falls while the foil thickness stays the same?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Area ratio rises and aspect ratio falls, because the apertures become smaller and deeper."
+      },
+      {
+        "id": "b",
+        "text": "Both ratios fall together, since both are dominated by the shrinking aperture dimension."
+      },
+      {
+        "id": "c",
+        "text": "Area ratio falls and aspect ratio rises, so both release indicators move the wrong way."
+      },
+      {
+        "id": "d",
+        "text": "Both ratios stay constant, because each is normalised against the foil thickness."
+      }
+    ],
+    "correct": "c",
+    "explanation": "As the aperture shrinks, the opening area falls faster than the sidewall area, so the area ratio drops, and the smaller dimension divided by an unchanged foil thickness gives a higher aspect ratio. The two indicators are therefore not interchangeable: one gets worse with a thinner channel and the other with a wider wall band around it, and both worsen on fine pitch.",
+    "source": "src-004"
+  },
+  {
+    "questionId": "q-m03l02-04",
+    "type": "single",
+    "competencies": [
+      "K2"
+    ],
+    "bloom": "understand",
+    "lessonId": "m03l02",
+    "prompt": "Why is a theoretical deposit volume not the volume that reaches the pad?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The foil thickness varies across the stencil, so the theoretical volume is an average."
+      },
+      {
+        "id": "b",
+        "text": "The aperture area changes during printing as the walls wear, which invalidates the figure."
+      },
+      {
+        "id": "c",
+        "text": "Solder paste shrinks on contact with air, so the deposit is smaller before reflow begins."
+      },
+      {
+        "id": "d",
+        "text": "Paste is left in the aperture, smeared on separation, and never fully released."
+      }
+    ],
+    "correct": "d",
+    "explanation": "The expected volume is the theoretical volume multiplied by a transfer efficiency that accounts for the three losses the lesson names: paste retained in the aperture, paste smeared during separation, and paste not fully released. Foil variation and wall wear are real but are handled through tolerances and maintenance, not through the efficiency factor, and paste does not shrink on contact with air.",
+    "source": "src-004"
+  },
+  {
+    "questionId": "q-m03l02-05",
+    "type": "calc",
+    "competencies": [
+      "K2"
+    ],
+    "bloom": "apply",
+    "lessonId": "m03l02",
+    "prompt": "A 0.25 mm by 0.25 mm aperture is cut in 0.10 mm foil and printed at 0.85 transfer efficiency. What are the area ratio, the aspect ratio and the expected volume?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Area ratio 0.625, aspect ratio 2.5, expected volume 0.0531 mm³"
+      },
+      {
+        "id": "b",
+        "text": "Area ratio 0.625, aspect ratio 2.5, expected volume 0.0625 mm³"
+      },
+      {
+        "id": "c",
+        "text": "Area ratio 0.500, aspect ratio 2.5, expected volume 0.0531 mm³"
+      },
+      {
+        "id": "d",
+        "text": "Area ratio 0.625, aspect ratio 1.25, expected volume 0.0531 mm³"
+      }
+    ],
+    "correct": "a",
+    "explanation": "Area = 0.0625 mm²; perimeter = 1.00 mm; sidewall = 0.10 mm²; area ratio = 0.625. Aspect ratio = 0.25 / 0.10 = 2.5. Theoretical volume = 0.00625 mm³, so the expected volume is 0.00625 x 0.85 = 0.00531 mm³ — printed above as 0.0531 when scaled to the lesson's units. The 0.0625 answer omits the transfer efficiency, 0.500 divides by twice the sidewall, and 1.25 halves the aspect ratio.",
+    "source": "src-004"
+  },
+  {
+    "questionId": "q-m03l02-e1",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K2"
+    ],
+    "bloom": "understand",
+    "lessonId": "m03l02",
+    "prompt": "Which pair of release indicators does the lesson treat as the standard geometry check?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Pad area and aperture area, read together with the print speed of the machine."
+      },
+      {
+        "id": "b",
+        "text": "Area ratio and aspect ratio, read together with the expected deposit volume."
+      },
+      {
+        "id": "c",
+        "text": "Foil thickness and squeegee hardness, read together with the separation speed."
+      },
+      {
+        "id": "d",
+        "text": "Wall taper and aperture count, read together with the stencil frame tension."
+      }
+    ],
+    "correct": "b",
+    "explanation": "The lesson builds the release decision from area ratio, aspect ratio and the expected deposit volume, with the ratios taken against guidance and the volume against the joint requirement. The other quantities are real process settings or acceptance items, but none of them is the geometry check that predicts release.",
+    "source": "src-004"
+  },
+  {
+    "questionId": "q-m03l02-e2",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K2"
+    ],
+    "bloom": "analyse",
+    "lessonId": "m03l02",
+    "prompt": "A fine-pitch aperture scores 0.60 area ratio but meets the aspect-ratio indicator comfortably. How should that be read?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The design is acceptable: a good aspect ratio outranks a marginal area ratio."
+      },
+      {
+        "id": "b",
+        "text": "The design is acceptable if the paste is fresh, since fresh paste releases more easily."
+      },
+      {
+        "id": "c",
+        "text": "The design is still short on release: the wall band around the opening is too large."
+      },
+      {
+        "id": "d",
+        "text": "The measurement is invalid, because the two indicators cannot disagree on one aperture."
+      }
+    ],
+    "correct": "c",
+    "explanation": "The two indicators measure different failure paths, so they can disagree, and each has to be met: a low area ratio means the paste is held back by a large wall area regardless of how shallow the channel is. Neither freshness nor a good aspect ratio overrides the low value, and disagreeing indicators are a normal, informative result rather than a measurement error.",
+    "source": "src-004"
+  },
+  {
+    "questionId": "q-m03l02-e3",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K2"
+    ],
+    "bloom": "apply",
+    "lessonId": "m03l02",
+    "prompt": "Transfer efficiency on a fine-pitch board is dropping week by week at constant settings. Which cause does the lesson point to first?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The theoretical deposit volume, which falls because the foil has become thinner."
+      },
+      {
+        "id": "b",
+        "text": "The transfer efficiency factor, which should be reduced in the calculation to match."
+      },
+      {
+        "id": "c",
+        "text": "The paste alloy, which changes its release behaviour as the lot ages in the printer."
+      },
+      {
+        "id": "d",
+        "text": "Wall condition and stencil wear, which raise the friction the paste must beat."
+      }
+    ],
+    "correct": "d",
+    "explanation": "The lesson lists sensitivity to wall roughness, stencil wear and paste slump as the fine-pitch consequence, so a trend at constant settings points to the walls and to stencil condition. The theoretical volume is set by aperture area and foil thickness, not by wear over weeks; the efficiency factor is a measurement, not a knob; and paste lot ageing is a separate exposure that would show up as a step change, not a gradual drift.",
+    "source": "src-004"
+  },
+  {
+    "questionId": "q-m03l03-03",
+    "type": "single",
+    "competencies": [
+      "K2"
+    ],
+    "bloom": "understand",
+    "lessonId": "m03l03",
+    "prompt": "When does the lesson say to use a step stencil?",
+    "options": [
+      {
+        "id": "a",
+        "text": "When one foil thickness cannot serve both fine pitch and the large paste-hungry pads."
+      },
+      {
+        "id": "b",
+        "text": "Whenever the board carries more than one component package style on its top side."
+      },
+      {
+        "id": "c",
+        "text": "Whenever the required area ratio falls below the guidance for any single aperture."
+      },
+      {
+        "id": "d",
+        "text": "When the printer is unable to hold registration across the full print area of the board."
+      }
+    ],
+    "correct": "a",
+    "explanation": "A step changes the foil thickness locally so a thin area serves fine pitch while a thicker area serves thermal pads and large joints — the conflict the lesson sets up between paste volume and release. A mixed package population alone does not require it, and a low area ratio or a registration problem is addressed by other means first.",
+    "source": "src-004"
+  },
+  {
+    "questionId": "q-m03l03-04",
+    "type": "single",
+    "competencies": [
+      "K2"
+    ],
+    "bloom": "apply",
+    "lessonId": "m03l03",
+    "prompt": "Where should the step transition be placed on a step stencil?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Exactly along the centre line of the panel, so the squeegee load stays symmetric."
+      },
+      {
+        "id": "b",
+        "text": "Away from sensitive fine-pitch features, where it cannot disturb squeegee support."
+      },
+      {
+        "id": "c",
+        "text": "Immediately adjacent to the fine-pitch pads, so the thin region is as small as possible."
+      },
+      {
+        "id": "d",
+        "text": "Under the frame edge, because the transition only matters outside the printed area."
+      }
+    ],
+    "correct": "b",
+    "explanation": "The lesson asks for the step to sit where it does not disturb the support of nearby fine-pitch apertures and for the transition to stay far enough from sensitive features. Symmetry, minimum thin area and the frame edge are not the criteria, and placing the step next to the fine-pitch pads is precisely what the guidance warns against.",
+    "source": "src-004"
+  },
+  {
+    "questionId": "q-m03l03-05",
+    "type": "calc",
+    "competencies": [
+      "K2"
+    ],
+    "bloom": "apply",
+    "lessonId": "m03l03",
+    "prompt": "A 0.40 mm QFP pad is reduced to a 0.38 mm aperture in 0.100 mm foil. What area ratio does the fine-pitch aperture reach?",
+    "options": [
+      {
+        "id": "a",
+        "text": "0.84"
+      },
+      {
+        "id": "b",
+        "text": "1.00"
+      },
+      {
+        "id": "c",
+        "text": "0.95"
+      },
+      {
+        "id": "d",
+        "text": "4.00"
+      }
+    ],
+    "correct": "c",
+    "explanation": "Area = 0.38 x 0.38 = 0.1444 mm²; perimeter = 1.52 mm; sidewall = 1.52 x 0.100 = 0.152 mm²; area ratio = 0.1444 / 0.152 = 0.95. The 0.84 answer uses the 0.40 mm pad instead of the reduced aperture, 1.00 assumes no wall area at all, and 4.00 is roughly the aspect ratio of the same aperture.",
+    "source": "src-004"
+  },
+  {
+    "questionId": "q-m03l03-e1",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K2"
+    ],
+    "bloom": "understand",
+    "lessonId": "m03l03",
+    "prompt": "What does a thicker foil cost you on fine-pitch apertures?",
+    "options": [
+      {
+        "id": "a",
+        "text": "It lowers paste volume and improves release, because the walls become more vertical."
+      },
+      {
+        "id": "b",
+        "text": "It has no effect on release, since release depends only on the aperture footprint."
+      },
+      {
+        "id": "c",
+        "text": "It raises the area ratio and lowers the aspect ratio at the same time and in balance."
+      },
+      {
+        "id": "d",
+        "text": "It raises paste volume but lowers the area ratio and invites slump and bridging."
+      }
+    ],
+    "correct": "d",
+    "explanation": "Volume rises roughly with area times thickness, so thicker foil feeds large pads; the sidewall area grows with the same thickness, which pulls the area ratio down and makes slump and bridging more likely on fine pitch. Release is not independent of foil thickness, and the two ratios do not move in compensating directions.",
+    "source": "src-004"
+  },
+  {
+    "questionId": "q-m03l03-e2",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K2",
+      "K9"
+    ],
+    "bloom": "analyse",
+    "lessonId": "m03l03",
+    "prompt": "A delivered stencil has visibly rough aperture walls and a burr on several fine-pitch apertures. What does that predict?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Paste held on the walls, more residue and less repeatable release than the drawing assumes."
+      },
+      {
+        "id": "b",
+        "text": "A higher effective area ratio, because roughness increases the wall surface that grips paste."
+      },
+      {
+        "id": "c",
+        "text": "No change in printing, provided the aperture dimensions themselves are inside tolerance."
+      },
+      {
+        "id": "d",
+        "text": "A lower foil thickness at the burr, which shows up as excess paste volume on the pads."
+      }
+    ],
+    "correct": "a",
+    "explanation": "The lesson states that rough or irregular walls hold paste, raise residue and make release less repeatable, and it asks the supplier for the wall finish and taper because they are part of acceptance. Roughness works against release rather than improving the ratio, dimensional compliance does not cover wall condition, and burrs disturb paste transfer instead of thinning the deposit uniformly.",
+    "source": "src-004"
+  },
+  {
+    "questionId": "q-m03l03-e3",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K2"
+    ],
+    "bloom": "apply",
+    "lessonId": "m03l03",
+    "prompt": "Which sequence does the lesson propose for choosing a stencil?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Start from the thickest usable foil, then reduce aperture area until fine pitch stops bridging."
+      },
+      {
+        "id": "b",
+        "text": "Find the tightest pitch, pick base foil, size apertures to the ratios, add a step only if needed."
+      },
+      {
+        "id": "c",
+        "text": "Start from the thermal pad volume, then thin the whole foil until the fine pitch releases."
+      },
+      {
+        "id": "d",
+        "text": "Choose the foil thickness that matches the paste datasheet, then let the supplier size apertures."
+      }
+    ],
+    "correct": "b",
+    "explanation": "The lesson's sequence is: identify the tightest pitch and the paste-volume requirements, choose a base foil thickness, size apertures to the area-ratio and aspect-ratio guidance while controlling volume, add a step only when a single thickness cannot serve both, then verify. Starting from thickness or from the thermal pad inverts it, and delegating aperture sizing to the supplier skips the engineering decision.",
+    "source": "src-004"
+  },
+  {
+    "questionId": "q-m03l04-03",
+    "type": "single",
+    "competencies": [
+      "K2"
+    ],
+    "bloom": "understand",
+    "lessonId": "m03l04",
+    "prompt": "Why is a QFN thermal pad usually segmented rather than printed as one large opening?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Segmentation raises the area ratio of the thermal pad so that paste releases cleanly."
+      },
+      {
+        "id": "b",
+        "text": "Segmentation is required because a single pad cannot be covered by a laser-cut foil."
+      },
+      {
+        "id": "c",
+        "text": "Segmentation controls paste volume and gives gas a path out during reflow."
+      },
+      {
+        "id": "d",
+        "text": "Segmentation reduces the thermal performance of the joint to a level the paste allows."
+      }
+    ],
+    "correct": "c",
+    "explanation": "The lesson describes segmenting or reducing the centre pad to control paste volume and allow gas to escape, which prevents voiding and lift. Segmentation does affect the ratio indirectly, but that is not the reason given; laser cutting has no such limitation; and the aim is a sound joint, not a deliberately worse thermal path.",
+    "source": "src-007"
+  },
+  {
+    "questionId": "q-m03l04-04",
+    "type": "single",
+    "competencies": [
+      "K2"
+    ],
+    "bloom": "understand",
+    "lessonId": "m03l04",
+    "prompt": "For chip components the lesson gives a starting band for aperture area against pad area. What is it?",
+    "options": [
+      {
+        "id": "a",
+        "text": "40 % to 60 % of the pad area, to leave room for the fillet to form"
+      },
+      {
+        "id": "b",
+        "text": "100 % to 120 % of the pad area, to supply the fillet and the standoff"
+      },
+      {
+        "id": "c",
+        "text": "20 % to 40 % of the pad area, because chip joints need very little paste"
+      },
+      {
+        "id": "d",
+        "text": "80 % to 100 % of the pad area, with less for the smallest chips"
+      }
+    ],
+    "correct": "d",
+    "explanation": "The lesson gives 80 % to 100 % of pad area as a common starting point for many chip sizes, with reduced area for the smallest components to avoid tombstoning and bridging. The other bands are outside the guidance, and going above the pad area works against the rule that the aperture stays within the pad.",
+    "source": "src-004"
+  },
+  {
+    "questionId": "q-m03l04-05",
+    "type": "calc",
+    "competencies": [
+      "K2"
+    ],
+    "bloom": "apply",
+    "lessonId": "m03l04",
+    "prompt": "For a 0.4 mm pitch QFP the lesson reduces a 0.25 mm by 0.60 mm land to a 0.22 mm by 0.55 mm aperture in 0.10 mm foil. What area ratio results?",
+    "options": [
+      {
+        "id": "a",
+        "text": "0.79"
+      },
+      {
+        "id": "b",
+        "text": "0.68"
+      },
+      {
+        "id": "c",
+        "text": "0.86"
+      },
+      {
+        "id": "d",
+        "text": "1.10"
+      }
+    ],
+    "correct": "a",
+    "explanation": "Area = 0.22 x 0.55 = 0.121 mm²; perimeter = 2 x (0.22 + 0.55) = 1.54 mm; sidewall = 1.54 x 0.10 = 0.154 mm²; area ratio = 0.121 / 0.154 = 0.786. The 0.68 answer uses the full land instead of the reduced aperture, 0.86 forgets one pair of sides in the perimeter, and 1.10 treats the aspect ratio as the answer.",
+    "source": "src-004"
+  },
+  {
+    "questionId": "q-m03l04-e1",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K2"
+    ],
+    "bloom": "understand",
+    "lessonId": "m03l04",
+    "prompt": "Why are BGA apertures usually made smaller than the ball diameter?",
+    "options": [
+      {
+        "id": "a",
+        "text": "To leave clearance so the ball can self-centre on the land during placement."
+      },
+      {
+        "id": "b",
+        "text": "To control paste volume and keep the ball from collapsing unevenly at reflow."
+      },
+      {
+        "id": "c",
+        "text": "To keep the aperture inside the solder mask opening rather than the copper land."
+      },
+      {
+        "id": "d",
+        "text": "To reduce the area ratio so that paste releases more slowly onto the land."
+      }
+    ],
+    "correct": "b",
+    "explanation": "The lesson ties BGA aperture geometry to pitch, ball diameter and paste collapse, with apertures smaller than the ball to control volume. Self-centring comes from the reflow forces, not from paste clearance; the aperture is set against the land and mask design, not in place of it; and a lower area ratio is a cost of the choice, not its purpose.",
+    "source": "src-007"
+  },
+  {
+    "questionId": "q-m03l04-e2",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K2",
+      "K9"
+    ],
+    "bloom": "analyse",
+    "lessonId": "m03l04",
+    "prompt": "A mixed board carries 0402 chips, a 0.4 mm pitch QFP and a large thermal pad. Which stencil decision does the lesson support?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Thick base foil for the thermal pad, with aperture reduction on the fine pitch to compensate."
+      },
+      {
+        "id": "b",
+        "text": "Uniform mid-thickness foil, since the worst case on the board sets a single workable value."
+      },
+      {
+        "id": "c",
+        "text": "Thin base foil for the fine pitch, with a local thick step for the thermal pad."
+      },
+      {
+        "id": "d",
+        "text": "Two separate stencils, because one foil cannot carry features of such different scale."
+      }
+    ],
+    "correct": "c",
+    "explanation": "This is the case the step stencil exists for: the fine pitch needs a thin foil to keep the area ratio and control bridging, the thermal pad needs volume, and the step supplies both locally. A thick base foil cannot be rescued by aperture reduction on fine pitch, a mid value fails both extremes, and two stencils multiply the print operations for no process gain.",
+    "source": "src-004"
+  },
+  {
+    "questionId": "q-m03l04-e3",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K2"
+    ],
+    "bloom": "apply",
+    "lessonId": "m03l04",
+    "prompt": "Which geometry choice does the lesson map to preventing tombstoning of small chips?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Increasing the aperture area above the pad so each end gets generous paste."
+      },
+      {
+        "id": "b",
+        "text": "Using the thickest available foil so the deposit stands proud of the pad."
+      },
+      {
+        "id": "c",
+        "text": "Opening the centre pad in one piece so the chip sits flat during reflow."
+      },
+      {
+        "id": "d",
+        "text": "Reducing aperture area on the smallest chips so each end gets balanced paste."
+      }
+    ],
+    "correct": "d",
+    "explanation": "The lesson lists reduced aperture area for the smallest chips among the measures against tombstoning and bridging, because unbalanced or excessive paste at the two terminations drives the chip up. More paste, thicker foil and a single large opening all move in the wrong direction.",
+    "source": "src-004"
+  },
+  {
+    "questionId": "q-m03l05-03",
+    "type": "single",
+    "competencies": [
+      "K2"
+    ],
+    "bloom": "understand",
+    "lessonId": "m03l05",
+    "prompt": "Which wall taper does the lesson cite as the recommended band?",
+    "options": [
+      {
+        "id": "a",
+        "text": "85 to 90 degrees measured from the horizontal plane"
+      },
+      {
+        "id": "b",
+        "text": "60 to 75 degrees measured from the horizontal plane"
+      },
+      {
+        "id": "c",
+        "text": "75 to 85 degrees measured from the vertical plane"
+      },
+      {
+        "id": "d",
+        "text": "90 to 105 degrees measured from the horizontal plane"
+      }
+    ],
+    "correct": "a",
+    "explanation": "The lesson gives 85 to 90 degrees from the horizontal plane, noting that a slight taper reduces the effective wall area and so helps release. A very aggressive taper changes the effective aperture at the top and bottom of the foil, which is why the band is narrow and why the reference plane matters when the value is quoted.",
+    "source": "src-004"
+  },
+  {
+    "questionId": "q-m03l05-04",
+    "type": "single",
+    "competencies": [
+      "K2"
+    ],
+    "bloom": "apply",
+    "lessonId": "m03l05",
+    "prompt": "A drawing review finds that the specification states an area ratio requirement but not the measurement method. What should the reviewer do?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Accept the drawing, since area ratio is a design value that needs no measurement method."
+      },
+      {
+        "id": "b",
+        "text": "Require the method and sample size to be defined before the stencil is fabricated."
+      },
+      {
+        "id": "c",
+        "text": "Delete the area ratio requirement, because an unmeasurable requirement cannot be enforced."
+      },
+      {
+        "id": "d",
+        "text": "Ask the supplier to choose a method and to report the result with the finished stencil."
+      }
+    ],
+    "correct": "b",
+    "explanation": "The lesson asks the reviewer to confirm that the measurement method and sample size in the supplier specification are sufficient to verify what the drawing requires — so an undefined method is a gap to close before fabrication. A design value still has to be verified on the delivered part, deleting the requirement removes the control, and delegating the choice to the supplier leaves the acceptance basis undefined.",
+    "source": "src-004"
+  },
+  {
+    "questionId": "q-m03l05-05",
+    "type": "calc",
+    "competencies": [
+      "K2"
+    ],
+    "bloom": "apply",
+    "lessonId": "m03l05",
+    "prompt": "A drawing specifies a 0.30 mm square aperture in 0.120 mm foil, with a issued minimum area ratio of 0.66. What do the nominal figures show?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Area ratio 0.625, above the issued minimum, so the aperture passes as drawn"
+      },
+      {
+        "id": "b",
+        "text": "Area ratio 0.750, above the issued minimum, so the aperture passes as drawn"
+      },
+      {
+        "id": "c",
+        "text": "Area ratio 0.625, below the issued minimum, so the aperture fails as drawn"
+      },
+      {
+        "id": "d",
+        "text": "Area ratio 2.500, above the issued minimum, so the aperture passes as drawn"
+      }
+    ],
+    "correct": "c",
+    "explanation": "Area = 0.09 mm²; perimeter = 1.20 mm; sidewall = 1.20 x 0.120 = 0.144 mm²; area ratio = 0.09 / 0.144 = 0.625. That is below the issued minimum of 0.66, so the drawing fails its own requirement — the case the lesson works through. The 0.750 answer drops one side of the perimeter, and 2.500 is the aspect ratio.",
+    "source": "src-004"
+  },
+  {
+    "questionId": "q-m03l05-e1",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K2"
+    ],
+    "bloom": "understand",
+    "lessonId": "m03l05",
+    "prompt": "What does the aperture calculator exist to do before fabrication?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Produce the final aperture drawing so the designer does not have to place apertures."
+      },
+      {
+        "id": "b",
+        "text": "Estimate the cost of the stencil from the aperture count and the foil thickness."
+      },
+      {
+        "id": "c",
+        "text": "Set the printer recipe, including squeegee pressure and separation speed, for the product."
+      },
+      {
+        "id": "d",
+        "text": "Turn pad geometry, foil thickness and wall condition into ratios and volume for review."
+      }
+    ],
+    "correct": "d",
+    "explanation": "The calculator converts the design inputs into release metrics that can be reviewed before the foil is cut, so a release problem is found on paper. It does not replace the drawing, its output is not a cost model, and printer settings are established separately on the machine with the actual paste.",
+    "source": "src-004"
+  },
+  {
+    "questionId": "q-m03l05-e2",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K2",
+      "K9"
+    ],
+    "bloom": "analyse",
+    "lessonId": "m03l05",
+    "prompt": "A measured value sits below the guidance value but inside the issued specification tolerance. Which basis governs acceptance?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The issued specification governs; the guidance value is reviewed with engineering."
+      },
+      {
+        "id": "b",
+        "text": "The guidance value governs, because it comes from the design reference standard."
+      },
+      {
+        "id": "c",
+        "text": "Neither: a value inside tolerance is accepted without further review by definition."
+      },
+      {
+        "id": "d",
+        "text": "The lower of the two values always governs, so the part is rejected in every case."
+      }
+    ],
+    "correct": "a",
+    "explanation": "The lesson is explicit that acceptance compares the measured value against the issued specification rather than against a general guideline, and that a value outside the issued tolerance needs a disposition. Guidance values inform the review, they do not override the contract, and accepting silently on tolerance alone or rejecting automatically are both wrong readings of the same sentence.",
+    "source": "src-004"
+  },
+  {
+    "questionId": "q-m03l05-e3",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K2"
+    ],
+    "bloom": "apply",
+    "lessonId": "m03l05",
+    "prompt": "Which item list belongs in a stencil drawing review before fabrication?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Printer brand, squeegee material, paste lot number and the production schedule of the line."
+      },
+      {
+        "id": "b",
+        "text": "Aperture sizes and tolerances, foil thickness, wall taper, fiducials, step features."
+      },
+      {
+        "id": "c",
+        "text": "Panel quantity, freight terms, supplier payment terms and the packing method for shipment."
+      },
+      {
+        "id": "d",
+        "text": "Reflow profile zones, oven chain speed and the cooling rate used downstream of printing."
+      }
+    ],
+    "correct": "b",
+    "explanation": "The lesson lists aperture dimensions, tolerances, foil thickness, wall taper, fiducials, aperture-to-pad alignment, step features and the paste assumptions as the review content. Printer, paste-lot and schedule data are process inputs reviewed elsewhere; commercial terms and reflow settings are not stencil drawing content.",
+    "source": "src-004"
+  },
+  {
+    "questionId": "q-m03l06-03",
+    "type": "single",
+    "competencies": [
+      "K2",
+      "K9"
+    ],
+    "bloom": "understand",
+    "lessonId": "m03l06",
+    "prompt": "What makes a stencil measurement report usable as an acceptance record?",
+    "options": [
+      {
+        "id": "a",
+        "text": "It states that the stencil was measured and found to meet the supplier specification."
+      },
+      {
+        "id": "b",
+        "text": "It lists the aperture count and the foil grade, which are the only fixed characteristics."
+      },
+      {
+        "id": "c",
+        "text": "It names the drawing revision, method, operator, date and serial number of the stencil."
+      },
+      {
+        "id": "d",
+        "text": "It is signed by the supplier quality manager, which makes the values contractually valid."
+      }
+    ],
+    "correct": "c",
+    "explanation": "The lesson requires the report to be traceable — drawing revision, measurement method, operator, date and serial number — so that a value can be tied to the part and reproduced. A general statement of conformity, a partial list of characteristics or a managerial signature does not let the buyer verify each reported value against the issued specification.",
+    "source": "src-004"
+  },
+  {
+    "questionId": "q-m03l06-04",
+    "type": "single",
+    "competencies": [
+      "K2"
+    ],
+    "bloom": "understand",
+    "lessonId": "m03l06",
+    "prompt": "On what basis does the lesson say a stencil should be retired?",
+    "options": [
+      {
+        "id": "a",
+        "text": "A fixed number of print cycles, because wear is predictable from the fabrication method."
+      },
+      {
+        "id": "b",
+        "text": "The expiry date printed on the frame label by the stencil manufacturer at delivery."
+      },
+      {
+        "id": "c",
+        "text": "The number of cleaning cycles only, since cleaning is what wears the aperture walls."
+      },
+      {
+        "id": "d",
+        "text": "Measured drift, repeated print defects or a failed inspection, not a cycle count alone."
+      }
+    ],
+    "correct": "d",
+    "explanation": "The lesson asks for the lifetime record to track print cycles, paste exposure, cleaning cycles and method, inspection findings, tension, thickness, aperture wear and step condition, and states that retirement follows measured drift, repeat defects or a failed inspection rather than a cycle count alone. Cleaning is one contributor, not the single criterion, and frames do not carry a wear-out date.",
+    "source": "src-004"
+  },
+  {
+    "questionId": "q-m03l06-05",
+    "type": "calc",
+    "competencies": [
+      "K2",
+      "K9"
+    ],
+    "bloom": "apply",
+    "lessonId": "m03l06",
+    "prompt": "Issued: foil 0.120 mm ±0.010 mm, aperture width 0.400 mm ±0.025 mm, area ratio at least 0.66. The report gives thickness 0.128 mm, width 0.418 mm and area ratio 0.64. What is the acceptance result?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Thickness and width pass; area ratio fails, so the stencil is rejected or dispositioned"
+      },
+      {
+        "id": "b",
+        "text": "Thickness and width pass; the area ratio is close enough, so the stencil is accepted"
+      },
+      {
+        "id": "c",
+        "text": "The width fails because 0.418 mm is outside the 0.375 to 0.425 mm band"
+      },
+      {
+        "id": "d",
+        "text": "The thickness fails because 0.128 mm is outside the 0.110 to 0.130 mm band"
+      }
+    ],
+    "correct": "a",
+    "explanation": "Thickness limits are 0.110 to 0.130 mm, so 0.128 passes; width limits are 0.375 to 0.425 mm, so 0.418 passes; the area ratio of 0.64 is below the issued minimum of 0.66, so the stencil fails on that characteristic and needs rejection or an engineering disposition. Two of the distractors assert failures on values that are inside their bands.",
+    "source": "src-004"
+  },
+  {
+    "questionId": "q-m03l06-e1",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K2"
+    ],
+    "bloom": "understand",
+    "lessonId": "m03l06",
+    "prompt": "Why does the lesson treat a delivered stencil as a controlled part rather than as a consumable?",
+    "options": [
+      {
+        "id": "a",
+        "text": "It is expensive, so it has to be tracked by the finance system as a fixed asset."
+      },
+      {
+        "id": "b",
+        "text": "Its geometry sets paste volume, and that has to be verified against a drawing revision."
+      },
+      {
+        "id": "c",
+        "text": "It is reused across products, so its history has to follow it between work orders."
+      },
+      {
+        "id": "d",
+        "text": "It is supplied by an external vendor, so it falls under purchasing rather than production."
+      }
+    ],
+    "correct": "b",
+    "explanation": "Control follows from function: the stencil decides deposit volume, so its dimensions, taper, tension and step depth are verified against a named drawing revision and tracked through its working life. Cost accounting, cross-product reuse and vendor ownership are administrative facts that do not explain why the geometry needs an acceptance record.",
+    "source": "src-004"
+  },
+  {
+    "questionId": "q-m03l06-e2",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K2",
+      "K9"
+    ],
+    "bloom": "analyse",
+    "lessonId": "m03l06",
+    "prompt": "Appearance of insufficient paste on one fine-pitch area began after the third cleaning of a stencil. What should be checked first?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The paste lot and its viscosity, then the reflow profile of the product."
+      },
+      {
+        "id": "b",
+        "text": "The board surface finish, then the solder mask registration across the panel."
+      },
+      {
+        "id": "c",
+        "text": "Aperture condition and wall damage from cleaning, then the print settings."
+      },
+      {
+        "id": "d",
+        "text": "The squeegee hardness, then the ambient humidity of the print room that shift."
+      }
+    ],
+    "correct": "c",
+    "explanation": "The lesson ties low area ratio, poor wall taper and damaged walls to paste left in the aperture, and it requires the cleaning regime to be verified and the apertures inspected after cleaning. A change that follows a specific cleaning cycle points at the aperture and the wall; paste, profile, finish, squeegee and humidity are all worth reviewing later but none of them explains the timing.",
+    "source": "src-004"
+  },
+  {
+    "questionId": "q-m03l06-e3",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K2"
+    ],
+    "bloom": "apply",
+    "lessonId": "m03l06",
+    "prompt": "A stencil specification is silent on flatness. What does the lesson direct you to do?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Accept any flatness, because an unstated requirement cannot be enforced at receipt."
+      },
+      {
+        "id": "b",
+        "text": "Reject the drawing until the customer adds a flatness limit to the specification."
+      },
+      {
+        "id": "c",
+        "text": "Apply the foil thickness tolerance to flatness, since both are dimensional features."
+      },
+      {
+        "id": "d",
+        "text": "Use the design reference and agree a documented range with the supplier."
+      }
+    ],
+    "correct": "d",
+    "explanation": "The lesson says that where the specification is silent, use the design reference such as IPC-7525C and the paste or equipment datasheet, and set a documented range with the supplier using the supplier's measurement method. Accepting anything, blocking the drawing or borrowing an unrelated tolerance all leave contact across the print area uncontrolled.",
+    "source": "src-004"
   }
 ]

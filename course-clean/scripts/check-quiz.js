@@ -45,7 +45,8 @@ const TARGET = {
   positionTolerancePP: 10,      // percentage points away from uniform
   lengthRatioMin: 0.75,         // distractor length / keyed length
   lengthRatioMax: 1.35,
-  examPerLessonQuestionMin: 2    // exam-bank depth per lesson question
+  examPerLessonQuestionMin: 2,   // exam-bank depth per lesson question
+  examPerLessonMin: 2            // exam-bank depth per LESSON (agreed target)
 };
 
 const K_ALL = ['K1', 'K2', 'K3', 'K4', 'K5', 'K6', 'K7', 'K8', 'K9', 'K10'];
@@ -386,6 +387,18 @@ function analyse(questions, lessons) {
       'x at ' + depthWorst.lesson + ' (' + depthWorst.examQ + ' exam / ' + depthWorst.lessonQ + ' lesson)');
   }
 
+  /* Per-module depth against the agreed target of 2-3 exam questions per LESSON
+     (the brief's wording was per lesson question; the author chose per lesson
+     to keep the module exam a near-exhaustive draw from its bank). */
+  const depthByModuleRatio = {};
+  Object.keys(depthByModule).forEach(function (m) {
+    const r = depthByModule[m];
+    depthByModuleRatio[m] = r.lessons ? +(r.examQ / r.lessons).toFixed(2) : 0;
+  });
+  const modulesShort = Object.keys(depthByModuleRatio).filter(function (m) {
+    return depthByModuleRatio[m] < TARGET.examPerLessonMin;
+  });
+
   return {
     totals: {
       questions: questions.length,
@@ -435,7 +448,13 @@ function analyse(questions, lessons) {
     competencies: { counts: comp, shares: compShare, offEven: compOff },
     bloom: bloom,
     missing: { bloom: missingBloom, competencies: missingCompetency },
-    examBank: { byModule: depthByModule, worst: depthWorst },
+    examBank: {
+      byModule: depthByModule,
+      perLessonByModule: depthByModuleRatio,
+      modulesMeetingTarget: Object.keys(depthByModuleRatio).length - modulesShort.length,
+      modulesShort: modulesShort,
+      worst: depthWorst
+    },
     failures: hard,
     warnings: soft
   };
@@ -504,13 +523,14 @@ function render(m, opts) {
   if (!bloomKeys.length) push('  (none tagged)');
   else bloomKeys.sort().forEach(function (b) { push('  ' + b.padEnd(12) + m.bloom[b]); });
   push('');
-  push('Exam bank');
+  push('Exam bank (target ' + TARGET.examPerLessonMin + '-3 per lesson)');
   Object.keys(m.examBank.byModule).sort().forEach(function (mid) {
     const r = m.examBank.byModule[mid];
     push('  ' + mid + '  lessons ' + String(r.lessons).padStart(2) +
       '  lesson Q ' + String(r.lessonQ).padStart(3) +
       '  exam Q ' + String(r.examQ).padStart(3) +
-      '  depth ' + (r.lessonQ ? (r.examQ / r.lessonQ).toFixed(2) + 'x' : '—'));
+      '  per lesson ' + String(m.examBank.perLessonByModule[mid]).padStart(5) +
+      '  ' + (m.examBank.perLessonByModule[mid] >= TARGET.examPerLessonMin ? 'ok' : 'SHORT'));
   });
   push('');
   push('Banned phrasings ("all/none of the above")   ' + m.banned.length);
