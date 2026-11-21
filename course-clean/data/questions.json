@@ -17248,5 +17248,1153 @@
     "correct": "b",
     "explanation": "The lesson asks for board revision, component placement, program file, nozzle, paste lot, preheat and jet settings, dwell, pass strategy, and the profile, section and pull-test results. Machine maintenance, staffing and a two-item chemistry record do not let anyone rebuild the decision.",
     "source": "src-021"
+  },
+  {
+    "questionId": "q-m11l01-03",
+    "type": "single",
+    "competencies": [
+      "K4"
+    ],
+    "bloom": "understand",
+    "lessonId": "m11l01",
+    "prompt": "Why is a soldering station described as a closed loop rather than a hot tool?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Controller, heater, tip, sensor and ground path all act on the joint"
+      },
+      {
+        "id": "b",
+        "text": "The iron keeps a constant power output regardless of the joint mass"
+      },
+      {
+        "id": "c",
+        "text": "The setpoint is fixed at the factory and needs no operator attention"
+      },
+      {
+        "id": "d",
+        "text": "The tip stores enough heat that the heater never runs during contact"
+      }
+    ],
+    "correct": "a",
+    "explanation": "The lesson treats the station as a loop where the sensor and controller respond to the heat the tip loses, which is why the setpoint is not the joint temperature. Constant power, a fixed factory value and a heater that never runs all contradict that description.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l01-04",
+    "type": "single",
+    "competencies": [
+      "K4",
+      "K9"
+    ],
+    "bloom": "apply",
+    "lessonId": "m11l01",
+    "prompt": "Which control does the lesson put on the bench beside the iron?",
+    "options": [
+      {
+        "id": "a",
+        "text": "A second iron, so that two operators can share one joint"
+      },
+      {
+        "id": "b",
+        "text": "Local fume extraction, because flux fumes reach the operator"
+      },
+      {
+        "id": "c",
+        "text": "A cooling fan aimed at the tip, to keep the setpoint stable"
+      },
+      {
+        "id": "d",
+        "text": "A spool of leaded wire, since lead-free solder fumes less"
+      }
+    ],
+    "correct": "b",
+    "explanation": "The lesson asks for local exhaust placed between the joint and the operator's breathing zone, and treats ESD grounding as the other bench control. Extra irons, a cooling fan and a leaded substitution are not the controls it names.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l01-05",
+    "type": "calc",
+    "competencies": [
+      "K4"
+    ],
+    "bloom": "apply",
+    "lessonId": "m11l01",
+    "prompt": "A 350 °C tip touches a joint for 2 s. What is the thermal budget index in the lesson's units?",
+    "options": [
+      {
+        "id": "a",
+        "text": "175 °C·s"
+      },
+      {
+        "id": "b",
+        "text": "352 °C·s"
+      },
+      {
+        "id": "c",
+        "text": "700 °C·s"
+      },
+      {
+        "id": "d",
+        "text": "70 °C·s"
+      }
+    ],
+    "correct": "c",
+    "explanation": "The index multiplies the tip-to-joint step by the contact time, so 350 x 2 = 700 °C·s when no preheat is subtracted. The other options divide instead of multiply or lose a factor of ten.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l01-e1",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K4"
+    ],
+    "bloom": "understand",
+    "lessonId": "m11l01",
+    "prompt": "What does tip geometry have to match?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The iron wattage, since a bigger tip needs a bigger heater"
+      },
+      {
+        "id": "b",
+        "text": "The solder wire diameter, so that wire and tip wear together"
+      },
+      {
+        "id": "c",
+        "text": "The board thickness, because thick boards need conical tips"
+      },
+      {
+        "id": "d",
+        "text": "The joint size, so heat transfers without hiding the fillet"
+      }
+    ],
+    "correct": "d",
+    "explanation": "The lesson chooses the tip for the joint: enough contact face for heat, small enough to see and reach the joint. Wattage, wire diameter and board thickness constrain the choice but do not set the geometry.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l01-e2",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K4",
+      "K9"
+    ],
+    "bloom": "analyse",
+    "lessonId": "m11l01",
+    "prompt": "A pad lifts while a small chip is hand soldered on a multilayer board. Which part of the loop does the lesson examine first?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Tip size, setpoint and contact time against pad thermal mass"
+      },
+      {
+        "id": "b",
+        "text": "The fume extractor, since airflow cools the joint unevenly"
+      },
+      {
+        "id": "c",
+        "text": "The ESD wrist strap, because a poor ground damages the laminate"
+      },
+      {
+        "id": "d",
+        "text": "The solder wire alloy, because a leaded wire lifts pads"
+      }
+    ],
+    "correct": "a",
+    "explanation": "A lifted pad is a thermal and mechanical event at the joint, so the lesson reviews the tip, the setpoint and how long the operator stays on the pad. Extraction, grounding and alloy are real controls, but none of them explains a pad lifting under a hot tip.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l01-e3",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K4"
+    ],
+    "bloom": "apply",
+    "lessonId": "m11l01",
+    "prompt": "Which iron rating and tip face does the lesson give for a small chip on a thin pad?",
+    "options": [
+      {
+        "id": "a",
+        "text": "A 15-25 W iron with a 2.0 mm contact face"
+      },
+      {
+        "id": "b",
+        "text": "A 40-60 W iron with a 0.5-1.0 mm contact face"
+      },
+      {
+        "id": "c",
+        "text": "A 100-150 W iron with a conical 0.2 mm tip"
+      },
+      {
+        "id": "d",
+        "text": "Any iron, since the setpoint alone controls the heat delivered"
+      }
+    ],
+    "correct": "b",
+    "explanation": "The lesson pairs a 40-60 W rework iron with a 0.5-1.0 mm chisel or conical face for a small chip. A weak iron with a large face, an oversized iron with a tiny tip and a claim that setpoint alone decides the heat all misstate how the loop behaves.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l02-03",
+    "type": "single",
+    "competencies": [
+      "K4"
+    ],
+    "bloom": "understand",
+    "lessonId": "m11l02",
+    "prompt": "What is the correct contact order in manual rework?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Feed solder onto the tip, then carry it to the joint and hold until it flows"
+      },
+      {
+        "id": "b",
+        "text": "Place the tip on the component body first, so the part expands before the joint"
+      },
+      {
+        "id": "c",
+        "text": "Heat the joint, feed solder, remove the solder, then remove the tip"
+      },
+      {
+        "id": "d",
+        "text": "Feed solder to the joint first, then bring the tip in to melt what has landed"
+      }
+    ],
+    "correct": "c",
+    "explanation": "The lesson requires heat to reach the joint before solder is added, and the removal order mirrors it so the joint freezes under the tip rather than after it. Melting on the tip, heating the body first and landing cold solder all break the thermal path the technique depends on.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l02-04",
+    "type": "single",
+    "competencies": [
+      "K4"
+    ],
+    "bloom": "understand",
+    "lessonId": "m11l02",
+    "prompt": "A joint does not wet within the planned dwell. What does the lesson say to do?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Hold the tip on the joint until it finally wets, since heat is the cure"
+      },
+      {
+        "id": "b",
+        "text": "Add more solder wire, because the flux needs fresh material to work"
+      },
+      {
+        "id": "c",
+        "text": "Press the tip harder into the joint so more contact area is available"
+      },
+      {
+        "id": "d",
+        "text": "Stop and reassess the thermal budget instead of extending the dwell"
+      }
+    ],
+    "correct": "d",
+    "explanation": "The lesson makes dwell a window with a stop rule: if the joint does not wet, the setup is wrong and longer contact adds damage rather than wetting. More solder, more dwell and more pressure all raise the risk of lifted pads and charred laminate.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l02-05",
+    "type": "calc",
+    "competencies": [
+      "K4"
+    ],
+    "bloom": "apply",
+    "lessonId": "m11l02",
+    "prompt": "A 330-350 °C tip meets a board preheated to 100 °C, with 1.5-2.5 s of contact. What index does the lesson record?",
+    "options": [
+      {
+        "id": "a",
+        "text": "345-625 °C·s per contact"
+      },
+      {
+        "id": "b",
+        "text": "495-875 °C·s per contact"
+      },
+      {
+        "id": "c",
+        "text": "230-250 °C·s per contact"
+      },
+      {
+        "id": "d",
+        "text": "345-625 °C per contact"
+      }
+    ],
+    "correct": "a",
+    "explanation": "The step is 230-250 °C, and multiplied by 1.5-2.5 s it gives 345-625 °C·s, which is the band the lesson states. The second option forgets to subtract the preheat, the third reports the step without the time, and the last drops the seconds from the unit.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l02-e1",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K4"
+    ],
+    "bloom": "understand",
+    "lessonId": "m11l02",
+    "prompt": "Why is solder fed to the joint rather than melted on the tip?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Wire melts faster on the tip, so melting there saves dwell time"
+      },
+      {
+        "id": "b",
+        "text": "Feed controls the volume and keeps the flux working at the joint"
+      },
+      {
+        "id": "c",
+        "text": "The tip cannot be tinned once wire has touched it directly"
+      },
+      {
+        "id": "d",
+        "text": "Fed solder carries more heat into the joint than tip contact does"
+      }
+    ],
+    "correct": "b",
+    "explanation": "Feeding to the joint lets the wire size and feed length set the volume while the flux stays where the joint is. Melting on the tip burns flux away before it can act, and the claims about tinning and heat transfer invert how the joint is heated.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l02-e2",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K4",
+      "K9"
+    ],
+    "bloom": "analyse",
+    "lessonId": "m11l02",
+    "prompt": "A disturbed, grainy joint appears on a hand-reworked connector pin. Which cause fits the lesson?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The solder alloy was lead-free, which always freezes grainy"
+      },
+      {
+        "id": "b",
+        "text": "The tip was too wide, so the fillet could not form a concave shape"
+      },
+      {
+        "id": "c",
+        "text": "The joint was moved or the iron withdrawn before it solidified"
+      },
+      {
+        "id": "d",
+        "text": "The wire diameter was too small for the joint volume required"
+      }
+    ],
+    "correct": "c",
+    "explanation": "A disturbed joint means movement during solidification, which in hand work usually means the tip or the part moved too early. Alloy, tip width and wire diameter affect wetting and volume, but they do not produce the crystalline fracture pattern of a joint that was disturbed.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l02-e3",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K4"
+    ],
+    "bloom": "apply",
+    "lessonId": "m11l02",
+    "prompt": "A 0.8 mm lead needs a tip. What contact face does the lesson specify, and why?",
+    "options": [
+      {
+        "id": "a",
+        "text": "0.2-0.4 mm, narrower than the lead, so the tip stays clear of the mask"
+      },
+      {
+        "id": "b",
+        "text": "2.5-3.0 mm, so the whole annular ring is covered in one contact"
+      },
+      {
+        "id": "c",
+        "text": "Any face, provided the tip temperature is raised to compensate"
+      },
+      {
+        "id": "d",
+        "text": "1.0-1.5 mm, slightly wider than the lead, bridging pad and lead"
+      }
+    ],
+    "correct": "d",
+    "explanation": "The lesson asks for a chisel or hoof face slightly wider than the lead so that the tip touches the lead and the pad together. A narrower face cannot bridge both, an oversized face spreads heat to neighbours, and raising the temperature to cover a poor choice adds stress.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l03-03",
+    "type": "single",
+    "competencies": [
+      "K4"
+    ],
+    "bloom": "understand",
+    "lessonId": "m11l03",
+    "prompt": "What does the lesson count as a rework cycle?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Each thermal exposure of the component and its board area"
+      },
+      {
+        "id": "b",
+        "text": "Each time the board is removed from the line and returned to it"
+      },
+      {
+        "id": "c",
+        "text": "Each operator who touches the assembly during the rework"
+      },
+      {
+        "id": "d",
+        "text": "Each time the program is reloaded into the rework station"
+      }
+    ],
+    "correct": "a",
+    "explanation": "The cycle count exists to track heat, so every thermal exposure of that component and its area counts, which is why an iron touch-up adds a cycle to a hot-air pass. Moving the board, the number of operators and a program reload are not thermal events.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l03-04",
+    "type": "single",
+    "competencies": [
+      "K4",
+      "K9"
+    ],
+    "bloom": "understand",
+    "lessonId": "m11l03",
+    "prompt": "What must be measured before a rework peak can be compared with a paste limit?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The pressure in the hot-air nozzle, converted into an equivalent temperature"
+      },
+      {
+        "id": "b",
+        "text": "The temperature at the joint, not the hot-air controller reading"
+      },
+      {
+        "id": "c",
+        "text": "The time the nozzle spends moving between adjacent components"
+      },
+      {
+        "id": "d",
+        "text": "The ambient humidity in the rework area at the start of the shift"
+      }
+    ],
+    "correct": "b",
+    "explanation": "The lesson insists the peak is measured where the limit applies, because the controller setpoint is not the joint temperature. Nozzle pressure, nozzle travel and room humidity do not give a temperature to compare with a component or paste limit.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l03-05",
+    "type": "calc",
+    "competencies": [
+      "K4"
+    ],
+    "bloom": "apply",
+    "lessonId": "m11l03",
+    "prompt": "A second cycle is planned with a 245 °C peak for 45 s against a 250 °C maximum and a 30-60 s range. What is the finding?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The dwell is outside the range, so the cycle must be re-planned"
+      },
+      {
+        "id": "b",
+        "text": "The peak exceeds the maximum, so the part cannot be reworked"
+      },
+      {
+        "id": "c",
+        "text": "Both values are inside budget; the count reaches the allowed two"
+      },
+      {
+        "id": "d",
+        "text": "The values pass, so the measurement point no longer matters"
+      }
+    ],
+    "correct": "c",
+    "explanation": "245 °C is below 250 °C, 45 s sits inside 30-60 s, and one previous plus one proposed cycle equals the allowed two, so the operation fits the budget. The lesson then adds that the peak must have been measured at the joint rather than read from the controller.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l03-e1",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K4"
+    ],
+    "bloom": "understand",
+    "lessonId": "m11l03",
+    "prompt": "How does the lesson want a BGA removed?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Pry from one corner while the solder is still solid"
+      },
+      {
+        "id": "b",
+        "text": "Twist the package once the balls soften and then pull straight up"
+      },
+      {
+        "id": "c",
+        "text": "Lift immediately when the hot air reaches its setpoint"
+      },
+      {
+        "id": "d",
+        "text": "Heat until the solder collapses, then lift with minimal force"
+      }
+    ],
+    "correct": "d",
+    "explanation": "Removal waits for collapse and then uses minimal force, which protects pads and neighbouring joints. Prying, twisting and lifting on a setpoint rather than on the solder condition all risk torn pads.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l03-e2",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K4",
+      "K9"
+    ],
+    "bloom": "analyse",
+    "lessonId": "m11l03",
+    "prompt": "What does paste-in-pad require before it can be used for a QFN replacement?",
+    "options": [
+      {
+        "id": "a",
+        "text": "That design and process allow it, with deposit volume controlled"
+      },
+      {
+        "id": "b",
+        "text": "Only that the operator has a stencil small enough for the land pattern"
+      },
+      {
+        "id": "c",
+        "text": "That the component is a BGA rather than a QFN or MLF package"
+      },
+      {
+        "id": "d",
+        "text": "Nothing beyond the rework station, since the paste is self-limiting"
+      }
+    ],
+    "correct": "a",
+    "explanation": "The lesson allows paste-in-pad for QFN, MLF and some land-pattern replacements when design and process permit, with the deposit volume under control. Stencil size alone, a package restriction and an assumption of self-limiting paste all skip that condition.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l03-e3",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K4"
+    ],
+    "bloom": "apply",
+    "lessonId": "m11l03",
+    "prompt": "Which records does the lesson require for a completed BGA replacement?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The machine serial number and the date of the next calibration"
+      },
+      {
+        "id": "b",
+        "text": "Station, nozzle, preheat, peak, dwell, cycles, paste lot, inspection"
+      },
+      {
+        "id": "c",
+        "text": "The solder pot analysis and the ambient humidity of the room"
+      },
+      {
+        "id": "d",
+        "text": "The operator's training certificate and the shift handover note"
+      }
+    ],
+    "correct": "b",
+    "explanation": "The lesson lists operator, date, station, nozzle, preheat, measured peak, dwell, cycle count, paste and flux lots, plus the inspection method and result. Equipment identity, pot chemistry, humidity and training records do not show what the joint experienced.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l04-03",
+    "type": "single",
+    "competencies": [
+      "K4",
+      "K6"
+    ],
+    "bloom": "understand",
+    "lessonId": "m11l04",
+    "prompt": "How does the lesson evaluate a conductor that was cut and repaired?",
+    "options": [
+      {
+        "id": "a",
+        "text": "As an absolute width, compared with the narrowest conductor on the board"
+      },
+      {
+        "id": "b",
+        "text": "As a length of missing copper, measured along the trace centreline"
+      },
+      {
+        "id": "c",
+        "text": "As a width reduction measured against the originally designed width"
+      },
+      {
+        "id": "d",
+        "text": "As a resistance increase, measured from end to end of the conductor"
+      }
+    ],
+    "correct": "c",
+    "explanation": "The lesson treats a cut as a width-reduction question relative to the design width, which is how the limit is expressed. An absolute width, a missing length and an end-to-end resistance are different measures that the class limits do not use.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l04-04",
+    "type": "single",
+    "competencies": [
+      "K4",
+      "K9"
+    ],
+    "bloom": "understand",
+    "lessonId": "m11l04",
+    "prompt": "What makes a defect repairable rather than scrap?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The customer has not yet complained about the same defect"
+      },
+      {
+        "id": "b",
+        "text": "The area is small enough that a second operator can hide the mark"
+      },
+      {
+        "id": "c",
+        "text": "The board is expensive enough to justify the attempt"
+      },
+      {
+        "id": "d",
+        "text": "A qualified method can reach the class and the risk is recorded"
+      }
+    ],
+    "correct": "d",
+    "explanation": "The lesson sets three conditions: damage inside the applicable limits, a qualified method for that laminate and finish, and a recorded residual risk. Complaint history, cosmetic concealment and cost are not part of the decision framework.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l04-05",
+    "type": "calc",
+    "competencies": [
+      "K4"
+    ],
+    "bloom": "apply",
+    "lessonId": "m11l04",
+    "prompt": "A 0.30 mm trace is repaired to 0.24 mm. What width reduction does that represent?",
+    "options": [
+      {
+        "id": "a",
+        "text": "20 %, exactly at the Class 2 limit in the case"
+      },
+      {
+        "id": "b",
+        "text": "6 %, measured as the millimetre difference alone"
+      },
+      {
+        "id": "c",
+        "text": "25 %, obtained by dividing the original width by the new one"
+      },
+      {
+        "id": "d",
+        "text": "80 %, since 0.24 of 0.30 remains"
+      }
+    ],
+    "correct": "a",
+    "explanation": "0.06 / 0.30 = 0.20, so 20 %, which the lesson finds exactly at the Class 2 limit and therefore acceptable only if the controlled revision and customer specification allow it. The other options mistake a difference for a ratio or invert the comparison.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l04-e1",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K4"
+    ],
+    "bloom": "understand",
+    "lessonId": "m11l04",
+    "prompt": "What does the lesson say about a laminate scratch depth limit?",
+    "options": [
+      {
+        "id": "a",
+        "text": "A scratch deeper than 0.05 mm is always scrap, whatever the class"
+      },
+      {
+        "id": "b",
+        "text": "The repair standard sets no depth limit; prohibited conditions decide"
+      },
+      {
+        "id": "c",
+        "text": "Depth matters only above 0.5 mm, where the laminate is structurally weak"
+      },
+      {
+        "id": "d",
+        "text": "Depth is irrelevant, so only the visual appearance is assessed"
+      }
+    ],
+    "correct": "b",
+    "explanation": "The lesson states that the repair standard sets no depth limit and instead asks whether delamination, blistering, separation or exposed conductor is present. Inventing a fixed depth threshold is exactly the kind of number the lesson refuses to supply.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l04-e2",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K4",
+      "K9"
+    ],
+    "bloom": "analyse",
+    "lessonId": "m11l04",
+    "prompt": "A repaired hole shows 0.06 mm of annular ring on a Class 2 assembly. How does the lesson read it?",
+    "options": [
+      {
+        "id": "a",
+        "text": "It fails, because Class 2 requires a ring of at least 0.10 mm"
+      },
+      {
+        "id": "b",
+        "text": "It fails, because any ring below 0.075 mm is scrap for a repaired hole"
+      },
+      {
+        "id": "c",
+        "text": "It clears the 0.05 mm minimum quoted in the case and is acceptable"
+      },
+      {
+        "id": "d",
+        "text": "It cannot be judged without knowing the original pad diameter"
+      }
+    ],
+    "correct": "c",
+    "explanation": "The case compares 0.06 mm with the 0.05 mm figure it cites for that class and finds the hole acceptable if the controlled revision confirms the minimum. The other options introduce thresholds the lesson does not have.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l04-e3",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K4"
+    ],
+    "bloom": "apply",
+    "lessonId": "m11l04",
+    "prompt": "What does the lesson want the disposition record to contain?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The class alone, since the measurements are stored with the product"
+      },
+      {
+        "id": "b",
+        "text": "A photograph and the shift supervisor's signature"
+      },
+      {
+        "id": "c",
+        "text": "The repair method and the cost of the operation"
+      },
+      {
+        "id": "d",
+        "text": "The class, the measurements, the criteria applied and the risk"
+      }
+    ],
+    "correct": "d",
+    "explanation": "The record has to let another engineer repeat the decision, so it carries the class, the measurements, the criteria and the risk accepted. A bare class, a signature and a method-plus-cost entry all leave out the reasoning.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l05-03",
+    "type": "single",
+    "competencies": [
+      "K4",
+      "K6"
+    ],
+    "bloom": "understand",
+    "lessonId": "m11l05",
+    "prompt": "How does the lesson separate rework from repair?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Rework restores the design; repair accepts a deviation from it"
+      },
+      {
+        "id": "b",
+        "text": "Rework is done by hand; repair is done with hot air on a station"
+      },
+      {
+        "id": "c",
+        "text": "Rework needs no record; repair has to be documented and approved"
+      },
+      {
+        "id": "d",
+        "text": "Rework applies to SMT; repair applies only to through-hole joints"
+      }
+    ],
+    "correct": "a",
+    "explanation": "Rework brings the assembly back to the original specification, while a repair leaves it meeting a defined, accepted deviation. The tooling, the paperwork and the mounting technology do not define the difference.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l05-04",
+    "type": "single",
+    "competencies": [
+      "K4",
+      "K6"
+    ],
+    "bloom": "understand",
+    "lessonId": "m11l05",
+    "prompt": "What does re-inspection have to cover beyond the joint that was touched?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Only the touched joint, since the others were already accepted"
+      },
+      {
+        "id": "b",
+        "text": "Adjacent joints, the body and leads, the pad, trace and mask"
+      },
+      {
+        "id": "c",
+        "text": "The whole panel again at first-article depth, regardless of scope"
+      },
+      {
+        "id": "d",
+        "text": "The stencil and the paste lot used for the original build"
+      }
+    ],
+    "correct": "b",
+    "explanation": "The lesson extends re-inspection to the neighbours and the surrounding pad, trace and mask, because heat and handling spread. Touching only the joint misses the damage rework causes, and re-qualifying the whole panel or the print setup is out of scope.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l05-05",
+    "type": "single",
+    "competencies": [
+      "K4",
+      "K9"
+    ],
+    "bloom": "apply",
+    "lessonId": "m11l05",
+    "prompt": "Hot-air rework on a Class 3 assembly leaves a lifted pad and exposed copper. What follows from the lesson?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The condition is acceptable if the joint still conducts electrically"
+      },
+      {
+        "id": "b",
+        "text": "The condition is a rework defect, so the board returns to the line as is"
+      },
+      {
+        "id": "c",
+        "text": "The condition fails Class 3, so a qualified repair or scrap decides it"
+      },
+      {
+        "id": "d",
+        "text": "The condition is cosmetic, since the pad is under the component body"
+      }
+    ],
+    "correct": "c",
+    "explanation": "A lifted pad with exposed copper does not meet the construction and visual criteria the class demands, so only a qualified repair meeting Class 3, or scrap, resolves it. Continuity, a return to the line and a cosmetic reading all fail to apply the class.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l05-e1",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K4"
+    ],
+    "bloom": "understand",
+    "lessonId": "m11l05",
+    "prompt": "Where does the required class come from?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The operator, who selects the class that matches the observed condition"
+      },
+      {
+        "id": "b",
+        "text": "The solder supplier, whose datasheet lists the applicable class"
+      },
+      {
+        "id": "c",
+        "text": "The rework station vendor, according to the machine capability"
+      },
+      {
+        "id": "d",
+        "text": "The customer, the product specification or the reliability requirement"
+      }
+    ],
+    "correct": "d",
+    "explanation": "The lesson fixes the class before inspection, from the customer, the product specification or the reliability need. Choosing a class to fit the defect would make acceptance meaningless, and neither supplier nor vendor sets it.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l05-e2",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K4",
+      "K9"
+    ],
+    "bloom": "analyse",
+    "lessonId": "m11l05",
+    "prompt": "What does the record have to state besides the method and the materials?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The original defect, the class, the operator and the residual risk"
+      },
+      {
+        "id": "b",
+        "text": "The rework time in minutes and the station utilisation for the shift"
+      },
+      {
+        "id": "c",
+        "text": "The price of the component replaced during the operation"
+      },
+      {
+        "id": "d",
+        "text": "The customer's approval of the rework, obtained before starting"
+      }
+    ],
+    "correct": "a",
+    "explanation": "The lesson asks for the original defect, the class, the method, the materials, the operator and the residual risk, so the decision can be defended later. Timing, cost and a blanket customer approval are not the fields it names.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l05-e3",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K4"
+    ],
+    "bloom": "apply",
+    "lessonId": "m11l05",
+    "prompt": "In what order does the lesson have the inspector work?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Inspect the area, then choose the class that the result meets"
+      },
+      {
+        "id": "b",
+        "text": "Confirm the class, inspect to the criteria, then repair or scrap"
+      },
+      {
+        "id": "c",
+        "text": "Decide repair or scrap, then find the criterion that supports it"
+      },
+      {
+        "id": "d",
+        "text": "Check the rework record first, then inspect only what it describes"
+      }
+    ],
+    "correct": "b",
+    "explanation": "The class is fixed first, the inspection is judged against its criteria, and only then does the repair-or-scrap question arise. The other orders let the observation choose its own standard, which is the failure the lesson is written to prevent.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l06-03",
+    "type": "single",
+    "competencies": [
+      "K4"
+    ],
+    "bloom": "understand",
+    "lessonId": "m11l06",
+    "prompt": "What does the lesson require before heat is applied to the joint?",
+    "options": [
+      {
+        "id": "a",
+        "text": "A photograph of the defect taken with the station camera"
+      },
+      {
+        "id": "b",
+        "text": "Approval from the customer for the specific rework operation"
+      },
+      {
+        "id": "c",
+        "text": "The allowed cycles, peak, dwell, preheat and cooling, recorded"
+      },
+      {
+        "id": "d",
+        "text": "A second operator standing by to confirm the result"
+      }
+    ],
+    "correct": "c",
+    "explanation": "The thermal budget is written down before the iron or hot air touches the joint, so the operation can be judged against something. A photograph, a customer approval and a second opinion are not what the practice asks for at that point.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l06-04",
+    "type": "single",
+    "competencies": [
+      "K4",
+      "K9"
+    ],
+    "bloom": "understand",
+    "lessonId": "m11l06",
+    "prompt": "Why is the iron touch-up counted as a separate cycle in the lesson case?",
+    "options": [
+      {
+        "id": "a",
+        "text": "It uses a different solder alloy, so the alloy change counts"
+      },
+      {
+        "id": "b",
+        "text": "It happens after inspection, so the record needs a second line"
+      },
+      {
+        "id": "c",
+        "text": "It is performed by a different operator, which counts as a cycle"
+      },
+      {
+        "id": "d",
+        "text": "It is another thermal exposure of the joint, whatever the tool"
+      }
+    ],
+    "correct": "d",
+    "explanation": "The count tracks heat delivered to the joint, so a hot-gas pass plus a 2 s iron touch-up is two cycles against a limit of two. Alloy, inspection order and operator identity are not what the count measures.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l06-05",
+    "type": "calc",
+    "competencies": [
+      "K4"
+    ],
+    "bloom": "apply",
+    "lessonId": "m11l06",
+    "prompt": "A budget allows 250 °C for 10 s and two cycles. The hot gas measures 248 °C for 8 s, and an iron then touches for 2 s. What is the position?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Two cycles used, hot gas inside both limits; check the joint peak"
+      },
+      {
+        "id": "b",
+        "text": "The operation is over budget, because the iron adds temperature beyond 250 °C"
+      },
+      {
+        "id": "c",
+        "text": "The operation is within budget, so the joint peak during the touch-up need not be known"
+      },
+      {
+        "id": "d",
+        "text": "The operation is over budget, because 8 s plus 2 s exceeds the 10 s dwell limit"
+      }
+    ],
+    "correct": "a",
+    "explanation": "The lesson counts two cycles, finds 248 °C below 250 °C and 8 s below 10 s, and then requires the joint peak during the iron touch-up to be confirmed against the same 250 °C limit. Adding the two contact times into one dwell and assuming the tip temperature is the joint temperature are the two misreadings it warns against.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l06-e1",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K4"
+    ],
+    "bloom": "understand",
+    "lessonId": "m11l06",
+    "prompt": "What does the rework record have to identify?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The assembly serial number alone, since the rest is traceable from it"
+      },
+      {
+        "id": "b",
+        "text": "The assembly, serial, operator, station, defect and action"
+      },
+      {
+        "id": "c",
+        "text": "The operator and the shift, because the tool data is logged by the machine"
+      },
+      {
+        "id": "d",
+        "text": "The defect and the materials, since the outcome is visible on the board"
+      }
+    ],
+    "correct": "b",
+    "explanation": "The lesson asks for the assembly, serial, date, operator, station, original defect, action taken and the result, so the class claim can be supported. Any subset that drops the action or the result leaves the record unable to defend the decision.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l06-e2",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K4",
+      "K9"
+    ],
+    "bloom": "analyse",
+    "lessonId": "m11l06",
+    "prompt": "Which failure mode does the lesson put first among problems to watch in practice?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Cosmetic flux staining, then discoloured solder mask"
+      },
+      {
+        "id": "b",
+        "text": "Excess solder on the far side of the board, then solder balls"
+      },
+      {
+        "id": "c",
+        "text": "Insufficient wetting, then lifted pads and thermal damage"
+      },
+      {
+        "id": "d",
+        "text": "Component marking damage from the hot-air nozzle"
+      }
+    ],
+    "correct": "c",
+    "explanation": "The lesson lists insufficient wetting, lifted pads and thermal damage to components or laminate as the typical problems, with residue and cosmetics later. Staining, stray solder and marking damage are real observations but not the headline risks.",
+    "source": "src-024"
+  },
+  {
+    "questionId": "q-m11l06-e3",
+    "type": "single",
+    "pool": "exam",
+    "competencies": [
+      "K4"
+    ],
+    "bloom": "apply",
+    "lessonId": "m11l06",
+    "prompt": "How does the lesson classify the reworked joint?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Against the visual result alone, since the class was met at first build"
+      },
+      {
+        "id": "b",
+        "text": "Against the operator's own judgement, recorded as accepted by experience"
+      },
+      {
+        "id": "c",
+        "text": "Against the reflow profile, since the thermal history sets acceptance"
+      },
+      {
+        "id": "d",
+        "text": "Against the IPC-A-610 criteria for the class, then the repair standard"
+      }
+    ],
+    "correct": "d",
+    "explanation": "The joint is judged on the workmanship criteria for the required class, and then the rework itself is confirmed against the repair standard. The first-build class, personal judgement and the profile do not replace those criteria.",
+    "source": "src-024"
   }
 ]
