@@ -879,10 +879,20 @@
    * path data. The y axis is padded so the liquidus line is never clipped. */
   function profileSvg(prof, spec) {
     var W = 720, H = 300, padL = 46, padR = 16, padT = 16, padB = 34;
+    /* A spec chip is a range only when it has BOTH ends. The ceiling chip is a
+     * single number, and letting it overwrite the window made y(undefined) NaN,
+     * which produced a chart with no visible curve at all — a blank frame with
+     * only the axis labels. Ranges win over single values, and a missing bound
+     * is ignored rather than trusted. */
     var liquidus = null, win = null;
     (spec || []).forEach(function (s) {
       if (/^liquidus$/i.test(s.label)) liquidus = s.value;
-      if (/peak/i.test(s.label)) win = [s.value, s.to];
+      var isRange = typeof s.value === 'number' && typeof s.to === 'number' &&
+        isFinite(s.value) && isFinite(s.to) && s.to > s.value;
+      if (/peak/i.test(s.label)) {
+        if (isRange) win = [s.value, s.to];
+        else if (win === null && /ceiling/i.test(s.label)) win = null;
+      }
     });
     var tMax = prof.totalS || 1;
     var yLo = Math.floor(Math.min(prof.minC, liquidus == null ? prof.minC : liquidus) / 50) * 50;
@@ -892,6 +902,14 @@
     if (yHi <= yLo) yHi = yLo + 50;
     var x = function (t) { return padL + (t / tMax) * (W - padL - padR); };
     var y = function (c) { return padT + (1 - (c - yLo) / (yHi - yLo)) * (H - padT - padB); };
+    var finite = function (v) { return typeof v === 'number' && isFinite(v); };
+    if (!finite(tMax) || !finite(yLo) || !finite(yHi) || yHi <= yLo) {
+      /* Better a sentence than a blank frame: an empty chart looks like a
+       * deliberate design choice and hides the fault from the reader. */
+      return '<p class="muted flush profile-chart--failed">The profile could not be drawn from ' +
+        esc(prof && prof.fileName ? prof.fileName : 'this file') +
+        ': its ranges are incomplete. The table above still holds every number.</p>';
+    }
 
     var out = '<svg class="profile-chart" viewBox="0 0 ' + W + ' ' + H + '" role="img" ' +
       'aria-label="Recorded reflow profile: temperature against time, with the liquidus ' +
@@ -922,6 +940,9 @@
     /* the curve, one segment per interval: a straight ramp, not a bezier, so the
      * drawing cannot imply data the file does not contain */
     var d = '';
+    prof.points = prof.points.filter(function (p) {
+      return finite(p.t) && finite(p.to) && finite(p.c) && finite(p.c2);
+    });
     prof.points.forEach(function (p, i) {
       d += (i === 0 ? 'M' : 'L') + x(p.t).toFixed(1) + ' ' + y(p.c).toFixed(1) + ' ';
       d += 'L' + x(p.to).toFixed(1) + ' ' + y(p.c2).toFixed(1) + ' ';

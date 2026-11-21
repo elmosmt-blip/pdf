@@ -695,6 +695,19 @@ async function renderLayer() {
     const d = (svg.querySelector('path.pc-curve') || {}).getAttribute
       ? svg.querySelector('path.pc-curve').getAttribute('d') : '';
     ok(/\(M/.test('(' + d), 'the curve has path data', d.slice(0, 40));
+    /* A chart with NaN coordinates renders as an empty frame: axis labels only.
+       Reading the path data for "NaN" is the only way a test can see that — the
+       DOM still contains the element and its text. This bug shipped once, from a
+       spec chip with no upper bound, and looked deliberate on screen. */
+    ok(!/NaN/.test(svg.outerHTML), 'no coordinate in the chart is NaN');
+    ok(!/NaN/.test(d), 'the curve path has no NaN');
+    const ys = (d.match(/[ML][\d.]+ ([\d.]+)/g) || []).map(function (m) {
+      return parseFloat(m.split(' ')[1]);
+    });
+    ok(ys.length >= 6, 'the curve has a vertex per interval', String(ys.length));
+    ok(ys.every(function (v) { return v >= 0 && v <= 300; }),
+      'every curve vertex sits inside the plot area', ys.join(','));
+    ok(new Set(ys).size > 3, 'the curve actually moves', String(new Set(ys).size));
     ok(/Liquidus 219/.test(svg.textContent), 'the chart marks the liquidus');
     ok(/Peak window/.test(svg.textContent), 'the chart marks the peak window');
   }

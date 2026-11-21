@@ -294,3 +294,32 @@ now labelled that way in the case, the chips and the lesson text.
 Tests: **159 passed, 0 failed** (two tests were updated because m06 legitimately
 has two data tables and eight steps now). Integrity: 4 cases / 32 steps / 23
 numeric. The other three cases are untouched.
+
+---
+
+# Chart bug (found by the reader, fixed)
+
+The m06 profile chart rendered as an empty frame — axis labels and a liquidus
+dashed line only, no curve. Symptoms in the screenshot: table fine, chart blank.
+
+Cause: when the peak chips were split into "Peak window, paste 235–245" and
+"Peak ceiling, large package 250", the chart's spec scan did
+`if (/peak/i.test(s.label)) win = [s.value, s.to]` and the ceiling chip (no upper
+bound) overwrote the real window with `[250, undefined]`. Every y coordinate then
+became `NaN`, so the SVG path contained no visible geometry.
+
+Fix, in three parts:
+
+1. A range is only a range when both bounds are finite numbers and `to > value`;
+   a single-value chip cannot overwrite one.
+2. If the plot ranges are still not finite, the chart is replaced by a sentence
+   saying the profile could not be drawn — an empty frame looks intentional and
+   hides the fault.
+3. Non-finite points are dropped before the path is built.
+
+Test: the suite now asserts that no `NaN` appears anywhere in the chart's SVG,
+that every vertex lies inside the plot area, and that the curve actually moves
+(more than three distinct y values). Verified the test is real by restoring the
+broken scan in a temporary copy: it fails there, passes with the fix.
+
+Tests: **170 passed, 0 failed**.

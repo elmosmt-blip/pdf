@@ -2,7 +2,7 @@ Rendered outline of #/c/cx-m06-01
 Produced by scripts/capture-case.js from the built tree (build/course-clean).
 This is the live DOM from the shipped engine, not a mock-up.
 
-main #main   [10349 chars]
+main #main   [10358 chars]
   p .kicker   [38 chars]
     "Toolkit · Module 06 · Reflow Soldering"
   header .page-head   [94 chars]
@@ -171,10 +171,10 @@ main #main   [10349 chars]
         "Peak ceiling, large package"
       span .spec-chip-value   [6 chars]
         "250 °C"
-  details .case-data   [345 chars]
+  details .case-data   [354 chars]
     summary   [23 chars]
       "Data file — profile.csv"
-    div .details-body   [322 chars]
+    div .details-body   [331 chars]
       div .case-table-wrap   [129 chars]
         table .case-table   [129 chars]
           thead   [37 chars]
@@ -250,10 +250,28 @@ main #main   [10349 chars]
               td .num   [2 chars]
                 "40"
               td
-      svg role=img   [49 chars]
+      svg role=img   [58 chars]
+        line
+        text   [1 chars]
+          "0"
+        line
+        text   [2 chars]
+          "50"
+        line
+        text   [3 chars]
+          "100"
+        line
+        text   [3 chars]
+          "150"
+        line
+        text   [3 chars]
+          "200"
+        line
+        text   [3 chars]
+          "250"
         rect
-        text   [28 chars]
-          "Peak window 250–undefined °C"
+        text   [22 chars]
+          "Peak window 235–245 °C"
         line
         text   [15 chars]
           "Liquidus 219 °C"
