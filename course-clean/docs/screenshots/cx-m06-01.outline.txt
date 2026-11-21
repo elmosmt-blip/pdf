@@ -1,0 +1,415 @@
+Rendered outline of #/c/cx-m06-01
+Produced by scripts/capture-case.js from the built tree (build/course-clean).
+This is the live DOM from the shipped engine, not a mock-up.
+
+main #main   [5557 chars]
+  p .kicker   [38 chars]
+    "Toolkit · Module 06 · Reflow Soldering"
+  header .page-head   [80 chars]
+    div   [80 chars]
+      h1   [46 chars]
+        "Profile validation: Board X runs a 248 °C peak"
+      div .meta-line   [34 chars]
+        span .chip.chip--stage   [7 chars]
+          "Board X"
+        span .chip   [6 chars]
+          "25 min"
+        span .chip   [7 chars]
+          "7 steps"
+        span .chip   [14 chars]
+          "rubric 100 pts"
+  section .case-scenario   [599 chars]
+    p   [280 chars]
+      "Board X is a 1.6 mm six-layer board with heavy ground planes and a large BGA. The thermal survey from the wors…"
+    p   [193 chars]
+      "Paste is SAC305 with a datasheet window of 60-90 s above liquidus and a peak of 245-250 °C. The BGA is a large…"
+    p   [126 chars]
+      "Validate the profile, compute the margins, and decide whether it can be released with a documentation note or …"
+  details .case-board   [590 chars]
+    summary   [38 chars]
+      "Board X — the product behind this case"
+    div .details-body   [552 chars]
+      p .muted.flush   [158 chars]
+        "6-layer 1.6 mm FR-4 controller board: QFP-64 at 0.5 mm pitch, QFP-48 at 0.4 mm pitch, one 256-ball BGA at 0.8 …"
+      table .case-facts   [394 chars]
+        tbody   [394 chars]
+          tr   [21 chars]
+            th   [18 chars]
+              "Board Thickness Mm"
+            td   [3 chars]
+              "1.6"
+          tr   [7 chars]
+            th   [6 chars]
+              "Layers"
+            td   [1 chars]
+              "6"
+          tr   [18 chars]
+            th   [14 chars]
+              "Surface Finish"
+            td   [4 chars]
+              "ENIG"
+          tr   [25 chars]
+            th   [13 chars]
+              "Base Material"
+            td   [12 chars]
+              "FR-4, Tg 170"
+          tr   [25 chars]
+            th   [20 chars]
+              "Stencil Thickness Mm"
+            td   [5 chars]
+              "0.125"
+          tr   [34 chars]
+            th   [31 chars]
+              "Fine Pitch Stencil Thickness Mm"
+            td   [3 chars]
+              "0.1"
+          tr   [29 chars]
+            th   [5 chars]
+              "Paste"
+            td   [24 chars]
+              "SAC305, Type 4, no-clean"
+          tr   [15 chars]
+            th   [12 chars]
+              "Qfp Pitch Mm"
+            td   [3 chars]
+              "0.5"
+          tr   [10 chars]
+            th   [8 chars]
+              "Qfp Pins"
+            td   [2 chars]
+              "64"
+          tr   [17 chars]
+            th   [14 chars]
+              "Fine Pitch Ppm"
+            td   [3 chars]
+              "0.4"
+          tr   [20 chars]
+            th   [17 chars]
+              "Bga Ball Pitch Mm"
+            td   [3 chars]
+              "0.8"
+          tr   [12 chars]
+            th   [9 chars]
+              "Bga Balls"
+            td   [3 chars]
+              "256"
+          tr   [11 chars]
+            th   [7 chars]
+              "Passive"
+            td   [4 chars]
+              "0402"
+          tr   [69 chars]
+            th   [13 chars]
+              "Tht Connector"
+            td   [56 chars]
+              "20-pin, 2.54 mm pitch, 0.8 mm finished hole, 0.5 mm lead"
+          tr   [12 chars]
+            th   [8 chars]
+              "Lot Size"
+            td   [4 chars]
+              "1240"
+          tr   [26 chars]
+            th   [23 chars]
+              "Opportunities Per Board"
+            td   [3 chars]
+              "620"
+          tr   [18 chars]
+            th   [12 chars]
+              "Reflow Alloy"
+            td   [6 chars]
+              "SAC305"
+          tr   [13 chars]
+            th   [10 chars]
+              "Liquidus C"
+            td   [3 chars]
+              "219"
+          tr   [12 chars]
+            th   [9 chars]
+              "Solidus C"
+            td   [3 chars]
+              "217"
+  details .case-data   [207 chars]
+    summary   [23 chars]
+      "Data file — profile.csv"
+    div .details-body   [184 chars]
+      pre .case-pre   [163 chars]
+        "interval,from_c,to_c,seconds,rate_c_per_s ramp,25,150,60, soak,150,190,90, approach,190,219,30, above_liquidus…"
+      p .flush   [20 chars]
+        button .btn.btn--small type=button data-act=case-data   [20 chars]
+          "Download profile.csv"
+  form .case-form   [1795 chars]
+    ol .case-steps   [1773 chars]
+      li #step-s1 .case-step   [130 chars]
+        div .case-step-head   [20 chars]
+          span .case-step-n   [6 chars]
+            "Step 1"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [52 chars]
+          "What is the ramp rate from 25 °C to 150 °C, in °C/s?"
+        div .case-input-row   [38 chars]
+          label .case-input-label   [18 chars]
+            "Your answer"
+            span .muted   [6 chars]
+              "(°C/s)"
+          input #in-s1 .case-input type=text name=c-s1 value=
+          span .case-tol.muted   [20 chars]
+            "tolerance ±0.05 °C/s"
+        p #err-s1 .case-error role=alert hidden=
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s2 .case-step   [209 chars]
+        div .case-step-head   [20 chars]
+          span .case-step-n   [6 chars]
+            "Step 2"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [138 chars]
+          "The profile gives 65 s above 219 °C. Against the paste datasheet window of 60-90 s, how many seconds of margin…"
+        div .case-input-row   [31 chars]
+          label .case-input-label   [15 chars]
+            "Your answer"
+            span .muted   [3 chars]
+              "(s)"
+          input #in-s2 .case-input type=text name=c-s2 value=
+          span .case-tol.muted   [16 chars]
+            "tolerance ±0.5 s"
+        p #err-s2 .case-error role=alert hidden=
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s3 .case-step   [175 chars]
+        div .case-step-head   [20 chars]
+          span .case-step-n   [6 chars]
+            "Step 3"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [102 chars]
+          "Peak is 248 °C and the large-package classification temperature is 250 °C. What margin is left, in °C?"
+        div .case-input-row   [33 chars]
+          label .case-input-label   [16 chars]
+            "Your answer"
+            span .muted   [4 chars]
+              "(°C)"
+          input #in-s3 .case-input type=text name=c-s3 value=
+          span .case-tol.muted   [17 chars]
+            "tolerance ±0.5 °C"
+        p #err-s3 .case-error role=alert hidden=
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s4 .case-step   [155 chars]
+        div .case-step-head   [20 chars]
+          span .case-step-n   [6 chars]
+            "Step 4"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [77 chars]
+          "Cooling runs from 248 °C to 100 °C in 40 s. What is the cooling rate in °C/s?"
+        div .case-input-row   [38 chars]
+          label .case-input-label   [18 chars]
+            "Your answer"
+            span .muted   [6 chars]
+              "(°C/s)"
+          input #in-s4 .case-input type=text name=c-s4 value=
+          span .case-tol.muted   [20 chars]
+            "tolerance ±0.05 °C/s"
+        p #err-s4 .case-error role=alert hidden=
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s5 .case-step   [418 chars]
+        div .case-step-head   [12 chars]
+          span .case-step-n   [6 chars]
+            "Step 5"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [40 chars]
+          "Which disposition does the profile earn?"
+        fieldset .case-options   [346 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt   [65 chars]
+            input #in-s5-a type=radio name=c-s5 value=a
+            span .case-opt-text   [65 chars]
+              "Reject and change the profile: the peak is over the 245 °C limit."
+          label .case-opt   [132 chars]
+            input #in-s5-b type=radio name=c-s5 value=b
+            span .case-opt-text   [132 chars]
+              "Accept and document: peak and time above liquidus are inside their windows, with 2 °C and 5 s of margin noted …"
+          label .case-opt   [69 chars]
+            input #in-s5-c type=radio name=c-s5 value=c
+            span .case-opt-text   [69 chars]
+              "Reject: time above liquidus must always exceed 90 s on a heavy board."
+          label .case-opt   [70 chars]
+            input #in-s5-d type=radio name=c-s5 value=d
+            span .case-opt-text   [70 chars]
+              "Accept without comment: a profile only fails if the joints look wrong."
+        p #err-s5 .case-error role=alert hidden=
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s6 .case-step   [225 chars]
+        div .case-step-head   [20 chars]
+          span .case-step-n   [6 chars]
+            "Step 6"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [147 chars]
+          "A first-principles check: the oven delivers about 100 W and the board's measured thermal mass is 90 J/K. What …"
+        div .case-input-row   [38 chars]
+          label .case-input-label   [18 chars]
+            "Your answer"
+            span .muted   [6 chars]
+              "(°C/s)"
+          input #in-s6 .case-input type=text name=c-s6 value=
+          span .case-tol.muted   [20 chars]
+            "tolerance ±0.05 °C/s"
+        p #err-s6 .case-error role=alert hidden=
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s7 .case-step   [461 chars]
+        div .case-step-head   [12 chars]
+          span .case-step-n   [6 chars]
+            "Step 7"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [85 chars]
+          "What should be done with the factor-of-two gap between the model and the measurement?"
+        fieldset .case-options   [344 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt   [57 chars]
+            input #in-s7-a type=radio name=c-s7 value=a
+            span .case-opt-text   [57 chars]
+              "Trust the model: the measured thermocouple must be wrong."
+          label .case-opt   [172 chars]
+            input #in-s7-b type=radio name=c-s7 value=b
+            span .case-opt-text   [172 chars]
+              "Trust the measurement and record the model's assumptions as unvalidated for this board; re-measure a second wo…"
+          label .case-opt   [53 chars]
+            input #in-s7-c type=radio name=c-s7 value=c
+            span .case-opt-text   [53 chars]
+              "Average the two values and use that as the ramp rate."
+          label .case-opt   [52 chars]
+            input #in-s7-d type=radio name=c-s7 value=d
+            span .case-opt-text   [52 chars]
+              "Ignore both and use the paste datasheet ramp figure."
+        p #err-s7 .case-error role=alert hidden=
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+    div .quiz-actions   [22 chars]
+      button .btn.btn--primary type=submit   [16 chars]
+        "Check my answers"
+      button .btn type=button data-act=case-reset   [5 chars]
+        "Clear"
+  div #case-result-slot
+  details .case-rubric-box   [488 chars]
+    summary   [32 chars]
+      "Rubric — how this case is scored"
+    div .details-body   [456 chars]
+      table .case-rubric   [340 chars]
+        thead   [15 chars]
+          tr   [15 chars]
+            th   [9 chars]
+              "Criterion"
+            th   [6 chars]
+              "Points"
+        tbody   [325 chars]
+          tr   [47 chars]
+            td   [45 chars]
+              "Ramp rate computed from the recorded interval"
+            td .num   [2 chars]
+              "15"
+          tr   [52 chars]
+            td   [50 chars]
+              "Time above liquidus compared with the paste window"
+            td .num   [2 chars]
+              "15"
+          tr   [53 chars]
+            td   [51 chars]
+              "Peak margin taken against the correct package class"
+            td .num   [2 chars]
+              "15"
+          tr   [39 chars]
+            td   [37 chars]
+              "Cooling rate computed and interpreted"
+            td .num   [2 chars]
+              "10"
+          tr   [56 chars]
+            td   [54 chars]
+              "Disposition states the margins rather than just 'pass'"
+            td .num   [2 chars]
+              "20"
+          tr   [42 chars]
+            td   [40 chars]
+              "Model-versus-measurement check performed"
+            td .num   [2 chars]
+              "10"
+          tr   [36 chars]
+            td   [34 chars]
+              "Evidence ranked above the estimate"
+            td .num   [2 chars]
+              "15"
+      p .muted.flush   [116 chars]
+        "Criteria are scored in proportion to the steps they name. A criterion spanning two steps pays half per correct…"
+  section .sources   [1725 chars]
+    details .spoiler   [1725 chars]
+      summary   [11 chars]
+        "Sources — 2"
+      div .details-body   [1714 chars]
+        ul   [1714 chars]
+          li   [723 chars]
+            span .src-id   [7 chars]
+              "src-008"
+            strong   [74 chars]
+              "IPC-7530 Guidelines for Temperature Profiling for Mass Soldering Processes"
+            "— Rev B (January 2025), section Reflow and wave profile guidance — ramp, soak, time above liquidus, cooling, s…"
+            span .src-note   [439 chars]
+              "License: paraphrase only · verified by READ via the AIM Solder profile supplement, which reproduces the IPC/JE…"
+            span .src-edition.src-edition--ok   [84 chars]
+              strong   [15 chars]
+                "Current edition"
+              "· Rev B (January 2025)"
+              span .src-edition-note   [46 chars]
+                "Rev B is the newest IPC-7530 in the IPC table."
+          li   [991 chars]
+            span .src-id   [7 chars]
+              "src-005"
+            strong   [107 chars]
+              "J-STD-020 Classification of Moisture Sensitivity for Non-Hermetic Sealing Solid State Surface Mount Devices"
+            "— Rev D (read against Rev E text), section Table 4-1 and Table 4-2 classification temperatures; Table 5-2 clas…"
+            span .src-note   [427 chars]
+              "License: paraphrase only · verified by READ. Primary J-STD-020E text read. Table 4-2 (Pb-free) is thickness × …"
+            span .src-currency   [126 chars]
+              "Edition mismatch. The label says Rev D, the text actually read was Rev E. Rev E is the later revision; quote t…"
+            span .src-edition   [177 chars]
+              strong   [16 chars]
+                "Edition mismatch"
+              "· publisher lists Rev F (November 2022)"
+              span .src-edition-note   [121 chars]
+                "The source label says Rev D while the text read was Rev E; IPC lists Rev F, November 2022, as current. Two rev…"
+  nav .pager   [35 chars]
+    a .pager-prev href=#/m/m06   [35 chars]
+      span .pager-label   [7 chars]
+        "Back to"
+      span .pager-title   [28 chars]
+        "Module 06 — Reflow Soldering"
+    span
