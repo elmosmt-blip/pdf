@@ -468,15 +468,15 @@
     return html;
   }
 
+  /* The learner-facing draft note. The internal review trace that used to sit
+     under it was removed: it named the author's own working notes, which the
+     learner cannot use and which read as a claim about verification. What
+     remains is the honest statement of what the page is. */
   function draftBannerHtml(lesson) {
     if (lesson.status === 'reviewed' || lesson.status === 'published') return '';
     var html = '<div class="banner banner--warn banner--slim" role="note">' +
       '<p class="flush">This lesson is a draft: treat it as study notes, not as a work instruction. ' +
       'Numbers without a source reference are unverified.</p>';
-    if (typeof lesson.review === 'string' && lesson.review.length) {
-      html += '<p class="flush mt-16"><span class="muted">Author self-review, not independently verified:</span>' +
-        '<code class="review-text">' + esc(lesson.review) + '</code></p>';
-    }
     html += '</div>';
     return html;
   }

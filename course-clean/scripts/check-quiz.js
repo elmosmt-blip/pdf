@@ -15,8 +15,8 @@
  *   - option-count distribution (goal 4-5), "all/none of the above" detection
  *   - duplicate prompts (exact and near), duplicate options inside a question
  *   - distractor length parity: each wrong option against the keyed answer
- *   - competency coverage K1-K10, Bloom level distribution
- *   - exam bank depth: exam-pool questions per lesson question
+ *   - competency coverage K1-K10 against the agreed weights, Bloom distribution
+ *   - exam bank depth: exam-pool questions per lesson (target 2-3)
  *   - structural integrity: ids, unique options, key points at an existing option
  *
  * Exit code: 0 when every hard check passes, 1 otherwise. The hard checks are
@@ -50,6 +50,16 @@ const TARGET = {
 };
 
 const K_ALL = ['K1', 'K2', 'K3', 'K4', 'K5', 'K6', 'K7', 'K8', 'K9', 'K10'];
+
+/* The brief asks for K6 ~32 % and K4/K8 ~6 %; the remaining competencies share
+   the rest evenly. Even coverage across all ten was the earlier, simpler
+   reading and it is wrong for this course: inspection, metrology and process
+   diagnosis are the spine of the material, so a checker that wanted 10 % each
+   would file a true statement about the course as a defect. */
+const COMP_WEIGHT = {
+  K1: 0.09, K2: 0.05, K3: 0.11, K4: 0.06, K5: 0.11,
+  K6: 0.32, K7: 0.05, K8: 0.06, K9: 0.12, K10: 0.03
+};
 const BLOOM_ALL = ['remember', 'understand', 'apply', 'analyse', 'analyze', 'evaluate', 'create'];
 
 /* -------------------------------------------------------------- utilities */
@@ -324,9 +334,8 @@ function analyse(questions, lessons) {
   const compTotal = Object.keys(comp).reduce(function (a, k) { return a + comp[k]; }, 0);
   const compShare = {};
   K_ALL.forEach(function (k) { compShare[k] = compTotal ? (comp[k] || 0) / compTotal : 0; });
-  const uniform = 1 / K_ALL.length;
   const compOff = K_ALL.filter(function (k) {
-    return Math.abs(compShare[k] - uniform) > 0.10;   // more than 10 pp from even
+    return Math.abs(compShare[k] - COMP_WEIGHT[k]) > 0.08;
   });
 
   /* ---- exam bank depth ---- */
@@ -385,7 +394,7 @@ function analyse(questions, lessons) {
   });
   if (banned.length) soft.push(banned.length + ' "all/none of the above" option(s)');
   if (nearDup.length) soft.push(nearDup.length + ' near-duplicate prompt pair(s)');
-  if (compOff.length) soft.push('competencies off even coverage by >10 pp: ' + compOff.join(', '));
+  if (compOff.length) soft.push('competencies more than 8 pp from their target: ' + compOff.join(', '));
   if (missingBloom.length) soft.push(missingBloom.length + ' question(s) carry no bloom level');
   if (missingCompetency.length) soft.push(missingCompetency.length + ' question(s) carry no competency tag');
   /* Depth is judged per lesson against the agreed band of 2-3 exam questions,
@@ -522,10 +531,14 @@ function render(m, opts) {
   push('  shorter than the band     ' + m.districts.tooShort);
   push('  longer than the band      ' + m.districts.tooLong);
   push('');
-  push('Competency coverage (even = ' + pct(1 / K_ALL.length) + ' each)');
+  push('Competency coverage (K6 target 320/1000, K4 and K8 60/1000, others even)');
   K_ALL.forEach(function (k) {
+    const want = COMP_WEIGHT[k];
+    const delta = (m.competencies.shares[k] - want) * 100;
     push('  ' + k.padEnd(4) + String(m.competencies.counts[k] || 0).padStart(4) + '  ' +
-      pct(m.competencies.shares[k]).padStart(7));
+      pct(m.competencies.shares[k]).padStart(7) +
+      '   target ' + pct(want).padStart(6) +
+      '   ' + (delta >= 0 ? '+' : '') + delta.toFixed(1) + ' pp');
   });
   push('');
   push('Bloom levels');

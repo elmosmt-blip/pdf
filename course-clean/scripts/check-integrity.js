@@ -15,7 +15,8 @@
  *   6. every file in assets/img/ is referenced by at least one lesson (orphans)
  *   7. every lesson carries a worked calculation and a defect case
  *   8. assets/data-embed.js parses and equals the three JSON files
- *   9. no lesson claims a status it cannot support (status sanity)
+ *   9. no lesson claims a status it cannot support (status sanity, and no
+ *      inherited "reviewed" label: a review that did not happen is a claim)
  *  10. index.html and app.js agree on the data-loading contract
  *
  * Usage:
@@ -217,6 +218,19 @@ function run() {
   });
   if (bogus.length) {
     problems.push({ code: 'status-unknown', count: bogus.length, sample: bogus.slice(0, 10).map(function (l) { return l.lessonId + ' -> ' + l.status; }) });
+  }
+  /* The source archive shipped every lesson marked "reviewed". That claim was
+     inherited, not earned: nobody has re-read 92 lessons against the standards
+     in this round, so the label is reset to "draft" until a technologist
+     actually reviews them. The human review itself is Phase 9, the user's own
+     gate, and is not something this tool can satisfy or record. */
+  const inflated = lessons.filter(function (l) { return l.status === 'reviewed'; });
+  if (inflated.length) {
+    problems.push({
+      code: 'status-unsupported',
+      count: inflated.length,
+      sample: inflated.slice(0, 10).map(function (l) { return l.lessonId + ' -> reviewed'; })
+    });
   }
 
   /* ---- 10. data-loading contract ---- */
