@@ -139,11 +139,11 @@ node tests/course.test.js
 
 | Команда | Ожидаемый результат |
 |---|---|
-| `gen_cases.py --check` | `OK (8 cases, 68 steps)` |
-| `check-cases.js` | `keys recomputed 68 of 68`, восемь строк `ok` с контрольными числами, `OK — …every key reproduces independently` |
-| `check-integrity.js` | `cases 8 (67 steps)`, `OK — integrity check passed` |
-| `tests/course.test.js` | `PASS — 181 passed, 0 failed` |
-| `tests/case-qa.js` | `36 passed, 0 failed/errored` |
+| `gen_cases.py --check` | `OK (9 cases, 77 steps)` |
+| `check-cases.js` | `keys recomputed 77 of 77`, восемь строк `ok` с контрольными числами, `OK — …every key reproduces independently` |
+| `check-integrity.js` | `cases 9 (77 steps)`, `OK — integrity check passed` |
+| `tests/course.test.js` | `PASS — 183 passed, 0 failed` |
+| `tests/case-qa.js` | `39 passed, 0 failed/errored` |
 
 Ключи с формулами лежат в `docs/case-keys.csv` — его можно открыть в Excel и
 пересчитать любую строку вручную.

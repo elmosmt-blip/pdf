@@ -278,11 +278,16 @@ New control numbers, all reproduced independently:
   and the step's job is to notice that the setpoint is *inside* the band, so the
   setpoint is not the cause. No new number was invented.
 
-Verification after round 3: `gen_cases.py --check` OK (8 cases, 67 steps),
-`check-cases.js` **67/67** keys independently recomputed, `check-integrity.js`
+_Note (round 4): the numbers in this section describe round 3 as it stood. The
+review in `docs/technologist-review-2026-11-31.md` then changed m11's denominator
+(20.0 % became 11.4 %) and m07's ball A4, so the control table above is history,
+not current. `docs/case-keys.csv` is the current source._
+
+Verification after round 3 as published: `gen_cases.py --check` OK (8 cases, 67
+steps), `check-cases.js` **67/67** keys independently recomputed, `check-integrity.js`
 OK, `check-quiz.js` OK, `tests/course.test.js` **181 / 0**, `tests/case-qa.js`
-**36 / 0** (8 new `[object Object]` checks), pilot sheet regenerated for 8 cases
-/ 67 steps.
+**36 / 0** (8 new `[object Object]` checks), pilot sheet regenerated for 8 cases /
+67 steps.
 
 Two test literals had to go: three checks asserted "four" cases, and the QA pass
 asserted 15 template files. All four now derive their expected count from
@@ -291,13 +296,87 @@ added is a test that will one day pass for the wrong reason.
 
 ---
 
+## 7d. Round 4 — incoming inspection (m01)
+
+The thread started at m02, which meant Board X's life began after the boards were
+already in the building. m01 is where a product actually starts, so the new case
+sits at step 1 and the other eight moved down one.
+
+| Case | Module | Steps | Rubric | Est. | What it makes the learner do |
+|---|---|---|---|---|---|
+| `cx-m01-01` Bare-board release | m01 | 9 (4 numeric) | 100 | 30 min | twist by the IPC-TM-650 2.4.22 production method, the allowed gap solved from the same ceiling, the ISO 2859-1 plan for the actual lot size, the lot re-defined across two date codes, the quantity gap quantified, a disposition that separates a passing measurement from an undefined lot, and the release record that survives the year |
+
+Control numbers:
+
+| Control | Result |
+|---|---|
+| Twist, 2.60 mm gap on a 200 mm diagonal | **0.65 %** (ceiling 0.75 %) |
+| Allowed gap on the same diagonal | **3.00 mm** |
+| ISO 2859-1, lot 2,800, level II, AQL 1.0 | **code K: n = 125, Ac = 3, Re = 4** |
+| Same plan for 2,760 and for two lots of 1,400 | **125 pieces in every case** |
+| Quantity gap, 40 of 2,800 declared | **1.4 %** |
+
+### What this case is actually teaching
+
+The factor of two in `gap/(2 x diagonal)` is part of the method, not a derivation
+detail. Dropped, the same 2.60 mm reads 1.30 % — over the 0.75 % ceiling — and a
+conforming lot is scrapped. The case is written so that both readings are in front
+of the learner at once, and the disposition depends on which one is right.
+
+The second lesson is that a sampling plan administers a *population*, and a
+shipment with two date codes is two populations until someone says otherwise. The
+numbers survive the split here (1,400 and 1,400 both sit in the K band), which is
+exactly why the split has to be argued on traceability rather than on the sample
+size — and why the explanation points at the band edge, where 1,150 boards would
+have fallen to code J and 80 pieces.
+
+### A defect the checker caught in this round
+
+The first draft of the case computed the twist limit on the 160 mm edge while the
+step asked about the diagonal, so key and derivation disagreed by a factor of 1.7.
+`check-cases.js` recomputes each key from the case's own files rather than reading
+it back, so it failed on the spot (`key 3 vs independent 1.2`). Three other problems
+were found by reading rather than by arithmetic: the carton labels summed to 2,840
+against a declared 2,800; splitting 2,800 by date code as 1,200 + 1,600 put one lot
+in a different Table I band, which broke the case's own claim; and "6 %" was not
+recoverable from 0.80 mm by any divisor, so the scenario could not have been written
+by the person it describes. All four are fixed.
+
+### Sources
+
+* **Bow and twist.** IPC-6012 3.4.3: 0.75 % for boards using surface-mount
+  components, 1.5 % for other boards, measured per IPC-TM-650 2.4.22. Confirmed
+  against three independent summaries, one of which prints the same worked example
+  (2 x diagonal x ceiling for the allowed gap). Source `src-018`, lesson m01l06.
+* **Sampling.** ISO 2859-1 Table I and Table II-A: 1,201-3,200 at level II is code
+  K, 125 pieces; at AQL 1.0, Ac = 3, Re = 4. Confirmed against two independent
+  tables that state the same row. Source `src-006`, lesson m01l03.
+* **Not used.** The case does not quote a warpage figure below 0.75 %: several
+  vendor pages suggest tighter limits for fine-pitch or large boards, but no source
+  in the course supports a specific tighter number, so the case uses the IPC default
+  and says on the page that procurement documentation may tighten it.
+
+Verification after round 4: `gen_cases.py --check` OK (**9 cases, 77 steps**),
+`check-cases.js` **77/77**, `check-integrity.js` OK (9 cases, 77 steps, 48 numeric),
+`check-quiz.js` OK, `tests/course.test.js` **183 / 0**, `tests/case-qa.js` **39 / 0**,
+pilot sheet regenerated for 9 cases / 77 steps, 19 outline captures regenerated.
+
+---
+
 ## 8. Next
 
-The remaining eleven modules get cases in the same shape, one per module, in
-module order; m08 (fill fraction) and m09 (wave dwell) are the natural next two
-because both read Board X facts the m03 and m06 cases already fixed. Templates
-referenced from the cases (`stencil-sheet`, `msl-log`, `reflow-log`, `8d`,
-`pareto`) are listed as `planned` in the Toolkit and are Phase 4 work.
+Nine of fifteen modules now carry a case: m01, m02, m03, m06, m07, m08, m09, m11,
+m14. The remaining six are m04, m05, m10, m12, m13, m15.
+
+m04 is the natural next one: it follows m03 in the process, the stencil case
+already fixes the aperture and foil numbers it needs, and SPI volume, height and
+area give three measurable answers that cannot be guessed. m05 (placement offset
+and accuracy) is the cleanest after that, because it reads the pitch and package
+facts Board X already carries.
+
+Templates referenced from the cases are generated in three variants (blank,
+example, guide) for all twelve template types; the "check" workflow on the five
+originally `planned` ones is Phase 4 work.
 
 ---
 

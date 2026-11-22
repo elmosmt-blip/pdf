@@ -126,11 +126,11 @@ mastered». Обойти нельзя — гейт стоит и на маршр
 
 ```bash
 cd /home/user/pdf/course-clean
-python3 scripts/gen_cases.py --check    # OK (8 cases, 68 steps)
-node scripts/check-cases.js             # keys recomputed 68 of 68
-node scripts/check-integrity.js         # cases 8 (68 steps), OK
-node tests/course.test.js               # PASS — 181 passed, 0 failed
-node tests/case-qa.js                   # 36 passed, 0 failed
+python3 scripts/gen_cases.py --check    # OK (9 cases, 77 steps)
+node scripts/check-cases.js             # keys recomputed 77 of 77
+node scripts/check-integrity.js         # cases 9 (77 steps), OK
+node tests/course.test.js               # PASS — 183 passed, 0 failed
+node tests/case-qa.js                   # 39 passed, 0 failed
 ```
 
 ---
