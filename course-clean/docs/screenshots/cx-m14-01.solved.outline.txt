@@ -2,7 +2,7 @@ Rendered outline of #/c/cx-m14-01
 Produced by scripts/capture-case.js from the built tree (build/course-clean).
 This is the live DOM from the shipped engine, not a mock-up.
 
-main #main   [10882 chars]
+main #main   [10968 chars]
   p .kicker   [51 chars]
     "Toolkit · Module 14 · Defect Analysis and CAPA / 8D"
   header .page-head   [129 chars]
@@ -29,14 +29,14 @@ main #main   [10882 chars]
       "A corrective action has been running for six weeks on a different defect family: 96 defects in 6,000 boards be…"
     p   [91 chars]
       "Compute the metrics the 8D needs, and be honest about what the numbers do and do not prove."
-  details .case-board   [1112 chars]
+  details .case-board   [1198 chars]
     summary   [38 chars]
       "Board X — the product behind this case"
-    div .details-body   [1074 chars]
+    div .details-body   [1160 chars]
       p .muted.flush   [158 chars]
         "6-layer 1.6 mm FR-4 controller board: QFP-64 at 0.5 mm pitch, QFP-48 at 0.4 mm pitch, one 256-ball BGA at 0.8 …"
-      table .case-facts   [916 chars]
-        tbody   [916 chars]
+      table .case-facts   [1002 chars]
+        tbody   [1002 chars]
           tr   [23 chars]
             th   [20 chars]
               "Board thickness (mm)"
@@ -202,6 +202,16 @@ main #main   [10882 chars]
               "Hand-soldering setpoint (°C)"
             td   [7 chars]
               "330–360"
+          tr   [42 chars]
+            th   [38 chars]
+              "Bow and twist, SMT board, IPC-6012 (%)"
+            td   [4 chars]
+              "0.75"
+          tr   [44 chars]
+            th   [41 chars]
+              "Bow and twist, other boards, IPC-6012 (%)"
+            td   [3 chars]
+              "1.5"
   details .case-data   [142 chars]
     summary   [26 chars]
       "Data file — defect-log.csv"

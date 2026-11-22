@@ -7,6 +7,15 @@ cx-m03-01,s5,numeric,(0.18*0.8)/(2*(0.18+0.8)*0.125),0.5877551020408163,0.005,di
 cx-m03-01,s6,numeric,0.5/(4*0.125),1.0,0.02,dimensionless,"{""d_mm"": 0.5, ""t_mm"": 0.125}"
 cx-m03-01,s7,numeric,0.20*0.80*0.100*1000,16.000000000000004,0.5,nL,"{""l"": 0.2, ""t"": 0.1, ""w"": 0.8}"
 cx-m03-01,s8,choice,choice key = b,b,0,,{}
+cx-m01-01,s1,numeric,gap/(2*diagonal)*100,0.65,0.03,%,"{""diagonal_mm"": 200.0, ""gap_mm"": 2.6}"
+cx-m01-01,s2,numeric,2*diagonal*ceiling/100,3.0,0.02,mm,"{""ceiling_pct"": 0.75, ""diagonal_mm"": 200.0}"
+cx-m01-01,s3,choice,choice key = b,b,0,,{}
+cx-m01-01,s4,numeric,"ISO 2859-1 level II, AQL 1.0, lot 2800 -> code K: n=125, Ac=3, Re=4",125,0.5,pieces,"{""ac"": 3, ""code"": ""K"", ""lot_size"": 2800, ""n"": 125, ""re"": 4}"
+cx-m01-01,s5,choice,choice key = b,b,0,,{}
+cx-m01-01,s6,numeric,40/2800*100,1.4285714285714286,0.1,%,"{""part"": 40, ""whole"": 2800}"
+cx-m01-01,s7,choice,choice key = c,c,0,,{}
+cx-m01-01,s8,choice,choice key = b,b,0,,{}
+cx-m01-01,s9,choice,choice key = c,c,0,,{}
 cx-m02-01,s1,numeric,"J-STD-033 Table 5-1, MSL 4",72.0,0.5,h,"{""msl"": 4}"
 cx-m02-01,s2,numeric,58+6,64.0,0.5,h,"{""bag_open_h"": 58, ""line_h"": 6}"
 cx-m02-01,s3,numeric,72-64,8.0,0.5,h,"{""exposure_h"": 64.0, ""floor_life_h"": 72.0}"

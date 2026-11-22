@@ -101,6 +101,8 @@ BOARD_FACT_LABELS = {
     "conductorReductionPct": "Conductor width reduction by class (%)",
     "annularRingMinMm": "Annular ring, Class 3 external (mm)",
     "handSetpointWindowC": "Hand-soldering setpoint (°C)",
+    "bowTwistSmtPct": "Bow and twist, SMT board, IPC-6012 (%)",
+    "bowTwistOtherPct": "Bow and twist, other boards, IPC-6012 (%)",
 }
 
 BOARD = {
@@ -119,21 +121,23 @@ BOARD = {
 # page draws it as a strip so the learner can see where the case sits in the
 # product's life. The label is what the page shows, the case is what it links to.
 BOARD_THREAD = [
-    {"step": 1, "moduleId": "m02", "label": "MSL log", "asset": "MSL exposure log",
+    {"step": 1, "moduleId": "m01", "label": "Incoming release", "asset": "Incoming release record",
+     "caseId": "cx-m01-01"},
+    {"step": 2, "moduleId": "m02", "label": "MSL log", "asset": "MSL exposure log",
      "caseId": "cx-m02-01"},
-    {"step": 2, "moduleId": "m03", "label": "Stencil", "asset": "Stencil data sheet",
+    {"step": 3, "moduleId": "m03", "label": "Stencil", "asset": "Stencil data sheet",
      "caseId": "cx-m03-01"},
-    {"step": 3, "moduleId": "m06", "label": "Reflow profile", "asset": "Reflow profile log",
+    {"step": 4, "moduleId": "m06", "label": "Reflow profile", "asset": "Reflow profile log",
      "caseId": "cx-m06-01"},
-    {"step": 4, "moduleId": "m08", "label": "Through-hole", "asset": "Hole and lead measurement sheet",
+    {"step": 5, "moduleId": "m08", "label": "Through-hole", "asset": "Hole and lead measurement sheet",
      "caseId": "cx-m08-01"},
-    {"step": 5, "moduleId": "m09", "label": "Wave", "asset": "Wave solder process record",
+    {"step": 6, "moduleId": "m09", "label": "Wave", "asset": "Wave solder process record",
      "caseId": "cx-m09-01"},
-    {"step": 6, "moduleId": "m07", "label": "AOI audit", "asset": "AOI and X-ray audit",
+    {"step": 7, "moduleId": "m07", "label": "AOI audit", "asset": "AOI and X-ray audit",
      "caseId": "cx-m07-01"},
-    {"step": 7, "moduleId": "m11", "label": "Rework", "asset": "Rework and repair record",
+    {"step": 8, "moduleId": "m11", "label": "Rework", "asset": "Rework and repair record",
      "caseId": "cx-m11-01"},
-    {"step": 8, "moduleId": "m14", "label": "8D report", "asset": "8D problem report",
+    {"step": 9, "moduleId": "m14", "label": "8D report", "asset": "8D problem report",
      "caseId": "cx-m14-01"},
 ]
 
@@ -207,6 +211,15 @@ BOARD_FACTS["bgaVoidMaxPct"] = BGA_VOID_MAX_PCT
 BOARD_FACTS["conductorReductionPct"] = {str(k): v for k, v in CONDUCTOR_REDUCTION_PCT.items()}
 BOARD_FACTS["annularRingMinMm"] = ANNULAR_RING_MIN_MM
 BOARD_FACTS["handSetpointWindowC"] = [HAND_SETPOINT_MIN_C, HAND_SETPOINT_MAX_C]
+# Bow and twist, IPC-6012 (3.4.3, measured per IPC-TM-650 method 2.4.22): 0.75 %
+# for a board that carries surface-mount parts, 1.5 % for anything else. The
+# percentage is of the direction being measured — for twist the denominator is
+# the diagonal and the measured gap is divided by twice the diagonal, which is
+# the single most misread number in this standard.
+BOW_TWIST_SMT_PCT = 0.75
+BOW_TWIST_OTHER_PCT = 1.5
+BOARD_FACTS["bowTwistSmtPct"] = BOW_TWIST_SMT_PCT
+BOARD_FACTS["bowTwistOtherPct"] = BOW_TWIST_OTHER_PCT
 
 
 # --------------------------------------------------------------------------
@@ -321,6 +334,15 @@ def share_of(part: float, whole: float):
     return (value, "%", "%g/%g*100" % (part, whole), {"part": part, "whole": whole})
 
 
+def twist_pct(gap_mm: float, diagonal_mm: float):
+    """Twist by the IPC-TM-650 2.4.22 production method: the gap under the raised
+    corner over twice the diagonal. The factor of two is part of the method —
+    dropping it doubles the answer and turns a passing board into scrap."""
+    value = gap_mm / (2.0 * diagonal_mm) * 100.0
+    return (value, "%", "gap/(2*diagonal)*100",
+            {"gap_mm": gap_mm, "diagonal_mm": diagonal_mm})
+
+
 def iso_sample(lot_size: int, code: str, n: int, ac: int, re_: int):
     """ISO 2859-1, general inspection level II, AQL 1.0 — table lookup, not
     arithmetic. Returned as a numeric step (n) plus a choice step (the code)."""
@@ -376,6 +398,16 @@ def step_choice(sid, prompt, options, correct_id, hints, ok, bad, explanation):
 # text. No number here is typed by hand.
 # --------------------------------------------------------------------------
 TEMPLATE_DEFS = {
+    "incoming-release": {
+        "name": "Incoming release record",
+        "kind": "csv",
+        "sourceFile": "board-lot.csv",
+        "lesson": "m01l07",
+        "use": "Record the lot as received, the plan it was judged against, the "
+               "measurement with its method, and what closed the hold — so a release "
+               "can be defended when the product class or the standard moves.",
+        "rowNoun": "lot or carton",
+    },
     "stencil-sheet": {
         "name": "Stencil data sheet",
         "kind": "csv",
@@ -824,6 +856,303 @@ def build_cases():
         {"criterion": "Round-aperture rule applied, not the rectangle formula", "points": 10, "steps": ["s6"]},
         {"criterion": "Nominal volume converted to nanolithres without a factor error", "points": 10, "steps": ["s7"]},
         {"criterion": "Remedy chosen that does not move the apertures already in spec", "points": 20, "steps": ["s8"]},
+    ]
+    cases.append(c)
+
+    # =====================================================================
+    # m01 — incoming release of the bare-board lot
+    # =====================================================================
+    # Board X is 160 x 120 mm. The lot in the door is 2,800 boards, so the plan
+    # is decided by arithmetic and a table, not by how many the inspector has
+    # time for.
+    bw_l, bw_w = 160.0, 120.0
+    bw_diag = math.hypot(bw_l, bw_w)                   # exactly 200 mm
+    twist_gap = 2.60                                   # worst carton, production method
+    twist_right = twist_pct(twist_gap, bw_diag)        # 0.65 %
+    twist_allowed_gap = (2.0 * bw_diag * BOW_TWIST_SMT_PCT / 100.0, "mm",
+                         "2*diagonal*ceiling/100",
+                         {"diagonal_mm": bw_diag, "ceiling_pct": BOW_TWIST_SMT_PCT})
+    n_lot = iso_sample(2800, "K", 125, 3, 4)
+    n_sharp = iso_sample(1520, "K", 125, 3, 4)
+
+    c = {
+        "caseId": "cx-m01-01",
+        "moduleId": "m01",
+        "title": "Bare-board release: a twist figure that is out by a factor of two",
+        "estMinutes": 30,
+        "level": "core",
+        "scenario": [
+            "The bare-board lot for the next Board X build is on the dock: 2,800 pieces, "
+            "160 x 120 mm, ENIG finish, one supplier lot number on the box. The receiving "
+            "inspector has already done part of the job and left two numbers that do not "
+            "agree with each other.",
+            "The flatness check reports 2.60 mm under one raised corner by the production "
+            "method, on a 160 x 120 mm board — a 200 mm diagonal. She wrote it up as "
+            "1.3 % and put the carton on hold. The certificate of conformance is present "
+            "for the whole lot, the humidity indicator card is blue and the packaging is "
+            "intact, except that the cartons carry two different date codes and the counts "
+            "on the labels do not match what is in the boxes.",
+            "Decide what this lot is: accepted, quarantined or rejected. Then decide how "
+            "many boards should have been pulled, because the answer changes whether the "
+            "twist reading is even a defect.",
+        ],
+        "dataFiles": [
+            {
+                "name": "board-lot.csv",
+                "kind": "csv",
+                "content": (
+                    "carton,labelled_date_code,boards_on_label,boards_in_box,"
+                    "twist_gap_mm,humi_card\n"
+                    "1,D2418,700,700,1.10,blue\n"
+                    "2,D2418,700,700,1.35,blue\n"
+                    "3,D2511,700,660,2.60,blue\n"
+                    "4,D2511,700,700,1.05,blue\n"
+                ),
+                "note": "One row per carton. The twist gap is the measured height "
+                        "under the raised corner, production method, on the boards "
+                        "sampled from that carton.",
+            },
+            {
+                "name": "receipt-plan.csv",
+                "kind": "csv",
+                "content": (
+                    "item,value\n"
+                    "lot_size_declared,2800\n"
+                    "lot_size_counted,2760\n"
+                    "board_length_mm,160\n"
+                    "board_width_mm,120\n"
+                    "sample_taken,20\n"
+                    "inspection_level,II\n"
+                    "aql,1.0\n"
+                ),
+            },
+        ],
+        "steps": [],
+        "rubric": [],
+        "templates": [
+            {"templateId": "incoming-release", "name": "Incoming release record",
+             "status": "planned"}
+        ],
+        "toolLinks": [
+            {"label": "Sampling a lot (lesson m01l03)", "href": "#/l/m01l03"},
+            {"label": "Bare PCB receipt (lesson m01l06)", "href": "#/l/m01l06"},
+            {"label": "Nonconforming material at dock (lesson m01l07)", "href": "#/l/m01l07"},
+        ],
+        "sources": ["src-018", "src-006", "src-037"],
+        "generatedBy": "scripts/gen_cases.py",
+    }
+
+    add_step(c, step_numeric(
+        "s1",
+        "The raised corner measures 2.60 mm and the board diagonal is 200 mm. What is the "
+        "twist by the IPC-TM-650 2.4.22 production method, in percent?",
+        twist_right, 0.03,
+        ["The method divides the gap by twice the diagonal, not by the diagonal.",
+         "2.60 / (2 x 200) = 0.0065, and that is a fraction.",
+         "2.60 / 400 x 100 = 0.65 %."],
+        "0.65 % — inside 0.75 %. The 1.3 % on the receiving sheet is the same gap "
+        "divided by the diagonal once.",
+        "Check the divisor: the production method uses twice the diagonal.",
+        "2.60 / (2 x 200.0) = 0.0065 = 0.65 %. On a board that carries surface-mount "
+        "parts the IPC-6012 default ceiling is 0.75 %, so this carton passes — while the "
+        "1.3 % on the sheet is over the limit and would have scrapped it. Dropping the "
+        "factor of two is not a rounding error here, it is a disposition: the same 2.60 mm "
+        "decides whether the lot ships. That is why IPC-TM-650 2.4.22 names the divisor "
+        "explicitly rather than leaving it to a percentage formula."))
+
+    add_step(c, step_numeric(
+        "s2",
+        "Turned around: at the same 0.75 % ceiling, what is the largest gap, in mm, that "
+        "this board's diagonal may show?",
+        twist_allowed_gap, 0.02,
+        ["The gap is twice the diagonal times the percentage.",
+         "2 x 200 x 0.0075.",
+         "3.00 mm."],
+        "3.00 mm allowed on the diagonal; the worst carton shows 2.60 mm.",
+        "Solve gap/(2 x diagonal) = 0.0075 for the gap.",
+        "2 x 200 x 0.75 % = 3.00 mm, and the worst carton measures 2.60 mm, which is the "
+        "0.65 % of the previous step seen from the other end. Doing it this way is what "
+        "lets an inspector carry a ruler instead of a calculator: the allowed gap is a "
+        "number on the drawing, and the percentage is a number in the record. Note that "
+        "this is a limit for the gap, not for the board — a bow measured along the 160 mm "
+        "edge is judged against 1.20 mm instead, because the percentage applies to the "
+        "direction being measured."))
+
+    add_step(c, step_choice(
+        "s3",
+        "The lot is 2,800 boards and the quality plan requires ISO 2859-1 general "
+        "inspection level II at AQL 1.0. What sampling plan applies?",
+        [("a", "Code J, n = 80, accept on 2 or fewer defectives."),
+         ("b", "Code K, n = 125, accept on 3 or fewer defectives, reject on 4."),
+         ("c", "Code K, n = 200, accept on 5 or fewer defectives."),
+         ("d", "Inspect every board, because 2,800 is a large lot.")],
+        "b",
+        ["2,800 falls in the 1,201-3,200 band of Table I.",
+         "That band at level II gives code K.",
+         "Code K at AQL 1.0 gives n = 125, Ac = 3, Re = 4."],
+        "Code K: 125 boards, accept at 3 defectives, reject at 4.",
+        "Find the lot-size band first, then the code letter, then the AQL column.",
+        "A lot of 1,201 to 3,200 at general level II is code K, and code K at AQL 1.0 is "
+        "125 pieces with Ac = 3, Re = 4. The inspector pulled 20. Twenty is not a plan, "
+        "it is a look: at 20 pieces you cannot see enough of even a 2 % defect rate to "
+        "tell it from a 5 % one, and the acceptance number that would go with it comes "
+        "from a band this lot is not in. Re = Ac + 1 in single sampling, which is why "
+        "the plan in option c cannot exist: 200 pieces is code L, and that plan's "
+        "numbers belong to a different lot size."))
+
+    add_step(c, step_numeric(
+        "s4",
+        "The count on the box does not match the labels: 2,760 boards instead of 2,800. "
+        "The whole shipment is one supplier lot. What sample size, in pieces, was required "
+        "for each lot size?",
+        n_lot, 0.5,
+        ["Both 2,760 and 2,800 sit in the same Table I band.",
+         "The 1,201-3,200 band at level II is code K.",
+         "Code K is 125 pieces, and the shortfall does not change the band."],
+        "125 in both cases — 40 boards do not move the lot to another band.",
+        "Compare the two counts with the band edges before re-deriving anything.",
+        "2,760 and 2,800 both fall in 1,201-3,200, so both are code K and both call for "
+        "125 pieces. That is the useful part of a table over an intuition: a 40-piece "
+        "shortfall is a shortage to report, not a sampling change. The number that should "
+        "bother the inspector is different — that the box and the labels disagree about "
+        "what was shipped."))
+
+    add_step(c, step_choice(
+        "s5",
+        "The two date codes split this shipment into lots of 1,400 and 1,400. Both would "
+        "still call for the same 125 pieces. Why does that matter here?",
+        [("a", "It does not; 1,400 is a different lot size and needs its own plan."),
+         ("b", "The two date codes may be two lots, and a lot is the population the plan "
+               "applies to. Splitting leaves two lots of 1,400, and both sit in the "
+               "1,201-3,200 band, so the plan holds either way."),
+         ("c", "It means the sample can be pulled from whichever carton is nearest."),
+         ("d", "It means the AQL should be halved to keep the same protection.")],
+        "b",
+        ["A lot is one part number, revision, supplier lot and date code — not one shipment.",
+         "Split the boxes by date code and look at the two lot sizes.",
+         "Both fall in 1,201-3,200, so both keep code K and 125 pieces."],
+        "Split into two lots by date code; the plan is unchanged, and the split is what "
+        "the word 'lot' was always doing.",
+        "Which quantity does the sampling plan actually apply to?",
+        "The plan protects a population, and the population is the lot as defined: one "
+        "part, one revision, one date code. A shipment carrying two date codes is two "
+        "lots unless the quality plan says the difference does not affect the inspected "
+        "characteristic. Here it does not change the numbers — two lots of 1,400 sit "
+        "comfortably inside the K band — but the band is coarse, and a split near an edge "
+        "does change it: a lot of 1,200 is code K only because the band starts at 1,201, "
+        "and 1,150 would fall to code J and a sample of 80. The split also decides what a "
+        "reject gets attributed to, which supplier explanation gets tested, and whether "
+        "the 40 missing boards came from one lot or two."))
+
+    add_step(c, step_numeric(
+        "s6",
+        "The shipping paperwork and the box disagree by how many percent, counting the "
+        "2,760 boards in the boxes against the 2,800 on the labels?",
+        share_of(2800 - 2760, 2800), 0.1,
+        ["The gap is 40 boards.",
+         "Divide the gap by the declared quantity, not by the counted one.",
+         "40 / 2,800 x 100 = 1.4 %."],
+        "1.4 % of the declared quantity is missing.",
+        "Part over whole: the whole here is what the labels promised.",
+        "40 / 2,800 = 1.4 %. Small enough to wave through, and not a cosmetic matter: "
+        "the counts feed the build plan, the lot traceability and any later return of "
+        "affected boards, and a carton whose label and contents disagree is a carton "
+        "nobody can trace. This is the kind of finding that belongs in the record even "
+        "when the product itself measures fine."))
+
+    add_step(c, step_choice(
+        "s7",
+        "On the evidence in the two files, what is the disposition of this shipment?",
+        [("a", "Accept it: the twist is inside the limit and the humidity card is blue."),
+         ("b", "Reject it: the boards are out of flatness by a factor of eight."),
+         ("c", "Quarantine it: the product measurements pass, but the date codes and the "
+               "counts do not let the lots be defined or traced until the supplier "
+               "explains them."),
+         ("d", "Accept the good cartons and reject carton 3.")],
+        "c",
+        ["Separate what was measured from what cannot be established.",
+         "Nothing measured is a defect; what is missing is identity and quantity.",
+         "Quarantine holds material whose status is unclear, and this is that."],
+        "Quarantine: nothing measured fails, and nothing about the lot can be established.",
+        "Which of the findings could be dispositioned today, and which one needs the supplier?",
+        "The twist is 0.20 % against a 0.75 % ceiling and the humidity indicator is blue, "
+        "so the product side of this lot is fine — a rejection on flatness would be "
+        "wrong, and it is what the 6 % reading would have produced. But two date codes "
+        "in one shipment and 40 boards missing from the boxes leave the lot undefined: "
+        "you cannot say which boards came from which manufacturing lot, so you cannot "
+        "contain, return or trace them if one lot turns out bad. Quarantine is the "
+        "disposition for 'evidence incomplete', and it is reversible once the supplier "
+        "answers. Rejecting the lot would be a claim about the product that the data "
+        "does not support."))
+
+    add_step(c, step_choice(
+        "s8",
+        "The supplier replies that both date codes come from the same lamination batch and "
+        "the count difference is a labelling error. What does that reply change?",
+        [("a", "Everything: with one batch the shipment is one lot and can be released."),
+         ("b", "It answers the lot question, so the 125-piece sample can be pulled across "
+               "the whole shipment and dispositioned as one lot; the 40 missing boards "
+               "remain an open quantity issue with the supplier."),
+         ("c", "Nothing, because a supplier statement is never used at the dock."),
+         ("d", "It means the sample can be reduced to 20 pieces as originally taken.")],
+        "b",
+        ["Which of the two findings does the statement address?",
+         "It addresses identity (one lamination batch), not quantity.",
+         "Release follows the sample, and the quantity gap stays open."],
+        "The lot question is closed and the sample can cover the shipment; the 40 boards "
+        "stay open.",
+        "Take the statement one finding at a time: which does it resolve?",
+        "A supplier statement about one lamination batch can define the lot, provided it "
+        "is recorded and traceable to the paperwork — that is what supplier "
+        "documentation is for, and refusing to ever use it would quarantine every lot "
+        "that arrives with a letter. It does not create 40 boards. So the sample proceeds "
+        "at 125 pieces against the whole shipment, the plan still administers the "
+        "product, and the shortage is closed separately with a debit or a replacement. "
+        "Conflating the two is how a lot gets released while the traceability hole moves "
+        "into the build."))
+
+    add_step(c, step_choice(
+        "s9",
+        "What makes this release record usable six months from now?",
+        [("a", "A statement that the lot was inspected and released."),
+         ("b", "The inspector's name and the date."),
+         ("c", "The two lot sizes and the date codes as received, the plan and AQL with the "
+               "sample size and the accept number, the measured twist with its method and "
+               "the limit it was compared with, the humidity card reading, the 40-board "
+               "quantity gap with its closure, the quarantine and its release, and the "
+               "supplier's statement."),
+         ("d", "A photograph of the carton labels.")],
+        "c",
+        ["A record is judged by whether someone else could re-take the same decision.",
+         "The method matters as much as the measurement: 0.20 % and 6 % describe the "
+         "same board.",
+         "Identity, plan, measurement with method, quantity, disposition, closure."],
+        "Identity, plan and AQL, the twist with its method and limit, the humidity "
+        "reading, the shortage and its closure, the hold and its release.",
+        "Which of these would let another engineer reach the same disposition without you?",
+        "Which of these would fail if the lot were questioned a year later, or if the "
+        "product class changed? A record that says 'released' cannot answer either. The "
+        "twist figure without its method is actively misleading, because 0.20 % and 6 % "
+        "are the same 0.80 mm; the plan without its AQL cannot show whether 3 defectives "
+        "was a pass; and the quarantine without its release leaves a permanent question "
+        "mark over boards that are already assembled. A photo of a carton label is "
+        "evidence for one of these facts, not a record of the decision."))
+
+    c["rubric"] = [
+        {"criterion": "Twist computed by the production method, with the factor of two",
+         "points": 20, "steps": ["s1"]},
+        {"criterion": "Bow limit derived for the measured direction", "points": 10,
+         "steps": ["s2"]},
+        {"criterion": "ISO 2859-1 plan read off the table for the actual lot size",
+         "points": 15, "steps": ["s3", "s4"]},
+        {"criterion": "Lot defined before sampling, and the split shown not to change the "
+                       "plan", "points": 15, "steps": ["s5"]},
+        {"criterion": "Quantity gap quantified against the declared quantity",
+         "points": 10, "steps": ["s6"]},
+        {"criterion": "Disposition separates a passing measurement from an undefined lot",
+         "points": 20, "steps": ["s7", "s8"]},
+        {"criterion": "Release record carries the method, the limit and the closure",
+         "points": 10, "steps": ["s9"]},
     ]
     cases.append(c)
 
@@ -2674,6 +3003,7 @@ def build_document():
             "conductorReductionClass3Pct": [CONDUCTOR_REDUCTION_PCT[3], "src-022", "m11l04"],
             "annularRingMinMm": [ANNULAR_RING_MIN_MM, "src-022", "m11l04"],
             "handSetpointWindowC": [[HAND_SETPOINT_MIN_C, HAND_SETPOINT_MAX_C], None, "m11l02"],
+            "bowTwistSmtPct": [BOW_TWIST_SMT_PCT, "src-018", "m01l06"],
         },
         "thread": BOARD_THREAD,
         "board": BOARD,

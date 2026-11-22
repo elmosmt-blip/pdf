@@ -118,11 +118,70 @@ const ISO_TABLE = {
   5000: { code: 'L', n: 200, ac: 5, re: 6 }
 };
 
+/* The lot-size bands of ISO 2859-1 Table I at general inspection level II, so a
+ * lot of 2,760 and a lot of 2,800 resolve through the table instead of through
+ * a lookup that happens to contain only the two lots a lesson printed. */
+const ISO_BANDS = [
+  { lo: 1201, hi: 3200, code: 'K', n: 125, ac: 3, re: 4 },
+  { lo: 3201, hi: 10000, code: 'L', n: 200, ac: 5, re: 6 }
+];
+function isoByBand(lot) {
+  for (let i = 0; i < ISO_BANDS.length; i++) {
+    const b = ISO_BANDS[i];
+    if (lot >= b.lo && lot <= b.hi) return b;
+  }
+  throw new Error('lot ' + lot + ' is outside the bands this checker knows');
+}
+
+/* item,value CSV -> an object, because receipt-plan.csv is not a list of units
+ * but a list of facts about one lot. */
+function rows(c, name, keyCol, valCol) {
+  const out = {};
+  dataFile(c, name).forEach(function (r) { out[r[keyCol]] = r[valCol]; });
+  return out;
+}
+
 /* ------------------------------------------------------ expected answers */
 /* caseId.stepId -> function(caseDoc) returning the independently computed
  * value. A step not listed here is reported as unverified, which is a failure:
  * a key nobody recomputes is exactly the hand-typed key the brief forbids. */
 const EXPECTED = {
+  /* ---- m01: bare-board release. Every figure below is recomputed from the
+   * receipt files and the IPC-6012 ceiling, not read back from the key. */
+  'cx-m01-01.s1': function (c) {
+    const p = rows(c, 'receipt-plan.csv', 'item', 'value');
+    const diag = Math.hypot(+p['board_length_mm'], +p['board_width_mm']);
+    const gap = Math.max.apply(null, dataFile(c, 'board-lot.csv')
+      .map(function (r) { return +r.twist_gap_mm || 0; }));
+    return gap / (2 * diag) * 100;
+  },
+  'cx-m01-01.s2': function (c) {
+    /* solve gap/(2*diagonal) = ceiling/100 for the gap */
+    const p = rows(c, 'receipt-plan.csv', 'item', 'value');
+    const diag = Math.hypot(+p['board_length_mm'], +p['board_width_mm']);
+    return 2 * diag * 0.75 / 100;
+  },
+  'cx-m01-01.s3': function (c) {
+    const p = rows(c, 'receipt-plan.csv', 'item', 'value');
+    const plan = isoByBand(+p['lot_size_declared']);
+    return 'code ' + plan.code + ', n = ' + plan.n + ', accept on ' + plan.ac;
+  },
+  'cx-m01-01.s4': function (c) {
+    const p = rows(c, 'receipt-plan.csv', 'item', 'value');
+    const a = isoByBand(+p['lot_size_counted']);
+    const b = isoByBand(+p['lot_size_declared']);
+    return a.n === b.n ? a.n : 'plans differ';
+  },
+  'cx-m01-01.s5': function () {
+    return 'two lots';
+  },
+  'cx-m01-01.s6': function (c) {
+    const p = rows(c, 'receipt-plan.csv', 'item', 'value');
+    return (+p['lot_size_declared'] - +p['lot_size_counted']) / +p['lot_size_declared'] * 100;
+  },
+  'cx-m01-01.s7': function () { return 'quarantine it'; },
+  'cx-m01-01.s8': function () { return 'it answers the lot question'; },
+  'cx-m01-01.s9': function () { return 'measured twist with its method'; },
   'cx-m03-01.s1': function (c) {
     const r = dataFile(c, 'aperture-table.csv').filter(function (x) { return x.aperture_id === 'A-03'; })[0];
     return areaRatioRect(+r.width_mm, +r.length_mm, +r.foil_mm);

@@ -1,0 +1,735 @@
+Rendered outline of #/c/cx-m01-01
+Produced by scripts/capture-case.js from the built tree (build/course-clean).
+This is the live DOM from the shipped engine, not a mock-up.
+
+main #main   [9477 chars]
+  p .kicker   [41 chars]
+    "Toolkit · Module 01 · Incoming Inspection"
+  header .page-head   [113 chars]
+    div   [113 chars]
+      h1   [65 chars]
+        "Bare-board release: a twist figure that is out by a factor of two"
+      div .meta-line   [48 chars]
+        span .chip.chip--stage   [7 chars]
+          "Board X"
+        span .chip   [6 chars]
+          "30 min"
+        span .chip   [7 chars]
+          "9 steps"
+        span .chip   [14 chars]
+          "rubric 100 pts"
+        span .chip   [14 chars]
+          "Score 0 of 100"
+  section .case-scenario   [861 chars]
+    p   [251 chars]
+      "The bare-board lot for the next Board X build is on the dock: 2,800 pieces, 160 x 120 mm, ENIG finish, one sup…"
+    p   [427 chars]
+      "The flatness check reports 2.60 mm under one raised corner by the production method, on a 160 x 120 mm board —…"
+    p   [183 chars]
+      "Decide what this lot is: accepted, quarantined or rejected. Then decide how many boards should have been pulle…"
+  details .case-board   [1198 chars]
+    summary   [38 chars]
+      "Board X — the product behind this case"
+    div .details-body   [1160 chars]
+      p .muted.flush   [158 chars]
+        "6-layer 1.6 mm FR-4 controller board: QFP-64 at 0.5 mm pitch, QFP-48 at 0.4 mm pitch, one 256-ball BGA at 0.8 …"
+      table .case-facts   [1002 chars]
+        tbody   [1002 chars]
+          tr   [23 chars]
+            th   [20 chars]
+              "Board thickness (mm)"
+            td   [3 chars]
+              "1.6"
+          tr   [7 chars]
+            th   [6 chars]
+              "Layers"
+            td   [1 chars]
+              "6"
+          tr   [18 chars]
+            th   [14 chars]
+              "Surface finish"
+            td   [4 chars]
+              "ENIG"
+          tr   [25 chars]
+            th   [13 chars]
+              "Base material"
+            td   [12 chars]
+              "FR-4, Tg 170"
+          tr   [17 chars]
+            th   [12 chars]
+              "Stencil (mm)"
+            td   [5 chars]
+              "0.125"
+          tr   [34 chars]
+            th   [31 chars]
+              "Stencil, fine-pitch region (mm)"
+            td   [3 chars]
+              "0.1"
+          tr   [36 chars]
+            th   [12 chars]
+              "Solder paste"
+            td   [24 chars]
+              "SAC305, Type 4, no-clean"
+          tr   [20 chars]
+            th   [17 chars]
+              "QFP-64 pitch (mm)"
+            td   [3 chars]
+              "0.5"
+          tr   [13 chars]
+            th   [11 chars]
+              "QFP-64 pins"
+            td   [2 chars]
+              "64"
+          tr   [20 chars]
+            th   [17 chars]
+              "QFP-48 pitch (mm)"
+            td   [3 chars]
+              "0.4"
+          tr   [22 chars]
+            th   [19 chars]
+              "BGA ball pitch (mm)"
+            td   [3 chars]
+              "0.8"
+          tr   [12 chars]
+            th   [9 chars]
+              "BGA balls"
+            td   [3 chars]
+              "256"
+          tr   [20 chars]
+            th   [16 chars]
+              "Smallest passive"
+            td   [4 chars]
+              "0402"
+          tr   [69 chars]
+            th   [13 chars]
+              "THT connector"
+            td   [56 chars]
+              "20-pin, 2.54 mm pitch, 0.8 mm finished hole, 0.5 mm lead"
+          tr   [21 chars]
+            th   [17 chars]
+              "Lot size (boards)"
+            td   [4 chars]
+              "1240"
+          tr   [26 chars]
+            th   [23 chars]
+              "Solder joints per board"
+            td   [3 chars]
+              "620"
+          tr   [11 chars]
+            th   [5 chars]
+              "Alloy"
+            td   [6 chars]
+              "SAC305"
+          tr   [16 chars]
+            th   [13 chars]
+              "Liquidus (°C)"
+            td   [3 chars]
+              "219"
+          tr   [15 chars]
+            th   [12 chars]
+              "Solidus (°C)"
+            td   [3 chars]
+              "217"
+          tr   [28 chars]
+            th   [23 chars]
+              "Time above liquidus (s)"
+            td   [5 chars]
+              "60–90"
+          tr   [30 chars]
+            th   [23 chars]
+              "Peak window, paste (°C)"
+            td   [7 chars]
+              "235–245"
+          tr   [35 chars]
+            th   [28 chars]
+              "Typical production peak (°C)"
+            td   [7 chars]
+              "235–245"
+          tr   [35 chars]
+            th   [32 chars]
+              "Peak ceiling, large package (°C)"
+            td   [3 chars]
+              "250"
+          tr   [36 chars]
+            th   [34 chars]
+              "Minimum barrel fill, IPC-A-610 (%)"
+            td   [2 chars]
+              "75"
+          tr   [34 chars]
+            th   [32 chars]
+              "Thermal-plane exception fill (%)"
+            td   [2 chars]
+              "50"
+          tr   [36 chars]
+            th   [34 chars]
+              "Leads before the exception applies"
+            td   [2 chars]
+              "14"
+          tr   [24 chars]
+            th   [23 chars]
+              "THT hole, finished (mm)"
+            td   [1 chars]
+              "1"
+          tr   [29 chars]
+            th   [25 chars]
+              "THT hole tolerance (± mm)"
+            td   [4 chars]
+              "0.05"
+          tr   [24 chars]
+            th   [21 chars]
+              "Wave contact time (s)"
+            td   [3 chars]
+              "2–4"
+          tr   [29 chars]
+            th   [27 chars]
+              "Void limit per BGA ball (%)"
+            td   [2 chars]
+              "25"
+          tr   [77 chars]
+            th   [38 chars]
+              "Conductor width reduction by class (%)"
+            td   [39 chars]
+              "Class 1: 30 · Class 2: 20 · Class 3: 10"
+          tr   [39 chars]
+            th   [35 chars]
+              "Annular ring, Class 3 external (mm)"
+            td   [4 chars]
+              "0.05"
+          tr   [35 chars]
+            th   [28 chars]
+              "Hand-soldering setpoint (°C)"
+            td   [7 chars]
+              "330–360"
+          tr   [42 chars]
+            th   [38 chars]
+              "Bow and twist, SMT board, IPC-6012 (%)"
+            td   [4 chars]
+              "0.75"
+          tr   [44 chars]
+            th   [41 chars]
+              "Bow and twist, other boards, IPC-6012 (%)"
+            td   [3 chars]
+              "1.5"
+  details .case-data   [340 chars]
+    summary   [25 chars]
+      "Data file — board-lot.csv"
+    div .details-body   [315 chars]
+      p .muted.flush   [140 chars]
+        "One row per carton. The twist gap is the measured height under the raised corner, production method, on the bo…"
+      div .case-table-wrap   [153 chars]
+        table .case-table   [153 chars]
+          thead   [73 chars]
+            tr   [73 chars]
+              th   [6 chars]
+                "carton"
+              th   [18 chars]
+                "labelled_date_code"
+              th   [15 chars]
+                "boards_on_label"
+              th   [13 chars]
+                "boards_in_box"
+              th   [12 chars]
+                "twist_gap_mm"
+              th   [9 chars]
+                "humi_card"
+          tbody   [80 chars]
+            tr   [20 chars]
+              td   [1 chars]
+                "1"
+              td   [5 chars]
+                "D2418"
+              td .num   [3 chars]
+                "700"
+              td .num   [3 chars]
+                "700"
+              td .num   [4 chars]
+                "1.10"
+              td   [4 chars]
+                "blue"
+            tr   [20 chars]
+              td   [1 chars]
+                "2"
+              td   [5 chars]
+                "D2418"
+              td .num   [3 chars]
+                "700"
+              td .num   [3 chars]
+                "700"
+              td .num   [4 chars]
+                "1.35"
+              td   [4 chars]
+                "blue"
+            tr   [20 chars]
+              td   [1 chars]
+                "3"
+              td   [5 chars]
+                "D2511"
+              td .num   [3 chars]
+                "700"
+              td .num   [3 chars]
+                "660"
+              td .num   [4 chars]
+                "2.60"
+              td   [4 chars]
+                "blue"
+            tr   [20 chars]
+              td   [1 chars]
+                "4"
+              td   [5 chars]
+                "D2511"
+              td .num   [3 chars]
+                "700"
+              td .num   [3 chars]
+                "700"
+              td .num   [4 chars]
+                "1.05"
+              td   [4 chars]
+                "blue"
+      p .flush   [22 chars]
+        button .btn.btn--small type=button data-act=case-data   [22 chars]
+          "Download board-lot.csv"
+  details .case-data   [176 chars]
+    summary   [28 chars]
+      "Data file — receipt-plan.csv"
+    div .details-body   [148 chars]
+      div .case-table-wrap   [123 chars]
+        table .case-table   [123 chars]
+          thead   [9 chars]
+            tr   [9 chars]
+              th   [4 chars]
+                "item"
+              th   [5 chars]
+                "value"
+          tbody   [114 chars]
+            tr   [21 chars]
+              td   [17 chars]
+                "lot_size_declared"
+              td .num   [4 chars]
+                "2800"
+            tr   [20 chars]
+              td   [16 chars]
+                "lot_size_counted"
+              td .num   [4 chars]
+                "2760"
+            tr   [18 chars]
+              td   [15 chars]
+                "board_length_mm"
+              td .num   [3 chars]
+                "160"
+            tr   [17 chars]
+              td   [14 chars]
+                "board_width_mm"
+              td .num   [3 chars]
+                "120"
+            tr   [14 chars]
+              td   [12 chars]
+                "sample_taken"
+              td .num   [2 chars]
+                "20"
+            tr   [18 chars]
+              td   [16 chars]
+                "inspection_level"
+              td   [2 chars]
+                "II"
+            tr   [6 chars]
+              td   [3 chars]
+                "aql"
+              td .num   [3 chars]
+                "1.0"
+      p .flush   [25 chars]
+        button .btn.btn--small type=button data-act=case-data   [25 chars]
+          "Download receipt-plan.csv"
+  form .case-form   [3630 chars]
+    ol .case-steps   [3608 chars]
+      li #step-s1 .case-step   [238 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 1 (20 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [142 chars]
+          "The raised corner measures 2.60 mm and the board diagonal is 200 mm. What is the twist by the IPC-TM-650 2.4.2…"
+        div .case-input-row   [32 chars]
+          label .case-input-label   [15 chars]
+            "Your answer"
+            span .muted   [3 chars]
+              "(%)"
+          input #in-s1 .case-input type=text name=c-s1 value=
+          span .case-tol.muted   [17 chars]
+            "tolerance ±0.03 %"
+        p #err-s1 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s2 .case-step   [209 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 2 (10 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [111 chars]
+          "Turned around: at the same 0.75 % ceiling, what is the largest gap, in mm, that this board's diagonal may show…"
+        div .case-input-row   [34 chars]
+          label .case-input-label   [16 chars]
+            "Your answer"
+            span .muted   [4 chars]
+              "(mm)"
+          input #in-s2 .case-input type=text name=c-s2 value=
+          span .case-tol.muted   [18 chars]
+            "tolerance ±0.02 mm"
+        p #err-s2 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s3 .case-step   [408 chars]
+        div .case-step-head   [25 chars]
+          span .case-step-n   [19 chars]
+            "Step 3 (7.5 points)"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [132 chars]
+          "The lot is 2,800 boards and the quality plan requires ISO 2859-1 general inspection level II at AQL 1.0. What …"
+        fieldset .case-options   [219 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt   [48 chars]
+            input #in-s3-a type=radio name=c-s3 value=a
+            span .case-opt-text   [48 chars]
+              "Code J, n = 80, accept on 2 or fewer defectives."
+          label .case-opt   [62 chars]
+            input #in-s3-b type=radio name=c-s3 value=b
+            span .case-opt-text   [62 chars]
+              "Code K, n = 125, accept on 3 or fewer defectives, reject on 4."
+          label .case-opt   [49 chars]
+            input #in-s3-c type=radio name=c-s3 value=c
+            span .case-opt-text   [49 chars]
+              "Code K, n = 200, accept on 5 or fewer defectives."
+          label .case-opt   [50 chars]
+            input #in-s3-d type=radio name=c-s3 value=d
+            span .case-opt-text   [50 chars]
+              "Inspect every board, because 2,800 is a large lot."
+        p #err-s3 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s4 .case-step   [285 chars]
+        div .case-step-head   [33 chars]
+          span .case-step-n   [19 chars]
+            "Step 4 (7.5 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [179 chars]
+          "The count on the box does not match the labels: 2,760 boards instead of 2,800. The whole shipment is one suppl…"
+        div .case-input-row   [41 chars]
+          label .case-input-label   [20 chars]
+            "Your answer"
+            span .muted   [8 chars]
+              "(pieces)"
+          input #in-s4 .case-input type=text name=c-s4 value=
+          span .case-tol.muted   [21 chars]
+            "tolerance ±0.5 pieces"
+        p #err-s4 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s5 .case-step   [591 chars]
+        div .case-step-head   [24 chars]
+          span .case-step-n   [18 chars]
+            "Step 5 (15 points)"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [142 chars]
+          "The two date codes split this shipment into lots of 1,400 and 1,400. Both would still call for the same 125 pi…"
+        fieldset .case-options   [393 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt   [66 chars]
+            input #in-s5-a type=radio name=c-s5 value=a
+            span .case-opt-text   [66 chars]
+              "It does not; 1,400 is a different lot size and needs its own plan."
+          label .case-opt   [188 chars]
+            input #in-s5-b type=radio name=c-s5 value=b
+            span .case-opt-text   [188 chars]
+              "The two date codes may be two lots, and a lot is the population the plan applies to. Splitting leaves two lots…"
+          label .case-opt   [67 chars]
+            input #in-s5-c type=radio name=c-s5 value=c
+            span .case-opt-text   [67 chars]
+              "It means the sample can be pulled from whichever carton is nearest."
+          label .case-opt   [62 chars]
+            input #in-s5-d type=radio name=c-s5 value=d
+            span .case-opt-text   [62 chars]
+              "It means the AQL should be halved to keep the same protection."
+        p #err-s5 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s6 .case-step   [231 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 6 (10 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [136 chars]
+          "The shipping paperwork and the box disagree by how many percent, counting the 2,760 boards in the boxes agains…"
+        div .case-input-row   [31 chars]
+          label .case-input-label   [15 chars]
+            "Your answer"
+            span .muted   [3 chars]
+              "(%)"
+          input #in-s6 .case-input type=text name=c-s6 value=
+          span .case-tol.muted   [16 chars]
+            "tolerance ±0.1 %"
+        p #err-s6 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s7 .case-step   [473 chars]
+        div .case-step-head   [24 chars]
+          span .case-step-n   [18 chars]
+            "Step 7 (10 points)"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [75 chars]
+          "On the evidence in the two files, what is the disposition of this shipment?"
+        fieldset .case-options   [342 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt   [71 chars]
+            input #in-s7-a type=radio name=c-s7 value=a
+            span .case-opt-text   [71 chars]
+              "Accept it: the twist is inside the limit and the humidity card is blue."
+          label .case-opt   [63 chars]
+            input #in-s7-b type=radio name=c-s7 value=b
+            span .case-opt-text   [63 chars]
+              "Reject it: the boards are out of flatness by a factor of eight."
+          label .case-opt   [154 chars]
+            input #in-s7-c type=radio name=c-s7 value=c
+            span .case-opt-text   [154 chars]
+              "Quarantine it: the product measurements pass, but the date codes and the counts do not let the lots be defined…"
+          label .case-opt   [44 chars]
+            input #in-s7-d type=radio name=c-s7 value=d
+            span .case-opt-text   [44 chars]
+              "Accept the good cartons and reject carton 3."
+        p #err-s7 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s8 .case-step   [615 chars]
+        div .case-step-head   [24 chars]
+          span .case-step-n   [18 chars]
+            "Step 8 (10 points)"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [153 chars]
+          "The supplier replies that both date codes come from the same lamination batch and the count difference is a la…"
+        fieldset .case-options   [406 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt   [71 chars]
+            input #in-s8-a type=radio name=c-s8 value=a
+            span .case-opt-text   [71 chars]
+              "Everything: with one batch the shipment is one lot and can be released."
+          label .case-opt   [193 chars]
+            input #in-s8-b type=radio name=c-s8 value=b
+            span .case-opt-text   [193 chars]
+              "It answers the lot question, so the 125-piece sample can be pulled across the whole shipment and dispositioned…"
+          label .case-opt   [64 chars]
+            input #in-s8-c type=radio name=c-s8 value=c
+            span .case-opt-text   [64 chars]
+              "Nothing, because a supplier statement is never used at the dock."
+          label .case-opt   [68 chars]
+            input #in-s8-d type=radio name=c-s8 value=d
+            span .case-opt-text   [68 chars]
+              "It means the sample can be reduced to 20 pieces as originally taken."
+        p #err-s8 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s9 .case-step   [558 chars]
+        div .case-step-head   [24 chars]
+          span .case-step-n   [18 chars]
+            "Step 9 (10 points)"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [58 chars]
+          "What makes this release record usable six months from now?"
+        fieldset .case-options   [444 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt   [52 chars]
+            input #in-s9-a type=radio name=c-s9 value=a
+            span .case-opt-text   [52 chars]
+              "A statement that the lot was inspected and released."
+          label .case-opt   [34 chars]
+            input #in-s9-b type=radio name=c-s9 value=b
+            span .case-opt-text   [34 chars]
+              "The inspector's name and the date."
+          label .case-opt   [314 chars]
+            input #in-s9-c type=radio name=c-s9 value=c
+            span .case-opt-text   [314 chars]
+              "The two lot sizes and the date codes as received, the plan and AQL with the sample size and the accept number,…"
+          label .case-opt   [34 chars]
+            input #in-s9-d type=radio name=c-s9 value=d
+            span .case-opt-text   [34 chars]
+              "A photograph of the carton labels."
+        p #err-s9 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+    div .quiz-actions   [22 chars]
+      button .btn.btn--primary type=submit   [16 chars]
+        "Check my answers"
+      button .btn type=button data-act=case-reset   [5 chars]
+        "Clear"
+  div #case-result-slot
+  details .case-rubric-box   [591 chars]
+    summary   [32 chars]
+      "Rubric — how this case is scored"
+    div .details-body   [559 chars]
+      table .case-rubric   [443 chars]
+        thead   [15 chars]
+          tr   [15 chars]
+            th   [9 chars]
+              "Criterion"
+            th   [6 chars]
+              "Points"
+        tbody   [428 chars]
+          tr   [65 chars]
+            td   [63 chars]
+              "Twist computed by the production method, with the factor of two"
+            td .num   [2 chars]
+              "20"
+          tr   [46 chars]
+            td   [44 chars]
+              "Bow limit derived for the measured direction"
+            td .num   [2 chars]
+              "10"
+          tr   [60 chars]
+            td   [58 chars]
+              "ISO 2859-1 plan read off the table for the actual lot size"
+            td .num   [2 chars]
+              "15"
+          tr   [73 chars]
+            td   [71 chars]
+              "Lot defined before sampling, and the split shown not to change the plan"
+            td .num   [2 chars]
+              "15"
+          tr   [55 chars]
+            td   [53 chars]
+              "Quantity gap quantified against the declared quantity"
+            td .num   [2 chars]
+              "10"
+          tr   [67 chars]
+            td   [65 chars]
+              "Disposition separates a passing measurement from an undefined lot"
+            td .num   [2 chars]
+              "20"
+          tr   [62 chars]
+            td   [60 chars]
+              "Release record carries the method, the limit and the closure"
+            td .num   [2 chars]
+              "10"
+      p .muted.flush   [116 chars]
+        "Criteria are scored in proportion to the steps they name. A criterion spanning two steps pays half per correct…"
+  section .sources   [2489 chars]
+    details .spoiler   [2489 chars]
+      summary   [11 chars]
+        "Sources — 3"
+      div .details-body   [2478 chars]
+        ul   [2478 chars]
+          li   [1146 chars]
+            span .src-id   [7 chars]
+              "src-018"
+            strong   [138 chars]
+              "IPC-6012 Qualification and Performance Specification for Rigid Printed Boards (qualification and performance r…"
+            "— Rev F (September 2023); the course's cleanliness figure is cited from Rev E §3.9.1, section §3.9.1 ionic con…"
+            span .src-note   [404 chars]
+              "License: paraphrase only · verified by PARTLY READ. The 1.56 µg/cm² NaCl-equivalent limit is cited directly as…"
+            span .src-currency   [169 chars]
+              "Partly superseded. IPC-6012 Rev F (October 2023) is the current revision; the cleanliness figure used in the c…"
+            span .src-edition.src-edition--ok   [258 chars]
+              strong   [15 chars]
+                "Current edition"
+              "· publisher lists Rev F (September 2023) plus addenda 6012FA (December 2025), 6012FS (February 2024), 6012EM (…"
+              span .src-edition-note   [120 chars]
+                "Rev F is current; the cleanliness figure in the course comes from Rev E §3.9.1 and is noted as such in the sou…"
+          li   [700 chars]
+            span .src-id   [7 chars]
+              "src-006"
+            strong   [59 chars]
+              "ISO 2859-1 Sampling procedures for inspection by attributes"
+            "— ISO 2859-1:1999 (as amended 2011), section Table I sample size code letters; Table II-A single sampling plan…"
+            span .src-note   [357 chars]
+              "License: paraphrase only · verified by READ. A hosted copy of ISO 2859-1 itself was read, and the tables confi…"
+            span .src-edition   [154 chars]
+              strong   [24 chars]
+                "Edition not checked here"
+              "· publisher lists ISO 2859-1:1999 with 2011 amendments"
+              span .src-edition-note   [75 chars]
+                "Not an IPC document; the edition is checked against ISO, not the IPC table."
+          li   [632 chars]
+            span .src-id   [7 chars]
+              "src-037"
+            strong   [91 chars]
+              "ISO 9001 Quality Management Systems — Requirements (control of externally provided product)"
+            "— ISO 9001:2015, section Clause 8.4 control of externally provided processes, products and services; nonconfor…"
+            span .src-note   [260 chars]
+              "License: paraphrase only · verified by READ. Clause 8.4 (control of externally provided processes, products an…"
+            span .src-edition   [141 chars]
+              strong   [24 chars]
+                "Edition not checked here"
+              "· ISO 9001:2015"
+              span .src-edition-note   [101 chars]
+                "Outside the IPC revision table; the edition above is the one cited and was not re-checked in Phase 2."
+  nav .pager   [38 chars]
+    a .pager-prev href=#/m/m01   [38 chars]
+      span .pager-label   [7 chars]
+        "Back to"
+      span .pager-title   [31 chars]
+        "Module 01 — Incoming Inspection"
+    span

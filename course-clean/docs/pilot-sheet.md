@@ -39,6 +39,33 @@ Protocol: `docs/pilot-protocol.md`.
 
 ---
 
+## cx-m01-01 — Bare-board release: a twist figure that is out by a factor of two
+
+`#/c/cx-m01-01` · module m01 · 9 steps · 100 rubric points · about 30 min
+
+| # | Step | Type | Expected | Tolerance | Watch for |
+|---|---|---|---|---|---|
+| 1 | The raised corner measures 2.60 mm and the board diagonal is 200 mm. What is the twist by the IPC-TM-650 2.4.22 production method, in percent? | numeric | 0.65 % | ±0.03 | Check the divisor: the production method uses twice the diagonal. |
+| 2 | Turned around: at the same 0.75 % ceiling, what is the largest gap, in mm, that this board's diagonal may show? | numeric | 3 mm | ±0.02 | Solve gap/(2 x diagonal) = 0.0075 for the gap. |
+| 3 | The lot is 2,800 boards and the quality plan requires ISO 2859-1 general inspection level II at AQL 1.0. What sampling plan applies? | choice | option b — “Code K, n = 125, accept on 3 or fewer defectives, reject on 4.” | — | Find the lot-size band first, then the code letter, then the AQL column. |
+| 4 | The count on the box does not match the labels: 2,760 boards instead of 2,800. The whole shipment is one supplier lot. What sample size, in pieces, was required for each lot size? | numeric | 125 pieces | ±0.5 | Compare the two counts with the band edges before re-deriving anything. |
+| 5 | The two date codes split this shipment into lots of 1,400 and 1,400. Both would still call for the same 125 pieces. Why does that matter here? | choice | option b — “The two date codes may be two lots, and a lot is the population the plan applies to. Splitting leaves two lots of 1,400, and both sit in the 1,201-3,200 band, so the plan holds either way.” | — | Which quantity does the sampling plan actually apply to? |
+| 6 | The shipping paperwork and the box disagree by how many percent, counting the 2,760 boards in the boxes against the 2,800 on the labels? | numeric | 1.4286 % | ±0.1 | Part over whole: the whole here is what the labels promised. |
+| 7 | On the evidence in the two files, what is the disposition of this shipment? | choice | option c — “Quarantine it: the product measurements pass, but the date codes and the counts do not let the lots be defined or traced until the supplier explains them.” | — | Which of the findings could be dispositioned today, and which one needs the supplier? |
+| 8 | The supplier replies that both date codes come from the same lamination batch and the count difference is a labelling error. What does that reply change? | choice | option b — “It answers the lot question, so the 125-piece sample can be pulled across the whole shipment and dispositioned as one lot; the 40 missing boards remain an open quantity issue with the supplier.” | — | Take the statement one finding at a time: which does it resolve? |
+| 9 | What makes this release record usable six months from now? | choice | option c — “The two lot sizes and the date codes as received, the plan and AQL with the sample size and the accept number, the measured twist with its method and the limit it was compared with, the humidity card reading, the 40-board quantity gap with its closure, the quarantine and its release, and the supplier's statement.” | — | Which of these would let another engineer reach the same disposition without you? |
+
+**Rubric** (pass mark 80 %):
+- Twist computed by the production method, with the factor of two — 20 pts (s1)
+- Bow limit derived for the measured direction — 10 pts (s2)
+- ISO 2859-1 plan read off the table for the actual lot size — 15 pts (s3, s4)
+- Lot defined before sampling, and the split shown not to change the plan — 15 pts (s5)
+- Quantity gap quantified against the declared quantity — 10 pts (s6)
+- Disposition separates a passing measurement from an undefined lot — 20 pts (s7, s8)
+- Release record carries the method, the limit and the closure — 10 pts (s9)
+
+---
+
 ## cx-m02-01 — Moisture breach: the BGA reel sat in a 7 % RH cabinet
 
 `#/c/cx-m02-01` · module m02 · 6 steps · 100 rubric points · about 20 min
