@@ -21,6 +21,23 @@ cx-m06-01,s4,numeric,(248-100)/40,3.7,0.05,°C/s,"{""s"": 40, ""t1"": 248, ""t2"
 cx-m06-01,s5,choice,choice key = a,a,0,,{}
 cx-m06-01,s6,numeric,100/90,1.1111111111111112,0.05,°C/s,"{""power_w"": 100, ""thermal_mass_j_per_k"": 90}"
 cx-m06-01,s7,choice,choice key = b,b,0,,{}
+cx-m08-01,s1,numeric,1-0.6,0.4,0.005,mm,"{""hole_d_mm"": 1.0, ""lead_d_mm"": 0.6}"
+cx-m08-01,s2,numeric,0.95-0.63,0.31999999999999995,0.005,mm,"{""hole_d_mm"": 0.95, ""lead_d_mm"": 0.63}"
+cx-m08-01,s3,numeric,(0.95-0.63)/2,0.15999999999999998,0.005,mm,"{""hole_min_mm"": 0.95, ""lead_max_mm"": 0.63}"
+cx-m08-01,s4,numeric,pi*((1/2)^2-(0.6/2)^2)*1.6,0.8042477193189872,0.01,mm3,"{""h_mm"": 1.6, ""hole_d_mm"": 1.0, ""lead_d_mm"": 0.6}"
+cx-m08-01,s5,numeric,1.1/1.6*100,68.75,0.2,%,"{""board_mm"": 1.6, ""fill_mm"": 1.1}"
+cx-m08-01,s8,numeric,0.75*1.6-1.1,0.10000000000000009,0.01,mm,"{""fill_mm"": 1.1, ""required_mm"": 1.2000000000000002}"
+cx-m08-01,s6,choice,choice key = b,b,0,,{}
+cx-m08-01,s7,choice,choice key = b,b,0,,{}
+cx-m08-01,s9,choice,choice key = b,b,0,,{}
+cx-m09-01,s1,numeric,(50/1000)/(1.5/60),2.0,0.1,s,"{""speed_m_per_min"": 1.5, ""wave_mm"": 50.0}"
+cx-m09-01,s2,numeric,255-219,36.0,0.5,°C,"{""liquidus_c"": 219, ""pot_c"": 255.0}"
+cx-m09-01,s3,choice,choice key = b,b,0,,{}
+cx-m09-01,s4,numeric,3.2/2.54,1.2598425196850394,0.02,dimensionless,"{""pitch_mm"": 2.54, ""span_mm"": 3.2}"
+cx-m09-01,s5,choice,choice key = b,b,0,,{}
+cx-m09-01,s6,choice,choice key = b,b,0,,{}
+cx-m09-01,s7,numeric,1/20*100,5.0,0.1,%,"{""failed"": 1, ""joints"": 20}"
+cx-m09-01,s8,choice,choice key = b,b,0,,{}
 cx-m14-01,s1,numeric,38/(1240*620)*1e6,49.42767950052029,0.3,DPMO,"{""boards"": 1240, ""defects"": 38, ""opportunities"": 620}"
 cx-m14-01,s2,numeric,9/47*100,19.148936170212767,0.3,%,"{""part"": 9, ""whole"": 47}"
 cx-m14-01,s3,choice,choice key = b,b,0,,{}

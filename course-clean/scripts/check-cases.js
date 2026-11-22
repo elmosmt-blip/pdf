@@ -184,6 +184,87 @@ const EXPECTED = {
   'cx-m06-01.s6': function () { return 100 / 90; },
   'cx-m06-01.s7': function () { return 'b'; },
 
+  /* m08 — hole, lead and fill. The diameters come from the case's own measurement
+   * sheet, and every key is recomputed from those rows rather than from the
+   * generator's arguments. */
+  'cx-m08-01.s1': function (c, doc) {
+    const r = dataFile(c, 'tht-joints.csv')[0];
+    return (+r.hole_nominal_mm) - (+r.lead_nominal_mm);
+  },
+  'cx-m08-01.s2': function (c, doc) {
+    const r = dataFile(c, 'tht-joints.csv')[0];
+    return (+r.hole_min_mm) - (+r.lead_max_mm);
+  },
+  'cx-m08-01.s3': function (c, doc) {
+    const r = dataFile(c, 'tht-joints.csv')[0];
+    return ((+r.hole_min_mm) - (+r.lead_max_mm)) / 2;
+  },
+  'cx-m08-01.s4': function (c, doc) {
+    const r = dataFile(c, 'tht-joints.csv')[0];
+    const h = +r.hole_nominal_mm, d = +r.lead_nominal_mm, t = +r.board_mm;
+    /* expanded, not pi*(r^2-r^2): the second opinion should not share the
+     * generator's factorisation */
+    return 0.25 * Math.PI * (h * h - d * d) * t;
+  },
+  'cx-m08-01.s5': function (c, doc) {
+    const r = dataFile(c, 'tht-joints.csv').filter(function (x) { return x.joint === 'J-01'; })[0];
+    return (+r.fill_mm) / (+r.board_mm) * 100;
+  },
+  'cx-m08-01.s8': function (c, doc) {
+    const r = dataFile(c, 'tht-joints.csv').filter(function (x) { return x.joint === 'J-01'; })[0];
+    return 0.75 * (+r.board_mm) - (+r.fill_mm);
+  },
+  'cx-m08-01.s6': function (c, doc) {
+    /* the disposition follows from the data: a joint under the minimum whose part
+     * has no leads on a plane is rejected. */
+    const min = doc.thresholds.holeFillMinPct[0];
+    const bad = dataFile(c, 'tht-joints.csv').filter(function (r) {
+      return +r.fill_pct < min && +r.leads_on_thermal_plane < 14;
+    });
+    return bad.length ? 'b' : 'a';
+  },
+  'cx-m08-01.s7': function (c, doc) {
+    const rows = dataFile(c, 'tht-joints.csv');
+    const min = doc.thresholds.holeFillMinPct[0];
+    const fails = rows.filter(function (r) { return +r.fill_pct < min; });
+    return fails.length ? 'b' : 'a';
+  },
+  'cx-m08-01.s9': function () { return 'b'; },
+
+  /* m09 — the wave run. Contact time and pot margin are read out of the record,
+   * and the first change is keyed to the two settings that sit at the weak end
+   * of the course windows, not typed in. */
+  'cx-m09-01.s1': function (c, doc) {
+    const r = dataFile(c, 'wave-run.csv')[0];
+    return (+r.wave_width_mm / 1000) / ((+r.conveyor_m_per_min) / 60);
+  },
+  'cx-m09-01.s2': function (c, doc) {
+    const r = dataFile(c, 'wave-run.csv')[0];
+    return (+r.pot_c) - (+doc.board.facts.liquidusC);
+  },
+  'cx-m09-01.s3': function (c, doc) {
+    const r = dataFile(c, 'wave-run.csv')[0];
+    const preheat = +r.preheat_top_c;
+    const contact = (+r.wave_width_mm / 1000) / ((+r.conveyor_m_per_min) / 60);
+    const band = doc.thresholds.waveContactWindowS[0];
+    /* the weak settings are the ones in the lower half of their windows */
+    const weak = (preheat - 90) < (120 - preheat) && (contact - band[0]) < 0.5;
+    return weak ? 'b' : 'a';
+  },
+  'cx-m09-01.s4': function (c, doc) {
+    const r = dataFile(c, 'joint-findings.csv').filter(function (x) { return x.joint === 'J-02'; })[0];
+    return (+r.span_mm) / (+r.pitch_mm);
+  },
+  'cx-m09-01.s5': function () { return 'b'; },
+  'cx-m09-01.s6': function () { return 'b'; },
+  'cx-m09-01.s7': function (c, doc) {
+    const rows = dataFile(c, 'joint-findings.csv');
+    const min = doc.thresholds.holeFillMinPct[0];
+    const failed = rows.filter(function (r) { return r.fill_pct !== '' && +r.fill_pct < min; }).length;
+    return failed / rows.length * 100;
+  },
+  'cx-m09-01.s8': function () { return 'b'; },
+
   'cx-m14-01.s1': function (c, doc) {
     const r = dataFile(c, 'defect-log.csv').filter(function (x) { return x.family === 'BGA void / non-wet'; })[0];
     return dpmo(+r.confirmed, +r.boards_in_window, doc.board.facts.opportunitiesPerBoard);

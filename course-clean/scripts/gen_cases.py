@@ -91,6 +91,12 @@ BOARD_FACT_LABELS = {
     "pastePeakWindowC": "Peak window, paste (°C)",
     "typicalPeakBandC": "Typical production peak (°C)",
     "peakClassificationLargeC": "Peak ceiling, large package (°C)",
+    "holeFillMinPct": "Minimum barrel fill, IPC-A-610 (%)",
+    "holeFillExceptionPct": "Thermal-plane exception fill (%)",
+    "holeFillExceptionLeads": "Leads before the exception applies",
+    "thtHoleNominalMm": "THT hole, finished (mm)",
+    "thtHoleToleranceMm": "THT hole tolerance (± mm)",
+    "waveContactWindowS": "Wave contact time (s)",
 }
 
 BOARD = {
@@ -115,7 +121,11 @@ BOARD_THREAD = [
      "caseId": "cx-m03-01"},
     {"step": 3, "moduleId": "m06", "label": "Reflow profile", "asset": "Reflow profile log",
      "caseId": "cx-m06-01"},
-    {"step": 4, "moduleId": "m14", "label": "8D report", "asset": "8D problem report",
+    {"step": 4, "moduleId": "m08", "label": "Through-hole", "asset": "Hole and lead measurement sheet",
+     "caseId": "cx-m08-01"},
+    {"step": 5, "moduleId": "m09", "label": "Wave", "asset": "Wave solder process record",
+     "caseId": "cx-m09-01"},
+    {"step": 6, "moduleId": "m14", "label": "8D report", "asset": "8D problem report",
      "caseId": "cx-m14-01"},
 ]
 
@@ -126,6 +136,16 @@ ASPECT_RATIO_MIN = 1.5     # m03l05 (IPC-7525 guidance)
 TAPE_BAKE_MAX_C = 40       # m02l04 (J-STD-033 tape-and-reel limit)
 DRY_CABINET_MAX_RH = 5     # m02l04 (J-STD-033 dry storage)
 JSTD020_LARGE_PACKAGE_C = 250   # m06l02/l05 — classification temperature, large package
+# Through-hole vertical fill. IPC-A-610 sets 75 % for Class 2 AND Class 3 (m08l05);
+# the 50 % / 1.2 mm figure is a documented exception for parts with 14 or more leads
+# tied into internal thermal planes, NOT a Class 2 relaxation. Sources re-checked
+# 2026-11-31: pcbsync.com/ipc-a-610-guide, wevolver.com IPC-A-610 overview.
+HOLE_FILL_MIN_PCT = 75          # src-016, m08l05
+HOLE_FILL_EXCEPTION_PCT = 50     # src-016, m08l05 — thermal-plane exception
+HOLE_FILL_EXCEPTION_LEADS = 14   # src-016, m08l05 — "fourteen or more leads"
+# Wave solder contact time the course teaches (m09l07): 2-4 s for many boards.
+WAVE_CONTACT_MIN_S = 2.0         # None source: course text, m09l07
+WAVE_CONTACT_MAX_S = 4.0
 # The typical production band, not a window and not a ceiling: m06l01's zone table
 # and SAC305 paste datasheets put the optimum at 235-245 °C, about 15-25 °C above
 # the 219 °C liquidus.
@@ -151,6 +171,12 @@ BOARD_FACTS["talWindowS"] = [TAL_MIN_S, TAL_MAX_S]
 BOARD_FACTS["pastePeakWindowC"] = [PASTE_PEAK_MIN_C, PASTE_PEAK_MAX_C]
 BOARD_FACTS["typicalPeakBandC"] = [TYPICAL_PEAK_MIN_C, TYPICAL_PEAK_MAX_C]
 BOARD_FACTS["peakClassificationLargeC"] = JSTD020_LARGE_PACKAGE_C
+BOARD_FACTS["holeFillMinPct"] = HOLE_FILL_MIN_PCT
+BOARD_FACTS["holeFillExceptionPct"] = HOLE_FILL_EXCEPTION_PCT
+BOARD_FACTS["holeFillExceptionLeads"] = HOLE_FILL_EXCEPTION_LEADS
+BOARD_FACTS["thtHoleNominalMm"] = 1.00
+BOARD_FACTS["thtHoleToleranceMm"] = 0.05
+BOARD_FACTS["waveContactWindowS"] = [WAVE_CONTACT_MIN_S, WAVE_CONTACT_MAX_S]
 
 
 # --------------------------------------------------------------------------
@@ -238,6 +264,33 @@ def expected_ramp(power_w: float, thermal_mass_j_per_k: float):
             {"power_w": power_w, "thermal_mass_j_per_k": thermal_mass_j_per_k})
 
 
+def clearance(hole_d_mm: float, lead_d_mm: float):
+    """Diametral clearance: finished hole minus lead, in mm."""
+    value = hole_d_mm - lead_d_mm
+    return (value, "mm", "%g-%g" % (hole_d_mm, lead_d_mm),
+            {"hole_d_mm": hole_d_mm, "lead_d_mm": lead_d_mm})
+
+
+def cylinder_volume_mm3(d_mm: float, h_mm: float):
+    """Volume of a cylinder in mm^3 — a hole, or a lead inside it."""
+    value = math.pi * (d_mm / 2.0) ** 2 * h_mm
+    return (value, "mm3", "pi*(%g/2)^2*%g" % (d_mm, h_mm),
+            {"d_mm": d_mm, "h_mm": h_mm})
+
+
+def annular_volume_mm3(hole_d_mm: float, lead_d_mm: float, h_mm: float):
+    """Solder-filled annulus between barrel and lead, in mm^3."""
+    value = math.pi * ((hole_d_mm / 2.0) ** 2 - (lead_d_mm / 2.0) ** 2) * h_mm
+    return (value, "mm3", "pi*((%g/2)^2-(%g/2)^2)*%g" % (hole_d_mm, lead_d_mm, h_mm),
+            {"hole_d_mm": hole_d_mm, "lead_d_mm": lead_d_mm, "h_mm": h_mm})
+
+
+def share_of(part: float, whole: float):
+    """A part as a percentage of the whole."""
+    value = part / whole * 100.0
+    return (value, "%", "%g/%g*100" % (part, whole), {"part": part, "whole": whole})
+
+
 def iso_sample(lot_size: int, code: str, n: int, ac: int, re_: int):
     """ISO 2859-1, general inspection level II, AQL 1.0 — table lookup, not
     arithmetic. Returned as a numeric step (n) plus a choice step (the code)."""
@@ -319,6 +372,24 @@ TEMPLATE_DEFS = {
         "use": "Record the measured interval, its rate and where each thermocouple sat "
                "before a profile is released.",
         "rowNoun": "interval or thermocouple",
+    },
+    "tht-measure": {
+        "name": "Hole and lead measurement sheet",
+        "kind": "csv",
+        "sourceFile": "tht-joints.csv",
+        "lesson": "m08l05",
+        "use": "Record finished hole, measured lead diameter and fill percentage for every "
+               "through-hole part before the first article is signed off.",
+        "rowNoun": "through-hole joint",
+    },
+    "wave-record": {
+        "name": "Wave solder process record",
+        "kind": "csv",
+        "sourceFile": "wave-run.csv",
+        "lesson": "m09l07",
+        "use": "Log flux, preheat, wave height, conveyor speed and pot temperature for the "
+               "run, so a later defect can be traced to a setting instead of a memory.",
+        "rowNoun": "run or setting",
     },
     "pareto": {
         "name": "Defect Pareto",
@@ -468,6 +539,10 @@ def attach_templates(case):
     for stub in case.get("templates", []):
         tdef = TEMPLATE_DEFS[stub["templateId"]]
         base = base_by_file.get(tdef.get("sourceFile"))
+        if base is None and "columns" not in tdef:
+            raise SystemExit(
+                "template %s on case %s has neither %s in its data files nor its own columns"
+                % (stub["templateId"], case["caseId"], tdef.get("sourceFile")))
         out.append({
             "templateId": stub["templateId"],
             "name": tdef["name"],
@@ -1095,6 +1170,548 @@ def build_cases():
     ]
     cases.append(c)
 
+
+    # =====================================================================
+    # m08 — through-hole fill after the wave
+    # =====================================================================
+    # Board X's 20-pin THT connector. The hole and lead values are the ones the
+    # m08l05 calculation drill already works (1.00 mm finished hole, 0.60 mm lead),
+    # carried here so the case and the lesson cannot disagree. Both ends of the
+    # tolerance are kept, because the point of the case is that the mean joint and
+    # the worst joint are not the same joint.
+    THT_HOLE_NOM = BOARD_FACTS["thtHoleNominalMm"]
+    THT_HOLE_TOL = BOARD_FACTS["thtHoleToleranceMm"]
+    THT_LEAD_NOM = 0.60
+    THT_LEAD_TOL = 0.03
+    THT_BOARD_MM = BOARD_FACTS["boardThicknessMm"]
+    tht_hole_min = THT_HOLE_NOM - THT_HOLE_TOL
+    tht_lead_max = THT_LEAD_NOM + THT_LEAD_TOL
+    clr_nom = clearance(THT_HOLE_NOM, THT_LEAD_NOM)
+    clr_worst = clearance(tht_hole_min, tht_lead_max)
+    rad_worst = ((tht_hole_min - tht_lead_max) / 2.0, "mm",
+                 "(%g-%g)/2" % (tht_hole_min, tht_lead_max),
+                 {"hole_min_mm": tht_hole_min, "lead_max_mm": tht_lead_max})
+    annulus_vol = annular_volume_mm3(THT_HOLE_NOM, THT_LEAD_NOM, THT_BOARD_MM)
+    # The joint that failed at first article: same hole and lead, fill measured by
+    # cross-section. 68.75 % is also what the m09l06 atlas drill computes.
+    FILL_MEASURED_MM = 1.10
+    fill_share = (FILL_MEASURED_MM / THT_BOARD_MM * 100.0, "%",
+                  "%g/%g*100" % (FILL_MEASURED_MM, THT_BOARD_MM),
+                  {"fill_mm": FILL_MEASURED_MM, "board_mm": THT_BOARD_MM})
+    fill_required_mm = HOLE_FILL_MIN_PCT / 100.0 * THT_BOARD_MM
+    fill_short_mm = (fill_required_mm - FILL_MEASURED_MM, "mm",
+                     "0.75*%g-%g" % (THT_BOARD_MM, FILL_MEASURED_MM),
+                     {"required_mm": fill_required_mm, "fill_mm": FILL_MEASURED_MM})
+
+    c = {
+        "caseId": "cx-m08-01",
+        "moduleId": "m08",
+        "title": "Through-hole fill: a connector joint measures 1.10 mm of 1.60 mm",
+        "estMinutes": 25,
+        "level": "core",
+        "scenario": [
+            "Board X carries one 20-pin THT connector on a 1.6 mm board. The land pattern "
+            "calls for a 1.00 mm finished hole with a tolerance of 0.05 mm; the connector "
+            "datasheet gives a 0.60 mm lead with a tolerance of 0.03 mm.",
+            "First article after the wave shows the joint in the measurement sheet at 1.10 mm "
+            "of vertical fill. The operator reports that most joints look full and asks for "
+            "the build to be released.",
+            "Decide the disposition against the applicable IPC-A-610 class, and say what the "
+            "measurement sheet has to record so that the answer stops being a matter of who "
+            "looked at the board.",
+        ],
+        "dataFiles": [
+            {
+                "name": "tht-joints.csv",
+                "kind": "csv",
+                "note": "Hole and lead diameters are the measured extremes on this build, not "
+                        "the drawing nominals. Fill is the vertical barrel fill from "
+                        "cross-section, as a share of the 1.6 mm board.",
+                "content": (
+                    "joint,part,hole_nominal_mm,hole_min_mm,hole_max_mm,"
+                    "lead_nominal_mm,lead_max_mm,board_mm,fill_mm,fill_pct,"
+                    "leads_on_thermal_plane\n"
+                    "J-01,THT-20 pin connector,1.00,0.95,1.05,0.60,0.63,1.60,1.10,68.75,0\n"
+                    "J-02,THT-20 pin connector,1.00,0.95,1.05,0.60,0.63,1.60,1.30,81.25,0\n"
+                    "J-03,THT-20 pin connector,1.00,0.95,1.05,0.60,0.63,1.60,1.25,78.13,0\n"
+                ),
+            },
+            {
+                "name": "wave-run.csv",
+                "kind": "csv",
+                "note": "The settings the first article ran at. Contact time is the wave "
+                        "width divided by conveyor speed.",
+                "content": (
+                    "run,flux,preheat_top_c,pot_c,wave_width_mm,conveyor_m_per_min,"
+                    "contact_s,board_dir\n"
+                    "FA-1,rosin mildly activated,105,255,50,1.5,2.0,connector upstream\n"
+                ),
+            },
+        ],
+        "steps": [],
+        "rubric": [],
+        "templates": [
+            {"templateId": "tht-measure", "name": "Hole and lead measurement sheet",
+             "status": "planned"},
+            {"templateId": "wave-record", "name": "Wave solder process record",
+             "status": "planned"},
+        ],
+        "toolLinks": [
+            {"label": "Hole, lead and percent fill (lesson m08l02)", "href": "#/l/m08l02"},
+            {"label": "Calculation drill: clearance and fill (lesson m08l05)", "href": "#/l/m08l05"},
+            {"label": "Insufficient-fill diagnosis (lesson m09l06)", "href": "#/l/m09l06"},
+        ],
+        "sources": ["src-016", "src-001"],
+        "generatedBy": "scripts/gen_cases.py",
+    }
+
+    add_step(c, step_numeric(
+        "s1",
+        "Using the measurement sheet, what is the nominal diametral clearance on J-01, "
+        "in mm?",
+        clr_nom, 0.005,
+        ["Diametral clearance is the hole diameter minus the lead diameter.",
+         "Nominal hole 1.00 mm, nominal lead 0.60 mm.",
+         "1.00 - 0.60 = 0.40 mm."],
+        "0.40 mm nominal, and the worst case is not that number.",
+        "Take the finished hole diameter, not the drill diameter, then subtract the lead.",
+        "1.00 - 0.60 = 0.40 mm of diametral clearance. The radial clearance is half of that, "
+        "0.20 mm, which is the gap the solder has to climb through. The nominal case is the "
+        "one the drawing shows; the joint that fails is rarely the nominal one."))
+
+    add_step(c, step_numeric(
+        "s2",
+        "What is the worst-case tight diametral clearance, in mm: smallest finished hole "
+        "against largest lead?",
+        clr_worst, 0.005,
+        ["Tight means the smallest hole against the largest lead.",
+         "Hole 1.00 - 0.05 = 0.95 mm; lead 0.60 + 0.03 = 0.63 mm.",
+         "0.95 - 0.63 = 0.32 mm."],
+        "0.32 mm in the worst case, against 0.40 mm nominal.",
+        "Both tolerances have to be used in their worst direction at the same time.",
+        "A 0.95 mm hole with a 0.63 mm lead leaves 0.32 mm diametral, or 0.16 mm radial. The "
+        "0.08 mm of clearance lost to tolerance is a fifth of the nominal gap, and it is what "
+        "separates a full barrel from a stalled one on a cold joint."))
+
+    add_step(c, step_numeric(
+        "s3",
+        "What is that worst-case radial clearance, in mm?",
+        rad_worst, 0.005,
+        ["Radial clearance is half the diametral clearance.",
+         "0.32 / 2.",
+         "0.16 mm."],
+        "0.16 mm radially: the gap the solder draws through.",
+        "Halve the diametral figure rather than repeating the subtraction.",
+        "0.32 / 2 = 0.16 mm radially. That is the capillary gap: wide enough to fill when hole "
+        "and lead are clean and hot, narrow enough that a low top-side temperature stops the "
+        "flow before the barrel fills."))
+
+    add_step(c, step_numeric(
+        "s4",
+        "At nominal diameters, what is the annular volume the solder has to fill through the "
+        "1.6 mm board, in mm3? Use pi = 3.14159 and give two decimals.",
+        annulus_vol, 0.01,
+        ["The annulus is the hole cylinder minus the lead cylinder.",
+         "pi * (0.5^2 - 0.3^2) * 1.6.",
+         "pi * 0.16 * 1.6 = 0.80 mm3."],
+        "0.80 mm3, and only about two thirds of it is asked for.",
+        "Subtract the lead cross-section from the hole cross-section before multiplying by "
+        "thickness.",
+        "The hole holds pi * 0.5^2 * 1.6 = 1.26 mm3 and the lead takes pi * 0.3^2 * 1.6 = "
+        "0.45 mm3, leaving 0.80 mm3 of annulus. At the 75 % acceptance minimum the joint has "
+        "to show 0.60 mm3 of solder to be acceptable at all."))
+
+    add_step(c, step_numeric(
+        "s5",
+        "Cross-section shows 1.10 mm of fill on a 1.60 mm board. What is the vertical fill as "
+        "a percentage? One decimal place.",
+        fill_share, 0.2,
+        ["Fill percentage is filled depth divided by board thickness.",
+         "1.10 / 1.60.",
+         "68.75 %."],
+        "68.75 %, under the 75 % minimum.",
+        "Divide the filled depth by the full board thickness and scale to percent.",
+        "1.10 / 1.60 = 0.6875, so 68.75 %. The number matters because IPC-A-610 sets the "
+        "minimum vertical barrel fill at 75 % for Class 2 and Class 3 alike; 68.75 % is a "
+        "defect, not a cosmetic shortfall."))
+
+    add_step(c, step_numeric(
+        "s8",
+        "The minimum is 75 % of the 1.60 mm board. How many millimetres of fill is J-01 "
+        "short, in mm?",
+        fill_short_mm, 0.01,
+        ["Turn the percentage minimum into a depth first: 0.75 x 1.60 mm.",
+         "1.20 mm required, 1.10 mm measured.",
+         "0.10 mm short."],
+        "0.10 mm short: a tenth of a millimetre, on a joint the operator called full.",
+        "Convert the percentage to a depth before subtracting the measurement.",
+        "The minimum depth is 0.75 * 1.60 = 1.20 mm and the joint has 1.10 mm, so it is "
+        "0.10 mm short. Ten hundredths of a millimetre decide between a released build and a "
+        "rework, which is why fill is measured on a cross-section rather than judged from the "
+        "solder-side fillet."))
+
+    add_step(c, step_choice(
+        "s6",
+        "What is the correct disposition of J-01?",
+        [("a", "Accept it: 68.75 % is close to 75 % and the joint is electrically connected."),
+         ("b", "Reject it against the 75 % minimum and rework it; every other joint in the "
+               "sheet is judged on its own."),
+         ("c", "Accept it under the thermal-plane exception for 14 or more leads."),
+         ("d", "Accept it and raise the pot temperature by 10 °C so the next board fills "
+               "further.")],
+        "b",
+        ["The minimum for Class 2 and Class 3 is the same number; which is it?",
+         "The exception is for parts with 14 or more leads tied into internal thermal planes. "
+         "The sheet records zero leads on a plane for this connector.",
+         "68.75 % is below 75 %, so the joint fails."],
+        "Reject J-01 and rework it: the 75 % minimum has no near-miss band.",
+        "Which column in the sheet says whether this joint is acceptable?",
+        "IPC-A-610 sets a 75 % minimum vertical fill for Class 2 and Class 3, and 68.75 % is "
+        "below it. The 50 % / 1.2 mm figure is a documented exception for parts with fourteen "
+        "or more leads tied into internal thermal planes; the sheet records zero leads on a "
+        "plane, so the exception does not apply. Raising the pot temperature to rescue one "
+        "joint changes every other joint on the board and leaves the mechanism in place."))
+
+    add_step(c, step_choice(
+        "s7",
+        "The other joints read 81.25 % and 78.13 %. What is the defensible reading of the "
+        "sheet?",
+        [("a", "The build passes: the mean of the three joints is 76.04 %, above 75 %."),
+         ("b", "The build fails on J-01, and the sheet has to record each joint so the failing "
+               "one cannot be averaged away."),
+         ("c", "The build passes because two joints out of three are above the minimum."),
+         ("d", "The build passes once J-01 is re-inspected by a second operator.")],
+        "b",
+        ["Averaging is exactly the mistake this sheet exists to prevent.",
+         "One joint below the minimum is a defect on that joint, whatever the mean is.",
+         "Judge every joint: the average of acceptable and unacceptable is unacceptable."],
+        "Judge joint by joint. J-01 fails, and a mean cannot repair it.",
+        "Ask what the average would hide if the sheet recorded only a mean.",
+        "The mean of 68.75, 81.25 and 78.13 is 76.04 %, which clears 75 % and hides the defect. "
+        "Acceptance in IPC-A-610 is per joint, so the sheet must carry every joint; a summary "
+        "that reports only an average cannot show which barrel is short. It is the same "
+        "mistake as judging a reflow profile by its mean peak."))
+
+    add_step(c, step_choice(
+        "s9",
+        "What control actually addresses the short fill, given the wave record?",
+        [("a", "Raise the conveyor speed so the board spends less time in the wave."),
+         ("b", "Raise preheat so the top side of the hole reaches a temperature that lets the "
+               "solder climb, and verify dwell and contact time against the equipment limits."),
+         ("c", "Add flux by hand at the connector before the wave."),
+         ("d", "Accept the fill and add 100 % X-ray inspection.")],
+        "b",
+        ["Look at the wave record: contact time is 2.0 s, the bottom of the 2-4 s window the "
+         "course teaches.",
+         "A short fill on a clean, wetted joint points at the thermal side of the process, not "
+         "at solder volume.",
+         "Preheat and dwell decide whether the barrel fills; inspection only finds it later."],
+        "Raise preheat and check dwell against the equipment limits. Inspection after the fact "
+        "does not fill a barrel.",
+        "Which setting in wave-run.csv sits at the edge of its window?",
+        "Contact time is 2.0 s, the very bottom of the 2-4 s window, and top-side preheat is "
+        "105 °C in a 90-120 °C band: both at the weak end for a connector that acts as a heat "
+        "sink. Raising preheat and lengthening contact inside equipment limits addresses the "
+        "mechanism. Speeding the conveyor shortens contact and makes it worse, and adding "
+        "X-ray only proves the defect exists on every board after the cost is sunk."))
+
+    c["spec"] = [
+        {"label": "Minimum barrel fill", "value": HOLE_FILL_MIN_PCT, "unit": "%",
+         "note": "IPC-A-610, Class 2 and Class 3 alike (m08l05)"},
+        {"label": "Thermal-plane exception", "value": HOLE_FILL_EXCEPTION_PCT, "unit": "%",
+         "note": "Documented exception for 14 or more leads in internal planes (m08l05)"},
+        {"label": "Contact time", "value": WAVE_CONTACT_MIN_S, "to": WAVE_CONTACT_MAX_S,
+         "unit": "s", "note": "Course window for wave contact (m09l07)"},
+    ]
+
+    c["rubric"] = [
+        {"criterion": "Nominal clearance computed from finished diameters, not from the drill",
+         "points": 10, "steps": ["s1"]},
+        {"criterion": "Worst-case clearance built from both tolerances at once",
+         "points": 15, "steps": ["s2"]},
+        {"criterion": "Radial clearance derived from the diametral figure", "points": 10,
+         "steps": ["s3"]},
+        {"criterion": "Annular volume computed as hole minus lead, in the right unit",
+         "points": 15, "steps": ["s4"]},
+        {"criterion": "Fill percentage computed against the board thickness", "points": 10,
+         "steps": ["s5"]},
+        {"criterion": "Shortfall in millimetres derived from the percentage minimum",
+         "points": 10, "steps": ["s8"]},
+        {"criterion": "Joint judged against 75 %, with the exception ruled out on evidence",
+         "points": 15, "steps": ["s6"]},
+        {"criterion": "Each joint judged on its own, not on the average", "points": 10,
+         "steps": ["s7"]},
+        {"criterion": "Control chosen that matches the mechanism, not the inspection",
+         "points": 5, "steps": ["s9"]},
+    ]
+    cases.append(c)
+
+
+    # =====================================================================
+    # m09 — the wave run that produced the short fill
+    # =====================================================================
+    # The same first article the m08 case judges, read from the process side:
+    # what the record says, what the pot temperature means for SAC305, and what
+    # the bridge on the connector says about volume rather than wetting.
+    WAVE_POT_C = 255.0
+    WAVE_PREHEAT_C = 105.0
+    WAVE_WAVE_MM = 50.0
+    WAVE_SPEED_MPM = 1.5
+    wave_contact = ((WAVE_WAVE_MM / 1000.0) / (WAVE_SPEED_MPM / 60.0), "s",
+                    "(%g/1000)/(%g/60)" % (WAVE_WAVE_MM, WAVE_SPEED_MPM),
+                    {"wave_mm": WAVE_WAVE_MM, "speed_m_per_min": WAVE_SPEED_MPM})
+    wave_margin = ((WAVE_POT_C - BOARD_FACTS["liquidusC"], "°C",
+                    "%g-%g" % (WAVE_POT_C, BOARD_FACTS["liquidusC"]),
+                    {"pot_c": WAVE_POT_C, "liquidus_c": BOARD_FACTS["liquidusC"]}))
+    # A bridge on the 20-pin connector: 3.2 mm of solder bridging 2.54 mm of pitch.
+    # The other eighteen pins of the first article, as cross-sections read them.
+    # Declared as pairs so the file and any check of it read the same numbers.
+    WAVE_PASSING_FILL = [
+        (3, 78.13), (4, 80.00), (5, 81.25), (6, 79.38), (7, 76.88), (8, 82.50),
+        (9, 78.75), (10, 80.63), (11, 77.50), (12, 79.38), (13, 81.88), (14, 78.13),
+        (15, 80.00), (16, 76.25), (17, 79.38), (18, 81.25), (19, 77.50), (20, 80.63),
+    ]
+    BRIDGE_SPAN_MM = 3.2
+    BRIDGE_PITCH_MM = 2.54
+    bridge_ratio = (BRIDGE_SPAN_MM / BRIDGE_PITCH_MM, "dimensionless",
+                    "%g/%g" % (BRIDGE_SPAN_MM, BRIDGE_PITCH_MM),
+                    {"span_mm": BRIDGE_SPAN_MM, "pitch_mm": BRIDGE_PITCH_MM})
+
+    c = {
+        "caseId": "cx-m09-01",
+        "moduleId": "m09",
+        "title": "Wave run FA-1: a short barrel on one joint and a bridge on another",
+        "estMinutes": 25,
+        "level": "core",
+        "scenario": [
+            "The wave run that produced the m08 first article is recorded in wave-run.csv: "
+            "rosin mildly activated flux, 105 °C top-side preheat, a 255 °C pot, a 50 mm wave "
+            "and 1.5 m/min conveyor on a single-wave machine. The connector ran upstream.",
+            "Two findings came off the same board. J-01 is short of fill at 1.10 mm of a "
+            "1.60 mm barrel. On the neighbouring pin a 3.2 mm solder bridge spans a 2.54 mm "
+            "pitch. The line wants one explanation for both, and the fastest one is 'the "
+            "solder pot is too cold'.",
+            "Check the record against the course's wave windows, then decide what to change "
+            "and in what order.",
+        ],
+        "dataFiles": [
+            {
+                "name": "wave-run.csv",
+                "kind": "csv",
+                "note": "One board, one pass. contact_s is the wave width divided by the "
+                        "conveyor speed; the course window for contact time is 2-4 s.",
+                "content": (
+                    "run,flux,preheat_top_c,pot_c,wave_width_mm,conveyor_m_per_min,"
+                    "contact_s,board_dir\n"
+                    "FA-1,rosin mildly activated,105,255,50,1.5,2.0,connector upstream\n"
+                ),
+            },
+            {
+                "name": "joint-findings.csv",
+                "kind": "csv",
+                "note": "The whole connector, one row per pin: all 20 joints of the first "
+                        "article, not only the two that failed. Fill is vertical barrel fill "
+                        "from cross-section; span and pitch are filled in only where a "
+                        "bridge was measured.",
+                "content": (
+                    "joint,defect,fill_pct,span_mm,pitch_mm,side\n"
+                    "J-01,insufficient fill,68.75,,,solder side\n"
+                    "J-02,bridge,,3.20,2.54,solder side\n"
+                    + "".join("J-%02d,,%.2f,,,solder side\n" % (n, fill)
+                              for n, fill in WAVE_PASSING_FILL)) ,
+            },
+        ],
+        "steps": [],
+        "rubric": [],
+        "templates": [
+            {"templateId": "wave-record", "name": "Wave solder process record",
+             "status": "planned"},
+        ],
+        "toolLinks": [
+            {"label": "Wave process control (lesson m09l07)", "href": "#/l/m09l07"},
+            {"label": "Wave defect atlas (lesson m09l06)", "href": "#/l/m09l06"},
+            {"label": "Preparing the board for the wave (lesson m08l04)", "href": "#/l/m08l04"},
+        ],
+        "sources": ["src-001", "src-016"],
+        "generatedBy": "scripts/gen_cases.py",
+    }
+
+    add_step(c, step_numeric(
+        "s1",
+        "The wave is 50 mm wide and the conveyor runs at 1.5 m/min. What is the contact "
+        "time, in seconds?",
+        wave_contact, 0.1,
+        ["Convert both lengths to the same unit before dividing.",
+         "50 mm = 0.050 m; 1.5 m/min = 0.025 m/s.",
+         "0.050 / 0.025 = 2.0 s."],
+        "2.0 s: inside the 2-4 s window, but at the bottom of it.",
+        "Divide the wave width in metres by the conveyor speed in metres per second.",
+        "0.050 m of wave over 0.025 m/s of board travel gives 2.0 s of contact. The course "
+        "window is 2-4 s, so the run is legal, and the board passes through in the shortest "
+        "time the window allows. For a connector that acts as a heat sink that is the first "
+        "thing to look at, not the pot temperature."))
+
+    add_step(c, step_numeric(
+        "s2",
+        "The pot runs at 255 °C. What is that above the SAC305 liquidus of 219 °C, in °C?",
+        wave_margin, 0.5,
+        ["Liquidus is the temperature the alloy must exceed, not a target.",
+         "255 - 219.",
+         "36 °C above liquidus."],
+        "36 °C above liquidus: the pot is hot, not cold.",
+        "Subtract the liquidus from the pot temperature, not the other way round.",
+        "255 - 219 = 36 °C. The course's own window for SAC305 pots is 250-260 °C, so the pot "
+        "sits in the middle of it. The hypothesis that a cold pot explains the short fill is "
+        "contradicted by the record before anyone touches a knob."))
+
+    add_step(c, step_choice(
+        "s3",
+        "The record is inside every window: pot 255 °C, contact 2.0 s, flux correct. Which "
+        "pair of settings is actually weak for a heat-sinking connector?",
+        [("a", "The pot temperature and the flux type."),
+         ("b", "The top-side preheat, at 105 °C, and the contact time, at the floor of its "
+               "window."),
+         ("c", "The conveyor speed, which is far too slow."),
+         ("d", "Nothing: the settings are fine and the defect must be incoming material.")],
+        "b",
+        ["The course's preheat range is 90-120 °C top side; where in that band is 105 °C?",
+         "A connector pulls heat out of the joint, so the thermal side needs margin, not the "
+         "bare minimum.",
+         "Preheat and contact time carry the fill, and both are at the weak end."],
+        "Top-side preheat (105 °C) and contact time (2.0 s) are the weak settings.",
+        "Which two numbers in the record sit at the bottom of their windows?",
+        "Pot temperature is mid-window and flux is the right family for this board, so neither "
+        "explains anything. Preheat at 105 °C is in the lower half of the 90-120 °C band and "
+        "contact time is at the 2.0 s floor, on a part that conducts heat away from the joint. "
+        "A theory that needs a defect in the material ignores two settings that are already at "
+        "the weak end of the only windows the course gives."))
+
+    add_step(c, step_numeric(
+        "s4",
+        "The bridge on J-02 spans 3.20 mm across a 2.54 mm pitch. How many pitches does the "
+        "bridge cover? Two decimals.",
+        bridge_ratio, 0.02,
+        ["One pitch is the centre-to-centre distance between adjacent pins.",
+         "3.20 / 2.54.",
+         "1.26 pitches: it reaches past the neighbour."],
+        "1.26 pitches: the bridge is not a whisker, it is a pool.",
+        "Divide the span by the pitch; the units cancel.",
+        "3.20 / 2.54 = 1.26. A bridge that covers more than one pitch is a volume and drainage "
+        "problem, not a fine-pitch whisker: solder sat on the board long enough to pool between "
+        "two pads. On the same board, one joint is short and the neighbour is flooded, which "
+        "is what uneven wetting and drainage looks like."))
+
+    add_step(c, step_choice(
+        "s5",
+        "One joint is short and its neighbour is flooded on the same pass. What does that "
+        "pair of findings point to?",
+        [("a", "A single cause: the pot is too cold, so some joints do not fill and some "
+               "flood."),
+         ("b", "A wetting and drainage problem around one component: the joint that did not "
+               "reach temperature stayed short, and solder pooled where drainage was poor."),
+         ("c", "Two unrelated random defects; no action is possible."),
+         ("d", "A bad batch of connectors, since both findings are on the same part.")],
+        "b",
+        ["A cold pot would make every joint worse, and the record says the pot is not cold.",
+         "Short fill and a pool on the same connector come from an uneven thermal and flow "
+         "field, not from the solder temperature.",
+         "The mechanism has to explain both findings at once, or it is not the mechanism."],
+        "An uneven thermal and drainage field around one component: one pin too cold to fill, "
+        "its neighbour with nowhere to drain.",
+        "Which explanation accounts for a short barrel and a flooded neighbour at the same "
+        "time?",
+        "A cold pot affects the whole board, and the other joints on this board fill to 78-81 %. "
+        "Two findings two pins apart on the same part are a local thermal and flow problem: "
+        "the connector shields the wave and pulls heat from its own joints, so one barrel "
+        "stalls while solder pools where it cannot drain. Naming one mechanism that explains "
+        "both findings is the difference between a fix and an experiment."))
+
+    add_step(c, step_choice(
+        "s6",
+        "Which single change should be made first, so that its effect can be measured?",
+        [("a", "Raise the pot temperature from 255 to 270 °C and shorten the contact time."),
+         ("b", "Raise top-side preheat within the 90-120 °C band and lengthen contact toward "
+               "the middle of the 2-4 s window, then re-run one board and re-measure."),
+         ("c", "Change the flux to water-soluble and keep every other setting."),
+         ("d", "Add a pallet and keep every setting, so the board is supported better.")],
+        "b",
+        ["One change at a time is what makes the next measurement mean something.",
+         "The two weak settings are thermal: preheat and contact time.",
+         "Raise preheat, lengthen contact inside the window, re-run one board."],
+        "Raise preheat and lengthen contact inside their windows, one board, then re-measure.",
+        "Which change touches the settings the record already flags as weak?",
+        "Preheat and contact time are the two settings at the weak end and they act on the same "
+        "mechanism: heat in the barrel and time for solder to climb. Changing flux, pallet and "
+        "pot at once makes the result unattributable, and 270 °C is above the course's 250-260 °C "
+        "SAC305 window with no evidence that heat is the binding constraint. One change, one "
+        "board, one measurement is how a wave process is qualified."))
+
+    add_step(c, step_numeric(
+        "s7",
+        "The first-article sheet covers every pin of the connector. What percentage of its "
+        "joints is nonconforming against the 75 % minimum? One decimal.",
+        (1.0 / 20.0 * 100.0, "%", "1/20*100", {"failed": 1, "joints": 20}), 0.1,
+        ["The denominator is every joint on the sheet, not only the ones that failed.",
+         "Count the rows first: the connector has twenty joints.",
+         "1 / 20 = 5.0 %."],
+        "5.0 % of the connector's joints: one pin in twenty.",
+        "Divide the failing joints by the joints inspected.",
+        "1 / 20 = 5.0 %. On a sample this small a single joint is five percent, which is why "
+        "first-article acceptance is per joint and why a run of three boards is not a process "
+        "capability study. The number is small and the joint is still a defect."))
+
+    add_step(c, step_choice(
+        "s8",
+        "The supplier asks whether the whole lot should be rejected. What does the record "
+        "support?",
+        [("a", "Reject the lot: one nonconforming joint condemns every board."),
+         ("b", "Contain the boards that have run, fix the process settings, re-qualify with a "
+               "first article, and judge the lot against the re-qualified process rather than "
+               "against one joint."),
+         ("c", "Release the lot: 5 % of one connector is trivial."),
+         ("d", "Release the lot and inspect 100 % by eye, since the defect is visible.")],
+        "b",
+        ["A single joint is evidence about the process, not a measurement of the lot.",
+         "Containment first, then a process fix, then re-qualification: the same order as an "
+         "8D.",
+         "The lot is judged against the corrected process, not against the finding that "
+         "started the investigation."],
+        "Contain what has run, fix the settings, re-qualify the process, then judge the lot.",
+        "Which decision does one joint actually support: a lot verdict, or a process verdict?",
+        "One joint on a three-board first article is a process signal. Containment holds the "
+        "boards that ran, the settings get corrected and proven on a first article, and only "
+        "then does the lot get judged. Rejecting everything on one joint is as unjustified as "
+        "releasing everything on 5 %, and a 100 % visual check cannot measure barrel fill: the "
+        "short barrel is on the underside of the joint."))
+
+    c["spec"] = [
+        {"label": "Pot temperature, SAC305", "value": 250, "to": 260, "unit": "°C",
+         "note": "Course window for wave pots (m09l07)"},
+        {"label": "Contact time", "value": WAVE_CONTACT_MIN_S, "to": WAVE_CONTACT_MAX_S,
+         "unit": "s", "note": "Course window (m09l07)"},
+        {"label": "Top-side preheat", "value": 90, "to": 120, "unit": "°C",
+         "note": "Course band (m09l07)"},
+    ]
+
+    c["rubric"] = [
+        {"criterion": "Contact time computed from wave width and conveyor speed",
+         "points": 15, "steps": ["s1"]},
+        {"criterion": "Pot margin over liquidus computed and judged against the SAC305 window",
+         "points": 10, "steps": ["s2"]},
+        {"criterion": "Weak settings identified from the record, not assumed",
+         "points": 15, "steps": ["s3"]},
+        {"criterion": "Bridge span expressed in pitches", "points": 10, "steps": ["s4"]},
+        {"criterion": "One mechanism named that explains both findings", "points": 15,
+         "steps": ["s5"]},
+        {"criterion": "One change at a time, inside the published windows", "points": 15,
+         "steps": ["s6"]},
+        {"criterion": "Nonconforming share computed on joints, not boards", "points": 10,
+         "steps": ["s7"]},
+        {"criterion": "Lot decision separated from the process decision", "points": 10,
+         "steps": ["s8"]},
+    ]
+    cases.append(c)
+
     # =====================================================================
     # m14 — DPMO, sampling, 8D effectiveness
     # =====================================================================
@@ -1359,6 +1976,9 @@ def build_document():
             "pastePeakWindowC": [[PASTE_PEAK_MIN_C, PASTE_PEAK_MAX_C], None, "m06l07"],
             "talWindowIpcs": [[30, 90], "src-008", "m06l05"],
             "peakClassificationLargeC": [JSTD020_LARGE_PACKAGE_C, "src-005", "m06l05"],
+            "holeFillMinPct": [HOLE_FILL_MIN_PCT, "src-016", "m08l05"],
+            "holeFillExceptionPct": [HOLE_FILL_EXCEPTION_PCT, "src-016", "m08l05"],
+            "waveContactWindowS": [[WAVE_CONTACT_MIN_S, WAVE_CONTACT_MAX_S], None, "m09l07"],
         },
         "thread": BOARD_THREAD,
         "board": BOARD,

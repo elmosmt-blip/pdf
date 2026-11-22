@@ -126,10 +126,11 @@ mastered». Обойти нельзя — гейт стоит и на маршр
 
 ```bash
 cd /home/user/pdf/course-clean
-python3 scripts/gen_cases.py --check    # OK (4 cases, 32 steps)
-node scripts/check-cases.js             # keys recomputed 32 of 32
-node scripts/check-integrity.js         # cases 4 (32 steps), OK
-node tests/course.test.js               # PASS — 159 passed, 0 failed
+python3 scripts/gen_cases.py --check    # OK (6 cases, 49 steps)
+node scripts/check-cases.js             # keys recomputed 49 of 49
+node scripts/check-integrity.js         # cases 6 (49 steps), OK
+node tests/course.test.js               # PASS — 177 passed, 0 failed
+node tests/case-qa.js                   # 24 passed, 0 failed
 ```
 
 ---
@@ -143,9 +144,14 @@ node tests/course.test.js               # PASS — 159 passed, 0 failed
 2. **m02, шаг 4** — формулировка «5 % RH — требование, 10 % — замедление».
 3. **m06, шаг 4 и чипы** — что для вашего BGA класс действительно «крупный»
    (потолок 250 °C, а не 245 °C). И шаг 3: разброс 12 °C по трём точкам.
-4. **m14, шаг 5** — приемлемо ли, что при Ac = 3 партия принимается, а 8D
+4. **m08, шаги 6–7** — что 75 % относится к каждому выводу отдельно, а не к
+   среднему по разъёму, и что исключение 50 % (14+ выводов на внутренних
+   полигонах) на этот разъём не распространяется.
+5. **m09, шаг 5** — что короткая заливка на J-01 и перемычка на J-02 на одной
+   плате объясняются одним механизмом, а не «холодным горшком».
+6. **m14, шаг 5** — приемлемо ли, что при Ac = 3 партия принимается, а 8D
    остаётся открытым.
-5. **TAL 60–90 s** — это окно из учебной задачи m06l07, а не из вашего
+7. **TAL 60–90 s** — это окно из учебной задачи m06l07, а не из вашего
    даташита. Решено оставить как есть; при появлении даташита меняется одна
    константа генератора.
 

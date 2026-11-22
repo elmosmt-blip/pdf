@@ -176,6 +176,63 @@ produces the real PNGs:
 node scripts/capture-case.js --all --png
 ```
 
+## 7b. Round 2 — the THT and wave cases (m08, m09)
+
+The next two cases were named in §8 as the natural next pair, because both read
+Board X facts the earlier cases already fixed. Both are now built, in the same
+shape as the first four: keys computed by the generator, recomputed by a second
+implementation from the case's own data files.
+
+| Case | Module | Steps | Rubric | Est. | What it makes the learner do |
+|---|---|---|---|---|---|
+| `cx-m08-01` Through-hole fill | m08 | 9 (5 numeric) | 100 | 25 min | nominal and worst-case clearance from the measured extremes, radial clearance, annular volume in mm³, fill as a percentage of board thickness, shortfall in millimetres against the 75 % minimum, a per-joint disposition with the 50 % thermal-plane exception ruled out on the evidence in the sheet, and the control that matches the mechanism |
+| `cx-m09-01` Wave run FA-1 | m09 | 8 (4 numeric) | 100 | 25 min | contact time from wave width and conveyor speed, pot margin over the 219 °C liquidus, the two settings that actually sit at the weak end, bridge span in pitches, one mechanism that explains a short barrel and a flooded neighbour on the same pass, one change at a time, nonconforming share on joints, and the lot decision kept apart from the process decision |
+
+New control numbers, all reproduced by `check-cases.js`:
+
+| Control | Result |
+|---|---|
+| Diametral clearance, 1.00 mm hole / 0.60 mm lead | **0.40 mm** |
+| Worst case, 0.95 mm hole / 0.63 mm lead | **0.32 mm** (radial **0.16 mm**) |
+| Annular volume, pi * (0.5² − 0.3²) * 1.6 | **0.80 mm³** |
+| Vertical fill, 1.10 mm of 1.60 mm | **68.75 %** (short by **0.10 mm**) |
+| Contact time, 50 mm wave at 1.5 m/min | **2.0 s** |
+| Pot margin, 255 °C against 219 °C liquidus | **36 °C** |
+| Bridge span, 3.20 mm on a 2.54 mm pitch | **1.26 pitches** |
+
+Two things the new cases deliberately do **not** do:
+
+* They do not average. m08's s7 is the same lesson m06 taught: a mean of
+  76.04 % across three joints clears 75 % and hides a defect, so the sheet has
+  to carry every joint.
+* They do not invent a second cause. m09 asks for one mechanism that explains
+  both findings on the same pass, because two unrelated stories is not a
+  diagnosis.
+
+Board X gained six facts (`holeFillMinPct`, `holeFillExceptionPct`,
+`holeFillExceptionLeads`, `thtHoleNominalMm`, `thtHoleToleranceMm`,
+`waveContactWindowS`) and the thread grew from four steps to six, so the module
+page now shows the product's whole through-hole history: MSL log → stencil →
+reflow → through-hole → wave → 8D.
+
+The 75 % acceptance limit is cited to `src-016` (IPC-A-610H section 10) and was
+re-checked against two independent summaries on 2026-11-31, because the 50 %
+figure circulates as a "Class 2 relaxation" and is not one: it is the
+documented exception for 14 or more leads tied into internal thermal planes,
+which is exactly the trap m08's s6 sets.
+
+Verification after the round: `gen_cases.py --check` OK (6 cases, 49 steps),
+`check-cases.js` 49/49 keys independently recomputed, `check-integrity.js` OK,
+`check-quiz.js` OK, `tests/course.test.js` **177 / 0**, `tests/case-qa.js`
+**24 / 0**, pilot sheet regenerated for 6 cases / 49 steps.
+
+Two test literals had to go: three checks asserted "four" cases, and the QA pass
+asserted 15 template files. All four now derive their expected count from
+`data/cases.json`, because a literal that has to be edited every time a case is
+added is a test that will one day pass for the wrong reason.
+
+---
+
 ## 8. Next
 
 The remaining eleven modules get cases in the same shape, one per module, in

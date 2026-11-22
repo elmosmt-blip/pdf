@@ -140,7 +140,11 @@ check('all template variants present and non-empty', ()=>{
     if(!v.content||v.content.length<20) throw new Error('empty '+v.file);
     n++;
   })));
-  return n===15?true:'expected 15 files, got '+n;
+  /* derive the expected count from the data: a literal here would have to be
+     edited every time a case adds a template, and the day it is not, the check
+     passes for the wrong reason */
+  const want = CASES.reduce((a,c)=>a+c.templates.length*3,0);
+  return n===want?true:'expected '+want+' files, got '+n;
 });
 
 // QA-9: no NaN / undefined anywhere on any case page

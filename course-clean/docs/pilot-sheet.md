@@ -89,6 +89,62 @@ Protocol: `docs/pilot-protocol.md`.
 
 ---
 
+## cx-m08-01 — Through-hole fill: a connector joint measures 1.10 mm of 1.60 mm
+
+`#/c/cx-m08-01` · module m08 · 9 steps · 100 rubric points · about 25 min
+
+| # | Step | Type | Expected | Tolerance | Watch for |
+|---|---|---|---|---|---|
+| 1 | Using the measurement sheet, what is the nominal diametral clearance on J-01, in mm? | numeric | 0.4 mm | ±0.005 | Take the finished hole diameter, not the drill diameter, then subtract the lead. |
+| 2 | What is the worst-case tight diametral clearance, in mm: smallest finished hole against largest lead? | numeric | 0.32 mm | ±0.005 | Both tolerances have to be used in their worst direction at the same time. |
+| 3 | What is that worst-case radial clearance, in mm? | numeric | 0.16 mm | ±0.005 | Halve the diametral figure rather than repeating the subtraction. |
+| 4 | At nominal diameters, what is the annular volume the solder has to fill through the 1.6 mm board, in mm3? Use pi = 3.14159 and give two decimals. | numeric | 0.8042 mm3 | ±0.01 | Subtract the lead cross-section from the hole cross-section before multiplying by thickness. |
+| 5 | Cross-section shows 1.10 mm of fill on a 1.60 mm board. What is the vertical fill as a percentage? One decimal place. | numeric | 68.75 % | ±0.2 | Divide the filled depth by the full board thickness and scale to percent. |
+| 6 | The minimum is 75 % of the 1.60 mm board. How many millimetres of fill is J-01 short, in mm? | numeric | 0.1 mm | ±0.01 | Convert the percentage to a depth before subtracting the measurement. |
+| 7 | What is the correct disposition of J-01? | choice | option b — “Reject it against the 75 % minimum and rework it; every other joint in the sheet is judged on its own.” | — | Which column in the sheet says whether this joint is acceptable? |
+| 8 | The other joints read 81.25 % and 78.13 %. What is the defensible reading of the sheet? | choice | option b — “The build fails on J-01, and the sheet has to record each joint so the failing one cannot be averaged away.” | — | Ask what the average would hide if the sheet recorded only a mean. |
+| 9 | What control actually addresses the short fill, given the wave record? | choice | option b — “Raise preheat so the top side of the hole reaches a temperature that lets the solder climb, and verify dwell and contact time against the equipment limits.” | — | Which setting in wave-run.csv sits at the edge of its window? |
+
+**Rubric** (pass mark 80 %):
+- Nominal clearance computed from finished diameters, not from the drill — 10 pts (s1)
+- Worst-case clearance built from both tolerances at once — 15 pts (s2)
+- Radial clearance derived from the diametral figure — 10 pts (s3)
+- Annular volume computed as hole minus lead, in the right unit — 15 pts (s4)
+- Fill percentage computed against the board thickness — 10 pts (s5)
+- Shortfall in millimetres derived from the percentage minimum — 10 pts (s8)
+- Joint judged against 75 %, with the exception ruled out on evidence — 15 pts (s6)
+- Each joint judged on its own, not on the average — 10 pts (s7)
+- Control chosen that matches the mechanism, not the inspection — 5 pts (s9)
+
+---
+
+## cx-m09-01 — Wave run FA-1: a short barrel on one joint and a bridge on another
+
+`#/c/cx-m09-01` · module m09 · 8 steps · 100 rubric points · about 25 min
+
+| # | Step | Type | Expected | Tolerance | Watch for |
+|---|---|---|---|---|---|
+| 1 | The wave is 50 mm wide and the conveyor runs at 1.5 m/min. What is the contact time, in seconds? | numeric | 2 s | ±0.1 | Divide the wave width in metres by the conveyor speed in metres per second. |
+| 2 | The pot runs at 255 °C. What is that above the SAC305 liquidus of 219 °C, in °C? | numeric | 36 °C | ±0.5 | Subtract the liquidus from the pot temperature, not the other way round. |
+| 3 | The record is inside every window: pot 255 °C, contact 2.0 s, flux correct. Which pair of settings is actually weak for a heat-sinking connector? | choice | option b — “The top-side preheat, at 105 °C, and the contact time, at the floor of its window.” | — | Which two numbers in the record sit at the bottom of their windows? |
+| 4 | The bridge on J-02 spans 3.20 mm across a 2.54 mm pitch. How many pitches does the bridge cover? Two decimals. | numeric | 1.2598 | ±0.02 | Divide the span by the pitch; the units cancel. |
+| 5 | One joint is short and its neighbour is flooded on the same pass. What does that pair of findings point to? | choice | option b — “A wetting and drainage problem around one component: the joint that did not reach temperature stayed short, and solder pooled where drainage was poor.” | — | Which explanation accounts for a short barrel and a flooded neighbour at the same time? |
+| 6 | Which single change should be made first, so that its effect can be measured? | choice | option b — “Raise top-side preheat within the 90-120 °C band and lengthen contact toward the middle of the 2-4 s window, then re-run one board and re-measure.” | — | Which change touches the settings the record already flags as weak? |
+| 7 | The first-article sheet covers every pin of the connector. What percentage of its joints is nonconforming against the 75 % minimum? One decimal. | numeric | 5 % | ±0.1 | Divide the failing joints by the joints inspected. |
+| 8 | The supplier asks whether the whole lot should be rejected. What does the record support? | choice | option b — “Contain the boards that have run, fix the process settings, re-qualify with a first article, and judge the lot against the re-qualified process rather than against one joint.” | — | Which decision does one joint actually support: a lot verdict, or a process verdict? |
+
+**Rubric** (pass mark 80 %):
+- Contact time computed from wave width and conveyor speed — 15 pts (s1)
+- Pot margin over liquidus computed and judged against the SAC305 window — 10 pts (s2)
+- Weak settings identified from the record, not assumed — 15 pts (s3)
+- Bridge span expressed in pitches — 10 pts (s4)
+- One mechanism named that explains both findings — 15 pts (s5)
+- One change at a time, inside the published windows — 15 pts (s6)
+- Nonconforming share computed on joints, not boards — 10 pts (s7)
+- Lot decision separated from the process decision — 10 pts (s8)
+
+---
+
 ## cx-m14-01 — AOI over-rejection on Board X: DPMO, sampling scope and an 8D that is not closed
 
 `#/c/cx-m14-01` · module m14 · 10 steps · 100 rubric points · about 35 min

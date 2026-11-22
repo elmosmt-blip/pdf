@@ -258,20 +258,23 @@ async function renderLayer() {
     return dom;
   }
 
-  /* 0. the four cases are reachable from the home page, not only from inside a
-     module — this was the actual complaint from the reader's side */
+  /* 0. every case is reachable from the home page, not only from inside a
+     module — this was the actual complaint from the reader's side. The count is
+     taken from the data, so adding a case cannot leave a stale literal behind. */
   {
+    const docForCounts = JSON.parse(fs.readFileSync(path.join(BUILD, 'data', 'cases.json'), 'utf8'));
+    const allCaseIds = docForCounts.cases.map(function (c) { return c.caseId; });
     const homeCases = load('#/');
     const hd = homeCases.window.document;
-    eq(hd.querySelectorAll('.home-case-card').length, 4,
-      'the home page lists all four Toolkit cases');
+    eq(hd.querySelectorAll('.home-case-card').length, allCaseIds.length,
+      'the home page lists every Toolkit case');
     const links = Array.prototype.map.call(hd.querySelectorAll('.home-case-link'),
       function (a) { return a.getAttribute('href'); });
-    ['cx-m02-01', 'cx-m03-01', 'cx-m06-01', 'cx-m14-01'].forEach(function (id) {
+    allCaseIds.forEach(function (id) {
       ok(links.indexOf('#/c/' + id) !== -1, 'the home page links to ' + id);
     });
-    eq(hd.querySelectorAll('.toc-case-item').length, 4,
-      'the sidebar lists the four cases');
+    eq(hd.querySelectorAll('.toc-case-item').length, allCaseIds.length,
+      'the sidebar lists every case');
     homeCases.window.close();
   }
 
@@ -662,7 +665,10 @@ async function renderLayer() {
   const mod6 = load('#/m/m06');
   const m6d = mod6.window.document;
   const threadItems = m6d.querySelectorAll('.bx-thread-item');
-  eq(threadItems.length, 4, 'the Board X thread lists four steps');
+  const threadCount = JSON.parse(fs.readFileSync(path.join(BUILD, 'data', 'cases.json'), 'utf8'))
+    .thread.length;
+  eq(threadItems.length, threadCount, 'the Board X thread lists every step');
+  ok(threadCount >= 6, 'the thread covers the THT and wave cases as well', String(threadCount));
   const hereStep = m6d.querySelector('.bx-thread-item--here');
   ok(!!hereStep && /Reflow profile/.test(hereStep.textContent),
     'the current module is marked on the thread');
