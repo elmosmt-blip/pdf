@@ -500,16 +500,78 @@ numeric), `check-quiz.js` OK, `tests/course.test.js` **187 / 0**,
 
 ---
 
+## 7g. Round 7 — selective soldering (m10)
+
+| Case | Module | Steps | Rubric | Est. | What it makes the learner do |
+|---|---|---|---|---|---|
+| `cx-m10-01` Selective program | m10 | 10 (4 numeric) | 100 | 35 min | annular gap at nominal and at the worst tolerance case, a nozzle judged against this joint rather than against the lesson's range, the cycle built from every block and converted to throughput, a throughput gain priced against the air knife's function, one variable changed to match the defect mechanism, a high-mass joint given its own dwell or passes, and the record that makes a program portable |
+
+Control numbers:
+
+| Control | Result |
+|---|---|
+| 1.00 mm hole, 0.60 mm lead | **0.20 mm gap per side** |
+| Worst case, 0.95 hole / 0.63 lead | **0.16 mm per side** |
+| 1.20 mm nozzle on a 1.00 mm hole | **0.10 mm clearance per side** |
+| 20 joints x (1.8 s dwell + 0.4 s travel) | **44 s** |
+| Cycle with 25 s preheat and 12 s flux and knife | **81 s = 44.4 boards/h** |
+| The same cycle without the air knife | 73 s = 49.3 boards/h, and no flux metering |
+
+### What this case is about
+
+Two numbers that are both inside a published range and both wrong for the joint
+in front of them. The 1.20 mm nozzle sits comfortably inside the lesson's
+0.8-2.0 mm starting band and still puts the meniscus on the pad edge of a 1.00 mm
+hole. The 1.8 s dwell sits inside the low-mass band and is at the bottom of the
+high-mass one, so the ground-plane pin on the same connector is under-heated by
+the same table that serves the signal pins.
+
+The cycle arithmetic is there to make the trade explicit: 8 s of air-knife time
+is 11 % of throughput and the flux metering that keeps blowback out of the joint,
+so the optimisation has a price the capacity number does not show. The case asks
+for the nozzle to be changed first because the defect is positional, and the
+one-variable rule is what makes the next first article attributable.
+
+### A contradiction this case exposed in the product data
+
+`BOARD_FACTS["thtConnector"]` described Board X's connector as a "0.8 mm finished
+hole, 0.5 mm lead", while m08 measures a 1.00 ± 0.05 mm hole with a 0.60 mm lead
+and m10 sizes a nozzle against that joint. The two cases that read the fact were
+right and the fact was wrong. It is now 1.00 / 0.60, and the note in the source
+says why — this is the sort of drift a fact table acquires when each case
+restates a dimension instead of reading it.
+
+### Sources
+
+* **Annular gap and fill.** IPC-A-610 through-hole criteria, `src-016`, the same
+  source m08 uses; the hole and lead geometry is Board X's own drawing.
+* **Nozzle range, dwell bands, flux and air-knife starting ranges.** Course text
+  m10l02 and m10l04, recorded in Board Facts with **no source id** because the
+  lessons present them as starting points to be verified on the machine, not as
+  standard limits. The case uses them the way the lessons do: to judge a program,
+  never to claim what an alloy needs.
+* **Not used.** No bath temperature is quoted for the selective run. The lessons
+  give 250-260 °C for lead-free, but the case's questions do not depend on it, and
+  adding an unused number to a page is how numbers get misquoted later.
+
+Verification after round 7: `gen_cases.py --check` OK (**12 cases, 107 steps**),
+`check-cases.js` **107/107**, `check-integrity.js` OK (12 cases, 107 steps, 65
+numeric), `check-quiz.js` OK, `tests/course.test.js` **189 / 0**,
+`tests/case-qa.js` **48 / 0**, pilot sheet regenerated for 12 cases / 107 steps,
+25 outline captures regenerated.
+
+---
+
 ## 8. Next
 
-Eleven of fifteen modules now carry a case: m01, m02, m03, m04, m05, m06, m07,
-m08, m09, m11, m14. The remaining four are m10, m12, m13, m15.
+Twelve of fifteen modules now carry a case: m01, m02, m03, m04, m05, m06, m07,
+m08, m09, m10, m11, m14. The remaining three are m12, m13, m15.
 
-m10 is the natural next one: selective soldering reads the 20-pin THT connector
-and the thermal budget that m08 and m09 already fixed, and its numbers (dwell per
-joint, nozzle diameter, cycle time) are arithmetic rather than opinion. m13
-(coverage) follows, because it needs the test access and defect-class facts the
-inspection cases built.
+m13 is the natural next one: coverage math needs the defect classes and the
+inspection steps the AOI case already built, and it produces the one number the
+whole course has been implying — what fraction of defects any test strategy can
+actually catch. m12 (cleanliness) follows, because ROSE, ion chromatography and
+coating thickness give measurements with real units and real limits.
 
 Templates referenced from the cases are generated in three variants (blank,
 example, guide) for all twelve template types; the "check" workflow on the five

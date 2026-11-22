@@ -70,6 +70,15 @@ outcome matches the story.
 * m11 s9 listed the measured width "with its limit" instead of "against the
   minimum it was compared with", which is what the rest of the case now does.
 
+### 1.8 The board facts contradicted the cases that read them (fixed, round 7)
+
+`thtConnector` described Board X as a "0.8 mm finished hole, 0.5 mm lead", while
+m08 measures a 1.00 ± 0.05 mm hole with a 0.60 mm lead and m10 sizes a nozzle
+against that geometry. Two cases agreed with each other and disagreed with the
+fact table. It now reads 1.00 / 0.60. The general lesson is the one the whole
+document keeps returning to: a number restated in a second place drifts, so the
+fact table must be the only place a dimension is typed.
+
 ## 2. Recomputation by hand
 
 Forty numeric keys were recomputed with a calculator and an independent script,
@@ -120,8 +129,8 @@ recomputed · `check-integrity.js` OK · `check-quiz.js` OK · `tests/course.tes
 
 ## 6. Where the build is published
 
-`https://drive.google.com/file/d/18KAUIeH5DvJu9-S04McDascuhWbVKHjf/view`
-(8,834,778 bytes, 11 cases / 97 steps — rebuilt after m05 was added). The zip has
+`https://drive.google.com/file/d/1YY0BU4FlBPGTS2QXnTPUMSDwvJouqtp1/view`
+(8,844,479 bytes, 12 cases / 107 steps — rebuilt after m10 was added). The zip has
 `index.html` at its root, so it opens from a double click instead of requiring
 the `build/course-clean/` path. Each rebuild replaces the link and trashes the
 previous file; an older copy that was zero bytes is already in the trash.
