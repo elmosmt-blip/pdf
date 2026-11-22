@@ -363,16 +363,88 @@ pilot sheet regenerated for 9 cases / 77 steps, 19 outline captures regenerated.
 
 ---
 
+## 7e. Round 5 — SPI (m04)
+
+m04 sits between the stencil and the profile: the print is measured, and in this
+case the measurement is wrong twice over.
+
+| Case | Module | Steps | Rubric | Est. | What it makes the learner do |
+|---|---|---|---|---|---|
+| `cx-m04-01` SPI review | m04 | 10 (7 numeric) | 100 | 35 min | nominal volume from aperture and foil, mean as a share of nominal, the window in the same unit, Cp and Cpk with the gap between them explained, the two squeegee passes separated and each capability computed, height derived from volume and area, the SPI program's foil figure checked against the press, and the order of the three fixes |
+
+Control numbers:
+
+| Control | Result |
+|---|---|
+| Nominal, 0.22 x 0.90 mm through 0.100 mm foil | **19.8 nL** |
+| Window at 75-125 % | **14.85 - 24.75 nL** |
+| Mean of twelve deposits | **17.09 nL = 86.3 %** (inside the window) |
+| Cp / Cpk on the pool | **1.34 / 0.61** |
+| First pass, six deposits | mean 18.21 nL, **Cpk 3.05** |
+| Second pass, six deposits | mean 15.96 nL, **Cpk 0.99** |
+| Height from volume and area | **0.086 mm**, 86 % of the foil |
+| Program foil 0.125 mm over a 0.100 mm region | 108 % on screen = **86.4 %** on the board |
+
+### Why this case and not another one
+
+The obvious SPI case is "the volume is low, what do you adjust". It teaches
+nothing that m03 did not already teach. This one is built on the two ways a
+passing number can be wrong: a mean over two populations, and a nominal the
+machine computed with the wrong foil. Both are invisible on the daily summary,
+both produce a line that ships boards, and both are arithmetic the learner can do
+by hand from the data file.
+
+The 25 % foil error is deliberately of the same size as the window: it moves a
+reading across the whole 75-125 % band, which is what makes it a measurement
+problem rather than a rounding problem. It is also the reason the case computes
+volume in nanolitres first — a volume does not care what the program believed,
+and that is the lesson worth carrying to a real line.
+
+### One defect this round, found before the tests
+
+The first draft printed the fine-pitch apertures through 0.125 mm foil, which
+contradicts m03, where the whole reason the QFP-48 releases is the 0.100 mm thin
+region. `check-cases.js` caught it as four mismatched keys at once (the nominal,
+the two limits and every capability built on them), because it recomputes the
+nominal from the setup file rather than trusting the step. The case was rebuilt
+on 0.100 mm and the numbers moved with it: 24.75 nL became 19.8 nL, the window
+18.56-30.94 became 14.85-24.75, and the program error became 25 % rather than
+20 %. This is the second round running where the checker earned its place.
+
+### Sources
+
+* **Area ratio and nominal volume.** IPC-7525 stencil guidance, `src-004`, the
+  same aperture family m03 uses. Nominal is area x foil; the case does not invent
+  a transfer-efficiency figure and always computes from real volumes.
+* **The SPI window.** Published windows differ by source — vendor guides quote
+  80-120 %, 75-125 %, and 50-150 % with an 80-150 % control band. There is no
+  single standard number, so the case uses the Board X control plan's 75-125 %,
+  records it in Board Facts with **no source id**, and says on the page that it
+  is the plan's window rather than a standard's. A learner who meets 80-120 % at
+  work should recognise the difference instead of assuming one of the two is
+  wrong.
+* **Cp and Cpk.** Standard capability definitions (m04l05). The case uses the
+  sample sd (n-1) throughout, because capability computed from a sample of twelve
+  prints with the population formula flatters every number.
+
+Verification after round 5: `gen_cases.py --check` OK (**10 cases, 87 steps**),
+`check-cases.js` **87/87**, `check-integrity.js` OK (10 cases, 87 steps, 55
+numeric), `check-quiz.js` OK, `tests/course.test.js` **185 / 0**,
+`tests/case-qa.js` **42 / 0**, pilot sheet regenerated for 10 cases / 87 steps,
+21 outline captures regenerated.
+
+---
+
 ## 8. Next
 
-Nine of fifteen modules now carry a case: m01, m02, m03, m06, m07, m08, m09, m11,
-m14. The remaining six are m04, m05, m10, m12, m13, m15.
+Ten of fifteen modules now carry a case: m01, m02, m03, m04, m06, m07, m08, m09,
+m11, m14. The remaining five are m05, m10, m12, m13, m15.
 
-m04 is the natural next one: it follows m03 in the process, the stencil case
-already fixes the aperture and foil numbers it needs, and SPI volume, height and
-area give three measurable answers that cannot be guessed. m05 (placement offset
-and accuracy) is the cleanest after that, because it reads the pitch and package
-facts Board X already carries.
+m05 is the natural next one: it follows the print in the process, Board X already
+carries the pitches it needs (0.4 and 0.5 mm), and placement accuracy, offset and
+rotation give answers that can be measured on the machine rather than argued
+about. Then m10 (selective solder), which reads the THT connector and the thermal
+budget m08 and m09 already fixed.
 
 Templates referenced from the cases are generated in three variants (blank,
 example, guide) for all twelve template types; the "check" workflow on the five
