@@ -103,6 +103,7 @@ BOARD_FACT_LABELS = {
     "handSetpointWindowC": "Hand-soldering setpoint (°C)",
     "bowTwistSmtPct": "Bow and twist, SMT board, IPC-6012 (%)",
     "bowTwistOtherPct": "Bow and twist, other boards, IPC-6012 (%)",
+    "spiVolumeWindowPct": "SPI volume window (% of nominal)",
 }
 
 BOARD = {
@@ -127,17 +128,19 @@ BOARD_THREAD = [
      "caseId": "cx-m02-01"},
     {"step": 3, "moduleId": "m03", "label": "Stencil", "asset": "Stencil data sheet",
      "caseId": "cx-m03-01"},
-    {"step": 4, "moduleId": "m06", "label": "Reflow profile", "asset": "Reflow profile log",
+    {"step": 4, "moduleId": "m04", "label": "First print", "asset": "SPI review sheet",
+     "caseId": "cx-m04-01"},
+    {"step": 5, "moduleId": "m06", "label": "Reflow profile", "asset": "Reflow profile log",
      "caseId": "cx-m06-01"},
-    {"step": 5, "moduleId": "m08", "label": "Through-hole", "asset": "Hole and lead measurement sheet",
+    {"step": 6, "moduleId": "m08", "label": "Through-hole", "asset": "Hole and lead measurement sheet",
      "caseId": "cx-m08-01"},
-    {"step": 6, "moduleId": "m09", "label": "Wave", "asset": "Wave solder process record",
+    {"step": 7, "moduleId": "m09", "label": "Wave", "asset": "Wave solder process record",
      "caseId": "cx-m09-01"},
-    {"step": 7, "moduleId": "m07", "label": "AOI audit", "asset": "AOI and X-ray audit",
+    {"step": 8, "moduleId": "m07", "label": "AOI audit", "asset": "AOI and X-ray audit",
      "caseId": "cx-m07-01"},
-    {"step": 8, "moduleId": "m11", "label": "Rework", "asset": "Rework and repair record",
+    {"step": 9, "moduleId": "m11", "label": "Rework", "asset": "Rework and repair record",
      "caseId": "cx-m11-01"},
-    {"step": 9, "moduleId": "m14", "label": "8D report", "asset": "8D problem report",
+    {"step": 10, "moduleId": "m14", "label": "8D report", "asset": "8D problem report",
      "caseId": "cx-m14-01"},
 ]
 
@@ -216,10 +219,17 @@ BOARD_FACTS["handSetpointWindowC"] = [HAND_SETPOINT_MIN_C, HAND_SETPOINT_MAX_C]
 # percentage is of the direction being measured — for twist the denominator is
 # the diagonal and the measured gap is divided by twice the diagonal, which is
 # the single most misread number in this standard.
+# SPI volume window. Published windows differ by source — vendor guides quote
+# 80-120 %, 75-125 %, and 50-150 % with 80-150 % as the control band — so this is
+# not a standard and is not cited as one. It is the Board X control plan's own
+# window, chosen mid-range, and the case says on the page where it comes from.
+SPI_VOLUME_LOW_PCT = 75          # None source: Board X control plan, m04l05
+SPI_VOLUME_HIGH_PCT = 125
 BOW_TWIST_SMT_PCT = 0.75
 BOW_TWIST_OTHER_PCT = 1.5
 BOARD_FACTS["bowTwistSmtPct"] = BOW_TWIST_SMT_PCT
 BOARD_FACTS["bowTwistOtherPct"] = BOW_TWIST_OTHER_PCT
+BOARD_FACTS["spiVolumeWindowPct"] = [SPI_VOLUME_LOW_PCT, SPI_VOLUME_HIGH_PCT]
 
 
 # --------------------------------------------------------------------------
@@ -334,6 +344,32 @@ def share_of(part: float, whole: float):
     return (value, "%", "%g/%g*100" % (part, whole), {"part": part, "whole": whole})
 
 
+def sample_sd(values):
+    """Sample standard deviation (n-1). SPI capability is computed from a sample
+    of prints, so n-1 is the right denominator; using the population figure
+    would flatter every capability number in the case."""
+    n = len(values)
+    mean = sum(values) / n
+    var = sum((v - mean) ** 2 for v in values) / (n - 1)
+    return (math.sqrt(var), "nL", "sqrt(sum((x-mean)^2)/(n-1))",
+            {"n": n, "mean_nL": round(mean, 4)})
+
+
+def capability(values, lsl: float, usl: float):
+    """Cp (spread only) and Cpk (spread with centring) for a two-sided window."""
+    n = len(values)
+    mean = sum(values) / n
+    sd = math.sqrt(sum((v - mean) ** 2 for v in values) / (n - 1))
+    cp = (usl - lsl) / (6.0 * sd)
+    cpk = min(usl - mean, mean - lsl) / (3.0 * sd)
+    return ((cp, "ratio", "(USL-LSL)/(6*sd)",
+             {"n": n, "mean_nL": round(mean, 4), "sd_nL": round(sd, 4),
+              "lsl_nL": round(lsl, 4), "usl_nL": round(usl, 4)}),
+            (cpk, "ratio", "min(USL-mean,mean-LSL)/(3*sd)",
+             {"n": n, "mean_nL": round(mean, 4), "sd_nL": round(sd, 4),
+              "lsl_nL": round(lsl, 4), "usl_nL": round(usl, 4)}))
+
+
 def twist_pct(gap_mm: float, diagonal_mm: float):
     """Twist by the IPC-TM-650 2.4.22 production method: the gap under the raised
     corner over twice the diagonal. The factor of two is part of the method —
@@ -407,6 +443,16 @@ TEMPLATE_DEFS = {
                "measurement with its method, and what closed the hold — so a release "
                "can be defended when the product class or the standard moves.",
         "rowNoun": "lot or carton",
+    },
+    "spi-review": {
+        "name": "SPI review sheet",
+        "kind": "csv",
+        "sourceFile": "spi-deposits.csv",
+        "lesson": "m04l05",
+        "use": "Keep each deposit's volume and area next to the pass it came from, so "
+               "a pooled mean cannot hide two populations, and recompute capability "
+               "when the SPI program or the stencil changes.",
+        "rowNoun": "deposit",
     },
     "stencil-sheet": {
         "name": "Stencil data sheet",
@@ -1153,6 +1199,322 @@ def build_cases():
          "points": 20, "steps": ["s7", "s8"]},
         {"criterion": "Release record carries the method, the limit and the closure",
          "points": 10, "steps": ["s9"]},
+    ]
+    cases.append(c)
+
+    # =====================================================================
+    # m04 — SPI: the mean is fine and the process is not
+    # =====================================================================
+    # The aperture family is the one m03 already fixed for the fine-pitch part:
+    # 0.22 x 0.90 mm, printed through the 0.100 mm fine-pitch region of the
+    # stencil. Nominal is area x foil; every SPI percentage here is a share of it.
+    spi_area = 0.22 * 0.90
+    spi_foil = 0.100
+    spi_nom_nl = spi_area * spi_foil * 1000.0            # 19.80 nL
+    spi_nominal = (spi_nom_nl, "nL", "area_mm2*foil_mm*1000",
+                   {"area_mm2": spi_area, "foil_mm": spi_foil})
+    spi_lsl = spi_nom_nl * SPI_VOLUME_LOW_PCT / 100.0    # 14.85
+    spi_usl = spi_nom_nl * SPI_VOLUME_HIGH_PCT / 100.0   # 24.75
+    # Twelve fine-pitch deposits from two boards, six per squeegee pass. The
+    # mean is respectable; the shape is two humps.
+    spi_pass_a = [18.32, 18.72, 17.68, 18.40, 17.92, 18.24]
+    spi_pass_b = [16.24, 15.52, 16.08, 15.84, 16.48, 15.60]
+    spi_all = spi_pass_a + spi_pass_b
+    spi_mean = sum(spi_all) / len(spi_all)
+    spi_mean_share = (spi_mean / spi_nom_nl * 100.0, "%", "mean/nominal*100",
+                      {"mean_nL": round(spi_mean, 4), "nominal_nL": spi_nom_nl})
+    spi_cp, spi_cpk = capability(spi_all, spi_lsl, spi_usl)
+    _, spi_cpk_a = capability(spi_pass_a, spi_lsl, spi_usl)
+    _, spi_cpk_b = capability(spi_pass_b, spi_lsl, spi_usl)
+    spi_cpk_b = (spi_cpk_b[0], "ratio", "Cpk of the second squeegee pass alone",
+                 {"n": 6})
+    spi_height = (spi_mean / 1000.0 / spi_area, "mm", "volume_nL/1000/area_mm2",
+                  {"volume_nL": round(spi_mean, 4), "area_mm2": spi_area})
+    # The SPI program was built against the 0.125 mm general stencil, not the
+    # 0.100 mm fine-pitch region, so every reading is 25 % high.
+    spi_program_foil = BOARD_FACTS["stencilThicknessMm"]      # 0.125
+    spi_reading = spi_mean / (spi_area * spi_program_foil * 1000.0) * 100.0
+    spi_corrected = (spi_reading * spi_foil / spi_program_foil, "%",
+                     "reading*real_foil/program_foil*100",
+                     {"reading_pct": round(spi_reading, 2),
+                      "real_foil_mm": spi_foil,
+                      "program_foil_mm": spi_program_foil})
+
+    c = {
+        "caseId": "cx-m04-01",
+        "moduleId": "m04",
+        "title": "SPI: a passing mean over a two-humped print",
+        "estMinutes": 35,
+        "level": "advanced",
+        "scenario": [
+            "Board X has been running the same stencil for six weeks. The daily SPI "
+            "summary is green: fine-pitch volume averages in the high eighties against "
+            "nominal, a few pads flagged, nothing that stopped the line. The print "
+            "operator says the board looks the same as it always did.",
+            "Then the SPI map is printed instead of the summary, and the six deposits "
+            "printed on the first squeegee pass sit visibly above the six on the return "
+            "pass. Nothing else about the stencil changed. The quality engineer wants to "
+            "keep running because the mean is inside the window, and the operator wants "
+            "to raise squeegee pressure because the low group is low.",
+            "A third number is waiting as well: the SPI program carries the 0.125 mm "
+            "figure from the general stencil, while the fine-pitch region on the press "
+            "is 0.100 mm. Decide what is actually wrong, and in what order to fix it.",
+        ],
+        "dataFiles": [
+            {
+                "name": "spi-deposits.csv",
+                "kind": "csv",
+                "content": (
+                    "board,deposit,squeegee_pass,volume_nL,area_mm2\n"
+                    "1,1,first,18.32,0.198\n"
+                    "1,2,first,18.72,0.198\n"
+                    "1,3,first,17.68,0.198\n"
+                    "1,4,second,16.24,0.198\n"
+                    "1,5,second,15.52,0.198\n"
+                    "1,6,second,16.08,0.198\n"
+                    "2,1,first,18.40,0.198\n"
+                    "2,2,first,17.92,0.198\n"
+                    "2,3,first,18.24,0.198\n"
+                    "2,4,second,15.84,0.198\n"
+                    "2,5,second,16.48,0.198\n"
+                    "2,6,second,15.60,0.198\n"
+                ),
+                "note": "Fine-pitch deposits, QFP-48 family. Volume in nanolitres as the "
+                        "SPI reports it; area is the measured paste footprint, close to "
+                        "the 0.198 mm2 aperture on every deposit.",
+            },
+            {
+                "name": "spi-setup.csv",
+                "kind": "csv",
+                "content": (
+                    "item,value\n"
+                    "aperture_width_mm,0.22\n"
+                    "aperture_length_mm,0.90\n"
+                    "press_foil_mm,0.100\n"
+                    "program_foil_mm,0.125\n"
+                    "volume_window_low_pct,75\n"
+                    "volume_window_high_pct,125\n"
+                ),
+            },
+        ],
+        "steps": [],
+        "rubric": [],
+        "templates": [
+            {"templateId": "spi-review", "name": "SPI review sheet", "status": "planned"}
+        ],
+        "toolLinks": [
+            {"label": "Reading SPI data (lesson m04l02)", "href": "#/l/m04l02"},
+            {"label": "SPI as process evidence (lesson m04l05)", "href": "#/l/m04l05"},
+            {"label": "Printer setup (lesson m04l03)", "href": "#/l/m04l03"},
+        ],
+        "sources": ["src-004", "src-001"],
+        "generatedBy": "scripts/gen_cases.py",
+    }
+
+    add_step(c, step_numeric(
+        "s1",
+        "The fine-pitch aperture is 0.22 mm x 0.90 mm and the region prints through the "
+        "0.100 mm foil. What is the nominal deposit volume, in nanolitres?",
+        spi_nominal, 0.05,
+        ["Volume is aperture area times foil thickness.",
+         "0.22 x 0.90 = 0.198 mm²; 0.198 x 0.100 = 0.0198 mm³.",
+         "A cubic millimetre is a microlitre, so 0.0198 mm³ = 19.8 nL."],
+        "19.8 nL — every SPI percentage in this case is a share of it.",
+        "Area times thickness, then mm³ to nL: multiply by 1000.",
+        "0.198 mm² x 0.100 mm = 0.0198 mm³, and a cubic millimetre is a microlitre, so "
+        "the deposit is 19.8 nL. This is the number the SPI machine computes when it "
+        "prints 'volume %', and it is the number the whole case hangs on: 16 nL is not "
+        "'low' on its own, it is 81 % of this aperture and would be 65 % of a larger one. "
+        "The foil figure matters as much as the area: the same aperture printed through "
+        "0.125 mm would hold 24.75 nL, which is the trap waiting in step 9."))
+
+    add_step(c, step_numeric(
+        "s2",
+        "Across the twelve deposits, what is the mean volume as a percentage of that "
+        "nominal? One decimal.",
+        spi_mean_share, 0.3,
+        ["Add the twelve volumes and divide by twelve.",
+         "The sum is 205.04 nL, so the mean is 17.09 nL.",
+         "17.09 / 19.8 x 100."],
+        "86.3 % — comfortably inside the 75-125 % window.",
+        "Mean first, as a share of nominal second.",
+        "The volumes sum to 205.04 nL over twelve deposits, a mean of 17.09 nL, which is "
+        "86.3 % of the 19.8 nL nominal. Against a 75-125 % window that is a passing "
+        "number, and it is the number on the daily summary — which is why this case "
+        "exists. A mean cannot tell a tight process centred at 86 % from a process that "
+        "prints 92 % on one pass and 81 % on the next."))
+
+    add_step(c, step_numeric(
+        "s3",
+        "The window is 75-125 % of nominal. What is the lower limit, in nanolitres?",
+        (spi_lsl, "nL", "nominal*window_low/100",
+         {"nominal_nL": spi_nom_nl, "window_low_pct": SPI_VOLUME_LOW_PCT}), 0.05,
+        ["Take 75 % of the same 19.8 nL nominal.",
+         "19.8 x 0.75.",
+         "14.85 nL."],
+        "14.85 nL is the floor; 24.75 nL is the ceiling.",
+        "Multiply the nominal by the window percentage.",
+        "19.8 x 0.75 = 14.85 nL, and 19.8 x 1.25 = 24.75 nL at the top. Both clusters sit "
+        "inside this pair, which is the awkward part: nothing here is out of "
+        "specification, and a process can be incapable without producing a single "
+        "out-of-limit print. That is the difference between spec and control that m04l02 "
+        "draws, and the one the daily summary hides."))
+
+    add_step(c, step_numeric(
+        "s4",
+        "Compute Cp for the twelve deposits against that window. Two decimals.",
+        spi_cp, 0.05,
+        ["Cp is the window width over six standard deviations.",
+         "The window is 24.75 - 14.85 = 9.90 nL wide; the sample sd is 1.229 nL.",
+         "9.90 / (6 x 1.229)."],
+        "Cp 1.34 — the spread alone would fit inside the window.",
+        "Sample sd uses n-1, and Cp does not care where the mean sits.",
+        "The window is 9.90 nL wide and the sample standard deviation of the twelve "
+        "readings is 1.229 nL, so Cp = 9.90 / (6 x 1.229) = 1.34. On its own that reads "
+        "like a capable process, and this is the classic trap: Cp assumes the process is "
+        "centred and asks only whether the spread could fit. It could. The next number "
+        "asks whether it does."))
+
+    add_step(c, step_numeric(
+        "s5",
+        "Compute Cpk for the same twelve deposits. Two decimals.",
+        spi_cpk, 0.05,
+        ["Cpk is the distance from the mean to the nearer limit over three sd.",
+         "The mean is 17.09 nL; the nearer limit is the lower one at 14.85 nL.",
+         "(17.09 - 14.85) / (3 x 1.229)."],
+        "Cpk 0.61 — the process is not centred, and the spread is not the whole story.",
+        "Distance from the mean to the *nearer* limit, over 3 sd.",
+        "(17.09 - 14.85) / (3 x 1.229) = 2.24 / 3.687 = 0.61. A Cpk under 1 means the "
+        "process is producing prints outside the window at a rate the product cannot "
+        "absorb, and 0.61 is not marginal. The gap between Cp 1.34 and Cpk 0.61 is "
+        "entirely centring: the process prints a little low on average, and the low side "
+        "is where the window runs out. A summary printing both numbers would have shown "
+        "this six weeks ago."))
+
+    add_step(c, step_numeric(
+        "s6",
+        "Split the twelve deposits by squeegee pass and compute Cpk for the second pass "
+        "alone. Two decimals.",
+        spi_cpk_b, 0.06,
+        ["Six values: 16.24, 15.52, 16.08, 15.84, 16.48, 15.60.",
+         "Their mean is 15.96 nL and their sd is 0.374 nL.",
+         "(15.96 - 14.85) / (3 x 0.374)."],
+        "Cpk 0.99 on the second pass — and 3.05 on the first.",
+        "Compute the mean and sd of the six second-pass readings only.",
+        "The second pass averages 15.96 nL with an sd of 0.374 nL, giving Cpk = "
+        "(15.96 - 14.85) / (3 x 0.374) = 0.99. The same arithmetic on the first pass "
+        "gives 3.05 off a mean of 18.21 nL. Two populations, each tight, one sitting on "
+        "the limit and one comfortable. That is what the pooled 0.61 was made of, and it "
+        "is the difference between 'the process varies' and 'the process has two "
+        "settings'."))
+
+    add_step(c, step_choice(
+        "s7",
+        "The mean is inside the window and the quality engineer wants to keep running. "
+        "What does the split say?",
+        [("a", "Keep running: every deposit is inside the window, so there is nothing to "
+               "act on."),
+         ("b", "The histogram is two humps, not one: a pooled mean and a pooled sd "
+               "describe a process that does not exist. Find what separates the passes "
+               "before tuning anything."),
+         ("c", "Raise squeegee pressure until the low group reaches the high group."),
+         ("d", "Lower the SPI window so the low group passes.")],
+        "b",
+        ["Ask what a single mean assumes about a set of readings.",
+         "Two tight clusters about 2.3 nL apart are not one wide cluster.",
+         "Identify the split before adjusting: something differs between the passes."],
+        "Two populations, not one: the split is the finding, and its cause sits upstream "
+        "of any setpoint.",
+        "What would a histogram of these twelve values look like?",
+        "The pooled sd of 1.229 nL is more than three times the sd inside either pass, "
+        "and that inflation is not variation — it is the gap between two settings. A mean "
+        "and a Cpk computed on the pool describe a process nobody runs. The first thing "
+        "to establish is what differs between the forward and return stroke: squeegee "
+        "pressure or angle on the reverse pass, a two-speed profile, board support that "
+        "shifts, or a wipe cycle that lands between them. Pressure tuned to lift the low "
+        "group would overfill the high group and turn one problem into two."))
+
+    add_step(c, step_numeric(
+        "s8",
+        "The mean deposit volume is 17.09 nL and the measured area is 0.198 mm². What "
+        "average height does that imply, in mm?",
+        spi_height, 0.002,
+        ["Volume over area gives height, once the units agree.",
+         "17.09 nL = 0.01709 mm³.",
+         "0.01709 / 0.198."],
+        "0.086 mm of paste on a 0.100 mm stencil — about 86 % of the foil.",
+        "Convert nL to mm³ first: 1 nL = 0.001 mm³.",
+        "17.09 nL is 0.01709 mm³, and over 0.198 mm² that is 0.086 mm. Height tracks "
+        "volume almost exactly here because the area is nominal on every deposit, and "
+        "that is itself the diagnostic: area normal with volume low means the paste did "
+        "not fill the aperture to full depth, not that it spread. Had area been low as "
+        "well, the story would be a clogged or partly blocked aperture instead."))
+
+    add_step(c, step_choice(
+        "s9",
+        "The SPI program was built against the 0.125 mm general stencil, and the "
+        "fine-pitch region on the press is 0.100 mm. On that program the screen reads "
+        "108 % of nominal. What is really there?",
+        [("a", "108 % — the machine computes nominal from the aperture, so the foil in "
+               "its program does not matter."),
+         ("b", "86 %: the machine's nominal is 25 % too large, so every reading is "
+               "inflated by that factor and the truth is 108 % x 0.100 / 0.125."),
+         ("c", "135 %: the thinner foil means more paste."),
+         ("d", "108 % is right, but the window should be widened to match the foil.")],
+        "b",
+        ["Nominal = area x foil, and the machine uses the foil in its program.",
+         "A program foil thicker than reality makes the nominal too large.",
+         "108 x 0.100 / 0.125 = 86.4 %."],
+        "86 %, not 108 %: the program's nominal is 25 % too large and every reading "
+        "inherits the error.",
+        "Which foil value is inside the nominal the machine divides by?",
+        "The machine computes nominal as area x the foil in its program, so a program set "
+        "to 0.125 mm while the press carries 0.100 mm makes every percentage 25 % too "
+        "high: 108 % x 0.100 / 0.125 = 86.4 %. This is a measurement-system finding, not "
+        "a print finding, and it belongs first. It is also the reason the absolute "
+        "nanolitres matter: a volume does not care what the program believed, which is "
+        "why the volumes above were used to compute the mean rather than the percentages "
+        "on the screen."))
+
+    add_step(c, step_choice(
+        "s10",
+        "In what order do the three findings get handled?",
+        [("a", "Print pressure first, then the split, then the SPI program."),
+         ("b", "Correct the SPI program's foil figure and re-read the data, then "
+               "establish what differs between the two squeegee passes, then tune the "
+               "print if it is still needed."),
+         ("c", "All three at once, since they are all part of the same print step."),
+         ("d", "Nothing: the mean is inside the window and the boards pass.")],
+        "b",
+        ["A measurement that is wrong by a constant factor cannot rank anything.",
+         "The split is a process question and needs trustworthy data to be sized.",
+         "Measurement, then structure, then settings."],
+        "Measurement first, then the two-population question, then the print settings — "
+        "and one variable at a time.",
+        "Which finding would make you doubt the numbers the other two rest on?",
+        "The foil error is a constant 25 % on every reading, so it distorts the window, "
+        "the Cpk and the decision to raise pressure. Correcting it costs nothing and "
+        "gives the split a trustworthy scale. The split comes next because it is a "
+        "structural difference between the passes, and until it is named, any pressure "
+        "change is a guess applied to both halves of a two-humped distribution. Only then "
+        "does the print get tuned, one variable at a time, with SPI re-read after each "
+        "change — the m04l07 rule this case exists to exercise."))
+
+    c["rubric"] = [
+        {"criterion": "Nominal volume computed from aperture area and the press foil",
+         "points": 15, "steps": ["s1"]},
+        {"criterion": "Mean as a share of nominal, and the limits in the same unit",
+         "points": 15, "steps": ["s2", "s3"]},
+        {"criterion": "Cp and Cpk computed and the gap between them explained",
+         "points": 20, "steps": ["s4", "s5"]},
+        {"criterion": "Squeegee passes separated and capability computed per pass",
+         "points": 20, "steps": ["s6", "s7"]},
+        {"criterion": "Height derived from volume and area, and its meaning read",
+         "points": 10, "steps": ["s8"]},
+        {"criterion": "SPI program's foil figure checked against the press before any "
+                       "print change", "points": 15, "steps": ["s9"]},
+        {"criterion": "Findings ordered: measurement, then structure, then settings",
+         "points": 5, "steps": ["s10"]},
     ]
     cases.append(c)
 
@@ -3004,6 +3366,7 @@ def build_document():
             "annularRingMinMm": [ANNULAR_RING_MIN_MM, "src-022", "m11l04"],
             "handSetpointWindowC": [[HAND_SETPOINT_MIN_C, HAND_SETPOINT_MAX_C], None, "m11l02"],
             "bowTwistSmtPct": [BOW_TWIST_SMT_PCT, "src-018", "m01l06"],
+            "spiVolumeWindowPct": [[SPI_VOLUME_LOW_PCT, SPI_VOLUME_HIGH_PCT], None, "m04l05"],
         },
         "thread": BOARD_THREAD,
         "board": BOARD,

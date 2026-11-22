@@ -1,0 +1,933 @@
+Rendered outline of #/c/cx-m04-01
+Produced by scripts/capture-case.js from the built tree (build/course-clean).
+This is the live DOM from the shipped engine, not a mock-up.
+
+main #main   [13948 chars]
+  p .kicker   [51 chars]
+    "Toolkit · Module 04 · Solder Paste Printing and SPI"
+  header .page-head   [92 chars]
+    div   [92 chars]
+      h1   [43 chars]
+        "SPI: a passing mean over a two-humped print"
+      div .meta-line   [49 chars]
+        span .chip.chip--stage   [7 chars]
+          "Board X"
+        span .chip   [6 chars]
+          "35 min"
+        span .chip   [8 chars]
+          "10 steps"
+        span .chip   [14 chars]
+          "rubric 100 pts"
+        span .chip   [14 chars]
+          "Score 0 of 100"
+  section .case-scenario   [844 chars]
+    p   [271 chars]
+      "Board X has been running the same stencil for six weeks. The daily SPI summary is green: fine-pitch volume ave…"
+    p   [355 chars]
+      "Then the SPI map is printed instead of the summary, and the six deposits printed on the first squeegee pass si…"
+    p   [218 chars]
+      "A third number is waiting as well: the SPI program carries the 0.125 mm figure from the general stencil, while…"
+  details .case-board   [1236 chars]
+    summary   [38 chars]
+      "Board X — the product behind this case"
+    div .details-body   [1198 chars]
+      p .muted.flush   [158 chars]
+        "6-layer 1.6 mm FR-4 controller board: QFP-64 at 0.5 mm pitch, QFP-48 at 0.4 mm pitch, one 256-ball BGA at 0.8 …"
+      table .case-facts   [1040 chars]
+        tbody   [1040 chars]
+          tr   [23 chars]
+            th   [20 chars]
+              "Board thickness (mm)"
+            td   [3 chars]
+              "1.6"
+          tr   [7 chars]
+            th   [6 chars]
+              "Layers"
+            td   [1 chars]
+              "6"
+          tr   [18 chars]
+            th   [14 chars]
+              "Surface finish"
+            td   [4 chars]
+              "ENIG"
+          tr   [25 chars]
+            th   [13 chars]
+              "Base material"
+            td   [12 chars]
+              "FR-4, Tg 170"
+          tr   [17 chars]
+            th   [12 chars]
+              "Stencil (mm)"
+            td   [5 chars]
+              "0.125"
+          tr   [34 chars]
+            th   [31 chars]
+              "Stencil, fine-pitch region (mm)"
+            td   [3 chars]
+              "0.1"
+          tr   [36 chars]
+            th   [12 chars]
+              "Solder paste"
+            td   [24 chars]
+              "SAC305, Type 4, no-clean"
+          tr   [20 chars]
+            th   [17 chars]
+              "QFP-64 pitch (mm)"
+            td   [3 chars]
+              "0.5"
+          tr   [13 chars]
+            th   [11 chars]
+              "QFP-64 pins"
+            td   [2 chars]
+              "64"
+          tr   [20 chars]
+            th   [17 chars]
+              "QFP-48 pitch (mm)"
+            td   [3 chars]
+              "0.4"
+          tr   [22 chars]
+            th   [19 chars]
+              "BGA ball pitch (mm)"
+            td   [3 chars]
+              "0.8"
+          tr   [12 chars]
+            th   [9 chars]
+              "BGA balls"
+            td   [3 chars]
+              "256"
+          tr   [20 chars]
+            th   [16 chars]
+              "Smallest passive"
+            td   [4 chars]
+              "0402"
+          tr   [69 chars]
+            th   [13 chars]
+              "THT connector"
+            td   [56 chars]
+              "20-pin, 2.54 mm pitch, 0.8 mm finished hole, 0.5 mm lead"
+          tr   [21 chars]
+            th   [17 chars]
+              "Lot size (boards)"
+            td   [4 chars]
+              "1240"
+          tr   [26 chars]
+            th   [23 chars]
+              "Solder joints per board"
+            td   [3 chars]
+              "620"
+          tr   [11 chars]
+            th   [5 chars]
+              "Alloy"
+            td   [6 chars]
+              "SAC305"
+          tr   [16 chars]
+            th   [13 chars]
+              "Liquidus (°C)"
+            td   [3 chars]
+              "219"
+          tr   [15 chars]
+            th   [12 chars]
+              "Solidus (°C)"
+            td   [3 chars]
+              "217"
+          tr   [28 chars]
+            th   [23 chars]
+              "Time above liquidus (s)"
+            td   [5 chars]
+              "60–90"
+          tr   [30 chars]
+            th   [23 chars]
+              "Peak window, paste (°C)"
+            td   [7 chars]
+              "235–245"
+          tr   [35 chars]
+            th   [28 chars]
+              "Typical production peak (°C)"
+            td   [7 chars]
+              "235–245"
+          tr   [35 chars]
+            th   [32 chars]
+              "Peak ceiling, large package (°C)"
+            td   [3 chars]
+              "250"
+          tr   [36 chars]
+            th   [34 chars]
+              "Minimum barrel fill, IPC-A-610 (%)"
+            td   [2 chars]
+              "75"
+          tr   [34 chars]
+            th   [32 chars]
+              "Thermal-plane exception fill (%)"
+            td   [2 chars]
+              "50"
+          tr   [36 chars]
+            th   [34 chars]
+              "Leads before the exception applies"
+            td   [2 chars]
+              "14"
+          tr   [24 chars]
+            th   [23 chars]
+              "THT hole, finished (mm)"
+            td   [1 chars]
+              "1"
+          tr   [29 chars]
+            th   [25 chars]
+              "THT hole tolerance (± mm)"
+            td   [4 chars]
+              "0.05"
+          tr   [24 chars]
+            th   [21 chars]
+              "Wave contact time (s)"
+            td   [3 chars]
+              "2–4"
+          tr   [29 chars]
+            th   [27 chars]
+              "Void limit per BGA ball (%)"
+            td   [2 chars]
+              "25"
+          tr   [77 chars]
+            th   [38 chars]
+              "Conductor width reduction by class (%)"
+            td   [39 chars]
+              "Class 1: 30 · Class 2: 20 · Class 3: 10"
+          tr   [39 chars]
+            th   [35 chars]
+              "Annular ring, Class 3 external (mm)"
+            td   [4 chars]
+              "0.05"
+          tr   [35 chars]
+            th   [28 chars]
+              "Hand-soldering setpoint (°C)"
+            td   [7 chars]
+              "330–360"
+          tr   [42 chars]
+            th   [38 chars]
+              "Bow and twist, SMT board, IPC-6012 (%)"
+            td   [4 chars]
+              "0.75"
+          tr   [44 chars]
+            th   [41 chars]
+              "Bow and twist, other boards, IPC-6012 (%)"
+            td   [3 chars]
+              "1.5"
+          tr   [38 chars]
+            th   [32 chars]
+              "SPI volume window (% of nominal)"
+            td   [6 chars]
+              "75–125"
+  details .case-data   [472 chars]
+    summary   [28 chars]
+      "Data file — spi-deposits.csv"
+    div .details-body   [444 chars]
+      p .muted.flush   [167 chars]
+        "Fine-pitch deposits, QFP-48 family. Volume in nanolitres as the SPI reports it; area is the measured paste foo…"
+      div .case-table-wrap   [252 chars]
+        table .case-table   [252 chars]
+          thead   [42 chars]
+            tr   [42 chars]
+              th   [5 chars]
+                "board"
+              th   [7 chars]
+                "deposit"
+              th   [13 chars]
+                "squeegee_pass"
+              th   [9 chars]
+                "volume_nL"
+              th   [8 chars]
+                "area_mm2"
+          tbody   [210 chars]
+            tr   [17 chars]
+              td   [1 chars]
+                "1"
+              td .num   [1 chars]
+                "1"
+              td   [5 chars]
+                "first"
+              td .num   [5 chars]
+                "18.32"
+              td .num   [5 chars]
+                "0.198"
+            tr   [17 chars]
+              td   [1 chars]
+                "1"
+              td .num   [1 chars]
+                "2"
+              td   [5 chars]
+                "first"
+              td .num   [5 chars]
+                "18.72"
+              td .num   [5 chars]
+                "0.198"
+            tr   [17 chars]
+              td   [1 chars]
+                "1"
+              td .num   [1 chars]
+                "3"
+              td   [5 chars]
+                "first"
+              td .num   [5 chars]
+                "17.68"
+              td .num   [5 chars]
+                "0.198"
+            tr   [18 chars]
+              td   [1 chars]
+                "1"
+              td .num   [1 chars]
+                "4"
+              td   [6 chars]
+                "second"
+              td .num   [5 chars]
+                "16.24"
+              td .num   [5 chars]
+                "0.198"
+            tr   [18 chars]
+              td   [1 chars]
+                "1"
+              td .num   [1 chars]
+                "5"
+              td   [6 chars]
+                "second"
+              td .num   [5 chars]
+                "15.52"
+              td .num   [5 chars]
+                "0.198"
+            tr   [18 chars]
+              td   [1 chars]
+                "1"
+              td .num   [1 chars]
+                "6"
+              td   [6 chars]
+                "second"
+              td .num   [5 chars]
+                "16.08"
+              td .num   [5 chars]
+                "0.198"
+            tr   [17 chars]
+              td   [1 chars]
+                "2"
+              td .num   [1 chars]
+                "1"
+              td   [5 chars]
+                "first"
+              td .num   [5 chars]
+                "18.40"
+              td .num   [5 chars]
+                "0.198"
+            tr   [17 chars]
+              td   [1 chars]
+                "2"
+              td .num   [1 chars]
+                "2"
+              td   [5 chars]
+                "first"
+              td .num   [5 chars]
+                "17.92"
+              td .num   [5 chars]
+                "0.198"
+            tr   [17 chars]
+              td   [1 chars]
+                "2"
+              td .num   [1 chars]
+                "3"
+              td   [5 chars]
+                "first"
+              td .num   [5 chars]
+                "18.24"
+              td .num   [5 chars]
+                "0.198"
+            tr   [18 chars]
+              td   [1 chars]
+                "2"
+              td .num   [1 chars]
+                "4"
+              td   [6 chars]
+                "second"
+              td .num   [5 chars]
+                "15.84"
+              td .num   [5 chars]
+                "0.198"
+            tr   [18 chars]
+              td   [1 chars]
+                "2"
+              td .num   [1 chars]
+                "5"
+              td   [6 chars]
+                "second"
+              td .num   [5 chars]
+                "16.48"
+              td .num   [5 chars]
+                "0.198"
+            tr   [18 chars]
+              td   [1 chars]
+                "2"
+              td .num   [1 chars]
+                "6"
+              td   [6 chars]
+                "second"
+              td .num   [5 chars]
+                "15.60"
+              td .num   [5 chars]
+                "0.198"
+      p .flush   [25 chars]
+        button .btn.btn--small type=button data-act=case-data   [25 chars]
+          "Download spi-deposits.csv"
+  details .case-data   [185 chars]
+    summary   [25 chars]
+      "Data file — spi-setup.csv"
+    div .details-body   [160 chars]
+      div .case-table-wrap   [138 chars]
+        table .case-table   [138 chars]
+          thead   [9 chars]
+            tr   [9 chars]
+              th   [4 chars]
+                "item"
+              th   [5 chars]
+                "value"
+          tbody   [129 chars]
+            tr   [21 chars]
+              td   [17 chars]
+                "aperture_width_mm"
+              td .num   [4 chars]
+                "0.22"
+            tr   [22 chars]
+              td   [18 chars]
+                "aperture_length_mm"
+              td .num   [4 chars]
+                "0.90"
+            tr   [18 chars]
+              td   [13 chars]
+                "press_foil_mm"
+              td .num   [5 chars]
+                "0.100"
+            tr   [20 chars]
+              td   [15 chars]
+                "program_foil_mm"
+              td .num   [5 chars]
+                "0.125"
+            tr   [23 chars]
+              td   [21 chars]
+                "volume_window_low_pct"
+              td .num   [2 chars]
+                "75"
+            tr   [25 chars]
+              td   [22 chars]
+                "volume_window_high_pct"
+              td .num   [3 chars]
+                "125"
+      p .flush   [22 chars]
+        button .btn.btn--small type=button data-act=case-data   [22 chars]
+          "Download spi-setup.csv"
+  form .case-form   [7990 chars]
+    ol .case-steps   [7968 chars]
+      li #step-s1 .case-step.case-step--ok   [774 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 1 (15 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [144 chars]
+          "The fine-pitch aperture is 0.22 mm x 0.90 mm and the region prints through the 0.100 mm foil. What is the nomi…"
+        div .case-input-row   [34 chars]
+          label .case-input-label   [16 chars]
+            "Your answer"
+            span .muted   [4 chars]
+              "(nL)"
+          input #in-s1 .case-input type=text name=c-s1 value=19.8
+          span .case-tol.muted   [18 chars]
+            "tolerance ±0.05 nL"
+        p #err-s1 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [70 chars]
+          strong   [8 chars]
+            "Correct."
+          "19.8 nL — every SPI percentage in this case is a share of it."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [474 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [458 chars]
+            "0.198 mm² x 0.100 mm = 0.0198 mm³, and a cubic millimetre is a microlitre, so the deposit is 19.8 nL. This is …"
+      li #step-s2 .case-step.case-step--ok   [608 chars]
+        div .case-step-head   [33 chars]
+          span .case-step-n   [19 chars]
+            "Step 2 (7.5 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [97 chars]
+          "Across the twelve deposits, what is the mean volume as a percentage of that nominal? One decimal."
+        div .case-input-row   [31 chars]
+          label .case-input-label   [15 chars]
+            "Your answer"
+            span .muted   [3 chars]
+              "(%)"
+          input #in-s2 .case-input type=text name=c-s2 value=86.2963
+          span .case-tol.muted   [16 chars]
+            "tolerance ±0.3 %"
+        p #err-s2 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [57 chars]
+          strong   [8 chars]
+            "Correct."
+          "86.3 % — comfortably inside the 75-125 % window."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [370 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [354 chars]
+            "The volumes sum to 205.04 nL over twelve deposits, a mean of 17.09 nL, which is 86.3 % of the 19.8 nL nominal.…"
+      li #step-s3 .case-step.case-step--ok   [578 chars]
+        div .case-step-head   [33 chars]
+          span .case-step-n   [19 chars]
+            "Step 3 (7.5 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [74 chars]
+          "The window is 75-125 % of nominal. What is the lower limit, in nanolitres?"
+        div .case-input-row   [34 chars]
+          label .case-input-label   [16 chars]
+            "Your answer"
+            span .muted   [4 chars]
+              "(nL)"
+          input #in-s3 .case-input type=text name=c-s3 value=14.85
+          span .case-tol.muted   [18 chars]
+            "tolerance ±0.05 nL"
+        p #err-s3 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [56 chars]
+          strong   [8 chars]
+            "Correct."
+          "14.85 nL is the floor; 24.75 nL is the ceiling."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [361 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [345 chars]
+            "19.8 x 0.75 = 14.85 nL, and 19.8 x 1.25 = 24.75 nL at the top. Both clusters sit inside this pair, which is th…"
+      li #step-s4 .case-step.case-step--ok   [574 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 4 (10 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [69 chars]
+          "Compute Cp for the twelve deposits against that window. Two decimals."
+        div .case-input-row   [40 chars]
+          label .case-input-label   [19 chars]
+            "Your answer"
+            span .muted   [7 chars]
+              "(ratio)"
+          input #in-s4 .case-input type=text name=c-s4 value=1.3429
+          span .case-tol.muted   [21 chars]
+            "tolerance ±0.05 ratio"
+        p #err-s4 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [64 chars]
+          strong   [8 chars]
+            "Correct."
+          "Cp 1.34 — the spread alone would fit inside the window."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [349 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [333 chars]
+            "The window is 9.90 nL wide and the sample standard deviation of the twelve readings is 1.229 nL, so Cp = 9.90 …"
+      li #step-s5 .case-step.case-step--ok   [654 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 5 (10 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [55 chars]
+          "Compute Cpk for the same twelve deposits. Two decimals."
+        div .case-input-row   [40 chars]
+          label .case-input-label   [19 chars]
+            "Your answer"
+            span .muted   [7 chars]
+              "(ratio)"
+          input #in-s5 .case-input type=text name=c-s5 value=0.6068
+          span .case-tol.muted   [21 chars]
+            "tolerance ±0.05 ratio"
+        p #err-s5 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [86 chars]
+          strong   [8 chars]
+            "Correct."
+          "Cpk 0.61 — the process is not centred, and the spread is not the whole story."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [421 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [405 chars]
+            "(17.09 - 14.85) / (3 x 1.229) = 2.24 / 3.687 = 0.61. A Cpk under 1 means the process is producing prints outsi…"
+      li #step-s6 .case-step.case-step--ok   [656 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 6 (10 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [99 chars]
+          "Split the twelve deposits by squeegee pass and compute Cpk for the second pass alone. Two decimals."
+        div .case-input-row   [40 chars]
+          label .case-input-label   [19 chars]
+            "Your answer"
+            span .muted   [7 chars]
+              "(ratio)"
+          input #in-s6 .case-input type=text name=c-s6 value=0.9883
+          span .case-tol.muted   [21 chars]
+            "tolerance ±0.06 ratio"
+        p #err-s6 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [61 chars]
+          strong   [8 chars]
+            "Correct."
+          "Cpk 0.99 on the second pass — and 3.05 on the first."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [404 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [388 chars]
+            "The second pass averages 15.96 nL with an sd of 0.374 nL, giving Cpk = (15.96 - 14.85) / (3 x 0.374) = 0.99. T…"
+      li #step-s7 .case-step.case-step--ok   [1170 chars]
+        div .case-step-head   [24 chars]
+          span .case-step-n   [18 chars]
+            "Step 7 (10 points)"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [102 chars]
+          "The mean is inside the window and the quality engineer wants to keep running. What does the split say?"
+        fieldset .case-options   [363 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt   [80 chars]
+            input #in-s7-a type=radio name=c-s7 value=a
+            span .case-opt-text   [80 chars]
+              "Keep running: every deposit is inside the window, so there is nothing to act on."
+          label .case-opt.case-opt--picked   [161 chars]
+            input #in-s7-b type=radio name=c-s7 value=b
+            span .case-opt-text   [161 chars]
+              "The histogram is two humps, not one: a pooled mean and a pooled sd describe a process that does not exist. Fin…"
+          label .case-opt   [67 chars]
+            input #in-s7-c type=radio name=c-s7 value=c
+            span .case-opt-text   [67 chars]
+              "Raise squeegee pressure until the low group reaches the high group."
+          label .case-opt   [45 chars]
+            input #in-s7-d type=radio name=c-s7 value=d
+            span .case-opt-text   [45 chars]
+              "Lower the SPI window so the low group passes."
+        p #err-s7 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [105 chars]
+          strong   [8 chars]
+            "Correct."
+          "Two populations, not one: the split is the finding, and its cause sits upstream of any setpoint."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [556 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [540 chars]
+            "The pooled sd of 1.229 nL is more than three times the sd inside either pass, and that inflation is not variat…"
+      li #step-s8 .case-step.case-step--ok   [672 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 8 (10 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [115 chars]
+          "The mean deposit volume is 17.09 nL and the measured area is 0.198 mm². What average height does that imply, i…"
+        div .case-input-row   [35 chars]
+          label .case-input-label   [16 chars]
+            "Your answer"
+            span .muted   [4 chars]
+              "(mm)"
+          input #in-s8 .case-input type=text name=c-s8 value=0.0863
+          span .case-tol.muted   [19 chars]
+            "tolerance ±0.002 mm"
+        p #err-s8 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [74 chars]
+          strong   [8 chars]
+            "Correct."
+          "0.086 mm of paste on a 0.100 mm stencil — about 86 % of the foil."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [396 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [380 chars]
+            "17.09 nL is 0.01709 mm³, and over 0.198 mm² that is 0.086 mm. Height tracks volume almost exactly here because…"
+      li #step-s9 .case-step.case-step--ok   [1182 chars]
+        div .case-step-head   [24 chars]
+          span .case-step-n   [18 chars]
+            "Step 9 (15 points)"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [188 chars]
+          "The SPI program was built against the 0.125 mm general stencil, and the fine-pitch region on the press is 0.10…"
+        fieldset .case-options   [347 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt   [99 chars]
+            input #in-s9-a type=radio name=c-s9 value=a
+            span .case-opt-text   [99 chars]
+              "108 % — the machine computes nominal from the aperture, so the foil in its program does not matter."
+          label .case-opt.case-opt--picked   [130 chars]
+            input #in-s9-b type=radio name=c-s9 value=b
+            span .case-opt-text   [130 chars]
+              "86 %: the machine's nominal is 25 % too large, so every reading is inflated by that factor and the truth is 10…"
+          label .case-opt   [41 chars]
+            input #in-s9-c type=radio name=c-s9 value=c
+            span .case-opt-text   [41 chars]
+              "135 %: the thinner foil means more paste."
+          label .case-opt   [67 chars]
+            input #in-s9-d type=radio name=c-s9 value=d
+            span .case-opt-text   [67 chars]
+              "108 % is right, but the window should be widened to match the foil."
+        p #err-s9 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [103 chars]
+          strong   [8 chars]
+            "Correct."
+          "86 %, not 108 %: the program's nominal is 25 % too large and every reading inherits the error."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [500 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [484 chars]
+            "The machine computes nominal as area x the foil in its program, so a program set to 0.125 mm while the press c…"
+      li #step-s10 .case-step.case-step--ok   [1100 chars]
+        div .case-step-head   [24 chars]
+          span .case-step-n   [18 chars]
+            "Step 10 (5 points)"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [48 chars]
+          "In what order do the three findings get handled?"
+        fieldset .case-options   [357 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt   [59 chars]
+            input #in-s10-a type=radio name=c-s10 value=a
+            span .case-opt-text   [59 chars]
+              "Print pressure first, then the split, then the SPI program."
+          label .case-opt.case-opt--picked   [163 chars]
+            input #in-s10-b type=radio name=c-s10 value=b
+            span .case-opt-text   [163 chars]
+              "Correct the SPI program's foil figure and re-read the data, then establish what differs between the two squeeg…"
+          label .case-opt   [66 chars]
+            input #in-s10-c type=radio name=c-s10 value=c
+            span .case-opt-text   [66 chars]
+              "All three at once, since they are all part of the same print step."
+          label .case-opt   [59 chars]
+            input #in-s10-d type=radio name=c-s10 value=d
+            span .case-opt-text   [59 chars]
+              "Nothing: the mean is inside the window and the boards pass."
+        p #err-s10 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [115 chars]
+          strong   [8 chars]
+            "Correct."
+          "Measurement first, then the two-population question, then the print settings — and one variable at a time."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [536 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [520 chars]
+            "The foil error is a constant 25 % on every reading, so it distorts the window, the Cpk and the decision to rai…"
+    div .quiz-actions   [22 chars]
+      button .btn.btn--primary type=submit   [16 chars]
+        "Check my answers"
+      button .btn type=button data-act=case-reset   [5 chars]
+        "Clear"
+  div #case-result-slot   [673 chars]
+    section #case-result .case-result   [673 chars]
+      h2   [6 chars]
+        "Result"
+      p .case-score.case-score--pass   [32 chars]
+        "100 % — 100 of 100 rubric points"
+      p .flush   [110 chars]
+        "Mastered. The rubric threshold is 80 %. Best result so far: 100 %. This attempt took about 1 min with 0 hints."
+      table .case-rubric   [471 chars]
+        thead   [21 chars]
+          tr   [21 chars]
+            th   [9 chars]
+              "Criterion"
+            th   [6 chars]
+              "Points"
+            th   [6 chars]
+              "Earned"
+        tbody   [450 chars]
+          tr   [65 chars]
+            td   [61 chars]
+              "Nominal volume computed from aperture area and the press foil"
+            td .num   [2 chars]
+              "15"
+            td .num   [2 chars]
+              "15"
+          tr   [63 chars]
+            td   [59 chars]
+              "Mean as a share of nominal, and the limits in the same unit"
+            td .num   [2 chars]
+              "15"
+            td .num   [2 chars]
+              "15"
+          tr   [58 chars]
+            td   [54 chars]
+              "Cp and Cpk computed and the gap between them explained"
+            td .num   [2 chars]
+              "20"
+            td .num   [2 chars]
+              "20"
+          tr   [62 chars]
+            td   [58 chars]
+              "Squeegee passes separated and capability computed per pass"
+            td .num   [2 chars]
+              "20"
+            td .num   [2 chars]
+              "20"
+          tr   [61 chars]
+            td   [57 chars]
+              "Height derived from volume and area, and its meaning read"
+            td .num   [2 chars]
+              "10"
+            td .num   [2 chars]
+              "10"
+          tr   [79 chars]
+            td   [75 chars]
+              "SPI program's foil figure checked against the press before any print change"
+            td .num   [2 chars]
+              "15"
+            td .num   [2 chars]
+              "15"
+          tr   [62 chars]
+            td   [60 chars]
+              "Findings ordered: measurement, then structure, then settings"
+            td .num   [1 chars]
+              "5"
+            td .num   [1 chars]
+              "5"
+      div .quiz-actions   [54 chars]
+        button .btn type=button data-act=case-retake   [28 chars]
+          "Try again from a clean sheet"
+        button .btn type=button data-act=case-csv   [25 chars]
+          "Download my answers (CSV)"
+  details .case-rubric-box   [600 chars]
+    summary   [32 chars]
+      "Rubric — how this case is scored"
+    div .details-body   [568 chars]
+      table .case-rubric   [452 chars]
+        thead   [15 chars]
+          tr   [15 chars]
+            th   [9 chars]
+              "Criterion"
+            th   [6 chars]
+              "Points"
+        tbody   [437 chars]
+          tr   [63 chars]
+            td   [61 chars]
+              "Nominal volume computed from aperture area and the press foil"
+            td .num   [2 chars]
+              "15"
+          tr   [61 chars]
+            td   [59 chars]
+              "Mean as a share of nominal, and the limits in the same unit"
+            td .num   [2 chars]
+              "15"
+          tr   [56 chars]
+            td   [54 chars]
+              "Cp and Cpk computed and the gap between them explained"
+            td .num   [2 chars]
+              "20"
+          tr   [60 chars]
+            td   [58 chars]
+              "Squeegee passes separated and capability computed per pass"
+            td .num   [2 chars]
+              "20"
+          tr   [59 chars]
+            td   [57 chars]
+              "Height derived from volume and area, and its meaning read"
+            td .num   [2 chars]
+              "10"
+          tr   [77 chars]
+            td   [75 chars]
+              "SPI program's foil figure checked against the press before any print change"
+            td .num   [2 chars]
+              "15"
+          tr   [61 chars]
+            td   [60 chars]
+              "Findings ordered: measurement, then structure, then settings"
+            td .num   [1 chars]
+              "5"
+      p .muted.flush   [116 chars]
+        "Criteria are scored in proportion to the steps they name. A criterion spanning two steps pays half per correct…"
+  section .sources   [1757 chars]
+    details .spoiler   [1757 chars]
+      summary   [11 chars]
+        "Sources — 2"
+      div .details-body   [1746 chars]
+        ul   [1746 chars]
+          li   [722 chars]
+            span .src-id   [7 chars]
+              "src-004"
+            strong   [104 chars]
+              "IPC-7525C Stencil Design Guidelines (stencil design guidance: area ratio, aspect ratio, aperture sizing)"
+            "— Rev C, section §1.1.2 area ratio; §1.1.3 aspect ratio, standard"
+            span .src-note   [412 chars]
+              "License: paraphrase only · verified by READ. Primary IPC-7525B §1.1.2 and §1.1.3 read verbatim. Revision histo…"
+            span .src-edition.src-edition--ok   [132 chars]
+              strong   [15 chars]
+                "Current edition"
+              "· publisher lists Rev C (November 2021; English release February 2022)"
+              span .src-edition-note   [46 chars]
+                "Rev C is the newest IPC-7525 in the IPC table."
+          li   [1024 chars]
+            span .src-id   [7 chars]
+              "src-001"
+            strong   [48 chars]
+              "IPC-A-610 Acceptability of Electronic Assemblies"
+            "— Rev H, section §10 through-hole solder fill — vertical barrel fill minimums by class (75 % for Class 2 and C…"
+            span .src-note   [363 chars]
+              "License: paraphrase only · verified by READ. Primary IPC-A-610D fragments read: "Class 2, fill to 75% but with…"
+            span .src-currency   [276 chars]
+              "Superseded. IPC-A-610 Rev J was released in April 2024 and is the current revision; Rev J also removed the "Ta…"
+            span .src-edition   [201 chars]
+              strong   [18 chars]
+                "Superseded edition"
+              "· publisher lists Rev J (March 2024)"
+              span .src-edition-note   [146 chars]
+                "Written against Rev H. Rev J was published in March 2024 and is listed by IPC as current; the criteria quoted …"
+  nav .pager   [48 chars]
+    a .pager-prev href=#/m/m04   [48 chars]
+      span .pager-label   [7 chars]
+        "Back to"
+      span .pager-title   [41 chars]
+        "Module 04 — Solder Paste Printing and SPI"
+    span

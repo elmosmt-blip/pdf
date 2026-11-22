@@ -110,6 +110,11 @@ function areaRatioRound(d, t) { return d / (4 * t); }
 function aspect(w, t) { return w / t; }
 function dpmo(defects, boards, opp) { return (defects / (boards * opp)) * 1e6; }
 function ppm(d, b) { return (d / b) * 1e6; }
+function sampleSd(v) {
+  const m = v.reduce(function (a, b) { return a + b; }, 0) / v.length;
+  const ss = v.reduce(function (a, b) { return a + (b - m) * (b - m); }, 0);
+  return Math.sqrt(ss / (v.length - 1));
+}
 
 /* ISO 2859-1, general inspection level II, AQL 1.0 — the two rows the course
  * uses, typed here independently of the generator and of the lesson. */
@@ -146,6 +151,65 @@ function rows(c, name, keyCol, valCol) {
  * value. A step not listed here is reported as unverified, which is a failure:
  * a key nobody recomputes is exactly the hand-typed key the brief forbids. */
 const EXPECTED = {
+  /* ---- m04: SPI. The nominal comes from the setup file, the spread from the
+   * deposits file, and capability is written out longhand here. */
+  'cx-m04-01.s1': function (c) {
+    const p = rows(c, 'spi-setup.csv', 'item', 'value');
+    return +p['aperture_width_mm'] * +p['aperture_length_mm'] * +p['press_foil_mm'] * 1000;
+  },
+  'cx-m04-01.s2': function (c) {
+    const v = dataFile(c, 'spi-deposits.csv').map(function (r) { return +r.volume_nL; });
+    const p = rows(c, 'spi-setup.csv', 'item', 'value');
+    const nom = +p['aperture_width_mm'] * +p['aperture_length_mm'] * +p['press_foil_mm'] * 1000;
+    return (v.reduce(function (a, b) { return a + b; }, 0) / v.length) / nom * 100;
+  },
+  'cx-m04-01.s3': function (c) {
+    const p = rows(c, 'spi-setup.csv', 'item', 'value');
+    const nom = +p['aperture_width_mm'] * +p['aperture_length_mm'] * +p['press_foil_mm'] * 1000;
+    return nom * +p['volume_window_low_pct'] / 100;
+  },
+  'cx-m04-01.s4': function (c) {
+    const v = dataFile(c, 'spi-deposits.csv').map(function (r) { return +r.volume_nL; });
+    const p = rows(c, 'spi-setup.csv', 'item', 'value');
+    const nom = +p['aperture_width_mm'] * +p['aperture_length_mm'] * +p['press_foil_mm'] * 1000;
+    const lo = nom * +p['volume_window_low_pct'] / 100;
+    const hi = nom * +p['volume_window_high_pct'] / 100;
+    return (hi - lo) / (6 * sampleSd(v));
+  },
+  'cx-m04-01.s5': function (c) {
+    const v = dataFile(c, 'spi-deposits.csv').map(function (r) { return +r.volume_nL; });
+    const p = rows(c, 'spi-setup.csv', 'item', 'value');
+    const nom = +p['aperture_width_mm'] * +p['aperture_length_mm'] * +p['press_foil_mm'] * 1000;
+    const lo = nom * +p['volume_window_low_pct'] / 100;
+    const hi = nom * +p['volume_window_high_pct'] / 100;
+    const m = v.reduce(function (a, b) { return a + b; }, 0) / v.length;
+    return Math.min(hi - m, m - lo) / (3 * sampleSd(v));
+  },
+  'cx-m04-01.s6': function (c) {
+    const v = dataFile(c, 'spi-deposits.csv')
+      .filter(function (r) { return r.squeegee_pass === 'second'; })
+      .map(function (r) { return +r.volume_nL; });
+    const p = rows(c, 'spi-setup.csv', 'item', 'value');
+    const nom = +p['aperture_width_mm'] * +p['aperture_length_mm'] * +p['press_foil_mm'] * 1000;
+    const lo = nom * +p['volume_window_low_pct'] / 100;
+    const hi = nom * +p['volume_window_high_pct'] / 100;
+    const m = v.reduce(function (a, b) { return a + b; }, 0) / v.length;
+    return Math.min(hi - m, m - lo) / (3 * sampleSd(v));
+  },
+  'cx-m04-01.s7': function () { return 'two humps'; },
+  'cx-m04-01.s8': function (c) {
+    const rowsV = dataFile(c, 'spi-deposits.csv');
+    const v = rowsV.map(function (r) { return +r.volume_nL; });
+    const area = rowsV.map(function (r) { return +r.area_mm2; })
+      .reduce(function (a, b) { return a + b; }, 0) / rowsV.length;
+    return (v.reduce(function (a, b) { return a + b; }, 0) / v.length) / 1000 / area;
+  },
+  'cx-m04-01.s9': function (c) {
+    const p = rows(c, 'spi-setup.csv', 'item', 'value');
+    /* the screen reading in the step text, corrected for the program's foil */
+    return 108 * +p['press_foil_mm'] / +p['program_foil_mm'];
+  },
+  'cx-m04-01.s10': function () { return 'correct the spi program'; },
   /* ---- m01: bare-board release. Every figure below is recomputed from the
    * receipt files and the IPC-6012 ceiling, not read back from the key. */
   'cx-m01-01.s1': function (c) {

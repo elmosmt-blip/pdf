@@ -66,6 +66,34 @@ Protocol: `docs/pilot-protocol.md`.
 
 ---
 
+## cx-m04-01 — SPI: a passing mean over a two-humped print
+
+`#/c/cx-m04-01` · module m04 · 10 steps · 100 rubric points · about 35 min
+
+| # | Step | Type | Expected | Tolerance | Watch for |
+|---|---|---|---|---|---|
+| 1 | The fine-pitch aperture is 0.22 mm x 0.90 mm and the region prints through the 0.100 mm foil. What is the nominal deposit volume, in nanolitres? | numeric | 19.8 nL | ±0.05 | Area times thickness, then mm³ to nL: multiply by 1000. |
+| 2 | Across the twelve deposits, what is the mean volume as a percentage of that nominal? One decimal. | numeric | 86.2963 % | ±0.3 | Mean first, as a share of nominal second. |
+| 3 | The window is 75-125 % of nominal. What is the lower limit, in nanolitres? | numeric | 14.85 nL | ±0.05 | Multiply the nominal by the window percentage. |
+| 4 | Compute Cp for the twelve deposits against that window. Two decimals. | numeric | 1.3429 ratio | ±0.05 | Sample sd uses n-1, and Cp does not care where the mean sits. |
+| 5 | Compute Cpk for the same twelve deposits. Two decimals. | numeric | 0.6068 ratio | ±0.05 | Distance from the mean to the *nearer* limit, over 3 sd. |
+| 6 | Split the twelve deposits by squeegee pass and compute Cpk for the second pass alone. Two decimals. | numeric | 0.9883 ratio | ±0.06 | Compute the mean and sd of the six second-pass readings only. |
+| 7 | The mean is inside the window and the quality engineer wants to keep running. What does the split say? | choice | option b — “The histogram is two humps, not one: a pooled mean and a pooled sd describe a process that does not exist. Find what separates the passes before tuning anything.” | — | What would a histogram of these twelve values look like? |
+| 8 | The mean deposit volume is 17.09 nL and the measured area is 0.198 mm². What average height does that imply, in mm? | numeric | 0.0863 mm | ±0.002 | Convert nL to mm³ first: 1 nL = 0.001 mm³. |
+| 9 | The SPI program was built against the 0.125 mm general stencil, and the fine-pitch region on the press is 0.100 mm. On that program the screen reads 108 % of nominal. What is really there? | choice | option b — “86 %: the machine's nominal is 25 % too large, so every reading is inflated by that factor and the truth is 108 % x 0.100 / 0.125.” | — | Which foil value is inside the nominal the machine divides by? |
+| 10 | In what order do the three findings get handled? | choice | option b — “Correct the SPI program's foil figure and re-read the data, then establish what differs between the two squeegee passes, then tune the print if it is still needed.” | — | Which finding would make you doubt the numbers the other two rest on? |
+
+**Rubric** (pass mark 80 %):
+- Nominal volume computed from aperture area and the press foil — 15 pts (s1)
+- Mean as a share of nominal, and the limits in the same unit — 15 pts (s2, s3)
+- Cp and Cpk computed and the gap between them explained — 20 pts (s4, s5)
+- Squeegee passes separated and capability computed per pass — 20 pts (s6, s7)
+- Height derived from volume and area, and its meaning read — 10 pts (s8)
+- SPI program's foil figure checked against the press before any print change — 15 pts (s9)
+- Findings ordered: measurement, then structure, then settings — 5 pts (s10)
+
+---
+
 ## cx-m02-01 — Moisture breach: the BGA reel sat in a 7 % RH cabinet
 
 `#/c/cx-m02-01` · module m02 · 6 steps · 100 rubric points · about 20 min

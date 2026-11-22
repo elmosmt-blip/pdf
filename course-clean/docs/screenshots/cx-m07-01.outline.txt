@@ -2,7 +2,7 @@ Rendered outline of #/c/cx-m07-01
 Produced by scripts/capture-case.js from the built tree (build/course-clean).
 This is the live DOM from the shipped engine, not a mock-up.
 
-main #main   [8431 chars]
+main #main   [8469 chars]
   p .kicker   [46 chars]
     "Toolkit · Module 07 · AOI and X-ray Inspection"
   header .page-head   [115 chars]
@@ -27,14 +27,14 @@ main #main   [8431 chars]
       "The line reads the numbers optimistically: most of the calls were real, so the program is good. Quality has th…"
     p   [136 chars]
       "Compute the three rates that matter, say what they do and do not prove, and judge the ball in xray-bga.csv aga…"
-  details .case-board   [1198 chars]
+  details .case-board   [1236 chars]
     summary   [38 chars]
       "Board X — the product behind this case"
-    div .details-body   [1160 chars]
+    div .details-body   [1198 chars]
       p .muted.flush   [158 chars]
         "6-layer 1.6 mm FR-4 controller board: QFP-64 at 0.5 mm pitch, QFP-48 at 0.4 mm pitch, one 256-ball BGA at 0.8 …"
-      table .case-facts   [1002 chars]
-        tbody   [1002 chars]
+      table .case-facts   [1040 chars]
+        tbody   [1040 chars]
           tr   [23 chars]
             th   [20 chars]
               "Board thickness (mm)"
@@ -210,6 +210,11 @@ main #main   [8431 chars]
               "Bow and twist, other boards, IPC-6012 (%)"
             td   [3 chars]
               "1.5"
+          tr   [38 chars]
+            th   [32 chars]
+              "SPI volume window (% of nominal)"
+            td   [6 chars]
+              "75–125"
   ul .spec-chips   [71 chars]
     li .spec-chip   [27 chars]
       span .spec-chip-label   [23 chars]

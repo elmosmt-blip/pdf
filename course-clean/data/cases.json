@@ -115,6 +115,14 @@
       0.75,
       "src-018",
       "m01l06"
+    ],
+    "spiVolumeWindowPct": [
+      [
+        75,
+        125
+      ],
+      null,
+      "m04l05"
     ]
   },
   "thread": [
@@ -141,41 +149,48 @@
     },
     {
       "step": 4,
+      "moduleId": "m04",
+      "label": "First print",
+      "asset": "SPI review sheet",
+      "caseId": "cx-m04-01"
+    },
+    {
+      "step": 5,
       "moduleId": "m06",
       "label": "Reflow profile",
       "asset": "Reflow profile log",
       "caseId": "cx-m06-01"
     },
     {
-      "step": 5,
+      "step": 6,
       "moduleId": "m08",
       "label": "Through-hole",
       "asset": "Hole and lead measurement sheet",
       "caseId": "cx-m08-01"
     },
     {
-      "step": 6,
+      "step": 7,
       "moduleId": "m09",
       "label": "Wave",
       "asset": "Wave solder process record",
       "caseId": "cx-m09-01"
     },
     {
-      "step": 7,
+      "step": 8,
       "moduleId": "m07",
       "label": "AOI audit",
       "asset": "AOI and X-ray audit",
       "caseId": "cx-m07-01"
     },
     {
-      "step": 8,
+      "step": 9,
       "moduleId": "m11",
       "label": "Rework",
       "asset": "Rework and repair record",
       "caseId": "cx-m11-01"
     },
     {
-      "step": 9,
+      "step": 10,
       "moduleId": "m14",
       "label": "8D report",
       "asset": "8D problem report",
@@ -241,7 +256,11 @@
         360
       ],
       "bowTwistSmtPct": 0.75,
-      "bowTwistOtherPct": 1.5
+      "bowTwistOtherPct": 1.5,
+      "spiVolumeWindowPct": [
+        75,
+        125
+      ]
     },
     "labels": {
       "boardThicknessMm": "Board thickness (mm)",
@@ -278,7 +297,8 @@
       "annularRingMinMm": "Annular ring, Class 3 external (mm)",
       "handSetpointWindowC": "Hand-soldering setpoint (°C)",
       "bowTwistSmtPct": "Bow and twist, SMT board, IPC-6012 (%)",
-      "bowTwistOtherPct": "Bow and twist, other boards, IPC-6012 (%)"
+      "bowTwistOtherPct": "Bow and twist, other boards, IPC-6012 (%)",
+      "spiVolumeWindowPct": "SPI volume window (% of nominal)"
     }
   },
   "cases": [
@@ -954,6 +974,366 @@
         "src-018",
         "src-006",
         "src-037"
+      ],
+      "generatedBy": "scripts/gen_cases.py"
+    },
+    {
+      "caseId": "cx-m04-01",
+      "moduleId": "m04",
+      "title": "SPI: a passing mean over a two-humped print",
+      "estMinutes": 35,
+      "level": "advanced",
+      "scenario": [
+        "Board X has been running the same stencil for six weeks. The daily SPI summary is green: fine-pitch volume averages in the high eighties against nominal, a few pads flagged, nothing that stopped the line. The print operator says the board looks the same as it always did.",
+        "Then the SPI map is printed instead of the summary, and the six deposits printed on the first squeegee pass sit visibly above the six on the return pass. Nothing else about the stencil changed. The quality engineer wants to keep running because the mean is inside the window, and the operator wants to raise squeegee pressure because the low group is low.",
+        "A third number is waiting as well: the SPI program carries the 0.125 mm figure from the general stencil, while the fine-pitch region on the press is 0.100 mm. Decide what is actually wrong, and in what order to fix it."
+      ],
+      "dataFiles": [
+        {
+          "name": "spi-deposits.csv",
+          "kind": "csv",
+          "content": "board,deposit,squeegee_pass,volume_nL,area_mm2\n1,1,first,18.32,0.198\n1,2,first,18.72,0.198\n1,3,first,17.68,0.198\n1,4,second,16.24,0.198\n1,5,second,15.52,0.198\n1,6,second,16.08,0.198\n2,1,first,18.40,0.198\n2,2,first,17.92,0.198\n2,3,first,18.24,0.198\n2,4,second,15.84,0.198\n2,5,second,16.48,0.198\n2,6,second,15.60,0.198\n",
+          "note": "Fine-pitch deposits, QFP-48 family. Volume in nanolitres as the SPI reports it; area is the measured paste footprint, close to the 0.198 mm2 aperture on every deposit."
+        },
+        {
+          "name": "spi-setup.csv",
+          "kind": "csv",
+          "content": "item,value\naperture_width_mm,0.22\naperture_length_mm,0.90\npress_foil_mm,0.100\nprogram_foil_mm,0.125\nvolume_window_low_pct,75\nvolume_window_high_pct,125\n"
+        }
+      ],
+      "steps": [
+        {
+          "id": "s1",
+          "type": "numeric",
+          "prompt": "The fine-pitch aperture is 0.22 mm x 0.90 mm and the region prints through the 0.100 mm foil. What is the nominal deposit volume, in nanolitres?",
+          "answer": {
+            "value": 19.8,
+            "tolerance": 0.05,
+            "unit": "nL"
+          },
+          "hints": [
+            "Volume is aperture area times foil thickness.",
+            "0.22 x 0.90 = 0.198 mm²; 0.198 x 0.100 = 0.0198 mm³.",
+            "A cubic millimetre is a microlitre, so 0.0198 mm³ = 19.8 nL."
+          ],
+          "feedbackCorrect": "19.8 nL — every SPI percentage in this case is a share of it.",
+          "feedbackWrong": "Area times thickness, then mm³ to nL: multiply by 1000.",
+          "explanation": "0.198 mm² x 0.100 mm = 0.0198 mm³, and a cubic millimetre is a microlitre, so the deposit is 19.8 nL. This is the number the SPI machine computes when it prints 'volume %', and it is the number the whole case hangs on: 16 nL is not 'low' on its own, it is 81 % of this aperture and would be 65 % of a larger one. The foil figure matters as much as the area: the same aperture printed through 0.125 mm would hold 24.75 nL, which is the trap waiting in step 9."
+        },
+        {
+          "id": "s2",
+          "type": "numeric",
+          "prompt": "Across the twelve deposits, what is the mean volume as a percentage of that nominal? One decimal.",
+          "answer": {
+            "value": 86.2963,
+            "tolerance": 0.3,
+            "unit": "%"
+          },
+          "hints": [
+            "Add the twelve volumes and divide by twelve.",
+            "The sum is 205.04 nL, so the mean is 17.09 nL.",
+            "17.09 / 19.8 x 100."
+          ],
+          "feedbackCorrect": "86.3 % — comfortably inside the 75-125 % window.",
+          "feedbackWrong": "Mean first, as a share of nominal second.",
+          "explanation": "The volumes sum to 205.04 nL over twelve deposits, a mean of 17.09 nL, which is 86.3 % of the 19.8 nL nominal. Against a 75-125 % window that is a passing number, and it is the number on the daily summary — which is why this case exists. A mean cannot tell a tight process centred at 86 % from a process that prints 92 % on one pass and 81 % on the next."
+        },
+        {
+          "id": "s3",
+          "type": "numeric",
+          "prompt": "The window is 75-125 % of nominal. What is the lower limit, in nanolitres?",
+          "answer": {
+            "value": 14.85,
+            "tolerance": 0.05,
+            "unit": "nL"
+          },
+          "hints": [
+            "Take 75 % of the same 19.8 nL nominal.",
+            "19.8 x 0.75.",
+            "14.85 nL."
+          ],
+          "feedbackCorrect": "14.85 nL is the floor; 24.75 nL is the ceiling.",
+          "feedbackWrong": "Multiply the nominal by the window percentage.",
+          "explanation": "19.8 x 0.75 = 14.85 nL, and 19.8 x 1.25 = 24.75 nL at the top. Both clusters sit inside this pair, which is the awkward part: nothing here is out of specification, and a process can be incapable without producing a single out-of-limit print. That is the difference between spec and control that m04l02 draws, and the one the daily summary hides."
+        },
+        {
+          "id": "s4",
+          "type": "numeric",
+          "prompt": "Compute Cp for the twelve deposits against that window. Two decimals.",
+          "answer": {
+            "value": 1.3429,
+            "tolerance": 0.05,
+            "unit": "ratio"
+          },
+          "hints": [
+            "Cp is the window width over six standard deviations.",
+            "The window is 24.75 - 14.85 = 9.90 nL wide; the sample sd is 1.229 nL.",
+            "9.90 / (6 x 1.229)."
+          ],
+          "feedbackCorrect": "Cp 1.34 — the spread alone would fit inside the window.",
+          "feedbackWrong": "Sample sd uses n-1, and Cp does not care where the mean sits.",
+          "explanation": "The window is 9.90 nL wide and the sample standard deviation of the twelve readings is 1.229 nL, so Cp = 9.90 / (6 x 1.229) = 1.34. On its own that reads like a capable process, and this is the classic trap: Cp assumes the process is centred and asks only whether the spread could fit. It could. The next number asks whether it does."
+        },
+        {
+          "id": "s5",
+          "type": "numeric",
+          "prompt": "Compute Cpk for the same twelve deposits. Two decimals.",
+          "answer": {
+            "value": 0.6068,
+            "tolerance": 0.05,
+            "unit": "ratio"
+          },
+          "hints": [
+            "Cpk is the distance from the mean to the nearer limit over three sd.",
+            "The mean is 17.09 nL; the nearer limit is the lower one at 14.85 nL.",
+            "(17.09 - 14.85) / (3 x 1.229)."
+          ],
+          "feedbackCorrect": "Cpk 0.61 — the process is not centred, and the spread is not the whole story.",
+          "feedbackWrong": "Distance from the mean to the *nearer* limit, over 3 sd.",
+          "explanation": "(17.09 - 14.85) / (3 x 1.229) = 2.24 / 3.687 = 0.61. A Cpk under 1 means the process is producing prints outside the window at a rate the product cannot absorb, and 0.61 is not marginal. The gap between Cp 1.34 and Cpk 0.61 is entirely centring: the process prints a little low on average, and the low side is where the window runs out. A summary printing both numbers would have shown this six weeks ago."
+        },
+        {
+          "id": "s6",
+          "type": "numeric",
+          "prompt": "Split the twelve deposits by squeegee pass and compute Cpk for the second pass alone. Two decimals.",
+          "answer": {
+            "value": 0.9883,
+            "tolerance": 0.06,
+            "unit": "ratio"
+          },
+          "hints": [
+            "Six values: 16.24, 15.52, 16.08, 15.84, 16.48, 15.60.",
+            "Their mean is 15.96 nL and their sd is 0.374 nL.",
+            "(15.96 - 14.85) / (3 x 0.374)."
+          ],
+          "feedbackCorrect": "Cpk 0.99 on the second pass — and 3.05 on the first.",
+          "feedbackWrong": "Compute the mean and sd of the six second-pass readings only.",
+          "explanation": "The second pass averages 15.96 nL with an sd of 0.374 nL, giving Cpk = (15.96 - 14.85) / (3 x 0.374) = 0.99. The same arithmetic on the first pass gives 3.05 off a mean of 18.21 nL. Two populations, each tight, one sitting on the limit and one comfortable. That is what the pooled 0.61 was made of, and it is the difference between 'the process varies' and 'the process has two settings'."
+        },
+        {
+          "id": "s7",
+          "type": "choice",
+          "prompt": "The mean is inside the window and the quality engineer wants to keep running. What does the split say?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Keep running: every deposit is inside the window, so there is nothing to act on."
+            },
+            {
+              "id": "b",
+              "text": "The histogram is two humps, not one: a pooled mean and a pooled sd describe a process that does not exist. Find what separates the passes before tuning anything."
+            },
+            {
+              "id": "c",
+              "text": "Raise squeegee pressure until the low group reaches the high group."
+            },
+            {
+              "id": "d",
+              "text": "Lower the SPI window so the low group passes."
+            }
+          ],
+          "answer": {
+            "value": "b"
+          },
+          "hints": [
+            "Ask what a single mean assumes about a set of readings.",
+            "Two tight clusters about 2.3 nL apart are not one wide cluster.",
+            "Identify the split before adjusting: something differs between the passes."
+          ],
+          "feedbackCorrect": "Two populations, not one: the split is the finding, and its cause sits upstream of any setpoint.",
+          "feedbackWrong": "What would a histogram of these twelve values look like?",
+          "explanation": "The pooled sd of 1.229 nL is more than three times the sd inside either pass, and that inflation is not variation — it is the gap between two settings. A mean and a Cpk computed on the pool describe a process nobody runs. The first thing to establish is what differs between the forward and return stroke: squeegee pressure or angle on the reverse pass, a two-speed profile, board support that shifts, or a wipe cycle that lands between them. Pressure tuned to lift the low group would overfill the high group and turn one problem into two."
+        },
+        {
+          "id": "s8",
+          "type": "numeric",
+          "prompt": "The mean deposit volume is 17.09 nL and the measured area is 0.198 mm². What average height does that imply, in mm?",
+          "answer": {
+            "value": 0.0863,
+            "tolerance": 0.002,
+            "unit": "mm"
+          },
+          "hints": [
+            "Volume over area gives height, once the units agree.",
+            "17.09 nL = 0.01709 mm³.",
+            "0.01709 / 0.198."
+          ],
+          "feedbackCorrect": "0.086 mm of paste on a 0.100 mm stencil — about 86 % of the foil.",
+          "feedbackWrong": "Convert nL to mm³ first: 1 nL = 0.001 mm³.",
+          "explanation": "17.09 nL is 0.01709 mm³, and over 0.198 mm² that is 0.086 mm. Height tracks volume almost exactly here because the area is nominal on every deposit, and that is itself the diagnostic: area normal with volume low means the paste did not fill the aperture to full depth, not that it spread. Had area been low as well, the story would be a clogged or partly blocked aperture instead."
+        },
+        {
+          "id": "s9",
+          "type": "choice",
+          "prompt": "The SPI program was built against the 0.125 mm general stencil, and the fine-pitch region on the press is 0.100 mm. On that program the screen reads 108 % of nominal. What is really there?",
+          "options": [
+            {
+              "id": "a",
+              "text": "108 % — the machine computes nominal from the aperture, so the foil in its program does not matter."
+            },
+            {
+              "id": "b",
+              "text": "86 %: the machine's nominal is 25 % too large, so every reading is inflated by that factor and the truth is 108 % x 0.100 / 0.125."
+            },
+            {
+              "id": "c",
+              "text": "135 %: the thinner foil means more paste."
+            },
+            {
+              "id": "d",
+              "text": "108 % is right, but the window should be widened to match the foil."
+            }
+          ],
+          "answer": {
+            "value": "b"
+          },
+          "hints": [
+            "Nominal = area x foil, and the machine uses the foil in its program.",
+            "A program foil thicker than reality makes the nominal too large.",
+            "108 x 0.100 / 0.125 = 86.4 %."
+          ],
+          "feedbackCorrect": "86 %, not 108 %: the program's nominal is 25 % too large and every reading inherits the error.",
+          "feedbackWrong": "Which foil value is inside the nominal the machine divides by?",
+          "explanation": "The machine computes nominal as area x the foil in its program, so a program set to 0.125 mm while the press carries 0.100 mm makes every percentage 25 % too high: 108 % x 0.100 / 0.125 = 86.4 %. This is a measurement-system finding, not a print finding, and it belongs first. It is also the reason the absolute nanolitres matter: a volume does not care what the program believed, which is why the volumes above were used to compute the mean rather than the percentages on the screen."
+        },
+        {
+          "id": "s10",
+          "type": "choice",
+          "prompt": "In what order do the three findings get handled?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Print pressure first, then the split, then the SPI program."
+            },
+            {
+              "id": "b",
+              "text": "Correct the SPI program's foil figure and re-read the data, then establish what differs between the two squeegee passes, then tune the print if it is still needed."
+            },
+            {
+              "id": "c",
+              "text": "All three at once, since they are all part of the same print step."
+            },
+            {
+              "id": "d",
+              "text": "Nothing: the mean is inside the window and the boards pass."
+            }
+          ],
+          "answer": {
+            "value": "b"
+          },
+          "hints": [
+            "A measurement that is wrong by a constant factor cannot rank anything.",
+            "The split is a process question and needs trustworthy data to be sized.",
+            "Measurement, then structure, then settings."
+          ],
+          "feedbackCorrect": "Measurement first, then the two-population question, then the print settings — and one variable at a time.",
+          "feedbackWrong": "Which finding would make you doubt the numbers the other two rest on?",
+          "explanation": "The foil error is a constant 25 % on every reading, so it distorts the window, the Cpk and the decision to raise pressure. Correcting it costs nothing and gives the split a trustworthy scale. The split comes next because it is a structural difference between the passes, and until it is named, any pressure change is a guess applied to both halves of a two-humped distribution. Only then does the print get tuned, one variable at a time, with SPI re-read after each change — the m04l07 rule this case exists to exercise."
+        }
+      ],
+      "rubric": [
+        {
+          "criterion": "Nominal volume computed from aperture area and the press foil",
+          "points": 15,
+          "steps": [
+            "s1"
+          ]
+        },
+        {
+          "criterion": "Mean as a share of nominal, and the limits in the same unit",
+          "points": 15,
+          "steps": [
+            "s2",
+            "s3"
+          ]
+        },
+        {
+          "criterion": "Cp and Cpk computed and the gap between them explained",
+          "points": 20,
+          "steps": [
+            "s4",
+            "s5"
+          ]
+        },
+        {
+          "criterion": "Squeegee passes separated and capability computed per pass",
+          "points": 20,
+          "steps": [
+            "s6",
+            "s7"
+          ]
+        },
+        {
+          "criterion": "Height derived from volume and area, and its meaning read",
+          "points": 10,
+          "steps": [
+            "s8"
+          ]
+        },
+        {
+          "criterion": "SPI program's foil figure checked against the press before any print change",
+          "points": 15,
+          "steps": [
+            "s9"
+          ]
+        },
+        {
+          "criterion": "Findings ordered: measurement, then structure, then settings",
+          "points": 5,
+          "steps": [
+            "s10"
+          ]
+        }
+      ],
+      "templates": [
+        {
+          "templateId": "spi-review",
+          "name": "SPI review sheet",
+          "status": "available",
+          "use": "Keep each deposit's volume and area next to the pass it came from, so a pooled mean cannot hide two populations, and recompute capability when the SPI program or the stencil changes.",
+          "lesson": "m04l05",
+          "variants": [
+            {
+              "variant": "blank",
+              "file": "spi-review-blank.csv",
+              "mime": "text/csv",
+              "label": "Blank",
+              "content": "board,deposit,squeegee_pass,volume_nL,area_mm2\r\n,,,,\r\n,,,,\r\n,,,,\r\n"
+            },
+            {
+              "variant": "example",
+              "file": "spi-review-example.csv",
+              "mime": "text/csv",
+              "label": "Example",
+              "content": "board,deposit,squeegee_pass,volume_nL,area_mm2\n1,1,first,18.32,0.198\n1,2,first,18.72,0.198\n1,3,first,17.68,0.198\n1,4,second,16.24,0.198\n1,5,second,15.52,0.198\n1,6,second,16.08,0.198\n2,1,first,18.40,0.198\n2,2,first,17.92,0.198\n2,3,first,18.24,0.198\n2,4,second,15.84,0.198\n2,5,second,16.48,0.198\n2,6,second,15.60,0.198\n"
+            },
+            {
+              "variant": "guide",
+              "file": "spi-review-guide.md",
+              "mime": "text/markdown",
+              "label": "Guide",
+              "content": "# SPI review sheet\n\n## What this template is for\nKeep each deposit's volume and area next to the pass it came from, so a pooled mean cannot hide two populations, and recompute capability when the SPI program or the stencil changes.\n\n## How to fill it in\n1. Copy one row per deposit. Do not merge rows: one aperture, one reel, one interval or one 8D discipline per line.\n2. Keep the column order. The columns below are the ones the course's own worked examples use.\n3. Leave a cell blank rather than writing a guess. A blank cell is a question for the engineer; a guessed number is a defect in the record.\n\n## Columns\n- `board`\n- `deposit`\n- `squeegee_pass`\n- `volume_nL`\n- `area_mm2`\n\n## Worked example\nThe example variant of this file is the data file from case cx-m04-01 (SPI: a passing mean over a two-humped print), filled in with Board X numbers.\n\n## Where the numbers come from\nEvery value in the example is produced by scripts/gen_cases.py and checked by scripts/check-cases.js. If you change a number in the example, the checker fails: that is deliberate.\n\n## Course link\nSee lesson m04l05 for the reasoning behind each column.\n"
+            }
+          ]
+        }
+      ],
+      "toolLinks": [
+        {
+          "label": "Reading SPI data (lesson m04l02)",
+          "href": "#/l/m04l02"
+        },
+        {
+          "label": "SPI as process evidence (lesson m04l05)",
+          "href": "#/l/m04l05"
+        },
+        {
+          "label": "Printer setup (lesson m04l03)",
+          "href": "#/l/m04l03"
+        }
+      ],
+      "sources": [
+        "src-004",
+        "src-001"
       ],
       "generatedBy": "scripts/gen_cases.py"
     },
