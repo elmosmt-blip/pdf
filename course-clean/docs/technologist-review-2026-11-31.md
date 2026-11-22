@@ -117,3 +117,10 @@ rates), because a wrong number in prose is invisible to a key check.
 `gen_cases.py --check` OK (8 cases, 68 steps) · `check-cases.js` **68/68** keys
 recomputed · `check-integrity.js` OK · `check-quiz.js` OK · `tests/course.test.js`
 **181 / 0** · `tests/case-qa.js` **36 / 0** · pilot sheet regenerated.
+
+## 6. Where the build is published
+
+`https://drive.google.com/file/d/1Tq3PWJYvZ6W8aNo8V8f_lIgFCxZi12ug/view`
+(8,804,783 bytes, the zip now has `index.html` at its root, so it opens from a
+double click instead of requiring the `build/course-clean/` path). The previous
+copy in that slot was zero bytes and was trashed.
