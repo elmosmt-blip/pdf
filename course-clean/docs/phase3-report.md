@@ -435,16 +435,81 @@ numeric), `check-quiz.js` OK, `tests/course.test.js` **185 / 0**,
 
 ---
 
+## 7f. Round 6 — placement (m05)
+
+| Case | Module | Steps | Rubric | Est. | What it makes the learner do |
+|---|---|---|---|---|---|
+| `cx-m05-01` Placement offset | m05 | 10 (5 numeric) | 100 | 35 min | rotation from two fiducial residuals, the same angle priced at two lever arms, the lead's lateral play as the threshold, three sigma separated from the mean, the report judged for cancelling the rotation, the cause placed in the coordinate chain, the parts ranked by lever arm and play, and a disposition that holds instead of compensating |
+
+Control numbers:
+
+| Control | Result |
+|---|---|
+| Fiducial residuals, 0.140 mm difference over a 10 mm baseline | **0.014 rad = 0.80°** |
+| Same angle at the 40 mm panel edge | **0.56 mm** |
+| Same angle at the 7 mm QFP-64 corner lead | **0.098 mm** |
+| Lead play, 0.20 mm lead on a 0.30 mm pad | **0.05 mm per side** |
+| Three sigma of ten X residuals | **0.009 mm** |
+
+### What the case is built to break
+
+The report number is real, the arithmetic behind it is correct, and it still
+cannot fail. The magnitude of the mean of two fiducial residuals is a translation
+estimate: a rotation moves the two fiducials in opposite directions and drops out
+of their average. So a setup can be repeatable to 0.009 mm, wrong by 0.11 mm of
+translation and 0.80° of rotation at the same time, and pass a check that measures
+only the first.
+
+The second idea is that an angular error has no size until it has a radius. 0.80°
+is 0.098 mm at the QFP corner and 0.56 mm at the panel edge, and whether either is
+a defect depends on the pad: 0.05 mm of play on a 0.4 mm-pitch part, more on a
+0402. The case asks for the parts to be ranked by lever arm *and* play rather than
+by size, because the two effects pick out different components.
+
+### A generator defect this round exposed
+
+The keys CSV wrote `_key["raw"]`, the full-precision intermediate, while the page
+published the rounded answer. For most keys the difference is invisible; for a
+figure like 0.008831760866327847 it is the difference between a reader
+recomputing 0.0088 and finding a mismatch. `check-cases.js` compares the CSV with
+the JSON at a 0.1 % tolerance and caught it on the last digits. The generator now
+writes the published value, so the CSV and the page can never disagree about a
+number the learner is told to reproduce.
+
+### Sources
+
+* **Courtyard and density levels.** IPC-7351B: courtyard excess 0.50 / 0.25 /
+  0.10 mm per side for levels A / B / C, confirmed against three independent
+  sources including the standard's own tables. The case does not use these
+  numbers: Board X's 0.15 mm acceptance is the equipment/process acceptance, and
+  the pad play is the arithmetic that decides a lead. The courtyard figure is
+  recorded here because the next case that touches layout will need it.
+* **Accuracy versus repeatability.** Standard meaning, taught in m05l01 and used
+  literally here: repeatability is the spread about the mean, accuracy is the
+  mean's distance from zero.
+* **Placement acceptance.** No IPC number is quoted for "offset must be under X":
+  the 0.15 mm is the plant's acceptance for Board X and is printed as such. m05l05
+  already says the criteria come from the equipment datasheet and the plant's own
+  capability, and the case follows that.
+
+Verification after round 6: `gen_cases.py --check` OK (**11 cases, 97 steps**),
+`check-cases.js` **97/97**, `check-integrity.js` OK (11 cases, 97 steps, 60
+numeric), `check-quiz.js` OK, `tests/course.test.js` **187 / 0**,
+`tests/case-qa.js` **45 / 0**, pilot sheet regenerated for 11 cases / 97 steps,
+23 outline captures regenerated.
+
+---
+
 ## 8. Next
 
-Ten of fifteen modules now carry a case: m01, m02, m03, m04, m06, m07, m08, m09,
-m11, m14. The remaining five are m05, m10, m12, m13, m15.
+Eleven of fifteen modules now carry a case: m01, m02, m03, m04, m05, m06, m07,
+m08, m09, m11, m14. The remaining four are m10, m12, m13, m15.
 
-m05 is the natural next one: it follows the print in the process, Board X already
-carries the pitches it needs (0.4 and 0.5 mm), and placement accuracy, offset and
-rotation give answers that can be measured on the machine rather than argued
-about. Then m10 (selective solder), which reads the THT connector and the thermal
-budget m08 and m09 already fixed.
+m10 is the natural next one: selective soldering reads the 20-pin THT connector
+and the thermal budget that m08 and m09 already fixed, and its numbers (dwell per
+joint, nozzle diameter, cycle time) are arithmetic rather than opinion. m13
+(coverage) follows, because it needs the test access and defect-class facts the
+inspection cases built.
 
 Templates referenced from the cases are generated in three variants (blank,
 example, guide) for all twelve template types; the "check" workflow on the five
