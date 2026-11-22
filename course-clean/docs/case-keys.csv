@@ -38,6 +38,24 @@ cx-m09-01,s5,choice,choice key = b,b,0,,{}
 cx-m09-01,s6,choice,choice key = b,b,0,,{}
 cx-m09-01,s7,numeric,1/20*100,5.0,0.1,%,"{""failed"": 1, ""joints"": 20}"
 cx-m09-01,s8,choice,choice key = b,b,0,,{}
+cx-m07-01,s1,numeric,300/360*100,83.33333333333334,0.2,%,"{""part"": 300, ""whole"": 360}"
+cx-m07-01,s2,numeric,90/300*100,30.0,0.2,%,"{""part"": 90, ""whole"": 300}"
+cx-m07-01,s3,numeric,18/12000*100,0.15,0.02,%,"{""part"": 18, ""whole"": 12000}"
+cx-m07-01,s4,numeric,18/228*100,7.894736842105263,0.2,%,"{""part"": 18, ""whole"": 228}"
+cx-m07-01,s5,choice,choice key = b,b,0,,{}
+cx-m07-01,s6,numeric,sum(pi*(d/2)^2)/ (pi*(0.45/2)^2)*100,48.39506172839506,0.2,%,"{""ball_mm"": 0.45, ""voids_mm"": [0.28, 0.14]}"
+cx-m07-01,s7,choice,choice key = b,b,0,,{}
+cx-m07-01,s8,numeric,(0.10/0.45)^2*100,4.938271604938271,0.1,%,"{""ball_mm"": 0.45, ""void_mm"": 0.1}"
+cx-m07-01,s9,choice,choice key = b,b,0,,{}
+cx-m11-01,s1,choice,choice key = b,b,0,,{}
+cx-m11-01,s2,numeric,2.6+0.4+0.2,3.2,0.1,s,"{""dwells_s"": [2.6, 0.4, 0.2]}"
+cx-m11-01,s3,numeric,(2.6+0.4+0.2)*45 W,144.0,2.0,J,"{""dwells_s"": [2.6, 0.4, 0.2], ""watts"": 45.0}"
+cx-m11-01,s4,numeric,0.06/0.3*100,20.0,0.2,%,"{""part"": 0.06, ""whole"": 0.3}"
+cx-m11-01,s5,numeric,0.3*(1-20/100),0.24,0.005,mm,"{""orig_mm"": 0.3, ""pct"": 20}"
+cx-m11-01,s6,numeric,0.3*(1-10/100),0.27,0.005,mm,"{""orig_mm"": 0.3, ""pct"": 10}"
+cx-m11-01,s7,choice,choice key = a,a,0,,{}
+cx-m11-01,s8,choice,choice key = b,b,0,,{}
+cx-m11-01,s9,choice,choice key = b,b,0,,{}
 cx-m14-01,s1,numeric,38/(1240*620)*1e6,49.42767950052029,0.3,DPMO,"{""boards"": 1240, ""defects"": 38, ""opportunities"": 620}"
 cx-m14-01,s2,numeric,9/47*100,19.148936170212767,0.3,%,"{""part"": 9, ""whole"": 47}"
 cx-m14-01,s3,choice,choice key = b,b,0,,{}

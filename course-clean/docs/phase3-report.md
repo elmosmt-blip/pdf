@@ -226,6 +226,64 @@ Verification after the round: `gen_cases.py --check` OK (6 cases, 49 steps),
 `check-quiz.js` OK, `tests/course.test.js` **177 / 0**, `tests/case-qa.js`
 **24 / 0**, pilot sheet regenerated for 6 cases / 49 steps.
 
+## 7c. Round 3 — inspection and rework (m07, m11)
+
+The two cases whose numbers are most often misquoted in the industry, so both
+were checked against three independent summaries before being built.
+
+| Case | Module | Steps | Rubric | Est. | What it makes the learner do |
+|---|---|---|---|---|---|
+| `cx-m07-01` AOI audit | m07 | 9 (5 numeric) | 100 | 30 min | verification coverage, false-call rate on verified calls, board-level escape rate, escape rate against judged defects, the audit judged on all three at once, cumulative void area per ball from measured diameters, a per-ball rejection, and the hidden-joint gap named as a coverage problem |
+| `cx-m11-01` Rework record | m11 | 9 (4 numeric) | 100 | 30 min | setpoint judged against the course band, total iron time across every contact, energy in joules, conductor-width reduction against the drawing, Class 2 and Class 3 floors computed from the same number, disposition at the limit, a dry contact read as a thermal-load signal, and the record contents that make a decision re-judgeable |
+
+New control numbers, all reproduced independently:
+
+| Control | Result |
+|---|---|
+| Verification coverage, 300 of 360 calls | **83.3 %** |
+| False-call rate, 90 of 300 verified | **30.0 %** |
+| Escape rate, 18 of 12,000 boards | **0.15 %** |
+| Escape rate against judged defects, 18 of 228 | **7.9 %** |
+| Ball A1, voids 0.28 + 0.14 mm in a 0.45 mm ball | **48.4 %** (limit 25 %) |
+| Ball A2, one 0.10 mm void | **4.9 %** |
+| Total iron time, 2.6 + 0.4 + 0.2 s | **3.2 s** = **144 J** at 45 W |
+| Conductor reduction, 0.30 → 0.24 mm | **20.0 %** (Class 2 limit 20 %, Class 3 floor 0.27 mm) |
+
+### Two defects this round found in the product itself
+
+1. **`[object Object]` in the board-facts table.** The new `conductorReductionPct`
+   fact is keyed by class, and the renderer passed it straight to `esc()`. Every
+   case page printed `[object Object]` beside the label. Fixed in `app.js` by
+   spelling out non-scalar facts (`Class 1: 30 · Class 2: 20 · Class 3: 10`), and
+   `tests/case-qa.js` now fails on any `[object Object]` on any case page.
+2. **The generator wrote a document it could not reproduce.** Integer keys in a
+   Python dict become strings in JSON, so `--check` reported a failure on every
+   class key. The fix is in the generator (string keys everywhere), not in the
+   file: a `--check` that is made to pass by editing the output is not a check.
+
+### Sources, and what they do not settle
+
+* **Void limit.** IPC-A-610 / IPC-7095 put the defect line at a cumulative
+  projected void area above 25 % of the ball, applied per ball. Some vendor pages
+  also quote 30 % or a 50 % thermal-pad figure; the case prints the 25 % per-ball
+  limit and says class and revision must be confirmed, which is what m07l04
+  already teaches.
+* **Conductor reduction and annular ring.** IPC-A-600: 30/20/10 % width
+  reduction by class (Class 1/2/3) and 0.050 mm minimum external annular ring at
+  Class 3. Independently confirmed.
+* **Hand-soldering setpoint.** This one the sources do **not** settle: IPC-7711
+  procedures begin at about 315 °C and say "change as necessary", vendor tables
+  quote 315-400 °C for lead-free, and the course's own m11l02 gives 330-360 °C.
+  The case uses the course band, prints it as a course band with no source id,
+  and the step's job is to notice that the setpoint is *inside* the band, so the
+  setpoint is not the cause. No new number was invented.
+
+Verification after round 3: `gen_cases.py --check` OK (8 cases, 67 steps),
+`check-cases.js` **67/67** keys independently recomputed, `check-integrity.js`
+OK, `check-quiz.js` OK, `tests/course.test.js` **181 / 0**, `tests/case-qa.js`
+**36 / 0** (8 new `[object Object]` checks), pilot sheet regenerated for 8 cases
+/ 67 steps.
+
 Two test literals had to go: three checks asserted "four" cases, and the QA pass
 asserted 15 template files. All four now derive their expected count from
 `data/cases.json`, because a literal that has to be edited every time a case is

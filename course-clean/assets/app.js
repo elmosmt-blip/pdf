@@ -1174,6 +1174,15 @@
         var v = board.facts[k];
         /* a window is two numbers, and "235,250" in a table cell reads as one */
         if (Array.isArray(v)) v = v.join('\u2013');
+        /* A fact may be keyed by class (conductor reduction: 2 -> 20, 3 -> 10).
+         * Printing the object produced "[object Object]" in the middle of the
+         * board table, which is why any non-scalar is spelled out here rather
+         * than handed to esc(). */
+        else if (v && typeof v === 'object') {
+          v = Object.keys(v).sort().map(function (kk) {
+            return 'Class ' + kk + ': ' + v[kk];
+          }).join(' \u00b7 ');
+        }
         html += '<tr><th scope="row">' + esc(label) + '</th><td>' + esc(v) + '</td></tr>';
       });
       html += '</tbody></table></div></details>';

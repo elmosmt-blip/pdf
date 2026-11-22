@@ -1,0 +1,854 @@
+Rendered outline of #/c/cx-m11-01
+Produced by scripts/capture-case.js from the built tree (build/course-clean).
+This is the live DOM from the shipped engine, not a mock-up.
+
+main #main   [13569 chars]
+  p .kicker   [49 chars]
+    "Toolkit · Module 11 · Manual Soldering and Rework"
+  header .page-head   [117 chars]
+    div   [117 chars]
+      h1   [69 chars]
+        "Rework record: a connector joint, a nicked trace and a hand-held iron"
+      div .meta-line   [48 chars]
+        span .chip.chip--stage   [7 chars]
+          "Board X"
+        span .chip   [6 chars]
+          "30 min"
+        span .chip   [7 chars]
+          "9 steps"
+        span .chip   [14 chars]
+          "rubric 100 pts"
+        span .chip   [14 chars]
+          "Score 0 of 100"
+  section .case-scenario   [673 chars]
+    p   [316 chars]
+      "The short-filled J-01 from the wave case is reworked by hand on a Class 2 Board X assembly. The record in rewo…"
+    p   [235 chars]
+      "Two decisions are waiting. The first is the trace: it was 0.30 mm on the drawing and measures 0.24 mm after th…"
+    p   [122 chars]
+      "Judge the repair against the class, then say what the record has to contain so the next engineer can reproduce…"
+  details .case-board   [1112 chars]
+    summary   [38 chars]
+      "Board X — the product behind this case"
+    div .details-body   [1074 chars]
+      p .muted.flush   [158 chars]
+        "6-layer 1.6 mm FR-4 controller board: QFP-64 at 0.5 mm pitch, QFP-48 at 0.4 mm pitch, one 256-ball BGA at 0.8 …"
+      table .case-facts   [916 chars]
+        tbody   [916 chars]
+          tr   [23 chars]
+            th   [20 chars]
+              "Board thickness (mm)"
+            td   [3 chars]
+              "1.6"
+          tr   [7 chars]
+            th   [6 chars]
+              "Layers"
+            td   [1 chars]
+              "6"
+          tr   [18 chars]
+            th   [14 chars]
+              "Surface finish"
+            td   [4 chars]
+              "ENIG"
+          tr   [25 chars]
+            th   [13 chars]
+              "Base material"
+            td   [12 chars]
+              "FR-4, Tg 170"
+          tr   [17 chars]
+            th   [12 chars]
+              "Stencil (mm)"
+            td   [5 chars]
+              "0.125"
+          tr   [34 chars]
+            th   [31 chars]
+              "Stencil, fine-pitch region (mm)"
+            td   [3 chars]
+              "0.1"
+          tr   [36 chars]
+            th   [12 chars]
+              "Solder paste"
+            td   [24 chars]
+              "SAC305, Type 4, no-clean"
+          tr   [20 chars]
+            th   [17 chars]
+              "QFP-64 pitch (mm)"
+            td   [3 chars]
+              "0.5"
+          tr   [13 chars]
+            th   [11 chars]
+              "QFP-64 pins"
+            td   [2 chars]
+              "64"
+          tr   [20 chars]
+            th   [17 chars]
+              "QFP-48 pitch (mm)"
+            td   [3 chars]
+              "0.4"
+          tr   [22 chars]
+            th   [19 chars]
+              "BGA ball pitch (mm)"
+            td   [3 chars]
+              "0.8"
+          tr   [12 chars]
+            th   [9 chars]
+              "BGA balls"
+            td   [3 chars]
+              "256"
+          tr   [20 chars]
+            th   [16 chars]
+              "Smallest passive"
+            td   [4 chars]
+              "0402"
+          tr   [69 chars]
+            th   [13 chars]
+              "THT connector"
+            td   [56 chars]
+              "20-pin, 2.54 mm pitch, 0.8 mm finished hole, 0.5 mm lead"
+          tr   [21 chars]
+            th   [17 chars]
+              "Lot size (boards)"
+            td   [4 chars]
+              "1240"
+          tr   [26 chars]
+            th   [23 chars]
+              "Solder joints per board"
+            td   [3 chars]
+              "620"
+          tr   [11 chars]
+            th   [5 chars]
+              "Alloy"
+            td   [6 chars]
+              "SAC305"
+          tr   [16 chars]
+            th   [13 chars]
+              "Liquidus (°C)"
+            td   [3 chars]
+              "219"
+          tr   [15 chars]
+            th   [12 chars]
+              "Solidus (°C)"
+            td   [3 chars]
+              "217"
+          tr   [28 chars]
+            th   [23 chars]
+              "Time above liquidus (s)"
+            td   [5 chars]
+              "60–90"
+          tr   [30 chars]
+            th   [23 chars]
+              "Peak window, paste (°C)"
+            td   [7 chars]
+              "235–245"
+          tr   [35 chars]
+            th   [28 chars]
+              "Typical production peak (°C)"
+            td   [7 chars]
+              "235–245"
+          tr   [35 chars]
+            th   [32 chars]
+              "Peak ceiling, large package (°C)"
+            td   [3 chars]
+              "250"
+          tr   [36 chars]
+            th   [34 chars]
+              "Minimum barrel fill, IPC-A-610 (%)"
+            td   [2 chars]
+              "75"
+          tr   [34 chars]
+            th   [32 chars]
+              "Thermal-plane exception fill (%)"
+            td   [2 chars]
+              "50"
+          tr   [36 chars]
+            th   [34 chars]
+              "Leads before the exception applies"
+            td   [2 chars]
+              "14"
+          tr   [24 chars]
+            th   [23 chars]
+              "THT hole, finished (mm)"
+            td   [1 chars]
+              "1"
+          tr   [29 chars]
+            th   [25 chars]
+              "THT hole tolerance (± mm)"
+            td   [4 chars]
+              "0.05"
+          tr   [24 chars]
+            th   [21 chars]
+              "Wave contact time (s)"
+            td   [3 chars]
+              "2–4"
+          tr   [29 chars]
+            th   [27 chars]
+              "Void limit per BGA ball (%)"
+            td   [2 chars]
+              "25"
+          tr   [77 chars]
+            th   [38 chars]
+              "Conductor width reduction by class (%)"
+            td   [39 chars]
+              "Class 1: 30 · Class 2: 20 · Class 3: 10"
+          tr   [39 chars]
+            th   [35 chars]
+              "Annular ring, Class 3 external (mm)"
+            td   [4 chars]
+              "0.05"
+          tr   [35 chars]
+            th   [28 chars]
+              "Hand-soldering setpoint (°C)"
+            td   [7 chars]
+              "330–360"
+  ul .spec-chips   [134 chars]
+    li .spec-chip   [33 chars]
+      span .spec-chip-label   [23 chars]
+        "Hand-soldering setpoint"
+      span .spec-chip-value   [10 chars]
+        "330–360 °C"
+    li .spec-chip   [32 chars]
+      span .spec-chip-label   [28 chars]
+        "Conductor reduction, Class 2"
+      span .spec-chip-value   [4 chars]
+        "20 %"
+    li .spec-chip   [32 chars]
+      span .spec-chip-label   [28 chars]
+        "Conductor reduction, Class 3"
+      span .spec-chip-value   [4 chars]
+        "10 %"
+    li .spec-chip   [37 chars]
+      span .spec-chip-label   [30 chars]
+        "Annular ring, Class 3 external"
+      span .spec-chip-value   [7 chars]
+        "0.05 mm"
+  details .case-data   [443 chars]
+    summary   [29 chars]
+      "Data file — rework-record.csv"
+    div .details-body   [414 chars]
+      p .muted.flush   [161 chars]
+        "One row per assembly. There is one dwell column per contact, so the total iron time is a sum over the row; dry…"
+      div .case-table-wrap   [227 chars]
+        table .case-table   [227 chars]
+          thead   [92 chars]
+            tr   [92 chars]
+              th   [8 chars]
+                "assembly"
+              th   [9 chars]
+                "operation"
+              th   [3 chars]
+                "tip"
+              th   [10 chars]
+                "setpoint_c"
+              th   [9 chars]
+                "preheat_c"
+              th   [8 chars]
+                "contacts"
+              th   [8 chars]
+                "dwell1_s"
+              th   [8 chars]
+                "dwell2_s"
+              th   [8 chars]
+                "dwell3_s"
+              th   [13 chars]
+                "trace_nick_mm"
+              th   [8 chars]
+                "dry_flag"
+          tbody   [135 chars]
+            tr   [48 chars]
+              td   [4 chars]
+                "B-07"
+              td   [11 chars]
+                "J-01 rework"
+              td   [13 chars]
+                "chisel 1.2 mm"
+              td .num   [3 chars]
+                "345"
+              td .num   [2 chars]
+                "95"
+              td .num   [1 chars]
+                "3"
+              td .num   [3 chars]
+                "2.6"
+              td .num   [3 chars]
+                "0.4"
+              td .num   [3 chars]
+                "0.2"
+              td .num   [4 chars]
+                "0.24"
+              td .num   [1 chars]
+                "0"
+            tr   [45 chars]
+              td   [4 chars]
+                "B-08"
+              td   [11 chars]
+                "J-01 rework"
+              td   [13 chars]
+                "chisel 1.2 mm"
+              td .num   [3 chars]
+                "345"
+              td .num   [2 chars]
+                "95"
+              td .num   [1 chars]
+                "2"
+              td .num   [3 chars]
+                "2.2"
+              td .num   [3 chars]
+                "0.1"
+              td .num   [4 chars]
+                "0.30"
+              td .num   [1 chars]
+                "1"
+            tr   [42 chars]
+              td   [4 chars]
+                "B-09"
+              td   [11 chars]
+                "J-01 rework"
+              td   [13 chars]
+                "chisel 1.2 mm"
+              td .num   [3 chars]
+                "345"
+              td .num   [2 chars]
+                "95"
+              td .num   [1 chars]
+                "1"
+              td .num   [3 chars]
+                "2.4"
+              td .num   [4 chars]
+                "0.30"
+              td .num   [1 chars]
+                "0"
+      p .flush   [26 chars]
+        button .btn.btn--small type=button data-act=case-data   [26 chars]
+          "Download rework-record.csv"
+  form .case-form   [6791 chars]
+    ol .case-steps   [6769 chars]
+      li #step-s1 .case-step.case-step--ok   [994 chars]
+        div .case-step-head   [24 chars]
+          span .case-step-n   [18 chars]
+            "Step 1 (10 points)"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [115 chars]
+          "B-07 ran at a 345 °C setpoint. Against the course's hand-soldering band of 330-360 °C, how does that setpoint …"
+        fieldset .case-options   [306 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt   [60 chars]
+            input #in-s1-a type=radio name=c-s1 value=a
+            span .case-opt-text   [60 chars]
+              "Too cold for lead-free and a likely cause of the cold joint."
+          label .case-opt.case-opt--picked   [120 chars]
+            input #in-s1-b type=radio name=c-s1 value=b
+            span .case-opt-text   [120 chars]
+              "Inside the band, near its middle: the setpoint is defensible, so the cause of the short fill is elsewhere in t…"
+          label .case-opt   [52 chars]
+            input #in-s1-c type=radio name=c-s1 value=c
+            span .case-opt-text   [52 chars]
+              "Too hot, and above every published limit for SAC305."
+          label .case-opt   [64 chars]
+            input #in-s1-d type=radio name=c-s1 value=d
+            span .case-opt-text   [64 chars]
+              "Irrelevant, because only the measured joint temperature matters."
+        p #err-s1 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [83 chars]
+          strong   [8 chars]
+            "Correct."
+          "345 °C is inside the 330-360 °C band: the setpoint is not what went wrong."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [446 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [430 chars]
+            "345 °C sits in the middle of the course's 330-360 °C band, and published sources are looser still: IPC-7711 pr…"
+      li #step-s2 .case-step.case-step--ok   [609 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 2 (15 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [116 chars]
+          "B-07 was heated for dwells of 2.6, 0.4 and 0.2 s. What is the total iron time on the board, in seconds? One de…"
+        div .case-input-row   [31 chars]
+          label .case-input-label   [15 chars]
+            "Your answer"
+            span .muted   [3 chars]
+              "(s)"
+          input #in-s2 .case-input type=text name=c-s2 value=3.2
+          span .case-tol.muted   [16 chars]
+            "tolerance ±0.1 s"
+        p #err-s2 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [78 chars]
+          strong   [8 chars]
+            "Correct."
+          "3.2 s in total: the successful contact plus two more the record kept."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [332 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [316 chars]
+            "2.6 + 0.4 + 0.2 = 3.2 s. A single 2.6 s contact is unremarkable; 3.2 s across three contacts means the joint w…"
+      li #step-s3 .case-step.case-step--ok   [595 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 3 (10 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [100 chars]
+          "The iron delivers about 45 W during contact. How much energy went into the board on B-07, in joules?"
+        div .case-input-row   [29 chars]
+          label .case-input-label   [15 chars]
+            "Your answer"
+            span .muted   [3 chars]
+              "(J)"
+          input #in-s3 .case-input type=text name=c-s3 value=144
+          span .case-tol.muted   [14 chars]
+            "tolerance ±2 J"
+        p #err-s3 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [41 chars]
+          strong   [8 chars]
+            "Correct."
+          "144 J of iron time on one joint."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [373 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [357 chars]
+            "45 W for 3.2 s is 144 J. This is the number to put in the record beside the setpoint: a joint that took 144 J …"
+      li #step-s4 .case-step.case-step--ok   [458 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 4 (15 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [91 chars]
+          "The nicked trace was 0.30 mm and measures 0.24 mm. What is the width reduction, in percent?"
+        div .case-input-row   [31 chars]
+          label .case-input-label   [15 chars]
+            "Your answer"
+            span .muted   [3 chars]
+              "(%)"
+          input #in-s4 .case-input type=text name=c-s4 value=20
+          span .case-tol.muted   [16 chars]
+            "tolerance ±0.2 %"
+        p #err-s4 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [46 chars]
+          strong   [8 chars]
+            "Correct."
+          "20.0 %: exactly at the Class 2 limit."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [238 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [222 chars]
+            "0.06 / 0.30 = 20.0 %. On a Class 2 board that is the boundary value: acceptable at the limit, and not a millim…"
+      li #step-s5 .case-step.case-step--ok   [538 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 5 (10 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [83 chars]
+          "What is the narrowest the trace may become and still meet the Class 2 limit, in mm?"
+        div .case-input-row   [35 chars]
+          label .case-input-label   [16 chars]
+            "Your answer"
+            span .muted   [4 chars]
+              "(mm)"
+          input #in-s5 .case-input type=text name=c-s5 value=0.24
+          span .case-tol.muted   [19 chars]
+            "tolerance ±0.005 mm"
+        p #err-s5 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [50 chars]
+          strong   [8 chars]
+            "Correct."
+          "0.24 mm is exactly the floor for Class 2."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [318 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [302 chars]
+            "0.30 mm less 20 % is 0.24 mm, which is what the board measures. The repair passes on the number alone and sits…"
+      li #step-s6 .case-step.case-step--ok   [604 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 6 (10 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [117 chars]
+          "The same repair on a Class 3 board would be judged against 10 %. What is the narrowest acceptable width there,…"
+        div .case-input-row   [35 chars]
+          label .case-input-label   [16 chars]
+            "Your answer"
+            span .muted   [4 chars]
+              "(mm)"
+          input #in-s6 .case-input type=text name=c-s6 value=0.27
+          span .case-tol.muted   [19 chars]
+            "tolerance ±0.005 mm"
+        p #err-s6 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [61 chars]
+          strong   [8 chars]
+            "Correct."
+          "0.27 mm on Class 3: the same board would fail there."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [339 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [323 chars]
+            "0.30 x 0.90 = 0.27 mm. At 0.24 mm the trace is 0.03 mm below the Class 3 floor, so the identical physical repa…"
+      li #step-s7 .case-step.case-step--ok   [881 chars]
+        div .case-step-head   [24 chars]
+          span .case-step-n   [18 chars]
+            "Step 7 (15 points)"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [62 chars]
+          "What is the disposition of the trace on B-07, a Class 2 board?"
+        fieldset .case-options   [271 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt.case-opt--picked   [80 chars]
+            input #in-s7-a type=radio name=c-s7 value=a
+            span .case-opt-text   [80 chars]
+              "Accept: 20 % is at the limit, not over it, and the record shows the measurement."
+          label .case-opt   [81 chars]
+            input #in-s7-b type=radio name=c-s7 value=b
+            span .case-opt-text   [81 chars]
+              "Reject the board: any nick during rework is a repair and repairs are not allowed."
+          label .case-opt   [57 chars]
+            input #in-s7-c type=radio name=c-s7 value=c
+            span .case-opt-text   [57 chars]
+              "Accept and do not record it, since the board still works."
+          label .case-opt   [43 chars]
+            input #in-s7-d type=radio name=c-s7 value=d
+            span .case-opt-text   [43 chars]
+              "Accept on Class 3 limits, which are looser."
+        p #err-s7 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [78 chars]
+          strong   [8 chars]
+            "Correct."
+          "Accept at the limit, with the measurement and the class written down."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [426 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [410 chars]
+            "20.0 % is the Class 2 limit itself, so the trace is acceptable — but only because the class says 20 %. Recordi…"
+      li #step-s8 .case-step.case-step--ok   [1118 chars]
+        div .case-step-head   [24 chars]
+          span .case-step-n   [18 chars]
+            "Step 8 (10 points)"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [143 chars]
+          "B-08 shows dry_flag 1 on its first contact and two contacts in total. What does that row say about the process…"
+        fieldset .case-options   [372 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt   [72 chars]
+            input #in-s8-a type=radio name=c-s8 value=a
+            span .case-opt-text   [72 chars]
+              "Nothing: a dry contact is an operator error and is not a process signal."
+          label .case-opt.case-opt--picked   [189 chars]
+            input #in-s8-b type=radio name=c-s8 value=b
+            span .case-opt-text   [189 chars]
+              "The joint needed more heat than one contact could deliver, so the preheat, tip size or board support is loadin…"
+          label .case-opt   [62 chars]
+            input #in-s8-c type=radio name=c-s8 value=c
+            span .case-opt-text   [62 chars]
+              "The setpoint was too low and should be raised for every joint."
+          label .case-opt   [39 chars]
+            input #in-s8-d type=radio name=c-s8 value=d
+            span .case-opt-text   [39 chars]
+              "The solder wire was the wrong diameter."
+        p #err-s8 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [99 chars]
+          strong   [8 chars]
+            "Correct."
+          "The joint is thermally loaded: preheat, tip size or support, not a global setpoint change."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [460 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [444 chars]
+            "A dry contact is the record's way of saying the joint was not at wetting temperature, and the second contact i…"
+      li #step-s9 .case-step.case-step--ok   [972 chars]
+        div .case-step-head   [23 chars]
+          span .case-step-n   [17 chars]
+            "Step 9 (5 points)"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [83 chars]
+          "What has to be in the rework record for the next engineer to reproduce this result?"
+        fieldset .case-options   [344 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt   [50 chars]
+            input #in-s9-a type=radio name=c-s9 value=a
+            span .case-opt-text   [50 chars]
+              "The pass/fail verdict and the operator's initials."
+          label .case-opt.case-opt--picked   [156 chars]
+            input #in-s9-b type=radio name=c-s9 value=b
+            span .case-opt-text   [156 chars]
+              "Required class, setpoint, tip, preheat, dwells and number of contacts, measured trace width with the limit it …"
+          label .case-opt   [64 chars]
+            input #in-s9-c type=radio name=c-s9 value=c
+            span .case-opt-text   [64 chars]
+              "The serial number and the date, because the process is standard."
+          label .case-opt   [64 chars]
+            input #in-s9-d type=radio name=c-s9 value=d
+            span .case-opt-text   [64 chars]
+              "A photograph of the joint, since numbers cannot describe solder."
+        p #err-s9 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [90 chars]
+          strong   [8 chars]
+            "Correct."
+          "Class, settings, measurements, the limit each was judged against, and the result."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [412 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [396 chars]
+            "A record that says 'passed' cannot be re-judged when the product class changes or the standard moves from Rev …"
+    div .quiz-actions   [22 chars]
+      button .btn.btn--primary type=submit   [16 chars]
+        "Check my answers"
+      button .btn type=button data-act=case-reset   [5 chars]
+        "Clear"
+  div #case-result-slot   [762 chars]
+    section #case-result .case-result   [762 chars]
+      h2   [6 chars]
+        "Result"
+      p .case-score.case-score--pass   [32 chars]
+        "100 % — 100 of 100 rubric points"
+      p .flush   [110 chars]
+        "Mastered. The rubric threshold is 80 %. Best result so far: 100 %. This attempt took about 1 min with 0 hints."
+      table .case-rubric   [560 chars]
+        thead   [21 chars]
+          tr   [21 chars]
+            th   [9 chars]
+              "Criterion"
+            th   [6 chars]
+              "Points"
+            th   [6 chars]
+              "Earned"
+        tbody   [539 chars]
+          tr   [69 chars]
+            td   [65 chars]
+              "Setpoint judged against the band, not against a remembered number"
+            td .num   [2 chars]
+              "10"
+            td .num   [2 chars]
+              "10"
+          tr   [45 chars]
+            td   [41 chars]
+              "Thermal budget counted over every contact"
+            td .num   [2 chars]
+              "15"
+            td .num   [2 chars]
+              "15"
+          tr   [48 chars]
+            td   [44 chars]
+              "Energy in joules derived from power and time"
+            td .num   [2 chars]
+              "10"
+            td .num   [2 chars]
+              "10"
+          tr   [58 chars]
+            td   [54 chars]
+              "Conductor reduction measured against the drawing width"
+            td .num   [2 chars]
+              "15"
+            td .num   [2 chars]
+              "15"
+          tr   [58 chars]
+            td   [54 chars]
+              "Class 2 width floor computed from the percentage limit"
+            td .num   [2 chars]
+              "10"
+            td .num   [2 chars]
+              "10"
+          tr   [66 chars]
+            td   [62 chars]
+              "Class 3 floor computed and the same repair shown to fail there"
+            td .num   [2 chars]
+              "10"
+            td .num   [2 chars]
+              "10"
+          tr   [67 chars]
+            td   [63 chars]
+              "Disposition at the limit accepted with the measurement recorded"
+            td .num   [2 chars]
+              "15"
+            td .num   [2 chars]
+              "15"
+          tr   [72 chars]
+            td   [68 chars]
+              "Dry contact read as a thermal-load signal, not as a setpoint problem"
+            td .num   [2 chars]
+              "10"
+            td .num   [2 chars]
+              "10"
+          tr   [56 chars]
+            td   [54 chars]
+              "Record contents named so the decision can be re-judged"
+            td .num   [1 chars]
+              "5"
+            td .num   [1 chars]
+              "5"
+      div .quiz-actions   [54 chars]
+        button .btn type=button data-act=case-retake   [28 chars]
+          "Try again from a clean sheet"
+        button .btn type=button data-act=case-csv   [25 chars]
+          "Download my answers (CSV)"
+  details .case-rubric-box   [685 chars]
+    summary   [32 chars]
+      "Rubric — how this case is scored"
+    div .details-body   [653 chars]
+      table .case-rubric   [537 chars]
+        thead   [15 chars]
+          tr   [15 chars]
+            th   [9 chars]
+              "Criterion"
+            th   [6 chars]
+              "Points"
+        tbody   [522 chars]
+          tr   [67 chars]
+            td   [65 chars]
+              "Setpoint judged against the band, not against a remembered number"
+            td .num   [2 chars]
+              "10"
+          tr   [43 chars]
+            td   [41 chars]
+              "Thermal budget counted over every contact"
+            td .num   [2 chars]
+              "15"
+          tr   [46 chars]
+            td   [44 chars]
+              "Energy in joules derived from power and time"
+            td .num   [2 chars]
+              "10"
+          tr   [56 chars]
+            td   [54 chars]
+              "Conductor reduction measured against the drawing width"
+            td .num   [2 chars]
+              "15"
+          tr   [56 chars]
+            td   [54 chars]
+              "Class 2 width floor computed from the percentage limit"
+            td .num   [2 chars]
+              "10"
+          tr   [64 chars]
+            td   [62 chars]
+              "Class 3 floor computed and the same repair shown to fail there"
+            td .num   [2 chars]
+              "10"
+          tr   [65 chars]
+            td   [63 chars]
+              "Disposition at the limit accepted with the measurement recorded"
+            td .num   [2 chars]
+              "15"
+          tr   [70 chars]
+            td   [68 chars]
+              "Dry contact read as a thermal-load signal, not as a setpoint problem"
+            td .num   [2 chars]
+              "10"
+          tr   [55 chars]
+            td   [54 chars]
+              "Record contents named so the decision can be re-judged"
+            td .num   [1 chars]
+              "5"
+      p .muted.flush   [116 chars]
+        "Criteria are scored in proportion to the steps they name. A criterion spanning two steps pays half per correct…"
+  section .sources   [2757 chars]
+    details .spoiler   [2757 chars]
+      summary   [11 chars]
+        "Sources — 3"
+      div .details-body   [2746 chars]
+        ul   [2746 chars]
+          li   [872 chars]
+            span .src-id   [7 chars]
+              "src-009"
+            strong   [70 chars]
+              "IPC-7711/7721 Rework, Modification and Repair of Electronic Assemblies"
+            "— IPC-7711C/7721C (January 2017), section Rework and repair procedures; acceptable rework and repair methods, …"
+            span .src-note   [524 chars]
+              "License: paraphrase only · verified by READ from two independent renderings of the primary text. IPC-7711 is R…"
+            span .src-edition   [151 chars]
+              strong   [18 chars]
+                "Superseded edition"
+              "· publisher lists Rev D (January 2024)"
+              span .src-edition-note   [94 chars]
+                "Written against Rev C (January 2017). IPC lists IPC-7711/7721 Rev D, January 2024, as current."
+          li   [850 chars]
+            span .src-id   [7 chars]
+              "src-022"
+            strong   [75 chars]
+              "IPC-A-600 Acceptability of Printed Boards (visual and dimensional criteria)"
+            "— Rev M (May 2025); §2.10.3 and §3.5.3.1 read, section §2.10.3 annular ring; §3.5.3.1 conductor width reductio…"
+            span .src-note   [548 chars]
+              "License: paraphrase only · verified by READ. IPC-A-600 §2.10.3: "Acceptable — Class 3: holes are not centered …"
+            span .src-edition.src-edition--ok   [97 chars]
+              strong   [15 chars]
+                "Current edition"
+              "· publisher lists Rev M (May 2025)"
+              span .src-edition-note   [47 chars]
+                "Rev M is the newest IPC-A-600 in the IPC table."
+          li   [1024 chars]
+            span .src-id   [7 chars]
+              "src-001"
+            strong   [48 chars]
+              "IPC-A-610 Acceptability of Electronic Assemblies"
+            "— Rev H, section §10 through-hole solder fill — vertical barrel fill minimums by class (75 % for Class 2 and C…"
+            span .src-note   [363 chars]
+              "License: paraphrase only · verified by READ. Primary IPC-A-610D fragments read: "Class 2, fill to 75% but with…"
+            span .src-currency   [276 chars]
+              "Superseded. IPC-A-610 Rev J was released in April 2024 and is the current revision; Rev J also removed the "Ta…"
+            span .src-edition   [201 chars]
+              strong   [18 chars]
+                "Superseded edition"
+              "· publisher lists Rev J (March 2024)"
+              span .src-edition-note   [146 chars]
+                "Written against Rev H. Rev J was published in March 2024 and is listed by IPC as current; the criteria quoted …"
+  nav .pager   [46 chars]
+    a .pager-prev href=#/m/m11   [46 chars]
+      span .pager-label   [7 chars]
+        "Back to"
+      span .pager-title   [39 chars]
+        "Module 11 — Manual Soldering and Rework"
+    span

@@ -265,6 +265,101 @@ const EXPECTED = {
   },
   'cx-m09-01.s8': function () { return 'b'; },
 
+  /* m07 — the AOI audit and the X-ray. Rates are recomputed from the audit rows,
+   * voids from the measured diameters in the X-ray table. */
+  'cx-m07-01.s1': function (c, doc) {
+    const rows = dataFile(c, 'aoi-audit.csv');
+    const calls = rows.reduce(function (a, r) { return a + (+r.calls); }, 0);
+    const verified = rows.reduce(function (a, r) { return a + (+r.verified_calls); }, 0);
+    return verified / calls * 100;
+  },
+  'cx-m07-01.s2': function (c, doc) {
+    const rows = dataFile(c, 'aoi-audit.csv');
+    const verified = rows.reduce(function (a, r) { return a + (+r.verified_calls); }, 0);
+    const fals = rows.reduce(function (a, r) { return a + (+r.false_calls); }, 0);
+    return fals / verified * 100;
+  },
+  'cx-m07-01.s3': function (c, doc) {
+    const rows = dataFile(c, 'aoi-audit.csv');
+    const boards = rows.reduce(function (a, r) { return a + (+r.boards); }, 0);
+    const esc = rows.reduce(function (a, r) { return a + (+r.escapes); }, 0);
+    return esc / boards * 100;
+  },
+  'cx-m07-01.s4': function (c, doc) {
+    const rows = dataFile(c, 'aoi-audit.csv');
+    const tru = rows.reduce(function (a, r) { return a + (+r.true_calls); }, 0);
+    const esc = rows.reduce(function (a, r) { return a + (+r.escapes); }, 0);
+    return esc / (tru + esc) * 100;
+  },
+  'cx-m07-01.s5': function () { return 'b'; },
+  'cx-m07-01.s6': function (c, doc) {
+    const r = dataFile(c, 'xray-bga.csv').filter(function (x) { return x.ball === 'A1'; })[0];
+    /* area ratio of circles is the square of the diameter ratio, so pi cancels */
+    const voids = ['void1_d_mm', 'void2_d_mm'].map(function (k) { return +r[k]; })
+      .filter(function (d) { return d > 0; });
+    const num = voids.reduce(function (a, d) { return a + d * d; }, 0);
+    return num / Math.pow(+r.ball_d_mm, 2) * 100;
+  },
+  'cx-m07-01.s7': function (c, doc) {
+    const r = dataFile(c, 'xray-bga.csv').filter(function (x) { return x.ball === 'A1'; })[0];
+    const voids = ['void1_d_mm', 'void2_d_mm'].map(function (k) { return +r[k]; })
+      .filter(function (d) { return d > 0; });
+    const pct = voids.reduce(function (a, d) { return a + d * d; }, 0) /
+      Math.pow(+r.ball_d_mm, 2) * 100;
+    return pct > doc.thresholds.bgaVoidMaxPct[0] ? 'b' : 'a';
+  },
+  'cx-m07-01.s8': function (c, doc) {
+    const r = dataFile(c, 'xray-bga.csv').filter(function (x) { return x.ball === 'A2'; })[0];
+    return Math.pow(+r.void1_d_mm, 2) / Math.pow(+r.ball_d_mm, 2) * 100;
+  },
+  'cx-m07-01.s9': function () { return 'b'; },
+
+  /* m11 — the rework record. Width limits come from the class carried on Board X,
+   * so a change of class changes the expected answer in the checker too. */
+  'cx-m11-01.s1': function (c, doc) {
+    const r = dataFile(c, 'rework-record.csv').filter(function (x) { return x.assembly === 'B-07'; })[0];
+    const band = doc.board.facts.handSetpointWindowC;
+    return (+r.setpoint_c) >= band[0] && (+r.setpoint_c) <= band[1] ? 'b' : 'a';
+  },
+  'cx-m11-01.s2': function (c) {
+    /* every contact on the row counts, not only the one that worked */
+    const r = dataFile(c, 'rework-record.csv').filter(function (x) { return x.assembly === 'B-07'; })[0];
+    let total = 0, cols = 0, k = 1;
+    while (('dwell' + k + '_s') in r) {
+      if (r['dwell' + k + '_s'] !== '') { total += +r['dwell' + k + '_s']; cols++; }
+      k++;
+    }
+    if (cols !== (+r.contacts)) throw new Error('dwell columns do not match contacts');
+    return total;
+  },
+  'cx-m11-01.s3': function (c) {
+    const r = dataFile(c, 'rework-record.csv').filter(function (x) { return x.assembly === 'B-07'; })[0];
+    return ((+r.dwell1_s) + (+r.dwell2_s) + (+r.dwell3_s)) * 45;
+  },
+  'cx-m11-01.s4': function (c) {
+    const r = dataFile(c, 'rework-record.csv').filter(function (x) { return x.assembly === 'B-07'; })[0];
+    const orig = 0.30;
+    return (orig - (+r.trace_nick_mm)) / orig * 100;
+  },
+  'cx-m11-01.s5': function (c, doc) {
+    const pct = doc.thresholds.conductorReductionClass2Pct[0];
+    return 0.30 * (1 - pct / 100);
+  },
+  'cx-m11-01.s6': function (c, doc) {
+    const pct = doc.thresholds.conductorReductionClass3Pct[0];
+    return 0.30 * (1 - pct / 100);
+  },
+  'cx-m11-01.s7': function (c, doc) {
+    const r = dataFile(c, 'rework-record.csv').filter(function (x) { return x.assembly === 'B-07'; })[0];
+    const red = (0.30 - (+r.trace_nick_mm)) / 0.30 * 100;
+    return red <= doc.thresholds.conductorReductionClass2Pct[0] ? 'a' : 'b';
+  },
+  'cx-m11-01.s8': function (c) {
+    const r = dataFile(c, 'rework-record.csv').filter(function (x) { return x.assembly === 'B-08'; })[0];
+    return +r.dry_flag ? 'b' : 'a';
+  },
+  'cx-m11-01.s9': function () { return 'b'; },
+
   'cx-m14-01.s1': function (c, doc) {
     const r = dataFile(c, 'defect-log.csv').filter(function (x) { return x.family === 'BGA void / non-wet'; })[0];
     return dpmo(+r.confirmed, +r.boards_in_window, doc.board.facts.opportunitiesPerBoard);

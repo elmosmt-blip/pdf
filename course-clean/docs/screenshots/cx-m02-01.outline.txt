@@ -2,7 +2,7 @@ Rendered outline of #/c/cx-m02-01
 Produced by scripts/capture-case.js from the built tree (build/course-clean).
 This is the live DOM from the shipped engine, not a mock-up.
 
-main #main   [5996 chars]
+main #main   [6176 chars]
   p .kicker   [50 chars]
     "Toolkit · Module 02 · Storage, MSL and ESD Control"
   header .page-head   [101 chars]
@@ -27,14 +27,14 @@ main #main   [5996 chars]
       "During the second shift a feeder was loaded and the reel sat on the machine for 6 h before the line went down.…"
     p   [182 chars]
       "Decide the disposition. The lesson is explicit that a cabinet above the dry-storage requirement does not stop …"
-  details .case-board   [932 chars]
+  details .case-board   [1112 chars]
     summary   [38 chars]
       "Board X — the product behind this case"
-    div .details-body   [894 chars]
+    div .details-body   [1074 chars]
       p .muted.flush   [158 chars]
         "6-layer 1.6 mm FR-4 controller board: QFP-64 at 0.5 mm pitch, QFP-48 at 0.4 mm pitch, one 256-ball BGA at 0.8 …"
-      table .case-facts   [736 chars]
-        tbody   [736 chars]
+      table .case-facts   [916 chars]
+        tbody   [916 chars]
           tr   [23 chars]
             th   [20 chars]
               "Board thickness (mm)"
@@ -180,6 +180,26 @@ main #main   [5996 chars]
               "Wave contact time (s)"
             td   [3 chars]
               "2–4"
+          tr   [29 chars]
+            th   [27 chars]
+              "Void limit per BGA ball (%)"
+            td   [2 chars]
+              "25"
+          tr   [77 chars]
+            th   [38 chars]
+              "Conductor width reduction by class (%)"
+            td   [39 chars]
+              "Class 1: 30 · Class 2: 20 · Class 3: 10"
+          tr   [39 chars]
+            th   [35 chars]
+              "Annular ring, Class 3 external (mm)"
+            td   [4 chars]
+              "0.05"
+          tr   [35 chars]
+            th   [28 chars]
+              "Hand-soldering setpoint (°C)"
+            td   [7 chars]
+              "330–360"
   details .case-data   [202 chars]
     summary   [23 chars]
       "Data file — msl-log.csv"

@@ -126,11 +126,11 @@ mastered». Обойти нельзя — гейт стоит и на маршр
 
 ```bash
 cd /home/user/pdf/course-clean
-python3 scripts/gen_cases.py --check    # OK (6 cases, 49 steps)
-node scripts/check-cases.js             # keys recomputed 49 of 49
-node scripts/check-integrity.js         # cases 6 (49 steps), OK
-node tests/course.test.js               # PASS — 177 passed, 0 failed
-node tests/case-qa.js                   # 24 passed, 0 failed
+python3 scripts/gen_cases.py --check    # OK (8 cases, 67 steps)
+node scripts/check-cases.js             # keys recomputed 67 of 67
+node scripts/check-integrity.js         # cases 8 (67 steps), OK
+node tests/course.test.js               # PASS — 181 passed, 0 failed
+node tests/case-qa.js                   # 36 passed, 0 failed
 ```
 
 ---
@@ -149,9 +149,14 @@ node tests/case-qa.js                   # 24 passed, 0 failed
    полигонах) на этот разъём не распространяется.
 5. **m09, шаг 5** — что короткая заливка на J-01 и перемычка на J-02 на одной
    плате объясняются одним механизмом, а не «холодным горшком».
-6. **m14, шаг 5** — приемлемо ли, что при Ac = 3 партия принимается, а 8D
+6. **m07, шаги 2–4** — какие знаменатели вы считаете правильными для ложных
+   вызовов и для доли пропусков: 30 % по проверенным вызовам и 7.9 % по
+   вынесенным дефектам — это два разных вопроса.
+7. **m11, шаг 1** — что 345 °C внутри вашего рабочего диапазона 330–360 °C,
+   а не «слишком холодно»; и шаг 7: допустим ли ремонт ровно на пределе 20 %.
+8. **m14, шаг 5** — приемлемо ли, что при Ac = 3 партия принимается, а 8D
    остаётся открытым.
-7. **TAL 60–90 s** — это окно из учебной задачи m06l07, а не из вашего
+9. **TAL 60–90 s** — это окно из учебной задачи m06l07, а не из вашего
    даташита. Решено оставить как есть; при появлении даташита меняется одна
    константа генератора.
 

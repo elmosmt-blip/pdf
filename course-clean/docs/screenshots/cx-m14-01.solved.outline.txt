@@ -2,7 +2,7 @@ Rendered outline of #/c/cx-m14-01
 Produced by scripts/capture-case.js from the built tree (build/course-clean).
 This is the live DOM from the shipped engine, not a mock-up.
 
-main #main   [10702 chars]
+main #main   [10882 chars]
   p .kicker   [51 chars]
     "Toolkit · Module 14 · Defect Analysis and CAPA / 8D"
   header .page-head   [129 chars]
@@ -29,14 +29,14 @@ main #main   [10702 chars]
       "A corrective action has been running for six weeks on a different defect family: 96 defects in 6,000 boards be…"
     p   [91 chars]
       "Compute the metrics the 8D needs, and be honest about what the numbers do and do not prove."
-  details .case-board   [932 chars]
+  details .case-board   [1112 chars]
     summary   [38 chars]
       "Board X — the product behind this case"
-    div .details-body   [894 chars]
+    div .details-body   [1074 chars]
       p .muted.flush   [158 chars]
         "6-layer 1.6 mm FR-4 controller board: QFP-64 at 0.5 mm pitch, QFP-48 at 0.4 mm pitch, one 256-ball BGA at 0.8 …"
-      table .case-facts   [736 chars]
-        tbody   [736 chars]
+      table .case-facts   [916 chars]
+        tbody   [916 chars]
           tr   [23 chars]
             th   [20 chars]
               "Board thickness (mm)"
@@ -182,6 +182,26 @@ main #main   [10702 chars]
               "Wave contact time (s)"
             td   [3 chars]
               "2–4"
+          tr   [29 chars]
+            th   [27 chars]
+              "Void limit per BGA ball (%)"
+            td   [2 chars]
+              "25"
+          tr   [77 chars]
+            th   [38 chars]
+              "Conductor width reduction by class (%)"
+            td   [39 chars]
+              "Class 1: 30 · Class 2: 20 · Class 3: 10"
+          tr   [39 chars]
+            th   [35 chars]
+              "Annular ring, Class 3 external (mm)"
+            td   [4 chars]
+              "0.05"
+          tr   [35 chars]
+            th   [28 chars]
+              "Hand-soldering setpoint (°C)"
+            td   [7 chars]
+              "330–360"
   details .case-data   [142 chars]
     summary   [26 chars]
       "Data file — defect-log.csv"

@@ -82,6 +82,34 @@
       ],
       null,
       "m09l07"
+    ],
+    "bgaVoidMaxPct": [
+      25,
+      "src-007",
+      "m07l04"
+    ],
+    "conductorReductionClass2Pct": [
+      20,
+      "src-022",
+      "m11l04"
+    ],
+    "conductorReductionClass3Pct": [
+      10,
+      "src-022",
+      "m11l04"
+    ],
+    "annularRingMinMm": [
+      0.05,
+      "src-022",
+      "m11l04"
+    ],
+    "handSetpointWindowC": [
+      [
+        330,
+        360
+      ],
+      null,
+      "m11l02"
     ]
   },
   "thread": [
@@ -122,6 +150,20 @@
     },
     {
       "step": 6,
+      "moduleId": "m07",
+      "label": "AOI audit",
+      "asset": "AOI and X-ray audit",
+      "caseId": "cx-m07-01"
+    },
+    {
+      "step": 7,
+      "moduleId": "m11",
+      "label": "Rework",
+      "asset": "Rework and repair record",
+      "caseId": "cx-m11-01"
+    },
+    {
+      "step": 8,
       "moduleId": "m14",
       "label": "8D report",
       "asset": "8D problem report",
@@ -174,6 +216,17 @@
       "waveContactWindowS": [
         2.0,
         4.0
+      ],
+      "bgaVoidMaxPct": 25,
+      "conductorReductionPct": {
+        "1": 30,
+        "2": 20,
+        "3": 10
+      },
+      "annularRingMinMm": 0.05,
+      "handSetpointWindowC": [
+        330,
+        360
       ]
     },
     "labels": {
@@ -205,7 +258,11 @@
       "holeFillExceptionLeads": "Leads before the exception applies",
       "thtHoleNominalMm": "THT hole, finished (mm)",
       "thtHoleToleranceMm": "THT hole tolerance (± mm)",
-      "waveContactWindowS": "Wave contact time (s)"
+      "waveContactWindowS": "Wave contact time (s)",
+      "bgaVoidMaxPct": "Void limit per BGA ball (%)",
+      "conductorReductionPct": "Conductor width reduction by class (%)",
+      "annularRingMinMm": "Annular ring, Class 3 external (mm)",
+      "handSetpointWindowC": "Hand-soldering setpoint (°C)"
     }
   },
   "cases": [
@@ -1866,6 +1923,796 @@
           "to": 120,
           "unit": "°C",
           "note": "Course band (m09l07)"
+        }
+      ]
+    },
+    {
+      "caseId": "cx-m07-01",
+      "moduleId": "m07",
+      "title": "AOI audit: a 91 % true-call rate that still let 18 defects through",
+      "estMinutes": 30,
+      "level": "advanced",
+      "scenario": [
+        "Board X ran twelve thousand boards through AOI. The audit log for four windows is in aoi-audit.csv: boards inspected, calls raised, calls verified, true defects, false calls and the defects found later by test, X-ray and visual audit.",
+        "The line reads the numbers optimistically: ninety percent of the calls were real, so the program is good. Quality has the opposite worry: eighteen defects left the line after AOI, and one of the X-ray follow-ups on a BGA ball looks bad.",
+        "Compute the three rates that matter, say what they do and do not prove, and judge the ball in xray-bga.csv against the applicable limit."
+      ],
+      "dataFiles": [
+        {
+          "name": "aoi-audit.csv",
+          "kind": "csv",
+          "note": "One row per review window. true_calls + false_calls = verified_calls, and verified calls are a subset of the calls raised; escapes are defects AOI did not call that were found later.",
+          "content": "window,boards,calls,verified_calls,true_calls,false_calls,escapes\nW-36,3000,90,75,53,22,5\nW-37,3000,90,75,53,22,4\nW-38,3000,90,75,52,23,5\nW-39,3000,90,75,52,23,4\n"
+        },
+        {
+          "name": "xray-bga.csv",
+          "kind": "csv",
+          "note": "Measured diameters from the X-ray image, one row per ball. A ball may carry more than one void; the criterion counts the cumulative area, not the largest void.",
+          "content": "ball,ball_d_mm,void1_d_mm,void2_d_mm,location\nA1,0.45,0.28,0.14,edge\nA2,0.45,0.10,,centre\nA3,0.45,0.12,0.06,centre\nA4,0.45,0.20,0.12,edge\n"
+        }
+      ],
+      "steps": [
+        {
+          "id": "s1",
+          "type": "numeric",
+          "prompt": "What was the verification coverage, in percent: verified calls over the calls AOI raised? One decimal.",
+          "answer": {
+            "value": 83.3333,
+            "tolerance": 0.2,
+            "unit": "%"
+          },
+          "hints": [
+            "Coverage is about the calls that were reviewed, not about the boards.",
+            "Add the verified_calls column and divide by the calls column.",
+            "300 / 360 = 83.3 %."
+          ],
+          "feedbackCorrect": "83.3 % of the calls were verified; the remaining 60 were never looked at.",
+          "feedbackWrong": "Verified calls over total calls, from the columns in the audit log.",
+          "explanation": "300 of 360 calls were verified, so coverage is 83.3 %. That number matters more than it looks: every rate computed from the verified subset is an estimate for the whole population, and the 60 unverified calls are an unknown. A false-call rate quoted without its coverage is a number with no error bar."
+        },
+        {
+          "id": "s2",
+          "type": "numeric",
+          "prompt": "What is the false-call rate among verified calls, in percent? One decimal.",
+          "answer": {
+            "value": 30.0,
+            "tolerance": 0.2,
+            "unit": "%"
+          },
+          "hints": [
+            "The denominator is the calls that were verified, not the calls raised.",
+            "90 / 300.",
+            "30.0 %."
+          ],
+          "feedbackCorrect": "30.0 % of verified calls were good boards.",
+          "feedbackWrong": "False calls over verified calls; the raised calls belong in coverage, not here.",
+          "explanation": "90 of 300 verified calls were false, so 30.0 %. Not 25 % (that would divide by the 360 raised) and not 0.75 % (that would divide by the boards). Three different denominators give three different-looking programs out of the same week, which is why the definition has to travel with the number."
+        },
+        {
+          "id": "s3",
+          "type": "numeric",
+          "prompt": "What is the escape rate at board level, in percent? Give two decimals.",
+          "answer": {
+            "value": 0.15,
+            "tolerance": 0.02,
+            "unit": "%"
+          },
+          "hints": [
+            "Escape rate is defects found after AOI over the units inspected.",
+            "18 / 12000.",
+            "0.15 %."
+          ],
+          "feedbackCorrect": "0.15 % of boards carried a defect AOI did not call.",
+          "feedbackWrong": "Defects found later, over boards inspected: not over the calls.",
+          "explanation": "18 / 12,000 = 0.15 %. That is the number a customer will ask for, and it is a board rate: it says nothing about which joint failed. The same 18 defects could sit in 18 boards at one joint each, or in one board at 18 joints, and a joint-level escape rate would answer a different question."
+        },
+        {
+          "id": "s4",
+          "type": "numeric",
+          "prompt": "Quality wants the escape rate against the defects AOI actually caught. Using verified true calls and escapes, what is that rate, in percent? One decimal.",
+          "answer": {
+            "value": 7.8947,
+            "tolerance": 0.2,
+            "unit": "%"
+          },
+          "hints": [
+            "The denominator is the opportunities AOI judged: true calls plus escapes.",
+            "210 true calls, 18 escapes.",
+            "18 / 228 = 7.9 %."
+          ],
+          "feedbackCorrect": "7.9 % of the judged defects escaped AOI.",
+          "feedbackWrong": "True calls are the verified calls minus the false calls; add the escapes to them.",
+          "explanation": "210 true calls plus 18 escapes is 228 found defects, so 18 / 228 = 7.9 %. This is the share of defects that AOI missed, and it is two orders of magnitude larger than the board-level rate. Both are true; they answer different questions, and reporting only the flattering one is how an escape problem stays invisible."
+        },
+        {
+          "id": "s5",
+          "type": "choice",
+          "prompt": "The line says: ninety percent of the calls were real, so the program is good. What is the correct reading?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Accept the program: a 91 % true-call rate is a good result on its own."
+            },
+            {
+              "id": "b",
+              "text": "The program still has a 30 % false-call rate that costs review capacity and a 7.9 % escape rate on judged defects; the true-call rate alone proves neither capacity nor coverage."
+            },
+            {
+              "id": "c",
+              "text": "Reject the program: any escape means AOI is not fit for purpose."
+            },
+            {
+              "id": "d",
+              "text": "Tighten every threshold until the escape rate is zero."
+            }
+          ],
+          "answer": {
+            "value": "b"
+          },
+          "hints": [
+            "A true-call rate is one ratio; the cost of review and the cost of escapes are two others.",
+            "False calls consume operator attention, and attention is what makes a 30 % rate dangerous.",
+            "Judge the program on false calls, escapes and coverage together, not on the flattering ratio."
+          ],
+          "feedbackCorrect": "Both costs are real: 30 % false calls burn reviewer attention, and 7.9 % of judged defects escaped.",
+          "feedbackWrong": "Which two costs does the true-call rate leave out?",
+          "explanation": "A 91 % true-call rate is arithmetic, not a verdict. The same week produced 90 false calls that had to be reviewed by hand and 18 defects that left the line. False calls are not free: they train operators to clear calls quickly, which is exactly how the next escape happens. Tightening every threshold to chase zero escapes moves the cost to review capacity and, at some point, to people dismissing calls without looking. The program is judged on all three rates and on what the customer needs."
+        },
+        {
+          "id": "s6",
+          "type": "numeric",
+          "prompt": "Ball A1 measures 0.45 mm and carries two voids, 0.28 mm and 0.14 mm. What is the cumulative void area as a percentage of the ball area? One decimal.",
+          "answer": {
+            "value": 48.3951,
+            "tolerance": 0.2,
+            "unit": "%"
+          },
+          "hints": [
+            "Area scales with the square of the diameter, so two voids do not add as diameters.",
+            "Sum the void areas first, then divide by the ball area.",
+            "(0.28^2 + 0.14^2) / 0.45^2 = 48.4 %."
+          ],
+          "feedbackCorrect": "48.4 % of the ball area — nearly double the limit.",
+          "feedbackWrong": "Sum the void areas, not the diameters, and divide by the full ball area.",
+          "explanation": "The voids have radii 0.14 mm and 0.07 mm, so their areas are pi*0.0196 = 0.0616 mm2 and pi*0.0049 = 0.0154 mm2, 0.0770 mm2 together. The ball has radius 0.225 mm and an area of pi*0.0506 = 0.1590 mm2. 0.0770 / 0.1590 = 48.4 %, which is nearly twice the 25 % limit. The arithmetic shortcut is to divide squares of diameters, since pi cancels: (0.28^2 + 0.14^2) / 0.45^2 gives the same 48.4 %. What the step is really testing is that two voids add as areas: adding the diameters would give a plausible and wrong 42 %."
+        },
+        {
+          "id": "s7",
+          "type": "choice",
+          "prompt": "Against the 25 % per-ball criterion, what is the disposition of ball A1?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Accept: the largest single void is 0.28 mm, which is under half the ball."
+            },
+            {
+              "id": "b",
+              "text": "Reject the ball: the cumulative void area is far above 25 % of the ball area, and the criterion counts cumulative area per ball, not the largest void."
+            },
+            {
+              "id": "c",
+              "text": "Accept: voids at the ball edge drain better than central voids."
+            },
+            {
+              "id": "d",
+              "text": "Accept and average the four balls: the array as a whole is under 25 %."
+            }
+          ],
+          "answer": {
+            "value": "b"
+          },
+          "hints": [
+            "The criterion is cumulative projected area per ball, in an X-ray image.",
+            "Two voids both count; the diameter of the larger one is not the measure.",
+            "A ball over the limit fails on its own, whatever the rest of the array reads."
+          ],
+          "feedbackCorrect": "Reject the ball: cumulative void area is well over 25 %, and the limit is per ball.",
+          "feedbackWrong": "Which of the four numbers in the sentence is the criterion written against?",
+          "explanation": "The limit is cumulative projected void area against ball area, per ball, and A1 is far over it. Comparing one void's diameter with the ball's diameter is a different calculation that happens to look reassuring. Edge location is a reliability concern on top of the area, not a credit against it, and averaging across the array would let a failing ball hide behind three good ones — the same averaging error as in m06 and m08."
+        },
+        {
+          "id": "s8",
+          "type": "numeric",
+          "prompt": "Ball A2 carries one 0.10 mm void in a 0.45 mm ball. What is its void percentage? One decimal.",
+          "answer": {
+            "value": 4.9383,
+            "tolerance": 0.1,
+            "unit": "%"
+          },
+          "hints": [
+            "With circular voids in one ball, the area ratio is the square of the diameter ratio.",
+            "(0.10 / 0.45)^2 x 100.",
+            "4.9 %."
+          ],
+          "feedbackCorrect": "4.9 %: a void this size is a process indicator, not a defect.",
+          "feedbackWrong": "Square the diameter ratio; the pi cancels.",
+          "explanation": "(0.10 / 0.45)^2 = 0.0494, so 4.9 %. Small central voids are common and the criterion is not a zero-void rule: chasing a void-free joint costs rework and heat cycles and buys nothing the standard asks for. The judgement is A1 fails and A2 passes, on the same board, which is what per-ball criteria are for."
+        },
+        {
+          "id": "s9",
+          "type": "choice",
+          "prompt": "What does the X-ray finding change about the AOI program?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Nothing: voids under a BGA are invisible to AOI, so it is a separate issue."
+            },
+            {
+              "id": "b",
+              "text": "It confirms the escape question: AOI cannot see under the package, so the hidden-joint sample has to be defined in the program rather than assumed to be covered by the AOI call rate."
+            },
+            {
+              "id": "c",
+              "text": "It means AOI should be replaced by X-ray on every board."
+            },
+            {
+              "id": "d",
+              "text": "It means the AOI thresholds were too loose and must be tightened."
+            }
+          ],
+          "answer": {
+            "value": "b"
+          },
+          "hints": [
+            "Ask what AOI can physically see: component presence, fillet shape, exposed joints.",
+            "A BGA ball is behind the package, so no AOI threshold reaches it.",
+            "The program's coverage claim has to name the method that covers each defect class."
+          ],
+          "feedbackCorrect": "It defines a gap in coverage: hidden joints need their own sample, not a tighter AOI threshold.",
+          "feedbackWrong": "Which defect classes in this case could AOI never have called?",
+          "explanation": "AOI sees what the camera sees, and a BGA ball is under the package. The 18 escapes and the failed ball are the same lesson from two directions: the program's coverage claim has to be written per defect class, with X-ray or another method named for the hidden ones. Tightening AOI thresholds cannot find a void under an opaque package, and X-raying every board is a cost decision, not a threshold decision."
+        }
+      ],
+      "rubric": [
+        {
+          "criterion": "Coverage computed on calls, with its consequence stated",
+          "points": 15,
+          "steps": [
+            "s1"
+          ]
+        },
+        {
+          "criterion": "False-call rate computed on verified calls, not on raised calls",
+          "points": 15,
+          "steps": [
+            "s2"
+          ]
+        },
+        {
+          "criterion": "Board-level escape rate computed on boards",
+          "points": 10,
+          "steps": [
+            "s3"
+          ]
+        },
+        {
+          "criterion": "Escape rate against judged defects computed on a matching denominator",
+          "points": 15,
+          "steps": [
+            "s4"
+          ]
+        },
+        {
+          "criterion": "Program judged on false calls, escapes and coverage together",
+          "points": 15,
+          "steps": [
+            "s5"
+          ]
+        },
+        {
+          "criterion": "Cumulative void area computed per ball, not from the largest void",
+          "points": 15,
+          "steps": [
+            "s6",
+            "s8"
+          ]
+        },
+        {
+          "criterion": "Ball rejected on the per-ball criterion, not averaged over the array",
+          "points": 10,
+          "steps": [
+            "s7"
+          ]
+        },
+        {
+          "criterion": "Hidden-joint gap named as a coverage problem, not a threshold problem",
+          "points": 5,
+          "steps": [
+            "s9"
+          ]
+        }
+      ],
+      "templates": [
+        {
+          "templateId": "aoi-audit",
+          "name": "AOI and X-ray audit log",
+          "status": "available",
+          "use": "Record calls, verified calls, true defects, false calls and escapes for one window, so the three rates are computed from one consistent denominator.",
+          "lesson": "m07l03",
+          "variants": [
+            {
+              "variant": "blank",
+              "file": "aoi-audit-blank.csv",
+              "mime": "text/csv",
+              "label": "Blank",
+              "content": "window,boards,calls,verified_calls,true_calls,false_calls,escapes\r\n,,,,,,\r\n,,,,,,\r\n,,,,,,\r\n"
+            },
+            {
+              "variant": "example",
+              "file": "aoi-audit-example.csv",
+              "mime": "text/csv",
+              "label": "Example",
+              "content": "window,boards,calls,verified_calls,true_calls,false_calls,escapes\nW-36,3000,90,75,53,22,5\nW-37,3000,90,75,53,22,4\nW-38,3000,90,75,52,23,5\nW-39,3000,90,75,52,23,4\n"
+            },
+            {
+              "variant": "guide",
+              "file": "aoi-audit-guide.md",
+              "mime": "text/markdown",
+              "label": "Guide",
+              "content": "# AOI and X-ray audit log\n\n## What this template is for\nRecord calls, verified calls, true defects, false calls and escapes for one window, so the three rates are computed from one consistent denominator.\n\n## How to fill it in\n1. Copy one row per audit window. Do not merge rows: one aperture, one reel, one interval or one 8D discipline per line.\n2. Keep the column order. The columns below are the ones the course's own worked examples use.\n3. Leave a cell blank rather than writing a guess. A blank cell is a question for the engineer; a guessed number is a defect in the record.\n\n## Columns\n- `window`\n- `boards`\n- `calls`\n- `verified_calls`\n- `true_calls`\n- `false_calls`\n- `escapes`\n\n## Worked example\nThe example variant of this file is the data file from case cx-m07-01 (AOI audit: a 91 % true-call rate that still let 18 defects through), filled in with Board X numbers.\n\n## Where the numbers come from\nEvery value in the example is produced by scripts/gen_cases.py and checked by scripts/check-cases.js. If you change a number in the example, the checker fails: that is deliberate.\n\n## Course link\nSee lesson m07l03 for the reasoning behind each column.\n"
+            }
+          ]
+        },
+        {
+          "templateId": "xray-void",
+          "name": "X-ray void record",
+          "status": "available",
+          "use": "Record measured ball and void diameters per ball so the void percentage is a calculation, not an impression from a greyscale image.",
+          "lesson": "m07l04",
+          "variants": [
+            {
+              "variant": "blank",
+              "file": "xray-void-blank.csv",
+              "mime": "text/csv",
+              "label": "Blank",
+              "content": "ball,ball_d_mm,void1_d_mm,void2_d_mm,location\r\n,,,,\r\n,,,,\r\n,,,,\r\n"
+            },
+            {
+              "variant": "example",
+              "file": "xray-void-example.csv",
+              "mime": "text/csv",
+              "label": "Example",
+              "content": "ball,ball_d_mm,void1_d_mm,void2_d_mm,location\nA1,0.45,0.28,0.14,edge\nA2,0.45,0.10,,centre\nA3,0.45,0.12,0.06,centre\nA4,0.45,0.20,0.12,edge\n"
+            },
+            {
+              "variant": "guide",
+              "file": "xray-void-guide.md",
+              "mime": "text/markdown",
+              "label": "Guide",
+              "content": "# X-ray void record\n\n## What this template is for\nRecord measured ball and void diameters per ball so the void percentage is a calculation, not an impression from a greyscale image.\n\n## How to fill it in\n1. Copy one row per ball. Do not merge rows: one aperture, one reel, one interval or one 8D discipline per line.\n2. Keep the column order. The columns below are the ones the course's own worked examples use.\n3. Leave a cell blank rather than writing a guess. A blank cell is a question for the engineer; a guessed number is a defect in the record.\n\n## Columns\n- `ball`\n- `ball_d_mm`\n- `void1_d_mm`\n- `void2_d_mm`\n- `location`\n\n## Worked example\nThe example variant of this file is the data file from case cx-m07-01 (AOI audit: a 91 % true-call rate that still let 18 defects through), filled in with Board X numbers.\n\n## Where the numbers come from\nEvery value in the example is produced by scripts/gen_cases.py and checked by scripts/check-cases.js. If you change a number in the example, the checker fails: that is deliberate.\n\n## Course link\nSee lesson m07l04 for the reasoning behind each column.\n"
+            }
+          ]
+        }
+      ],
+      "toolLinks": [
+        {
+          "label": "AOI metrics and verification (lesson m07l03)",
+          "href": "#/l/m07l03"
+        },
+        {
+          "label": "X-ray interpretation (lesson m07l04)",
+          "href": "#/l/m07l04"
+        },
+        {
+          "label": "False calls and escapes are linked (lesson m07l02)",
+          "href": "#/l/m07l02"
+        }
+      ],
+      "sources": [
+        "src-001",
+        "src-007"
+      ],
+      "generatedBy": "scripts/gen_cases.py",
+      "spec": [
+        {
+          "label": "Void limit per BGA ball",
+          "value": 25,
+          "unit": "%",
+          "note": "Cumulative projected area, per ball, X-ray image (m07l04)"
+        },
+        {
+          "label": "Verification coverage",
+          "value": 83.3,
+          "unit": "%",
+          "note": "Verified calls over calls raised, this window"
+        },
+        {
+          "label": "Escape rate",
+          "value": 0.15,
+          "unit": "%",
+          "note": "Defects found later over boards inspected"
+        }
+      ]
+    },
+    {
+      "caseId": "cx-m11-01",
+      "moduleId": "m11",
+      "title": "Rework record: a connector joint, a nicked trace and a hand-held iron",
+      "estMinutes": 30,
+      "level": "advanced",
+      "scenario": [
+        "The short-filled J-01 from the wave case is reworked by hand on a Class 2 Board X assembly. The record in rework-record.csv carries the setpoint, the preheat, the dwell of each contact and what the operator measured afterwards: one trace nicked while the connector came off, and one joint that needed three contacts.",
+        "Two decisions are waiting. The first is the trace: it was 0.30 mm on the drawing and measures 0.24 mm after the nick. The second is the thermal budget: whether four and a half minutes of iron time on one joint is a record or a warning.",
+        "Judge the repair against the class, then say what the record has to contain so the next engineer can reproduce the result."
+      ],
+      "dataFiles": [
+        {
+          "name": "rework-record.csv",
+          "kind": "csv",
+          "note": "One row per assembly. There is one dwell column per contact, so the total iron time is a sum over the row; dry_flag marks a contact that produced no solder flow.",
+          "content": "assembly,operation,tip,setpoint_c,preheat_c,contacts,dwell1_s,dwell2_s,dwell3_s,trace_nick_mm,dry_flag\nB-07,J-01 rework,chisel 1.2 mm,345,95,3,2.6,0.4,0.2,0.24,0\nB-08,J-01 rework,chisel 1.2 mm,345,95,2,2.2,0.1,0.30,1\nB-09,J-01 rework,chisel 1.2 mm,345,95,1,2.4,0.30,0\n"
+        }
+      ],
+      "steps": [
+        {
+          "id": "s1",
+          "type": "choice",
+          "prompt": "B-07 ran at a 345 °C setpoint. Against the course's hand-soldering band of 330-360 °C, how does that setpoint read?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Too cold for lead-free and a likely cause of the cold joint."
+            },
+            {
+              "id": "b",
+              "text": "Inside the band, near its middle: the setpoint is defensible, so the cause of the short fill is elsewhere in the budget."
+            },
+            {
+              "id": "c",
+              "text": "Too hot, and above every published limit for SAC305."
+            },
+            {
+              "id": "d",
+              "text": "Irrelevant, because only the measured joint temperature matters."
+            }
+          ],
+          "answer": {
+            "value": "b"
+          },
+          "hints": [
+            "The course band for hand soldering lead-free is 330-360 °C, and J-STD-001 does not fix one number for every joint.",
+            "345 sits between 330 and 360.",
+            "The setpoint is inside the band, so it is not the defect."
+          ],
+          "feedbackCorrect": "345 °C is inside the 330-360 °C band: the setpoint is not what went wrong.",
+          "feedbackWrong": "Compare the setpoint with the band the lesson gives, not with a number from memory.",
+          "explanation": "345 °C sits in the middle of the course's 330-360 °C band, and published sources are looser still: IPC-7711 procedures start at about 315 °C and say to change it as necessary, vendor tables quote up to 400 °C for lead-free. So the setpoint is not the defect, and 'raise the temperature' is not a diagnosis. The setpoint is also only half the budget: contact time, preheat and how many times the joint is heated decide the outcome."
+        },
+        {
+          "id": "s2",
+          "type": "numeric",
+          "prompt": "B-07 was heated for dwells of 2.6, 0.4 and 0.2 s. What is the total iron time on the board, in seconds? One decimal.",
+          "answer": {
+            "value": 3.2,
+            "tolerance": 0.1,
+            "unit": "s"
+          },
+          "hints": [
+            "The budget counts every contact, not only the successful one.",
+            "2.6 + 0.4 + 0.2.",
+            "3.2 s."
+          ],
+          "feedbackCorrect": "3.2 s in total: the successful contact plus two more the record kept.",
+          "feedbackWrong": "Add every dwell in the row, including the ones that produced nothing.",
+          "explanation": "2.6 + 0.4 + 0.2 = 3.2 s. A single 2.6 s contact is unremarkable; 3.2 s across three contacts means the joint was brought to temperature, lost it, and was brought up again. Repeated heating grows the intermetallic layer and stresses the pad, which is why the count of contacts belongs in the record next to the dwell."
+        },
+        {
+          "id": "s3",
+          "type": "numeric",
+          "prompt": "The iron delivers about 45 W during contact. How much energy went into the board on B-07, in joules?",
+          "answer": {
+            "value": 144.0,
+            "tolerance": 2.0,
+            "unit": "J"
+          },
+          "hints": [
+            "Energy is power times time.",
+            "45 W x 3.2 s.",
+            "144 J."
+          ],
+          "feedbackCorrect": "144 J of iron time on one joint.",
+          "feedbackWrong": "Multiply the total seconds by the power; J = W x s.",
+          "explanation": "45 W for 3.2 s is 144 J. This is the number to put in the record beside the setpoint: a joint that took 144 J is a joint with a thermal problem — a ground plane, a cold preheat, or a tip too small for the pad — and not a joint that needed a hotter setpoint. It becomes the baseline for the next board, which is the whole point of recording a thermal budget."
+        },
+        {
+          "id": "s4",
+          "type": "numeric",
+          "prompt": "The nicked trace was 0.30 mm and measures 0.24 mm. What is the width reduction, in percent?",
+          "answer": {
+            "value": 20.0,
+            "tolerance": 0.2,
+            "unit": "%"
+          },
+          "hints": [
+            "Reduction is measured against the drawing width, not against the repaired one.",
+            "(0.30 - 0.24) / 0.30.",
+            "20.0 %."
+          ],
+          "feedbackCorrect": "20.0 %: exactly at the Class 2 limit.",
+          "feedbackWrong": "The loss over the original width; a 20 % reduction is 0.06 mm on a 0.30 mm trace.",
+          "explanation": "0.06 / 0.30 = 20.0 %. On a Class 2 board that is the boundary value: acceptable at the limit, and not a millimetre to spare. On a Class 3 board the same repair would be a defect twice over, because the limit there is 10 %."
+        },
+        {
+          "id": "s5",
+          "type": "numeric",
+          "prompt": "What is the narrowest the trace may become and still meet the Class 2 limit, in mm?",
+          "answer": {
+            "value": 0.24,
+            "tolerance": 0.005,
+            "unit": "mm"
+          },
+          "hints": [
+            "Turn the percentage into a width: the limit is 20 % of 0.30 mm.",
+            "0.30 x 0.80.",
+            "0.24 mm."
+          ],
+          "feedbackCorrect": "0.24 mm is exactly the floor for Class 2.",
+          "feedbackWrong": "Subtract the allowed loss from the drawing width, or multiply by (1 - 20 %).",
+          "explanation": "0.30 mm less 20 % is 0.24 mm, which is what the board measures. The repair passes on the number alone and sits on the edge of it: any further erosion during cleaning or another pass puts it inside the nonconforming band, which is why the measurement has to be in the record and not in someone's memory."
+        },
+        {
+          "id": "s6",
+          "type": "numeric",
+          "prompt": "The same repair on a Class 3 board would be judged against 10 %. What is the narrowest acceptable width there, in mm?",
+          "answer": {
+            "value": 0.27,
+            "tolerance": 0.005,
+            "unit": "mm"
+          },
+          "hints": [
+            "Class 3 allows a tenth of the width, not a fifth.",
+            "0.30 x 0.90.",
+            "0.27 mm."
+          ],
+          "feedbackCorrect": "0.27 mm on Class 3: the same board would fail there.",
+          "feedbackWrong": "Multiply the drawing width by (1 - 10 %).",
+          "explanation": "0.30 x 0.90 = 0.27 mm. At 0.24 mm the trace is 0.03 mm below the Class 3 floor, so the identical physical repair is acceptable on Class 2 and a defect on Class 3. That is the point of recording the required class before the repair: the class is set by the product, not by the operator's judgement of how bad the nick looks."
+        },
+        {
+          "id": "s7",
+          "type": "choice",
+          "prompt": "What is the disposition of the trace on B-07, a Class 2 board?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Accept: 20 % is at the limit, not over it, and the record shows the measurement."
+            },
+            {
+              "id": "b",
+              "text": "Reject the board: any nick during rework is a repair and repairs are not allowed."
+            },
+            {
+              "id": "c",
+              "text": "Accept and do not record it, since the board still works."
+            },
+            {
+              "id": "d",
+              "text": "Accept on Class 3 limits, which are looser."
+            }
+          ],
+          "answer": {
+            "value": "a"
+          },
+          "hints": [
+            "The limit is a maximum reduction, so a value equal to it is inside.",
+            "Class 2 allows 20 %; the board measured 20.0 %.",
+            "Accept, and record the measurement and the class it was judged against."
+          ],
+          "feedbackCorrect": "Accept at the limit, with the measurement and the class written down.",
+          "feedbackWrong": "Is the measured value over the limit for the class this board actually is?",
+          "explanation": "20.0 % is the Class 2 limit itself, so the trace is acceptable — but only because the class says 20 %. Recording it is what makes the acceptance defensible: a year later the board either has a line that says '0.24 mm, Class 2, limit 20 %' or it has nothing, and 'it still works' is not a record. Class 3 would have made the same measurement a defect, and no class makes it unnecessary to write the number down."
+        },
+        {
+          "id": "s8",
+          "type": "choice",
+          "prompt": "B-08 shows dry_flag 1 on its first contact and two contacts in total. What does that row say about the process, rather than about the operator?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Nothing: a dry contact is an operator error and is not a process signal."
+            },
+            {
+              "id": "b",
+              "text": "The joint needed more heat than one contact could deliver, so the preheat, tip size or board support is loading the joint beyond the budget — the same thermal question the wave case raised."
+            },
+            {
+              "id": "c",
+              "text": "The setpoint was too low and should be raised for every joint."
+            },
+            {
+              "id": "d",
+              "text": "The solder wire was the wrong diameter."
+            }
+          ],
+          "answer": {
+            "value": "b"
+          },
+          "hints": [
+            "A contact that produced no flow means the joint was not at temperature.",
+            "Two contacts on the same joint is a repeat of the m08 finding: the thermal path is the constraint.",
+            "Fix the heat path, not the setpoint for every joint on the line."
+          ],
+          "feedbackCorrect": "The joint is thermally loaded: preheat, tip size or support, not a global setpoint change.",
+          "feedbackWrong": "What is the difference between 'this joint is hard to heat' and 'the iron is too cold'?",
+          "explanation": "A dry contact is the record's way of saying the joint was not at wetting temperature, and the second contact is the recovery. Raising the setpoint for the whole line would overheat every easy joint to rescue one hard one; the m08 case reached the same conclusion from the wave side. The fix is in the heat path — preheat the board, use a tip that matches the pad, support the board — and the record is what shows the fix worked on the next one."
+        },
+        {
+          "id": "s9",
+          "type": "choice",
+          "prompt": "What has to be in the rework record for the next engineer to reproduce this result?",
+          "options": [
+            {
+              "id": "a",
+              "text": "The pass/fail verdict and the operator's initials."
+            },
+            {
+              "id": "b",
+              "text": "Required class, setpoint, tip, preheat, dwells and number of contacts, measured trace width with the limit it was judged against, and the inspection result."
+            },
+            {
+              "id": "c",
+              "text": "The serial number and the date, because the process is standard."
+            },
+            {
+              "id": "d",
+              "text": "A photograph of the joint, since numbers cannot describe solder."
+            }
+          ],
+          "answer": {
+            "value": "b"
+          },
+          "hints": [
+            "Reproducing a result needs the settings, the measurements and the standard they were judged against.",
+            "A verdict without the numbers cannot be re-judged when the class or the standard changes.",
+            "Class, settings, measurements, limits, result."
+          ],
+          "feedbackCorrect": "Class, settings, measurements, the limit each was judged against, and the result.",
+          "feedbackWrong": "Which of these could another engineer use to reach the same decision without asking you?",
+          "explanation": "A record that says 'passed' cannot be re-judged when the product class changes or the standard moves from Rev C to Rev D, and that is exactly what happened to this course's own source. Class, setpoint, tip, preheat, dwells, contact count, the measured width with its limit, and the inspection result make the decision reproducible. A photo is useful evidence and not a substitute for the numbers."
+        }
+      ],
+      "rubric": [
+        {
+          "criterion": "Setpoint judged against the band, not against a remembered number",
+          "points": 10,
+          "steps": [
+            "s1"
+          ]
+        },
+        {
+          "criterion": "Thermal budget counted over every contact",
+          "points": 15,
+          "steps": [
+            "s2"
+          ]
+        },
+        {
+          "criterion": "Energy in joules derived from power and time",
+          "points": 10,
+          "steps": [
+            "s3"
+          ]
+        },
+        {
+          "criterion": "Conductor reduction measured against the drawing width",
+          "points": 15,
+          "steps": [
+            "s4"
+          ]
+        },
+        {
+          "criterion": "Class 2 width floor computed from the percentage limit",
+          "points": 10,
+          "steps": [
+            "s5"
+          ]
+        },
+        {
+          "criterion": "Class 3 floor computed and the same repair shown to fail there",
+          "points": 10,
+          "steps": [
+            "s6"
+          ]
+        },
+        {
+          "criterion": "Disposition at the limit accepted with the measurement recorded",
+          "points": 15,
+          "steps": [
+            "s7"
+          ]
+        },
+        {
+          "criterion": "Dry contact read as a thermal-load signal, not as a setpoint problem",
+          "points": 10,
+          "steps": [
+            "s8"
+          ]
+        },
+        {
+          "criterion": "Record contents named so the decision can be re-judged",
+          "points": 5,
+          "steps": [
+            "s9"
+          ]
+        }
+      ],
+      "templates": [
+        {
+          "templateId": "rework-record",
+          "name": "Rework and repair record",
+          "status": "available",
+          "use": "Log setpoint, tip, preheat, dwell, number of contacts and the measured result against the class limit, so a repair can be defended a year later.",
+          "lesson": "m11l05",
+          "variants": [
+            {
+              "variant": "blank",
+              "file": "rework-record-blank.csv",
+              "mime": "text/csv",
+              "label": "Blank",
+              "content": "assembly,operation,tip,setpoint_c,preheat_c,contacts,dwell1_s,dwell2_s,dwell3_s,trace_nick_mm,dry_flag\r\n,,,,,,,,,,\r\n,,,,,,,,,,\r\n,,,,,,,,,,\r\n"
+            },
+            {
+              "variant": "example",
+              "file": "rework-record-example.csv",
+              "mime": "text/csv",
+              "label": "Example",
+              "content": "assembly,operation,tip,setpoint_c,preheat_c,contacts,dwell1_s,dwell2_s,dwell3_s,trace_nick_mm,dry_flag\nB-07,J-01 rework,chisel 1.2 mm,345,95,3,2.6,0.4,0.2,0.24,0\nB-08,J-01 rework,chisel 1.2 mm,345,95,2,2.2,0.1,0.30,1\nB-09,J-01 rework,chisel 1.2 mm,345,95,1,2.4,0.30,0\n"
+            },
+            {
+              "variant": "guide",
+              "file": "rework-record-guide.md",
+              "mime": "text/markdown",
+              "label": "Guide",
+              "content": "# Rework and repair record\n\n## What this template is for\nLog setpoint, tip, preheat, dwell, number of contacts and the measured result against the class limit, so a repair can be defended a year later.\n\n## How to fill it in\n1. Copy one row per rework operation. Do not merge rows: one aperture, one reel, one interval or one 8D discipline per line.\n2. Keep the column order. The columns below are the ones the course's own worked examples use.\n3. Leave a cell blank rather than writing a guess. A blank cell is a question for the engineer; a guessed number is a defect in the record.\n\n## Columns\n- `assembly`\n- `operation`\n- `tip`\n- `setpoint_c`\n- `preheat_c`\n- `contacts`\n- `dwell1_s`\n- `dwell2_s`\n- `dwell3_s`\n- `trace_nick_mm`\n- `dry_flag`\n\n## Worked example\nThe example variant of this file is the data file from case cx-m11-01 (Rework record: a connector joint, a nicked trace and a hand-held iron), filled in with Board X numbers.\n\n## Where the numbers come from\nEvery value in the example is produced by scripts/gen_cases.py and checked by scripts/check-cases.js. If you change a number in the example, the checker fails: that is deliberate.\n\n## Course link\nSee lesson m11l05 for the reasoning behind each column.\n"
+            }
+          ]
+        }
+      ],
+      "toolLinks": [
+        {
+          "label": "Thermal budget (lesson m11l02)",
+          "href": "#/l/m11l02"
+        },
+        {
+          "label": "Repair limits and classes (lesson m11l04)",
+          "href": "#/l/m11l04"
+        },
+        {
+          "label": "Acceptance of rework (lesson m11l05)",
+          "href": "#/l/m11l05"
+        }
+      ],
+      "sources": [
+        "src-009",
+        "src-022",
+        "src-001"
+      ],
+      "generatedBy": "scripts/gen_cases.py",
+      "spec": [
+        {
+          "label": "Hand-soldering setpoint",
+          "value": 330,
+          "to": 360,
+          "unit": "°C",
+          "note": "Course band (m11l02)"
+        },
+        {
+          "label": "Conductor reduction, Class 2",
+          "value": 20,
+          "unit": "%",
+          "note": "IPC-A-600 (m11l04)"
+        },
+        {
+          "label": "Conductor reduction, Class 3",
+          "value": 10,
+          "unit": "%",
+          "note": "IPC-A-600 (m11l04)"
+        },
+        {
+          "label": "Annular ring, Class 3 external",
+          "value": 0.05,
+          "unit": "mm",
+          "note": "IPC-A-600 (m11l04)"
         }
       ]
     },

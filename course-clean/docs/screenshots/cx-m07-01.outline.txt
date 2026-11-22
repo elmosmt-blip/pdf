@@ -1,0 +1,738 @@
+Rendered outline of #/c/cx-m07-01
+Produced by scripts/capture-case.js from the built tree (build/course-clean).
+This is the live DOM from the shipped engine, not a mock-up.
+
+main #main   [7629 chars]
+  p .kicker   [46 chars]
+    "Toolkit · Module 07 · AOI and X-ray Inspection"
+  header .page-head   [114 chars]
+    div   [114 chars]
+      h1   [66 chars]
+        "AOI audit: a 91 % true-call rate that still let 18 defects through"
+      div .meta-line   [48 chars]
+        span .chip.chip--stage   [7 chars]
+          "Board X"
+        span .chip   [6 chars]
+          "30 min"
+        span .chip   [7 chars]
+          "9 steps"
+        span .chip   [14 chars]
+          "rubric 100 pts"
+        span .chip   [14 chars]
+          "Score 0 of 100"
+  section .case-scenario   [606 chars]
+    p   [234 chars]
+      "Board X ran twelve thousand boards through AOI. The audit log for four windows is in aoi-audit.csv: boards ins…"
+    p   [236 chars]
+      "The line reads the numbers optimistically: ninety percent of the calls were real, so the program is good. Qual…"
+    p   [136 chars]
+      "Compute the three rates that matter, say what they do and do not prove, and judge the ball in xray-bga.csv aga…"
+  details .case-board   [1112 chars]
+    summary   [38 chars]
+      "Board X — the product behind this case"
+    div .details-body   [1074 chars]
+      p .muted.flush   [158 chars]
+        "6-layer 1.6 mm FR-4 controller board: QFP-64 at 0.5 mm pitch, QFP-48 at 0.4 mm pitch, one 256-ball BGA at 0.8 …"
+      table .case-facts   [916 chars]
+        tbody   [916 chars]
+          tr   [23 chars]
+            th   [20 chars]
+              "Board thickness (mm)"
+            td   [3 chars]
+              "1.6"
+          tr   [7 chars]
+            th   [6 chars]
+              "Layers"
+            td   [1 chars]
+              "6"
+          tr   [18 chars]
+            th   [14 chars]
+              "Surface finish"
+            td   [4 chars]
+              "ENIG"
+          tr   [25 chars]
+            th   [13 chars]
+              "Base material"
+            td   [12 chars]
+              "FR-4, Tg 170"
+          tr   [17 chars]
+            th   [12 chars]
+              "Stencil (mm)"
+            td   [5 chars]
+              "0.125"
+          tr   [34 chars]
+            th   [31 chars]
+              "Stencil, fine-pitch region (mm)"
+            td   [3 chars]
+              "0.1"
+          tr   [36 chars]
+            th   [12 chars]
+              "Solder paste"
+            td   [24 chars]
+              "SAC305, Type 4, no-clean"
+          tr   [20 chars]
+            th   [17 chars]
+              "QFP-64 pitch (mm)"
+            td   [3 chars]
+              "0.5"
+          tr   [13 chars]
+            th   [11 chars]
+              "QFP-64 pins"
+            td   [2 chars]
+              "64"
+          tr   [20 chars]
+            th   [17 chars]
+              "QFP-48 pitch (mm)"
+            td   [3 chars]
+              "0.4"
+          tr   [22 chars]
+            th   [19 chars]
+              "BGA ball pitch (mm)"
+            td   [3 chars]
+              "0.8"
+          tr   [12 chars]
+            th   [9 chars]
+              "BGA balls"
+            td   [3 chars]
+              "256"
+          tr   [20 chars]
+            th   [16 chars]
+              "Smallest passive"
+            td   [4 chars]
+              "0402"
+          tr   [69 chars]
+            th   [13 chars]
+              "THT connector"
+            td   [56 chars]
+              "20-pin, 2.54 mm pitch, 0.8 mm finished hole, 0.5 mm lead"
+          tr   [21 chars]
+            th   [17 chars]
+              "Lot size (boards)"
+            td   [4 chars]
+              "1240"
+          tr   [26 chars]
+            th   [23 chars]
+              "Solder joints per board"
+            td   [3 chars]
+              "620"
+          tr   [11 chars]
+            th   [5 chars]
+              "Alloy"
+            td   [6 chars]
+              "SAC305"
+          tr   [16 chars]
+            th   [13 chars]
+              "Liquidus (°C)"
+            td   [3 chars]
+              "219"
+          tr   [15 chars]
+            th   [12 chars]
+              "Solidus (°C)"
+            td   [3 chars]
+              "217"
+          tr   [28 chars]
+            th   [23 chars]
+              "Time above liquidus (s)"
+            td   [5 chars]
+              "60–90"
+          tr   [30 chars]
+            th   [23 chars]
+              "Peak window, paste (°C)"
+            td   [7 chars]
+              "235–245"
+          tr   [35 chars]
+            th   [28 chars]
+              "Typical production peak (°C)"
+            td   [7 chars]
+              "235–245"
+          tr   [35 chars]
+            th   [32 chars]
+              "Peak ceiling, large package (°C)"
+            td   [3 chars]
+              "250"
+          tr   [36 chars]
+            th   [34 chars]
+              "Minimum barrel fill, IPC-A-610 (%)"
+            td   [2 chars]
+              "75"
+          tr   [34 chars]
+            th   [32 chars]
+              "Thermal-plane exception fill (%)"
+            td   [2 chars]
+              "50"
+          tr   [36 chars]
+            th   [34 chars]
+              "Leads before the exception applies"
+            td   [2 chars]
+              "14"
+          tr   [24 chars]
+            th   [23 chars]
+              "THT hole, finished (mm)"
+            td   [1 chars]
+              "1"
+          tr   [29 chars]
+            th   [25 chars]
+              "THT hole tolerance (± mm)"
+            td   [4 chars]
+              "0.05"
+          tr   [24 chars]
+            th   [21 chars]
+              "Wave contact time (s)"
+            td   [3 chars]
+              "2–4"
+          tr   [29 chars]
+            th   [27 chars]
+              "Void limit per BGA ball (%)"
+            td   [2 chars]
+              "25"
+          tr   [77 chars]
+            th   [38 chars]
+              "Conductor width reduction by class (%)"
+            td   [39 chars]
+              "Class 1: 30 · Class 2: 20 · Class 3: 10"
+          tr   [39 chars]
+            th   [35 chars]
+              "Annular ring, Class 3 external (mm)"
+            td   [4 chars]
+              "0.05"
+          tr   [35 chars]
+            th   [28 chars]
+              "Hand-soldering setpoint (°C)"
+            td   [7 chars]
+              "330–360"
+  ul .spec-chips   [71 chars]
+    li .spec-chip   [27 chars]
+      span .spec-chip-label   [23 chars]
+        "Void limit per BGA ball"
+      span .spec-chip-value   [4 chars]
+        "25 %"
+    li .spec-chip   [27 chars]
+      span .spec-chip-label   [21 chars]
+        "Verification coverage"
+      span .spec-chip-value   [6 chars]
+        "83.3 %"
+    li .spec-chip   [17 chars]
+      span .spec-chip-label   [11 chars]
+        "Escape rate"
+      span .spec-chip-value   [6 chars]
+        "0.15 %"
+  details .case-data   [356 chars]
+    summary   [25 chars]
+      "Data file — aoi-audit.csv"
+    div .details-body   [331 chars]
+      p .muted.flush   [182 chars]
+        "One row per review window. true_calls + false_calls = verified_calls, and verified calls are a subset of the c…"
+      div .case-table-wrap   [127 chars]
+        table .case-table   [127 chars]
+          thead   [59 chars]
+            tr   [59 chars]
+              th   [6 chars]
+                "window"
+              th   [6 chars]
+                "boards"
+              th   [5 chars]
+                "calls"
+              th   [14 chars]
+                "verified_calls"
+              th   [10 chars]
+                "true_calls"
+              th   [11 chars]
+                "false_calls"
+              th   [7 chars]
+                "escapes"
+          tbody   [68 chars]
+            tr   [17 chars]
+              td   [4 chars]
+                "W-36"
+              td .num   [4 chars]
+                "3000"
+              td .num   [2 chars]
+                "90"
+              td .num   [2 chars]
+                "75"
+              td .num   [2 chars]
+                "53"
+              td .num   [2 chars]
+                "22"
+              td .num   [1 chars]
+                "5"
+            tr   [17 chars]
+              td   [4 chars]
+                "W-37"
+              td .num   [4 chars]
+                "3000"
+              td .num   [2 chars]
+                "90"
+              td .num   [2 chars]
+                "75"
+              td .num   [2 chars]
+                "53"
+              td .num   [2 chars]
+                "22"
+              td .num   [1 chars]
+                "4"
+            tr   [17 chars]
+              td   [4 chars]
+                "W-38"
+              td .num   [4 chars]
+                "3000"
+              td .num   [2 chars]
+                "90"
+              td .num   [2 chars]
+                "75"
+              td .num   [2 chars]
+                "52"
+              td .num   [2 chars]
+                "23"
+              td .num   [1 chars]
+                "5"
+            tr   [17 chars]
+              td   [4 chars]
+                "W-39"
+              td .num   [4 chars]
+                "3000"
+              td .num   [2 chars]
+                "90"
+              td .num   [2 chars]
+                "75"
+              td .num   [2 chars]
+                "52"
+              td .num   [2 chars]
+                "23"
+              td .num   [1 chars]
+                "4"
+      p .flush   [22 chars]
+        button .btn.btn--small type=button data-act=case-data   [22 chars]
+          "Download aoi-audit.csv"
+  details .case-data   [317 chars]
+    summary   [24 chars]
+      "Data file — xray-bga.csv"
+    div .details-body   [293 chars]
+      p .muted.flush   [159 chars]
+        "Measured diameters from the X-ray image, one row per ball. A ball may carry more than one void; the criterion …"
+      div .case-table-wrap   [113 chars]
+        table .case-table   [113 chars]
+          thead   [41 chars]
+            tr   [41 chars]
+              th   [4 chars]
+                "ball"
+              th   [9 chars]
+                "ball_d_mm"
+              th   [10 chars]
+                "void1_d_mm"
+              th   [10 chars]
+                "void2_d_mm"
+              th   [8 chars]
+                "location"
+          tbody   [72 chars]
+            tr   [18 chars]
+              td   [2 chars]
+                "A1"
+              td .num   [4 chars]
+                "0.45"
+              td .num   [4 chars]
+                "0.28"
+              td .num   [4 chars]
+                "0.14"
+              td   [4 chars]
+                "edge"
+            tr   [16 chars]
+              td   [2 chars]
+                "A2"
+              td .num   [4 chars]
+                "0.45"
+              td .num   [4 chars]
+                "0.10"
+              td
+              td   [6 chars]
+                "centre"
+            tr   [20 chars]
+              td   [2 chars]
+                "A3"
+              td .num   [4 chars]
+                "0.45"
+              td .num   [4 chars]
+                "0.12"
+              td .num   [4 chars]
+                "0.06"
+              td   [6 chars]
+                "centre"
+            tr   [18 chars]
+              td   [2 chars]
+                "A4"
+              td .num   [4 chars]
+                "0.45"
+              td .num   [4 chars]
+                "0.20"
+              td .num   [4 chars]
+                "0.12"
+              td   [4 chars]
+                "edge"
+      p .flush   [21 chars]
+        button .btn.btn--small type=button data-act=case-data   [21 chars]
+          "Download xray-bga.csv"
+  form .case-form   [2766 chars]
+    ol .case-steps   [2744 chars]
+      li #step-s1 .case-step   [197 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 1 (15 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [102 chars]
+          "What was the verification coverage, in percent: verified calls over the calls AOI raised? One decimal."
+        div .case-input-row   [31 chars]
+          label .case-input-label   [15 chars]
+            "Your answer"
+            span .muted   [3 chars]
+              "(%)"
+          input #in-s1 .case-input type=text name=c-s1 value=
+          span .case-tol.muted   [16 chars]
+            "tolerance ±0.2 %"
+        p #err-s1 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s2 .case-step   [169 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 2 (15 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [74 chars]
+          "What is the false-call rate among verified calls, in percent? One decimal."
+        div .case-input-row   [31 chars]
+          label .case-input-label   [15 chars]
+            "Your answer"
+            span .muted   [3 chars]
+              "(%)"
+          input #in-s2 .case-input type=text name=c-s2 value=
+          span .case-tol.muted   [16 chars]
+            "tolerance ±0.2 %"
+        p #err-s2 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s3 .case-step   [166 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 3 (10 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [70 chars]
+          "What is the escape rate at board level, in percent? Give two decimals."
+        div .case-input-row   [32 chars]
+          label .case-input-label   [15 chars]
+            "Your answer"
+            span .muted   [3 chars]
+              "(%)"
+          input #in-s3 .case-input type=text name=c-s3 value=
+          span .case-tol.muted   [17 chars]
+            "tolerance ±0.02 %"
+        p #err-s3 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s4 .case-step   [248 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 4 (15 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [153 chars]
+          "Quality wants the escape rate against the defects AOI actually caught. Using verified true calls and escapes, …"
+        div .case-input-row   [31 chars]
+          label .case-input-label   [15 chars]
+            "Your answer"
+            span .muted   [3 chars]
+              "(%)"
+          input #in-s4 .case-input type=text name=c-s4 value=
+          span .case-tol.muted   [16 chars]
+            "tolerance ±0.2 %"
+        p #err-s4 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s5 .case-step   [537 chars]
+        div .case-step-head   [24 chars]
+          span .case-step-n   [18 chars]
+            "Step 5 (15 points)"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [106 chars]
+          "The line says: ninety percent of the calls were real, so the program is good. What is the correct reading?"
+        fieldset .case-options   [375 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt   [70 chars]
+            input #in-s5-a type=radio name=c-s5 value=a
+            span .case-opt-text   [70 chars]
+              "Accept the program: a 91 % true-call rate is a good result on its own."
+          label .case-opt   [177 chars]
+            input #in-s5-b type=radio name=c-s5 value=b
+            span .case-opt-text   [177 chars]
+              "The program still has a 30 % false-call rate that costs review capacity and a 7.9 % escape rate on judged defe…"
+          label .case-opt   [64 chars]
+            input #in-s5-c type=radio name=c-s5 value=c
+            span .case-opt-text   [64 chars]
+              "Reject the program: any escape means AOI is not fit for purpose."
+          label .case-opt   [54 chars]
+            input #in-s5-d type=radio name=c-s5 value=d
+            span .case-opt-text   [54 chars]
+              "Tighten every threshold until the escape rate is zero."
+        p #err-s5 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s6 .case-step   [244 chars]
+        div .case-step-head   [33 chars]
+          span .case-step-n   [19 chars]
+            "Step 6 (7.5 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [148 chars]
+          "Ball A1 measures 0.45 mm and carries two voids, 0.28 mm and 0.14 mm. What is the cumulative void area as a per…"
+        div .case-input-row   [31 chars]
+          label .case-input-label   [15 chars]
+            "Your answer"
+            span .muted   [3 chars]
+              "(%)"
+          input #in-s6 .case-input type=text name=c-s6 value=
+          span .case-tol.muted   [16 chars]
+            "tolerance ±0.2 %"
+        p #err-s6 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s7 .case-step   [494 chars]
+        div .case-step-head   [24 chars]
+          span .case-step-n   [18 chars]
+            "Step 7 (10 points)"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [72 chars]
+          "Against the 25 % per-ball criterion, what is the disposition of ball A1?"
+        fieldset .case-options   [366 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt   [73 chars]
+            input #in-s7-a type=radio name=c-s7 value=a
+            span .case-opt-text   [73 chars]
+              "Accept: the largest single void is 0.28 mm, which is under half the ball."
+          label .case-opt   [150 chars]
+            input #in-s7-b type=radio name=c-s7 value=b
+            span .case-opt-text   [150 chars]
+              "Reject the ball: the cumulative void area is far above 25 % of the ball area, and the criterion counts cumulat…"
+          label .case-opt   [63 chars]
+            input #in-s7-c type=radio name=c-s7 value=c
+            span .case-opt-text   [63 chars]
+              "Accept: voids at the ball edge drain better than central voids."
+          label .case-opt   [70 chars]
+            input #in-s7-d type=radio name=c-s7 value=d
+            span .case-opt-text   [70 chars]
+              "Accept and average the four balls: the array as a whole is under 25 %."
+        p #err-s7 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s8 .case-step   [189 chars]
+        div .case-step-head   [33 chars]
+          span .case-step-n   [19 chars]
+            "Step 8 (7.5 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [93 chars]
+          "Ball A2 carries one 0.10 mm void in a 0.45 mm ball. What is its void percentage? One decimal."
+        div .case-input-row   [31 chars]
+          label .case-input-label   [15 chars]
+            "Your answer"
+            span .muted   [3 chars]
+              "(%)"
+          input #in-s8 .case-input type=text name=c-s8 value=
+          span .case-tol.muted   [16 chars]
+            "tolerance ±0.1 %"
+        p #err-s8 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s9 .case-step   [500 chars]
+        div .case-step-head   [23 chars]
+          span .case-step-n   [17 chars]
+            "Step 9 (5 points)"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [57 chars]
+          "What does the X-ray finding change about the AOI program?"
+        fieldset .case-options   [388 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt   [75 chars]
+            input #in-s9-a type=radio name=c-s9 value=a
+            span .case-opt-text   [75 chars]
+              "Nothing: voids under a BGA are invisible to AOI, so it is a separate issue."
+          label .case-opt   [182 chars]
+            input #in-s9-b type=radio name=c-s9 value=b
+            span .case-opt-text   [182 chars]
+              "It confirms the escape question: AOI cannot see under the package, so the hidden-joint sample has to be define…"
+          label .case-opt   [56 chars]
+            input #in-s9-c type=radio name=c-s9 value=c
+            span .case-opt-text   [56 chars]
+              "It means AOI should be replaced by X-ray on every board."
+          label .case-opt   [65 chars]
+            input #in-s9-d type=radio name=c-s9 value=d
+            span .case-opt-text   [65 chars]
+              "It means the AOI thresholds were too loose and must be tightened."
+        p #err-s9 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+    div .quiz-actions   [22 chars]
+      button .btn.btn--primary type=submit   [16 chars]
+        "Check my answers"
+      button .btn type=button data-act=case-reset   [5 chars]
+        "Clear"
+  div #case-result-slot
+  details .case-rubric-box   [669 chars]
+    summary   [32 chars]
+      "Rubric — how this case is scored"
+    div .details-body   [637 chars]
+      table .case-rubric   [521 chars]
+        thead   [15 chars]
+          tr   [15 chars]
+            th   [9 chars]
+              "Criterion"
+            th   [6 chars]
+              "Points"
+        tbody   [506 chars]
+          tr   [57 chars]
+            td   [55 chars]
+              "Coverage computed on calls, with its consequence stated"
+            td .num   [2 chars]
+              "15"
+          tr   [65 chars]
+            td   [63 chars]
+              "False-call rate computed on verified calls, not on raised calls"
+            td .num   [2 chars]
+              "15"
+          tr   [44 chars]
+            td   [42 chars]
+              "Board-level escape rate computed on boards"
+            td .num   [2 chars]
+              "10"
+          tr   [71 chars]
+            td   [69 chars]
+              "Escape rate against judged defects computed on a matching denominator"
+            td .num   [2 chars]
+              "15"
+          tr   [62 chars]
+            td   [60 chars]
+              "Program judged on false calls, escapes and coverage together"
+            td .num   [2 chars]
+              "15"
+          tr   [67 chars]
+            td   [65 chars]
+              "Cumulative void area computed per ball, not from the largest void"
+            td .num   [2 chars]
+              "15"
+          tr   [70 chars]
+            td   [68 chars]
+              "Ball rejected on the per-ball criterion, not averaged over the array"
+            td .num   [2 chars]
+              "10"
+          tr   [70 chars]
+            td   [69 chars]
+              "Hidden-joint gap named as a coverage problem, not a threshold problem"
+            td .num   [1 chars]
+              "5"
+      p .muted.flush   [116 chars]
+        "Criteria are scored in proportion to the steps they name. A criterion spanning two steps pays half per correct…"
+  section .sources   [1529 chars]
+    details .spoiler   [1529 chars]
+      summary   [11 chars]
+        "Sources — 2"
+      div .details-body   [1518 chars]
+        ul   [1518 chars]
+          li   [1024 chars]
+            span .src-id   [7 chars]
+              "src-001"
+            strong   [48 chars]
+              "IPC-A-610 Acceptability of Electronic Assemblies"
+            "— Rev H, section §10 through-hole solder fill — vertical barrel fill minimums by class (75 % for Class 2 and C…"
+            span .src-note   [363 chars]
+              "License: paraphrase only · verified by READ. Primary IPC-A-610D fragments read: "Class 2, fill to 75% but with…"
+            span .src-currency   [276 chars]
+              "Superseded. IPC-A-610 Rev J was released in April 2024 and is the current revision; Rev J also removed the "Ta…"
+            span .src-edition   [201 chars]
+              strong   [18 chars]
+                "Superseded edition"
+              "· publisher lists Rev J (March 2024)"
+              span .src-edition-note   [146 chars]
+                "Written against Rev H. Rev J was published in March 2024 and is listed by IPC as current; the criteria quoted …"
+          li   [494 chars]
+            span .src-id   [7 chars]
+              "src-007"
+            strong   [60 chars]
+              "IPC-7095 Design and Assembly Process Implementation for BGAs"
+            "— Rev E (September 2024), section BGA design and assembly process implementation — scope only, standard"
+            span .src-scope   [27 chars]
+              "Scope only — no limit taken"
+            span .src-note   [209 chars]
+              "License: paraphrase only · verified by SCOPE. Designation and scope confirmed from published references; the c…"
+            span .src-edition.src-edition--ok   [86 chars]
+              strong   [15 chars]
+                "Current edition"
+              "· Rev E (September 2024)"
+              span .src-edition-note   [46 chars]
+                "Rev E is the newest IPC-7095 in the IPC table."
+  nav .pager   [43 chars]
+    a .pager-prev href=#/m/m07   [43 chars]
+      span .pager-label   [7 chars]
+        "Back to"
+      span .pager-title   [36 chars]
+        "Module 07 — AOI and X-ray Inspection"
+    span

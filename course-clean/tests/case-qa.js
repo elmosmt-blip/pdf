@@ -147,6 +147,16 @@ check('all template variants present and non-empty', ()=>{
   return n===want?true:'expected '+want+' files, got '+n;
 });
 
+// QA-8b: no object stringification anywhere a case page prints data
+CASES.forEach(c=>{
+  check('no [object Object] on '+c.caseId, ()=>{
+    const dom=load('#/c/'+c.caseId), d=dom.window.document;
+    const bad = /\[object Object\]/.test(d.getElementById('main').innerHTML);
+    /* true means pass in this harness; a returned string is the failure reason */
+    return bad?'[object Object] rendered':true;
+  });
+});
+
 // QA-9: no NaN / undefined anywhere on any case page
 CASES.forEach(c=>{
   check('no NaN/undefined rendered: '+c.caseId, ()=>{
