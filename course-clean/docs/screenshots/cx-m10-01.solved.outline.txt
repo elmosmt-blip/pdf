@@ -1,0 +1,853 @@
+Rendered outline of #/c/cx-m10-01
+Produced by scripts/capture-case.js from the built tree (build/course-clean).
+This is the live DOM from the shipped engine, not a mock-up.
+
+main #main   [14783 chars]
+  p .kicker   [41 chars]
+    "Toolkit · Module 10 · Selective Soldering"
+  header .page-head   [136 chars]
+    div   [136 chars]
+      h1   [87 chars]
+        "Selective soldering: the 20-pin connector, a nozzle that fits and a cycle that does not"
+      div .meta-line   [49 chars]
+        span .chip.chip--stage   [7 chars]
+          "Board X"
+        span .chip   [6 chars]
+          "35 min"
+        span .chip   [8 chars]
+          "10 steps"
+        span .chip   [14 chars]
+          "rubric 100 pts"
+        span .chip   [14 chars]
+          "Score 0 of 100"
+  section .case-scenario   [747 chars]
+    p   [224 chars]
+      "Board X carries one 20-pin THT connector at 2.54 mm pitch: 1.00 mm finished holes, 0.60 mm leads, 1.6 mm board…"
+    p   [309 chars]
+      "The proposed nozzle is 1.20 mm inside diameter and the path steps from pin to pin with 1.8 s of dwell. The pla…"
+    p   [214 chars]
+      "The first article shows solder sitting on two adjacent pins. Nothing about the dwell or the temperature has be…"
+  details .case-board   [1303 chars]
+    summary   [38 chars]
+      "Board X — the product behind this case"
+    div .details-body   [1265 chars]
+      p .muted.flush   [158 chars]
+        "6-layer 1.6 mm FR-4 controller board: QFP-64 at 0.5 mm pitch, QFP-48 at 0.4 mm pitch, one 256-ball BGA at 0.8 …"
+      table .case-facts   [1107 chars]
+        tbody   [1107 chars]
+          tr   [23 chars]
+            th   [20 chars]
+              "Board thickness (mm)"
+            td   [3 chars]
+              "1.6"
+          tr   [7 chars]
+            th   [6 chars]
+              "Layers"
+            td   [1 chars]
+              "6"
+          tr   [18 chars]
+            th   [14 chars]
+              "Surface finish"
+            td   [4 chars]
+              "ENIG"
+          tr   [25 chars]
+            th   [13 chars]
+              "Base material"
+            td   [12 chars]
+              "FR-4, Tg 170"
+          tr   [17 chars]
+            th   [12 chars]
+              "Stencil (mm)"
+            td   [5 chars]
+              "0.125"
+          tr   [34 chars]
+            th   [31 chars]
+              "Stencil, fine-pitch region (mm)"
+            td   [3 chars]
+              "0.1"
+          tr   [36 chars]
+            th   [12 chars]
+              "Solder paste"
+            td   [24 chars]
+              "SAC305, Type 4, no-clean"
+          tr   [20 chars]
+            th   [17 chars]
+              "QFP-64 pitch (mm)"
+            td   [3 chars]
+              "0.5"
+          tr   [13 chars]
+            th   [11 chars]
+              "QFP-64 pins"
+            td   [2 chars]
+              "64"
+          tr   [20 chars]
+            th   [17 chars]
+              "QFP-48 pitch (mm)"
+            td   [3 chars]
+              "0.4"
+          tr   [22 chars]
+            th   [19 chars]
+              "BGA ball pitch (mm)"
+            td   [3 chars]
+              "0.8"
+          tr   [12 chars]
+            th   [9 chars]
+              "BGA balls"
+            td   [3 chars]
+              "256"
+          tr   [20 chars]
+            th   [16 chars]
+              "Smallest passive"
+            td   [4 chars]
+              "0402"
+          tr   [71 chars]
+            th   [13 chars]
+              "THT connector"
+            td   [58 chars]
+              "20-pin, 2.54 mm pitch, 1.00 mm finished hole, 0.60 mm lead"
+          tr   [21 chars]
+            th   [17 chars]
+              "Lot size (boards)"
+            td   [4 chars]
+              "1240"
+          tr   [26 chars]
+            th   [23 chars]
+              "Solder joints per board"
+            td   [3 chars]
+              "620"
+          tr   [11 chars]
+            th   [5 chars]
+              "Alloy"
+            td   [6 chars]
+              "SAC305"
+          tr   [16 chars]
+            th   [13 chars]
+              "Liquidus (°C)"
+            td   [3 chars]
+              "219"
+          tr   [15 chars]
+            th   [12 chars]
+              "Solidus (°C)"
+            td   [3 chars]
+              "217"
+          tr   [28 chars]
+            th   [23 chars]
+              "Time above liquidus (s)"
+            td   [5 chars]
+              "60–90"
+          tr   [30 chars]
+            th   [23 chars]
+              "Peak window, paste (°C)"
+            td   [7 chars]
+              "235–245"
+          tr   [35 chars]
+            th   [28 chars]
+              "Typical production peak (°C)"
+            td   [7 chars]
+              "235–245"
+          tr   [35 chars]
+            th   [32 chars]
+              "Peak ceiling, large package (°C)"
+            td   [3 chars]
+              "250"
+          tr   [36 chars]
+            th   [34 chars]
+              "Minimum barrel fill, IPC-A-610 (%)"
+            td   [2 chars]
+              "75"
+          tr   [34 chars]
+            th   [32 chars]
+              "Thermal-plane exception fill (%)"
+            td   [2 chars]
+              "50"
+          tr   [36 chars]
+            th   [34 chars]
+              "Leads before the exception applies"
+            td   [2 chars]
+              "14"
+          tr   [24 chars]
+            th   [23 chars]
+              "THT hole, finished (mm)"
+            td   [1 chars]
+              "1"
+          tr   [29 chars]
+            th   [25 chars]
+              "THT hole tolerance (± mm)"
+            td   [4 chars]
+              "0.05"
+          tr   [24 chars]
+            th   [21 chars]
+              "Wave contact time (s)"
+            td   [3 chars]
+              "2–4"
+          tr   [29 chars]
+            th   [27 chars]
+              "Void limit per BGA ball (%)"
+            td   [2 chars]
+              "25"
+          tr   [77 chars]
+            th   [38 chars]
+              "Conductor width reduction by class (%)"
+            td   [39 chars]
+              "Class 1: 30 · Class 2: 20 · Class 3: 10"
+          tr   [39 chars]
+            th   [35 chars]
+              "Annular ring, Class 3 external (mm)"
+            td   [4 chars]
+              "0.05"
+          tr   [35 chars]
+            th   [28 chars]
+              "Hand-soldering setpoint (°C)"
+            td   [7 chars]
+              "330–360"
+          tr   [42 chars]
+            th   [38 chars]
+              "Bow and twist, SMT board, IPC-6012 (%)"
+            td   [4 chars]
+              "0.75"
+          tr   [44 chars]
+            th   [41 chars]
+              "Bow and twist, other boards, IPC-6012 (%)"
+            td   [3 chars]
+              "1.5"
+          tr   [38 chars]
+            th   [32 chars]
+              "SPI volume window (% of nominal)"
+            td   [6 chars]
+              "75–125"
+          tr   [29 chars]
+            th   [24 chars]
+              "Selective nozzle ID (mm)"
+            td   [5 chars]
+              "0.8–2"
+          tr   [36 chars]
+            th   [29 chars]
+              "Selective dwell, low mass (s)"
+            td   [7 chars]
+              "0.8–2.5"
+  details .case-data   [169 chars]
+    summary   [33 chars]
+      "Data file — selective-program.csv"
+    div .details-body   [136 chars]
+      div .case-table-wrap   [106 chars]
+        table .case-table   [106 chars]
+          thead   [12 chars]
+            tr   [12 chars]
+              th   [7 chars]
+                "section"
+              th   [5 chars]
+                "value"
+          tbody   [94 chars]
+            tr   [8 chars]
+              td   [6 chars]
+                "joints"
+              td .num   [2 chars]
+                "20"
+            tr   [10 chars]
+              td   [7 chars]
+                "dwell_s"
+              td .num   [3 chars]
+                "1.8"
+            tr   [9 chars]
+              td   [6 chars]
+                "move_s"
+              td .num   [3 chars]
+                "0.4"
+            tr   [11 chars]
+              td   [9 chars]
+                "preheat_s"
+              td .num   [2 chars]
+                "25"
+            tr   [14 chars]
+              td   [12 chars]
+                "flux_knife_s"
+              td .num   [2 chars]
+                "12"
+            tr   [16 chars]
+              td   [12 chars]
+                "nozzle_id_mm"
+              td .num   [4 chars]
+                "1.20"
+            tr   [26 chars]
+              td   [23 chars]
+                "nozzle_min_for_joint_mm"
+              td .num   [3 chars]
+                "1.0"
+      p .flush   [30 chars]
+        button .btn.btn--small type=button data-act=case-data   [30 chars]
+          "Download selective-program.csv"
+  details .case-data   [138 chars]
+    summary   [30 chars]
+      "Data file — joint-geometry.csv"
+    div .details-body   [108 chars]
+      div .case-table-wrap   [81 chars]
+        table .case-table   [81 chars]
+          thead   [57 chars]
+            tr   [57 chars]
+              th   [5 chars]
+                "joint"
+              th   [15 chars]
+                "hole_nominal_mm"
+              th   [11 chars]
+                "hole_tol_mm"
+              th   [7 chars]
+                "lead_mm"
+              th   [11 chars]
+                "lead_max_mm"
+              th   [8 chars]
+                "pitch_mm"
+          tbody   [24 chars]
+            tr   [24 chars]
+              td   [4 chars]
+                "P-01"
+              td .num   [4 chars]
+                "1.00"
+              td .num   [4 chars]
+                "0.05"
+              td .num   [4 chars]
+                "0.60"
+              td .num   [4 chars]
+                "0.63"
+              td .num   [4 chars]
+                "2.54"
+      p .flush   [27 chars]
+        button .btn.btn--small type=button data-act=case-data   [27 chars]
+          "Download joint-geometry.csv"
+  form .case-form   [9089 chars]
+    ol .case-steps   [9067 chars]
+      li #step-s1 .case-step.case-step--ok   [607 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 1 (10 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [85 chars]
+          "Nominal 1.00 mm hole and 0.60 mm lead: what annular gap is there on each side, in mm?"
+        div .case-input-row   [35 chars]
+          label .case-input-label   [16 chars]
+            "Your answer"
+            span .muted   [4 chars]
+              "(mm)"
+          input #in-s1 .case-input type=text name=c-s1 value=0.2
+          span .case-tol.muted   [19 chars]
+            "tolerance ±0.005 mm"
+        p #err-s1 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [38 chars]
+          strong   [8 chars]
+            "Correct."
+          "0.20 mm each side at nominal."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [397 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [381 chars]
+            "1.00 - 0.60 = 0.40 mm of total clearance, so 0.20 mm on each side. That is the space the solder has to climb a…"
+      li #step-s2 .case-step.case-step--ok   [653 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 2 (10 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [110 chars]
+          "At the worst combination in the drawing — 0.95 mm hole and 0.63 mm lead — what is the gap on each side, in mm?"
+        div .case-input-row   [35 chars]
+          label .case-input-label   [16 chars]
+            "Your answer"
+            span .muted   [4 chars]
+              "(mm)"
+          input #in-s2 .case-input type=text name=c-s2 value=0.16
+          span .case-tol.muted   [19 chars]
+            "tolerance ±0.005 mm"
+        p #err-s2 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [65 chars]
+          strong   [8 chars]
+            "Correct."
+          "0.16 mm — the tolerance eats a fifth of the nominal gap."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [391 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [375 chars]
+            "0.95 - 0.63 = 0.32 mm, so 0.16 mm per side. The part-to-part tolerances take 0.04 mm off each side, which is a…"
+      li #step-s3 .case-step.case-step--ok   [1240 chars]
+        div .case-step-head   [24 chars]
+          span .case-step-n   [18 chars]
+            "Step 3 (20 points)"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [148 chars]
+          "The course gives 0.8-2.0 mm as a practical nozzle inside diameter for 0.5-1.2 mm leads. The proposed nozzle is…"
+        fieldset .case-options   [385 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt   [70 chars]
+            input #in-s3-a type=radio name=c-s3 value=a
+            span .case-opt-text   [70 chars]
+              "None: 1.20 mm is inside the 0.8-2.0 mm range, so it is a valid choice."
+          label .case-opt.case-opt--picked   [198 chars]
+            input #in-s3-b type=radio name=c-s3 value=b
+            span .case-opt-text   [198 chars]
+              "1.20 mm is inside the range but too large for this joint: it leaves only 0.10 mm to the pad on each side, so t…"
+          label .case-opt   [39 chars]
+            input #in-s3-c type=radio name=c-s3 value=c
+            span .case-opt-text   [39 chars]
+              "It is too small to heat a 1.00 mm hole."
+          label .case-opt   [68 chars]
+            input #in-s3-d type=radio name=c-s3 value=d
+            span .case-opt-text   [68 chars]
+              "Nozzle diameter does not matter as long as the dwell is long enough."
+        p #err-s3 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [123 chars]
+          strong   [8 chars]
+            "Correct."
+          "Inside the range and still wrong for this joint: 0.10 mm of clearance each side puts the meniscus on the pad e…"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [540 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [524 chars]
+            "(1.20 - 1.00) / 2 = 0.10 mm of clearance on each side, against a 2.54 mm pitch. The nozzle spans the hole plus…"
+      li #step-s4 .case-step.case-step--ok   [536 chars]
+        div .case-step-head   [33 chars]
+          span .case-step-n   [19 chars]
+            "Step 4 (6.7 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [104 chars]
+          "Twenty joints at 1.8 s dwell and 0.4 s of travel between them: what is the total joint time, in seconds?"
+        div .case-input-row   [31 chars]
+          label .case-input-label   [15 chars]
+            "Your answer"
+            span .muted   [3 chars]
+              "(s)"
+          input #in-s4 .case-input type=text name=c-s4 value=44
+          span .case-tol.muted   [16 chars]
+            "tolerance ±0.5 s"
+        p #err-s4 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [28 chars]
+          strong   [8 chars]
+            "Correct."
+          "44 s of joint time."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [320 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [304 chars]
+            "1.8 + 0.4 = 2.2 s per joint, so 44 s for the connector. Travel is not free: at 0.4 s per step it is 8 s of the…"
+      li #step-s5 .case-step.case-step--ok   [527 chars]
+        div .case-step-head   [33 chars]
+          span .case-step-n   [19 chars]
+            "Step 5 (6.7 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [93 chars]
+          "Add 25 s of preheat and 12 s of flux and air-knife time. What is the total cycle, in seconds?"
+        div .case-input-row   [31 chars]
+          label .case-input-label   [15 chars]
+            "Your answer"
+            span .muted   [3 chars]
+              "(s)"
+          input #in-s5 .case-input type=text name=c-s5 value=81
+          span .case-tol.muted   [16 chars]
+            "tolerance ±0.5 s"
+        p #err-s5 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [24 chars]
+          strong   [8 chars]
+            "Correct."
+          "81 s per board."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [326 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [310 chars]
+            "44 s of joints, 25 s of preheat and 12 s of flux and knife make 81 s. Only 54 % of that cycle is a nozzle over…"
+      li #step-s6 .case-step.case-step--ok   [596 chars]
+        div .case-step-head   [33 chars]
+          span .case-step-n   [19 chars]
+            "Step 6 (6.7 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [113 chars]
+          "At 81 s per board and one board in the machine at a time, what is the throughput in boards per hour? One decim…"
+        div .case-input-row   [45 chars]
+          label .case-input-label   [22 chars]
+            "Your answer"
+            span .muted   [10 chars]
+              "(boards/h)"
+          input #in-s6 .case-input type=text name=c-s6 value=44.4
+          span .case-tol.muted   [23 chars]
+            "tolerance ±0.3 boards/h"
+        p #err-s6 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [51 chars]
+          strong   [8 chars]
+            "Correct."
+          "44.4 boards an hour at 100 % availability."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [334 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [318 chars]
+            "3,600 / 81 = 44.4 boards an hour, before any downtime, fixture exchange or operator break. That is the ceiling…"
+      li #step-s7 .case-step.case-step--ok   [1289 chars]
+        div .case-step-head   [24 chars]
+          span .case-step-n   [18 chars]
+            "Step 7 (15 points)"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [150 chars]
+          "Production proposes dropping the 8 s air-knife step, which takes the cycle to 73 s and the rate to 49.3 boards…"
+        fieldset .case-options   [397 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt   [74 chars]
+            input #in-s7-a type=radio name=c-s7 value=a
+            span .case-opt-text   [74 chars]
+              "Nothing: 49.3 against 44.4 is an 11 % gain for a step that only moves air."
+          label .case-opt.case-opt--picked   [207 chars]
+            input #in-s7-b type=radio name=c-s7 value=b
+            span .case-opt-text   [207 chars]
+              "The air knife controls how much flux reaches the joint; removing it leaves excess flux that boils at the nozzl…"
+          label .case-opt   [55 chars]
+            input #in-s7-c type=radio name=c-s7 value=c
+            span .case-opt-text   [55 chars]
+              "It changes the dwell, which is the number that matters."
+          label .case-opt   [51 chars]
+            input #in-s7-d type=radio name=c-s7 value=d
+            span .case-opt-text   [51 chars]
+              "The cycle cannot be recomputed without the machine."
+        p #err-s7 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [126 chars]
+          strong   [8 chars]
+            "Correct."
+          "The air knife meters flux; without it the excess boils at the nozzle and the gain of 11 % buys blowback and br…"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [572 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [556 chars]
+            "The air knife is the flux metering step: too little action leaves excess flux that boils violently when the no…"
+      li #step-s8 .case-step.case-step--ok   [1071 chars]
+        div .case-step-head   [24 chars]
+          span .case-step-n   [18 chars]
+            "Step 8 (10 points)"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [95 chars]
+          "Given the first article shows solder on two adjacent pins, which single variable changes first?"
+        fieldset .case-options   [280 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt   [57 chars]
+            input #in-s8-a type=radio name=c-s8 value=a
+            span .case-opt-text   [57 chars]
+              "Dwell: shorten it from 1.8 s so less solder is delivered."
+          label .case-opt.case-opt--picked   [111 chars]
+            input #in-s8-b type=radio name=c-s8 value=b
+            span .case-opt-text   [111 chars]
+              "Nozzle inside diameter: bring it down toward the joint so the meniscus sits on the annular ring and no further…"
+          label .case-opt   [43 chars]
+            input #in-s8-c type=radio name=c-s8 value=c
+            span .case-opt-text   [43 chars]
+              "Preheat: raise it so the joint wets faster."
+          label .case-opt   [59 chars]
+            input #in-s8-d type=radio name=c-s8 value=d
+            span .case-opt-text   [59 chars]
+              "Flux volume: increase it so the joint wets more completely."
+        p #err-s8 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [87 chars]
+          strong   [8 chars]
+            "Correct."
+          "The nozzle: 1.20 mm spans past the annular ring, and the defect is positional."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [565 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [549 chars]
+            "The defect is topological: solder reached a pin it should not touch. Dwell and flux change how much solder and…"
+      li #step-s9 .case-step.case-step--ok   [1244 chars]
+        div .case-step-head   [24 chars]
+          span .case-step-n   [18 chars]
+            "Step 9 (10 points)"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [180 chars]
+          "The joint is a connector pin tied to an internal ground plane, so it is a high-mass joint. The program gives i…"
+        fieldset .case-options   [384 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt   [71 chars]
+            input #in-s9-a type=radio name=c-s9 value=a
+            span .case-opt-text   [71 chars]
+              "1.8 s is inside the 0.8-2.5 s low-mass range, so it is fine everywhere."
+          label .case-opt.case-opt--picked   [169 chars]
+            input #in-s9-b type=radio name=c-s9 value=b
+            span .case-opt-text   [169 chars]
+              "High-mass joints start at 1.5 s and reach 4.0 s; 1.8 s is at the bottom of that band, and the course prefers t…"
+          label .case-opt   [65 chars]
+            input #in-s9-c type=radio name=c-s9 value=c
+            span .case-opt-text   [65 chars]
+              "High-mass joints need less dwell because the plane conducts heat."
+          label .case-opt   [69 chars]
+            input #in-s9-d type=radio name=c-s9 value=d
+            span .case-opt-text   [69 chars]
+              "Dwell should be the same for every joint so the cycle is predictable."
+        p #err-s9 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [84 chars]
+          strong   [8 chars]
+            "Correct."
+          "High-mass joints run 1.5-4.0 s, and two shorter passes beat one long dwell."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [552 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [536 chars]
+            "A pin tied into an internal plane conducts heat away from the joint as fast as the nozzle delivers it, so the …"
+      li #step-s10 .case-step.case-step--ok   [1304 chars]
+        div .case-step-head   [24 chars]
+          span .case-step-n   [18 chars]
+            "Step 10 (5 points)"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [75 chars]
+          "What has to be in the selective program record before this run is released?"
+        fieldset .case-options   [412 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt   [64 chars]
+            input #in-s10-a type=radio name=c-s10 value=a
+            span .case-opt-text   [64 chars]
+              "The nozzle size, the bath temperature and the board part number."
+          label .case-opt.case-opt--picked   [268 chars]
+            input #in-s10-b type=radio name=c-s10 value=b
+            span .case-opt-text   [268 chars]
+              "The nozzle size and shape per joint group, the dwell per group, the pass strategy, the flux volume and the air…"
+          label .case-opt   [36 chars]
+            input #in-s10-c type=radio name=c-s10 value=c
+            span .case-opt-text   [36 chars]
+              "The machine's exported program file."
+          label .case-opt   [34 chars]
+            input #in-s10-d type=radio name=c-s10 value=d
+            span .case-opt-text   [34 chars]
+              "A photograph of the first article."
+        p #err-s10 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [148 chars]
+          strong   [8 chars]
+            "Correct."
+          "Nozzle and shape per group, dwell per group, passes, flux, knife, preheat, measured cycle, joint temperatures …"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [625 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [609 chars]
+            "The exported program file is a set of coordinates and numbers with no evidence attached: it cannot say whether…"
+    div .quiz-actions   [22 chars]
+      button .btn.btn--primary type=submit   [16 chars]
+        "Check my answers"
+      button .btn type=button data-act=case-reset   [5 chars]
+        "Clear"
+  div #case-result-slot   [666 chars]
+    section #case-result .case-result   [666 chars]
+      h2   [6 chars]
+        "Result"
+      p .case-score.case-score--pass   [32 chars]
+        "100 % — 100 of 100 rubric points"
+      p .flush   [110 chars]
+        "Mastered. The rubric threshold is 80 %. Best result so far: 100 %. This attempt took about 1 min with 0 hints."
+      table .case-rubric   [464 chars]
+        thead   [21 chars]
+          tr   [21 chars]
+            th   [9 chars]
+              "Criterion"
+            th   [6 chars]
+              "Points"
+            th   [6 chars]
+              "Earned"
+        tbody   [443 chars]
+          tr   [67 chars]
+            td   [63 chars]
+              "Annular gap computed at nominal and at the worst tolerance case"
+            td .num   [2 chars]
+              "20"
+            td .num   [2 chars]
+              "20"
+          tr   [66 chars]
+            td   [62 chars]
+              "Nozzle judged against this joint, not against the course range"
+            td .num   [2 chars]
+              "20"
+            td .num   [2 chars]
+              "20"
+          tr   [65 chars]
+            td   [61 chars]
+              "Cycle time built from every block and converted to throughput"
+            td .num   [2 chars]
+              "20"
+            td .num   [2 chars]
+              "20"
+          tr   [59 chars]
+            td   [55 chars]
+              "Throughput gain priced against the air knife's function"
+            td .num   [2 chars]
+              "15"
+            td .num   [2 chars]
+              "15"
+          tr   [67 chars]
+            td   [63 chars]
+              "One variable changed, the one that matches the defect mechanism"
+            td .num   [2 chars]
+              "10"
+            td .num   [2 chars]
+              "10"
+          tr   [59 chars]
+            td   [55 chars]
+              "High-mass joints given their own dwell or pass strategy"
+            td .num   [2 chars]
+              "10"
+            td .num   [2 chars]
+              "10"
+          tr   [60 chars]
+            td   [58 chars]
+              "Program record carries the evidence, not just the settings"
+            td .num   [1 chars]
+              "5"
+            td .num   [1 chars]
+              "5"
+      div .quiz-actions   [54 chars]
+        button .btn type=button data-act=case-retake   [28 chars]
+          "Try again from a clean sheet"
+        button .btn type=button data-act=case-csv   [25 chars]
+          "Download my answers (CSV)"
+  details .case-rubric-box   [593 chars]
+    summary   [32 chars]
+      "Rubric — how this case is scored"
+    div .details-body   [561 chars]
+      table .case-rubric   [445 chars]
+        thead   [15 chars]
+          tr   [15 chars]
+            th   [9 chars]
+              "Criterion"
+            th   [6 chars]
+              "Points"
+        tbody   [430 chars]
+          tr   [65 chars]
+            td   [63 chars]
+              "Annular gap computed at nominal and at the worst tolerance case"
+            td .num   [2 chars]
+              "20"
+          tr   [64 chars]
+            td   [62 chars]
+              "Nozzle judged against this joint, not against the course range"
+            td .num   [2 chars]
+              "20"
+          tr   [63 chars]
+            td   [61 chars]
+              "Cycle time built from every block and converted to throughput"
+            td .num   [2 chars]
+              "20"
+          tr   [57 chars]
+            td   [55 chars]
+              "Throughput gain priced against the air knife's function"
+            td .num   [2 chars]
+              "15"
+          tr   [65 chars]
+            td   [63 chars]
+              "One variable changed, the one that matches the defect mechanism"
+            td .num   [2 chars]
+              "10"
+          tr   [57 chars]
+            td   [55 chars]
+              "High-mass joints given their own dwell or pass strategy"
+            td .num   [2 chars]
+              "10"
+          tr   [59 chars]
+            td   [58 chars]
+              "Program record carries the evidence, not just the settings"
+            td .num   [1 chars]
+              "5"
+      p .muted.flush   [116 chars]
+        "Criteria are scored in proportion to the steps they name. A criterion spanning two steps pays half per correct…"
+  section .sources   [1863 chars]
+    details .spoiler   [1863 chars]
+      summary   [11 chars]
+        "Sources — 2"
+      div .details-body   [1852 chars]
+        ul   [1852 chars]
+          li   [828 chars]
+            span .src-id   [7 chars]
+              "src-016"
+            strong   [104 chars]
+              "IPC-A-610H section 10 — through-hole solder fill (75% minimum vertical barrel fill, Class 2 and Class 3)"
+            "— Rev H §10, section §10 through-hole solder fill — 75 % minimum vertical barrel fill, standard"
+            span .src-note   [291 chars]
+              "License: paraphrase only · verified by READ. Same primary IPC-A-610D fragments as src-001. Note for the record…"
+            span .src-currency   [169 chars]
+              "Superseded. The through-hole fill criteria quoted here were read against Rev H (and, for some figures, against…"
+            span .src-edition   [160 chars]
+              strong   [18 chars]
+                "Superseded edition"
+              "· publisher lists Rev J (March 2024)"
+              span .src-edition-note   [105 chars]
+                "The through-hole fill criteria quoted here were read against Rev H. Rev J is current and was not re-read."
+          li   [1024 chars]
+            span .src-id   [7 chars]
+              "src-001"
+            strong   [48 chars]
+              "IPC-A-610 Acceptability of Electronic Assemblies"
+            "— Rev H, section §10 through-hole solder fill — vertical barrel fill minimums by class (75 % for Class 2 and C…"
+            span .src-note   [363 chars]
+              "License: paraphrase only · verified by READ. Primary IPC-A-610D fragments read: "Class 2, fill to 75% but with…"
+            span .src-currency   [276 chars]
+              "Superseded. IPC-A-610 Rev J was released in April 2024 and is the current revision; Rev J also removed the "Ta…"
+            span .src-edition   [201 chars]
+              strong   [18 chars]
+                "Superseded edition"
+              "· publisher lists Rev J (March 2024)"
+              span .src-edition-note   [146 chars]
+                "Written against Rev H. Rev J was published in March 2024 and is listed by IPC as current; the criteria quoted …"
+  nav .pager   [38 chars]
+    a .pager-prev href=#/m/m10   [38 chars]
+      span .pager-label   [7 chars]
+        "Back to"
+      span .pager-title   [31 chars]
+        "Module 10 — Selective Soldering"
+    span

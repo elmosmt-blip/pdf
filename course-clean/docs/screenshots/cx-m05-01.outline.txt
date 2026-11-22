@@ -2,7 +2,7 @@ Rendered outline of #/c/cx-m05-01
 Produced by scripts/capture-case.js from the built tree (build/course-clean).
 This is the live DOM from the shipped engine, not a mock-up.
 
-main #main   [8839 chars]
+main #main   [8906 chars]
   p .kicker   [41 chars]
     "Toolkit · Module 05 · Component Placement"
   header .page-head   [110 chars]
@@ -27,14 +27,14 @@ main #main   [8839 chars]
       "Two things on the board disagree with that report. The corner leads of the QFP-64 on the right-hand side show …"
     p   [164 chars]
       "The two global fiducials are 10 mm apart and their residuals are in the audit file, per board. Work out what t…"
-  details .case-board   [1236 chars]
+  details .case-board   [1303 chars]
     summary   [38 chars]
       "Board X — the product behind this case"
-    div .details-body   [1198 chars]
+    div .details-body   [1265 chars]
       p .muted.flush   [158 chars]
         "6-layer 1.6 mm FR-4 controller board: QFP-64 at 0.5 mm pitch, QFP-48 at 0.4 mm pitch, one 256-ball BGA at 0.8 …"
-      table .case-facts   [1040 chars]
-        tbody   [1040 chars]
+      table .case-facts   [1107 chars]
+        tbody   [1107 chars]
           tr   [23 chars]
             th   [20 chars]
               "Board thickness (mm)"
@@ -100,11 +100,11 @@ main #main   [8839 chars]
               "Smallest passive"
             td   [4 chars]
               "0402"
-          tr   [69 chars]
+          tr   [71 chars]
             th   [13 chars]
               "THT connector"
-            td   [56 chars]
-              "20-pin, 2.54 mm pitch, 0.8 mm finished hole, 0.5 mm lead"
+            td   [58 chars]
+              "20-pin, 2.54 mm pitch, 1.00 mm finished hole, 0.60 mm lead"
           tr   [21 chars]
             th   [17 chars]
               "Lot size (boards)"
@@ -215,6 +215,16 @@ main #main   [8839 chars]
               "SPI volume window (% of nominal)"
             td   [6 chars]
               "75–125"
+          tr   [29 chars]
+            th   [24 chars]
+              "Selective nozzle ID (mm)"
+            td   [5 chars]
+              "0.8–2"
+          tr   [36 chars]
+            th   [29 chars]
+              "Selective dwell, low mass (s)"
+            td   [7 chars]
+              "0.8–2.5"
   details .case-data   [314 chars]
     summary   [31 chars]
       "Data file — placement-audit.csv"

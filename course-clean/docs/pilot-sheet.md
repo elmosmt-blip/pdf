@@ -123,6 +123,34 @@ Protocol: `docs/pilot-protocol.md`.
 
 ---
 
+## cx-m10-01 — Selective soldering: the 20-pin connector, a nozzle that fits and a cycle that does not
+
+`#/c/cx-m10-01` · module m10 · 10 steps · 100 rubric points · about 35 min
+
+| # | Step | Type | Expected | Tolerance | Watch for |
+|---|---|---|---|---|---|
+| 1 | Nominal 1.00 mm hole and 0.60 mm lead: what annular gap is there on each side, in mm? | numeric | 0.2 mm | ±0.005 | Halve the difference — the gap exists on both sides of the lead. |
+| 2 | At the worst combination in the drawing — 0.95 mm hole and 0.63 mm lead — what is the gap on each side, in mm? | numeric | 0.16 mm | ±0.005 | Worst case is the smallest hole with the largest lead. |
+| 3 | The course gives 0.8-2.0 mm as a practical nozzle inside diameter for 0.5-1.2 mm leads. The proposed nozzle is 1.20 mm. What is the objection to it? | choice | option b — “1.20 mm is inside the range but too large for this joint: it leaves only 0.10 mm to the pad on each side, so the meniscus sits on the pad edge and the nozzle can put solder where it does not belong.” | — | What is the nozzle compared against — the course range, or this joint? |
+| 4 | Twenty joints at 1.8 s dwell and 0.4 s of travel between them: what is the total joint time, in seconds? | numeric | 44 s | ±0.5 | Dwell plus travel, twenty times. |
+| 5 | Add 25 s of preheat and 12 s of flux and air-knife time. What is the total cycle, in seconds? | numeric | 81 s | ±0.5 | Add every block, including the ones that are not soldering. |
+| 6 | At 81 s per board and one board in the machine at a time, what is the throughput in boards per hour? One decimal. | numeric | 44.4 boards/h | ±0.3 | Seconds in an hour divided by the cycle. |
+| 7 | Production proposes dropping the 8 s air-knife step, which takes the cycle to 73 s and the rate to 49.3 boards an hour. What is wrong with that trade? | choice | option b — “The air knife controls how much flux reaches the joint; removing it leaves excess flux that boils at the nozzle, which is how blowback, voids and bridging appear — the gain is real and smaller than the cost.” | — | What does the air-knife step actually control? |
+| 8 | Given the first article shows solder on two adjacent pins, which single variable changes first? | choice | option b — “Nozzle inside diameter: bring it down toward the joint so the meniscus sits on the annular ring and no further.” | — | Which variable controls where the solder sits, as opposed to how much or how well? |
+| 9 | The joint is a connector pin tied to an internal ground plane, so it is a high-mass joint. The program gives it the same 1.8 s as the signal pins. What does the course's range say? | choice | option b — “High-mass joints start at 1.5 s and reach 4.0 s; 1.8 s is at the bottom of that band, and the course prefers two shorter passes to one long dwell when the mass is large.” | — | Which direction does a thermal plane move the dwell? |
+| 10 | What has to be in the selective program record before this run is released? | choice | option b — “The nozzle size and shape per joint group, the dwell per group, the pass strategy, the flux volume and the air-knife settings, the preheat, the measured cycle, the joint temperatures from the thermocouples, and the first-article result against IPC-A-610 for the class.” | — | Which of these would let someone else re-run this program on another machine and know whether it worked? |
+
+**Rubric** (pass mark 80 %):
+- Annular gap computed at nominal and at the worst tolerance case — 20 pts (s1, s2)
+- Nozzle judged against this joint, not against the course range — 20 pts (s3)
+- Cycle time built from every block and converted to throughput — 20 pts (s4, s5, s6)
+- Throughput gain priced against the air knife's function — 15 pts (s7)
+- One variable changed, the one that matches the defect mechanism — 10 pts (s8)
+- High-mass joints given their own dwell or pass strategy — 10 pts (s9)
+- Program record carries the evidence, not just the settings — 5 pts (s10)
+
+---
+
 ## cx-m02-01 — Moisture breach: the BGA reel sat in a 7 % RH cabinet
 
 `#/c/cx-m02-01` · module m02 · 6 steps · 100 rubric points · about 20 min

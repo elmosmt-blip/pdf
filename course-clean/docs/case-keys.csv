@@ -36,6 +36,16 @@ cx-m05-01,s7,choice,choice key = b,b,0,,{}
 cx-m05-01,s8,choice,choice key = b,b,0,,{}
 cx-m05-01,s9,choice,choice key = b,b,0,,{}
 cx-m05-01,s10,choice,choice key = b,b,0,,{}
+cx-m10-01,s1,numeric,(hole-lead)/2,0.2,0.005,mm,"{""hole_mm"": 1.0, ""lead_mm"": 0.6}"
+cx-m10-01,s2,numeric,(hole_min-lead_max)/2,0.16,0.005,mm,"{""hole_min_mm"": 0.95, ""lead_max_mm"": 0.63}"
+cx-m10-01,s3,choice,choice key = b,b,0,,{}
+cx-m10-01,s4,numeric,joints*(dwell+move),44.0,0.5,s,"{""dwell_s"": 1.8, ""joints"": 20, ""move_s"": 0.4}"
+cx-m10-01,s5,numeric,joint_time+preheat+flux,81.0,0.5,s,"{""flux_s"": 12.0, ""joint_time_s"": 44.0, ""preheat_s"": 25.0}"
+cx-m10-01,s6,numeric,3600/cycle_s,44.4,0.3,boards/h,"{""cycle_s"": 81.0}"
+cx-m10-01,s7,choice,choice key = b,b,0,,{}
+cx-m10-01,s8,choice,choice key = b,b,0,,{}
+cx-m10-01,s9,choice,choice key = b,b,0,,{}
+cx-m10-01,s10,choice,choice key = b,b,0,,{}
 cx-m02-01,s1,numeric,"J-STD-033 Table 5-1, MSL 4",72.0,0.5,h,"{""msl"": 4}"
 cx-m02-01,s2,numeric,58+6,64.0,0.5,h,"{""bag_open_h"": 58, ""line_h"": 6}"
 cx-m02-01,s3,numeric,72-64,8.0,0.5,h,"{""exposure_h"": 64.0, ""floor_life_h"": 72.0}"

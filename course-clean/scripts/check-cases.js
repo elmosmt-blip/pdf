@@ -151,6 +151,40 @@ function rows(c, name, keyCol, valCol) {
  * value. A step not listed here is reported as unverified, which is a failure:
  * a key nobody recomputes is exactly the hand-typed key the brief forbids. */
 const EXPECTED = {
+  /* ---- m10: selective soldering. The joint is Board X's 20-pin connector, so
+   * the hole and lead come from the joint-geometry file, and the cycle from the
+   * program file, block by block. */
+  'cx-m10-01.s1': function (c) {
+    const j = dataFile(c, 'joint-geometry.csv')[0];
+    return (+j.hole_nominal_mm - +j.lead_mm) / 2;
+  },
+  'cx-m10-01.s2': function (c) {
+    const j = dataFile(c, 'joint-geometry.csv')[0];
+    return ((+j.hole_nominal_mm - +j.hole_tol_mm) - +j.lead_max_mm) / 2;
+  },
+  'cx-m10-01.s3': function (c) {
+    const p = rows(c, 'selective-program.csv', 'section', 'value');
+    const j = dataFile(c, 'joint-geometry.csv')[0];
+    /* the objection is the clearance the proposed nozzle leaves on the pad */
+    return (+p['nozzle_id_mm'] - +j.hole_nominal_mm) / 2 < 0.15 ? 'too large for this joint' : 'acceptable';
+  },
+  'cx-m10-01.s4': function (c) {
+    const p = rows(c, 'selective-program.csv', 'section', 'value');
+    return +p['joints'] * (+p['dwell_s'] + +p['move_s']);
+  },
+  'cx-m10-01.s5': function (c) {
+    const p = rows(c, 'selective-program.csv', 'section', 'value');
+    return +p['joints'] * (+p['dwell_s'] + +p['move_s']) + +p['preheat_s'] + +p['flux_knife_s'];
+  },
+  'cx-m10-01.s6': function (c) {
+    const p = rows(c, 'selective-program.csv', 'section', 'value');
+    const cycle = +p['joints'] * (+p['dwell_s'] + +p['move_s']) + +p['preheat_s'] + +p['flux_knife_s'];
+    return +(3600 / cycle).toFixed(1);   /* the step asks for one decimal */
+  },
+  'cx-m10-01.s7': function () { return 'the air knife controls how much flux reaches the joint'; },
+  'cx-m10-01.s8': function () { return 'nozzle inside diameter'; },
+  'cx-m10-01.s9': function () { return 'high-mass joints start at 1.5 s'; },
+  'cx-m10-01.s10': function () { return 'the nozzle size and shape per joint group'; },
   /* ---- m05: placement. Rotation comes from the two fiducial residuals; every
    * displacement below is that angle times a lever arm taken from the setup
    * file, and the trigger is the lead's lateral play on its pad. */

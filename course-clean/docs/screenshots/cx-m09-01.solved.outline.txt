@@ -2,7 +2,7 @@ Rendered outline of #/c/cx-m09-01
 Produced by scripts/capture-case.js from the built tree (build/course-clean).
 This is the live DOM from the shipped engine, not a mock-up.
 
-main #main   [12341 chars]
+main #main   [12408 chars]
   p .kicker   [36 chars]
     "Toolkit · Module 09 · Wave Soldering"
   header .page-head   [114 chars]
@@ -27,14 +27,14 @@ main #main   [12341 chars]
       "Two findings came off the same board. J-01 is short of fill at 1.10 mm of a 1.60 mm barrel. On the neighbourin…"
     p   [97 chars]
       "Check the record against the course's wave windows, then decide what to change and in what order."
-  details .case-board   [1236 chars]
+  details .case-board   [1303 chars]
     summary   [38 chars]
       "Board X — the product behind this case"
-    div .details-body   [1198 chars]
+    div .details-body   [1265 chars]
       p .muted.flush   [158 chars]
         "6-layer 1.6 mm FR-4 controller board: QFP-64 at 0.5 mm pitch, QFP-48 at 0.4 mm pitch, one 256-ball BGA at 0.8 …"
-      table .case-facts   [1040 chars]
-        tbody   [1040 chars]
+      table .case-facts   [1107 chars]
+        tbody   [1107 chars]
           tr   [23 chars]
             th   [20 chars]
               "Board thickness (mm)"
@@ -100,11 +100,11 @@ main #main   [12341 chars]
               "Smallest passive"
             td   [4 chars]
               "0402"
-          tr   [69 chars]
+          tr   [71 chars]
             th   [13 chars]
               "THT connector"
-            td   [56 chars]
-              "20-pin, 2.54 mm pitch, 0.8 mm finished hole, 0.5 mm lead"
+            td   [58 chars]
+              "20-pin, 2.54 mm pitch, 1.00 mm finished hole, 0.60 mm lead"
           tr   [21 chars]
             th   [17 chars]
               "Lot size (boards)"
@@ -215,6 +215,16 @@ main #main   [12341 chars]
               "SPI volume window (% of nominal)"
             td   [6 chars]
               "75–125"
+          tr   [29 chars]
+            th   [24 chars]
+              "Selective nozzle ID (mm)"
+            td   [5 chars]
+              "0.8–2"
+          tr   [36 chars]
+            th   [29 chars]
+              "Selective dwell, low mass (s)"
+            td   [7 chars]
+              "0.8–2.5"
   ul .spec-chips   [75 chars]
     li .spec-chip   [33 chars]
       span .spec-chip-label   [23 chars]

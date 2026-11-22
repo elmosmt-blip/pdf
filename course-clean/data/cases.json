@@ -123,6 +123,22 @@
       ],
       null,
       "m04l05"
+    ],
+    "selNozzleRangeMm": [
+      [
+        0.8,
+        2.0
+      ],
+      null,
+      "m10l02"
+    ],
+    "selDwellRangeS": [
+      [
+        0.8,
+        2.5
+      ],
+      null,
+      "m10l04"
     ]
   },
   "thread": [
@@ -184,20 +200,27 @@
     },
     {
       "step": 9,
+      "moduleId": "m10",
+      "label": "Selective",
+      "asset": "Selective soldering program sheet",
+      "caseId": "cx-m10-01"
+    },
+    {
+      "step": 10,
       "moduleId": "m07",
       "label": "AOI audit",
       "asset": "AOI and X-ray audit",
       "caseId": "cx-m07-01"
     },
     {
-      "step": 10,
+      "step": 11,
       "moduleId": "m11",
       "label": "Rework",
       "asset": "Rework and repair record",
       "caseId": "cx-m11-01"
     },
     {
-      "step": 11,
+      "step": 12,
       "moduleId": "m14",
       "label": "8D report",
       "asset": "8D problem report",
@@ -223,7 +246,7 @@
       "bgaBallPitchMm": 0.8,
       "bgaBalls": 256,
       "passive": "0402",
-      "thtConnector": "20-pin, 2.54 mm pitch, 0.8 mm finished hole, 0.5 mm lead",
+      "thtConnector": "20-pin, 2.54 mm pitch, 1.00 mm finished hole, 0.60 mm lead",
       "lotSize": 1240,
       "opportunitiesPerBoard": 620,
       "reflowAlloy": "SAC305",
@@ -267,6 +290,14 @@
       "spiVolumeWindowPct": [
         75,
         125
+      ],
+      "selNozzleRangeMm": [
+        0.8,
+        2.0
+      ],
+      "selDwellRangeS": [
+        0.8,
+        2.5
       ]
     },
     "labels": {
@@ -305,7 +336,9 @@
       "handSetpointWindowC": "Hand-soldering setpoint (°C)",
       "bowTwistSmtPct": "Bow and twist, SMT board, IPC-6012 (%)",
       "bowTwistOtherPct": "Bow and twist, other boards, IPC-6012 (%)",
-      "spiVolumeWindowPct": "SPI volume window (% of nominal)"
+      "spiVolumeWindowPct": "SPI volume window (% of nominal)",
+      "selNozzleRangeMm": "Selective nozzle ID (mm)",
+      "selDwellRangeS": "Selective dwell, low mass (s)"
     }
   },
   "cases": [
@@ -1738,6 +1771,397 @@
       ],
       "sources": [
         "src-011",
+        "src-001"
+      ],
+      "generatedBy": "scripts/gen_cases.py"
+    },
+    {
+      "caseId": "cx-m10-01",
+      "moduleId": "m10",
+      "title": "Selective soldering: the 20-pin connector, a nozzle that fits and a cycle that does not",
+      "estMinutes": 35,
+      "level": "core",
+      "scenario": [
+        "Board X carries one 20-pin THT connector at 2.54 mm pitch: 1.00 mm finished holes, 0.60 mm leads, 1.6 mm board. The line has moved this connector from the wave to a selective machine and the first program is in front of you.",
+        "The proposed nozzle is 1.20 mm inside diameter and the path steps from pin to pin with 1.8 s of dwell. The planner has already costed the run: 25 s preheat, 12 s flux and air knife, and the joint time on top. Production wants the cycle shortened, and the first idea on the table is to drop the air-knife step.",
+        "The first article shows solder sitting on two adjacent pins. Nothing about the dwell or the temperature has been questioned yet. Work through the joint geometry, the flux and the cycle before the program is signed."
+      ],
+      "dataFiles": [
+        {
+          "name": "selective-program.csv",
+          "kind": "csv",
+          "content": "section,value\njoints,20\ndwell_s,1.8\nmove_s,0.4\npreheat_s,25\nflux_knife_s,12\nnozzle_id_mm,1.20\nnozzle_min_for_joint_mm,1.0\n"
+        },
+        {
+          "name": "joint-geometry.csv",
+          "kind": "csv",
+          "content": "joint,hole_nominal_mm,hole_tol_mm,lead_mm,lead_max_mm,pitch_mm\nP-01,1.00,0.05,0.60,0.63,2.54\n"
+        }
+      ],
+      "steps": [
+        {
+          "id": "s1",
+          "type": "numeric",
+          "prompt": "Nominal 1.00 mm hole and 0.60 mm lead: what annular gap is there on each side, in mm?",
+          "answer": {
+            "value": 0.2,
+            "tolerance": 0.005,
+            "unit": "mm"
+          },
+          "hints": [
+            "The lead sits in the middle of the hole.",
+            "The difference is 0.40 mm, and there are two sides.",
+            "(1.00 - 0.60) / 2."
+          ],
+          "feedbackCorrect": "0.20 mm each side at nominal.",
+          "feedbackWrong": "Halve the difference — the gap exists on both sides of the lead.",
+          "explanation": "1.00 - 0.60 = 0.40 mm of total clearance, so 0.20 mm on each side. That is the space the solder has to climb and the space the nozzle has to respect. It is also the number that decides whether the connector is a wave job or a selective job: at 0.20 mm an annular wave fills easily, and a selective nozzle has to put solder into a gap only four tenths of a millimetre wide in total."
+        },
+        {
+          "id": "s2",
+          "type": "numeric",
+          "prompt": "At the worst combination in the drawing — 0.95 mm hole and 0.63 mm lead — what is the gap on each side, in mm?",
+          "answer": {
+            "value": 0.16,
+            "tolerance": 0.005,
+            "unit": "mm"
+          },
+          "hints": [
+            "Use the small hole and the large lead, not the nominal pair.",
+            "0.95 - 0.63 = 0.32 mm.",
+            "0.32 / 2."
+          ],
+          "feedbackCorrect": "0.16 mm — the tolerance eats a fifth of the nominal gap.",
+          "feedbackWrong": "Worst case is the smallest hole with the largest lead.",
+          "explanation": "0.95 - 0.63 = 0.32 mm, so 0.16 mm per side. The part-to-part tolerances take 0.04 mm off each side, which is a fifth of the nominal gap. Any nozzle or dwell chosen on nominal dimensions is therefore chosen on a joint that may not exist: the tightest joints on the board are 20 % harder to fill than the drawing suggests, and those are the ones a first article should look at."
+        },
+        {
+          "id": "s3",
+          "type": "choice",
+          "prompt": "The course gives 0.8-2.0 mm as a practical nozzle inside diameter for 0.5-1.2 mm leads. The proposed nozzle is 1.20 mm. What is the objection to it?",
+          "options": [
+            {
+              "id": "a",
+              "text": "None: 1.20 mm is inside the 0.8-2.0 mm range, so it is a valid choice."
+            },
+            {
+              "id": "b",
+              "text": "1.20 mm is inside the range but too large for this joint: it leaves only 0.10 mm to the pad on each side, so the meniscus sits on the pad edge and the nozzle can put solder where it does not belong."
+            },
+            {
+              "id": "c",
+              "text": "It is too small to heat a 1.00 mm hole."
+            },
+            {
+              "id": "d",
+              "text": "Nozzle diameter does not matter as long as the dwell is long enough."
+            }
+          ],
+          "answer": {
+            "value": "b"
+          },
+          "hints": [
+            "The range in the lesson is a starting range for leads, not a qualification.",
+            "Compare the nozzle with the hole, not with the range.",
+            "(1.20 - 1.00) / 2 = 0.10 mm."
+          ],
+          "feedbackCorrect": "Inside the range and still wrong for this joint: 0.10 mm of clearance each side puts the meniscus on the pad edge.",
+          "feedbackWrong": "What is the nozzle compared against — the course range, or this joint?",
+          "explanation": "(1.20 - 1.00) / 2 = 0.10 mm of clearance on each side, against a 2.54 mm pitch. The nozzle spans the hole plus 0.10 mm of the annular ring on each side, so the solder column it forms touches the pad edge where the neighbouring net begins. A range in a lesson is a place to start looking, not a qualification: the lesson says to verify against the adjacent pad spacing, and this joint's spacing is what rules the nozzle out. The symptom on the first article — solder on two adjacent pins — is what that looks like downstream."
+        },
+        {
+          "id": "s4",
+          "type": "numeric",
+          "prompt": "Twenty joints at 1.8 s dwell and 0.4 s of travel between them: what is the total joint time, in seconds?",
+          "answer": {
+            "value": 44.0,
+            "tolerance": 0.5,
+            "unit": "s"
+          },
+          "hints": [
+            "Each joint costs dwell plus the move to the next one.",
+            "1.8 + 0.4 = 2.2 s per joint.",
+            "20 x 2.2."
+          ],
+          "feedbackCorrect": "44 s of joint time.",
+          "feedbackWrong": "Dwell plus travel, twenty times.",
+          "explanation": "1.8 + 0.4 = 2.2 s per joint, so 44 s for the connector. Travel is not free: at 0.4 s per step it is 8 s of the 44, which is 18 % of the joint time spent moving. That is the number a path optimisation actually attacks, and it is worth knowing before anything is removed from the process to buy cycle time."
+        },
+        {
+          "id": "s5",
+          "type": "numeric",
+          "prompt": "Add 25 s of preheat and 12 s of flux and air-knife time. What is the total cycle, in seconds?",
+          "answer": {
+            "value": 81.0,
+            "tolerance": 0.5,
+            "unit": "s"
+          },
+          "hints": [
+            "Sum the four blocks: joints, preheat, flux and knife.",
+            "44 + 25 + 12.",
+            "81 s."
+          ],
+          "feedbackCorrect": "81 s per board.",
+          "feedbackWrong": "Add every block, including the ones that are not soldering.",
+          "explanation": "44 s of joints, 25 s of preheat and 12 s of flux and knife make 81 s. Only 54 % of that cycle is a nozzle over a joint; the rest is the board being prepared or the nozzle travelling. Any throughput plan that starts by cutting the soldering part is attacking the smaller half and the one that decides the joint."
+        },
+        {
+          "id": "s6",
+          "type": "numeric",
+          "prompt": "At 81 s per board and one board in the machine at a time, what is the throughput in boards per hour? One decimal.",
+          "answer": {
+            "value": 44.4,
+            "tolerance": 0.3,
+            "unit": "boards/h"
+          },
+          "hints": [
+            "An hour is 3,600 s.",
+            "3,600 / 81.",
+            "44.4 boards per hour."
+          ],
+          "feedbackCorrect": "44.4 boards an hour at 100 % availability.",
+          "feedbackWrong": "Seconds in an hour divided by the cycle.",
+          "explanation": "3,600 / 81 = 44.4 boards an hour, before any downtime, fixture exchange or operator break. That is the ceiling the planner should be quoting, and it is worth stating as a ceiling: availability of 85 % turns it into 37.8, and a program that is 2 s faster but produces one reworked board an hour has not gained anything."
+        },
+        {
+          "id": "s7",
+          "type": "choice",
+          "prompt": "Production proposes dropping the 8 s air-knife step, which takes the cycle to 73 s and the rate to 49.3 boards an hour. What is wrong with that trade?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Nothing: 49.3 against 44.4 is an 11 % gain for a step that only moves air."
+            },
+            {
+              "id": "b",
+              "text": "The air knife controls how much flux reaches the joint; removing it leaves excess flux that boils at the nozzle, which is how blowback, voids and bridging appear — the gain is real and smaller than the cost."
+            },
+            {
+              "id": "c",
+              "text": "It changes the dwell, which is the number that matters."
+            },
+            {
+              "id": "d",
+              "text": "The cycle cannot be recomputed without the machine."
+            }
+          ],
+          "answer": {
+            "value": "b"
+          },
+          "hints": [
+            "Ask what the air knife does to the joint, not to the board.",
+            "It meters flux; flux that boils at the nozzle disturbs the meniscus.",
+            "The 11 % gain is arithmetic; the defect rate is not in that arithmetic."
+          ],
+          "feedbackCorrect": "The air knife meters flux; without it the excess boils at the nozzle and the gain of 11 % buys blowback and bridging.",
+          "feedbackWrong": "What does the air-knife step actually control?",
+          "explanation": "The air knife is the flux metering step: too little action leaves excess flux that boils violently when the nozzle arrives, which produces blowback, voids and the kind of solder placement the first article already shows. The arithmetic is honest — 73 s is 49.3 boards an hour, 11 % more — but it prices only the cycle. One additional reworked board an hour costs more than 4.9 boards of capacity, and the defect it creates is the one already visible on the sample. When a step is removed to buy time, the acceptance criteria have to be re-run, not assumed."
+        },
+        {
+          "id": "s8",
+          "type": "choice",
+          "prompt": "Given the first article shows solder on two adjacent pins, which single variable changes first?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Dwell: shorten it from 1.8 s so less solder is delivered."
+            },
+            {
+              "id": "b",
+              "text": "Nozzle inside diameter: bring it down toward the joint so the meniscus sits on the annular ring and no further."
+            },
+            {
+              "id": "c",
+              "text": "Preheat: raise it so the joint wets faster."
+            },
+            {
+              "id": "d",
+              "text": "Flux volume: increase it so the joint wets more completely."
+            }
+          ],
+          "answer": {
+            "value": "b"
+          },
+          "hints": [
+            "The defect is solder where it should not be, not solder missing where it should.",
+            "Dwell and flux change how much and how well; the nozzle changes where.",
+            "One variable, the one that matches the mechanism."
+          ],
+          "feedbackCorrect": "The nozzle: 1.20 mm spans past the annular ring, and the defect is positional.",
+          "feedbackWrong": "Which variable controls where the solder sits, as opposed to how much or how well?",
+          "explanation": "The defect is topological: solder reached a pin it should not touch. Dwell and flux change how much solder and how well it wets, and shortening the dwell to starve a bridge is the classic way to trade a bridge for an incomplete fillet. The nozzle sets the footprint of the meniscus, and at 1.20 mm that footprint reaches past the pad edge on a 1.00 mm hole. Change the nozzle alone, re-run the first article, and leave the other three settings where they are — that is the one-variable rule from m10l02, and it is what makes the result attributable."
+        },
+        {
+          "id": "s9",
+          "type": "choice",
+          "prompt": "The joint is a connector pin tied to an internal ground plane, so it is a high-mass joint. The program gives it the same 1.8 s as the signal pins. What does the course's range say?",
+          "options": [
+            {
+              "id": "a",
+              "text": "1.8 s is inside the 0.8-2.5 s low-mass range, so it is fine everywhere."
+            },
+            {
+              "id": "b",
+              "text": "High-mass joints start at 1.5 s and reach 4.0 s; 1.8 s is at the bottom of that band, and the course prefers two shorter passes to one long dwell when the mass is large."
+            },
+            {
+              "id": "c",
+              "text": "High-mass joints need less dwell because the plane conducts heat."
+            },
+            {
+              "id": "d",
+              "text": "Dwell should be the same for every joint so the cycle is predictable."
+            }
+          ],
+          "answer": {
+            "value": "b"
+          },
+          "hints": [
+            "A ground-plane pin is a heat sink: the plane takes heat away from the joint.",
+            "The high-mass band starts above the low-mass one.",
+            "Two passes spread heat without overheating the neighbours."
+          ],
+          "feedbackCorrect": "High-mass joints run 1.5-4.0 s, and two shorter passes beat one long dwell.",
+          "feedbackWrong": "Which direction does a thermal plane move the dwell?",
+          "explanation": "A pin tied into an internal plane conducts heat away from the joint as fast as the nozzle delivers it, so the same 1.8 s that fills a signal pin leaves a ground-plane pin below wetting temperature. The course's high-mass band starts at 1.5 s and runs to 4.0 s, and it recommends two shorter passes rather than one long one, because two passes let heat spread into the plane between contacts without holding the neighbouring components at temperature. A single dwell table for every joint is a table that is wrong for at least one group."
+        },
+        {
+          "id": "s10",
+          "type": "choice",
+          "prompt": "What has to be in the selective program record before this run is released?",
+          "options": [
+            {
+              "id": "a",
+              "text": "The nozzle size, the bath temperature and the board part number."
+            },
+            {
+              "id": "b",
+              "text": "The nozzle size and shape per joint group, the dwell per group, the pass strategy, the flux volume and the air-knife settings, the preheat, the measured cycle, the joint temperatures from the thermocouples, and the first-article result against IPC-A-610 for the class."
+            },
+            {
+              "id": "c",
+              "text": "The machine's exported program file."
+            },
+            {
+              "id": "d",
+              "text": "A photograph of the first article."
+            }
+          ],
+          "answer": {
+            "value": "b"
+          },
+          "hints": [
+            "A record is judged by whether the program can be rebuilt and defended.",
+            "Geometry, dwell, passes, flux, knife, preheat, cycle, temperatures, acceptance.",
+            "The program file holds the settings; it does not hold the evidence they work."
+          ],
+          "feedbackCorrect": "Nozzle and shape per group, dwell per group, passes, flux, knife, preheat, measured cycle, joint temperatures and the first-article result.",
+          "feedbackWrong": "Which of these would let someone else re-run this program on another machine and know whether it worked?",
+          "explanation": "The exported program file is a set of coordinates and numbers with no evidence attached: it cannot say whether 1.8 s heats this joint to wetting temperature on this machine, and it will not transfer to a second machine with different thermal behaviour. The thermocouple readings are what turn a dwell into a claim, the air-knife and flux settings are what make the wetting repeatable, and the acceptance line against IPC-A-610 is what makes the result a judgement rather than an impression. Geometry per joint group matters because the groups have different thermal mass and one dwell table cannot serve both."
+        }
+      ],
+      "rubric": [
+        {
+          "criterion": "Annular gap computed at nominal and at the worst tolerance case",
+          "points": 20,
+          "steps": [
+            "s1",
+            "s2"
+          ]
+        },
+        {
+          "criterion": "Nozzle judged against this joint, not against the course range",
+          "points": 20,
+          "steps": [
+            "s3"
+          ]
+        },
+        {
+          "criterion": "Cycle time built from every block and converted to throughput",
+          "points": 20,
+          "steps": [
+            "s4",
+            "s5",
+            "s6"
+          ]
+        },
+        {
+          "criterion": "Throughput gain priced against the air knife's function",
+          "points": 15,
+          "steps": [
+            "s7"
+          ]
+        },
+        {
+          "criterion": "One variable changed, the one that matches the defect mechanism",
+          "points": 10,
+          "steps": [
+            "s8"
+          ]
+        },
+        {
+          "criterion": "High-mass joints given their own dwell or pass strategy",
+          "points": 10,
+          "steps": [
+            "s9"
+          ]
+        },
+        {
+          "criterion": "Program record carries the evidence, not just the settings",
+          "points": 5,
+          "steps": [
+            "s10"
+          ]
+        }
+      ],
+      "templates": [
+        {
+          "templateId": "selective-program",
+          "name": "Selective soldering program sheet",
+          "status": "available",
+          "use": "Keep the nozzle, dwell, passes, flux, air knife and preheat beside the measured cycle, so a program can be re-run on another machine and still be judged against the joint temperature it produced.",
+          "lesson": "m10l04",
+          "variants": [
+            {
+              "variant": "blank",
+              "file": "selective-program-blank.csv",
+              "mime": "text/csv",
+              "label": "Blank",
+              "content": "section,value\r\n,\r\n,\r\n,\r\n"
+            },
+            {
+              "variant": "example",
+              "file": "selective-program-example.csv",
+              "mime": "text/csv",
+              "label": "Example",
+              "content": "section,value\njoints,20\ndwell_s,1.8\nmove_s,0.4\npreheat_s,25\nflux_knife_s,12\nnozzle_id_mm,1.20\nnozzle_min_for_joint_mm,1.0\n"
+            },
+            {
+              "variant": "guide",
+              "file": "selective-program-guide.md",
+              "mime": "text/markdown",
+              "label": "Guide",
+              "content": "# Selective soldering program sheet\n\n## What this template is for\nKeep the nozzle, dwell, passes, flux, air knife and preheat beside the measured cycle, so a program can be re-run on another machine and still be judged against the joint temperature it produced.\n\n## How to fill it in\n1. Copy one row per program section. Do not merge rows: one aperture, one reel, one interval or one 8D discipline per line.\n2. Keep the column order. The columns below are the ones the course's own worked examples use.\n3. Leave a cell blank rather than writing a guess. A blank cell is a question for the engineer; a guessed number is a defect in the record.\n\n## Columns\n- `section`\n- `value`\n\n## Worked example\nThe example variant of this file is the data file from case cx-m10-01 (Selective soldering: the 20-pin connector, a nozzle that fits and a cycle that does not), filled in with Board X numbers.\n\n## Where the numbers come from\nEvery value in the example is produced by scripts/gen_cases.py and checked by scripts/check-cases.js. If you change a number in the example, the checker fails: that is deliberate.\n\n## Course link\nSee lesson m10l04 for the reasoning behind each column.\n"
+            }
+          ]
+        }
+      ],
+      "toolLinks": [
+        {
+          "label": "Nozzle strategy and dwell (lesson m10l02)",
+          "href": "#/l/m10l02"
+        },
+        {
+          "label": "Programming a run (lesson m10l04)",
+          "href": "#/l/m10l04"
+        },
+        {
+          "label": "Defects and validation (lesson m10l05)",
+          "href": "#/l/m10l05"
+        }
+      ],
+      "sources": [
+        "src-016",
         "src-001"
       ],
       "generatedBy": "scripts/gen_cases.py"

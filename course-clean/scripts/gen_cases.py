@@ -57,7 +57,10 @@ BOARD_FACTS = {
     "bgaBallPitchMm": 0.8,
     "bgaBalls": 256,
     "passive": "0402",
-    "thtConnector": "20-pin, 2.54 mm pitch, 0.8 mm finished hole, 0.5 mm lead",
+    # The hole and lead figures are the ones m08 measures (1.00 +-0.05 mm hole,
+    # 0.60 mm lead) and the ones m10 sizes a nozzle against. They were written
+    # here as 0.8 / 0.5 mm, which disagreed with both cases that read them.
+    "thtConnector": "20-pin, 2.54 mm pitch, 1.00 mm finished hole, 0.60 mm lead",
     "lotSize": 1240,
     "opportunitiesPerBoard": 620,
     "reflowAlloy": "SAC305",
@@ -104,6 +107,8 @@ BOARD_FACT_LABELS = {
     "bowTwistSmtPct": "Bow and twist, SMT board, IPC-6012 (%)",
     "bowTwistOtherPct": "Bow and twist, other boards, IPC-6012 (%)",
     "spiVolumeWindowPct": "SPI volume window (% of nominal)",
+    "selNozzleRangeMm": "Selective nozzle ID (mm)",
+    "selDwellRangeS": "Selective dwell, low mass (s)",
 }
 
 BOARD = {
@@ -138,11 +143,13 @@ BOARD_THREAD = [
      "caseId": "cx-m08-01"},
     {"step": 8, "moduleId": "m09", "label": "Wave", "asset": "Wave solder process record",
      "caseId": "cx-m09-01"},
-    {"step": 9, "moduleId": "m07", "label": "AOI audit", "asset": "AOI and X-ray audit",
+    {"step": 9, "moduleId": "m10", "label": "Selective", "asset": "Selective soldering program sheet",
+     "caseId": "cx-m10-01"},
+    {"step": 10, "moduleId": "m07", "label": "AOI audit", "asset": "AOI and X-ray audit",
      "caseId": "cx-m07-01"},
-    {"step": 10, "moduleId": "m11", "label": "Rework", "asset": "Rework and repair record",
+    {"step": 11, "moduleId": "m11", "label": "Rework", "asset": "Rework and repair record",
      "caseId": "cx-m11-01"},
-    {"step": 11, "moduleId": "m14", "label": "8D report", "asset": "8D problem report",
+    {"step": 12, "moduleId": "m14", "label": "8D report", "asset": "8D problem report",
      "caseId": "cx-m14-01"},
 ]
 
@@ -225,6 +232,15 @@ BOARD_FACTS["handSetpointWindowC"] = [HAND_SETPOINT_MIN_C, HAND_SETPOINT_MAX_C]
 # 80-120 %, 75-125 %, and 50-150 % with 80-150 % as the control band — so this is
 # not a standard and is not cited as one. It is the Board X control plan's own
 # window, chosen mid-range, and the case says on the page where it comes from.
+# Selective soldering: the course's own starting ranges (m10l02, m10l04). They are
+# starting points the text tells the reader to verify on the machine, so the case
+# uses them to judge a program and never as a claim about an alloy.
+SEL_NOZZLE_MIN_MM = 0.8           # None source: course text, m10l02
+SEL_NOZZLE_MAX_MM = 2.0
+SEL_DWELL_MIN_S = 0.8             # None source: course text, m10l04, low mass
+SEL_DWELL_MAX_S = 2.5
+SEL_DWELL_HIGH_MIN_S = 1.5        # None source: course text, m10l04, high mass
+SEL_DWELL_HIGH_MAX_S = 4.0
 SPI_VOLUME_LOW_PCT = 75          # None source: Board X control plan, m04l05
 SPI_VOLUME_HIGH_PCT = 125
 BOW_TWIST_SMT_PCT = 0.75
@@ -232,6 +248,8 @@ BOW_TWIST_OTHER_PCT = 1.5
 BOARD_FACTS["bowTwistSmtPct"] = BOW_TWIST_SMT_PCT
 BOARD_FACTS["bowTwistOtherPct"] = BOW_TWIST_OTHER_PCT
 BOARD_FACTS["spiVolumeWindowPct"] = [SPI_VOLUME_LOW_PCT, SPI_VOLUME_HIGH_PCT]
+BOARD_FACTS["selNozzleRangeMm"] = [SEL_NOZZLE_MIN_MM, SEL_NOZZLE_MAX_MM]
+BOARD_FACTS["selDwellRangeS"] = [SEL_DWELL_MIN_S, SEL_DWELL_MAX_S]
 
 
 # --------------------------------------------------------------------------
@@ -445,6 +463,16 @@ TEMPLATE_DEFS = {
                "measurement with its method, and what closed the hold — so a release "
                "can be defended when the product class or the standard moves.",
         "rowNoun": "lot or carton",
+    },
+    "selective-program": {
+        "name": "Selective soldering program sheet",
+        "kind": "csv",
+        "sourceFile": "selective-program.csv",
+        "lesson": "m10l04",
+        "use": "Keep the nozzle, dwell, passes, flux, air knife and preheat beside the "
+               "measured cycle, so a program can be re-run on another machine and still "
+               "be judged against the joint temperature it produced.",
+        "rowNoun": "program section",
     },
     "placement-audit": {
         "name": "Placement offset record",
@@ -1856,6 +1884,315 @@ def build_cases():
          "steps": ["s8"]},
         {"criterion": "Disposition holds the setup and keeps the two numbers apart",
          "points": 5, "steps": ["s9", "s10"]},
+    ]
+    cases.append(c)
+
+    # =====================================================================
+    # m10 — selective soldering: the nozzle that fits and the cycle it costs
+    # =====================================================================
+    # Board X's 20-pin THT connector, 1.00 mm finished hole and 0.60 mm lead, is
+    # the joint geometry the whole case turns on — the same numbers m08 measures.
+    sel_hole = BOARD_FACTS["thtHoleNominalMm"]          # 1.00
+    sel_hole_tol = BOARD_FACTS["thtHoleToleranceMm"]    # 0.05
+    sel_lead = 0.60
+    sel_lead_max = 0.63
+    sel_gap_nom = ((sel_hole - sel_lead) / 2.0, "mm", "(hole-lead)/2",
+                   {"hole_mm": sel_hole, "lead_mm": sel_lead})
+    sel_gap_worst = (((sel_hole - sel_hole_tol) - sel_lead_max) / 2.0, "mm",
+                     "(hole_min-lead_max)/2",
+                     {"hole_min_mm": sel_hole - sel_hole_tol, "lead_max_mm": sel_lead_max})
+    sel_clear_12 = ((1.20 - sel_hole) / 2.0, "mm", "(nozzle_ID-hole)/2",
+                    {"nozzle_id_mm": 1.20, "hole_mm": sel_hole})
+    sel_joints, sel_dwell, sel_move = 20, 1.8, 0.4
+    sel_preheat, sel_flux = 25.0, 12.0
+    sel_joint_time = (sel_joints * (sel_dwell + sel_move), "s", "joints*(dwell+move)",
+                      {"joints": sel_joints, "dwell_s": sel_dwell, "move_s": sel_move})
+    sel_cycle_s = sel_joint_time[0] + sel_preheat + sel_flux
+    sel_cycle = (sel_cycle_s, "s", "joint_time+preheat+flux",
+                 {"joint_time_s": sel_joint_time[0], "preheat_s": sel_preheat,
+                  "flux_s": sel_flux})
+    # the step asks for one decimal, so the published key carries one decimal
+    sel_rate = (round(3600.0 / sel_cycle_s, 1), "boards/h", "3600/cycle_s",
+                {"cycle_s": round(sel_cycle_s, 2)})
+    # The tempting optimisation: skip the air-knife time to buy throughput.
+    sel_no_knife = (3600.0 / (sel_cycle_s - 8.0), "boards/h", "3600/(cycle_s-8)",
+                    {"cycle_s": round(sel_cycle_s - 8.0, 2)})
+
+    c = {
+        "caseId": "cx-m10-01",
+        "moduleId": "m10",
+        "title": "Selective soldering: the 20-pin connector, a nozzle that fits and a cycle that does not",
+        "estMinutes": 35,
+        "level": "core",
+        "scenario": [
+            "Board X carries one 20-pin THT connector at 2.54 mm pitch: 1.00 mm finished "
+            "holes, 0.60 mm leads, 1.6 mm board. The line has moved this connector from "
+            "the wave to a selective machine and the first program is in front of you.",
+            "The proposed nozzle is 1.20 mm inside diameter and the path steps from pin to "
+            "pin with 1.8 s of dwell. The planner has already costed the run: 25 s preheat, "
+            "12 s flux and air knife, and the joint time on top. Production wants the cycle "
+            "shortened, and the first idea on the table is to drop the air-knife step.",
+            "The first article shows solder sitting on two adjacent pins. Nothing about the "
+            "dwell or the temperature has been questioned yet. Work through the joint "
+            "geometry, the flux and the cycle before the program is signed.",
+        ],
+        "dataFiles": [
+            {
+                "name": "selective-program.csv",
+                "kind": "csv",
+                "content": (
+                    "section,value\n"
+                    "joints,20\n"
+                    "dwell_s,1.8\n"
+                    "move_s,0.4\n"
+                    "preheat_s,25\n"
+                    "flux_knife_s,12\n"
+                    "nozzle_id_mm,1.20\n"
+                    "nozzle_min_for_joint_mm,1.0\n"
+                ),
+            },
+            {
+                "name": "joint-geometry.csv",
+                "kind": "csv",
+                "content": (
+                    "joint,hole_nominal_mm,hole_tol_mm,lead_mm,lead_max_mm,pitch_mm\n"
+                    "P-01,1.00,0.05,0.60,0.63,2.54\n"
+                ),
+            },
+        ],
+        "steps": [],
+        "rubric": [],
+        "templates": [
+            {"templateId": "selective-program", "name": "Selective soldering program sheet",
+             "status": "planned"}
+        ],
+        "toolLinks": [
+            {"label": "Nozzle strategy and dwell (lesson m10l02)", "href": "#/l/m10l02"},
+            {"label": "Programming a run (lesson m10l04)", "href": "#/l/m10l04"},
+            {"label": "Defects and validation (lesson m10l05)", "href": "#/l/m10l05"},
+        ],
+        "sources": ["src-016", "src-001"],
+        "generatedBy": "scripts/gen_cases.py",
+    }
+
+    add_step(c, step_numeric(
+        "s1",
+        "Nominal 1.00 mm hole and 0.60 mm lead: what annular gap is there on each side, "
+        "in mm?",
+        sel_gap_nom, 0.005,
+        ["The lead sits in the middle of the hole.",
+         "The difference is 0.40 mm, and there are two sides.",
+         "(1.00 - 0.60) / 2."],
+        "0.20 mm each side at nominal.",
+        "Halve the difference — the gap exists on both sides of the lead.",
+        "1.00 - 0.60 = 0.40 mm of total clearance, so 0.20 mm on each side. That is the "
+        "space the solder has to climb and the space the nozzle has to respect. It is "
+        "also the number that decides whether the connector is a wave job or a selective "
+        "job: at 0.20 mm an annular wave fills easily, and a selective nozzle has to put "
+        "solder into a gap only four tenths of a millimetre wide in total."))
+
+    add_step(c, step_numeric(
+        "s2",
+        "At the worst combination in the drawing — 0.95 mm hole and 0.63 mm lead — what is "
+        "the gap on each side, in mm?",
+        sel_gap_worst, 0.005,
+        ["Use the small hole and the large lead, not the nominal pair.",
+         "0.95 - 0.63 = 0.32 mm.",
+         "0.32 / 2."],
+        "0.16 mm — the tolerance eats a fifth of the nominal gap.",
+        "Worst case is the smallest hole with the largest lead.",
+        "0.95 - 0.63 = 0.32 mm, so 0.16 mm per side. The part-to-part tolerances take "
+        "0.04 mm off each side, which is a fifth of the nominal gap. Any nozzle or dwell "
+        "chosen on nominal dimensions is therefore chosen on a joint that may not exist: "
+        "the tightest joints on the board are 20 % harder to fill than the drawing "
+        "suggests, and those are the ones a first article should look at."))
+
+    add_step(c, step_choice(
+        "s3",
+        "The course gives 0.8-2.0 mm as a practical nozzle inside diameter for 0.5-1.2 mm "
+        "leads. The proposed nozzle is 1.20 mm. What is the objection to it?",
+        [("a", "None: 1.20 mm is inside the 0.8-2.0 mm range, so it is a valid choice."),
+         ("b", "1.20 mm is inside the range but too large for this joint: it leaves only "
+               "0.10 mm to the pad on each side, so the meniscus sits on the pad edge and "
+               "the nozzle can put solder where it does not belong."),
+         ("c", "It is too small to heat a 1.00 mm hole."),
+         ("d", "Nozzle diameter does not matter as long as the dwell is long enough.")],
+        "b",
+        ["The range in the lesson is a starting range for leads, not a qualification.",
+         "Compare the nozzle with the hole, not with the range.",
+         "(1.20 - 1.00) / 2 = 0.10 mm."],
+        "Inside the range and still wrong for this joint: 0.10 mm of clearance each side "
+        "puts the meniscus on the pad edge.",
+        "What is the nozzle compared against — the course range, or this joint?",
+        "(1.20 - 1.00) / 2 = 0.10 mm of clearance on each side, against a 2.54 mm pitch. "
+        "The nozzle spans the hole plus 0.10 mm of the annular ring on each side, so the "
+        "solder column it forms touches the pad edge where the neighbouring net begins. A "
+        "range in a lesson is a place to start looking, not a qualification: the lesson "
+        "says to verify against the adjacent pad spacing, and this joint's spacing is what "
+        "rules the nozzle out. The symptom on the first article — solder on two adjacent "
+        "pins — is what that looks like downstream."))
+
+    add_step(c, step_numeric(
+        "s4",
+        "Twenty joints at 1.8 s dwell and 0.4 s of travel between them: what is the total "
+        "joint time, in seconds?",
+        sel_joint_time, 0.5,
+        ["Each joint costs dwell plus the move to the next one.",
+         "1.8 + 0.4 = 2.2 s per joint.",
+         "20 x 2.2."],
+        "44 s of joint time.",
+        "Dwell plus travel, twenty times.",
+        "1.8 + 0.4 = 2.2 s per joint, so 44 s for the connector. Travel is not free: at "
+        "0.4 s per step it is 8 s of the 44, which is 18 % of the joint time spent moving. "
+        "That is the number a path optimisation actually attacks, and it is worth knowing "
+        "before anything is removed from the process to buy cycle time."))
+
+    add_step(c, step_numeric(
+        "s5",
+        "Add 25 s of preheat and 12 s of flux and air-knife time. What is the total cycle, "
+        "in seconds?",
+        sel_cycle, 0.5,
+        ["Sum the four blocks: joints, preheat, flux and knife.",
+         "44 + 25 + 12.",
+         "81 s."],
+        "81 s per board.",
+        "Add every block, including the ones that are not soldering.",
+        "44 s of joints, 25 s of preheat and 12 s of flux and knife make 81 s. Only 54 % of "
+        "that cycle is a nozzle over a joint; the rest is the board being prepared or the "
+        "nozzle travelling. Any throughput plan that starts by cutting the soldering part "
+        "is attacking the smaller half and the one that decides the joint."))
+
+    add_step(c, step_numeric(
+        "s6",
+        "At 81 s per board and one board in the machine at a time, what is the throughput "
+        "in boards per hour? One decimal.",
+        sel_rate, 0.3,
+        ["An hour is 3,600 s.",
+         "3,600 / 81.",
+         "44.4 boards per hour."],
+        "44.4 boards an hour at 100 % availability.",
+        "Seconds in an hour divided by the cycle.",
+        "3,600 / 81 = 44.4 boards an hour, before any downtime, fixture exchange or "
+        "operator break. That is the ceiling the planner should be quoting, and it is "
+        "worth stating as a ceiling: availability of 85 % turns it into 37.8, and a "
+        "program that is 2 s faster but produces one reworked board an hour has not gained "
+        "anything."))
+
+    add_step(c, step_choice(
+        "s7",
+        "Production proposes dropping the 8 s air-knife step, which takes the cycle to 73 s "
+        "and the rate to 49.3 boards an hour. What is wrong with that trade?",
+        [("a", "Nothing: 49.3 against 44.4 is an 11 % gain for a step that only moves air."),
+         ("b", "The air knife controls how much flux reaches the joint; removing it leaves "
+               "excess flux that boils at the nozzle, which is how blowback, voids and "
+               "bridging appear — the gain is real and smaller than the cost."),
+         ("c", "It changes the dwell, which is the number that matters."),
+         ("d", "The cycle cannot be recomputed without the machine.")],
+        "b",
+        ["Ask what the air knife does to the joint, not to the board.",
+         "It meters flux; flux that boils at the nozzle disturbs the meniscus.",
+         "The 11 % gain is arithmetic; the defect rate is not in that arithmetic."],
+        "The air knife meters flux; without it the excess boils at the nozzle and the "
+        "gain of 11 % buys blowback and bridging.",
+        "What does the air-knife step actually control?",
+        "The air knife is the flux metering step: too little action leaves excess flux "
+        "that boils violently when the nozzle arrives, which produces blowback, voids and "
+        "the kind of solder placement the first article already shows. The arithmetic is "
+        "honest — 73 s is 49.3 boards an hour, 11 % more — but it prices only the cycle. "
+        "One additional reworked board an hour costs more than 4.9 boards of capacity, and "
+        "the defect it creates is the one already visible on the sample. When a step is "
+        "removed to buy time, the acceptance criteria have to be re-run, not assumed."))
+
+    add_step(c, step_choice(
+        "s8",
+        "Given the first article shows solder on two adjacent pins, which single variable "
+        "changes first?",
+        [("a", "Dwell: shorten it from 1.8 s so less solder is delivered."),
+         ("b", "Nozzle inside diameter: bring it down toward the joint so the meniscus "
+               "sits on the annular ring and no further."),
+         ("c", "Preheat: raise it so the joint wets faster."),
+         ("d", "Flux volume: increase it so the joint wets more completely.")],
+        "b",
+        ["The defect is solder where it should not be, not solder missing where it should.",
+         "Dwell and flux change how much and how well; the nozzle changes where.",
+         "One variable, the one that matches the mechanism."],
+        "The nozzle: 1.20 mm spans past the annular ring, and the defect is positional.",
+        "Which variable controls where the solder sits, as opposed to how much or how well?",
+        "The defect is topological: solder reached a pin it should not touch. Dwell and "
+        "flux change how much solder and how well it wets, and shortening the dwell to "
+        "starve a bridge is the classic way to trade a bridge for an incomplete fillet. "
+        "The nozzle sets the footprint of the meniscus, and at 1.20 mm that footprint "
+        "reaches past the pad edge on a 1.00 mm hole. Change the nozzle alone, re-run the "
+        "first article, and leave the other three settings where they are — that is the "
+        "one-variable rule from m10l02, and it is what makes the result attributable."))
+
+    add_step(c, step_choice(
+        "s9",
+        "The joint is a connector pin tied to an internal ground plane, so it is a "
+        "high-mass joint. The program gives it the same 1.8 s as the signal pins. What does "
+        "the course's range say?",
+        [("a", "1.8 s is inside the 0.8-2.5 s low-mass range, so it is fine everywhere."),
+         ("b", "High-mass joints start at 1.5 s and reach 4.0 s; 1.8 s is at the bottom of "
+               "that band, and the course prefers two shorter passes to one long dwell "
+               "when the mass is large."),
+         ("c", "High-mass joints need less dwell because the plane conducts heat."),
+         ("d", "Dwell should be the same for every joint so the cycle is predictable.")],
+        "b",
+        ["A ground-plane pin is a heat sink: the plane takes heat away from the joint.",
+         "The high-mass band starts above the low-mass one.",
+         "Two passes spread heat without overheating the neighbours."],
+        "High-mass joints run 1.5-4.0 s, and two shorter passes beat one long dwell.",
+        "Which direction does a thermal plane move the dwell?",
+        "A pin tied into an internal plane conducts heat away from the joint as fast as "
+        "the nozzle delivers it, so the same 1.8 s that fills a signal pin leaves a "
+        "ground-plane pin below wetting temperature. The course's high-mass band starts at "
+        "1.5 s and runs to 4.0 s, and it recommends two shorter passes rather than one "
+        "long one, because two passes let heat spread into the plane between contacts "
+        "without holding the neighbouring components at temperature. A single dwell table "
+        "for every joint is a table that is wrong for at least one group."))
+
+    add_step(c, step_choice(
+        "s10",
+        "What has to be in the selective program record before this run is released?",
+        [("a", "The nozzle size, the bath temperature and the board part number."),
+         ("b", "The nozzle size and shape per joint group, the dwell per group, the pass "
+               "strategy, the flux volume and the air-knife settings, the preheat, the "
+               "measured cycle, the joint temperatures from the thermocouples, and the "
+               "first-article result against IPC-A-610 for the class."),
+         ("c", "The machine's exported program file."),
+         ("d", "A photograph of the first article.")],
+        "b",
+        ["A record is judged by whether the program can be rebuilt and defended.",
+         "Geometry, dwell, passes, flux, knife, preheat, cycle, temperatures, acceptance.",
+         "The program file holds the settings; it does not hold the evidence they work."],
+        "Nozzle and shape per group, dwell per group, passes, flux, knife, preheat, "
+        "measured cycle, joint temperatures and the first-article result.",
+        "Which of these would let someone else re-run this program on another machine and "
+        "know whether it worked?",
+        "The exported program file is a set of coordinates and numbers with no evidence "
+        "attached: it cannot say whether 1.8 s heats this joint to wetting temperature on "
+        "this machine, and it will not transfer to a second machine with different thermal "
+        "behaviour. The thermocouple readings are what turn a dwell into a claim, the "
+        "air-knife and flux settings are what make the wetting repeatable, and the "
+        "acceptance line against IPC-A-610 is what makes the result a judgement rather "
+        "than an impression. Geometry per joint group matters because the groups have "
+        "different thermal mass and one dwell table cannot serve both."))
+
+    c["rubric"] = [
+        {"criterion": "Annular gap computed at nominal and at the worst tolerance case",
+         "points": 20, "steps": ["s1", "s2"]},
+        {"criterion": "Nozzle judged against this joint, not against the course range",
+         "points": 20, "steps": ["s3"]},
+        {"criterion": "Cycle time built from every block and converted to throughput",
+         "points": 20, "steps": ["s4", "s5", "s6"]},
+        {"criterion": "Throughput gain priced against the air knife's function",
+         "points": 15, "steps": ["s7"]},
+        {"criterion": "One variable changed, the one that matches the defect mechanism",
+         "points": 10, "steps": ["s8"]},
+        {"criterion": "High-mass joints given their own dwell or pass strategy",
+         "points": 10, "steps": ["s9"]},
+        {"criterion": "Program record carries the evidence, not just the settings",
+         "points": 5, "steps": ["s10"]},
     ]
     cases.append(c)
 
@@ -3708,6 +4045,8 @@ def build_document():
             "handSetpointWindowC": [[HAND_SETPOINT_MIN_C, HAND_SETPOINT_MAX_C], None, "m11l02"],
             "bowTwistSmtPct": [BOW_TWIST_SMT_PCT, "src-018", "m01l06"],
             "spiVolumeWindowPct": [[SPI_VOLUME_LOW_PCT, SPI_VOLUME_HIGH_PCT], None, "m04l05"],
+            "selNozzleRangeMm": [[SEL_NOZZLE_MIN_MM, SEL_NOZZLE_MAX_MM], None, "m10l02"],
+            "selDwellRangeS": [[SEL_DWELL_MIN_S, SEL_DWELL_MAX_S], None, "m10l04"],
         },
         "thread": BOARD_THREAD,
         "board": BOARD,
