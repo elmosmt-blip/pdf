@@ -555,7 +555,8 @@ def build_cases():
     add_step(c, step_numeric(
         "s1",
         "Aperture A-03 (QFP-48, 0.20 mm x 0.80 mm, 0.125 mm foil). Area ratio = "
-        "(L x W) / (2 x (L + W) x T). Give the value to two decimals.",
+        "(L x W) / (2 x (L + W) x T). Give the value to two decimals — the next step "
+        "compares it with the release indicator the course uses.",
         ar_qfp125, 0.005,
         ["The wall area is the perimeter times the foil thickness, and the perimeter of a "
          "rectangle is 2 x (L + W).",
@@ -793,7 +794,7 @@ def build_cases():
         ["The lesson was corrected on exactly this point: 10 % RH is not the requirement.",
          "5 % RH or less is what stops moisture uptake; above it the budget keeps shrinking, "
          "just more slowly."],
-        "Correct — 7 % RH slows the clock but does not suspend it, so no credit was given.",
+        "7 % RH slows the clock but does not suspend it, so no credit was given.",
         "Look at which relative humidity the lesson calls the requirement, not which is common "
         "on a cheap cabinet.",
         "Below 5 % RH the device stops gaining moisture, so the exposure clock is suspended. A "
@@ -819,7 +820,7 @@ def build_cases():
         "s6",
         "The reflow is 10 h away and a 40 °C bake will not finish in time. Which route does "
         "the lesson support?",
-        [("a", "Bake the reel at 125 °C for 7 h and accept some tape deformation."),
+        [("a", "Bake the reel at 125 °C now and accept some tape deformation."),
          ("b", "De-reel into trays, bake the loose parts at the permitted higher temperature, "
                "then re-reel; or move the build inside the remaining floor life."),
          ("c", "Skip the bake and raise the reflow peak by 10 °C to drive the moisture out."),
@@ -1222,8 +1223,8 @@ def build_cases():
         "The retroactive search on the 3,000-board lot finds 3 nonconforming boards. What does "
         "the plan say?",
         [("a", "Reject the lot: any nonconformity in a containment sample fails it."),
-         ("b", "Accept the lot against this plan (Ac = 3), while the 8D still has to explain "
-               "the three units found."),
+         ("b", "Accept the lot against this plan (Ac = 3) — acceptance sampling qualifies "
+               "the lot, not the process, so the 8D stays open until the ppm target is met."),
          ("c", "Accept the lot and close the 8D."),
          ("d", "Reject and double the sample until zero defects are found.")],
         "b",

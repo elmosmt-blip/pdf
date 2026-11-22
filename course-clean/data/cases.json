@@ -184,7 +184,7 @@
         {
           "id": "s1",
           "type": "numeric",
-          "prompt": "Aperture A-03 (QFP-48, 0.20 mm x 0.80 mm, 0.125 mm foil). Area ratio = (L x W) / (2 x (L + W) x T). Give the value to two decimals.",
+          "prompt": "Aperture A-03 (QFP-48, 0.20 mm x 0.80 mm, 0.125 mm foil). Area ratio = (L x W) / (2 x (L + W) x T). Give the value to two decimals — the next step compares it with the release indicator the course uses.",
           "answer": {
             "value": 0.64,
             "tolerance": 0.005,
@@ -565,7 +565,7 @@
             "The lesson was corrected on exactly this point: 10 % RH is not the requirement.",
             "5 % RH or less is what stops moisture uptake; above it the budget keeps shrinking, just more slowly."
           ],
-          "feedbackCorrect": "Correct — 7 % RH slows the clock but does not suspend it, so no credit was given.",
+          "feedbackCorrect": "7 % RH slows the clock but does not suspend it, so no credit was given.",
           "feedbackWrong": "Look at which relative humidity the lesson calls the requirement, not which is common on a cheap cabinet.",
           "explanation": "Below 5 % RH the device stops gaining moisture, so the exposure clock is suspended. A 10 % cabinet is common and slows the clock rather than stopping it; at 7 % the parts were outside the requirement, so the full 64 h counts. The 10 % form is a mitigation for devices with budget to spare, never a substitute for the requirement."
         },
@@ -594,7 +594,7 @@
           "options": [
             {
               "id": "a",
-              "text": "Bake the reel at 125 °C for 7 h and accept some tape deformation."
+              "text": "Bake the reel at 125 °C now and accept some tape deformation."
             },
             {
               "id": "b",
@@ -1173,7 +1173,7 @@
             },
             {
               "id": "b",
-              "text": "Accept the lot against this plan (Ac = 3), while the 8D still has to explain the three units found."
+              "text": "Accept the lot against this plan (Ac = 3) — acceptance sampling qualifies the lot, not the process, so the 8D stays open until the ppm target is met."
             },
             {
               "id": "c",

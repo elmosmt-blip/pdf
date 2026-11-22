@@ -18,7 +18,7 @@ Protocol: `docs/pilot-protocol.md`.
 
 | # | Step | Type | Expected | Tolerance | Watch for |
 |---|---|---|---|---|---|
-| 1 | Aperture A-03 (QFP-48, 0.20 mm x 0.80 mm, 0.125 mm foil). Area ratio = (L x W) / (2 x (L + W) x T). Give the value to two decimals. | numeric | 0.64 | ±0.005 | Check the order of operations: area on top, perimeter times thickness underneath. |
+| 1 | Aperture A-03 (QFP-48, 0.20 mm x 0.80 mm, 0.125 mm foil). Area ratio = (L x W) / (2 x (L + W) x T). Give the value to two decimals — the next step compares it with the release indicator the course uses. | numeric | 0.64 | ±0.005 | Check the order of operations: area on top, perimeter times thickness underneath. |
 | 2 | Against the release indicator the course uses, what does 0.64 mean for A-03? | choice | option b — “Marginal to inadequate: it is below the 0.66 guidance, so release depends on paste rheology and SPI evidence, not on geometry alone.” | — | Re-read the lesson's wording: it gives a guidance value and then says what evidence can support an aperture below it. |
 | 3 | Same aperture printed through the 0.100 mm stepped region (A-04). What is the area ratio now? | numeric | 0.8 | ±0.005 | Only the foil thickness changed: keep the numerator at 0.160 mm² and redo the denominator. |
 | 4 | For that same 0.20 mm aperture in 0.100 mm foil, what is the aspect ratio? | numeric | 2 | ±0.05 | Use the narrow dimension (0.20 mm), divided by the foil thickness. |
@@ -99,7 +99,7 @@ Protocol: `docs/pilot-protocol.md`.
 | 2 | AOI raised 47 calls of which 38 were confirmed. What is the false-call rate, in percent? One decimal. | numeric | 19.1489 % | ±0.3 | Divide the false calls by the total calls, not by the confirmed defects. |
 | 3 | For a lot of 3,000 boards, what is the ISO 2859-1 code letter at general inspection level II? | choice | option b — “K” | — | Find the lot-size band first; the letter follows from the band, not from the count. |
 | 4 | For that 3,000-board lot at code K, AQL 1.0, how many pieces are sampled? | numeric | 125 pieces | ±0.5 | This is a table lookup for code K at AQL 1.0. |
-| 5 | The retroactive search on the 3,000-board lot finds 3 nonconforming boards. What does the plan say? | choice | option b — “Accept the lot against this plan (Ac = 3), while the 8D still has to explain the three units found.” | — | Separate the sampling decision from the corrective-action decision. |
+| 5 | The retroactive search on the 3,000-board lot finds 3 nonconforming boards. What does the plan say? | choice | option b — “Accept the lot against this plan (Ac = 3) — acceptance sampling qualifies the lot, not the process, so the 8D stays open until the ppm target is met.” | — | Separate the sampling decision from the corrective-action decision. |
 | 6 | The second lot is 5,000 boards at the same level and AQL. How many pieces does the plan sample? | numeric | 200 pieces | ±0.5 | Find the band for 5,000 first, then read n for that code. |
 | 7 | Corrective-action window: 96 defects in 6,000 boards. What is that rate in ppm? | numeric | 16000 ppm | ±30 | Divide defects by boards, then multiply by a million. |
 | 8 | After the action: 21 defects in 7,500 boards. What is the rate in ppm? | numeric | 2800 ppm | ±30 | Defects over boards, then scale to a million. |

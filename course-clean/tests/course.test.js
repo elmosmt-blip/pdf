@@ -180,6 +180,10 @@ function dataLayer() {
   const pilot = runPython([path.join(ROOT, 'scripts', 'gen_pilot_sheet.py'), '--check']);
   ok(pilot.code === 0, 'the pilot observer sheet matches data/cases.json', pilot.out.slice(-160));
 
+  const qa = runNode([path.join(ROOT, 'tests', 'case-qa.js')]);
+  ok(qa.code === 0, 'the QA pass over the case engine is clean',
+    qa.out.split('\n').filter(function (l) { return /^FAIL|^ERROR/.test(l); }).join(' | '));
+
   const caseCheck = runNode([path.join(ROOT, 'scripts', 'check-cases.js'), '--json']);
   ok(caseCheck.code === 0, 'check-cases exits 0 (structure + independent keys)',
     caseCheck.out.slice(-200));

@@ -730,10 +730,15 @@
         '<p class="case-error" id="err-' + esc(step.id) + '" role="alert" hidden></p>';
     }
 
+    /* Colour alone must not carry the verdict: a red border and a green border are
+     * indistinguishable to a colour-blind reader and invisible in print. The
+     * status word is rendered first, in the same paragraph. */
     if (graded === true) {
-      html += '<p class="case-feedback case-feedback--ok">' + esc(step.feedbackCorrect || 'Correct.') + '</p>';
+      html += '<p class="case-feedback case-feedback--ok"><strong>Correct.</strong> ' +
+        esc(step.feedbackCorrect || '') + '</p>';
     } else if (graded === false) {
-      html += '<p class="case-feedback case-feedback--bad">' + esc(step.feedbackWrong || 'Not yet.') + '</p>';
+      html += '<p class="case-feedback case-feedback--bad"><strong>Not yet.</strong> ' +
+        esc(step.feedbackWrong || '') + '</p>';
     }
     if (!res) {
       html += '<div class="case-step-actions">' +

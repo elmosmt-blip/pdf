@@ -743,7 +743,7 @@
         },
         {
           "h": "Practical storage and floor-life control",
-          "p": "Control begins with dry storage, sealed moisture barrier bags, desiccant, and humidity indicator cards. Typical dry cabinet relative humidity is often 5% to 10%; verify against your equipment datasheet. Bake conditions, cabinet setpoints, and reflow profiles should be verified against IPC/JEDEC J-STD-033, the package datasheet, and your paste and equipment datasheets. Floor-life tracking should record bag opening time, humidity indicator card status, reflow time, bake time, and any reflow count limits. If the device is not going to be reflowed within the remaining floor life, bake it before reflow rather than relying on visual inspection or electrical test."
+          "p": "Control begins with dry storage, sealed moisture barrier bags, desiccant, and humidity indicator cards. Typical dry cabinet relative humidity is often 5% to 10%; only the 5% RH or less band suspends the floor-life clock under J-STD-033 (see the dry-storage discussion in this module), so a 10% cabinet is comfortable but not credit. Verify against your equipment datasheet. Bake conditions, cabinet setpoints, and reflow profiles should be verified against IPC/JEDEC J-STD-033, the package datasheet, and your paste and equipment datasheets. Floor-life tracking should record bag opening time, humidity indicator card status, reflow time, bake time, and any reflow count limits. If the device is not going to be reflowed within the remaining floor life, bake it before reflow rather than relying on visual inspection or electrical test."
         }
       ],
       "calc": {
