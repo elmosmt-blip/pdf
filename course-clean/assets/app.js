@@ -612,7 +612,18 @@
       at: Date.now()
     };
     saveProgress();
+    var minutes = caseState.startedAt
+      ? Math.max(1, Math.round((Date.now() - caseState.startedAt) / 60000))
+      : null;
+    var hintsUsed = 0;
+    Object.keys(caseState.hints || {}).forEach(function (k) {
+      if (String(k).indexOf(c.caseId + '/') === 0) hintsUsed += caseState.hints[k] || 0;
+    });
+    progress.cases[c.caseId].lastMinutes = minutes;
+    progress.cases[c.caseId].lastHints = hintsUsed;
     caseState.result = {
+      minutes: minutes,
+      hintsUsed: hintsUsed,
       earned: Math.round(earned * 10) / 10,
       possible: possible,
       pct: pctScore,
@@ -764,7 +775,9 @@
         ? 'Mastered. The rubric threshold is ' + esc(CASE_MASTERED_PCT) + ' %.'
         : 'Not mastered yet: the threshold is ' + esc(CASE_MASTERED_PCT) +
           ' %. Read the worked reasoning under each step and try again — the best result is kept.') +
-      ' Best result so far: ' + esc(res.best) + ' %.</p>' +
+      ' Best result so far: ' + esc(res.best) + ' %.' +
+      (res.minutes ? ' This attempt took about ' + esc(res.minutes) + ' min with ' +
+        esc(res.hintsUsed) + ' hint' + (res.hintsUsed === 1 ? '' : 's') + '.' : '') + '</p>' +
       rubricHtml(c) +
       '<div class="quiz-actions">' +
       '<button type="button" class="btn" data-act="case-retake">' + 'Try again from a clean sheet</button> ' +
@@ -1119,8 +1132,11 @@
       return notFoundView('Case not found', 'No case "' + caseId + '" in this build.');
     }
     if (caseState.caseId !== caseId) {
-      caseState = { caseId: caseId, answers: caseState.caseId === caseId ? caseState.answers : {},
-        shown: {}, hints: {}, result: null };
+      /* A different case starts from a clean sheet. The ternary that used to be
+       * here always evaluated to {} — the outer condition guarantees caseId
+       * differs — so it only looked like it preserved anything. */
+      caseState = { caseId: caseId, answers: {}, shown: {}, hints: {}, result: null,
+        startedAt: Date.now() };
     }
     var m = moduleById(c.moduleId);
     var rec = caseRecord(c.caseId);
@@ -1238,6 +1254,12 @@
     if (res) {
       lines.push(['', '', 'RESULT', '', '', res.pct + ' % of the rubric (' + res.earned +
         ' of ' + res.possible + ' points)', '', '', ''].map(csvCell).join(','));
+      /* The pilot protocol (docs/pilot-protocol.md) needs effort, not just the
+       * score: how long it took and how many hints were opened. */
+      if (res.minutes) {
+        lines.push(['', '', 'EFFORT', '', '', res.minutes + ' min, ' + res.hintsUsed +
+          ' hint(s)', '', '', ''].map(csvCell).join(','));
+      }
     }
     return lines.join('\r\n') + '\r\n';
   }

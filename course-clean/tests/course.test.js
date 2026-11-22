@@ -177,6 +177,9 @@ function dataLayer() {
   ok(genCheck.code === 0, 'gen_cases.py --check: cases.json matches the generator',
     genCheck.out.trim().slice(-160));
 
+  const pilot = runPython([path.join(ROOT, 'scripts', 'gen_pilot_sheet.py'), '--check']);
+  ok(pilot.code === 0, 'the pilot observer sheet matches data/cases.json', pilot.out.slice(-160));
+
   const caseCheck = runNode([path.join(ROOT, 'scripts', 'check-cases.js'), '--json']);
   ok(caseCheck.code === 0, 'check-cases exits 0 (structure + independent keys)',
     caseCheck.out.slice(-200));

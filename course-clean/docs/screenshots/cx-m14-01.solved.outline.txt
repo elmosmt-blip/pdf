@@ -2,7 +2,7 @@ Rendered outline of #/c/cx-m14-01
 Produced by scripts/capture-case.js from the built tree (build/course-clean).
 This is the live DOM from the shipped engine, not a mock-up.
 
-main #main   [10258 chars]
+main #main   [10379 chars]
   p .kicker   [51 chars]
     "Toolkit · Module 14 · Defect Analysis and CAPA / 8D"
   header .page-head   [129 chars]
@@ -29,14 +29,14 @@ main #main   [10258 chars]
       "A corrective action has been running for six weeks on a different defect family: 96 defects in 6,000 boards be…"
     p   [91 chars]
       "Compute the metrics the 8D needs, and be honest about what the numbers do and do not prove."
-  details .case-board   [672 chars]
+  details .case-board   [749 chars]
     summary   [38 chars]
       "Board X — the product behind this case"
-    div .details-body   [634 chars]
+    div .details-body   [711 chars]
       p .muted.flush   [158 chars]
         "6-layer 1.6 mm FR-4 controller board: QFP-64 at 0.5 mm pitch, QFP-48 at 0.4 mm pitch, one 256-ball BGA at 0.8 …"
-      table .case-facts   [476 chars]
-        tbody   [476 chars]
+      table .case-facts   [553 chars]
+        tbody   [553 chars]
           tr   [23 chars]
             th   [20 chars]
               "Board thickness (mm)"
@@ -137,11 +137,21 @@ main #main   [10258 chars]
               "Time above liquidus (s)"
             td   [5 chars]
               "60–90"
-          tr   [23 chars]
-            th   [16 chars]
-              "Peak window (°C)"
+          tr   [30 chars]
+            th   [23 chars]
+              "Peak window, paste (°C)"
             td   [7 chars]
-              "235–250"
+              "235–245"
+          tr   [35 chars]
+            th   [28 chars]
+              "Typical production peak (°C)"
+            td   [7 chars]
+              "235–245"
+          tr   [35 chars]
+            th   [32 chars]
+              "Peak ceiling, large package (°C)"
+            td   [3 chars]
+              "250"
   details .case-data   [142 chars]
     summary   [26 chars]
       "Data file — defect-log.csv"
@@ -559,14 +569,14 @@ main #main   [10258 chars]
         "Check my answers"
       button .btn type=button data-act=case-reset   [5 chars]
         "Clear"
-  div #case-result-slot   [712 chars]
-    section #case-result .case-result   [712 chars]
+  div #case-result-slot   [756 chars]
+    section #case-result .case-result   [756 chars]
       h2   [6 chars]
         "Result"
       p .case-score.case-score--pass   [32 chars]
         "100 % — 100 of 100 rubric points"
-      p .flush   [66 chars]
-        "Mastered. The rubric threshold is 80 %. Best result so far: 100 %."
+      p .flush   [110 chars]
+        "Mastered. The rubric threshold is 80 %. Best result so far: 100 %. This attempt took about 1 min with 0 hints."
       table .case-rubric   [554 chars]
         thead   [21 chars]
           tr   [21 chars]

@@ -323,3 +323,30 @@ that every vertex lies inside the plot area, and that the curve actually moves
 broken scan in a temporary copy: it fails there, passes with the fix.
 
 Tests: **170 passed, 0 failed**.
+
+---
+
+# Pilot round: protocol and observer sheet
+
+The next decision — how the other three cases should be shaped — needs data, not
+taste. Two artefacts now support a 3–5 person round:
+
+| File | What it is |
+|---|---|
+| `docs/pilot-protocol.md` | who to invite, the exact 30-second intro, what to record, healthy ranges, what to change when a range is missed |
+| `docs/pilot-sheet.md` | one row per step: expected key, tolerance, and the plausible wrong answer — **generated** by `scripts/gen_pilot_sheet.py` from `data/cases.json` |
+
+The sheet is generated for the same reason the keys are: a hand-typed observer
+copy becomes a second, unaudited answer key. `gen_pilot_sheet.py --check` fails if
+the file drifts, and the test suite runs that check.
+
+The engine now records the two numbers the protocol asks for: **time on the case**
+and **hints opened**, shown in the Result line ("This attempt took about 24 min
+with 2 hints") and written into the participant's CSV as an `EFFORT` row. Nothing
+is sent anywhere; it is local state and a file the participant downloads.
+
+Rules the protocol fixes in advance, so the round cannot be re-argued afterwards:
+keys are not touched (they are computed and independently verified) — what changes
+is the step text, the hints and the explanations.
+
+Tests: **171 passed, 0 failed**.
