@@ -129,8 +129,11 @@ recomputed · `check-integrity.js` OK · `check-quiz.js` OK · `tests/course.tes
 
 ## 6. Where the build is published
 
-`https://drive.google.com/file/d/1YY0BU4FlBPGTS2QXnTPUMSDwvJouqtp1/view`
-(8,844,479 bytes, 12 cases / 107 steps — rebuilt after m10 was added). The zip has
+`https://drive.google.com/file/d/1xQMZ-apWCDrg0StAjzubaP1UoWWLD5X1/view`
+(8,844,479 bytes, 13 cases / 117 steps — rebuilt after m10 was added). The zip has
 `index.html` at its root, so it opens from a double click instead of requiring
 the `build/course-clean/` path. Each rebuild replaces the link and trashes the
 previous file; an older copy that was zero bytes is already in the trash.
+
+The second full review, covering thirteen cases and the prose around their
+numbers, is in `docs/technologist-review-2-2026-11-31.md`.
