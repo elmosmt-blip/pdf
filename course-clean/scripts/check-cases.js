@@ -173,7 +173,14 @@ const EXPECTED = {
     const r = dataFile(c, 'profile.csv').filter(function (x) { return x.interval === 'cooling'; })[0];
     return (+r.from_c - +r.to_c) / (+r.seconds);
   },
-  'cx-m06-01.s5': function () { return 'b'; },
+  'cx-m06-01.s5': function (c) {
+    /* The disposition must follow from the survey, not from the average: if any
+     * site is over the paste band top, the profile is rejected. */
+    const over = dataFile(c, 'thermocouples.csv').filter(function (r) {
+      return +r.peak_c > 245;
+    });
+    return over.length ? 'a' : 'b';
+  },
   'cx-m06-01.s6': function () { return 100 / 90; },
   'cx-m06-01.s7': function () { return 'b'; },
 

@@ -73,7 +73,7 @@ Protocol: `docs/pilot-protocol.md`.
 | 3 | The survey ran three thermocouples. Using thermocouples.csv, what is the peak-to-peak spread across the board, in °C? | numeric | 12 °C | ±0.5 | Subtract the coldest peak from the hottest; ignore the middle site. |
 | 4 | Peak is 248 °C and the large-package classification temperature is 250 °C. What margin is left, in °C? | numeric | 2 °C | ±0.5 | The limit is the upper number; subtract the measurement from it. |
 | 5 | Cooling runs from 248 °C to 100 °C in 40 s. What is the cooling rate in °C/s? | numeric | 3.7 °C/s | ±0.05 | Use the drop (148 °C) over the 40 s cooling window. |
-| 6 | Which disposition does the profile earn? | choice | option b — “Accept and document: peak and time above liquidus are inside their windows, with 2 °C and 5 s of margin noted in the profile record.” | — | Check which package class Board X's BGA falls in before comparing against 245 °C. |
+| 6 | Which disposition does the three-site survey earn? | choice | option a — “Reject: the 0402 near the edge peaks over the paste band and over the package ceiling, so the profile cannot be released as measured.” | — | Averaging the three sites hides the one that fails. Judge the worst point. |
 | 7 | A first-principles check: the oven delivers about 100 W and the board's measured thermal mass is 90 J/K. What ramp rate does that predict, in °C/s? | numeric | 1.1111 °C/s | ±0.05 | Power over thermal mass; the units work out to °C/s directly. |
 | 8 | What should be done with the factor-of-two gap between the model and the measurement? | choice | option b — “Trust the measurement and record the model's assumptions as unvalidated for this board; re-measure a second worst-case site before using the model to predict zone settings.” | — | The question is which number is evidence and which is an assumption. |
 
@@ -83,7 +83,7 @@ Protocol: `docs/pilot-protocol.md`.
 - Peak margin taken against the correct package class — 15 pts (s3)
 - Spread read from the three-site survey, not from the average peak — 8 pts (s2b)
 - Cooling rate computed and interpreted — 10 pts (s4)
-- Disposition states the margins rather than just 'pass' — 14 pts (s5)
+- Disposition judged on the worst site, not on the average — 14 pts (s5)
 - Model-versus-measurement check performed — 10 pts (s6)
 - Evidence ranked above the estimate — 13 pts (s7)
 

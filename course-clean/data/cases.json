@@ -735,7 +735,7 @@
           "name": "thermocouples.csv",
           "kind": "csv",
           "note": "One profile, three sites. The middle column is the peak at that thermocouple; the offsets are why a single-point profile flatters the board.",
-          "content": "site,location,peak_c,tal_s,offset_from_reference_c\nTC1,BGA centre joint,242,60,-6\nTC2,QFP lead board edge,249,65,+1\nTC3,0402 chip near edge,254,70,+6\n"
+          "content": "site,location,peak_c,tal_s,offset_from_reference_c,within_paste_band\nTC1,BGA centre joint,242,60,-6,yes\nTC2,QFP lead board edge,249,65,+1,no (over the 245 C top)\nTC3,0402 chip near edge,254,70,+6,no (over the 245 C top)\n"
         }
       ],
       "steps": [
@@ -791,7 +791,7 @@
           ],
           "feedbackCorrect": "12 °C across the board — and the mean of the three is the 248 °C the single-point profile reported.",
           "feedbackWrong": "Subtract the coldest peak from the hottest; ignore the middle site.",
-          "explanation": "254 - 242 = 12 °C. The mean of the three sites is 248 °C, exactly the peak the single-point profile reported, which is why one thermocouple makes a graded board look uniform. The coldest site, the BGA centre joint, peaks at 242 °C, 3 °C under the paste window top; the 0402 near the edge peaks at 254 °C, 4 °C over the 250 °C classification ceiling. Both are reasons to record the spread, not just the average."
+          "explanation": "254 - 242 = 12 °C. The mean of the three sites is 248 °C, exactly the peak the single-point profile reported, which is why one thermocouple makes a graded board look uniform. The spread is the finding: 242 °C at the BGA centre is 3 °C under the paste band top, and 254 °C at the 0402 near the edge is 9 °C over it and 4 °C over the 250 °C classification ceiling for a large package. The single average of 248 °C sits inside the band and hides both facts, which is why the record has to carry the spread and not the average."
         },
         {
           "id": "s3",
@@ -832,36 +832,36 @@
         {
           "id": "s5",
           "type": "choice",
-          "prompt": "Which disposition does the profile earn?",
+          "prompt": "Which disposition does the three-site survey earn?",
           "options": [
             {
               "id": "a",
-              "text": "Reject and change the profile: the peak is over the 245 °C limit."
+              "text": "Reject: the 0402 near the edge peaks over the paste band and over the package ceiling, so the profile cannot be released as measured."
             },
             {
               "id": "b",
-              "text": "Accept and document: peak and time above liquidus are inside their windows, with 2 °C and 5 s of margin noted in the profile record."
+              "text": "Accept and document: the average peak and the time above liquidus are inside their windows, so the spread is recorded as a note only."
             },
             {
               "id": "c",
-              "text": "Reject: time above liquidus must always exceed 90 s on a heavy board."
+              "text": "Accept without comment: a profile only fails if the joints look wrong."
             },
             {
               "id": "d",
-              "text": "Accept without comment: a profile only fails if the joints look wrong."
+              "text": "Reject: time above liquidus must always exceed 90 s on a heavy board."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "a"
           },
           "hints": [
-            "Which limit applies to a large package — 245 °C or 250 °C?",
-            "The 245 °C figure belongs to the very large package class; the course lists 250 °C for a large one.",
-            "Peak and TAL both pass with thin margins, so the record carries the margins."
+            "The average is not the finding: look at the hottest and the coldest site.",
+            "254 °C at the 0402 near the edge is above both the paste band top (245 °C) and the large-package ceiling (250 °C).",
+            "A profile is judged on the worst measured point, not on the mean, so it cannot be released as measured."
           ],
-          "feedbackCorrect": "Accept and document, with both thin margins written into the profile record.",
-          "feedbackWrong": "Check which package class Board X's BGA falls in before comparing against 245 °C.",
-          "explanation": "For a large package the classification temperature is 250 °C, so 248 °C passes with 2 °C to spare; the 245 °C limit belongs to the very large class the course describes separately. Time above liquidus 65 s is inside the 60-90 s paste window. The honest disposition is accept-and-document, because the margins are thin enough that the record has to carry them."
+          "feedbackCorrect": "Reject and change: the hot corner exceeds the paste band and the package ceiling.",
+          "feedbackWrong": "Averaging the three sites hides the one that fails. Judge the worst point.",
+          "explanation": "254 °C at the 0402 near the edge is 9 °C over the paste band top and 4 °C over the J-STD-020 ceiling for a large package, so the profile fails at that point however good the 248 °C average looks. Time above liquidus is inside its window at every site, and the BGA centre at 242 °C is fine, which is exactly why the failing corner has to be found from the survey rather than from a single thermocouple. This is the lesson the case is built on: a mean is not a measurement of the worst case."
         },
         {
           "id": "s6",
@@ -953,7 +953,7 @@
           ]
         },
         {
-          "criterion": "Disposition states the margins rather than just 'pass'",
+          "criterion": "Disposition judged on the worst site, not on the average",
           "points": 14,
           "steps": [
             "s5"

@@ -905,9 +905,14 @@ def build_cases():
                 "note": "One profile, three sites. The middle column is the peak at "
                         "that thermocouple; the offsets are why a single-point profile "
                         "flatters the board.",
-                "content": ("site,location,peak_c,tal_s,offset_from_reference_c\n" +
-                            "".join("%s,%s,%d,%d,%+d\n" % (sid, name, PROFILE_PEAK_C + off, tal, off)
-                                    for off, sid, name, tal in TC_SITES)),
+                "content": ("site,location,peak_c,tal_s,offset_from_reference_c,"
+                            "within_paste_band\n" +
+                            "".join("%s,%s,%d,%d,%+d,%s\n" % (
+                                sid, name, PROFILE_PEAK_C + off, tal, off,
+                                "no (over the 245 C top)" if PROFILE_PEAK_C + off > PASTE_PEAK_MAX_C
+                                else "no (under the 235 C floor)" if PROFILE_PEAK_C + off < PASTE_PEAK_MIN_C
+                                else "yes")
+                                for off, sid, name, tal in TC_SITES)),
             },
         ],
         "steps": [],
@@ -963,10 +968,12 @@ def build_cases():
         "Subtract the coldest peak from the hottest; ignore the middle site.",
         "254 - 242 = 12 °C. The mean of the three sites is 248 °C, exactly the peak "
         "the single-point profile reported, which is why one thermocouple makes a "
-        "graded board look uniform. The coldest site, the BGA centre joint, peaks at "
-        "242 °C, 3 °C under the paste window top; the 0402 near the edge peaks at "
-        "254 °C, 4 °C over the 250 °C classification ceiling. Both are reasons to "
-        "record the spread, not just the average."))
+        "graded board look uniform. The spread is the finding: 242 °C at the BGA "
+        "centre is 3 °C under the paste band top, and 254 °C at the 0402 near the "
+        "edge is 9 °C over it and 4 °C over the 250 °C classification ceiling for a "
+        "large package. The single average of 248 °C sits inside the band and hides "
+        "both facts, which is why the record has to carry the spread and not the "
+        "average."))
 
     add_step(c, step_numeric(
         "s3",
@@ -997,24 +1004,27 @@ def build_cases():
 
     add_step(c, step_choice(
         "s5",
-        "Which disposition does the profile earn?",
-        [("a", "Reject and change the profile: the peak is over the 245 °C limit."),
-         ("b", "Accept and document: peak and time above liquidus are inside their windows, "
-               "with 2 °C and 5 s of margin noted in the profile record."),
-         ("c", "Reject: time above liquidus must always exceed 90 s on a heavy board."),
-         ("d", "Accept without comment: a profile only fails if the joints look wrong.")],
-        "b",
-        ["Which limit applies to a large package — 245 °C or 250 °C?",
-         "The 245 °C figure belongs to the very large package class; the course lists 250 °C "
-         "for a large one.",
-         "Peak and TAL both pass with thin margins, so the record carries the margins."],
-        "Accept and document, with both thin margins written into the profile record.",
-        "Check which package class Board X's BGA falls in before comparing against 245 °C.",
-        "For a large package the classification temperature is 250 °C, so 248 °C passes with "
-        "2 °C to spare; the 245 °C limit belongs to the very large class the course describes "
-        "separately. Time above liquidus 65 s is inside the 60-90 s paste window. The honest "
-        "disposition is accept-and-document, because the margins are thin enough that the "
-        "record has to carry them."))
+        "Which disposition does the three-site survey earn?",
+        [("a", "Reject: the 0402 near the edge peaks over the paste band and over the "
+               "package ceiling, so the profile cannot be released as measured."),
+         ("b", "Accept and document: the average peak and the time above liquidus are "
+               "inside their windows, so the spread is recorded as a note only."),
+         ("c", "Accept without comment: a profile only fails if the joints look wrong."),
+         ("d", "Reject: time above liquidus must always exceed 90 s on a heavy board.")],
+        "a",
+        ["The average is not the finding: look at the hottest and the coldest site.",
+         "254 °C at the 0402 near the edge is above both the paste band top (245 °C) and "
+         "the large-package ceiling (250 °C).",
+         "A profile is judged on the worst measured point, not on the mean, so it cannot "
+         "be released as measured."],
+        "Reject and change: the hot corner exceeds the paste band and the package ceiling.",
+        "Averaging the three sites hides the one that fails. Judge the worst point.",
+        "254 °C at the 0402 near the edge is 9 °C over the paste band top and 4 °C over the "
+        "J-STD-020 ceiling for a large package, so the profile fails at that point however "
+        "good the 248 °C average looks. Time above liquidus is inside its window at every "
+        "site, and the BGA centre at 242 °C is fine, which is exactly why the failing corner "
+        "has to be found from the survey rather than from a single thermocouple. This is the "
+        "lesson the case is built on: a mean is not a measurement of the worst case."))
 
     add_step(c, step_numeric(
         "s6",
@@ -1078,7 +1088,7 @@ def build_cases():
         {"criterion": "Spread read from the three-site survey, not from the average peak",
          "points": 8, "steps": ["s2b"]},
         {"criterion": "Cooling rate computed and interpreted", "points": 10, "steps": ["s4"]},
-        {"criterion": "Disposition states the margins rather than just 'pass'", "points": 14, "steps": ["s5"]},
+        {"criterion": "Disposition judged on the worst site, not on the average", "points": 14, "steps": ["s5"]},
         {"criterion": "Model-versus-measurement check performed", "points": 10, "steps": ["s6"]},
         {"criterion": "Evidence ranked above the estimate", "points": 13, "steps": ["s7"]},
     ]
