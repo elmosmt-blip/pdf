@@ -156,41 +156,48 @@
     },
     {
       "step": 5,
+      "moduleId": "m05",
+      "label": "Placement",
+      "asset": "Placement offset record",
+      "caseId": "cx-m05-01"
+    },
+    {
+      "step": 6,
       "moduleId": "m06",
       "label": "Reflow profile",
       "asset": "Reflow profile log",
       "caseId": "cx-m06-01"
     },
     {
-      "step": 6,
+      "step": 7,
       "moduleId": "m08",
       "label": "Through-hole",
       "asset": "Hole and lead measurement sheet",
       "caseId": "cx-m08-01"
     },
     {
-      "step": 7,
+      "step": 8,
       "moduleId": "m09",
       "label": "Wave",
       "asset": "Wave solder process record",
       "caseId": "cx-m09-01"
     },
     {
-      "step": 8,
+      "step": 9,
       "moduleId": "m07",
       "label": "AOI audit",
       "asset": "AOI and X-ray audit",
       "caseId": "cx-m07-01"
     },
     {
-      "step": 9,
+      "step": 10,
       "moduleId": "m11",
       "label": "Rework",
       "asset": "Rework and repair record",
       "caseId": "cx-m11-01"
     },
     {
-      "step": 10,
+      "step": 11,
       "moduleId": "m14",
       "label": "8D report",
       "asset": "8D problem report",
@@ -1333,6 +1340,404 @@
       ],
       "sources": [
         "src-004",
+        "src-001"
+      ],
+      "generatedBy": "scripts/gen_cases.py"
+    },
+    {
+      "caseId": "cx-m05-01",
+      "moduleId": "m05",
+      "title": "Placement: an offset that passes and a rotation that does not",
+      "estMinutes": 35,
+      "level": "advanced",
+      "scenario": [
+        "Board X comes back from a placement-machine calibration. The first article of ten boards goes through the offset check and the report says 0.11 mm, against a 0.15 mm acceptance — a pass, and the line wants to release.",
+        "Two things on the board disagree with that report. The corner leads of the QFP-64 on the right-hand side show a toe overhang that the left-hand side does not, and a 0402 near the panel edge looks rotated in the AOI image while the parts near the middle look square.",
+        "The two global fiducials are 10 mm apart and their residuals are in the audit file, per board. Work out what the 0.11 mm is made of before anyone signs the release."
+      ],
+      "dataFiles": [
+        {
+          "name": "placement-audit.csv",
+          "kind": "csv",
+          "content": "board,fiducial,dx_mm,dy_mm\n1,A,0.060,0.020\n1,B,0.070,0.160\n2,A,0.062,0.024\n2,B,0.072,0.158\n3,A,0.058,0.018\n3,B,0.068,0.162\n",
+          "note": "Residual per fiducial per board, in machine coordinates: measured position minus programmed position. Fiducial A sits at x = -5 mm, B at x = +5 mm on the panel."
+        },
+        {
+          "name": "placement-setup.csv",
+          "kind": "csv",
+          "content": "item,value\nfiducial_separation_mm,10\nqfp64_pad_width_mm,0.30\nqfp64_lead_width_mm,0.20\nqfp64_corner_lead_radius_mm,7\nedge_part_radius_mm,40\nacceptance_offset_mm,0.15\nboards_in_audit,10\n"
+        }
+      ],
+      "steps": [
+        {
+          "id": "s1",
+          "type": "numeric",
+          "prompt": "On board 1 the fiducials read A (0.060, 0.020) and B (0.070, 0.160), 10 mm apart. What rotation does that difference represent, in degrees?",
+          "answer": {
+            "value": 0.8021,
+            "tolerance": 0.05,
+            "unit": "deg"
+          },
+          "hints": [
+            "The rotation is the difference in the Y residual over the fiducial separation.",
+            "0.160 - 0.020 = 0.140 mm across 10 mm.",
+            "0.014 rad, and one radian is 57.3 degrees."
+          ],
+          "feedbackCorrect": "0.80°: a small angle, and the reason the report's single offset hides it.",
+          "feedbackWrong": "Difference in Y over the separation, then radians to degrees.",
+          "explanation": "The Y residuals differ by 0.140 mm across a 10 mm baseline, which is 0.014 rad, or 0.80°. In X the two fiducials differ by only 0.010 mm over the same 10 mm, so almost all of the rotation is about Z. That figure is the whole case: 0.8° reads like nothing, and the next two steps price it."
+        },
+        {
+          "id": "s2",
+          "type": "numeric",
+          "prompt": "A component sits 40 mm from the fiducial midpoint — near the panel edge. What lateral displacement does that 0.80° cause there, in mm?",
+          "answer": {
+            "value": 0.56,
+            "tolerance": 0.01,
+            "unit": "mm"
+          },
+          "hints": [
+            "Displacement is the lever arm times the angle in radians.",
+            "Use 0.014 rad, not 0.8.",
+            "40 x 0.014 = 0.56 mm."
+          ],
+          "feedbackCorrect": "0.56 mm — nearly four times the acceptance the report passed.",
+          "feedbackWrong": "Convert degrees to radians first: multiply by pi/180.",
+          "explanation": "40 x 0.014 = 0.56 mm. The angle never changed; the lever arm did. This is why rotation is not a cosmetic finding: an 0.8° error is 0.11 mm at the fiducial midpoint, 0.28 mm at 20 mm and 0.56 mm at the panel edge. A placement check that samples only near the middle of the board reports a process that does not exist at its edges, which is exactly where a 0402 sits and what the AOI image shows."
+        },
+        {
+          "id": "s3",
+          "type": "numeric",
+          "prompt": "The QFP-64 lead is 0.20 mm wide on a 0.30 mm pad. How far can it move sideways, in mm, before it stops sitting on the pad?",
+          "answer": {
+            "value": 0.05,
+            "tolerance": 0.003,
+            "unit": "mm"
+          },
+          "hints": [
+            "The lead may move until its edge reaches the pad edge.",
+            "The pad is 0.10 mm wider than the lead, 0.05 mm on each side.",
+            "(0.30 - 0.20) / 2."
+          ],
+          "feedbackCorrect": "0.05 mm each way — and the corner lead moves twice that.",
+          "feedbackWrong": "Halve the difference: the pad gives clearance on both sides.",
+          "explanation": "0.30 - 0.20 = 0.10 mm of extra pad, so the lead has 0.05 mm of play on either side before it overhangs. This is the threshold the next step compares against, and it is deliberately small: at 0.4 mm pitch classes the play is even less, which is why fine-pitch parts convert a tolerable board-level rotation into a rejected lead."
+        },
+        {
+          "id": "s4",
+          "type": "numeric",
+          "prompt": "The corner lead of the QFP-64 is 7 mm from the package centre. What displacement does the same 0.80° cause there, in mm?",
+          "answer": {
+            "value": 0.098,
+            "tolerance": 0.005,
+            "unit": "mm"
+          },
+          "hints": [
+            "Same lever-arm formula, shorter arm.",
+            "7 x 0.014.",
+            "0.098 mm."
+          ],
+          "feedbackCorrect": "0.098 mm — twice the 0.05 mm of play, so the corner lead is already overhanging.",
+          "feedbackWrong": "Lever arm times angle in radians.",
+          "explanation": "7 x 0.014 = 0.098 mm against 0.05 mm of play: the corner lead overhangs by about a lead width's worth of pad. That is the toe overhang visible on the right-hand side and absent on the left, because the rotation is about the board centre and the two sides of the package swing in opposite directions. The offset number in the report could not show this; a per-lead or per-corner check could."
+        },
+        {
+          "id": "s5",
+          "type": "numeric",
+          "prompt": "Across the ten boards the X residual of fiducial A reads 0.060, 0.066, 0.058, 0.062, 0.064, 0.056, 0.061, 0.063, 0.059, 0.061. What is three standard deviations, in mm?",
+          "answer": {
+            "value": 0.0088,
+            "tolerance": 0.003,
+            "unit": "mm"
+          },
+          "hints": [
+            "Take the mean first, then the deviations from it.",
+            "The mean is 0.061 mm and the sample sd is about 0.0029 mm.",
+            "3 x 0.0029."
+          ],
+          "feedbackCorrect": "0.009 mm — the machine repeats well; the error is in where it repeats to.",
+          "feedbackWrong": "Sample sd uses n-1; three sigma is three times it.",
+          "explanation": "The ten readings average 0.061 mm with a sample sd of 0.0029 mm, so three sigma is 0.009 mm. The machine is repeatable to about a hundredth of a millimetre and simultaneously wrong by 0.06 mm in X and 0.02 mm in Y, plus 0.8° of rotation. That combination is the textbook definition of repeatable and inaccurate, and it is why the two words are measured differently: repeatability is the spread about the mean, accuracy is the mean's distance from zero."
+        },
+        {
+          "id": "s6",
+          "type": "choice",
+          "prompt": "The report's 0.11 mm is the magnitude of the mean residual of the two fiducials. What is wrong with accepting the setup on that number?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Nothing: 0.11 mm is below the 0.15 mm acceptance, and the process is repeatable."
+            },
+            {
+              "id": "b",
+              "text": "The mean of two residuals cancels the rotation: it reports where the board is centred, not how it is turned, so a passing offset and an 0.80° rotation coexist in one number."
+            },
+            {
+              "id": "c",
+              "text": "The acceptance should be 0.05 mm, so the setup fails on the number too."
+            },
+            {
+              "id": "d",
+              "text": "The error is in the acceptance limit, not in the measurement."
+            }
+          ],
+          "answer": {
+            "value": "b"
+          },
+          "hints": [
+            "Ask what averaging two points on a 10 mm baseline does to a rotation.",
+            "A rotation moves one fiducial up and the other down, so their mean barely moves.",
+            "Offset and rotation are two findings and need two numbers."
+          ],
+          "feedbackCorrect": "The mean cancels the rotation: offset and rotation have to be reported separately, with the lever arm at which each was judged.",
+          "feedbackWrong": "Which component of the error survives averaging two opposite fiducials?",
+          "explanation": "A translation moves both fiducials the same way, so it survives the mean; a rotation moves them in opposite directions and almost disappears in it. The report therefore measured the one component that was acceptable and averaged away the one that was not. That is not a rounding problem — it is a report that cannot fail, and the same report would have passed a 2° rotation. The fix is a second number: the angle, with the radius at which it was judged."
+        },
+        {
+          "id": "s7",
+          "type": "choice",
+          "prompt": "The offset is constant across boards and its direction does not change with board position. What does that pattern point at?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Board support or conveyor seating, since the error varies per board."
+            },
+            {
+              "id": "b",
+              "text": "The board coordinate system itself: fiducial coordinates in the program, or the vision calibration that turns pixels into millimetres."
+            },
+            {
+              "id": "c",
+              "text": "A worn nozzle on the QFP-64 head, since the leads are the visible symptom."
+            },
+            {
+              "id": "d",
+              "text": "Paste slump after placement, since the parts look rotated later."
+            }
+          ],
+          "answer": {
+            "value": "b"
+          },
+          "hints": [
+            "The pattern is constant, not varying: something in the coordinate chain, not in the handling.",
+            "A per-board change would suggest support; a constant error points upstream.",
+            "The calibration event is the recent change to that chain."
+          ],
+          "feedbackCorrect": "The coordinate system: program fiducial coordinates or vision calibration, both of which the recent calibration touched.",
+          "feedbackWrong": "Which of these would produce the same error on every board, in both axes, with a fixed rotation?",
+          "explanation": "An error that is constant in magnitude and direction is in the coordinate chain: the fiducial coordinates the program carries, or the camera calibration that converts pixels to millimetres. Board support and conveyor seating produce errors that change board to board, which is what the 0.009 mm repeatability rules out. A worn nozzle changes the part relative to the nozzle, not the board relative to the program, and it would not give a rotation that grows with distance from the centre. Since the machine has just been calibrated, the calibration record and the fiducial coordinate table are the two things to re-check, in that order."
+        },
+        {
+          "id": "s8",
+          "type": "choice",
+          "prompt": "Which parts on this board does the 0.80° hurt first?",
+          "options": [
+            {
+              "id": "a",
+              "text": "The largest parts, because they have the most mass to swing."
+            },
+            {
+              "id": "b",
+              "text": "The parts with the least pad play and the greatest distance from the rotation centre: fine-pitch corner leads and parts near the panel edge."
+            },
+            {
+              "id": "c",
+              "text": "The parts nearest the fiducials, because the fiducials define the error."
+            },
+            {
+              "id": "d",
+              "text": "All parts equally, since rotation is a board-level property."
+            }
+          ],
+          "answer": {
+            "value": "b"
+          },
+          "hints": [
+            "Displacement is lever arm times angle.",
+            "Overhang is displacement minus the pad play.",
+            "Both factors matter, and they are in different places on the board."
+          ],
+          "feedbackCorrect": "Fine-pitch corner leads and edge parts: the largest lever arms meeting the smallest play.",
+          "feedbackWrong": "Two properties decide which part fails first: how far it is from the centre, and how much room its pad gives it.",
+          "explanation": "The misplaced distance is the lever arm times the angle, so parts far from the rotation centre move most — the panel edge at 40 mm moves 0.56 mm while the QFP corner at 7 mm moves 0.098 mm. But movement only becomes a defect where the pad cannot absorb it, and the QFP's 0.05 mm of play is the tightest on the board. The two effects pick out different parts, which is why both the corner leads and the edge 0402 show symptoms while the parts in the middle look fine. Judging placement at the board's centre alone tests neither."
+        },
+        {
+          "id": "s9",
+          "type": "choice",
+          "prompt": "What has to be in the placement record for this setup to be releasable?",
+          "options": [
+            {
+              "id": "a",
+              "text": "The acceptance limit and a pass/fail mark."
+            },
+            {
+              "id": "b",
+              "text": "The mean offset in X and Y with its sign, the rotation in degrees with its sign, the fiducial residuals, the lever arm at which each was judged, the repeatability over the sample, the calibration status and its date, and the program and library versions."
+            },
+            {
+              "id": "c",
+              "text": "A photograph of the overhanging corner lead."
+            },
+            {
+              "id": "d",
+              "text": "The machine's own report, exported as a PDF."
+            }
+          ],
+          "answer": {
+            "value": "b"
+          },
+          "hints": [
+            "A second engineer must be able to re-judge the setup without you.",
+            "Offset, rotation, lever arm, spread, calibration, versions.",
+            "One number cannot be re-judged, because it cannot fail."
+          ],
+          "feedbackCorrect": "Offset with signs, rotation with its sign, the lever arm, the residuals, the spread, the calibration status and the program version.",
+          "feedbackWrong": "Which of these would let someone a year later decide whether the same setup is still acceptable?",
+          "explanation": "The record has to carry the two numbers the report collapsed into one, each with its sign, because a +0.8° and a -0.8° rotate opposite corners over the pad. The lever arm matters as much as the angle: 0.8° is harmless at 2 mm and fatal at 40 mm, so an angle without the radius at which it was judged cannot be re-judged. The calibration date and the program and library versions are what turn 'it passed' into 'it passed against this configuration', which is the difference between a record and a claim."
+        },
+        {
+          "id": "s10",
+          "type": "choice",
+          "prompt": "What is the disposition of the setup?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Release: the offset is 0.11 mm, inside the 0.15 mm acceptance, and the machine repeats to 0.009 mm."
+            },
+            {
+              "id": "b",
+              "text": "Hold the setup, re-check the fiducial coordinates and the vision calibration, and re-run the first article with offset and rotation reported separately."
+            },
+            {
+              "id": "c",
+              "text": "Release, and instruct AOI to tighten its rotation limit so bad boards are caught downstream."
+            },
+            {
+              "id": "d",
+              "text": "Adjust the QFP-64 program offset to compensate for the overhang."
+            }
+          ],
+          "answer": {
+            "value": "b"
+          },
+          "hints": [
+            "The rejection is real: a corner lead is over its pad by twice the play.",
+            "The cause is upstream of the placement — in the coordinate chain.",
+            "Compensating a board-level rotation with a part-level offset fixes one corner and breaks the other."
+          ],
+          "feedbackCorrect": "Hold, re-check the fiducial coordinates and vision calibration, re-run the first article with offset and rotation reported separately.",
+          "feedbackWrong": "Which action removes the cause, and which ones move it around the board?",
+          "explanation": "The corner lead is overhanging by twice its play, so releasing on the offset number ships a defect; the number is wrong, not the board. Tightening AOI accepts the same bad placement and pays for it downstream. Compensating the QFP offset with a constant shift fixes the right-hand corner and pushes the left-hand one off the pad, because a rotation is not a translation. The cause lives in the coordinate chain — fiducial coordinates or the calibration that just changed — so that is what gets re-checked, and the first article is re-run with the two numbers kept apart."
+        }
+      ],
+      "rubric": [
+        {
+          "criterion": "Rotation computed from the fiducial residuals, in degrees",
+          "points": 15,
+          "steps": [
+            "s1"
+          ]
+        },
+        {
+          "criterion": "Displacement computed from the lever arm, not from the angle alone",
+          "points": 20,
+          "steps": [
+            "s2",
+            "s4"
+          ]
+        },
+        {
+          "criterion": "Pad play computed and used as the threshold for the corner lead",
+          "points": 15,
+          "steps": [
+            "s3"
+          ]
+        },
+        {
+          "criterion": "Repeatability separated from accuracy, with the spread computed",
+          "points": 15,
+          "steps": [
+            "s5"
+          ]
+        },
+        {
+          "criterion": "The mean shown to cancel a rotation, and the report judged on that",
+          "points": 15,
+          "steps": [
+            "s6"
+          ]
+        },
+        {
+          "criterion": "Cause placed in the coordinate chain, not in handling or the nozzle",
+          "points": 10,
+          "steps": [
+            "s7"
+          ]
+        },
+        {
+          "criterion": "Parts ranked by lever arm and pad play, not by size",
+          "points": 5,
+          "steps": [
+            "s8"
+          ]
+        },
+        {
+          "criterion": "Disposition holds the setup and keeps the two numbers apart",
+          "points": 5,
+          "steps": [
+            "s9",
+            "s10"
+          ]
+        }
+      ],
+      "templates": [
+        {
+          "templateId": "placement-audit",
+          "name": "Placement offset record",
+          "status": "available",
+          "use": "Keep the fiducial residuals, the resulting offset and the resulting rotation on one sheet, because an offset averaged over two fiducials cannot show a rotation.",
+          "lesson": "m05l05",
+          "variants": [
+            {
+              "variant": "blank",
+              "file": "placement-audit-blank.csv",
+              "mime": "text/csv",
+              "label": "Blank",
+              "content": "board,fiducial,dx_mm,dy_mm\r\n,,,\r\n,,,\r\n,,,\r\n"
+            },
+            {
+              "variant": "example",
+              "file": "placement-audit-example.csv",
+              "mime": "text/csv",
+              "label": "Example",
+              "content": "board,fiducial,dx_mm,dy_mm\n1,A,0.060,0.020\n1,B,0.070,0.160\n2,A,0.062,0.024\n2,B,0.072,0.158\n3,A,0.058,0.018\n3,B,0.068,0.162\n"
+            },
+            {
+              "variant": "guide",
+              "file": "placement-audit-guide.md",
+              "mime": "text/markdown",
+              "label": "Guide",
+              "content": "# Placement offset record\n\n## What this template is for\nKeep the fiducial residuals, the resulting offset and the resulting rotation on one sheet, because an offset averaged over two fiducials cannot show a rotation.\n\n## How to fill it in\n1. Copy one row per fiducial reading. Do not merge rows: one aperture, one reel, one interval or one 8D discipline per line.\n2. Keep the column order. The columns below are the ones the course's own worked examples use.\n3. Leave a cell blank rather than writing a guess. A blank cell is a question for the engineer; a guessed number is a defect in the record.\n\n## Columns\n- `board`\n- `fiducial`\n- `dx_mm`\n- `dy_mm`\n\n## Worked example\nThe example variant of this file is the data file from case cx-m05-01 (Placement: an offset that passes and a rotation that does not), filled in with Board X numbers.\n\n## Where the numbers come from\nEvery value in the example is produced by scripts/gen_cases.py and checked by scripts/check-cases.js. If you change a number in the example, the checker fails: that is deliberate.\n\n## Course link\nSee lesson m05l05 for the reasoning behind each column.\n"
+            }
+          ]
+        }
+      ],
+      "toolLinks": [
+        {
+          "label": "Fiducials and board recognition (lesson m05l03)",
+          "href": "#/l/m05l03"
+        },
+        {
+          "label": "Accuracy and repeatability (lesson m05l01)",
+          "href": "#/l/m05l01"
+        },
+        {
+          "label": "First-article check (lesson m05l05)",
+          "href": "#/l/m05l05"
+        }
+      ],
+      "sources": [
+        "src-011",
         "src-001"
       ],
       "generatedBy": "scripts/gen_cases.py"

@@ -94,6 +94,35 @@ Protocol: `docs/pilot-protocol.md`.
 
 ---
 
+## cx-m05-01 — Placement: an offset that passes and a rotation that does not
+
+`#/c/cx-m05-01` · module m05 · 10 steps · 100 rubric points · about 35 min
+
+| # | Step | Type | Expected | Tolerance | Watch for |
+|---|---|---|---|---|---|
+| 1 | On board 1 the fiducials read A (0.060, 0.020) and B (0.070, 0.160), 10 mm apart. What rotation does that difference represent, in degrees? | numeric | 0.8021 deg | ±0.05 | Difference in Y over the separation, then radians to degrees. |
+| 2 | A component sits 40 mm from the fiducial midpoint — near the panel edge. What lateral displacement does that 0.80° cause there, in mm? | numeric | 0.56 mm | ±0.01 | Convert degrees to radians first: multiply by pi/180. |
+| 3 | The QFP-64 lead is 0.20 mm wide on a 0.30 mm pad. How far can it move sideways, in mm, before it stops sitting on the pad? | numeric | 0.05 mm | ±0.003 | Halve the difference: the pad gives clearance on both sides. |
+| 4 | The corner lead of the QFP-64 is 7 mm from the package centre. What displacement does the same 0.80° cause there, in mm? | numeric | 0.098 mm | ±0.005 | Lever arm times angle in radians. |
+| 5 | Across the ten boards the X residual of fiducial A reads 0.060, 0.066, 0.058, 0.062, 0.064, 0.056, 0.061, 0.063, 0.059, 0.061. What is three standard deviations, in mm? | numeric | 0.0088 mm | ±0.003 | Sample sd uses n-1; three sigma is three times it. |
+| 6 | The report's 0.11 mm is the magnitude of the mean residual of the two fiducials. What is wrong with accepting the setup on that number? | choice | option b — “The mean of two residuals cancels the rotation: it reports where the board is centred, not how it is turned, so a passing offset and an 0.80° rotation coexist in one number.” | — | Which component of the error survives averaging two opposite fiducials? |
+| 7 | The offset is constant across boards and its direction does not change with board position. What does that pattern point at? | choice | option b — “The board coordinate system itself: fiducial coordinates in the program, or the vision calibration that turns pixels into millimetres.” | — | Which of these would produce the same error on every board, in both axes, with a fixed rotation? |
+| 8 | Which parts on this board does the 0.80° hurt first? | choice | option b — “The parts with the least pad play and the greatest distance from the rotation centre: fine-pitch corner leads and parts near the panel edge.” | — | Two properties decide which part fails first: how far it is from the centre, and how much room its pad gives it. |
+| 9 | What has to be in the placement record for this setup to be releasable? | choice | option b — “The mean offset in X and Y with its sign, the rotation in degrees with its sign, the fiducial residuals, the lever arm at which each was judged, the repeatability over the sample, the calibration status and its date, and the program and library versions.” | — | Which of these would let someone a year later decide whether the same setup is still acceptable? |
+| 10 | What is the disposition of the setup? | choice | option b — “Hold the setup, re-check the fiducial coordinates and the vision calibration, and re-run the first article with offset and rotation reported separately.” | — | Which action removes the cause, and which ones move it around the board? |
+
+**Rubric** (pass mark 80 %):
+- Rotation computed from the fiducial residuals, in degrees — 15 pts (s1)
+- Displacement computed from the lever arm, not from the angle alone — 20 pts (s2, s4)
+- Pad play computed and used as the threshold for the corner lead — 15 pts (s3)
+- Repeatability separated from accuracy, with the spread computed — 15 pts (s5)
+- The mean shown to cancel a rotation, and the report judged on that — 15 pts (s6)
+- Cause placed in the coordinate chain, not in handling or the nozzle — 10 pts (s7)
+- Parts ranked by lever arm and pad play, not by size — 5 pts (s8)
+- Disposition holds the setup and keeps the two numbers apart — 5 pts (s9, s10)
+
+---
+
 ## cx-m02-01 — Moisture breach: the BGA reel sat in a 7 % RH cabinet
 
 `#/c/cx-m02-01` · module m02 · 6 steps · 100 rubric points · about 20 min

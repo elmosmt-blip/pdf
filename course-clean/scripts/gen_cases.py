@@ -130,17 +130,19 @@ BOARD_THREAD = [
      "caseId": "cx-m03-01"},
     {"step": 4, "moduleId": "m04", "label": "First print", "asset": "SPI review sheet",
      "caseId": "cx-m04-01"},
-    {"step": 5, "moduleId": "m06", "label": "Reflow profile", "asset": "Reflow profile log",
+    {"step": 5, "moduleId": "m05", "label": "Placement", "asset": "Placement offset record",
+     "caseId": "cx-m05-01"},
+    {"step": 6, "moduleId": "m06", "label": "Reflow profile", "asset": "Reflow profile log",
      "caseId": "cx-m06-01"},
-    {"step": 6, "moduleId": "m08", "label": "Through-hole", "asset": "Hole and lead measurement sheet",
+    {"step": 7, "moduleId": "m08", "label": "Through-hole", "asset": "Hole and lead measurement sheet",
      "caseId": "cx-m08-01"},
-    {"step": 7, "moduleId": "m09", "label": "Wave", "asset": "Wave solder process record",
+    {"step": 8, "moduleId": "m09", "label": "Wave", "asset": "Wave solder process record",
      "caseId": "cx-m09-01"},
-    {"step": 8, "moduleId": "m07", "label": "AOI audit", "asset": "AOI and X-ray audit",
+    {"step": 9, "moduleId": "m07", "label": "AOI audit", "asset": "AOI and X-ray audit",
      "caseId": "cx-m07-01"},
-    {"step": 9, "moduleId": "m11", "label": "Rework", "asset": "Rework and repair record",
+    {"step": 10, "moduleId": "m11", "label": "Rework", "asset": "Rework and repair record",
      "caseId": "cx-m11-01"},
-    {"step": 10, "moduleId": "m14", "label": "8D report", "asset": "8D problem report",
+    {"step": 11, "moduleId": "m14", "label": "8D report", "asset": "8D problem report",
      "caseId": "cx-m14-01"},
 ]
 
@@ -444,6 +446,16 @@ TEMPLATE_DEFS = {
                "can be defended when the product class or the standard moves.",
         "rowNoun": "lot or carton",
     },
+    "placement-audit": {
+        "name": "Placement offset record",
+        "kind": "csv",
+        "sourceFile": "placement-audit.csv",
+        "lesson": "m05l05",
+        "use": "Keep the fiducial residuals, the resulting offset and the resulting "
+               "rotation on one sheet, because an offset averaged over two fiducials "
+               "cannot show a rotation.",
+        "rowNoun": "fiducial reading",
+    },
     "spi-review": {
         "name": "SPI review sheet",
         "kind": "csv",
@@ -694,9 +706,14 @@ def build_cases():
     keys = []
 
     def add_step(case, step):
+        # The keys CSV is what a reader recomputes from by hand, so it must carry
+        # the same figure the page publishes — the rounded answer — not the
+        # generator's full-precision intermediate.
+        published = (step["answer"]["value"] if step["type"] == "numeric"
+                     else step["_key"]["raw"])
         keys.append({
             "caseId": case["caseId"], "stepId": step["id"], "type": step["type"],
-            "formula": step["_key"]["formula"], "value": step["_key"]["raw"],
+            "formula": step["_key"]["formula"], "value": published,
             "tolerance": step["answer"].get("tolerance", 0),
             "unit": step["answer"].get("unit", ""),
             "inputs": json.dumps(step["_key"]["inputs"], sort_keys=True),
@@ -1515,6 +1532,330 @@ def build_cases():
                        "print change", "points": 15, "steps": ["s9"]},
         {"criterion": "Findings ordered: measurement, then structure, then settings",
          "points": 5, "steps": ["s10"]},
+    ]
+    cases.append(c)
+
+    # =====================================================================
+    # m05 — placement: the offset passes and the rotation does not
+    # =====================================================================
+    # Two global fiducials 10 mm apart. Their residuals on the worst board are a
+    # translation plus a rotation, and the rotation is what the single "offset"
+    # number in the report is hiding.
+    pl_ax, pl_ay = 0.060, 0.020
+    pl_bx, pl_by = 0.070, 0.160
+    pl_sep = 10.0
+    pl_theta_rad = (pl_by - pl_ay) / pl_sep
+    pl_theta = (math.degrees(pl_theta_rad), "deg", "asin((By-Ay)/separation)",
+                {"ay_mm": pl_ay, "by_mm": pl_by, "separation_mm": pl_sep})
+    pl_far_r = 40.0
+    pl_far = (pl_far_r * pl_theta_rad, "mm", "radius*theta_rad",
+              {"radius_mm": pl_far_r, "theta_rad": round(pl_theta_rad, 6)})
+    pl_pad, pl_lead = 0.30, 0.20
+    pl_play = ((pl_pad - pl_lead) / 2.0, "mm", "(pad-lead)/2",
+               {"pad_mm": pl_pad, "lead_mm": pl_lead})
+    pl_corner_r = 7.0
+    pl_corner = (pl_corner_r * pl_theta_rad, "mm", "radius*theta_rad",
+                 {"radius_mm": pl_corner_r, "theta_rad": round(pl_theta_rad, 6)})
+    pl_dx = [0.060, 0.066, 0.058, 0.062, 0.064, 0.056, 0.061, 0.063, 0.059, 0.061]
+    pl_3sd = (3.0 * sample_sd(pl_dx)[0], "mm", "3*sd(dx over 10 boards)",
+              {"n": len(pl_dx), "mean_dx_mm": round(sum(pl_dx) / len(pl_dx), 4)})
+    pl_mean_vec = (math.hypot((pl_ax + pl_bx) / 2, (pl_ay + pl_by) / 2), "mm",
+                   "|(mean dx, mean dy)|",
+                   {"mean_dx_mm": (pl_ax + pl_bx) / 2, "mean_dy_mm": (pl_ay + pl_by) / 2})
+
+    c = {
+        "caseId": "cx-m05-01",
+        "moduleId": "m05",
+        "title": "Placement: an offset that passes and a rotation that does not",
+        "estMinutes": 35,
+        "level": "advanced",
+        "scenario": [
+            "Board X comes back from a placement-machine calibration. The first article of "
+            "ten boards goes through the offset check and the report says 0.11 mm, against "
+            "a 0.15 mm acceptance — a pass, and the line wants to release.",
+            "Two things on the board disagree with that report. The corner leads of the "
+            "QFP-64 on the right-hand side show a toe overhang that the left-hand side does "
+            "not, and a 0402 near the panel edge looks rotated in the AOI image while the "
+            "parts near the middle look square.",
+            "The two global fiducials are 10 mm apart and their residuals are in the audit "
+            "file, per board. Work out what the 0.11 mm is made of before anyone signs the "
+            "release.",
+        ],
+        "dataFiles": [
+            {
+                "name": "placement-audit.csv",
+                "kind": "csv",
+                "content": (
+                    "board,fiducial,dx_mm,dy_mm\n"
+                    "1,A,0.060,0.020\n"
+                    "1,B,0.070,0.160\n"
+                    "2,A,0.062,0.024\n"
+                    "2,B,0.072,0.158\n"
+                    "3,A,0.058,0.018\n"
+                    "3,B,0.068,0.162\n"
+                ),
+                "note": "Residual per fiducial per board, in machine coordinates: measured "
+                        "position minus programmed position. Fiducial A sits at x = -5 mm, "
+                        "B at x = +5 mm on the panel.",
+            },
+            {
+                "name": "placement-setup.csv",
+                "kind": "csv",
+                "content": (
+                    "item,value\n"
+                    "fiducial_separation_mm,10\n"
+                    "qfp64_pad_width_mm,0.30\n"
+                    "qfp64_lead_width_mm,0.20\n"
+                    "qfp64_corner_lead_radius_mm,7\n"
+                    "edge_part_radius_mm,40\n"
+                    "acceptance_offset_mm,0.15\n"
+                    "boards_in_audit,10\n"
+                ),
+            },
+        ],
+        "steps": [],
+        "rubric": [],
+        "templates": [
+            {"templateId": "placement-audit", "name": "Placement offset record",
+             "status": "planned"}
+        ],
+        "toolLinks": [
+            {"label": "Fiducials and board recognition (lesson m05l03)", "href": "#/l/m05l03"},
+            {"label": "Accuracy and repeatability (lesson m05l01)", "href": "#/l/m05l01"},
+            {"label": "First-article check (lesson m05l05)", "href": "#/l/m05l05"},
+        ],
+        "sources": ["src-011", "src-001"],
+        "generatedBy": "scripts/gen_cases.py",
+    }
+
+    add_step(c, step_numeric(
+        "s1",
+        "On board 1 the fiducials read A (0.060, 0.020) and B (0.070, 0.160), 10 mm apart. "
+        "What rotation does that difference represent, in degrees?",
+        pl_theta, 0.05,
+        ["The rotation is the difference in the Y residual over the fiducial separation.",
+         "0.160 - 0.020 = 0.140 mm across 10 mm.",
+         "0.014 rad, and one radian is 57.3 degrees."],
+        "0.80°: a small angle, and the reason the report's single offset hides it.",
+        "Difference in Y over the separation, then radians to degrees.",
+        "The Y residuals differ by 0.140 mm across a 10 mm baseline, which is 0.014 rad, "
+        "or 0.80°. In X the two fiducials differ by only 0.010 mm over the same 10 mm, so "
+        "almost all of the rotation is about Z. That figure is the whole case: 0.8° reads "
+        "like nothing, and the next two steps price it."))
+
+    add_step(c, step_numeric(
+        "s2",
+        "A component sits 40 mm from the fiducial midpoint — near the panel edge. What "
+        "lateral displacement does that 0.80° cause there, in mm?",
+        pl_far, 0.01,
+        ["Displacement is the lever arm times the angle in radians.",
+         "Use 0.014 rad, not 0.8.",
+         "40 x 0.014 = 0.56 mm."],
+        "0.56 mm — nearly four times the acceptance the report passed.",
+        "Convert degrees to radians first: multiply by pi/180.",
+        "40 x 0.014 = 0.56 mm. The angle never changed; the lever arm did. This is why "
+        "rotation is not a cosmetic finding: an 0.8° error is 0.11 mm at the fiducial "
+        "midpoint, 0.28 mm at 20 mm and 0.56 mm at the panel edge. A placement check that "
+        "samples only near the middle of the board reports a process that does not exist "
+        "at its edges, which is exactly where a 0402 sits and what the AOI image shows."))
+
+    add_step(c, step_numeric(
+        "s3",
+        "The QFP-64 lead is 0.20 mm wide on a 0.30 mm pad. How far can it move sideways, in "
+        "mm, before it stops sitting on the pad?",
+        pl_play, 0.003,
+        ["The lead may move until its edge reaches the pad edge.",
+         "The pad is 0.10 mm wider than the lead, 0.05 mm on each side.",
+         "(0.30 - 0.20) / 2."],
+        "0.05 mm each way — and the corner lead moves twice that.",
+        "Halve the difference: the pad gives clearance on both sides.",
+        "0.30 - 0.20 = 0.10 mm of extra pad, so the lead has 0.05 mm of play on either "
+        "side before it overhangs. This is the threshold the next step compares against, "
+        "and it is deliberately small: at 0.4 mm pitch classes the play is even less, "
+        "which is why fine-pitch parts convert a tolerable board-level rotation into a "
+        "rejected lead."))
+
+    add_step(c, step_numeric(
+        "s4",
+        "The corner lead of the QFP-64 is 7 mm from the package centre. What displacement "
+        "does the same 0.80° cause there, in mm?",
+        pl_corner, 0.005,
+        ["Same lever-arm formula, shorter arm.",
+         "7 x 0.014.",
+         "0.098 mm."],
+        "0.098 mm — twice the 0.05 mm of play, so the corner lead is already overhanging.",
+        "Lever arm times angle in radians.",
+        "7 x 0.014 = 0.098 mm against 0.05 mm of play: the corner lead overhangs by about "
+        "a lead width's worth of pad. That is the toe overhang visible on the right-hand "
+        "side and absent on the left, because the rotation is about the board centre and "
+        "the two sides of the package swing in opposite directions. The offset number in "
+        "the report could not show this; a per-lead or per-corner check could."))
+
+    add_step(c, step_numeric(
+        "s5",
+        "Across the ten boards the X residual of fiducial A reads 0.060, 0.066, 0.058, "
+        "0.062, 0.064, 0.056, 0.061, 0.063, 0.059, 0.061. What is three standard "
+        "deviations, in mm?",
+        pl_3sd, 0.003,
+        ["Take the mean first, then the deviations from it.",
+         "The mean is 0.061 mm and the sample sd is about 0.0029 mm.",
+         "3 x 0.0029."],
+        "0.009 mm — the machine repeats well; the error is in where it repeats to.",
+        "Sample sd uses n-1; three sigma is three times it.",
+        "The ten readings average 0.061 mm with a sample sd of 0.0029 mm, so three sigma "
+        "is 0.009 mm. The machine is repeatable to about a hundredth of a millimetre and "
+        "simultaneously wrong by 0.06 mm in X and 0.02 mm in Y, plus 0.8° of rotation. "
+        "That combination is the textbook definition of repeatable and inaccurate, and it "
+        "is why the two words are measured differently: repeatability is the spread about "
+        "the mean, accuracy is the mean's distance from zero."))
+
+    add_step(c, step_choice(
+        "s6",
+        "The report's 0.11 mm is the magnitude of the mean residual of the two fiducials. "
+        "What is wrong with accepting the setup on that number?",
+        [("a", "Nothing: 0.11 mm is below the 0.15 mm acceptance, and the process is "
+               "repeatable."),
+         ("b", "The mean of two residuals cancels the rotation: it reports where the board "
+               "is centred, not how it is turned, so a passing offset and an 0.80° "
+               "rotation coexist in one number."),
+         ("c", "The acceptance should be 0.05 mm, so the setup fails on the number too."),
+         ("d", "The error is in the acceptance limit, not in the measurement.")],
+        "b",
+        ["Ask what averaging two points on a 10 mm baseline does to a rotation.",
+         "A rotation moves one fiducial up and the other down, so their mean barely moves.",
+         "Offset and rotation are two findings and need two numbers."],
+        "The mean cancels the rotation: offset and rotation have to be reported "
+        "separately, with the lever arm at which each was judged.",
+        "Which component of the error survives averaging two opposite fiducials?",
+        "A translation moves both fiducials the same way, so it survives the mean; a "
+        "rotation moves them in opposite directions and almost disappears in it. The "
+        "report therefore measured the one component that was acceptable and averaged "
+        "away the one that was not. That is not a rounding problem — it is a report that "
+        "cannot fail, and the same report would have passed a 2° rotation. The fix is a "
+        "second number: the angle, with the radius at which it was judged."))
+
+    add_step(c, step_choice(
+        "s7",
+        "The offset is constant across boards and its direction does not change with board "
+        "position. What does that pattern point at?",
+        [("a", "Board support or conveyor seating, since the error varies per board."),
+         ("b", "The board coordinate system itself: fiducial coordinates in the program, "
+               "or the vision calibration that turns pixels into millimetres."),
+         ("c", "A worn nozzle on the QFP-64 head, since the leads are the visible symptom."),
+         ("d", "Paste slump after placement, since the parts look rotated later.")],
+        "b",
+        ["The pattern is constant, not varying: something in the coordinate chain, not in "
+         "the handling.",
+         "A per-board change would suggest support; a constant error points upstream.",
+         "The calibration event is the recent change to that chain."],
+        "The coordinate system: program fiducial coordinates or vision calibration, both "
+        "of which the recent calibration touched.",
+        "Which of these would produce the same error on every board, in both axes, with "
+        "a fixed rotation?",
+        "An error that is constant in magnitude and direction is in the coordinate chain: "
+        "the fiducial coordinates the program carries, or the camera calibration that "
+        "converts pixels to millimetres. Board support and conveyor seating produce errors "
+        "that change board to board, which is what the 0.009 mm repeatability rules out. A "
+        "worn nozzle changes the part relative to the nozzle, not the board relative to "
+        "the program, and it would not give a rotation that grows with distance from the "
+        "centre. Since the machine has just been calibrated, the calibration record and "
+        "the fiducial coordinate table are the two things to re-check, in that order."))
+
+    add_step(c, step_choice(
+        "s8",
+        "Which parts on this board does the 0.80° hurt first?",
+        [("a", "The largest parts, because they have the most mass to swing."),
+         ("b", "The parts with the least pad play and the greatest distance from the "
+               "rotation centre: fine-pitch corner leads and parts near the panel edge."),
+         ("c", "The parts nearest the fiducials, because the fiducials define the error."),
+         ("d", "All parts equally, since rotation is a board-level property.")],
+        "b",
+        ["Displacement is lever arm times angle.",
+         "Overhang is displacement minus the pad play.",
+         "Both factors matter, and they are in different places on the board."],
+        "Fine-pitch corner leads and edge parts: the largest lever arms meeting the "
+        "smallest play.",
+        "Two properties decide which part fails first: how far it is from the centre, and "
+        "how much room its pad gives it.",
+        "The misplaced distance is the lever arm times the angle, so parts far from the "
+        "rotation centre move most — the panel edge at 40 mm moves 0.56 mm while the QFP "
+        "corner at 7 mm moves 0.098 mm. But movement only becomes a defect where the pad "
+        "cannot absorb it, and the QFP's 0.05 mm of play is the tightest on the board. The "
+        "two effects pick out different parts, which is why both the corner leads and the "
+        "edge 0402 show symptoms while the parts in the middle look fine. Judging "
+        "placement at the board's centre alone tests neither."))
+
+    add_step(c, step_choice(
+        "s9",
+        "What has to be in the placement record for this setup to be releasable?",
+        [("a", "The acceptance limit and a pass/fail mark."),
+         ("b", "The mean offset in X and Y with its sign, the rotation in degrees with its "
+               "sign, the fiducial residuals, the lever arm at which each was judged, the "
+               "repeatability over the sample, the calibration status and its date, and "
+               "the program and library versions."),
+         ("c", "A photograph of the overhanging corner lead."),
+         ("d", "The machine's own report, exported as a PDF.")],
+        "b",
+        ["A second engineer must be able to re-judge the setup without you.",
+         "Offset, rotation, lever arm, spread, calibration, versions.",
+         "One number cannot be re-judged, because it cannot fail."],
+        "Offset with signs, rotation with its sign, the lever arm, the residuals, the "
+        "spread, the calibration status and the program version.",
+        "Which of these would let someone a year later decide whether the same setup is "
+        "still acceptable?",
+        "The record has to carry the two numbers the report collapsed into one, each with "
+        "its sign, because a +0.8° and a -0.8° rotate opposite corners over the pad. The "
+        "lever arm matters as much as the angle: 0.8° is harmless at 2 mm and fatal at "
+        "40 mm, so an angle without the radius at which it was judged cannot be re-judged. "
+        "The calibration date and the program and library versions are what turn 'it "
+        "passed' into 'it passed against this configuration', which is the difference "
+        "between a record and a claim."))
+
+    add_step(c, step_choice(
+        "s10",
+        "What is the disposition of the setup?",
+        [("a", "Release: the offset is 0.11 mm, inside the 0.15 mm acceptance, and the "
+               "machine repeats to 0.009 mm."),
+         ("b", "Hold the setup, re-check the fiducial coordinates and the vision "
+               "calibration, and re-run the first article with offset and rotation "
+               "reported separately."),
+         ("c", "Release, and instruct AOI to tighten its rotation limit so bad boards are "
+               "caught downstream."),
+         ("d", "Adjust the QFP-64 program offset to compensate for the overhang.")],
+        "b",
+        ["The rejection is real: a corner lead is over its pad by twice the play.",
+         "The cause is upstream of the placement — in the coordinate chain.",
+         "Compensating a board-level rotation with a part-level offset fixes one corner "
+         "and breaks the other."],
+        "Hold, re-check the fiducial coordinates and vision calibration, re-run the first "
+        "article with offset and rotation reported separately.",
+        "Which action removes the cause, and which ones move it around the board?",
+        "The corner lead is overhanging by twice its play, so releasing on the offset "
+        "number ships a defect; the number is wrong, not the board. Tightening AOI "
+        "accepts the same bad placement and pays for it downstream. Compensating the QFP "
+        "offset with a constant shift fixes the right-hand corner and pushes the left-hand "
+        "one off the pad, because a rotation is not a translation. The cause lives in the "
+        "coordinate chain — fiducial coordinates or the calibration that just changed — so "
+        "that is what gets re-checked, and the first article is re-run with the two "
+        "numbers kept apart."))
+
+    c["rubric"] = [
+        {"criterion": "Rotation computed from the fiducial residuals, in degrees",
+         "points": 15, "steps": ["s1"]},
+        {"criterion": "Displacement computed from the lever arm, not from the angle alone",
+         "points": 20, "steps": ["s2", "s4"]},
+        {"criterion": "Pad play computed and used as the threshold for the corner lead",
+         "points": 15, "steps": ["s3"]},
+        {"criterion": "Repeatability separated from accuracy, with the spread computed",
+         "points": 15, "steps": ["s5"]},
+        {"criterion": "The mean shown to cancel a rotation, and the report judged on that",
+         "points": 15, "steps": ["s6"]},
+        {"criterion": "Cause placed in the coordinate chain, not in handling or the nozzle",
+         "points": 10, "steps": ["s7"]},
+        {"criterion": "Parts ranked by lever arm and pad play, not by size", "points": 5,
+         "steps": ["s8"]},
+        {"criterion": "Disposition holds the setup and keeps the two numbers apart",
+         "points": 5, "steps": ["s9", "s10"]},
     ]
     cases.append(c)
 

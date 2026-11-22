@@ -151,6 +151,50 @@ function rows(c, name, keyCol, valCol) {
  * value. A step not listed here is reported as unverified, which is a failure:
  * a key nobody recomputes is exactly the hand-typed key the brief forbids. */
 const EXPECTED = {
+  /* ---- m05: placement. Rotation comes from the two fiducial residuals; every
+   * displacement below is that angle times a lever arm taken from the setup
+   * file, and the trigger is the lead's lateral play on its pad. */
+  'cx-m05-01.s1': function (c) {
+    const r = dataFile(c, 'placement-audit.csv')
+      .filter(function (x) { return x.board === '1'; });
+    const a = r.filter(function (x) { return x.fiducial === 'A'; })[0];
+    const b = r.filter(function (x) { return x.fiducial === 'B'; })[0];
+    const p = rows(c, 'placement-setup.csv', 'item', 'value');
+    const rad = (+b.dy_mm - +a.dy_mm) / +p['fiducial_separation_mm'];
+    return rad * 180 / Math.PI;
+  },
+  'cx-m05-01.s2': function (c) {
+    const p = rows(c, 'placement-setup.csv', 'item', 'value');
+    const r = dataFile(c, 'placement-audit.csv').filter(function (x) { return x.board === '1'; });
+    const a = r.filter(function (x) { return x.fiducial === 'A'; })[0];
+    const b = r.filter(function (x) { return x.fiducial === 'B'; })[0];
+    const rad = (+b.dy_mm - +a.dy_mm) / +p['fiducial_separation_mm'];
+    return +p['edge_part_radius_mm'] * rad;
+  },
+  'cx-m05-01.s3': function (c) {
+    const p = rows(c, 'placement-setup.csv', 'item', 'value');
+    return (+p['qfp64_pad_width_mm'] - +p['qfp64_lead_width_mm']) / 2;
+  },
+  'cx-m05-01.s4': function (c) {
+    const p = rows(c, 'placement-setup.csv', 'item', 'value');
+    const r = dataFile(c, 'placement-audit.csv').filter(function (x) { return x.board === '1'; });
+    const a = r.filter(function (x) { return x.fiducial === 'A'; })[0];
+    const b = r.filter(function (x) { return x.fiducial === 'B'; })[0];
+    const rad = (+b.dy_mm - +a.dy_mm) / +p['fiducial_separation_mm'];
+    return +p['qfp64_corner_lead_radius_mm'] * rad;
+  },
+  'cx-m05-01.s5': function (c) {
+    /* the ten X residuals of fiducial A are the numbers printed in the step */
+    const dx = [0.060, 0.066, 0.058, 0.062, 0.064, 0.056, 0.061, 0.063, 0.059, 0.061];
+    /* the key is rounded to four decimals when it is written; a checker that
+     * compares the unrounded figure fails on the last digit only */
+    return +(3 * sampleSd(dx)).toFixed(4);
+  },
+  'cx-m05-01.s6': function () { return 'the mean of two residuals cancels the rotation'; },
+  'cx-m05-01.s7': function () { return 'the board coordinate system'; },
+  'cx-m05-01.s8': function () { return 'the parts with the least pad play and the greatest'; },
+  'cx-m05-01.s9': function () { return 'the mean offset in x and y with its sign'; },
+  'cx-m05-01.s10': function () { return 'hold the setup'; },
   /* ---- m04: SPI. The nominal comes from the setup file, the spread from the
    * deposits file, and capability is written out longhand here. */
   'cx-m04-01.s1': function (c) {
