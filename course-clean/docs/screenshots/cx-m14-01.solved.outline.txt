@@ -2,7 +2,7 @@ Rendered outline of #/c/cx-m14-01
 Produced by scripts/capture-case.js from the built tree (build/course-clean).
 This is the live DOM from the shipped engine, not a mock-up.
 
-main #main   [10379 chars]
+main #main   [10702 chars]
   p .kicker   [51 chars]
     "Toolkit · Module 14 · Defect Analysis and CAPA / 8D"
   header .page-head   [129 chars]
@@ -29,14 +29,14 @@ main #main   [10379 chars]
       "A corrective action has been running for six weeks on a different defect family: 96 defects in 6,000 boards be…"
     p   [91 chars]
       "Compute the metrics the 8D needs, and be honest about what the numbers do and do not prove."
-  details .case-board   [749 chars]
+  details .case-board   [932 chars]
     summary   [38 chars]
       "Board X — the product behind this case"
-    div .details-body   [711 chars]
+    div .details-body   [894 chars]
       p .muted.flush   [158 chars]
         "6-layer 1.6 mm FR-4 controller board: QFP-64 at 0.5 mm pitch, QFP-48 at 0.4 mm pitch, one 256-ball BGA at 0.8 …"
-      table .case-facts   [553 chars]
-        tbody   [553 chars]
+      table .case-facts   [736 chars]
+        tbody   [736 chars]
           tr   [23 chars]
             th   [20 chars]
               "Board thickness (mm)"
@@ -152,6 +152,36 @@ main #main   [10379 chars]
               "Peak ceiling, large package (°C)"
             td   [3 chars]
               "250"
+          tr   [36 chars]
+            th   [34 chars]
+              "Minimum barrel fill, IPC-A-610 (%)"
+            td   [2 chars]
+              "75"
+          tr   [34 chars]
+            th   [32 chars]
+              "Thermal-plane exception fill (%)"
+            td   [2 chars]
+              "50"
+          tr   [36 chars]
+            th   [34 chars]
+              "Leads before the exception applies"
+            td   [2 chars]
+              "14"
+          tr   [24 chars]
+            th   [23 chars]
+              "THT hole, finished (mm)"
+            td   [1 chars]
+              "1"
+          tr   [29 chars]
+            th   [25 chars]
+              "THT hole tolerance (± mm)"
+            td   [4 chars]
+              "0.05"
+          tr   [24 chars]
+            th   [21 chars]
+              "Wave contact time (s)"
+            td   [3 chars]
+              "2–4"
   details .case-data   [142 chars]
     summary   [26 chars]
       "Data file — defect-log.csv"
@@ -239,9 +269,9 @@ main #main   [10379 chars]
       p .flush   [24 chars]
         button .btn.btn--small type=button data-act=case-data   [24 chars]
           "Download capa-window.csv"
-  form .case-form   [5277 chars]
-    ol .case-steps   [5255 chars]
-      li #step-s1 .case-step.case-step--ok   [510 chars]
+  form .case-form   [5417 chars]
+    ol .case-steps   [5395 chars]
+      li #step-s1 .case-step.case-step--ok   [519 chars]
         div .case-step-head   [32 chars]
           span .case-step-n   [18 chars]
             "Step 1 (10 points)"
@@ -258,7 +288,9 @@ main #main   [10379 chars]
           span .case-tol.muted   [19 chars]
             "tolerance ±0.3 DPMO"
         p #err-s1 .case-error role=alert hidden=
-        p .case-feedback.case-feedback--ok   [49 chars]
+        p .case-feedback.case-feedback--ok   [58 chars]
+          strong   [8 chars]
+            "Correct."
           "49.4 DPMO — computed from confirmed defects only."
         div .case-hints   [20 chars]
           button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
@@ -270,7 +302,7 @@ main #main   [10379 chars]
             "Worked reasoning"
           p   [226 chars]
             "38 / (1,240 x 620) = 38 / 768,800 = 4.94 x 10^-5, which is 49.4 defects per million opportunities. Using the 4…"
-      li #step-s2 .case-step.case-step--ok   [500 chars]
+      li #step-s2 .case-step.case-step--ok   [509 chars]
         div .case-step-head   [32 chars]
           span .case-step-n   [18 chars]
             "Step 2 (10 points)"
@@ -287,7 +319,9 @@ main #main   [10379 chars]
           span .case-tol.muted   [16 chars]
             "tolerance ±0.3 %"
         p #err-s2 .case-error role=alert hidden=
-        p .case-feedback.case-feedback--ok   [72 chars]
+        p .case-feedback.case-feedback--ok   [81 chars]
+          strong   [8 chars]
+            "Correct."
           "19.1 % false calls — an inspection capability issue, not a solder issue."
         div .case-hints   [20 chars]
           button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
@@ -299,7 +333,7 @@ main #main   [10379 chars]
             "Worked reasoning"
           p   [228 chars]
             "9 / 47 = 19.1 %. The course treats false calls as a separate metric from escape rate: a high false-call rate c…"
-      li #step-s3 .case-step.case-step--ok   [453 chars]
+      li #step-s3 .case-step.case-step--ok   [462 chars]
         div .case-step-head   [24 chars]
           span .case-step-n   [18 chars]
             "Step 3 (10 points)"
@@ -327,7 +361,9 @@ main #main   [10379 chars]
             span .case-opt-text   [1 chars]
               "M"
         p #err-s3 .case-error role=alert hidden=
-        p .case-feedback.case-feedback--ok   [48 chars]
+        p .case-feedback.case-feedback--ok   [57 chars]
+          strong   [8 chars]
+            "Correct."
           "Code K for 3,000 boards: sample 125, Ac 3, Re 4."
         div .case-hints   [20 chars]
           button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
@@ -339,7 +375,7 @@ main #main   [10379 chars]
             "Worked reasoning"
           p   [238 chars]
             "At general inspection level II a lot of 3,000 sits in the 1,201-3,200 band, which is code K: 125 pieces sample…"
-      li #step-s4 .case-step.case-step--ok   [388 chars]
+      li #step-s4 .case-step.case-step--ok   [397 chars]
         div .case-step-head   [32 chars]
           span .case-step-n   [18 chars]
             "Step 4 (10 points)"
@@ -356,7 +392,9 @@ main #main   [10379 chars]
           span .case-tol.muted   [21 chars]
             "tolerance ±0.5 pieces"
         p #err-s4 .case-error role=alert hidden=
-        p .case-feedback.case-feedback--ok   [19 chars]
+        p .case-feedback.case-feedback--ok   [28 chars]
+          strong   [8 chars]
+            "Correct."
           "125 pieces sampled."
         div .case-hints   [20 chars]
           button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
@@ -368,7 +406,7 @@ main #main   [10379 chars]
             "Worked reasoning"
           p   [187 chars]
             "Code K samples 125 pieces. The accept number is 3 and the reject number 4, so finding 3 or fewer nonconforming…"
-      li #step-s5 .case-step.case-step--ok   [855 chars]
+      li #step-s5 .case-step.case-step--ok   [914 chars]
         div .case-step-head   [24 chars]
           span .case-step-n   [18 chars]
             "Step 5 (15 points)"
@@ -376,17 +414,17 @@ main #main   [10379 chars]
             "choice"
         p .case-prompt   [99 chars]
           "The retroactive search on the 3,000-board lot finds 3 nonconforming boards. What does the plan say?"
-        fieldset .case-options   [266 chars]
+        fieldset .case-options   [316 chars]
           legend .sr-only   [10 chars]
             "Choose one"
           label .case-opt   [67 chars]
             input #in-s5-a type=radio name=c-s5 value=a
             span .case-opt-text   [67 chars]
               "Reject the lot: any nonconformity in a containment sample fails it."
-          label .case-opt.case-opt--picked   [99 chars]
+          label .case-opt.case-opt--picked   [149 chars]
             input #in-s5-b type=radio name=c-s5 value=b
-            span .case-opt-text   [99 chars]
-              "Accept the lot against this plan (Ac = 3), while the 8D still has to explain the three units found."
+            span .case-opt-text   [149 chars]
+              "Accept the lot against this plan (Ac = 3) — acceptance sampling qualifies the lot, not the process, so the 8D …"
           label .case-opt   [32 chars]
             input #in-s5-c type=radio name=c-s5 value=c
             span .case-opt-text   [32 chars]
@@ -396,7 +434,9 @@ main #main   [10379 chars]
             span .case-opt-text   [58 chars]
               "Reject and double the sample until zero defects are found."
         p #err-s5 .case-error role=alert hidden=
-        p .case-feedback.case-feedback--ok   [84 chars]
+        p .case-feedback.case-feedback--ok   [93 chars]
+          strong   [8 chars]
+            "Correct."
           "Accept against Ac = 3, and keep the 8D open — sampling says nothing about the cause."
         div .case-hints   [20 chars]
           button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
@@ -408,7 +448,7 @@ main #main   [10379 chars]
             "Worked reasoning"
           p   [346 chars]
             "At AQL 1.0 code K the acceptance number is 3, so three nonconforming boards accept the lot. That is a statemen…"
-      li #step-s6 .case-step.case-step--ok   [503 chars]
+      li #step-s6 .case-step.case-step--ok   [512 chars]
         div .case-step-head   [32 chars]
           span .case-step-n   [18 chars]
             "Step 6 (10 points)"
@@ -425,7 +465,9 @@ main #main   [10379 chars]
           span .case-tol.muted   [21 chars]
             "tolerance ±0.5 pieces"
         p #err-s6 .case-error role=alert hidden=
-        p .case-feedback.case-feedback--ok   [34 chars]
+        p .case-feedback.case-feedback--ok   [43 chars]
+          strong   [8 chars]
+            "Correct."
           "200 pieces at code L (Ac 5, Re 6)."
         div .case-hints   [20 chars]
           button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
@@ -437,7 +479,7 @@ main #main   [10379 chars]
             "Worked reasoning"
           p   [265 chars]
             "5,000 boards is code L, which samples 200 pieces with Ac 5 and Re 6 at AQL 1.0. Note that the sample grows far…"
-      li #step-s7 .case-step.case-step--ok   [372 chars]
+      li #step-s7 .case-step.case-step--ok   [381 chars]
         div .case-step-head   [32 chars]
           span .case-step-n   [18 chars]
             "Step 7 (10 points)"
@@ -454,7 +496,9 @@ main #main   [10379 chars]
           span .case-tol.muted   [17 chars]
             "tolerance ±30 ppm"
         p #err-s7 .case-error role=alert hidden=
-        p .case-feedback.case-feedback--ok   [29 chars]
+        p .case-feedback.case-feedback--ok   [38 chars]
+          strong   [8 chars]
+            "Correct."
           "16,000 ppm before the action."
         div .case-hints   [20 chars]
           button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
@@ -466,7 +510,7 @@ main #main   [10379 chars]
             "Worked reasoning"
           p   [162 chars]
             "96 / 6,000 = 0.016, which is 16,000 defects per million boards. Stating it in ppm rather than percent keeps th…"
-      li #step-s8 .case-step.case-step--ok   [353 chars]
+      li #step-s8 .case-step.case-step--ok   [362 chars]
         div .case-step-head   [32 chars]
           span .case-step-n   [18 chars]
             "Step 8 (10 points)"
@@ -483,7 +527,9 @@ main #main   [10379 chars]
           span .case-tol.muted   [17 chars]
             "tolerance ±30 ppm"
         p #err-s8 .case-error role=alert hidden=
-        p .case-feedback.case-feedback--ok   [27 chars]
+        p .case-feedback.case-feedback--ok   [36 chars]
+          strong   [8 chars]
+            "Correct."
           "2,800 ppm after the action."
         div .case-hints   [20 chars]
           button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
@@ -495,7 +541,7 @@ main #main   [10379 chars]
             "Worked reasoning"
           p   [154 chars]
             "21 / 7,500 = 0.0028, so 2,800 ppm. The two windows are different lengths, which is exactly why the comparison …"
-      li #step-s9 .case-step.case-step--ok   [468 chars]
+      li #step-s9 .case-step.case-step--ok   [477 chars]
         div .case-step-head   [31 chars]
           span .case-step-n   [17 chars]
             "Step 9 (5 points)"
@@ -512,7 +558,9 @@ main #main   [10379 chars]
           span .case-tol.muted   [16 chars]
             "tolerance ±0.5 %"
         p #err-s9 .case-error role=alert hidden=
-        p .case-feedback.case-feedback--ok   [64 chars]
+        p .case-feedback.case-feedback--ok   [73 chars]
+          strong   [8 chars]
+            "Correct."
           "82.5 % reduction — a real improvement, and still not the target."
         div .case-hints   [20 chars]
           button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
@@ -524,7 +572,7 @@ main #main   [10379 chars]
             "Worked reasoning"
           p   [237 chars]
             "(16,000 - 2,800) / 16,000 = 82.5 %. An 82.5 % reduction sounds like success until it is put against the target…"
-      li #step-s10 .case-step.case-step--ok   [853 chars]
+      li #step-s10 .case-step.case-step--ok   [862 chars]
         div .case-step-head   [25 chars]
           span .case-step-n   [19 chars]
             "Step 10 (10 points)"
@@ -552,7 +600,9 @@ main #main   [10379 chars]
             span .case-opt-text   [52 chars]
               "Change the target to 3,000 ppm so the action passes."
         p #err-s10 .case-error role=alert hidden=
-        p .case-feedback.case-feedback--ok   [62 chars]
+        p .case-feedback.case-feedback--ok   [71 chars]
+          strong   [8 chars]
+            "Correct."
           "Keep it open — the improvement is real, the target is not met."
         div .case-hints   [20 chars]
           button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]

@@ -1,0 +1,720 @@
+Rendered outline of #/c/cx-m08-01
+Produced by scripts/capture-case.js from the built tree (build/course-clean).
+This is the live DOM from the shipped engine, not a mock-up.
+
+main #main   [7692 chars]
+  p .kicker   [52 chars]
+    "Toolkit · Module 08 · THT: Preparation and Insertion"
+  header .page-head   [112 chars]
+    div   [112 chars]
+      h1   [64 chars]
+        "Through-hole fill: a connector joint measures 1.10 mm of 1.60 mm"
+      div .meta-line   [48 chars]
+        span .chip.chip--stage   [7 chars]
+          "Board X"
+        span .chip   [6 chars]
+          "25 min"
+        span .chip   [7 chars]
+          "9 steps"
+        span .chip   [14 chars]
+          "rubric 100 pts"
+        span .chip   [14 chars]
+          "Score 0 of 100"
+  section .case-scenario   [577 chars]
+    p   [213 chars]
+      "Board X carries one 20-pin THT connector on a 1.6 mm board. The land pattern calls for a 1.00 mm finished hole…"
+    p   [185 chars]
+      "First article after the wave shows the joint in the measurement sheet at 1.10 mm of vertical fill. The operato…"
+    p   [179 chars]
+      "Decide the disposition against the applicable IPC-A-610 class, and say what the measurement sheet has to recor…"
+  details .case-board   [932 chars]
+    summary   [38 chars]
+      "Board X — the product behind this case"
+    div .details-body   [894 chars]
+      p .muted.flush   [158 chars]
+        "6-layer 1.6 mm FR-4 controller board: QFP-64 at 0.5 mm pitch, QFP-48 at 0.4 mm pitch, one 256-ball BGA at 0.8 …"
+      table .case-facts   [736 chars]
+        tbody   [736 chars]
+          tr   [23 chars]
+            th   [20 chars]
+              "Board thickness (mm)"
+            td   [3 chars]
+              "1.6"
+          tr   [7 chars]
+            th   [6 chars]
+              "Layers"
+            td   [1 chars]
+              "6"
+          tr   [18 chars]
+            th   [14 chars]
+              "Surface finish"
+            td   [4 chars]
+              "ENIG"
+          tr   [25 chars]
+            th   [13 chars]
+              "Base material"
+            td   [12 chars]
+              "FR-4, Tg 170"
+          tr   [17 chars]
+            th   [12 chars]
+              "Stencil (mm)"
+            td   [5 chars]
+              "0.125"
+          tr   [34 chars]
+            th   [31 chars]
+              "Stencil, fine-pitch region (mm)"
+            td   [3 chars]
+              "0.1"
+          tr   [36 chars]
+            th   [12 chars]
+              "Solder paste"
+            td   [24 chars]
+              "SAC305, Type 4, no-clean"
+          tr   [20 chars]
+            th   [17 chars]
+              "QFP-64 pitch (mm)"
+            td   [3 chars]
+              "0.5"
+          tr   [13 chars]
+            th   [11 chars]
+              "QFP-64 pins"
+            td   [2 chars]
+              "64"
+          tr   [20 chars]
+            th   [17 chars]
+              "QFP-48 pitch (mm)"
+            td   [3 chars]
+              "0.4"
+          tr   [22 chars]
+            th   [19 chars]
+              "BGA ball pitch (mm)"
+            td   [3 chars]
+              "0.8"
+          tr   [12 chars]
+            th   [9 chars]
+              "BGA balls"
+            td   [3 chars]
+              "256"
+          tr   [20 chars]
+            th   [16 chars]
+              "Smallest passive"
+            td   [4 chars]
+              "0402"
+          tr   [69 chars]
+            th   [13 chars]
+              "THT connector"
+            td   [56 chars]
+              "20-pin, 2.54 mm pitch, 0.8 mm finished hole, 0.5 mm lead"
+          tr   [21 chars]
+            th   [17 chars]
+              "Lot size (boards)"
+            td   [4 chars]
+              "1240"
+          tr   [26 chars]
+            th   [23 chars]
+              "Solder joints per board"
+            td   [3 chars]
+              "620"
+          tr   [11 chars]
+            th   [5 chars]
+              "Alloy"
+            td   [6 chars]
+              "SAC305"
+          tr   [16 chars]
+            th   [13 chars]
+              "Liquidus (°C)"
+            td   [3 chars]
+              "219"
+          tr   [15 chars]
+            th   [12 chars]
+              "Solidus (°C)"
+            td   [3 chars]
+              "217"
+          tr   [28 chars]
+            th   [23 chars]
+              "Time above liquidus (s)"
+            td   [5 chars]
+              "60–90"
+          tr   [30 chars]
+            th   [23 chars]
+              "Peak window, paste (°C)"
+            td   [7 chars]
+              "235–245"
+          tr   [35 chars]
+            th   [28 chars]
+              "Typical production peak (°C)"
+            td   [7 chars]
+              "235–245"
+          tr   [35 chars]
+            th   [32 chars]
+              "Peak ceiling, large package (°C)"
+            td   [3 chars]
+              "250"
+          tr   [36 chars]
+            th   [34 chars]
+              "Minimum barrel fill, IPC-A-610 (%)"
+            td   [2 chars]
+              "75"
+          tr   [34 chars]
+            th   [32 chars]
+              "Thermal-plane exception fill (%)"
+            td   [2 chars]
+              "50"
+          tr   [36 chars]
+            th   [34 chars]
+              "Leads before the exception applies"
+            td   [2 chars]
+              "14"
+          tr   [24 chars]
+            th   [23 chars]
+              "THT hole, finished (mm)"
+            td   [1 chars]
+              "1"
+          tr   [29 chars]
+            th   [25 chars]
+              "THT hole tolerance (± mm)"
+            td   [4 chars]
+              "0.05"
+          tr   [24 chars]
+            th   [21 chars]
+              "Wave contact time (s)"
+            td   [3 chars]
+              "2–4"
+  ul .spec-chips   [67 chars]
+    li .spec-chip   [23 chars]
+      span .spec-chip-label   [19 chars]
+        "Minimum barrel fill"
+      span .spec-chip-value   [4 chars]
+        "75 %"
+    li .spec-chip   [27 chars]
+      span .spec-chip-label   [23 chars]
+        "Thermal-plane exception"
+      span .spec-chip-value   [4 chars]
+        "50 %"
+    li .spec-chip   [17 chars]
+      span .spec-chip-label   [12 chars]
+        "Contact time"
+      span .spec-chip-value   [5 chars]
+        "2–4 s"
+  details .case-data   [515 chars]
+    summary   [26 chars]
+      "Data file — tht-joints.csv"
+    div .details-body   [489 chars]
+      p .muted.flush   [175 chars]
+        "Hole and lead diameters are the measured extremes on this build, not the drawing nominals. Fill is the vertica…"
+      div .case-table-wrap   [291 chars]
+        table .case-table   [291 chars]
+          thead   [117 chars]
+            tr   [117 chars]
+              th   [5 chars]
+                "joint"
+              th   [4 chars]
+                "part"
+              th   [15 chars]
+                "hole_nominal_mm"
+              th   [11 chars]
+                "hole_min_mm"
+              th   [11 chars]
+                "hole_max_mm"
+              th   [15 chars]
+                "lead_nominal_mm"
+              th   [11 chars]
+                "lead_max_mm"
+              th   [8 chars]
+                "board_mm"
+              th   [7 chars]
+                "fill_mm"
+              th   [8 chars]
+                "fill_pct"
+              th   [22 chars]
+                "leads_on_thermal_plane"
+          tbody   [174 chars]
+            tr   [58 chars]
+              td   [4 chars]
+                "J-01"
+              td   [20 chars]
+                "THT-20 pin connector"
+              td .num   [4 chars]
+                "1.00"
+              td .num   [4 chars]
+                "0.95"
+              td .num   [4 chars]
+                "1.05"
+              td .num   [4 chars]
+                "0.60"
+              td .num   [4 chars]
+                "0.63"
+              td .num   [4 chars]
+                "1.60"
+              td .num   [4 chars]
+                "1.10"
+              td .num   [5 chars]
+                "68.75"
+              td .num   [1 chars]
+                "0"
+            tr   [58 chars]
+              td   [4 chars]
+                "J-02"
+              td   [20 chars]
+                "THT-20 pin connector"
+              td .num   [4 chars]
+                "1.00"
+              td .num   [4 chars]
+                "0.95"
+              td .num   [4 chars]
+                "1.05"
+              td .num   [4 chars]
+                "0.60"
+              td .num   [4 chars]
+                "0.63"
+              td .num   [4 chars]
+                "1.60"
+              td .num   [4 chars]
+                "1.30"
+              td .num   [5 chars]
+                "81.25"
+              td .num   [1 chars]
+                "0"
+            tr   [58 chars]
+              td   [4 chars]
+                "J-03"
+              td   [20 chars]
+                "THT-20 pin connector"
+              td .num   [4 chars]
+                "1.00"
+              td .num   [4 chars]
+                "0.95"
+              td .num   [4 chars]
+                "1.05"
+              td .num   [4 chars]
+                "0.60"
+              td .num   [4 chars]
+                "0.63"
+              td .num   [4 chars]
+                "1.60"
+              td .num   [4 chars]
+                "1.25"
+              td .num   [5 chars]
+                "78.13"
+              td .num   [1 chars]
+                "0"
+      p .flush   [23 chars]
+        button .btn.btn--small type=button data-act=case-data   [23 chars]
+          "Download tht-joints.csv"
+  details .case-data   [273 chars]
+    summary   [24 chars]
+      "Data file — wave-run.csv"
+    div .details-body   [249 chars]
+      p .muted.flush   [96 chars]
+        "The settings the first article ran at. Contact time is the wave width divided by conveyor speed."
+      div .case-table-wrap   [132 chars]
+        table .case-table   [132 chars]
+          thead   [74 chars]
+            tr   [74 chars]
+              th   [3 chars]
+                "run"
+              th   [4 chars]
+                "flux"
+              th   [13 chars]
+                "preheat_top_c"
+              th   [5 chars]
+                "pot_c"
+              th   [13 chars]
+                "wave_width_mm"
+              th   [18 chars]
+                "conveyor_m_per_min"
+              th   [9 chars]
+                "contact_s"
+              th   [9 chars]
+                "board_dir"
+          tbody   [58 chars]
+            tr   [58 chars]
+              td   [4 chars]
+                "FA-1"
+              td   [22 chars]
+                "rosin mildly activated"
+              td .num   [3 chars]
+                "105"
+              td .num   [3 chars]
+                "255"
+              td .num   [2 chars]
+                "50"
+              td .num   [3 chars]
+                "1.5"
+              td .num   [3 chars]
+                "2.0"
+              td   [18 chars]
+                "connector upstream"
+      p .flush   [21 chars]
+        button .btn.btn--small type=button data-act=case-data   [21 chars]
+          "Download wave-run.csv"
+  form .case-form   [2548 chars]
+    ol .case-steps   [2526 chars]
+      li #step-s1 .case-step   [183 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 1 (10 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [84 chars]
+          "Using the measurement sheet, what is the nominal diametral clearance on J-01, in mm?"
+        div .case-input-row   [35 chars]
+          label .case-input-label   [16 chars]
+            "Your answer"
+            span .muted   [4 chars]
+              "(mm)"
+          input #in-s1 .case-input type=text name=c-s1 value=
+          span .case-tol.muted   [19 chars]
+            "tolerance ±0.005 mm"
+        p #err-s1 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s2 .case-step   [200 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 2 (15 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [101 chars]
+          "What is the worst-case tight diametral clearance, in mm: smallest finished hole against largest lead?"
+        div .case-input-row   [35 chars]
+          label .case-input-label   [16 chars]
+            "Your answer"
+            span .muted   [4 chars]
+              "(mm)"
+          input #in-s2 .case-input type=text name=c-s2 value=
+          span .case-tol.muted   [19 chars]
+            "tolerance ±0.005 mm"
+        p #err-s2 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s3 .case-step   [147 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 3 (10 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [48 chars]
+          "What is that worst-case radial clearance, in mm?"
+        div .case-input-row   [35 chars]
+          label .case-input-label   [16 chars]
+            "Your answer"
+            span .muted   [4 chars]
+              "(mm)"
+          input #in-s3 .case-input type=text name=c-s3 value=
+          span .case-tol.muted   [19 chars]
+            "tolerance ±0.005 mm"
+        p #err-s3 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s4 .case-step   [245 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 4 (15 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [145 chars]
+          "At nominal diameters, what is the annular volume the solder has to fill through the 1.6 mm board, in mm3? Use …"
+        div .case-input-row   [36 chars]
+          label .case-input-label   [17 chars]
+            "Your answer"
+            span .muted   [5 chars]
+              "(mm3)"
+          input #in-s4 .case-input type=text name=c-s4 value=
+          span .case-tol.muted   [19 chars]
+            "tolerance ±0.01 mm3"
+        p #err-s4 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s5 .case-step   [212 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 5 (10 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [117 chars]
+          "Cross-section shows 1.10 mm of fill on a 1.60 mm board. What is the vertical fill as a percentage? One decimal…"
+        div .case-input-row   [31 chars]
+          label .case-input-label   [15 chars]
+            "Your answer"
+            span .muted   [3 chars]
+              "(%)"
+          input #in-s5 .case-input type=text name=c-s5 value=
+          span .case-tol.muted   [16 chars]
+            "tolerance ±0.2 %"
+        p #err-s5 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s8 .case-step   [190 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 6 (10 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [92 chars]
+          "The minimum is 75 % of the 1.60 mm board. How many millimetres of fill is J-01 short, in mm?"
+        div .case-input-row   [34 chars]
+          label .case-input-label   [16 chars]
+            "Your answer"
+            span .muted   [4 chars]
+              "(mm)"
+          input #in-s8 .case-input type=text name=c-s8 value=
+          span .case-tol.muted   [18 chars]
+            "tolerance ±0.01 mm"
+        p #err-s8 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s6 .case-step   [430 chars]
+        div .case-step-head   [24 chars]
+          span .case-step-n   [18 chars]
+            "Step 7 (15 points)"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [40 chars]
+          "What is the correct disposition of J-01?"
+        fieldset .case-options   [334 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt   [76 chars]
+            input #in-s6-a type=radio name=c-s6 value=a
+            span .case-opt-text   [76 chars]
+              "Accept it: 68.75 % is close to 75 % and the joint is electrically connected."
+          label .case-opt   [102 chars]
+            input #in-s6-b type=radio name=c-s6 value=b
+            span .case-opt-text   [102 chars]
+              "Reject it against the 75 % minimum and rework it; every other joint in the sheet is judged on its own."
+          label .case-opt   [65 chars]
+            input #in-s6-c type=radio name=c-s6 value=c
+            span .case-opt-text   [65 chars]
+              "Accept it under the thermal-plane exception for 14 or more leads."
+          label .case-opt   [81 chars]
+            input #in-s6-d type=radio name=c-s6 value=d
+            span .case-opt-text   [81 chars]
+              "Accept it and raise the pot temperature by 10 °C so the next board fills further."
+        p #err-s6 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s7 .case-step   [465 chars]
+        div .case-step-head   [24 chars]
+          span .case-step-n   [18 chars]
+            "Step 8 (10 points)"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [87 chars]
+          "The other joints read 81.25 % and 78.13 %. What is the defensible reading of the sheet?"
+        fieldset .case-options   [322 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt   [70 chars]
+            input #in-s7-a type=radio name=c-s7 value=a
+            span .case-opt-text   [70 chars]
+              "The build passes: the mean of the three joints is 76.04 %, above 75 %."
+          label .case-opt   [107 chars]
+            input #in-s7-b type=radio name=c-s7 value=b
+            span .case-opt-text   [107 chars]
+              "The build fails on J-01, and the sheet has to record each joint so the failing one cannot be averaged away."
+          label .case-opt   [71 chars]
+            input #in-s7-c type=radio name=c-s7 value=c
+            span .case-opt-text   [71 chars]
+              "The build passes because two joints out of three are above the minimum."
+          label .case-opt   [64 chars]
+            input #in-s7-d type=radio name=c-s7 value=d
+            span .case-opt-text   [64 chars]
+              "The build passes once J-01 is re-inspected by a second operator."
+        p #err-s7 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s9 .case-step   [454 chars]
+        div .case-step-head   [23 chars]
+          span .case-step-n   [17 chars]
+            "Step 9 (5 points)"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [70 chars]
+          "What control actually addresses the short fill, given the wave record?"
+        fieldset .case-options   [329 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt   [67 chars]
+            input #in-s9-a type=radio name=c-s9 value=a
+            span .case-opt-text   [67 chars]
+              "Raise the conveyor speed so the board spends less time in the wave."
+          label .case-opt   [155 chars]
+            input #in-s9-b type=radio name=c-s9 value=b
+            span .case-opt-text   [155 chars]
+              "Raise preheat so the top side of the hole reaches a temperature that lets the solder climb, and verify dwell a…"
+          label .case-opt   [50 chars]
+            input #in-s9-c type=radio name=c-s9 value=c
+            span .case-opt-text   [50 chars]
+              "Add flux by hand at the connector before the wave."
+          label .case-opt   [47 chars]
+            input #in-s9-d type=radio name=c-s9 value=d
+            span .case-opt-text   [47 chars]
+              "Accept the fill and add 100 % X-ray inspection."
+        p #err-s9 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+    div .quiz-actions   [22 chars]
+      button .btn.btn--primary type=submit   [16 chars]
+        "Check my answers"
+      button .btn type=button data-act=case-reset   [5 chars]
+        "Clear"
+  div #case-result-slot
+  details .case-rubric-box   [704 chars]
+    summary   [32 chars]
+      "Rubric — how this case is scored"
+    div .details-body   [672 chars]
+      table .case-rubric   [556 chars]
+        thead   [15 chars]
+          tr   [15 chars]
+            th   [9 chars]
+              "Criterion"
+            th   [6 chars]
+              "Points"
+        tbody   [541 chars]
+          tr   [72 chars]
+            td   [70 chars]
+              "Nominal clearance computed from finished diameters, not from the drill"
+            td .num   [2 chars]
+              "10"
+          tr   [57 chars]
+            td   [55 chars]
+              "Worst-case clearance built from both tolerances at once"
+            td .num   [2 chars]
+              "15"
+          tr   [52 chars]
+            td   [50 chars]
+              "Radial clearance derived from the diametral figure"
+            td .num   [2 chars]
+              "10"
+          tr   [63 chars]
+            td   [61 chars]
+              "Annular volume computed as hole minus lead, in the right unit"
+            td .num   [2 chars]
+              "15"
+          tr   [54 chars]
+            td   [52 chars]
+              "Fill percentage computed against the board thickness"
+            td .num   [2 chars]
+              "10"
+          tr   [62 chars]
+            td   [60 chars]
+              "Shortfall in millimetres derived from the percentage minimum"
+            td .num   [2 chars]
+              "10"
+          tr   [69 chars]
+            td   [67 chars]
+              "Joint judged against 75 %, with the exception ruled out on evidence"
+            td .num   [2 chars]
+              "15"
+          tr   [50 chars]
+            td   [48 chars]
+              "Each joint judged on its own, not on the average"
+            td .num   [2 chars]
+              "10"
+          tr   [62 chars]
+            td   [61 chars]
+              "Control chosen that matches the mechanism, not the inspection"
+            td .num   [1 chars]
+              "5"
+      p .muted.flush   [116 chars]
+        "Criteria are scored in proportion to the steps they name. A criterion spanning two steps pays half per correct…"
+  section .sources   [1863 chars]
+    details .spoiler   [1863 chars]
+      summary   [11 chars]
+        "Sources — 2"
+      div .details-body   [1852 chars]
+        ul   [1852 chars]
+          li   [828 chars]
+            span .src-id   [7 chars]
+              "src-016"
+            strong   [104 chars]
+              "IPC-A-610H section 10 — through-hole solder fill (75% minimum vertical barrel fill, Class 2 and Class 3)"
+            "— Rev H §10, section §10 through-hole solder fill — 75 % minimum vertical barrel fill, standard"
+            span .src-note   [291 chars]
+              "License: paraphrase only · verified by READ. Same primary IPC-A-610D fragments as src-001. Note for the record…"
+            span .src-currency   [169 chars]
+              "Superseded. The through-hole fill criteria quoted here were read against Rev H (and, for some figures, against…"
+            span .src-edition   [160 chars]
+              strong   [18 chars]
+                "Superseded edition"
+              "· publisher lists Rev J (March 2024)"
+              span .src-edition-note   [105 chars]
+                "The through-hole fill criteria quoted here were read against Rev H. Rev J is current and was not re-read."
+          li   [1024 chars]
+            span .src-id   [7 chars]
+              "src-001"
+            strong   [48 chars]
+              "IPC-A-610 Acceptability of Electronic Assemblies"
+            "— Rev H, section §10 through-hole solder fill — vertical barrel fill minimums by class (75 % for Class 2 and C…"
+            span .src-note   [363 chars]
+              "License: paraphrase only · verified by READ. Primary IPC-A-610D fragments read: "Class 2, fill to 75% but with…"
+            span .src-currency   [276 chars]
+              "Superseded. IPC-A-610 Rev J was released in April 2024 and is the current revision; Rev J also removed the "Ta…"
+            span .src-edition   [201 chars]
+              strong   [18 chars]
+                "Superseded edition"
+              "· publisher lists Rev J (March 2024)"
+              span .src-edition-note   [146 chars]
+                "Written against Rev H. Rev J was published in March 2024 and is listed by IPC as current; the criteria quoted …"
+  nav .pager   [49 chars]
+    a .pager-prev href=#/m/m08   [49 chars]
+      span .pager-label   [7 chars]
+        "Back to"
+      span .pager-title   [42 chars]
+        "Module 08 — THT: Preparation and Insertion"
+    span

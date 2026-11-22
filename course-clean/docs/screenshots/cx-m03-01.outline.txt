@@ -2,7 +2,7 @@ Rendered outline of #/c/cx-m03-01
 Produced by scripts/capture-case.js from the built tree (build/course-clean).
 This is the live DOM from the shipped engine, not a mock-up.
 
-main #main   [6445 chars]
+main #main   [6699 chars]
   p .kicker   [53 chars]
     "Toolkit · Module 03 · Stencil Design and Verification"
   header .page-head   [108 chars]
@@ -27,14 +27,14 @@ main #main   [6445 chars]
       "The stencil drawing issued to the supplier carries a single foil thickness of 0.125 mm and apertures of 0.20 m…"
     p   [163 chars]
       "Work through the release indicators in the order the course uses them: area ratio, aspect ratio, then the aper…"
-  details .case-board   [749 chars]
+  details .case-board   [932 chars]
     summary   [38 chars]
       "Board X — the product behind this case"
-    div .details-body   [711 chars]
+    div .details-body   [894 chars]
       p .muted.flush   [158 chars]
         "6-layer 1.6 mm FR-4 controller board: QFP-64 at 0.5 mm pitch, QFP-48 at 0.4 mm pitch, one 256-ball BGA at 0.8 …"
-      table .case-facts   [553 chars]
-        tbody   [553 chars]
+      table .case-facts   [736 chars]
+        tbody   [736 chars]
           tr   [23 chars]
             th   [20 chars]
               "Board thickness (mm)"
@@ -150,6 +150,36 @@ main #main   [6445 chars]
               "Peak ceiling, large package (°C)"
             td   [3 chars]
               "250"
+          tr   [36 chars]
+            th   [34 chars]
+              "Minimum barrel fill, IPC-A-610 (%)"
+            td   [2 chars]
+              "75"
+          tr   [34 chars]
+            th   [32 chars]
+              "Thermal-plane exception fill (%)"
+            td   [2 chars]
+              "50"
+          tr   [36 chars]
+            th   [34 chars]
+              "Leads before the exception applies"
+            td   [2 chars]
+              "14"
+          tr   [24 chars]
+            th   [23 chars]
+              "THT hole, finished (mm)"
+            td   [1 chars]
+              "1"
+          tr   [29 chars]
+            th   [25 chars]
+              "THT hole tolerance (± mm)"
+            td   [4 chars]
+              "0.05"
+          tr   [24 chars]
+            th   [21 chars]
+              "Wave contact time (s)"
+            td   [3 chars]
+              "2–4"
   details .case-data   [370 chars]
     summary   [30 chars]
       "Data file — aperture-table.csv"
@@ -273,15 +303,15 @@ main #main   [6445 chars]
       p .flush   [27 chars]
         button .btn.btn--small type=button data-act=case-data   [27 chars]
           "Download aperture-table.csv"
-  form .case-form   [2004 chars]
-    ol .case-steps   [1982 chars]
-      li #step-s1 .case-step   [222 chars]
+  form .case-form   [2075 chars]
+    ol .case-steps   [2053 chars]
+      li #step-s1 .case-step   [293 chars]
         div .case-step-head   [32 chars]
           span .case-step-n   [18 chars]
             "Step 1 (15 points)"
           span .case-step-type   [14 chars]
             "numeric answer"
-        p .case-prompt   [131 chars]
+        p .case-prompt   [202 chars]
           "Aperture A-03 (QFP-48, 0.20 mm x 0.80 mm, 0.125 mm foil). Area ratio = (L x W) / (2 x (L + W) x T). Give the v…"
         div .case-input-row   [27 chars]
           label .case-input-label   [11 chars]

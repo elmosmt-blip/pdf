@@ -1,0 +1,628 @@
+Rendered outline of #/c/cx-m02-01
+Produced by scripts/capture-case.js from the built tree (build/course-clean).
+This is the live DOM from the shipped engine, not a mock-up.
+
+main #main   [8330 chars]
+  p .kicker   [50 chars]
+    "Toolkit · Module 02 · Storage, MSL and ESD Control"
+  header .page-head   [101 chars]
+    div   [101 chars]
+      h1   [53 chars]
+        "Moisture breach: the BGA reel sat in a 7 % RH cabinet"
+      div .meta-line   [48 chars]
+        span .chip.chip--stage   [7 chars]
+          "Board X"
+        span .chip   [6 chars]
+          "20 min"
+        span .chip   [7 chars]
+          "6 steps"
+        span .chip   [14 chars]
+          "rubric 100 pts"
+        span .chip   [14 chars]
+          "Score 0 of 100"
+  section .case-scenario   [560 chars]
+    p   [221 chars]
+      "Board X's 256-ball BGA comes in on MSL 4 tape and reel. The reel was opened 58 h ago and went straight into th…"
+    p   [157 chars]
+      "During the second shift a feeder was loaded and the reel sat on the machine for 6 h before the line went down.…"
+    p   [182 chars]
+      "Decide the disposition. The lesson is explicit that a cabinet above the dry-storage requirement does not stop …"
+  details .case-board   [932 chars]
+    summary   [38 chars]
+      "Board X — the product behind this case"
+    div .details-body   [894 chars]
+      p .muted.flush   [158 chars]
+        "6-layer 1.6 mm FR-4 controller board: QFP-64 at 0.5 mm pitch, QFP-48 at 0.4 mm pitch, one 256-ball BGA at 0.8 …"
+      table .case-facts   [736 chars]
+        tbody   [736 chars]
+          tr   [23 chars]
+            th   [20 chars]
+              "Board thickness (mm)"
+            td   [3 chars]
+              "1.6"
+          tr   [7 chars]
+            th   [6 chars]
+              "Layers"
+            td   [1 chars]
+              "6"
+          tr   [18 chars]
+            th   [14 chars]
+              "Surface finish"
+            td   [4 chars]
+              "ENIG"
+          tr   [25 chars]
+            th   [13 chars]
+              "Base material"
+            td   [12 chars]
+              "FR-4, Tg 170"
+          tr   [17 chars]
+            th   [12 chars]
+              "Stencil (mm)"
+            td   [5 chars]
+              "0.125"
+          tr   [34 chars]
+            th   [31 chars]
+              "Stencil, fine-pitch region (mm)"
+            td   [3 chars]
+              "0.1"
+          tr   [36 chars]
+            th   [12 chars]
+              "Solder paste"
+            td   [24 chars]
+              "SAC305, Type 4, no-clean"
+          tr   [20 chars]
+            th   [17 chars]
+              "QFP-64 pitch (mm)"
+            td   [3 chars]
+              "0.5"
+          tr   [13 chars]
+            th   [11 chars]
+              "QFP-64 pins"
+            td   [2 chars]
+              "64"
+          tr   [20 chars]
+            th   [17 chars]
+              "QFP-48 pitch (mm)"
+            td   [3 chars]
+              "0.4"
+          tr   [22 chars]
+            th   [19 chars]
+              "BGA ball pitch (mm)"
+            td   [3 chars]
+              "0.8"
+          tr   [12 chars]
+            th   [9 chars]
+              "BGA balls"
+            td   [3 chars]
+              "256"
+          tr   [20 chars]
+            th   [16 chars]
+              "Smallest passive"
+            td   [4 chars]
+              "0402"
+          tr   [69 chars]
+            th   [13 chars]
+              "THT connector"
+            td   [56 chars]
+              "20-pin, 2.54 mm pitch, 0.8 mm finished hole, 0.5 mm lead"
+          tr   [21 chars]
+            th   [17 chars]
+              "Lot size (boards)"
+            td   [4 chars]
+              "1240"
+          tr   [26 chars]
+            th   [23 chars]
+              "Solder joints per board"
+            td   [3 chars]
+              "620"
+          tr   [11 chars]
+            th   [5 chars]
+              "Alloy"
+            td   [6 chars]
+              "SAC305"
+          tr   [16 chars]
+            th   [13 chars]
+              "Liquidus (°C)"
+            td   [3 chars]
+              "219"
+          tr   [15 chars]
+            th   [12 chars]
+              "Solidus (°C)"
+            td   [3 chars]
+              "217"
+          tr   [28 chars]
+            th   [23 chars]
+              "Time above liquidus (s)"
+            td   [5 chars]
+              "60–90"
+          tr   [30 chars]
+            th   [23 chars]
+              "Peak window, paste (°C)"
+            td   [7 chars]
+              "235–245"
+          tr   [35 chars]
+            th   [28 chars]
+              "Typical production peak (°C)"
+            td   [7 chars]
+              "235–245"
+          tr   [35 chars]
+            th   [32 chars]
+              "Peak ceiling, large package (°C)"
+            td   [3 chars]
+              "250"
+          tr   [36 chars]
+            th   [34 chars]
+              "Minimum barrel fill, IPC-A-610 (%)"
+            td   [2 chars]
+              "75"
+          tr   [34 chars]
+            th   [32 chars]
+              "Thermal-plane exception fill (%)"
+            td   [2 chars]
+              "50"
+          tr   [36 chars]
+            th   [34 chars]
+              "Leads before the exception applies"
+            td   [2 chars]
+              "14"
+          tr   [24 chars]
+            th   [23 chars]
+              "THT hole, finished (mm)"
+            td   [1 chars]
+              "1"
+          tr   [29 chars]
+            th   [25 chars]
+              "THT hole tolerance (± mm)"
+            td   [4 chars]
+              "0.05"
+          tr   [24 chars]
+            th   [21 chars]
+              "Wave contact time (s)"
+            td   [3 chars]
+              "2–4"
+  details .case-data   [202 chars]
+    summary   [23 chars]
+      "Data file — msl-log.csv"
+    div .details-body   [179 chars]
+      div .case-table-wrap   [159 chars]
+        table .case-table   [159 chars]
+          thead   [72 chars]
+            tr   [72 chars]
+              th   [4 chars]
+                "reel"
+              th   [4 chars]
+                "part"
+              th   [7 chars]
+                "package"
+              th   [3 chars]
+                "msl"
+              th   [14 chars]
+                "bag_open_h_ago"
+              th   [14 chars]
+                "cabinet_rh_pct"
+              th   [15 chars]
+                "line_exposure_h"
+              th   [11 chars]
+                "reflow_in_h"
+          tbody   [87 chars]
+            tr   [30 chars]
+              td   [6 chars]
+                "R-4412"
+              td   [13 chars]
+                "BGA-256 14x14"
+              td   [4 chars]
+                "FBGA"
+              td .num   [1 chars]
+                "4"
+              td .num   [2 chars]
+                "58"
+              td .num   [1 chars]
+                "7"
+              td .num   [1 chars]
+                "6"
+              td .num   [2 chars]
+                "10"
+            tr   [29 chars]
+              td   [6 chars]
+                "R-4413"
+              td   [13 chars]
+                "QFP-64 0.5 mm"
+              td   [3 chars]
+                "QFP"
+              td .num   [1 chars]
+                "3"
+              td .num   [2 chars]
+                "58"
+              td .num   [1 chars]
+                "7"
+              td .num   [1 chars]
+                "0"
+              td .num   [2 chars]
+                "10"
+            tr   [28 chars]
+              td   [6 chars]
+                "R-4414"
+              td   [11 chars]
+                "0402 100 nF"
+              td   [4 chars]
+                "chip"
+              td .num   [1 chars]
+                "1"
+              td .num   [2 chars]
+                "58"
+              td .num   [1 chars]
+                "7"
+              td .num   [1 chars]
+                "0"
+              td .num   [2 chars]
+                "10"
+      p .flush   [20 chars]
+        button .btn.btn--small type=button data-act=case-data   [20 chars]
+          "Download msl-log.csv"
+  form .case-form   [3509 chars]
+    ol .case-steps   [3487 chars]
+      li #step-s1 .case-step.case-step--ok   [379 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 1 (15 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [80 chars]
+          "What is the J-STD-033 floor life for MSL 4, in hours at the reference condition?"
+        div .case-input-row   [31 chars]
+          label .case-input-label   [15 chars]
+            "Your answer"
+            span .muted   [3 chars]
+              "(h)"
+          input #in-s1 .case-input type=text name=c-s1 value=72
+          span .case-tol.muted   [16 chars]
+            "tolerance ±0.5 h"
+        p #err-s1 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [58 chars]
+          strong   [8 chars]
+            "Correct."
+          "72 h — the number the whole disposition hangs on."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [158 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [142 chars]
+            "MSL 4 has 72 h of floor life at 30 °C / 60 % RH. MSL 3 is 168 h and MSL 5 is 48 h, which is why the levels are…"
+      li #step-s2 .case-step.case-step--ok   [427 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 2 (20 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [102 chars]
+          "How many hours count against that floor life? Add the bag-open period and the time on the open feeder."
+        div .case-input-row   [31 chars]
+          label .case-input-label   [15 chars]
+            "Your answer"
+            span .muted   [3 chars]
+              "(h)"
+          input #in-s2 .case-input type=text name=c-s2 value=64
+          span .case-tol.muted   [16 chars]
+            "tolerance ±0.5 h"
+        p #err-s2 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [61 chars]
+          strong   [8 chars]
+            "Correct."
+          "64 h counted — the cabinet gave no credit at 7 % RH."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [181 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [165 chars]
+            "A cabinet at 7 % RH is above the 5 % dry-storage requirement, so exposure keeps accumulating; the 6 h on the o…"
+      li #step-s3 .case-step.case-step--ok   [368 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 3 (20 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [55 chars]
+          "How much floor life is left for the BGA reel, in hours?"
+        div .case-input-row   [31 chars]
+          label .case-input-label   [15 chars]
+            "Your answer"
+            span .muted   [3 chars]
+              "(h)"
+          input #in-s3 .case-input type=text name=c-s3 value=8
+          span .case-tol.muted   [16 chars]
+            "tolerance ±0.5 h"
+        p #err-s3 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [80 chars]
+          strong   [8 chars]
+            "Correct."
+          "8 h left, and the reflow is 10 h away — the reel cannot simply proceed."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [150 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [134 chars]
+            "72 - 64 = 8 h remain, but the planned reflow is 10 h away. The batch is 2 h short, so the decision is bake or …"
+      li #step-s4 .case-step.case-step--ok   [900 chars]
+        div .case-step-head   [24 chars]
+          span .case-step-n   [18 chars]
+            "Step 4 (15 points)"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [101 chars]
+          "The cabinet logged 7 % RH against a 5 % requirement. What does the course say that does to the clock?"
+        fieldset .case-options   [330 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt   [94 chars]
+            input #in-s4-a type=radio name=c-s4 value=a
+            span .case-opt-text   [94 chars]
+              "It suspends the clock, because any dry cabinet below 10 % RH is equivalent to sealed dry pack."
+          label .case-opt.case-opt--picked   [105 chars]
+            input #in-s4-b type=radio name=c-s4 value=b
+            span .case-opt-text   [105 chars]
+              "It slows the clock, but 5 % RH or less is the condition that suspends it, so this storage gave no credit."
+          label .case-opt   [66 chars]
+            input #in-s4-c type=radio name=c-s4 value=c
+            span .case-opt-text   [66 chars]
+              "It resets the clock, because the parts were dry when they went in."
+          label .case-opt   [55 chars]
+            input #in-s4-d type=radio name=c-s4 value=d
+            span .case-opt-text   [55 chars]
+              "It has no effect either way; only the bag seal matters."
+        p #err-s4 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [80 chars]
+          strong   [8 chars]
+            "Correct."
+          "7 % RH slows the clock but does not suspend it, so no credit was given."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(2 left)"
+        details .case-expl   [345 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [329 chars]
+            "Below 5 % RH the device stops gaining moisture, so the exposure clock is suspended. A 10 % cabinet is common a…"
+      li #step-s5 .case-step.case-step--ok   [453 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 5 (10 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [88 chars]
+          "The reel needs a bake. What is the maximum temperature the tape and reel may see, in °C?"
+        div .case-input-row   [33 chars]
+          label .case-input-label   [16 chars]
+            "Your answer"
+            span .muted   [4 chars]
+              "(°C)"
+          input #in-s5 .case-input type=text name=c-s5 value=40
+          span .case-tol.muted   [17 chars]
+            "tolerance ±0.5 °C"
+        p #err-s5 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [61 chars]
+          strong   [8 chars]
+            "Correct."
+          "40 °C — and at 40 °C the bake takes days, not hours."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [219 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [203 chars]
+            "Tape and reel must not be baked above 40 °C because the carrier and cover tape deform. At that temperature the…"
+      li #step-s6 .case-step.case-step--ok   [960 chars]
+        div .case-step-head   [24 chars]
+          span .case-step-n   [18 chars]
+            "Step 6 (20 points)"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [102 chars]
+          "The reflow is 10 h away and a 40 °C bake will not finish in time. Which route does the lesson support?"
+        fieldset .case-options   [340 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt   [61 chars]
+            input #in-s6-a type=radio name=c-s6 value=a
+            span .case-opt-text   [61 chars]
+              "Bake the reel at 125 °C now and accept some tape deformation."
+          label .case-opt.case-opt--picked   [142 chars]
+            input #in-s6-b type=radio name=c-s6 value=b
+            span .case-opt-text   [142 chars]
+              "De-reel into trays, bake the loose parts at the permitted higher temperature, then re-reel; or move the build …"
+          label .case-opt   [75 chars]
+            input #in-s6-c type=radio name=c-s6 value=c
+            span .case-opt-text   [75 chars]
+              "Skip the bake and raise the reflow peak by 10 °C to drive the moisture out."
+          label .case-opt   [52 chars]
+            input #in-s6-d type=radio name=c-s6 value=d
+            span .case-opt-text   [52 chars]
+              "Run the reel as-is and inspect the BGA after reflow."
+        p #err-s6 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [103 chars]
+          strong   [8 chars]
+            "Correct."
+          "De-reel and bake at the higher temperature, or move the build inside the remaining floor life."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [371 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [355 chars]
+            "Baking a reel at 125 °C destroys the carrier tape, and raising the peak adds thermal stress without removing m…"
+    div .quiz-actions   [22 chars]
+      button .btn.btn--primary type=submit   [16 chars]
+        "Check my answers"
+      button .btn type=button data-act=case-reset   [5 chars]
+        "Clear"
+  div #case-result-slot   [539 chars]
+    section #case-result .case-result   [539 chars]
+      h2   [6 chars]
+        "Result"
+      p .case-score.case-score--pass   [32 chars]
+        "100 % — 100 of 100 rubric points"
+      p .flush   [110 chars]
+        "Mastered. The rubric threshold is 80 %. Best result so far: 100 %. This attempt took about 1 min with 0 hints."
+      table .case-rubric   [337 chars]
+        thead   [21 chars]
+          tr   [21 chars]
+            th   [9 chars]
+              "Criterion"
+            th   [6 chars]
+              "Points"
+            th   [6 chars]
+              "Earned"
+        tbody   [316 chars]
+          tr   [58 chars]
+            td   [54 chars]
+              "Floor life for MSL 4 taken from the table, not guessed"
+            td .num   [2 chars]
+              "15"
+            td .num   [2 chars]
+              "15"
+          tr   [63 chars]
+            td   [59 chars]
+              "Exposure counted with no credit for a non-compliant cabinet"
+            td .num   [2 chars]
+              "20"
+            td .num   [2 chars]
+              "20"
+          tr   [65 chars]
+            td   [61 chars]
+              "Remaining life computed and compared with the reflow schedule"
+            td .num   [2 chars]
+              "20"
+            td .num   [2 chars]
+              "20"
+          tr   [45 chars]
+            td   [41 chars]
+              "7 % RH judged against the 5 % requirement"
+            td .num   [2 chars]
+              "15"
+            td .num   [2 chars]
+              "15"
+          tr   [36 chars]
+            td   [32 chars]
+              "Tape-and-reel bake ceiling known"
+            td .num   [2 chars]
+              "10"
+            td .num   [2 chars]
+              "10"
+          tr   [49 chars]
+            td   [45 chars]
+              "Route chosen that respects the material limit"
+            td .num   [2 chars]
+              "20"
+            td .num   [2 chars]
+              "20"
+      div .quiz-actions   [54 chars]
+        button .btn type=button data-act=case-retake   [28 chars]
+          "Try again from a clean sheet"
+        button .btn type=button data-act=case-csv   [25 chars]
+          "Download my answers (CSV)"
+  details .case-rubric-box   [467 chars]
+    summary   [32 chars]
+      "Rubric — how this case is scored"
+    div .details-body   [435 chars]
+      table .case-rubric   [319 chars]
+        thead   [15 chars]
+          tr   [15 chars]
+            th   [9 chars]
+              "Criterion"
+            th   [6 chars]
+              "Points"
+        tbody   [304 chars]
+          tr   [56 chars]
+            td   [54 chars]
+              "Floor life for MSL 4 taken from the table, not guessed"
+            td .num   [2 chars]
+              "15"
+          tr   [61 chars]
+            td   [59 chars]
+              "Exposure counted with no credit for a non-compliant cabinet"
+            td .num   [2 chars]
+              "20"
+          tr   [63 chars]
+            td   [61 chars]
+              "Remaining life computed and compared with the reflow schedule"
+            td .num   [2 chars]
+              "20"
+          tr   [43 chars]
+            td   [41 chars]
+              "7 % RH judged against the 5 % requirement"
+            td .num   [2 chars]
+              "15"
+          tr   [34 chars]
+            td   [32 chars]
+              "Tape-and-reel bake ceiling known"
+            td .num   [2 chars]
+              "10"
+          tr   [47 chars]
+            td   [45 chars]
+              "Route chosen that respects the material limit"
+            td .num   [2 chars]
+              "20"
+      p .muted.flush   [116 chars]
+        "Criteria are scored in proportion to the steps they name. A criterion spanning two steps pays half per correct…"
+  section .sources   [1923 chars]
+    details .spoiler   [1923 chars]
+      summary   [11 chars]
+        "Sources — 2"
+      div .details-body   [1912 chars]
+        ul   [1912 chars]
+          li   [921 chars]
+            span .src-id   [7 chars]
+              "src-003"
+            strong   [103 chars]
+              "J-STD-033 Handling, Packing, Shipping and Use of Moisture, Heat and ESD Sensitive Surface Mount Devices"
+            "— Rev D, section Table 4-1 (user bake) and Table 4-2 (supplier dry-pack); Table 5-1 floor life; §4.2.7.1 cumul…"
+            span .src-note   [398 chars]
+              "License: paraphrase only · verified by READ. Primary J-STD-033B.1 and Rev D text read. The full Table 4-1 matr…"
+            span .src-edition   [281 chars]
+              strong   [29 chars]
+                "Document no longer maintained"
+              "· publisher lists Rev D (May 2018) — no longer maintained"
+              span .src-edition-note   [194 chars]
+                "IPC still lists Rev D as the newest J-STD-033 and marks the document "no longer maintained"; an E revision is …"
+          li   [991 chars]
+            span .src-id   [7 chars]
+              "src-005"
+            strong   [107 chars]
+              "J-STD-020 Classification of Moisture Sensitivity for Non-Hermetic Sealing Solid State Surface Mount Devices"
+            "— Rev D (read against Rev E text), section Table 4-1 and Table 4-2 classification temperatures; Table 5-2 clas…"
+            span .src-note   [427 chars]
+              "License: paraphrase only · verified by READ. Primary J-STD-020E text read. Table 4-2 (Pb-free) is thickness × …"
+            span .src-currency   [126 chars]
+              "Edition mismatch. The label says Rev D, the text actually read was Rev E. Rev E is the later revision; quote t…"
+            span .src-edition   [177 chars]
+              strong   [16 chars]
+                "Edition mismatch"
+              "· publisher lists Rev F (November 2022)"
+              span .src-edition-note   [121 chars]
+                "The source label says Rev D while the text read was Rev E; IPC lists Rev F, November 2022, as current. Two rev…"
+  nav .pager   [47 chars]
+    a .pager-prev href=#/m/m02   [47 chars]
+      span .pager-label   [7 chars]
+        "Back to"
+      span .pager-title   [40 chars]
+        "Module 02 — Storage, MSL and ESD Control"
+    span

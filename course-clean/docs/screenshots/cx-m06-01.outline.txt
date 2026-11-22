@@ -2,7 +2,7 @@ Rendered outline of #/c/cx-m06-01
 Produced by scripts/capture-case.js from the built tree (build/course-clean).
 This is the live DOM from the shipped engine, not a mock-up.
 
-main #main   [6886 chars]
+main #main   [7216 chars]
   p .kicker   [38 chars]
     "Toolkit · Module 06 · Reflow Soldering"
   header .page-head   [94 chars]
@@ -27,14 +27,14 @@ main #main   [6886 chars]
       "Paste is SAC305. The paste window for this board is 60-90 s above liquidus (IPC-7530B guidance is 30-90 s; the…"
     p   [126 chars]
       "Validate the profile, compute the margins, and decide whether it can be released with a documentation note or …"
-  details .case-board   [749 chars]
+  details .case-board   [932 chars]
     summary   [38 chars]
       "Board X — the product behind this case"
-    div .details-body   [711 chars]
+    div .details-body   [894 chars]
       p .muted.flush   [158 chars]
         "6-layer 1.6 mm FR-4 controller board: QFP-64 at 0.5 mm pitch, QFP-48 at 0.4 mm pitch, one 256-ball BGA at 0.8 …"
-      table .case-facts   [553 chars]
-        tbody   [553 chars]
+      table .case-facts   [736 chars]
+        tbody   [736 chars]
           tr   [23 chars]
             th   [20 chars]
               "Board thickness (mm)"
@@ -150,6 +150,36 @@ main #main   [6886 chars]
               "Peak ceiling, large package (°C)"
             td   [3 chars]
               "250"
+          tr   [36 chars]
+            th   [34 chars]
+              "Minimum barrel fill, IPC-A-610 (%)"
+            td   [2 chars]
+              "75"
+          tr   [34 chars]
+            th   [32 chars]
+              "Thermal-plane exception fill (%)"
+            td   [2 chars]
+              "50"
+          tr   [36 chars]
+            th   [34 chars]
+              "Leads before the exception applies"
+            td   [2 chars]
+              "14"
+          tr   [24 chars]
+            th   [23 chars]
+              "THT hole, finished (mm)"
+            td   [1 chars]
+              "1"
+          tr   [29 chars]
+            th   [25 chars]
+              "THT hole tolerance (± mm)"
+            td   [4 chars]
+              "0.05"
+          tr   [24 chars]
+            th   [21 chars]
+              "Wave contact time (s)"
+            td   [3 chars]
+              "2–4"
   ul .spec-chips   [101 chars]
     li .spec-chip   [14 chars]
       span .spec-chip-label   [8 chars]
@@ -288,16 +318,16 @@ main #main   [6886 chars]
       p .flush   [20 chars]
         button .btn.btn--small type=button data-act=case-data   [20 chars]
           "Download profile.csv"
-  details .case-data   [325 chars]
+  details .case-data   [391 chars]
     summary   [29 chars]
       "Data file — thermocouples.csv"
-    div .details-body   [296 chars]
+    div .details-body   [362 chars]
       p .muted.flush   [140 chars]
         "One profile, three sites. The middle column is the peak at that thermocouple; the offsets are why a single-poi…"
-      div .case-table-wrap   [130 chars]
-        table .case-table   [130 chars]
-          thead   [46 chars]
-            tr   [46 chars]
+      div .case-table-wrap   [196 chars]
+        table .case-table   [196 chars]
+          thead   [63 chars]
+            tr   [63 chars]
               th   [4 chars]
                 "site"
               th   [8 chars]
@@ -308,8 +338,10 @@ main #main   [6886 chars]
                 "tal_s"
               th   [23 chars]
                 "offset_from_reference_c"
-          tbody   [84 chars]
-            tr   [26 chars]
+              th   [17 chars]
+                "within_paste_band"
+          tbody   [133 chars]
+            tr   [29 chars]
               td   [3 chars]
                 "TC1"
               td   [16 chars]
@@ -320,7 +352,9 @@ main #main   [6886 chars]
                 "60"
               td .num   [2 chars]
                 "-6"
-            tr   [29 chars]
+              td   [3 chars]
+                "yes"
+            tr   [52 chars]
               td   [3 chars]
                 "TC2"
               td   [19 chars]
@@ -331,7 +365,9 @@ main #main   [6886 chars]
                 "65"
               td   [2 chars]
                 "+1"
-            tr   [29 chars]
+              td   [23 chars]
+                "no (over the 245 C top)"
+            tr   [52 chars]
               td   [3 chars]
                 "TC3"
               td   [19 chars]
@@ -342,11 +378,13 @@ main #main   [6886 chars]
                 "70"
               td   [2 chars]
                 "+6"
+              td   [23 chars]
+                "no (over the 245 C top)"
       p .flush   [26 chars]
         button .btn.btn--small type=button data-act=case-data   [26 chars]
           "Download thermocouples.csv"
-  form .case-form   [2176 chars]
-    ol .case-steps   [2154 chars]
+  form .case-form   [2255 chars]
+    ol .case-steps   [2233 chars]
       li #step-s1 .case-step   [154 chars]
         div .case-step-head   [32 chars]
           span .case-step-n   [18 chars]
@@ -472,33 +510,33 @@ main #main   [6886 chars]
             "Show a hint"
             span .muted   [8 chars]
               "(3 left)"
-      li #step-s5 .case-step   [442 chars]
+      li #step-s5 .case-step   [521 chars]
         div .case-step-head   [24 chars]
           span .case-step-n   [18 chars]
             "Step 6 (14 points)"
           span .case-step-type   [6 chars]
             "choice"
-        p .case-prompt   [40 chars]
-          "Which disposition does the profile earn?"
-        fieldset .case-options   [346 chars]
+        p .case-prompt   [50 chars]
+          "Which disposition does the three-site survey earn?"
+        fieldset .case-options   [415 chars]
           legend .sr-only   [10 chars]
             "Choose one"
-          label .case-opt   [65 chars]
+          label .case-opt   [133 chars]
             input #in-s5-a type=radio name=c-s5 value=a
-            span .case-opt-text   [65 chars]
-              "Reject and change the profile: the peak is over the 245 °C limit."
-          label .case-opt   [132 chars]
+            span .case-opt-text   [133 chars]
+              "Reject: the 0402 near the edge peaks over the paste band and over the package ceiling, so the profile cannot b…"
+          label .case-opt   [133 chars]
             input #in-s5-b type=radio name=c-s5 value=b
-            span .case-opt-text   [132 chars]
-              "Accept and document: peak and time above liquidus are inside their windows, with 2 °C and 5 s of margin noted …"
-          label .case-opt   [69 chars]
-            input #in-s5-c type=radio name=c-s5 value=c
-            span .case-opt-text   [69 chars]
-              "Reject: time above liquidus must always exceed 90 s on a heavy board."
+            span .case-opt-text   [133 chars]
+              "Accept and document: the average peak and the time above liquidus are inside their windows, so the spread is r…"
           label .case-opt   [70 chars]
-            input #in-s5-d type=radio name=c-s5 value=d
+            input #in-s5-c type=radio name=c-s5 value=c
             span .case-opt-text   [70 chars]
               "Accept without comment: a profile only fails if the joints look wrong."
+          label .case-opt   [69 chars]
+            input #in-s5-d type=radio name=c-s5 value=d
+            span .case-opt-text   [69 chars]
+              "Reject: time above liquidus must always exceed 90 s on a heavy board."
         p #err-s5 .case-error role=alert hidden=
         div .case-step-actions   [12 chars]
           button .btn.btn--small type=button data-act=case-check   [12 chars]
@@ -575,18 +613,18 @@ main #main   [6886 chars]
       button .btn type=button data-act=case-reset   [5 chars]
         "Clear"
   div #case-result-slot
-  details .case-rubric-box   [554 chars]
+  details .case-rubric-box   [556 chars]
     summary   [32 chars]
       "Rubric — how this case is scored"
-    div .details-body   [522 chars]
-      table .case-rubric   [406 chars]
+    div .details-body   [524 chars]
+      table .case-rubric   [408 chars]
         thead   [15 chars]
           tr   [15 chars]
             th   [9 chars]
               "Criterion"
             th   [6 chars]
               "Points"
-        tbody   [391 chars]
+        tbody   [393 chars]
           tr   [47 chars]
             td   [45 chars]
               "Ramp rate computed from the recorded interval"
@@ -612,9 +650,9 @@ main #main   [6886 chars]
               "Cooling rate computed and interpreted"
             td .num   [2 chars]
               "10"
-          tr   [56 chars]
-            td   [54 chars]
-              "Disposition states the margins rather than just 'pass'"
+          tr   [58 chars]
+            td   [56 chars]
+              "Disposition judged on the worst site, not on the average"
             td .num   [2 chars]
               "14"
           tr   [42 chars]

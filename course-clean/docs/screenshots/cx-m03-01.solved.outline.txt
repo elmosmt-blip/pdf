@@ -2,14 +2,14 @@ Rendered outline of #/c/cx-m03-01
 Produced by scripts/capture-case.js from the built tree (build/course-clean).
 This is the live DOM from the shipped engine, not a mock-up.
 
-main #main   [9376 chars]
+main #main   [9959 chars]
   p .kicker   [53 chars]
     "Toolkit · Module 03 · Stencil Design and Verification"
-  header .page-head   [94 chars]
-    div   [94 chars]
+  header .page-head   [108 chars]
+    div   [108 chars]
       h1   [60 chars]
         "Stencil release audit: the QFP-48 apertures will not release"
-      div .meta-line   [34 chars]
+      div .meta-line   [48 chars]
         span .chip.chip--stage   [7 chars]
           "Board X"
         span .chip   [6 chars]
@@ -18,6 +18,8 @@ main #main   [9376 chars]
           "8 steps"
         span .chip   [14 chars]
           "rubric 100 pts"
+        span .chip   [14 chars]
+          "Score 0 of 100"
   section .case-scenario   [725 chars]
     p   [220 chars]
       "Board X goes to a new stencil supplier. The first article prints clean on the 0402 passives and on the 0.5 mm …"
@@ -25,17 +27,17 @@ main #main   [9376 chars]
       "The stencil drawing issued to the supplier carries a single foil thickness of 0.125 mm and apertures of 0.20 m…"
     p   [163 chars]
       "Work through the release indicators in the order the course uses them: area ratio, aspect ratio, then the aper…"
-  details .case-board   [590 chars]
+  details .case-board   [932 chars]
     summary   [38 chars]
       "Board X — the product behind this case"
-    div .details-body   [552 chars]
+    div .details-body   [894 chars]
       p .muted.flush   [158 chars]
         "6-layer 1.6 mm FR-4 controller board: QFP-64 at 0.5 mm pitch, QFP-48 at 0.4 mm pitch, one 256-ball BGA at 0.8 …"
-      table .case-facts   [394 chars]
-        tbody   [394 chars]
-          tr   [21 chars]
-            th   [18 chars]
-              "Board Thickness Mm"
+      table .case-facts   [736 chars]
+        tbody   [736 chars]
+          tr   [23 chars]
+            th   [20 chars]
+              "Board thickness (mm)"
             td   [3 chars]
               "1.6"
           tr   [7 chars]
@@ -45,107 +47,271 @@ main #main   [9376 chars]
               "6"
           tr   [18 chars]
             th   [14 chars]
-              "Surface Finish"
+              "Surface finish"
             td   [4 chars]
               "ENIG"
           tr   [25 chars]
             th   [13 chars]
-              "Base Material"
+              "Base material"
             td   [12 chars]
               "FR-4, Tg 170"
-          tr   [25 chars]
-            th   [20 chars]
-              "Stencil Thickness Mm"
+          tr   [17 chars]
+            th   [12 chars]
+              "Stencil (mm)"
             td   [5 chars]
               "0.125"
           tr   [34 chars]
             th   [31 chars]
-              "Fine Pitch Stencil Thickness Mm"
+              "Stencil, fine-pitch region (mm)"
             td   [3 chars]
               "0.1"
-          tr   [29 chars]
-            th   [5 chars]
-              "Paste"
+          tr   [36 chars]
+            th   [12 chars]
+              "Solder paste"
             td   [24 chars]
               "SAC305, Type 4, no-clean"
-          tr   [15 chars]
-            th   [12 chars]
-              "Qfp Pitch Mm"
-            td   [3 chars]
-              "0.5"
-          tr   [10 chars]
-            th   [8 chars]
-              "Qfp Pins"
-            td   [2 chars]
-              "64"
-          tr   [17 chars]
-            th   [14 chars]
-              "Fine Pitch Ppm"
-            td   [3 chars]
-              "0.4"
           tr   [20 chars]
             th   [17 chars]
-              "Bga Ball Pitch Mm"
+              "QFP-64 pitch (mm)"
+            td   [3 chars]
+              "0.5"
+          tr   [13 chars]
+            th   [11 chars]
+              "QFP-64 pins"
+            td   [2 chars]
+              "64"
+          tr   [20 chars]
+            th   [17 chars]
+              "QFP-48 pitch (mm)"
+            td   [3 chars]
+              "0.4"
+          tr   [22 chars]
+            th   [19 chars]
+              "BGA ball pitch (mm)"
             td   [3 chars]
               "0.8"
           tr   [12 chars]
             th   [9 chars]
-              "Bga Balls"
+              "BGA balls"
             td   [3 chars]
               "256"
-          tr   [11 chars]
-            th   [7 chars]
-              "Passive"
+          tr   [20 chars]
+            th   [16 chars]
+              "Smallest passive"
             td   [4 chars]
               "0402"
           tr   [69 chars]
             th   [13 chars]
-              "Tht Connector"
+              "THT connector"
             td   [56 chars]
               "20-pin, 2.54 mm pitch, 0.8 mm finished hole, 0.5 mm lead"
-          tr   [12 chars]
-            th   [8 chars]
-              "Lot Size"
+          tr   [21 chars]
+            th   [17 chars]
+              "Lot size (boards)"
             td   [4 chars]
               "1240"
           tr   [26 chars]
             th   [23 chars]
-              "Opportunities Per Board"
+              "Solder joints per board"
             td   [3 chars]
               "620"
-          tr   [18 chars]
-            th   [12 chars]
-              "Reflow Alloy"
+          tr   [11 chars]
+            th   [5 chars]
+              "Alloy"
             td   [6 chars]
               "SAC305"
-          tr   [13 chars]
-            th   [10 chars]
-              "Liquidus C"
+          tr   [16 chars]
+            th   [13 chars]
+              "Liquidus (°C)"
             td   [3 chars]
               "219"
-          tr   [12 chars]
-            th   [9 chars]
-              "Solidus C"
+          tr   [15 chars]
+            th   [12 chars]
+              "Solidus (°C)"
             td   [3 chars]
               "217"
-  details .case-data   [426 chars]
+          tr   [28 chars]
+            th   [23 chars]
+              "Time above liquidus (s)"
+            td   [5 chars]
+              "60–90"
+          tr   [30 chars]
+            th   [23 chars]
+              "Peak window, paste (°C)"
+            td   [7 chars]
+              "235–245"
+          tr   [35 chars]
+            th   [28 chars]
+              "Typical production peak (°C)"
+            td   [7 chars]
+              "235–245"
+          tr   [35 chars]
+            th   [32 chars]
+              "Peak ceiling, large package (°C)"
+            td   [3 chars]
+              "250"
+          tr   [36 chars]
+            th   [34 chars]
+              "Minimum barrel fill, IPC-A-610 (%)"
+            td   [2 chars]
+              "75"
+          tr   [34 chars]
+            th   [32 chars]
+              "Thermal-plane exception fill (%)"
+            td   [2 chars]
+              "50"
+          tr   [36 chars]
+            th   [34 chars]
+              "Leads before the exception applies"
+            td   [2 chars]
+              "14"
+          tr   [24 chars]
+            th   [23 chars]
+              "THT hole, finished (mm)"
+            td   [1 chars]
+              "1"
+          tr   [29 chars]
+            th   [25 chars]
+              "THT hole tolerance (± mm)"
+            td   [4 chars]
+              "0.05"
+          tr   [24 chars]
+            th   [21 chars]
+              "Wave contact time (s)"
+            td   [3 chars]
+              "2–4"
+  details .case-data   [370 chars]
     summary   [30 chars]
       "Data file — aperture-table.csv"
-    div .details-body   [396 chars]
-      pre .case-pre   [368 chars]
-        "aperture_id,component,shape,width_mm,length_mm,diameter_mm,foil_mm,pitch_mm A-01,0402 passive,rect,0.55,0.60,,…"
+    div .details-body   [340 chars]
+      div .case-table-wrap   [313 chars]
+        table .case-table   [313 chars]
+          thead   [68 chars]
+            tr   [68 chars]
+              th   [11 chars]
+                "aperture_id"
+              th   [9 chars]
+                "component"
+              th   [5 chars]
+                "shape"
+              th   [8 chars]
+                "width_mm"
+              th   [9 chars]
+                "length_mm"
+              th   [11 chars]
+                "diameter_mm"
+              th   [7 chars]
+                "foil_mm"
+              th   [8 chars]
+                "pitch_mm"
+          tbody   [245 chars]
+            tr   [37 chars]
+              td   [4 chars]
+                "A-01"
+              td   [12 chars]
+                "0402 passive"
+              td   [4 chars]
+                "rect"
+              td .num   [4 chars]
+                "0.55"
+              td .num   [4 chars]
+                "0.60"
+              td
+              td .num   [5 chars]
+                "0.125"
+              td .num   [4 chars]
+                "0.50"
+            tr   [38 chars]
+              td   [4 chars]
+                "A-02"
+              td   [13 chars]
+                "QFP-64 0.5 mm"
+              td   [4 chars]
+                "rect"
+              td .num   [4 chars]
+                "0.22"
+              td .num   [4 chars]
+                "0.90"
+              td
+              td .num   [5 chars]
+                "0.125"
+              td .num   [4 chars]
+                "0.50"
+            tr   [48 chars]
+              td   [4 chars]
+                "A-03"
+              td   [23 chars]
+                "QFP-48 0.4 mm (current)"
+              td   [4 chars]
+                "rect"
+              td .num   [4 chars]
+                "0.20"
+              td .num   [4 chars]
+                "0.80"
+              td
+              td .num   [5 chars]
+                "0.125"
+              td .num   [4 chars]
+                "0.40"
+            tr   [52 chars]
+              td   [4 chars]
+                "A-04"
+              td   [27 chars]
+                "QFP-48 0.4 mm (thin region)"
+              td   [4 chars]
+                "rect"
+              td .num   [4 chars]
+                "0.20"
+              td .num   [4 chars]
+                "0.80"
+              td
+              td .num   [5 chars]
+                "0.100"
+              td .num   [4 chars]
+                "0.40"
+            tr   [32 chars]
+              td   [4 chars]
+                "A-05"
+              td   [10 chars]
+                "BGA 0.8 mm"
+              td   [5 chars]
+                "round"
+              td
+              td
+              td .num   [4 chars]
+                "0.50"
+              td .num   [5 chars]
+                "0.125"
+              td .num   [4 chars]
+                "0.80"
+            tr   [38 chars]
+              td   [4 chars]
+                "A-06"
+              td   [13 chars]
+                "THT connector"
+              td   [4 chars]
+                "rect"
+              td .num   [4 chars]
+                "0.18"
+              td .num   [4 chars]
+                "0.80"
+              td
+              td .num   [5 chars]
+                "0.125"
+              td .num   [4 chars]
+                "2.54"
       p .flush   [27 chars]
         button .btn.btn--small type=button data-act=case-data   [27 chars]
           "Download aperture-table.csv"
-  form .case-form   [4391 chars]
-    ol .case-steps   [4369 chars]
-      li #step-s1 .case-step.case-step--ok   [564 chars]
-        div .case-step-head   [20 chars]
-          span .case-step-n   [6 chars]
-            "Step 1"
+  form .case-form   [4630 chars]
+    ol .case-steps   [4608 chars]
+      li #step-s1 .case-step.case-step--ok   [656 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 1 (15 points)"
           span .case-step-type   [14 chars]
             "numeric answer"
-        p .case-prompt   [131 chars]
+        p .case-prompt   [202 chars]
           "Aperture A-03 (QFP-48, 0.20 mm x 0.80 mm, 0.125 mm foil). Area ratio = (L x W) / (2 x (L + W) x T). Give the v…"
         div .case-input-row   [27 chars]
           label .case-input-label   [11 chars]
@@ -154,7 +320,9 @@ main #main   [9376 chars]
           span .case-tol.muted   [16 chars]
             "tolerance ±0.005"
         p #err-s1 .case-error role=alert hidden=
-        p .case-feedback.case-feedback--ok   [78 chars]
+        p .case-feedback.case-feedback--ok   [87 chars]
+          strong   [8 chars]
+            "Correct."
           "0.64 — below the 0.66 release indicator, so the aperture is the first suspect."
         div .case-hints   [20 chars]
           button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
@@ -166,10 +334,10 @@ main #main   [9376 chars]
             "Worked reasoning"
           p   [272 chars]
             "Area ratio is (L x W) / (2 x (L + W) x T). For 0.20 x 0.80 at T = 0.125 the numerator is 0.160 mm² and the den…"
-      li #step-s2 .case-step.case-step--ok   [866 chars]
-        div .case-step-head   [12 chars]
-          span .case-step-n   [6 chars]
-            "Step 2"
+      li #step-s2 .case-step.case-step--ok   [887 chars]
+        div .case-step-head   [24 chars]
+          span .case-step-n   [18 chars]
+            "Step 2 (10 points)"
           span .case-step-type   [6 chars]
             "choice"
         p .case-prompt   [76 chars]
@@ -194,7 +362,9 @@ main #main   [9376 chars]
             span .case-opt-text   [63 chars]
               "Irrelevant, because aspect ratio is the only release indicator."
         p #err-s2 .case-error role=alert hidden=
-        p .case-feedback.case-feedback--ok   [92 chars]
+        p .case-feedback.case-feedback--ok   [101 chars]
+          strong   [8 chars]
+            "Correct."
           "Marginal — 0.64 sits just under the 0.66 guidance, so release is not guaranteed by geometry."
         div .case-hints   [20 chars]
           button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
@@ -206,10 +376,10 @@ main #main   [9376 chars]
             "Worked reasoning"
           p   [320 chars]
             "The course calls apertures below 0.66 marginal to inadequate: they may run with a favourable paste and a well-…"
-      li #step-s3 .case-step.case-step--ok   [440 chars]
-        div .case-step-head   [20 chars]
-          span .case-step-n   [6 chars]
-            "Step 3"
+      li #step-s3 .case-step.case-step--ok   [461 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 3 (15 points)"
           span .case-step-type   [14 chars]
             "numeric answer"
         p .case-prompt   [93 chars]
@@ -221,7 +391,9 @@ main #main   [9376 chars]
           span .case-tol.muted   [16 chars]
             "tolerance ±0.005"
         p #err-s3 .case-error role=alert hidden=
-        p .case-feedback.case-feedback--ok   [47 chars]
+        p .case-feedback.case-feedback--ok   [56 chars]
+          strong   [8 chars]
+            "Correct."
           "0.80 — comfortably clear of the 0.66 indicator."
         div .case-hints   [20 chars]
           button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
@@ -233,10 +405,10 @@ main #main   [9376 chars]
             "Worked reasoning"
           p   [217 chars]
             "At 0.100 mm the wall area drops to 0.200 mm², so the ratio rises to 0.80. That is the step-stencil remedy: thi…"
-      li #step-s4 .case-step.case-step--ok   [375 chars]
-        div .case-step-head   [20 chars]
-          span .case-step-n   [6 chars]
-            "Step 4"
+      li #step-s4 .case-step.case-step--ok   [396 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 4 (10 points)"
           span .case-step-type   [14 chars]
             "numeric answer"
         p .case-prompt   [74 chars]
@@ -248,7 +420,9 @@ main #main   [9376 chars]
           span .case-tol.muted   [15 chars]
             "tolerance ±0.05"
         p #err-s4 .case-error role=alert hidden=
-        p .case-feedback.case-feedback--ok   [38 chars]
+        p .case-feedback.case-feedback--ok   [47 chars]
+          strong   [8 chars]
+            "Correct."
           "2.0 — above the 1.5 indicator as well."
         div .case-hints   [20 chars]
           button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
@@ -260,10 +434,10 @@ main #main   [9376 chars]
             "Worked reasoning"
           p   [181 chars]
             "Aspect ratio = smallest dimension / foil thickness = 0.20 / 0.100 = 2.0, above the 1.5 guidance. Both indicato…"
-      li #step-s5 .case-step.case-step--ok   [381 chars]
-        div .case-step-head   [20 chars]
-          span .case-step-n   [6 chars]
-            "Step 5"
+      li #step-s5 .case-step.case-step--ok   [402 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 5 (10 points)"
           span .case-step-type   [14 chars]
             "numeric answer"
         p .case-prompt   [94 chars]
@@ -275,7 +449,9 @@ main #main   [9376 chars]
           span .case-tol.muted   [16 chars]
             "tolerance ±0.005"
         p #err-s5 .case-error role=alert hidden=
-        p .case-feedback.case-feedback--ok   [39 chars]
+        p .case-feedback.case-feedback--ok   [48 chars]
+          strong   [8 chars]
+            "Correct."
           "0.59 — the worst aperture on the board."
         div .case-hints   [20 chars]
           button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
@@ -287,10 +463,10 @@ main #main   [9376 chars]
             "Worked reasoning"
           p   [165 chars]
             "0.144 / 0.245 = 0.588, so 0.59. It is the lowest ratio on Board X and would be the second candidate for a step…"
-      li #step-s6 .case-step.case-step--ok   [508 chars]
-        div .case-step-head   [20 chars]
-          span .case-step-n   [6 chars]
-            "Step 6"
+      li #step-s6 .case-step.case-step--ok   [529 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 6 (10 points)"
           span .case-step-type   [14 chars]
             "numeric answer"
         p .case-prompt   [122 chars]
@@ -302,7 +478,9 @@ main #main   [9376 chars]
           span .case-tol.muted   [15 chars]
             "tolerance ±0.02"
         p #err-s6 .case-error role=alert hidden=
-        p .case-feedback.case-feedback--ok   [63 chars]
+        p .case-feedback.case-feedback--ok   [72 chars]
+          strong   [8 chars]
+            "Correct."
           "1.00 — a comfortable margin, as the round aperture should give."
         div .case-hints   [20 chars]
           button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
@@ -314,10 +492,10 @@ main #main   [9376 chars]
             "Worked reasoning"
           p   [241 chars]
             "Area ratio for a round aperture is D / (4 x T) = 0.50 / 0.500 = 1.00. The pi terms cancel between the circular…"
-      li #step-s7 .case-step.case-step--ok   [455 chars]
-        div .case-step-head   [20 chars]
-          span .case-step-n   [6 chars]
-            "Step 7"
+      li #step-s7 .case-step.case-step--ok   [476 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 7 (10 points)"
           span .case-step-type   [14 chars]
             "numeric answer"
         p .case-prompt   [104 chars]
@@ -331,7 +509,9 @@ main #main   [9376 chars]
           span .case-tol.muted   [17 chars]
             "tolerance ±0.5 nL"
         p #err-s7 .case-error role=alert hidden=
-        p .case-feedback.case-feedback--ok   [37 chars]
+        p .case-feedback.case-feedback--ok   [46 chars]
+          strong   [8 chars]
+            "Correct."
           "16 nL of nominal volume per aperture."
         div .case-hints   [20 chars]
           button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
@@ -343,10 +523,10 @@ main #main   [9376 chars]
             "Worked reasoning"
           p   [225 chars]
             "Aperture area 0.160 mm² times foil 0.100 mm gives 0.016 mm³, which is 16 nL. Compare that with the joint requi…"
-      li #step-s8 .case-step.case-step--ok   [780 chars]
-        div .case-step-head   [12 chars]
-          span .case-step-n   [6 chars]
-            "Step 8"
+      li #step-s8 .case-step.case-step--ok   [801 chars]
+        div .case-step-head   [24 chars]
+          span .case-step-n   [18 chars]
+            "Step 8 (20 points)"
           span .case-step-type   [6 chars]
             "choice"
         p .case-prompt   [78 chars]
@@ -371,7 +551,9 @@ main #main   [9376 chars]
             span .case-opt-text   [63 chars]
               "Reduce the aperture width to 0.18 mm to lower the wall contact."
         p #err-s8 .case-error role=alert hidden=
-        p .case-feedback.case-feedback--ok   [59 chars]
+        p .case-feedback.case-feedback--ok   [68 chars]
+          strong   [8 chars]
+            "Correct."
           "A stepped region at 0.100 mm over the fine-pitch part only."
         div .case-hints   [20 chars]
           button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
@@ -388,14 +570,14 @@ main #main   [9376 chars]
         "Check my answers"
       button .btn type=button data-act=case-reset   [5 chars]
         "Clear"
-  div #case-result-slot   [661 chars]
-    section #case-result .case-result   [661 chars]
+  div #case-result-slot   [705 chars]
+    section #case-result .case-result   [705 chars]
       h2   [6 chars]
         "Result"
       p .case-score.case-score--pass   [32 chars]
         "100 % — 100 of 100 rubric points"
-      p .flush   [66 chars]
-        "Mastered. The rubric threshold is 80 %. Best result so far: 100 %."
+      p .flush   [110 chars]
+        "Mastered. The rubric threshold is 80 %. Best result so far: 100 %. This attempt took about 1 min with 0 hints."
       table .case-rubric   [503 chars]
         thead   [21 chars]
           tr   [21 chars]
