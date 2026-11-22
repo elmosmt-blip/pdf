@@ -151,6 +151,35 @@ Protocol: `docs/pilot-protocol.md`.
 
 ---
 
+## cx-m13-01 — Coverage: 92 % of the nodes and 70 % of the defects
+
+`#/c/cx-m13-01` · module m13 · 10 steps · 100 rubric points · about 40 min
+
+| # | Step | Type | Expected | Tolerance | Watch for |
+|---|---|---|---|---|---|
+| 1 | The board has 620 joints and 570 are on a probe or a scan cell. What node coverage is that, in percent? One decimal. | numeric | 91.9355 % | ±0.2 | Divide the covered joints by the total, not by the defect classes. |
+| 2 | Sum the occurrence column of the defect model. What is the total defect rate, in ppm? | numeric | 1700 ppm | ±0.5 | Sum the whole column; every later step divides by it. |
+| 3 | AOI runs alone. What defect coverage does it give, in percent of the 1,700 ppm? | numeric | 69.7824 % | ±0.3 | Weight each class by its occurrence before adding the coverage up. |
+| 4 | X-ray is added in series after AOI. What is the combined coverage, in percent? | numeric | 86.4806 % | ±0.3 | Combine by multiplying the misses, not by adding the hits. |
+| 5 | Out of curiosity the plant looks at AOI followed by ICT — no X-ray, which is the arrangement it can afford today. What coverage would that give, in percent? | numeric | 86.8234 % | ±0.3 | Multiply the misses per class, then weight. |
+| 6 | The current line runs AOI, ICT and functional test in series. What is its defect coverage, in percent? | numeric | 93.1221 % | ±0.3 | Three factors per class; do not forget to weight by occurrence. |
+| 7 | Adding X-ray as a fourth screen raises coverage from 93.1 % to 95.5 %. What reduction in the escape does that buy, in percent? One decimal. | numeric | 34.5648 % | ±0.5 | Compare escapes with escapes: the coverage points are the input, not the answer. |
+| 8 | The field return was flux residue under a connector with no electrical symptom. What does the model say? | choice | option b — “Contamination is detected at 2-10 % by every screen in the list, so no fourth electrical or optical screen fixes it: it is controlled by cleaning, ionic testing and process control, not by adding test.” | — | Which row of the model does the returned defect belong to? |
+| 9 | At 20,000 boards a year, how many boards ship with a defect the current three-screen strategy did not catch? | numeric | 2.3385 boards | ±1.0 | ppm means per million boards, so scale by the annual volume. |
+| 10 | What has to accompany the strategy when it is documented? | choice | option b — “The defect model with its sources and date, the classes the strategy leaves uncovered with their escape in ppm, the compensating controls for those classes, and the assumption behind the arithmetic — independent classes and probabilities from this plant's own logs.” | — | Which of these would let a second engineer challenge the conclusion, or reuse it in two years? |
+
+**Rubric** (pass mark 80 %):
+- Node coverage computed and distinguished from defect coverage — 10 pts (s1)
+- Defect model totalled and used as the denominator — 10 pts (s2)
+- Series combination done by multiplying misses, per class — 20 pts (s3, s4)
+- Two strategies that score the same separated by their uncovered classes — 15 pts (s5)
+- Current strategy's residual escape attributed by class — 15 pts (s6)
+- Marginal screen priced in escape reduction, not in coverage points — 10 pts (s7)
+- Uncatchable class identified and handed to a non-test control — 10 pts (s8)
+- Escape converted to boards a year, and the record states the model — 10 pts (s9, s10)
+
+---
+
 ## cx-m02-01 — Moisture breach: the BGA reel sat in a 7 % RH cabinet
 
 `#/c/cx-m02-01` · module m02 · 6 steps · 100 rubric points · about 20 min

@@ -110,6 +110,27 @@ function areaRatioRound(d, t) { return d / (4 * t); }
 function aspect(w, t) { return w / t; }
 function dpmo(defects, boards, opp) { return (defects / (boards * opp)) * 1e6; }
 function ppm(d, b) { return (d / b) * 1e6; }
+/* Coverage arithmetic, written independently of the generator: a class is caught
+ * when at least one screen in the series flags it, so the misses multiply. */
+function coveragePct(c, cols) {
+  const rowsM = dataFile(c, 'coverage-model.csv');
+  let caught = 0, total = 0;
+  rowsM.forEach(function (r) {
+    const occ = +r.occurrence_ppm;
+    let miss = 1;
+    cols.forEach(function (col) { miss *= (1 - (+r[col])); });
+    caught += occ * (1 - miss);
+    total += occ;
+  });
+  return caught / total * 100;
+}
+function escapePpm(c, cols) {
+  return dataFile(c, 'coverage-model.csv').reduce(function (a, r) {
+    let miss = 1;
+    cols.forEach(function (col) { miss *= (1 - (+r[col])); });
+    return a + (+r.occurrence_ppm) * miss;
+  }, 0);
+}
 function sampleSd(v) {
   const m = v.reduce(function (a, b) { return a + b; }, 0) / v.length;
   const ss = v.reduce(function (a, b) { return a + (b - m) * (b - m); }, 0);
@@ -151,6 +172,33 @@ function rows(c, name, keyCol, valCol) {
  * value. A step not listed here is reported as unverified, which is a failure:
  * a key nobody recomputes is exactly the hand-typed key the brief forbids. */
 const EXPECTED = {
+  /* ---- m13: coverage. Every figure is recomputed from the defect model, with
+   * the series combination written out per class rather than taken from a key. */
+  'cx-m13-01.s1': function (c) {
+    const p = rows(c, 'test-strategy.csv', 'item', 'value');
+    return +p['nodes_covered'] / +p['nodes_total'] * 100;
+  },
+  'cx-m13-01.s2': function (c) {
+    return dataFile(c, 'coverage-model.csv')
+      .reduce(function (a, r) { return a + (+r.occurrence_ppm); }, 0);
+  },
+  'cx-m13-01.s3': function (c) { return coveragePct(c, ['aoi_prob']); },
+  'cx-m13-01.s4': function (c) { return coveragePct(c, ['aoi_prob', 'xray_prob']); },
+  'cx-m13-01.s5': function (c) { return coveragePct(c, ['aoi_prob', 'ict_prob']); },
+  'cx-m13-01.s6': function (c) { return coveragePct(c, ['aoi_prob', 'ict_prob', 'fct_prob']); },
+  'cx-m13-01.s7': function (c) {
+    const total = +dataFile(c, 'coverage-model.csv')
+      .reduce(function (a, r) { return a + (+r.occurrence_ppm); }, 0) * 0;
+    const esc3 = escapePpm(c, ['aoi_prob', 'ict_prob', 'fct_prob']);
+    const esc4 = escapePpm(c, ['aoi_prob', 'xray_prob', 'ict_prob', 'fct_prob']);
+    return (esc3 - esc4) / esc3 * 100;
+  },
+  'cx-m13-01.s8': function () { return 'detected at 2-10 % by every screen'; },
+  'cx-m13-01.s9': function (c) {
+    const p = rows(c, 'test-strategy.csv', 'item', 'value');
+    return +p['boards_per_year'] * escapePpm(c, ['aoi_prob', 'ict_prob', 'fct_prob']) / 1e6;
+  },
+  'cx-m13-01.s10': function () { return 'the defect model with its sources'; },
   /* ---- m10: selective soldering. The joint is Board X's 20-pin connector, so
    * the hole and lead come from the joint-geometry file, and the cycle from the
    * program file, block by block. */

@@ -149,7 +149,9 @@ BOARD_THREAD = [
      "caseId": "cx-m07-01"},
     {"step": 11, "moduleId": "m11", "label": "Rework", "asset": "Rework and repair record",
      "caseId": "cx-m11-01"},
-    {"step": 12, "moduleId": "m14", "label": "8D report", "asset": "8D problem report",
+    {"step": 12, "moduleId": "m13", "label": "Test", "asset": "Coverage model sheet",
+     "caseId": "cx-m13-01"},
+    {"step": 13, "moduleId": "m14", "label": "8D report", "asset": "8D problem report",
      "caseId": "cx-m14-01"},
 ]
 
@@ -463,6 +465,16 @@ TEMPLATE_DEFS = {
                "measurement with its method, and what closed the hold — so a release "
                "can be defended when the product class or the standard moves.",
         "rowNoun": "lot or carton",
+    },
+    "coverage-model": {
+        "name": "Coverage model sheet",
+        "kind": "csv",
+        "sourceFile": "coverage-model.csv",
+        "lesson": "m13l05",
+        "use": "Keep the defect classes, their occurrence and each screen's detection "
+               "probability on one sheet, so a coverage claim can be recomputed instead "
+               "of quoted, and the uncovered classes carry a named control.",
+        "rowNoun": "defect class",
     },
     "selective-program": {
         "name": "Selective soldering program sheet",
@@ -2193,6 +2205,324 @@ def build_cases():
          "points": 10, "steps": ["s9"]},
         {"criterion": "Program record carries the evidence, not just the settings",
          "points": 5, "steps": ["s10"]},
+    ]
+    cases.append(c)
+
+    # =====================================================================
+    # m13 — coverage: what a test strategy cannot catch
+    # =====================================================================
+    # The defect model is the case's own data file, and the detection
+    # probabilities are the plant's, not a standard's — the lesson says to take
+    # them from your own logs, so the case prints them and computes from them.
+    cov_classes = [
+        ("visible open",       420, {"aoi": 0.95, "xray": 0.00, "ict": 0.99, "fct": 0.85}),
+        ("hidden open",        260, {"aoi": 0.05, "xray": 0.85, "ict": 0.60, "fct": 0.70}),
+        ("visible bridge",     310, {"aoi": 0.97, "xray": 0.00, "ict": 0.99, "fct": 0.90}),
+        ("hidden short",        90, {"aoi": 0.10, "xray": 0.80, "ict": 0.55, "fct": 0.60}),
+        ("wrong value",         60, {"aoi": 0.15, "xray": 0.00, "ict": 0.95, "fct": 0.50}),
+        ("polarity",           110, {"aoi": 0.90, "xray": 0.00, "ict": 0.60, "fct": 0.80}),
+        ("insufficient solder", 380, {"aoi": 0.92, "xray": 0.30, "ict": 0.35, "fct": 0.40}),
+        ("contamination",       70, {"aoi": 0.10, "xray": 0.00, "ict": 0.02, "fct": 0.05}),
+    ]
+    cov_total = sum(row[1] for row in cov_classes)
+    cov_nodes_total = BOARD_FACTS["opportunitiesPerBoard"]      # 620
+    cov_nodes_hit = 570
+    cov_node_pct = (cov_nodes_hit / float(cov_nodes_total) * 100.0, "%", "nodes_hit/nodes*100",
+                    {"nodes_hit": cov_nodes_hit, "nodes_total": cov_nodes_total})
+
+    def coverage_of(methods):
+        caught, escaped = 0.0, 0.0
+        for _, occ, p in cov_classes:
+            miss = 1.0
+            for m in methods:
+                miss *= (1.0 - p[m])
+            caught += occ * (1.0 - miss)
+            escaped += occ * miss
+        return caught, escaped
+
+    def cov_step(sid, prompt, methods, hints, ok, bad, explanation):
+        caught, escaped = coverage_of(methods)
+        pct = (caught / cov_total * 100.0, "%", "sum(occ*(1-prod(1-p)))/total*100",
+               {"total_ppm": cov_total, "methods": "+".join(methods)})
+        return step_numeric(sid, prompt, pct, 0.3, hints, ok, bad, explanation)
+
+    n_boards = 20000
+    cov_ship = (n_boards * coverage_of(["aoi", "ict", "fct"])[1] / 1e6, "boards",
+                "boards*escape_ppm/1e6",
+                {"boards": n_boards,
+                 "escape_ppm": round(coverage_of(["aoi", "ict", "fct"])[1], 2)})
+
+    c = {
+        "caseId": "cx-m13-01",
+        "moduleId": "m13",
+        "title": "Coverage: 92 % of the nodes and 70 % of the defects",
+        "estMinutes": 40,
+        "level": "advanced",
+        "scenario": [
+            "Board X leaves the line with three screens in series: AOI, in-circuit test "
+            "and functional test. The test list shows 570 of the board's 620 joints on a "
+            "probe or a scan cell, which the program reports as 92 % coverage, and the "
+            "line quotes that number to customers.",
+            "A field return comes back with flux residue under a connector and no electrical "
+            "symptom in the factory. Management asks for a fourth screen; engineering says "
+            "the four screens together cannot catch that class and the money is better "
+            "spent elsewhere.",
+            "The defect model is in the audit file: eight classes, their occurrence in ppm, "
+            "and the detection probability of each screen against each class. Work out what "
+            "the current strategy actually catches, what a fourth screen would add, and "
+            "what has to be controlled some other way.",
+        ],
+        "dataFiles": [
+            {
+                "name": "coverage-model.csv",
+                "kind": "csv",
+                "content": (
+                    "defect_class,occurrence_ppm,aoi_prob,xray_prob,ict_prob,fct_prob\n"
+                    "visible open,420,0.95,0.00,0.99,0.85\n"
+                    "hidden open,260,0.05,0.85,0.60,0.70\n"
+                    "visible bridge,310,0.97,0.00,0.99,0.90\n"
+                    "hidden short,90,0.10,0.80,0.55,0.60\n"
+                    "wrong value,60,0.15,0.00,0.95,0.50\n"
+                    "polarity,110,0.90,0.00,0.60,0.80\n"
+                    "insufficient solder,380,0.92,0.30,0.35,0.40\n"
+                    "contamination,70,0.10,0.00,0.02,0.05\n"
+                ),
+                "note": "Detection probability is the chance that a screen flags a defect "
+                        "of that class, from this plant's test logs. Classes are assumed "
+                        "independent, which is the model's main weakness and is stated on "
+                        "the case page.",
+            },
+            {
+                "name": "test-strategy.csv",
+                "kind": "csv",
+                "content": (
+                    "item,value\n"
+                    "nodes_total,620\n"
+                    "nodes_covered,570\n"
+                    "screens_in_series,aoi ict fct\n"
+                    "boards_per_year,20000\n"
+                ),
+            },
+        ],
+        "steps": [],
+        "rubric": [],
+        "templates": [
+            {"templateId": "coverage-model", "name": "Coverage model sheet",
+             "status": "planned"}
+        ],
+        "toolLinks": [
+            {"label": "What each test level catches (lesson m13l01)", "href": "#/l/m13l01"},
+            {"label": "Coverage math (lesson m13l05)", "href": "#/l/m13l05"},
+            {"label": "Choosing a strategy (lesson m13l06)", "href": "#/l/m13l06"},
+        ],
+        "sources": ["src-001", "src-002"],
+        "generatedBy": "scripts/gen_cases.py",
+    }
+
+    add_step(c, step_numeric(
+        "s1",
+        "The board has 620 joints and 570 are on a probe or a scan cell. What node coverage "
+        "is that, in percent? One decimal.",
+        cov_node_pct, 0.2,
+        ["Node coverage counts joints that a method can reach, not defects it can find.",
+         "570 / 620.",
+         "0.9194, so 91.9 %."],
+        "91.9 % of the joints — the number on the test list.",
+        "Divide the covered joints by the total, not by the defect classes.",
+        "570 / 620 = 91.9 %. That is a real and useful number: it says 50 joints, mostly "
+        "under the BGA and on the connector, have no direct electrical access. What it "
+        "does not say is anything about defects. Node coverage counts reachable joints; "
+        "defect coverage counts likely failures a method can detect, and the two differ "
+        "by a factor that this case is about to compute."))
+
+    add_step(c, step_numeric(
+        "s2",
+        "Sum the occurrence column of the defect model. What is the total defect rate, in "
+        "ppm?",
+        (cov_total, "ppm", "sum(occurrence_ppm)", {"classes": len(cov_classes)}), 0.5,
+        ["Add all eight classes.",
+         "420 + 260 + 310 + 90 + 60 + 110 + 380 + 70.",
+         "1,700 ppm."],
+        "1,700 ppm across eight classes — that is the population every number below removes from.",
+        "Sum the whole column; every later step divides by it.",
+        "The eight classes add to 1,700 ppm, so about 1.7 defects per thousand boards before "
+        "anything is screened. Each class has its own occurrence and its own detection "
+        "probability, which is why a single coverage number is misleading: the classes that "
+        "occur most are not the classes that are caught best, and the strategy's real "
+        "performance is a weighted average over this column."))
+
+    add_step(c, cov_step(
+        "s3",
+        "AOI runs alone. What defect coverage does it give, in percent of the 1,700 ppm?",
+        ["aoi"],
+        ["For each class, coverage is occurrence x AOI's probability for that class.",
+         "AOI sees the visible classes well and the hidden ones almost not at all.",
+         "Sum the caught occurrence and divide by 1,700."],
+        "69.8 % — and the classes it misses are the expensive ones.",
+        "Weight each class by its occurrence before adding the coverage up.",
+        "AOI catches visible opens and bridges at over 95 % and hidden opens at 5 %, so the "
+        "weighted coverage comes to 69.8 % of 1,700 ppm, or 514 ppm of escape. The number is "
+        "not low because AOI is a bad machine; it is low because AOI is an optical method and "
+        "most of the defect mass it misses is under a package. A strategy quoted at 70 % "
+        "coverage is quoting which defects it catches, not how many boards it saves."))
+
+    add_step(c, cov_step(
+        "s4",
+        "X-ray is added in series after AOI. What is the combined coverage, in percent?",
+        ["aoi", "xray"],
+        ["A defect escapes only if both screens miss it.",
+         "Multiply the two miss probabilities per class, then weight by occurrence.",
+         "The hidden classes are where X-ray earns its place."],
+        "86.5 %: X-ray buys 17 points, almost all of them hidden opens and shorts.",
+        "Combine by multiplying the misses, not by adding the hits.",
+        "With AOI and X-ray in series the coverage rises from 69.8 % to 86.5 %, and the "
+        "escape falls from 514 to 230 ppm. Almost the entire gain comes from two classes — "
+        "hidden open and hidden short — where X-ray lifts detection from 5 % and 10 % to "
+        "above 85 %. X-ray does nothing for visible opens, bridging, polarity or wrong "
+        "value, because AOI already had those. Two screens in series are worth their cost "
+        "only when they see different things; the arithmetic says exactly how much of that "
+        "is true here."))
+
+    add_step(c, cov_step(
+        "s5",
+        "Out of curiosity the plant looks at AOI followed by ICT — no X-ray, which is the "
+        "arrangement it can afford today. What coverage would that give, in percent?",
+        ["aoi", "ict"],
+        ["Same series combination, different second screen.",
+         "ICT is strong on structure and weak on visible solder volume.",
+         "Compare the result with the X-ray arrangement of the previous step."],
+        "86.8 %, marginally better than X-ray, and it reaches different classes.",
+        "Multiply the misses per class, then weight.",
+        "AOI plus ICT gives 86.8 % against AOI plus X-ray at 86.5 % — a difference of a third "
+        "of one percent, which is exactly the kind of coincidence that misleads a purchasing "
+        "decision. The two arrangements reach the same total by covering different classes: "
+        "ICT also catches wrong values at 95 % and hidden opens at 60 %, while X-ray takes "
+        "hidden opens to 85 % and hidden shorts to 80 %. When two strategies score the same, "
+        "the classes they leave uncovered decide between them, not the score."))
+
+    add_step(c, cov_step(
+        "s6",
+        "The current line runs AOI, ICT and functional test in series. What is its defect "
+        "coverage, in percent?",
+        ["aoi", "ict", "fct"],
+        ["Three screens, so three miss factors per class.",
+         "Functional test earns its place on polarity and on the classes that break behaviour.",
+         "The residual on the contamination class will not move at all."],
+        "93.1 % — the last 7 points are the ones nothing catches.",
+        "Three factors per class; do not forget to weight by occurrence.",
+        "AOI, ICT and functional test together reach 93.1 %, leaving 117 ppm. The remaining "
+        "escape is not spread evenly: contamination contributes 59 of those 117 ppm, hidden "
+        "opens 30 and hidden shorts 15, while visible opens and bridges are effectively gone "
+        "at 0.03 and 0.01 ppm. A coverage figure near the top of its range feels like the "
+        "end of the story and is really a list of the three classes still exposed."))
+
+    cov_esc_three = coverage_of(["aoi", "ict", "fct"])[1]
+    cov_esc_four = coverage_of(["aoi", "xray", "ict", "fct"])[1]
+    cov_gain_pct = ((cov_esc_three - cov_esc_four) / cov_esc_three * 100.0, "%",
+                    "(escape_3-escape_4)/escape_3*100",
+                    {"escape_3_ppm": round(cov_esc_three, 2),
+                     "escape_4_ppm": round(cov_esc_four, 2)})
+    add_step(c, step_numeric(
+        "s7",
+        "Adding X-ray as a fourth screen raises coverage from 93.1 % to 95.5 %. What "
+        "reduction in the escape does that buy, in percent? One decimal.",
+        cov_gain_pct, 0.5,
+        ["Convert both coverages to escapes before comparing them.",
+         "93.1 % leaves 117 ppm; 95.5 % leaves 76.5 ppm.",
+         "(117 - 76.5) / 117."],
+        "34.6 % fewer escapes — 2.4 coverage points is a third of what was getting through.",
+        "Compare escapes with escapes: the coverage points are the input, not the answer.",
+        "2.4 coverage points sound like a rounding error and are a third of the escape: 117 "
+        "ppm becomes 76.5 ppm, a 34.6 % reduction. Coverage is a share of the whole defect "
+        "population and escape is its complement, so near the top of the range small moves "
+        "in coverage are large in relative terms. The same arithmetic runs the other way: "
+        "to a line with no screens at all, the first screen is worth far more than the "
+        "fourth, which is why the order of investment is not a matter of taste."))
+
+    add_step(c, step_choice(
+        "s8",
+        "The field return was flux residue under a connector with no electrical symptom. "
+        "What does the model say?",
+        [("a", "X-ray would have caught it, so the fourth screen should be X-ray."),
+         ("b", "Contamination is detected at 2-10 % by every screen in the list, so no "
+               "fourth electrical or optical screen fixes it: it is controlled by cleaning, "
+               "ionic testing and process control, not by adding test."),
+         ("c", "The return was a one-off and the model does not apply to it."),
+         ("d", "Functional test would have caught it if the test coverage were raised.")],
+        "b",
+        ["Look up the contamination row before arguing about screens.",
+         "The highest probability in that row is AOI at 10 %.",
+         "Some defect classes have no electrical or optical signature worth screening for."],
+        "Contamination sits at 2-10 % detection across all four screens; it is controlled "
+        "by cleaning and ionic testing, not by another screen.",
+        "Which row of the model does the returned defect belong to?",
+        "The contamination row gives 10 % to AOI, 0 % to X-ray, 2 % to ICT and 5 % to "
+        "functional test. Four screens in series still leave 79 % of that class in place, "
+        "and it contributes 59 ppm of the 76.5 the whole strategy leaves — three quarters of "
+        "the remaining escape. Adding a fifth electrical screen changes almost nothing. The "
+        "control for this class is the one m12 teaches: cleaning process, ionic testing and "
+        "residue limits, with the test strategy telling you that the class exists rather "
+        "than catching it."))
+
+    add_step(c, step_numeric(
+        "s9",
+        "At 20,000 boards a year, how many boards ship with a defect the current three-screen "
+        "strategy did not catch?",
+        cov_ship, 1.0,
+        ["The escape is in ppm; boards are the count.",
+         "The three-screen escape is 117 ppm.",
+         "20,000 x 117 / 1,000,000."],
+        "About 2.3 boards a year — and about 1.2 of them are contamination.",
+        "ppm means per million boards, so scale by the annual volume.",
+        "20,000 x 117 / 1,000,000 = 2.3 boards a year. That is the number a field-return "
+        "conversation should start from: not the coverage percentage and not the ppm, but "
+        "how many units a year the strategy knowingly ships. Of those 2.3, about 1.2 carry "
+        "the contamination class that no screen catches, which is the case for spending the "
+        "next dollar on cleaning control rather than on a fifth inspection station."))
+
+    add_step(c, step_choice(
+        "s10",
+        "What has to accompany the strategy when it is documented?",
+        [("a", "The coverage percentage, so the customer can compare suppliers."),
+         ("b", "The defect model with its sources and date, the classes the strategy leaves "
+               "uncovered with their escape in ppm, the compensating controls for those "
+               "classes, and the assumption behind the arithmetic — independent classes and "
+               "probabilities from this plant's own logs."),
+         ("c", "The list of test machines and their purchase dates."),
+         ("d", "The first-pass yield target.")],
+        "b",
+        ["A coverage number without its model cannot be re-judged or compared.",
+         "The uncovered classes are the finding, not the shortfall.",
+         "The independence assumption is a real limit on the answer."],
+        "The model, its sources and date, the uncovered classes with their escape and their "
+        "compensating controls, and the assumption the arithmetic rests on.",
+        "Which of these would let a second engineer challenge the conclusion, or reuse it "
+        "in two years?",
+        "A single coverage percentage is unfalsifiable: it cannot be recomputed, compared "
+        "with another plant's, or revisited when the product changes. The model is what can "
+        "be argued with, and the uncovered classes are the finding — a strategy is defined "
+        "by what it does not catch. The independence assumption matters because in reality "
+        "AOI and X-ray on the same void are correlated, so the combined coverage here is "
+        "optimistic in some classes and pessimistic in others; printing the assumption is "
+        "what lets the next engineer correct it instead of trusting the number."))
+
+    c["rubric"] = [
+        {"criterion": "Node coverage computed and distinguished from defect coverage",
+         "points": 10, "steps": ["s1"]},
+        {"criterion": "Defect model totalled and used as the denominator", "points": 10,
+         "steps": ["s2"]},
+        {"criterion": "Series combination done by multiplying misses, per class",
+         "points": 20, "steps": ["s3", "s4"]},
+        {"criterion": "Two strategies that score the same separated by their uncovered "
+                       "classes", "points": 15, "steps": ["s5"]},
+        {"criterion": "Current strategy's residual escape attributed by class", "points": 15,
+         "steps": ["s6"]},
+        {"criterion": "Marginal screen priced in escape reduction, not in coverage points",
+         "points": 10, "steps": ["s7"]},
+        {"criterion": "Uncatchable class identified and handed to a non-test control",
+         "points": 10, "steps": ["s8"]},
+        {"criterion": "Escape converted to boards a year, and the record states the model",
+         "points": 10, "steps": ["s9", "s10"]},
     ]
     cases.append(c)
 

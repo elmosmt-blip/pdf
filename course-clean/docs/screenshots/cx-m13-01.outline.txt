@@ -1,0 +1,772 @@
+Rendered outline of #/c/cx-m13-01
+Produced by scripts/capture-case.js from the built tree (build/course-clean).
+This is the live DOM from the shipped engine, not a mock-up.
+
+main #main   [8368 chars]
+  p .kicker   [35 chars]
+    "Toolkit · Module 13 · Test Strategy"
+  header .page-head   [100 chars]
+    div   [100 chars]
+      h1   [51 chars]
+        "Coverage: 92 % of the nodes and 70 % of the defects"
+      div .meta-line   [49 chars]
+        span .chip.chip--stage   [7 chars]
+          "Board X"
+        span .chip   [6 chars]
+          "40 min"
+        span .chip   [8 chars]
+          "10 steps"
+        span .chip   [14 chars]
+          "rubric 100 pts"
+        span .chip   [14 chars]
+          "Score 0 of 100"
+  section .case-scenario   [784 chars]
+    p   [262 chars]
+      "Board X leaves the line with three screens in series: AOI, in-circuit test and functional test. The test list …"
+    p   [248 chars]
+      "A field return comes back with flux residue under a connector and no electrical symptom in the factory. Manage…"
+    p   [274 chars]
+      "The defect model is in the audit file: eight classes, their occurrence in ppm, and the detection probability o…"
+  details .case-board   [1303 chars]
+    summary   [38 chars]
+      "Board X — the product behind this case"
+    div .details-body   [1265 chars]
+      p .muted.flush   [158 chars]
+        "6-layer 1.6 mm FR-4 controller board: QFP-64 at 0.5 mm pitch, QFP-48 at 0.4 mm pitch, one 256-ball BGA at 0.8 …"
+      table .case-facts   [1107 chars]
+        tbody   [1107 chars]
+          tr   [23 chars]
+            th   [20 chars]
+              "Board thickness (mm)"
+            td   [3 chars]
+              "1.6"
+          tr   [7 chars]
+            th   [6 chars]
+              "Layers"
+            td   [1 chars]
+              "6"
+          tr   [18 chars]
+            th   [14 chars]
+              "Surface finish"
+            td   [4 chars]
+              "ENIG"
+          tr   [25 chars]
+            th   [13 chars]
+              "Base material"
+            td   [12 chars]
+              "FR-4, Tg 170"
+          tr   [17 chars]
+            th   [12 chars]
+              "Stencil (mm)"
+            td   [5 chars]
+              "0.125"
+          tr   [34 chars]
+            th   [31 chars]
+              "Stencil, fine-pitch region (mm)"
+            td   [3 chars]
+              "0.1"
+          tr   [36 chars]
+            th   [12 chars]
+              "Solder paste"
+            td   [24 chars]
+              "SAC305, Type 4, no-clean"
+          tr   [20 chars]
+            th   [17 chars]
+              "QFP-64 pitch (mm)"
+            td   [3 chars]
+              "0.5"
+          tr   [13 chars]
+            th   [11 chars]
+              "QFP-64 pins"
+            td   [2 chars]
+              "64"
+          tr   [20 chars]
+            th   [17 chars]
+              "QFP-48 pitch (mm)"
+            td   [3 chars]
+              "0.4"
+          tr   [22 chars]
+            th   [19 chars]
+              "BGA ball pitch (mm)"
+            td   [3 chars]
+              "0.8"
+          tr   [12 chars]
+            th   [9 chars]
+              "BGA balls"
+            td   [3 chars]
+              "256"
+          tr   [20 chars]
+            th   [16 chars]
+              "Smallest passive"
+            td   [4 chars]
+              "0402"
+          tr   [71 chars]
+            th   [13 chars]
+              "THT connector"
+            td   [58 chars]
+              "20-pin, 2.54 mm pitch, 1.00 mm finished hole, 0.60 mm lead"
+          tr   [21 chars]
+            th   [17 chars]
+              "Lot size (boards)"
+            td   [4 chars]
+              "1240"
+          tr   [26 chars]
+            th   [23 chars]
+              "Solder joints per board"
+            td   [3 chars]
+              "620"
+          tr   [11 chars]
+            th   [5 chars]
+              "Alloy"
+            td   [6 chars]
+              "SAC305"
+          tr   [16 chars]
+            th   [13 chars]
+              "Liquidus (°C)"
+            td   [3 chars]
+              "219"
+          tr   [15 chars]
+            th   [12 chars]
+              "Solidus (°C)"
+            td   [3 chars]
+              "217"
+          tr   [28 chars]
+            th   [23 chars]
+              "Time above liquidus (s)"
+            td   [5 chars]
+              "60–90"
+          tr   [30 chars]
+            th   [23 chars]
+              "Peak window, paste (°C)"
+            td   [7 chars]
+              "235–245"
+          tr   [35 chars]
+            th   [28 chars]
+              "Typical production peak (°C)"
+            td   [7 chars]
+              "235–245"
+          tr   [35 chars]
+            th   [32 chars]
+              "Peak ceiling, large package (°C)"
+            td   [3 chars]
+              "250"
+          tr   [36 chars]
+            th   [34 chars]
+              "Minimum barrel fill, IPC-A-610 (%)"
+            td   [2 chars]
+              "75"
+          tr   [34 chars]
+            th   [32 chars]
+              "Thermal-plane exception fill (%)"
+            td   [2 chars]
+              "50"
+          tr   [36 chars]
+            th   [34 chars]
+              "Leads before the exception applies"
+            td   [2 chars]
+              "14"
+          tr   [24 chars]
+            th   [23 chars]
+              "THT hole, finished (mm)"
+            td   [1 chars]
+              "1"
+          tr   [29 chars]
+            th   [25 chars]
+              "THT hole tolerance (± mm)"
+            td   [4 chars]
+              "0.05"
+          tr   [24 chars]
+            th   [21 chars]
+              "Wave contact time (s)"
+            td   [3 chars]
+              "2–4"
+          tr   [29 chars]
+            th   [27 chars]
+              "Void limit per BGA ball (%)"
+            td   [2 chars]
+              "25"
+          tr   [77 chars]
+            th   [38 chars]
+              "Conductor width reduction by class (%)"
+            td   [39 chars]
+              "Class 1: 30 · Class 2: 20 · Class 3: 10"
+          tr   [39 chars]
+            th   [35 chars]
+              "Annular ring, Class 3 external (mm)"
+            td   [4 chars]
+              "0.05"
+          tr   [35 chars]
+            th   [28 chars]
+              "Hand-soldering setpoint (°C)"
+            td   [7 chars]
+              "330–360"
+          tr   [42 chars]
+            th   [38 chars]
+              "Bow and twist, SMT board, IPC-6012 (%)"
+            td   [4 chars]
+              "0.75"
+          tr   [44 chars]
+            th   [41 chars]
+              "Bow and twist, other boards, IPC-6012 (%)"
+            td   [3 chars]
+              "1.5"
+          tr   [38 chars]
+            th   [32 chars]
+              "SPI volume window (% of nominal)"
+            td   [6 chars]
+              "75–125"
+          tr   [29 chars]
+            th   [24 chars]
+              "Selective nozzle ID (mm)"
+            td   [5 chars]
+              "0.8–2"
+          tr   [36 chars]
+            th   [29 chars]
+              "Selective dwell, low mass (s)"
+            td   [7 chars]
+              "0.8–2.5"
+  details .case-data   [573 chars]
+    summary   [30 chars]
+      "Data file — coverage-model.csv"
+    div .details-body   [543 chars]
+      p .muted.flush   [208 chars]
+        "Detection probability is the chance that a screen flags a defect of that class, from this plant's test logs. C…"
+      div .case-table-wrap   [308 chars]
+        table .case-table   [308 chars]
+          thead   [59 chars]
+            tr   [59 chars]
+              th   [12 chars]
+                "defect_class"
+              th   [14 chars]
+                "occurrence_ppm"
+              th   [8 chars]
+                "aoi_prob"
+              th   [9 chars]
+                "xray_prob"
+              th   [8 chars]
+                "ict_prob"
+              th   [8 chars]
+                "fct_prob"
+          tbody   [249 chars]
+            tr   [31 chars]
+              td   [12 chars]
+                "visible open"
+              td .num   [3 chars]
+                "420"
+              td .num   [4 chars]
+                "0.95"
+              td .num   [4 chars]
+                "0.00"
+              td .num   [4 chars]
+                "0.99"
+              td .num   [4 chars]
+                "0.85"
+            tr   [30 chars]
+              td   [11 chars]
+                "hidden open"
+              td .num   [3 chars]
+                "260"
+              td .num   [4 chars]
+                "0.05"
+              td .num   [4 chars]
+                "0.85"
+              td .num   [4 chars]
+                "0.60"
+              td .num   [4 chars]
+                "0.70"
+            tr   [33 chars]
+              td   [14 chars]
+                "visible bridge"
+              td .num   [3 chars]
+                "310"
+              td .num   [4 chars]
+                "0.97"
+              td .num   [4 chars]
+                "0.00"
+              td .num   [4 chars]
+                "0.99"
+              td .num   [4 chars]
+                "0.90"
+            tr   [30 chars]
+              td   [12 chars]
+                "hidden short"
+              td .num   [2 chars]
+                "90"
+              td .num   [4 chars]
+                "0.10"
+              td .num   [4 chars]
+                "0.80"
+              td .num   [4 chars]
+                "0.55"
+              td .num   [4 chars]
+                "0.60"
+            tr   [29 chars]
+              td   [11 chars]
+                "wrong value"
+              td .num   [2 chars]
+                "60"
+              td .num   [4 chars]
+                "0.15"
+              td .num   [4 chars]
+                "0.00"
+              td .num   [4 chars]
+                "0.95"
+              td .num   [4 chars]
+                "0.50"
+            tr   [27 chars]
+              td   [8 chars]
+                "polarity"
+              td .num   [3 chars]
+                "110"
+              td .num   [4 chars]
+                "0.90"
+              td .num   [4 chars]
+                "0.00"
+              td .num   [4 chars]
+                "0.60"
+              td .num   [4 chars]
+                "0.80"
+            tr   [38 chars]
+              td   [19 chars]
+                "insufficient solder"
+              td .num   [3 chars]
+                "380"
+              td .num   [4 chars]
+                "0.92"
+              td .num   [4 chars]
+                "0.30"
+              td .num   [4 chars]
+                "0.35"
+              td .num   [4 chars]
+                "0.40"
+            tr   [31 chars]
+              td   [13 chars]
+                "contamination"
+              td .num   [2 chars]
+                "70"
+              td .num   [4 chars]
+                "0.10"
+              td .num   [4 chars]
+                "0.00"
+              td .num   [4 chars]
+                "0.02"
+              td .num   [4 chars]
+                "0.05"
+      p .flush   [27 chars]
+        button .btn.btn--small type=button data-act=case-data   [27 chars]
+          "Download coverage-model.csv"
+  details .case-data   [142 chars]
+    summary   [29 chars]
+      "Data file — test-strategy.csv"
+    div .details-body   [113 chars]
+      div .case-table-wrap   [87 chars]
+        table .case-table   [87 chars]
+          thead   [9 chars]
+            tr   [9 chars]
+              th   [4 chars]
+                "item"
+              th   [5 chars]
+                "value"
+          tbody   [78 chars]
+            tr   [14 chars]
+              td   [11 chars]
+                "nodes_total"
+              td .num   [3 chars]
+                "620"
+            tr   [16 chars]
+              td   [13 chars]
+                "nodes_covered"
+              td .num   [3 chars]
+                "570"
+            tr   [28 chars]
+              td   [17 chars]
+                "screens_in_series"
+              td   [11 chars]
+                "aoi ict fct"
+            tr   [20 chars]
+              td   [15 chars]
+                "boards_per_year"
+              td .num   [5 chars]
+                "20000"
+      p .flush   [26 chars]
+        button .btn.btn--small type=button data-act=case-data   [26 chars]
+          "Download test-strategy.csv"
+  form .case-form   [2752 chars]
+    ol .case-steps   [2730 chars]
+      li #step-s1 .case-step   [211 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 1 (10 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [116 chars]
+          "The board has 620 joints and 570 are on a probe or a scan cell. What node coverage is that, in percent? One de…"
+        div .case-input-row   [31 chars]
+          label .case-input-label   [15 chars]
+            "Your answer"
+            span .muted   [3 chars]
+              "(%)"
+          input #in-s1 .case-input type=text name=c-s1 value=
+          span .case-tol.muted   [16 chars]
+            "tolerance ±0.2 %"
+        p #err-s1 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s2 .case-step   [184 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 2 (10 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [85 chars]
+          "Sum the occurrence column of the defect model. What is the total defect rate, in ppm?"
+        div .case-input-row   [35 chars]
+          label .case-input-label   [17 chars]
+            "Your answer"
+            span .muted   [5 chars]
+              "(ppm)"
+          input #in-s2 .case-input type=text name=c-s2 value=
+          span .case-tol.muted   [18 chars]
+            "tolerance ±0.5 ppm"
+        p #err-s2 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s3 .case-step   [174 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 3 (10 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [79 chars]
+          "AOI runs alone. What defect coverage does it give, in percent of the 1,700 ppm?"
+        div .case-input-row   [31 chars]
+          label .case-input-label   [15 chars]
+            "Your answer"
+            span .muted   [3 chars]
+              "(%)"
+          input #in-s3 .case-input type=text name=c-s3 value=
+          span .case-tol.muted   [16 chars]
+            "tolerance ±0.3 %"
+        p #err-s3 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s4 .case-step   [173 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 4 (10 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [78 chars]
+          "X-ray is added in series after AOI. What is the combined coverage, in percent?"
+        div .case-input-row   [31 chars]
+          label .case-input-label   [15 chars]
+            "Your answer"
+            span .muted   [3 chars]
+              "(%)"
+          input #in-s4 .case-input type=text name=c-s4 value=
+          span .case-tol.muted   [16 chars]
+            "tolerance ±0.3 %"
+        p #err-s4 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s5 .case-step   [251 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 5 (15 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [156 chars]
+          "Out of curiosity the plant looks at AOI followed by ICT — no X-ray, which is the arrangement it can afford tod…"
+        div .case-input-row   [31 chars]
+          label .case-input-label   [15 chars]
+            "Your answer"
+            span .muted   [3 chars]
+              "(%)"
+          input #in-s5 .case-input type=text name=c-s5 value=
+          span .case-tol.muted   [16 chars]
+            "tolerance ±0.3 %"
+        p #err-s5 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s6 .case-step   [197 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 6 (15 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [102 chars]
+          "The current line runs AOI, ICT and functional test in series. What is its defect coverage, in percent?"
+        div .case-input-row   [31 chars]
+          label .case-input-label   [15 chars]
+            "Your answer"
+            span .muted   [3 chars]
+              "(%)"
+          input #in-s6 .case-input type=text name=c-s6 value=
+          span .case-tol.muted   [16 chars]
+            "tolerance ±0.3 %"
+        p #err-s6 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s7 .case-step   [234 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 7 (10 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [139 chars]
+          "Adding X-ray as a fourth screen raises coverage from 93.1 % to 95.5 %. What reduction in the escape does that …"
+        div .case-input-row   [31 chars]
+          label .case-input-label   [15 chars]
+            "Your answer"
+            span .muted   [3 chars]
+              "(%)"
+          input #in-s7 .case-input type=text name=c-s7 value=
+          span .case-tol.muted   [16 chars]
+            "tolerance ±0.5 %"
+        p #err-s7 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s8 .case-step   [566 chars]
+        div .case-step-head   [24 chars]
+          span .case-step-n   [18 chars]
+            "Step 8 (10 points)"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [104 chars]
+          "The field return was flux residue under a connector with no electrical symptom. What does the model say?"
+        fieldset .case-options   [406 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt   [65 chars]
+            input #in-s8-a type=radio name=c-s8 value=a
+            span .case-opt-text   [65 chars]
+              "X-ray would have caught it, so the fourth screen should be X-ray."
+          label .case-opt   [201 chars]
+            input #in-s8-b type=radio name=c-s8 value=b
+            span .case-opt-text   [201 chars]
+              "Contamination is detected at 2-10 % by every screen in the list, so no fourth electrical or optical screen fix…"
+          label .case-opt   [60 chars]
+            input #in-s8-c type=radio name=c-s8 value=c
+            span .case-opt-text   [60 chars]
+              "The return was a one-off and the model does not apply to it."
+          label .case-opt   [70 chars]
+            input #in-s8-d type=radio name=c-s8 value=d
+            span .case-opt-text   [70 chars]
+              "Functional test would have caught it if the test coverage were raised."
+        p #err-s8 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s9 .case-step   [210 chars]
+        div .case-step-head   [31 chars]
+          span .case-step-n   [17 chars]
+            "Step 9 (5 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [108 chars]
+          "At 20,000 boards a year, how many boards ship with a defect the current three-screen strategy did not catch?"
+        div .case-input-row   [39 chars]
+          label .case-input-label   [20 chars]
+            "Your answer"
+            span .muted   [8 chars]
+              "(boards)"
+          input #in-s9 .case-input type=text name=c-s9 value=
+          span .case-tol.muted   [19 chars]
+            "tolerance ±1 boards"
+        p #err-s9 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+      li #step-s10 .case-step   [530 chars]
+        div .case-step-head   [24 chars]
+          span .case-step-n   [18 chars]
+            "Step 10 (5 points)"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [57 chars]
+          "What has to accompany the strategy when it is documented?"
+        fieldset .case-options   [417 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt   [63 chars]
+            input #in-s10-a type=radio name=c-s10 value=a
+            span .case-opt-text   [63 chars]
+              "The coverage percentage, so the customer can compare suppliers."
+          label .case-opt   [265 chars]
+            input #in-s10-b type=radio name=c-s10 value=b
+            span .case-opt-text   [265 chars]
+              "The defect model with its sources and date, the classes the strategy leaves uncovered with their escape in ppm…"
+          label .case-opt   [51 chars]
+            input #in-s10-c type=radio name=c-s10 value=c
+            span .case-opt-text   [51 chars]
+              "The list of test machines and their purchase dates."
+          label .case-opt   [28 chars]
+            input #in-s10-d type=radio name=c-s10 value=d
+            span .case-opt-text   [28 chars]
+              "The first-pass yield target."
+        p #err-s10 .case-error role=alert hidden=
+        div .case-step-actions   [12 chars]
+          button .btn.btn--small type=button data-act=case-check   [12 chars]
+            "Check answer"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+    div .quiz-actions   [22 chars]
+      button .btn.btn--primary type=submit   [16 chars]
+        "Check my answers"
+      button .btn type=button data-act=case-reset   [5 chars]
+        "Clear"
+  div #case-result-slot
+  details .case-rubric-box   [663 chars]
+    summary   [32 chars]
+      "Rubric — how this case is scored"
+    div .details-body   [631 chars]
+      table .case-rubric   [515 chars]
+        thead   [15 chars]
+          tr   [15 chars]
+            th   [9 chars]
+              "Criterion"
+            th   [6 chars]
+              "Points"
+        tbody   [500 chars]
+          tr   [63 chars]
+            td   [61 chars]
+              "Node coverage computed and distinguished from defect coverage"
+            td .num   [2 chars]
+              "10"
+          tr   [51 chars]
+            td   [49 chars]
+              "Defect model totalled and used as the denominator"
+            td .num   [2 chars]
+              "10"
+          tr   [58 chars]
+            td   [56 chars]
+              "Series combination done by multiplying misses, per class"
+            td .num   [2 chars]
+              "20"
+          tr   [73 chars]
+            td   [71 chars]
+              "Two strategies that score the same separated by their uncovered classes"
+            td .num   [2 chars]
+              "15"
+          tr   [56 chars]
+            td   [54 chars]
+              "Current strategy's residual escape attributed by class"
+            td .num   [2 chars]
+              "15"
+          tr   [68 chars]
+            td   [66 chars]
+              "Marginal screen priced in escape reduction, not in coverage points"
+            td .num   [2 chars]
+              "10"
+          tr   [63 chars]
+            td   [61 chars]
+              "Uncatchable class identified and handed to a non-test control"
+            td .num   [2 chars]
+              "10"
+          tr   [68 chars]
+            td   [66 chars]
+              "Escape converted to boards a year, and the record states the model"
+            td .num   [2 chars]
+              "10"
+      p .muted.flush   [116 chars]
+        "Criteria are scored in proportion to the steps they name. A criterion spanning two steps pays half per correct…"
+  section .sources   [1984 chars]
+    details .spoiler   [1984 chars]
+      summary   [11 chars]
+        "Sources — 2"
+      div .details-body   [1973 chars]
+        ul   [1973 chars]
+          li   [1024 chars]
+            span .src-id   [7 chars]
+              "src-001"
+            strong   [48 chars]
+              "IPC-A-610 Acceptability of Electronic Assemblies"
+            "— Rev H, section §10 through-hole solder fill — vertical barrel fill minimums by class (75 % for Class 2 and C…"
+            span .src-note   [363 chars]
+              "License: paraphrase only · verified by READ. Primary IPC-A-610D fragments read: "Class 2, fill to 75% but with…"
+            span .src-currency   [276 chars]
+              "Superseded. IPC-A-610 Rev J was released in April 2024 and is the current revision; Rev J also removed the "Ta…"
+            span .src-edition   [201 chars]
+              strong   [18 chars]
+                "Superseded edition"
+              "· publisher lists Rev J (March 2024)"
+              span .src-edition-note   [146 chars]
+                "Written against Rev H. Rev J was published in March 2024 and is listed by IPC as current; the criteria quoted …"
+          li   [949 chars]
+            span .src-id   [7 chars]
+              "src-002"
+            strong   [72 chars]
+              "J-STD-001 Requirements for Soldered Electrical and Electronic Assemblies"
+            "— Rev G, section §8 cleanliness — objective evidence in place of the single ROSE limit, standard"
+            span .src-note   [375 chars]
+              "License: paraphrase only · verified by READ. Amendment 1 to Rev G (2018) and Rev H (September 2020) confirmed …"
+            span .src-currency   [152 chars]
+              "Superseded. J-STD-001 Rev J was released in 2024 and is the current revision. This course was written against …"
+            span .src-edition   [245 chars]
+              strong   [18 chars]
+                "Superseded edition"
+              "· publisher lists Rev J (April 2024)"
+              span .src-edition-note   [190 chars]
+                "Written against Rev G/H. IPC lists J-STD-001 Rev J, April 2024, as current. Some vendor pages assert a "Rev J …"
+  nav .pager   [32 chars]
+    a .pager-prev href=#/m/m13   [32 chars]
+      span .pager-label   [7 chars]
+        "Back to"
+      span .pager-title   [25 chars]
+        "Module 13 — Test Strategy"
+    span

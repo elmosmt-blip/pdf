@@ -46,6 +46,16 @@ cx-m10-01,s7,choice,choice key = b,b,0,,{}
 cx-m10-01,s8,choice,choice key = b,b,0,,{}
 cx-m10-01,s9,choice,choice key = b,b,0,,{}
 cx-m10-01,s10,choice,choice key = b,b,0,,{}
+cx-m13-01,s1,numeric,nodes_hit/nodes*100,91.9355,0.2,%,"{""nodes_hit"": 570, ""nodes_total"": 620}"
+cx-m13-01,s2,numeric,sum(occurrence_ppm),1700,0.5,ppm,"{""classes"": 8}"
+cx-m13-01,s3,numeric,sum(occ*(1-prod(1-p)))/total*100,69.7824,0.3,%,"{""methods"": ""aoi"", ""total_ppm"": 1700}"
+cx-m13-01,s4,numeric,sum(occ*(1-prod(1-p)))/total*100,86.4806,0.3,%,"{""methods"": ""aoi+xray"", ""total_ppm"": 1700}"
+cx-m13-01,s5,numeric,sum(occ*(1-prod(1-p)))/total*100,86.8234,0.3,%,"{""methods"": ""aoi+ict"", ""total_ppm"": 1700}"
+cx-m13-01,s6,numeric,sum(occ*(1-prod(1-p)))/total*100,93.1221,0.3,%,"{""methods"": ""aoi+ict+fct"", ""total_ppm"": 1700}"
+cx-m13-01,s7,numeric,(escape_3-escape_4)/escape_3*100,34.5648,0.5,%,"{""escape_3_ppm"": 116.92, ""escape_4_ppm"": 76.51}"
+cx-m13-01,s8,choice,choice key = b,b,0,,{}
+cx-m13-01,s9,numeric,boards*escape_ppm/1e6,2.3385,1.0,boards,"{""boards"": 20000, ""escape_ppm"": 116.92}"
+cx-m13-01,s10,choice,choice key = b,b,0,,{}
 cx-m02-01,s1,numeric,"J-STD-033 Table 5-1, MSL 4",72.0,0.5,h,"{""msl"": 4}"
 cx-m02-01,s2,numeric,58+6,64.0,0.5,h,"{""bag_open_h"": 58, ""line_h"": 6}"
 cx-m02-01,s3,numeric,72-64,8.0,0.5,h,"{""exposure_h"": 64.0, ""floor_life_h"": 72.0}"

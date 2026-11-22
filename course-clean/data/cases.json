@@ -221,6 +221,13 @@
     },
     {
       "step": 12,
+      "moduleId": "m13",
+      "label": "Test",
+      "asset": "Coverage model sheet",
+      "caseId": "cx-m13-01"
+    },
+    {
+      "step": 13,
       "moduleId": "m14",
       "label": "8D report",
       "asset": "8D problem report",
@@ -2163,6 +2170,356 @@
       "sources": [
         "src-016",
         "src-001"
+      ],
+      "generatedBy": "scripts/gen_cases.py"
+    },
+    {
+      "caseId": "cx-m13-01",
+      "moduleId": "m13",
+      "title": "Coverage: 92 % of the nodes and 70 % of the defects",
+      "estMinutes": 40,
+      "level": "advanced",
+      "scenario": [
+        "Board X leaves the line with three screens in series: AOI, in-circuit test and functional test. The test list shows 570 of the board's 620 joints on a probe or a scan cell, which the program reports as 92 % coverage, and the line quotes that number to customers.",
+        "A field return comes back with flux residue under a connector and no electrical symptom in the factory. Management asks for a fourth screen; engineering says the four screens together cannot catch that class and the money is better spent elsewhere.",
+        "The defect model is in the audit file: eight classes, their occurrence in ppm, and the detection probability of each screen against each class. Work out what the current strategy actually catches, what a fourth screen would add, and what has to be controlled some other way."
+      ],
+      "dataFiles": [
+        {
+          "name": "coverage-model.csv",
+          "kind": "csv",
+          "content": "defect_class,occurrence_ppm,aoi_prob,xray_prob,ict_prob,fct_prob\nvisible open,420,0.95,0.00,0.99,0.85\nhidden open,260,0.05,0.85,0.60,0.70\nvisible bridge,310,0.97,0.00,0.99,0.90\nhidden short,90,0.10,0.80,0.55,0.60\nwrong value,60,0.15,0.00,0.95,0.50\npolarity,110,0.90,0.00,0.60,0.80\ninsufficient solder,380,0.92,0.30,0.35,0.40\ncontamination,70,0.10,0.00,0.02,0.05\n",
+          "note": "Detection probability is the chance that a screen flags a defect of that class, from this plant's test logs. Classes are assumed independent, which is the model's main weakness and is stated on the case page."
+        },
+        {
+          "name": "test-strategy.csv",
+          "kind": "csv",
+          "content": "item,value\nnodes_total,620\nnodes_covered,570\nscreens_in_series,aoi ict fct\nboards_per_year,20000\n"
+        }
+      ],
+      "steps": [
+        {
+          "id": "s1",
+          "type": "numeric",
+          "prompt": "The board has 620 joints and 570 are on a probe or a scan cell. What node coverage is that, in percent? One decimal.",
+          "answer": {
+            "value": 91.9355,
+            "tolerance": 0.2,
+            "unit": "%"
+          },
+          "hints": [
+            "Node coverage counts joints that a method can reach, not defects it can find.",
+            "570 / 620.",
+            "0.9194, so 91.9 %."
+          ],
+          "feedbackCorrect": "91.9 % of the joints — the number on the test list.",
+          "feedbackWrong": "Divide the covered joints by the total, not by the defect classes.",
+          "explanation": "570 / 620 = 91.9 %. That is a real and useful number: it says 50 joints, mostly under the BGA and on the connector, have no direct electrical access. What it does not say is anything about defects. Node coverage counts reachable joints; defect coverage counts likely failures a method can detect, and the two differ by a factor that this case is about to compute."
+        },
+        {
+          "id": "s2",
+          "type": "numeric",
+          "prompt": "Sum the occurrence column of the defect model. What is the total defect rate, in ppm?",
+          "answer": {
+            "value": 1700,
+            "tolerance": 0.5,
+            "unit": "ppm"
+          },
+          "hints": [
+            "Add all eight classes.",
+            "420 + 260 + 310 + 90 + 60 + 110 + 380 + 70.",
+            "1,700 ppm."
+          ],
+          "feedbackCorrect": "1,700 ppm across eight classes — that is the population every number below removes from.",
+          "feedbackWrong": "Sum the whole column; every later step divides by it.",
+          "explanation": "The eight classes add to 1,700 ppm, so about 1.7 defects per thousand boards before anything is screened. Each class has its own occurrence and its own detection probability, which is why a single coverage number is misleading: the classes that occur most are not the classes that are caught best, and the strategy's real performance is a weighted average over this column."
+        },
+        {
+          "id": "s3",
+          "type": "numeric",
+          "prompt": "AOI runs alone. What defect coverage does it give, in percent of the 1,700 ppm?",
+          "answer": {
+            "value": 69.7824,
+            "tolerance": 0.3,
+            "unit": "%"
+          },
+          "hints": [
+            "For each class, coverage is occurrence x AOI's probability for that class.",
+            "AOI sees the visible classes well and the hidden ones almost not at all.",
+            "Sum the caught occurrence and divide by 1,700."
+          ],
+          "feedbackCorrect": "69.8 % — and the classes it misses are the expensive ones.",
+          "feedbackWrong": "Weight each class by its occurrence before adding the coverage up.",
+          "explanation": "AOI catches visible opens and bridges at over 95 % and hidden opens at 5 %, so the weighted coverage comes to 69.8 % of 1,700 ppm, or 514 ppm of escape. The number is not low because AOI is a bad machine; it is low because AOI is an optical method and most of the defect mass it misses is under a package. A strategy quoted at 70 % coverage is quoting which defects it catches, not how many boards it saves."
+        },
+        {
+          "id": "s4",
+          "type": "numeric",
+          "prompt": "X-ray is added in series after AOI. What is the combined coverage, in percent?",
+          "answer": {
+            "value": 86.4806,
+            "tolerance": 0.3,
+            "unit": "%"
+          },
+          "hints": [
+            "A defect escapes only if both screens miss it.",
+            "Multiply the two miss probabilities per class, then weight by occurrence.",
+            "The hidden classes are where X-ray earns its place."
+          ],
+          "feedbackCorrect": "86.5 %: X-ray buys 17 points, almost all of them hidden opens and shorts.",
+          "feedbackWrong": "Combine by multiplying the misses, not by adding the hits.",
+          "explanation": "With AOI and X-ray in series the coverage rises from 69.8 % to 86.5 %, and the escape falls from 514 to 230 ppm. Almost the entire gain comes from two classes — hidden open and hidden short — where X-ray lifts detection from 5 % and 10 % to above 85 %. X-ray does nothing for visible opens, bridging, polarity or wrong value, because AOI already had those. Two screens in series are worth their cost only when they see different things; the arithmetic says exactly how much of that is true here."
+        },
+        {
+          "id": "s5",
+          "type": "numeric",
+          "prompt": "Out of curiosity the plant looks at AOI followed by ICT — no X-ray, which is the arrangement it can afford today. What coverage would that give, in percent?",
+          "answer": {
+            "value": 86.8234,
+            "tolerance": 0.3,
+            "unit": "%"
+          },
+          "hints": [
+            "Same series combination, different second screen.",
+            "ICT is strong on structure and weak on visible solder volume.",
+            "Compare the result with the X-ray arrangement of the previous step."
+          ],
+          "feedbackCorrect": "86.8 %, marginally better than X-ray, and it reaches different classes.",
+          "feedbackWrong": "Multiply the misses per class, then weight.",
+          "explanation": "AOI plus ICT gives 86.8 % against AOI plus X-ray at 86.5 % — a difference of a third of one percent, which is exactly the kind of coincidence that misleads a purchasing decision. The two arrangements reach the same total by covering different classes: ICT also catches wrong values at 95 % and hidden opens at 60 %, while X-ray takes hidden opens to 85 % and hidden shorts to 80 %. When two strategies score the same, the classes they leave uncovered decide between them, not the score."
+        },
+        {
+          "id": "s6",
+          "type": "numeric",
+          "prompt": "The current line runs AOI, ICT and functional test in series. What is its defect coverage, in percent?",
+          "answer": {
+            "value": 93.1221,
+            "tolerance": 0.3,
+            "unit": "%"
+          },
+          "hints": [
+            "Three screens, so three miss factors per class.",
+            "Functional test earns its place on polarity and on the classes that break behaviour.",
+            "The residual on the contamination class will not move at all."
+          ],
+          "feedbackCorrect": "93.1 % — the last 7 points are the ones nothing catches.",
+          "feedbackWrong": "Three factors per class; do not forget to weight by occurrence.",
+          "explanation": "AOI, ICT and functional test together reach 93.1 %, leaving 117 ppm. The remaining escape is not spread evenly: contamination contributes 59 of those 117 ppm, hidden opens 30 and hidden shorts 15, while visible opens and bridges are effectively gone at 0.03 and 0.01 ppm. A coverage figure near the top of its range feels like the end of the story and is really a list of the three classes still exposed."
+        },
+        {
+          "id": "s7",
+          "type": "numeric",
+          "prompt": "Adding X-ray as a fourth screen raises coverage from 93.1 % to 95.5 %. What reduction in the escape does that buy, in percent? One decimal.",
+          "answer": {
+            "value": 34.5648,
+            "tolerance": 0.5,
+            "unit": "%"
+          },
+          "hints": [
+            "Convert both coverages to escapes before comparing them.",
+            "93.1 % leaves 117 ppm; 95.5 % leaves 76.5 ppm.",
+            "(117 - 76.5) / 117."
+          ],
+          "feedbackCorrect": "34.6 % fewer escapes — 2.4 coverage points is a third of what was getting through.",
+          "feedbackWrong": "Compare escapes with escapes: the coverage points are the input, not the answer.",
+          "explanation": "2.4 coverage points sound like a rounding error and are a third of the escape: 117 ppm becomes 76.5 ppm, a 34.6 % reduction. Coverage is a share of the whole defect population and escape is its complement, so near the top of the range small moves in coverage are large in relative terms. The same arithmetic runs the other way: to a line with no screens at all, the first screen is worth far more than the fourth, which is why the order of investment is not a matter of taste."
+        },
+        {
+          "id": "s8",
+          "type": "choice",
+          "prompt": "The field return was flux residue under a connector with no electrical symptom. What does the model say?",
+          "options": [
+            {
+              "id": "a",
+              "text": "X-ray would have caught it, so the fourth screen should be X-ray."
+            },
+            {
+              "id": "b",
+              "text": "Contamination is detected at 2-10 % by every screen in the list, so no fourth electrical or optical screen fixes it: it is controlled by cleaning, ionic testing and process control, not by adding test."
+            },
+            {
+              "id": "c",
+              "text": "The return was a one-off and the model does not apply to it."
+            },
+            {
+              "id": "d",
+              "text": "Functional test would have caught it if the test coverage were raised."
+            }
+          ],
+          "answer": {
+            "value": "b"
+          },
+          "hints": [
+            "Look up the contamination row before arguing about screens.",
+            "The highest probability in that row is AOI at 10 %.",
+            "Some defect classes have no electrical or optical signature worth screening for."
+          ],
+          "feedbackCorrect": "Contamination sits at 2-10 % detection across all four screens; it is controlled by cleaning and ionic testing, not by another screen.",
+          "feedbackWrong": "Which row of the model does the returned defect belong to?",
+          "explanation": "The contamination row gives 10 % to AOI, 0 % to X-ray, 2 % to ICT and 5 % to functional test. Four screens in series still leave 79 % of that class in place, and it contributes 59 ppm of the 76.5 the whole strategy leaves — three quarters of the remaining escape. Adding a fifth electrical screen changes almost nothing. The control for this class is the one m12 teaches: cleaning process, ionic testing and residue limits, with the test strategy telling you that the class exists rather than catching it."
+        },
+        {
+          "id": "s9",
+          "type": "numeric",
+          "prompt": "At 20,000 boards a year, how many boards ship with a defect the current three-screen strategy did not catch?",
+          "answer": {
+            "value": 2.3385,
+            "tolerance": 1.0,
+            "unit": "boards"
+          },
+          "hints": [
+            "The escape is in ppm; boards are the count.",
+            "The three-screen escape is 117 ppm.",
+            "20,000 x 117 / 1,000,000."
+          ],
+          "feedbackCorrect": "About 2.3 boards a year — and about 1.2 of them are contamination.",
+          "feedbackWrong": "ppm means per million boards, so scale by the annual volume.",
+          "explanation": "20,000 x 117 / 1,000,000 = 2.3 boards a year. That is the number a field-return conversation should start from: not the coverage percentage and not the ppm, but how many units a year the strategy knowingly ships. Of those 2.3, about 1.2 carry the contamination class that no screen catches, which is the case for spending the next dollar on cleaning control rather than on a fifth inspection station."
+        },
+        {
+          "id": "s10",
+          "type": "choice",
+          "prompt": "What has to accompany the strategy when it is documented?",
+          "options": [
+            {
+              "id": "a",
+              "text": "The coverage percentage, so the customer can compare suppliers."
+            },
+            {
+              "id": "b",
+              "text": "The defect model with its sources and date, the classes the strategy leaves uncovered with their escape in ppm, the compensating controls for those classes, and the assumption behind the arithmetic — independent classes and probabilities from this plant's own logs."
+            },
+            {
+              "id": "c",
+              "text": "The list of test machines and their purchase dates."
+            },
+            {
+              "id": "d",
+              "text": "The first-pass yield target."
+            }
+          ],
+          "answer": {
+            "value": "b"
+          },
+          "hints": [
+            "A coverage number without its model cannot be re-judged or compared.",
+            "The uncovered classes are the finding, not the shortfall.",
+            "The independence assumption is a real limit on the answer."
+          ],
+          "feedbackCorrect": "The model, its sources and date, the uncovered classes with their escape and their compensating controls, and the assumption the arithmetic rests on.",
+          "feedbackWrong": "Which of these would let a second engineer challenge the conclusion, or reuse it in two years?",
+          "explanation": "A single coverage percentage is unfalsifiable: it cannot be recomputed, compared with another plant's, or revisited when the product changes. The model is what can be argued with, and the uncovered classes are the finding — a strategy is defined by what it does not catch. The independence assumption matters because in reality AOI and X-ray on the same void are correlated, so the combined coverage here is optimistic in some classes and pessimistic in others; printing the assumption is what lets the next engineer correct it instead of trusting the number."
+        }
+      ],
+      "rubric": [
+        {
+          "criterion": "Node coverage computed and distinguished from defect coverage",
+          "points": 10,
+          "steps": [
+            "s1"
+          ]
+        },
+        {
+          "criterion": "Defect model totalled and used as the denominator",
+          "points": 10,
+          "steps": [
+            "s2"
+          ]
+        },
+        {
+          "criterion": "Series combination done by multiplying misses, per class",
+          "points": 20,
+          "steps": [
+            "s3",
+            "s4"
+          ]
+        },
+        {
+          "criterion": "Two strategies that score the same separated by their uncovered classes",
+          "points": 15,
+          "steps": [
+            "s5"
+          ]
+        },
+        {
+          "criterion": "Current strategy's residual escape attributed by class",
+          "points": 15,
+          "steps": [
+            "s6"
+          ]
+        },
+        {
+          "criterion": "Marginal screen priced in escape reduction, not in coverage points",
+          "points": 10,
+          "steps": [
+            "s7"
+          ]
+        },
+        {
+          "criterion": "Uncatchable class identified and handed to a non-test control",
+          "points": 10,
+          "steps": [
+            "s8"
+          ]
+        },
+        {
+          "criterion": "Escape converted to boards a year, and the record states the model",
+          "points": 10,
+          "steps": [
+            "s9",
+            "s10"
+          ]
+        }
+      ],
+      "templates": [
+        {
+          "templateId": "coverage-model",
+          "name": "Coverage model sheet",
+          "status": "available",
+          "use": "Keep the defect classes, their occurrence and each screen's detection probability on one sheet, so a coverage claim can be recomputed instead of quoted, and the uncovered classes carry a named control.",
+          "lesson": "m13l05",
+          "variants": [
+            {
+              "variant": "blank",
+              "file": "coverage-model-blank.csv",
+              "mime": "text/csv",
+              "label": "Blank",
+              "content": "defect_class,occurrence_ppm,aoi_prob,xray_prob,ict_prob,fct_prob\r\n,,,,,\r\n,,,,,\r\n,,,,,\r\n"
+            },
+            {
+              "variant": "example",
+              "file": "coverage-model-example.csv",
+              "mime": "text/csv",
+              "label": "Example",
+              "content": "defect_class,occurrence_ppm,aoi_prob,xray_prob,ict_prob,fct_prob\nvisible open,420,0.95,0.00,0.99,0.85\nhidden open,260,0.05,0.85,0.60,0.70\nvisible bridge,310,0.97,0.00,0.99,0.90\nhidden short,90,0.10,0.80,0.55,0.60\nwrong value,60,0.15,0.00,0.95,0.50\npolarity,110,0.90,0.00,0.60,0.80\ninsufficient solder,380,0.92,0.30,0.35,0.40\ncontamination,70,0.10,0.00,0.02,0.05\n"
+            },
+            {
+              "variant": "guide",
+              "file": "coverage-model-guide.md",
+              "mime": "text/markdown",
+              "label": "Guide",
+              "content": "# Coverage model sheet\n\n## What this template is for\nKeep the defect classes, their occurrence and each screen's detection probability on one sheet, so a coverage claim can be recomputed instead of quoted, and the uncovered classes carry a named control.\n\n## How to fill it in\n1. Copy one row per defect class. Do not merge rows: one aperture, one reel, one interval or one 8D discipline per line.\n2. Keep the column order. The columns below are the ones the course's own worked examples use.\n3. Leave a cell blank rather than writing a guess. A blank cell is a question for the engineer; a guessed number is a defect in the record.\n\n## Columns\n- `defect_class`\n- `occurrence_ppm`\n- `aoi_prob`\n- `xray_prob`\n- `ict_prob`\n- `fct_prob`\n\n## Worked example\nThe example variant of this file is the data file from case cx-m13-01 (Coverage: 92 % of the nodes and 70 % of the defects), filled in with Board X numbers.\n\n## Where the numbers come from\nEvery value in the example is produced by scripts/gen_cases.py and checked by scripts/check-cases.js. If you change a number in the example, the checker fails: that is deliberate.\n\n## Course link\nSee lesson m13l05 for the reasoning behind each column.\n"
+            }
+          ]
+        }
+      ],
+      "toolLinks": [
+        {
+          "label": "What each test level catches (lesson m13l01)",
+          "href": "#/l/m13l01"
+        },
+        {
+          "label": "Coverage math (lesson m13l05)",
+          "href": "#/l/m13l05"
+        },
+        {
+          "label": "Choosing a strategy (lesson m13l06)",
+          "href": "#/l/m13l06"
+        }
+      ],
+      "sources": [
+        "src-001",
+        "src-002"
       ],
       "generatedBy": "scripts/gen_cases.py"
     },
