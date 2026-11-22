@@ -562,16 +562,69 @@ numeric), `check-quiz.js` OK, `tests/course.test.js` **189 / 0**,
 
 ---
 
+## 7h. Round 8 — coverage (m13)
+
+| Case | Module | Steps | Rubric | Est. | What it makes the learner do |
+|---|---|---|---|---|---|
+| `cx-m13-01` Coverage model | m13 | 10 (6 numeric) | 100 | 40 min | node coverage computed and distinguished from defect coverage, the defect model totalled, four series combinations computed by multiplying misses per class, two strategies with the same score separated by their uncovered classes, the residual escape attributed by class, the marginal screen priced in escapes rather than coverage points, the uncatchable class handed to a non-test control, and the model documented so it can be recomputed |
+
+Control numbers:
+
+| Strategy | Defect coverage | Escape |
+|---|---|---|
+| AOI only | **69.8 %** | 514 ppm |
+| AOI + X-ray | **86.5 %** | 230 ppm |
+| AOI + ICT | **86.8 %** | 224 ppm |
+| AOI + ICT + FCT | **93.1 %** | 117 ppm |
+| all four | **95.5 %** | 76.5 ppm |
+| Fourth screen, marginal | +2.4 points | **-34.6 %** escapes |
+
+### What the case is built on
+
+The 92 % on the test list is node coverage: 570 of 620 joints reachable. It is a
+true statement about reach and says nothing about defects, and the case computes
+the difference instead of asserting it. Two strategies scoring 86.5 % and 86.8 %
+are then held up side by side, because a score that close is decided by what is
+left uncovered — ICT buys wrong values and hidden opens, X-ray buys hidden opens
+and hidden shorts.
+
+The ending is the part most coverage exercises skip. Contamination is detected at
+2-10 % by every screen on the list, so it accounts for 59 of the 76.5 ppm a full
+four-screen strategy leaves. No fifth screen fixes it; cleaning, ionic testing and
+residue limits do (m12's subject). A strategy is defined by the classes it does
+not catch, and the case makes the learner write those down with their control.
+
+### Honest limits of the model
+
+* The detection probabilities are the plant's, not a standard's. m13l05 says to
+  take them from your own logs; the case follows that and prints them in the data
+  file so they can be argued with.
+* The arithmetic assumes the screens are independent within a class. Real AOI and
+  real X-ray on the same void are correlated, so the combined coverage here is
+  optimistic in some classes. The case states the assumption on the page and makes
+  documenting it part of the final answer, rather than hiding it in a footnote.
+* No external escape-rate table is quoted. Published vendor figures (for example
+  "AOI + ICT leaves 20-50 DPMO") do not come with a defect model that could
+  reproduce them, so the case builds its own and lets the learner see every input.
+
+Verification after round 8: `gen_cases.py --check` OK (**13 cases, 117 steps**),
+`check-cases.js` **117/117**, `check-integrity.js` OK (13 cases, 117 steps, 73
+numeric), `check-quiz.js` OK, `tests/course.test.js` **191 / 0**,
+`tests/case-qa.js` **51 / 0**, pilot sheet regenerated for 13 cases / 117 steps,
+27 outline captures regenerated.
+
+---
+
 ## 8. Next
 
-Twelve of fifteen modules now carry a case: m01, m02, m03, m04, m05, m06, m07,
-m08, m09, m10, m11, m14. The remaining three are m12, m13, m15.
+Thirteen of fifteen modules now carry a case: m01, m02, m03, m04, m05, m06, m07,
+m08, m09, m10, m11, m13, m14. The remaining two are m12 (cleanliness and
+conformance coating) and m15 (design feedback).
 
-m13 is the natural next one: coverage math needs the defect classes and the
-inspection steps the AOI case already built, and it produces the one number the
-whole course has been implying — what fraction of defects any test strategy can
-actually catch. m12 (cleanliness) follows, because ROSE, ion chromatography and
-coating thickness give measurements with real units and real limits.
+m12 is the natural next one and now has an explicit hook: the m13 case ends by
+handing contamination to cleaning and ionic testing, so the next case can measure
+the thing the previous one could not screen. m15 closes the loop, because its
+evidence pack is built from the measurements the other twelve cases produce.
 
 Templates referenced from the cases are generated in three variants (blank,
 example, guide) for all twelve template types; the "check" workflow on the five
@@ -743,3 +796,24 @@ keys are not touched (they are computed and independently verified) — what cha
 is the step text, the hints and the explanations.
 
 Tests: **171 passed, 0 failed**.
+
+---
+
+## 9. Second technologist review (round 8b)
+
+A full re-audit of thirteen cases after the new rounds, written up in
+`docs/technologist-review-2-2026-11-31.md`. The short version:
+
+* 29 numeric keys recomputed from first principles in a separate script: **all 29
+  agree**, including the coverage model re-entered by hand.
+* Percentages and means typed into explanation text — which no key check sees —
+  recomputed for four cases: one real defect, in m09, where the prose said "78-81 %"
+  for joints that run 76.25-82.5 %. Fixed.
+* Structural sweep: rubric totals, step coverage, CSV row widths, lesson links,
+  source ids, template variants, and `[object Object]` on every rendered page. All
+  clean.
+* The Board X thread is deliberately not in module-number order (m07 sits after the
+  solder processes, where AOI actually happens). Recorded so it is not "fixed".
+
+Verification unchanged and green: 13 cases / 117 steps, `check-cases.js` 117/117,
+`course.test.js` 191/0, `case-qa.js` 51/0.

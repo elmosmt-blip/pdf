@@ -3380,7 +3380,8 @@ def build_cases():
         "its neighbour with nowhere to drain.",
         "Which explanation accounts for a short barrel and a flooded neighbour at the same "
         "time?",
-        "A cold pot affects the whole board, and the other joints on this board fill to 78-81 %. "
+        "A cold pot affects the whole board, and the other joints on this board fill to "
+        "76.3-82.5 %. "
         "Two findings two pins apart on the same part are a local thermal and flow problem: "
         "the connector shields the wave and pulls heat from its own joints, so one barrel "
         "stalls while solder pools where it cannot drain. Naming one mechanism that explains "

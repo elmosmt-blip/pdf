@@ -2,7 +2,7 @@ Rendered outline of #/c/cx-m09-01
 Produced by scripts/capture-case.js from the built tree (build/course-clean).
 This is the live DOM from the shipped engine, not a mock-up.
 
-main #main   [12408 chars]
+main #main   [12412 chars]
   p .kicker   [36 chars]
     "Toolkit · Module 09 · Wave Soldering"
   header .page-head   [114 chars]
@@ -517,8 +517,8 @@ main #main   [12408 chars]
       p .flush   [27 chars]
         button .btn.btn--small type=button data-act=case-data   [27 chars]
           "Download joint-findings.csv"
-  form .case-form   [6114 chars]
-    ol .case-steps   [6092 chars]
+  form .case-form   [6118 chars]
+    ol .case-steps   [6096 chars]
       li #step-s1 .case-step.case-step--ok   [550 chars]
         div .case-step-head   [32 chars]
           span .case-step-n   [18 chars]
@@ -652,7 +652,7 @@ main #main   [12408 chars]
             "Worked reasoning"
           p   [304 chars]
             "3.20 / 2.54 = 1.26. A bridge that covers more than one pitch is a volume and drainage problem, not a fine-pitc…"
-      li #step-s5 .case-step.case-step--ok   [1056 chars]
+      li #step-s5 .case-step.case-step--ok   [1060 chars]
         div .case-step-head   [24 chars]
           span .case-step-n   [18 chars]
             "Step 5 (15 points)"
@@ -689,11 +689,11 @@ main #main   [12408 chars]
             "Show a hint"
             span .muted   [8 chars]
               "(3 left)"
-        details .case-expl   [416 chars]
+        details .case-expl   [420 chars]
           summary   [16 chars]
             "Worked reasoning"
-          p   [400 chars]
-            "A cold pot affects the whole board, and the other joints on this board fill to 78-81 %. Two findings two pins …"
+          p   [404 chars]
+            "A cold pot affects the whole board, and the other joints on this board fill to 76.3-82.5 %. Two findings two p…"
       li #step-s6 .case-step.case-step--ok   [996 chars]
         div .case-step-head   [24 chars]
           span .case-step-n   [18 chars]
