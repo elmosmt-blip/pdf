@@ -2,7 +2,7 @@ Rendered outline of #/c/cx-m11-01
 Produced by scripts/capture-case.js from the built tree (build/course-clean).
 This is the live DOM from the shipped engine, not a mock-up.
 
-main #main   [8945 chars]
+main #main   [9128 chars]
   p .kicker   [49 chars]
     "Toolkit · Module 11 · Manual Soldering and Rework"
   header .page-head   [117 chars]
@@ -20,11 +20,11 @@ main #main   [8945 chars]
           "rubric 100 pts"
         span .chip   [14 chars]
           "Score 0 of 100"
-  section .case-scenario   [673 chars]
+  section .case-scenario   [711 chars]
     p   [316 chars]
       "The short-filled J-01 from the wave case is reworked by hand on a Class 2 Board X assembly. The record in rewo…"
-    p   [235 chars]
-      "Two decisions are waiting. The first is the trace: it was 0.30 mm on the drawing and measures 0.24 mm after th…"
+    p   [273 chars]
+      "Two decisions are waiting. The first is the trace: the drawing sets a minimum width of 0.280 mm, and the trace…"
     p   [122 chars]
       "Judge the repair against the class, then say what the record has to contain so the next engineer can reproduce…"
   details .case-board   [1112 chars]
@@ -221,16 +221,16 @@ main #main   [8945 chars]
         "Annular ring, Class 3 external"
       span .spec-chip-value   [7 chars]
         "0.05 mm"
-  details .case-data   [443 chars]
+  details .case-data   [512 chars]
     summary   [29 chars]
       "Data file — rework-record.csv"
-    div .details-body   [414 chars]
+    div .details-body   [483 chars]
       p .muted.flush   [161 chars]
         "One row per assembly. There is one dwell column per contact, so the total iron time is a sum over the row; dry…"
-      div .case-table-wrap   [227 chars]
-        table .case-table   [227 chars]
-          thead   [92 chars]
-            tr   [92 chars]
+      div .case-table-wrap   [296 chars]
+        table .case-table   [296 chars]
+          thead   [119 chars]
+            tr   [119 chars]
               th   [8 chars]
                 "assembly"
               th   [9 chars]
@@ -249,12 +249,16 @@ main #main   [8945 chars]
                 "dwell2_s"
               th   [8 chars]
                 "dwell3_s"
-              th   [13 chars]
-                "trace_nick_mm"
+              th   [14 chars]
+                "trace_drawn_mm"
+              th   [12 chars]
+                "trace_min_mm"
+              th   [14 chars]
+                "trace_after_mm"
               th   [8 chars]
                 "dry_flag"
-          tbody   [135 chars]
-            tr   [48 chars]
+          tbody   [177 chars]
+            tr   [59 chars]
               td   [4 chars]
                 "B-07"
               td   [11 chars]
@@ -273,11 +277,15 @@ main #main   [8945 chars]
                 "0.4"
               td .num   [3 chars]
                 "0.2"
-              td .num   [4 chars]
-                "0.24"
+              td .num   [5 chars]
+                "0.300"
+              td .num   [5 chars]
+                "0.280"
+              td .num   [5 chars]
+                "0.248"
               td .num   [1 chars]
                 "0"
-            tr   [45 chars]
+            tr   [59 chars]
               td   [4 chars]
                 "B-08"
               td   [11 chars]
@@ -294,11 +302,17 @@ main #main   [8945 chars]
                 "2.2"
               td .num   [3 chars]
                 "0.1"
-              td .num   [4 chars]
-                "0.30"
+              td .num   [3 chars]
+                "0.0"
+              td .num   [5 chars]
+                "0.300"
+              td .num   [5 chars]
+                "0.280"
+              td .num   [5 chars]
+                "0.280"
               td .num   [1 chars]
                 "1"
-            tr   [42 chars]
+            tr   [59 chars]
               td   [4 chars]
                 "B-09"
               td   [11 chars]
@@ -313,15 +327,23 @@ main #main   [8945 chars]
                 "1"
               td .num   [3 chars]
                 "2.4"
-              td .num   [4 chars]
-                "0.30"
+              td .num   [3 chars]
+                "0.0"
+              td .num   [3 chars]
+                "0.0"
+              td .num   [5 chars]
+                "0.300"
+              td .num   [5 chars]
+                "0.280"
+              td .num   [5 chars]
+                "0.280"
               td .num   [1 chars]
                 "0"
       p .flush   [26 chars]
         button .btn.btn--small type=button data-act=case-data   [26 chars]
           "Download rework-record.csv"
-  form .case-form   [2929 chars]
-    ol .case-steps   [2907 chars]
+  form .case-form   [3005 chars]
+    ol .case-steps   [2983 chars]
       li #step-s1 .case-step   [477 chars]
         div .case-step-head   [24 chars]
           span .case-step-n   [18 chars]
@@ -408,14 +430,14 @@ main #main   [8945 chars]
             "Show a hint"
             span .muted   [8 chars]
               "(3 left)"
-      li #step-s4 .case-step   [186 chars]
+      li #step-s4 .case-step   [261 chars]
         div .case-step-head   [32 chars]
           span .case-step-n   [18 chars]
             "Step 4 (15 points)"
           span .case-step-type   [14 chars]
             "numeric answer"
-        p .case-prompt   [91 chars]
-          "The nicked trace was 0.30 mm and measures 0.24 mm. What is the width reduction, in percent?"
+        p .case-prompt   [166 chars]
+          "The drawing sets a minimum conductor width of 0.280 mm. The nicked trace measures 0.248 mm. What is the width …"
         div .case-input-row   [31 chars]
           label .case-input-label   [15 chars]
             "Your answer"
@@ -433,14 +455,14 @@ main #main   [8945 chars]
             "Show a hint"
             span .muted   [8 chars]
               "(3 left)"
-      li #step-s5 .case-step   [182 chars]
+      li #step-s5 .case-step   [183 chars]
         div .case-step-head   [32 chars]
           span .case-step-n   [18 chars]
             "Step 5 (10 points)"
           span .case-step-type   [14 chars]
             "numeric answer"
-        p .case-prompt   [83 chars]
-          "What is the narrowest the trace may become and still meet the Class 2 limit, in mm?"
+        p .case-prompt   [84 chars]
+          "What is the narrowest that trace may become and still meet the Class 2 limit, in mm?"
         div .case-input-row   [35 chars]
           label .case-input-label   [16 chars]
             "Your answer"

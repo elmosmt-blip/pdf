@@ -86,7 +86,19 @@ function parseCsv(text) {
 function dataFile(c, name) {
   const f = (c.dataFiles || []).filter(function (x) { return x.name === name; })[0];
   if (!f) throw new Error(c.caseId + ': missing data file ' + name);
-  return f.kind === 'csv' ? parseCsv(f.content) : f.content;
+  if (f.kind !== 'csv') return f.content;
+  /* A short row does not fail on its own: it shifts every later cell one column
+   * left, so a flag lands in a measurement and a check silently reads the wrong
+   * field. Every row must have exactly as many cells as the header. */
+  const lines = f.content.replace(/^\ufeff/, '').trim().split(/\r?\n/);
+  const width = lines[0].split(',').length;
+  lines.forEach(function (ln, i) {
+    if (ln.split(',').length !== width) {
+      throw new Error(c.caseId + '/' + name + ': row ' + (i + 1) +
+        ' has ' + ln.split(',').length + ' cells, header has ' + width);
+    }
+  });
+  return parseCsv(f.content);
 }
 
 /* -------------------------------------------------- independent formulae */
@@ -115,7 +127,10 @@ const EXPECTED = {
     const r = dataFile(c, 'aperture-table.csv').filter(function (x) { return x.aperture_id === 'A-03'; })[0];
     return areaRatioRect(+r.width_mm, +r.length_mm, +r.foil_mm);
   },
-  'cx-m03-01.s2': function () { return 'b'; },
+  'cx-m03-01.s2': function () {
+    /* the release-indicator reading of 0.64, as the option states it */
+    return 'marginal to inadequate';
+  },
   'cx-m03-01.s3': function (c) {
     const r = dataFile(c, 'aperture-table.csv').filter(function (x) { return x.aperture_id === 'A-04'; })[0];
     return areaRatioRect(+r.width_mm, +r.length_mm, +r.foil_mm);
@@ -136,7 +151,7 @@ const EXPECTED = {
     const r = dataFile(c, 'aperture-table.csv').filter(function (x) { return x.aperture_id === 'A-04'; })[0];
     return (+r.width_mm) * (+r.length_mm) * (+r.foil_mm) * 1000;
   },
-  'cx-m03-01.s8': function () { return 'b'; },
+  "cx-m03-01.s8": function () { return "step the foil down"; },
 
   'cx-m02-01.s1': function () { return 72; },          /* J-STD-033 MSL 4 */
   'cx-m02-01.s2': function (c) {
@@ -147,9 +162,9 @@ const EXPECTED = {
     const r = dataFile(c, 'msl-log.csv').filter(function (x) { return x.reel === 'R-4412'; })[0];
     return 72 - ((+r.bag_open_h_ago) + (+r.line_exposure_h));
   },
-  'cx-m02-01.s4': function () { return 'b'; },
+  "cx-m02-01.s4": function () { return "slows the clock"; },
   'cx-m02-01.s5': function () { return 40; },          /* tape ceiling */
-  'cx-m02-01.s6': function () { return 'b'; },
+  "cx-m02-01.s6": function () { return "de-reel"; },
 
   'cx-m06-01.s1': function (c) {
     const r = dataFile(c, 'profile.csv').filter(function (x) { return x.interval === 'ramp'; })[0];
@@ -182,7 +197,7 @@ const EXPECTED = {
     return over.length ? 'a' : 'b';
   },
   'cx-m06-01.s6': function () { return 100 / 90; },
-  'cx-m06-01.s7': function () { return 'b'; },
+  "cx-m06-01.s7": function () { return "trust the measurement"; },
 
   /* m08 — hole, lead and fill. The diameters come from the case's own measurement
    * sheet, and every key is recomputed from those rows rather than from the
@@ -229,7 +244,7 @@ const EXPECTED = {
     const fails = rows.filter(function (r) { return +r.fill_pct < min; });
     return fails.length ? 'b' : 'a';
   },
-  'cx-m08-01.s9': function () { return 'b'; },
+  "cx-m08-01.s9": function () { return "raise preheat"; },
 
   /* m09 — the wave run. Contact time and pot margin are read out of the record,
    * and the first change is keyed to the two settings that sit at the weak end
@@ -247,23 +262,27 @@ const EXPECTED = {
     const preheat = +r.preheat_top_c;
     const contact = (+r.wave_width_mm / 1000) / ((+r.conveyor_m_per_min) / 60);
     const band = doc.thresholds.waveContactWindowS[0];
-    /* the weak settings are the ones in the lower half of their windows */
-    const weak = (preheat - 90) < (120 - preheat) && (contact - band[0]) < 0.5;
-    return weak ? 'b' : 'a';
+    /* The weak settings are the ones in the lower half of their windows. Return
+     * the text of the answer, not a letter: a letter here was compared as a
+     * substring and both b and a "matched", which is how a wrong key survived. */
+    /* lower half of 90-120 is below 105; the contact floor is the window's own
+     * lower bound, so anything within half a second of it is at the floor */
+    const weak = preheat <= 105 && (contact - band[0]) <= 0.5;
+    return weak ? 'top-side preheat' : 'pot temperature';
   },
   'cx-m09-01.s4': function (c, doc) {
     const r = dataFile(c, 'joint-findings.csv').filter(function (x) { return x.joint === 'J-02'; })[0];
     return (+r.span_mm) / (+r.pitch_mm);
   },
-  'cx-m09-01.s5': function () { return 'b'; },
-  'cx-m09-01.s6': function () { return 'b'; },
+  "cx-m09-01.s5": function () { return "wetting and drainage"; },
+  "cx-m09-01.s6": function () { return "raise top-side preheat"; },
   'cx-m09-01.s7': function (c, doc) {
     const rows = dataFile(c, 'joint-findings.csv');
     const min = doc.thresholds.holeFillMinPct[0];
     const failed = rows.filter(function (r) { return r.fill_pct !== '' && +r.fill_pct < min; }).length;
     return failed / rows.length * 100;
   },
-  'cx-m09-01.s8': function () { return 'b'; },
+  "cx-m09-01.s8": function () { return "re-qualif"; },
 
   /* m07 — the AOI audit and the X-ray. Rates are recomputed from the audit rows,
    * voids from the measured diameters in the X-ray table. */
@@ -291,7 +310,7 @@ const EXPECTED = {
     const esc = rows.reduce(function (a, r) { return a + (+r.escapes); }, 0);
     return esc / (tru + esc) * 100;
   },
-  'cx-m07-01.s5': function () { return 'b'; },
+  "cx-m07-01.s5": function () { return "false-call rate"; },
   'cx-m07-01.s6': function (c, doc) {
     const r = dataFile(c, 'xray-bga.csv').filter(function (x) { return x.ball === 'A1'; })[0];
     /* area ratio of circles is the square of the diameter ratio, so pi cancels */
@@ -312,7 +331,12 @@ const EXPECTED = {
     const r = dataFile(c, 'xray-bga.csv').filter(function (x) { return x.ball === 'A2'; })[0];
     return Math.pow(+r.void1_d_mm, 2) / Math.pow(+r.ball_d_mm, 2) * 100;
   },
-  'cx-m07-01.s9': function () { return 'b'; },
+  "cx-m07-01.s9": function () { return "hidden-joint sample"; },
+  'cx-m07-01.s10': function () {
+    /* the action must sit where the void is formed: any option naming an AOI
+     * threshold is by definition wrong, because AOI cannot see the ball */
+    return 'process action on the reflow';
+  },
 
   /* m11 — the rework record. Width limits come from the class carried on Board X,
    * so a change of class changes the expected answer in the checker too. */
@@ -337,28 +361,33 @@ const EXPECTED = {
     return ((+r.dwell1_s) + (+r.dwell2_s) + (+r.dwell3_s)) * 45;
   },
   'cx-m11-01.s4': function (c) {
+    /* the standard caps the reduction of the MINIMUM width on the drawing, so the
+     * denominator is that minimum column, never the as-drawn width */
     const r = dataFile(c, 'rework-record.csv').filter(function (x) { return x.assembly === 'B-07'; })[0];
-    const orig = 0.30;
-    return (orig - (+r.trace_nick_mm)) / orig * 100;
+    return ((+r.trace_min_mm) - (+r.trace_after_mm)) / (+r.trace_min_mm) * 100;
   },
   'cx-m11-01.s5': function (c, doc) {
+    const r = dataFile(c, 'rework-record.csv').filter(function (x) { return x.assembly === 'B-07'; })[0];
     const pct = doc.thresholds.conductorReductionClass2Pct[0];
-    return 0.30 * (1 - pct / 100);
+    return (+r.trace_min_mm) * (1 - pct / 100);
   },
   'cx-m11-01.s6': function (c, doc) {
+    const r = dataFile(c, 'rework-record.csv').filter(function (x) { return x.assembly === 'B-07'; })[0];
     const pct = doc.thresholds.conductorReductionClass3Pct[0];
-    return 0.30 * (1 - pct / 100);
+    return (+r.trace_min_mm) * (1 - pct / 100);
   },
   'cx-m11-01.s7': function (c, doc) {
     const r = dataFile(c, 'rework-record.csv').filter(function (x) { return x.assembly === 'B-07'; })[0];
-    const red = (0.30 - (+r.trace_nick_mm)) / 0.30 * 100;
+    const red = ((+r.trace_min_mm) - (+r.trace_after_mm)) / (+r.trace_min_mm) * 100;
     return red <= doc.thresholds.conductorReductionClass2Pct[0] ? 'a' : 'b';
   },
   'cx-m11-01.s8': function (c) {
     const r = dataFile(c, 'rework-record.csv').filter(function (x) { return x.assembly === 'B-08'; })[0];
-    return +r.dry_flag ? 'b' : 'a';
+    /* a dry first contact means the joint was not at temperature: a thermal load
+     * signal, not evidence that the setpoint was low */
+    return +r.dry_flag ? 'needed more heat' : 'setpoint too low';
   },
-  'cx-m11-01.s9': function () { return 'b'; },
+  "cx-m11-01.s9": function () { return "required class"; },
 
   'cx-m14-01.s1': function (c, doc) {
     const r = dataFile(c, 'defect-log.csv').filter(function (x) { return x.family === 'BGA void / non-wet'; })[0];
@@ -370,7 +399,7 @@ const EXPECTED = {
   },
   'cx-m14-01.s3': function () { return ISO_TABLE[3000].code.toLowerCase(); },
   'cx-m14-01.s4': function () { return ISO_TABLE[3000].n; },
-  'cx-m14-01.s5': function () { return 'b'; },
+  "cx-m14-01.s5": function () { return "accept the lot"; },
   'cx-m14-01.s6': function () { return ISO_TABLE[5000].n; },
   'cx-m14-01.s7': function (c) {
     const r = dataFile(c, 'capa-window.csv').filter(function (x) { return x.phase === 'before'; })[0];
@@ -515,8 +544,16 @@ function main() {
          * answer is a bare code (an ISO letter). Compare both ways. */
         const keyed = (s.options || []).filter(function (o) { return o.id === s.answer.value; })[0];
         const keyText = keyed ? String(keyed.text) : '';
+        /* A long phrase is checked as a substring of the option text. A short
+         * token — 'b', 'K', '25' — must match the key exactly or as a whole
+         * word, because a bare 'b' is a substring of almost every English
+         * sentence. That loophole meant a wrong key could pass this check. */
+        const needle = expected.toLowerCase();
         const hit = expected === s.answer.value ||
-          keyText.toLowerCase().indexOf(expected.toLowerCase()) >= 0;
+          (needle.length > 3
+            ? keyText.toLowerCase().indexOf(needle) >= 0
+            : new RegExp('\\b' + needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'i')
+                .test(keyText));
         if (!hit) {
           fail('answer-mismatch', where + ' key ' + s.answer.value + ' ("' +
             keyText.slice(0, 40) + '") vs independent ' + expected);

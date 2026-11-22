@@ -47,12 +47,13 @@ cx-m07-01,s6,numeric,sum(pi*(d/2)^2)/ (pi*(0.45/2)^2)*100,48.39506172839506,0.2,
 cx-m07-01,s7,choice,choice key = b,b,0,,{}
 cx-m07-01,s8,numeric,(0.10/0.45)^2*100,4.938271604938271,0.1,%,"{""ball_mm"": 0.45, ""void_mm"": 0.1}"
 cx-m07-01,s9,choice,choice key = b,b,0,,{}
+cx-m07-01,s10,choice,choice key = b,b,0,,{}
 cx-m11-01,s1,choice,choice key = b,b,0,,{}
 cx-m11-01,s2,numeric,2.6+0.4+0.2,3.2,0.1,s,"{""dwells_s"": [2.6, 0.4, 0.2]}"
 cx-m11-01,s3,numeric,(2.6+0.4+0.2)*45 W,144.0,2.0,J,"{""dwells_s"": [2.6, 0.4, 0.2], ""watts"": 45.0}"
-cx-m11-01,s4,numeric,0.06/0.3*100,20.0,0.2,%,"{""part"": 0.06, ""whole"": 0.3}"
-cx-m11-01,s5,numeric,0.3*(1-20/100),0.24,0.005,mm,"{""orig_mm"": 0.3, ""pct"": 20}"
-cx-m11-01,s6,numeric,0.3*(1-10/100),0.27,0.005,mm,"{""orig_mm"": 0.3, ""pct"": 10}"
+cx-m11-01,s4,numeric,0.032/0.28*100,11.428571428571438,0.2,%,"{""part"": 0.03200000000000003, ""whole"": 0.28}"
+cx-m11-01,s5,numeric,0.28*(1-20/100),0.22400000000000003,0.005,mm,"{""min_mm"": 0.28, ""pct"": 20}"
+cx-m11-01,s6,numeric,0.28*(1-10/100),0.25200000000000006,0.005,mm,"{""min_mm"": 0.28, ""pct"": 10}"
 cx-m11-01,s7,choice,choice key = a,a,0,,{}
 cx-m11-01,s8,choice,choice key = b,b,0,,{}
 cx-m11-01,s9,choice,choice key = b,b,0,,{}

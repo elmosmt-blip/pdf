@@ -139,8 +139,8 @@ node tests/course.test.js
 
 | Команда | Ожидаемый результат |
 |---|---|
-| `gen_cases.py --check` | `OK (8 cases, 67 steps)` |
-| `check-cases.js` | `keys recomputed 67 of 67`, восемь строк `ok` с контрольными числами, `OK — …every key reproduces independently` |
+| `gen_cases.py --check` | `OK (8 cases, 68 steps)` |
+| `check-cases.js` | `keys recomputed 68 of 68`, восемь строк `ok` с контрольными числами, `OK — …every key reproduces independently` |
 | `check-integrity.js` | `cases 8 (67 steps)`, `OK — integrity check passed` |
 | `tests/course.test.js` | `PASS — 181 passed, 0 failed` |
 | `tests/case-qa.js` | `36 passed, 0 failed/errored` |

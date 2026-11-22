@@ -2,7 +2,7 @@ Rendered outline of #/c/cx-m11-01
 Produced by scripts/capture-case.js from the built tree (build/course-clean).
 This is the live DOM from the shipped engine, not a mock-up.
 
-main #main   [13569 chars]
+main #main   [14045 chars]
   p .kicker   [49 chars]
     "Toolkit · Module 11 · Manual Soldering and Rework"
   header .page-head   [117 chars]
@@ -20,11 +20,11 @@ main #main   [13569 chars]
           "rubric 100 pts"
         span .chip   [14 chars]
           "Score 0 of 100"
-  section .case-scenario   [673 chars]
+  section .case-scenario   [711 chars]
     p   [316 chars]
       "The short-filled J-01 from the wave case is reworked by hand on a Class 2 Board X assembly. The record in rewo…"
-    p   [235 chars]
-      "Two decisions are waiting. The first is the trace: it was 0.30 mm on the drawing and measures 0.24 mm after th…"
+    p   [273 chars]
+      "Two decisions are waiting. The first is the trace: the drawing sets a minimum width of 0.280 mm, and the trace…"
     p   [122 chars]
       "Judge the repair against the class, then say what the record has to contain so the next engineer can reproduce…"
   details .case-board   [1112 chars]
@@ -221,16 +221,16 @@ main #main   [13569 chars]
         "Annular ring, Class 3 external"
       span .spec-chip-value   [7 chars]
         "0.05 mm"
-  details .case-data   [443 chars]
+  details .case-data   [512 chars]
     summary   [29 chars]
       "Data file — rework-record.csv"
-    div .details-body   [414 chars]
+    div .details-body   [483 chars]
       p .muted.flush   [161 chars]
         "One row per assembly. There is one dwell column per contact, so the total iron time is a sum over the row; dry…"
-      div .case-table-wrap   [227 chars]
-        table .case-table   [227 chars]
-          thead   [92 chars]
-            tr   [92 chars]
+      div .case-table-wrap   [296 chars]
+        table .case-table   [296 chars]
+          thead   [119 chars]
+            tr   [119 chars]
               th   [8 chars]
                 "assembly"
               th   [9 chars]
@@ -249,12 +249,16 @@ main #main   [13569 chars]
                 "dwell2_s"
               th   [8 chars]
                 "dwell3_s"
-              th   [13 chars]
-                "trace_nick_mm"
+              th   [14 chars]
+                "trace_drawn_mm"
+              th   [12 chars]
+                "trace_min_mm"
+              th   [14 chars]
+                "trace_after_mm"
               th   [8 chars]
                 "dry_flag"
-          tbody   [135 chars]
-            tr   [48 chars]
+          tbody   [177 chars]
+            tr   [59 chars]
               td   [4 chars]
                 "B-07"
               td   [11 chars]
@@ -273,11 +277,15 @@ main #main   [13569 chars]
                 "0.4"
               td .num   [3 chars]
                 "0.2"
-              td .num   [4 chars]
-                "0.24"
+              td .num   [5 chars]
+                "0.300"
+              td .num   [5 chars]
+                "0.280"
+              td .num   [5 chars]
+                "0.248"
               td .num   [1 chars]
                 "0"
-            tr   [45 chars]
+            tr   [59 chars]
               td   [4 chars]
                 "B-08"
               td   [11 chars]
@@ -294,11 +302,17 @@ main #main   [13569 chars]
                 "2.2"
               td .num   [3 chars]
                 "0.1"
-              td .num   [4 chars]
-                "0.30"
+              td .num   [3 chars]
+                "0.0"
+              td .num   [5 chars]
+                "0.300"
+              td .num   [5 chars]
+                "0.280"
+              td .num   [5 chars]
+                "0.280"
               td .num   [1 chars]
                 "1"
-            tr   [42 chars]
+            tr   [59 chars]
               td   [4 chars]
                 "B-09"
               td   [11 chars]
@@ -313,15 +327,23 @@ main #main   [13569 chars]
                 "1"
               td .num   [3 chars]
                 "2.4"
-              td .num   [4 chars]
-                "0.30"
+              td .num   [3 chars]
+                "0.0"
+              td .num   [3 chars]
+                "0.0"
+              td .num   [5 chars]
+                "0.300"
+              td .num   [5 chars]
+                "0.280"
+              td .num   [5 chars]
+                "0.280"
               td .num   [1 chars]
                 "0"
       p .flush   [26 chars]
         button .btn.btn--small type=button data-act=case-data   [26 chars]
           "Download rework-record.csv"
-  form .case-form   [6791 chars]
-    ol .case-steps   [6769 chars]
+  form .case-form   [7160 chars]
+    ol .case-steps   [7138 chars]
       li #step-s1 .case-step.case-step--ok   [994 chars]
         div .case-step-head   [24 chars]
           span .case-step-n   [18 chars]
@@ -426,69 +448,69 @@ main #main   [13569 chars]
             "Worked reasoning"
           p   [357 chars]
             "45 W for 3.2 s is 144 J. This is the number to put in the record beside the setpoint: a joint that took 144 J …"
-      li #step-s4 .case-step.case-step--ok   [458 chars]
+      li #step-s4 .case-step.case-step--ok   [733 chars]
         div .case-step-head   [32 chars]
           span .case-step-n   [18 chars]
             "Step 4 (15 points)"
           span .case-step-type   [14 chars]
             "numeric answer"
-        p .case-prompt   [91 chars]
-          "The nicked trace was 0.30 mm and measures 0.24 mm. What is the width reduction, in percent?"
+        p .case-prompt   [166 chars]
+          "The drawing sets a minimum conductor width of 0.280 mm. The nicked trace measures 0.248 mm. What is the width …"
         div .case-input-row   [31 chars]
           label .case-input-label   [15 chars]
             "Your answer"
             span .muted   [3 chars]
               "(%)"
-          input #in-s4 .case-input type=text name=c-s4 value=20
+          input #in-s4 .case-input type=text name=c-s4 value=11.4286
           span .case-tol.muted   [16 chars]
             "tolerance ±0.2 %"
         p #err-s4 .case-error role=alert hidden=
-        p .case-feedback.case-feedback--ok   [46 chars]
+        p .case-feedback.case-feedback--ok   [49 chars]
           strong   [8 chars]
             "Correct."
-          "20.0 %: exactly at the Class 2 limit."
+          "11.4 %: inside Class 2, outside Class 3."
         div .case-hints   [20 chars]
           button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
             "Show a hint"
             span .muted   [8 chars]
               "(3 left)"
-        details .case-expl   [238 chars]
+        details .case-expl   [435 chars]
           summary   [16 chars]
             "Worked reasoning"
-          p   [222 chars]
-            "0.06 / 0.30 = 20.0 %. On a Class 2 board that is the boundary value: acceptable at the limit, and not a millim…"
-      li #step-s5 .case-step.case-step--ok   [538 chars]
+          p   [419 chars]
+            "0.032 / 0.280 = 11.4 %. The denominator matters more than the numerator. The same 0.248 mm trace passes a Clas…"
+      li #step-s5 .case-step.case-step--ok   [556 chars]
         div .case-step-head   [32 chars]
           span .case-step-n   [18 chars]
             "Step 5 (10 points)"
           span .case-step-type   [14 chars]
             "numeric answer"
-        p .case-prompt   [83 chars]
-          "What is the narrowest the trace may become and still meet the Class 2 limit, in mm?"
+        p .case-prompt   [84 chars]
+          "What is the narrowest that trace may become and still meet the Class 2 limit, in mm?"
         div .case-input-row   [35 chars]
           label .case-input-label   [16 chars]
             "Your answer"
             span .muted   [4 chars]
               "(mm)"
-          input #in-s5 .case-input type=text name=c-s5 value=0.24
+          input #in-s5 .case-input type=text name=c-s5 value=0.224
           span .case-tol.muted   [19 chars]
             "tolerance ±0.005 mm"
         p #err-s5 .case-error role=alert hidden=
-        p .case-feedback.case-feedback--ok   [50 chars]
+        p .case-feedback.case-feedback--ok   [59 chars]
           strong   [8 chars]
             "Correct."
-          "0.24 mm is exactly the floor for Class 2."
+          "0.224 mm is the floor for Class 2 on this drawing."
         div .case-hints   [20 chars]
           button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
             "Show a hint"
             span .muted   [8 chars]
               "(3 left)"
-        details .case-expl   [318 chars]
+        details .case-expl   [326 chars]
           summary   [16 chars]
             "Worked reasoning"
-          p   [302 chars]
-            "0.30 mm less 20 % is 0.24 mm, which is what the board measures. The repair passes on the number alone and sits…"
-      li #step-s6 .case-step.case-step--ok   [604 chars]
+          p   [310 chars]
+            "0.280 mm less 20 % is 0.224 mm. The board measures 0.248 mm, so it passes with 0.024 mm to spare, a real margi…"
+      li #step-s6 .case-step.case-step--ok   [648 chars]
         div .case-step-head   [32 chars]
           span .case-step-n   [18 chars]
             "Step 6 (10 points)"
@@ -501,25 +523,25 @@ main #main   [13569 chars]
             "Your answer"
             span .muted   [4 chars]
               "(mm)"
-          input #in-s6 .case-input type=text name=c-s6 value=0.27
+          input #in-s6 .case-input type=text name=c-s6 value=0.252
           span .case-tol.muted   [19 chars]
             "tolerance ±0.005 mm"
         p #err-s6 .case-error role=alert hidden=
-        p .case-feedback.case-feedback--ok   [61 chars]
+        p .case-feedback.case-feedback--ok   [71 chars]
           strong   [8 chars]
             "Correct."
-          "0.27 mm on Class 3: the same board would fail there."
+          "0.252 mm on Class 3: the same 0.248 mm trace would fail there."
         div .case-hints   [20 chars]
           button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
             "Show a hint"
             span .muted   [8 chars]
               "(3 left)"
-        details .case-expl   [339 chars]
+        details .case-expl   [373 chars]
           summary   [16 chars]
             "Worked reasoning"
-          p   [323 chars]
-            "0.30 x 0.90 = 0.27 mm. At 0.24 mm the trace is 0.03 mm below the Class 3 floor, so the identical physical repa…"
-      li #step-s7 .case-step.case-step--ok   [881 chars]
+          p   [357 chars]
+            "0.280 x 0.90 = 0.252 mm. At 0.248 mm the trace is 0.004 mm under the Class 3 floor, so the identical physical …"
+      li #step-s7 .case-step.case-step--ok   [887 chars]
         div .case-step-head   [24 chars]
           span .case-step-n   [18 chars]
             "Step 7 (15 points)"
@@ -547,10 +569,10 @@ main #main   [13569 chars]
             span .case-opt-text   [43 chars]
               "Accept on Class 3 limits, which are looser."
         p #err-s7 .case-error role=alert hidden=
-        p .case-feedback.case-feedback--ok   [78 chars]
+        p .case-feedback.case-feedback--ok   [84 chars]
           strong   [8 chars]
             "Correct."
-          "Accept at the limit, with the measurement and the class written down."
+          "Accept: 11.4 % is inside the 20 % limit, and both numbers go in the record."
         div .case-hints   [20 chars]
           button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
             "Show a hint"
@@ -560,7 +582,7 @@ main #main   [13569 chars]
           summary   [16 chars]
             "Worked reasoning"
           p   [410 chars]
-            "20.0 % is the Class 2 limit itself, so the trace is acceptable — but only because the class says 20 %. Recordi…"
+            "11.4 % against a 20 % limit passes with margin. Recording it is what makes the acceptance durable: a year late…"
       li #step-s8 .case-step.case-step--ok   [1118 chars]
         div .case-step-head   [24 chars]
           span .case-step-n   [18 chars]
@@ -603,7 +625,7 @@ main #main   [13569 chars]
             "Worked reasoning"
           p   [444 chars]
             "A dry contact is the record's way of saying the joint was not at wetting temperature, and the second contact i…"
-      li #step-s9 .case-step.case-step--ok   [972 chars]
+      li #step-s9 .case-step.case-step--ok   [998 chars]
         div .case-step-head   [23 chars]
           span .case-step-n   [17 chars]
             "Step 9 (5 points)"
@@ -640,10 +662,10 @@ main #main   [13569 chars]
             "Show a hint"
             span .muted   [8 chars]
               "(3 left)"
-        details .case-expl   [412 chars]
+        details .case-expl   [438 chars]
           summary   [16 chars]
             "Worked reasoning"
-          p   [396 chars]
+          p   [422 chars]
             "A record that says 'passed' cannot be re-judged when the product class changes or the standard moves from Rev …"
     div .quiz-actions   [22 chars]
       button .btn.btn--primary type=submit   [16 chars]

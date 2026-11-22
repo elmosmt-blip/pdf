@@ -2,29 +2,29 @@ Rendered outline of #/c/cx-m07-01
 Produced by scripts/capture-case.js from the built tree (build/course-clean).
 This is the live DOM from the shipped engine, not a mock-up.
 
-main #main   [12422 chars]
+main #main   [13822 chars]
   p .kicker   [46 chars]
     "Toolkit · Module 07 · AOI and X-ray Inspection"
-  header .page-head   [114 chars]
-    div   [114 chars]
+  header .page-head   [115 chars]
+    div   [115 chars]
       h1   [66 chars]
-        "AOI audit: a 91 % true-call rate that still let 18 defects through"
-      div .meta-line   [48 chars]
+        "AOI audit: a 70 % true-call rate that still let 18 defects through"
+      div .meta-line   [49 chars]
         span .chip.chip--stage   [7 chars]
           "Board X"
         span .chip   [6 chars]
           "30 min"
-        span .chip   [7 chars]
-          "9 steps"
+        span .chip   [8 chars]
+          "10 steps"
         span .chip   [14 chars]
           "rubric 100 pts"
         span .chip   [14 chars]
           "Score 0 of 100"
-  section .case-scenario   [606 chars]
+  section .case-scenario   [596 chars]
     p   [234 chars]
       "Board X ran twelve thousand boards through AOI. The audit log for four windows is in aoi-audit.csv: boards ins…"
-    p   [236 chars]
-      "The line reads the numbers optimistically: ninety percent of the calls were real, so the program is good. Qual…"
+    p   [226 chars]
+      "The line reads the numbers optimistically: most of the calls were real, so the program is good. Quality has th…"
     p   [136 chars]
       "Compute the three rates that matter, say what they do and do not prove, and judge the ball in xray-bga.csv aga…"
   details .case-board   [1112 chars]
@@ -304,14 +304,14 @@ main #main   [12422 chars]
       p .flush   [22 chars]
         button .btn.btn--small type=button data-act=case-data   [22 chars]
           "Download aoi-audit.csv"
-  details .case-data   [317 chars]
+  details .case-data   [398 chars]
     summary   [24 chars]
       "Data file — xray-bga.csv"
-    div .details-body   [293 chars]
-      p .muted.flush   [159 chars]
-        "Measured diameters from the X-ray image, one row per ball. A ball may carry more than one void; the criterion …"
-      div .case-table-wrap   [113 chars]
-        table .case-table   [113 chars]
+    div .details-body   [374 chars]
+      p .muted.flush   [244 chars]
+        "Measured diameters from the X-ray image, one row per ball, as projected areas on the image. A ball may carry m…"
+      div .case-table-wrap   [109 chars]
+        table .case-table   [109 chars]
           thead   [41 chars]
             tr   [41 chars]
               th   [4 chars]
@@ -324,7 +324,7 @@ main #main   [12422 chars]
                 "void2_d_mm"
               th   [8 chars]
                 "location"
-          tbody   [72 chars]
+          tbody   [68 chars]
             tr   [18 chars]
               td   [2 chars]
                 "A1"
@@ -357,26 +357,25 @@ main #main   [12422 chars]
                 "0.06"
               td   [6 chars]
                 "centre"
-            tr   [18 chars]
+            tr   [14 chars]
               td   [2 chars]
                 "A4"
               td .num   [4 chars]
                 "0.45"
               td .num   [4 chars]
-                "0.20"
-              td .num   [4 chars]
-                "0.12"
+                "0.32"
+              td
               td   [4 chars]
                 "edge"
       p .flush   [21 chars]
         button .btn.btn--small type=button data-act=case-data   [21 chars]
           "Download xray-bga.csv"
-  form .case-form   [6815 chars]
-    ol .case-steps   [6793 chars]
+  form .case-form   [7995 chars]
+    ol .case-steps   [7973 chars]
       li #step-s1 .case-step.case-step--ok   [584 chars]
         div .case-step-head   [32 chars]
           span .case-step-n   [18 chars]
-            "Step 1 (15 points)"
+            "Step 1 (10 points)"
           span .case-step-type   [14 chars]
             "numeric answer"
         p .case-prompt   [102 chars]
@@ -407,7 +406,7 @@ main #main   [12422 chars]
       li #step-s2 .case-step.case-step--ok   [516 chars]
         div .case-step-head   [32 chars]
           span .case-step-n   [18 chars]
-            "Step 2 (15 points)"
+            "Step 2 (10 points)"
           span .case-step-type   [14 chars]
             "numeric answer"
         p .case-prompt   [74 chars]
@@ -497,21 +496,21 @@ main #main   [12422 chars]
             "Worked reasoning"
           p   [315 chars]
             "210 true calls plus 18 escapes is 228 found defects, so 18 / 228 = 7.9 %. This is the share of defects that AO…"
-      li #step-s5 .case-step.case-step--ok   [1142 chars]
+      li #step-s5 .case-step.case-step--ok   [1190 chars]
         div .case-step-head   [24 chars]
           span .case-step-n   [18 chars]
             "Step 5 (15 points)"
           span .case-step-type   [6 chars]
             "choice"
-        p .case-prompt   [106 chars]
-          "The line says: ninety percent of the calls were real, so the program is good. What is the correct reading?"
+        p .case-prompt   [130 chars]
+          "Using the audit rows, 210 of the 300 verified calls were real defects and 90 were not. What is the correct rea…"
         fieldset .case-options   [375 chars]
           legend .sr-only   [10 chars]
             "Choose one"
           label .case-opt   [70 chars]
             input #in-s5-a type=radio name=c-s5 value=a
             span .case-opt-text   [70 chars]
-              "Accept the program: a 91 % true-call rate is a good result on its own."
+              "Accept the program: a 70 % true-call rate is a good result on its own."
           label .case-opt.case-opt--picked   [177 chars]
             input #in-s5-b type=radio name=c-s5 value=b
             span .case-opt-text   [177 chars]
@@ -525,10 +524,10 @@ main #main   [12422 chars]
             span .case-opt-text   [54 chars]
               "Tighten every threshold until the escape rate is zero."
         p #err-s5 .case-error role=alert hidden=
-        p .case-feedback.case-feedback--ok   [108 chars]
+        p .case-feedback.case-feedback--ok   [132 chars]
           strong   [8 chars]
             "Correct."
-          "Both costs are real: 30 % false calls burn reviewer attention, and 7.9 % of judged defects escaped."
+          "Only 70 % of verified calls were real defects, 90 false calls burn reviewer attention, and 7.9 % of judged def…"
         div .case-hints   [20 chars]
           button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
             "Show a hint"
@@ -538,7 +537,7 @@ main #main   [12422 chars]
           summary   [16 chars]
             "Worked reasoning"
           p   [493 chars]
-            "A 91 % true-call rate is arithmetic, not a verdict. The same week produced 90 false calls that had to be revie…"
+            "A 70 % true-call rate is arithmetic, not a verdict. The same week produced 90 false calls that had to be revie…"
       li #step-s6 .case-step.case-step--ok   [822 chars]
         div .case-step-head   [33 chars]
           span .case-step-n   [19 chars]
@@ -612,7 +611,7 @@ main #main   [12422 chars]
             "Worked reasoning"
           p   [424 chars]
             "The limit is cumulative projected void area against ball area, per ball, and A1 is far over it. Comparing one …"
-      li #step-s8 .case-step.case-step--ok   [568 chars]
+      li #step-s8 .case-step.case-step--ok   [565 chars]
         div .case-step-head   [33 chars]
           span .case-step-n   [19 chars]
             "Step 8 (7.5 points)"
@@ -629,10 +628,10 @@ main #main   [12422 chars]
           span .case-tol.muted   [16 chars]
             "tolerance ±0.1 %"
         p #err-s8 .case-error role=alert hidden=
-        p .case-feedback.case-feedback--ok   [70 chars]
+        p .case-feedback.case-feedback--ok   [67 chars]
           strong   [8 chars]
             "Correct."
-          "4.9 %: a void this size is a process indicator, not a defect."
+          "4.9 %: a void this size is inside the limit, not a defect."
         div .case-hints   [20 chars]
           button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
             "Show a hint"
@@ -685,20 +684,62 @@ main #main   [12422 chars]
             "Worked reasoning"
           p   [405 chars]
             "AOI sees what the camera sees, and a BGA ball is under the package. The 18 escapes and the failed ball are the…"
+      li #step-s10 .case-step.case-step--ok   [1135 chars]
+        div .case-step-head   [25 chars]
+          span .case-step-n   [19 chars]
+            "Step 10 (10 points)"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [138 chars]
+          "The failing ball is on the same Board X assembly that already carries the 8D from the AOI case. What belongs i…"
+        fieldset .case-options   [352 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt   [78 chars]
+            input #in-s10-a type=radio name=c-s10 value=a
+            span .case-opt-text   [78 chars]
+              "An action to tighten the AOI void threshold, since AOI is the inspection step."
+          label .case-opt.case-opt--picked   [165 chars]
+            input #in-s10-b type=radio name=c-s10 value=b
+            span .case-opt-text   [165 chars]
+              "A containment of the affected boards plus a process action on the reflow and paste side, with the X-ray sample…"
+          label .case-opt   [53 chars]
+            input #in-s10-c type=radio name=c-s10 value=c
+            span .case-opt-text   [53 chars]
+              "A note that voids are normal and no action is needed."
+          label .case-opt   [46 chars]
+            input #in-s10-d type=radio name=c-s10 value=d
+            span .case-opt-text   [46 chars]
+              "An action to reject the whole lot on one ball."
+        p #err-s10 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [105 chars]
+          strong   [8 chars]
+            "Correct."
+          "Containment, a process action on reflow and paste, and an X-ray sample that measures the escape."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [495 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [479 chars]
+            "A void forms inside the joint during reflow: paste chemistry, profile and the escape path for volatiles decide…"
     div .quiz-actions   [22 chars]
       button .btn.btn--primary type=submit   [16 chars]
         "Check my answers"
       button .btn type=button data-act=case-reset   [5 chars]
         "Clear"
-  div #case-result-slot   [744 chars]
-    section #case-result .case-result   [744 chars]
+  div #case-result-slot   [819 chars]
+    section #case-result .case-result   [819 chars]
       h2   [6 chars]
         "Result"
       p .case-score.case-score--pass   [32 chars]
         "100 % — 100 of 100 rubric points"
       p .flush   [110 chars]
         "Mastered. The rubric threshold is 80 %. Best result so far: 100 %. This attempt took about 1 min with 0 hints."
-      table .case-rubric   [542 chars]
+      table .case-rubric   [617 chars]
         thead   [21 chars]
           tr   [21 chars]
             th   [9 chars]
@@ -707,21 +748,21 @@ main #main   [12422 chars]
               "Points"
             th   [6 chars]
               "Earned"
-        tbody   [521 chars]
+        tbody   [596 chars]
           tr   [59 chars]
             td   [55 chars]
               "Coverage computed on calls, with its consequence stated"
             td .num   [2 chars]
-              "15"
+              "10"
             td .num   [2 chars]
-              "15"
+              "10"
           tr   [67 chars]
             td   [63 chars]
               "False-call rate computed on verified calls, not on raised calls"
             td .num   [2 chars]
-              "15"
+              "10"
             td .num   [2 chars]
-              "15"
+              "10"
           tr   [46 chars]
             td   [42 chars]
               "Board-level escape rate computed on boards"
@@ -764,33 +805,40 @@ main #main   [12422 chars]
               "5"
             td .num   [1 chars]
               "5"
+          tr   [75 chars]
+            td   [71 chars]
+              "8D action placed on the process, with a sample that measures the escape"
+            td .num   [2 chars]
+              "10"
+            td .num   [2 chars]
+              "10"
       div .quiz-actions   [54 chars]
         button .btn type=button data-act=case-retake   [28 chars]
           "Try again from a clean sheet"
         button .btn type=button data-act=case-csv   [25 chars]
           "Download my answers (CSV)"
-  details .case-rubric-box   [669 chars]
+  details .case-rubric-box   [742 chars]
     summary   [32 chars]
       "Rubric — how this case is scored"
-    div .details-body   [637 chars]
-      table .case-rubric   [521 chars]
+    div .details-body   [710 chars]
+      table .case-rubric   [594 chars]
         thead   [15 chars]
           tr   [15 chars]
             th   [9 chars]
               "Criterion"
             th   [6 chars]
               "Points"
-        tbody   [506 chars]
+        tbody   [579 chars]
           tr   [57 chars]
             td   [55 chars]
               "Coverage computed on calls, with its consequence stated"
             td .num   [2 chars]
-              "15"
+              "10"
           tr   [65 chars]
             td   [63 chars]
               "False-call rate computed on verified calls, not on raised calls"
             td .num   [2 chars]
-              "15"
+              "10"
           tr   [44 chars]
             td   [42 chars]
               "Board-level escape rate computed on boards"
@@ -821,6 +869,11 @@ main #main   [12422 chars]
               "Hidden-joint gap named as a coverage problem, not a threshold problem"
             td .num   [1 chars]
               "5"
+          tr   [73 chars]
+            td   [71 chars]
+              "8D action placed on the process, with a sample that measures the escape"
+            td .num   [2 chars]
+              "10"
       p .muted.flush   [116 chars]
         "Criteria are scored in proportion to the steps they name. A criterion spanning two steps pays half per correct…"
   section .sources   [1529 chars]

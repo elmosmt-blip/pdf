@@ -145,9 +145,9 @@ Protocol: `docs/pilot-protocol.md`.
 
 ---
 
-## cx-m07-01 — AOI audit: a 91 % true-call rate that still let 18 defects through
+## cx-m07-01 — AOI audit: a 70 % true-call rate that still let 18 defects through
 
-`#/c/cx-m07-01` · module m07 · 9 steps · 100 rubric points · about 30 min
+`#/c/cx-m07-01` · module m07 · 10 steps · 100 rubric points · about 30 min
 
 | # | Step | Type | Expected | Tolerance | Watch for |
 |---|---|---|---|---|---|
@@ -155,21 +155,23 @@ Protocol: `docs/pilot-protocol.md`.
 | 2 | What is the false-call rate among verified calls, in percent? One decimal. | numeric | 30 % | ±0.2 | False calls over verified calls; the raised calls belong in coverage, not here. |
 | 3 | What is the escape rate at board level, in percent? Give two decimals. | numeric | 0.15 % | ±0.02 | Defects found later, over boards inspected: not over the calls. |
 | 4 | Quality wants the escape rate against the defects AOI actually caught. Using verified true calls and escapes, what is that rate, in percent? One decimal. | numeric | 7.8947 % | ±0.2 | True calls are the verified calls minus the false calls; add the escapes to them. |
-| 5 | The line says: ninety percent of the calls were real, so the program is good. What is the correct reading? | choice | option b — “The program still has a 30 % false-call rate that costs review capacity and a 7.9 % escape rate on judged defects; the true-call rate alone proves neither capacity nor coverage.” | — | Which two costs does the true-call rate leave out? |
+| 5 | Using the audit rows, 210 of the 300 verified calls were real defects and 90 were not. What is the correct reading of that result? | choice | option b — “The program still has a 30 % false-call rate that costs review capacity and a 7.9 % escape rate on judged defects; the true-call rate alone proves neither capacity nor coverage.” | — | Which two costs does the true-call rate leave out? |
 | 6 | Ball A1 measures 0.45 mm and carries two voids, 0.28 mm and 0.14 mm. What is the cumulative void area as a percentage of the ball area? One decimal. | numeric | 48.3951 % | ±0.2 | Sum the void areas, not the diameters, and divide by the full ball area. |
 | 7 | Against the 25 % per-ball criterion, what is the disposition of ball A1? | choice | option b — “Reject the ball: the cumulative void area is far above 25 % of the ball area, and the criterion counts cumulative area per ball, not the largest void.” | — | Which of the four numbers in the sentence is the criterion written against? |
 | 8 | Ball A2 carries one 0.10 mm void in a 0.45 mm ball. What is its void percentage? One decimal. | numeric | 4.9383 % | ±0.1 | Square the diameter ratio; the pi cancels. |
 | 9 | What does the X-ray finding change about the AOI program? | choice | option b — “It confirms the escape question: AOI cannot see under the package, so the hidden-joint sample has to be defined in the program rather than assumed to be covered by the AOI call rate.” | — | Which defect classes in this case could AOI never have called? |
+| 10 | The failing ball is on the same Board X assembly that already carries the 8D from the AOI case. What belongs in that 8D, on this evidence? | choice | option b — “A containment of the affected boards plus a process action on the reflow and paste side, with the X-ray sample defined so the escape is measured rather than assumed.” | — | Which of these actions could actually change the void percentage? |
 
 **Rubric** (pass mark 80 %):
-- Coverage computed on calls, with its consequence stated — 15 pts (s1)
-- False-call rate computed on verified calls, not on raised calls — 15 pts (s2)
+- Coverage computed on calls, with its consequence stated — 10 pts (s1)
+- False-call rate computed on verified calls, not on raised calls — 10 pts (s2)
 - Board-level escape rate computed on boards — 10 pts (s3)
 - Escape rate against judged defects computed on a matching denominator — 15 pts (s4)
 - Program judged on false calls, escapes and coverage together — 15 pts (s5)
 - Cumulative void area computed per ball, not from the largest void — 15 pts (s6, s8)
 - Ball rejected on the per-ball criterion, not averaged over the array — 10 pts (s7)
 - Hidden-joint gap named as a coverage problem, not a threshold problem — 5 pts (s9)
+- 8D action placed on the process, with a sample that measures the escape — 10 pts (s10)
 
 ---
 
@@ -182,10 +184,10 @@ Protocol: `docs/pilot-protocol.md`.
 | 1 | B-07 ran at a 345 °C setpoint. Against the course's hand-soldering band of 330-360 °C, how does that setpoint read? | choice | option b — “Inside the band, near its middle: the setpoint is defensible, so the cause of the short fill is elsewhere in the budget.” | — | Compare the setpoint with the band the lesson gives, not with a number from memory. |
 | 2 | B-07 was heated for dwells of 2.6, 0.4 and 0.2 s. What is the total iron time on the board, in seconds? One decimal. | numeric | 3.2 s | ±0.1 | Add every dwell in the row, including the ones that produced nothing. |
 | 3 | The iron delivers about 45 W during contact. How much energy went into the board on B-07, in joules? | numeric | 144 J | ±2.0 | Multiply the total seconds by the power; J = W x s. |
-| 4 | The nicked trace was 0.30 mm and measures 0.24 mm. What is the width reduction, in percent? | numeric | 20 % | ±0.2 | The loss over the original width; a 20 % reduction is 0.06 mm on a 0.30 mm trace. |
-| 5 | What is the narrowest the trace may become and still meet the Class 2 limit, in mm? | numeric | 0.24 mm | ±0.005 | Subtract the allowed loss from the drawing width, or multiply by (1 - 20 %). |
-| 6 | The same repair on a Class 3 board would be judged against 10 %. What is the narrowest acceptable width there, in mm? | numeric | 0.27 mm | ±0.005 | Multiply the drawing width by (1 - 10 %). |
-| 7 | What is the disposition of the trace on B-07, a Class 2 board? | choice | option a — “Accept: 20 % is at the limit, not over it, and the record shows the measurement.” | — | Is the measured value over the limit for the class this board actually is? |
+| 4 | The drawing sets a minimum conductor width of 0.280 mm. The nicked trace measures 0.248 mm. What is the width reduction against that minimum, in percent? One decimal. | numeric | 11.4286 % | ±0.2 | The loss over the minimum width: 0.032 mm on a 0.280 mm trace. |
+| 5 | What is the narrowest that trace may become and still meet the Class 2 limit, in mm? | numeric | 0.224 mm | ±0.005 | Subtract the allowed loss from the minimum width, or multiply by (1 - 20 %). |
+| 6 | The same repair on a Class 3 board would be judged against 10 %. What is the narrowest acceptable width there, in mm? | numeric | 0.252 mm | ±0.005 | Multiply the minimum width by (1 - 10 %). |
+| 7 | What is the disposition of the trace on B-07, a Class 2 board? | choice | option a — “Accept: 20 % is at the limit, not over it, and the record shows the measurement.” | — | Is the measured reduction over the limit for the class this board actually is? |
 | 8 | B-08 shows dry_flag 1 on its first contact and two contacts in total. What does that row say about the process, rather than about the operator? | choice | option b — “The joint needed more heat than one contact could deliver, so the preheat, tip size or board support is loading the joint beyond the budget — the same thermal question the wave case raised.” | — | What is the difference between 'this joint is hard to heat' and 'the iron is too cold'? |
 | 9 | What has to be in the rework record for the next engineer to reproduce this result? | choice | option b — “Required class, setpoint, tip, preheat, dwells and number of contacts, measured trace width with the limit it was judged against, and the inspection result.” | — | Which of these could another engineer use to reach the same decision without asking you? |
 

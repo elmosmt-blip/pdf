@@ -1247,7 +1247,7 @@
             "pi * (0.5^2 - 0.3^2) * 1.6.",
             "pi * 0.16 * 1.6 = 0.80 mm3."
           ],
-          "feedbackCorrect": "0.80 mm3, and only about two thirds of it is asked for.",
+          "feedbackCorrect": "0.80 mm3 of annulus; the 75 % minimum asks for 0.60 mm3 of solder in it.",
           "feedbackWrong": "Subtract the lead cross-section from the hole cross-section before multiplying by thickness.",
           "explanation": "The hole holds pi * 0.5^2 * 1.6 = 1.26 mm3 and the lead takes pi * 0.3^2 * 1.6 = 0.45 mm3, leaving 0.80 mm3 of annulus. At the 75 % acceptance minimum the joint has to show 0.60 mm3 of solder to be acceptable at all."
         },
@@ -1929,12 +1929,12 @@
     {
       "caseId": "cx-m07-01",
       "moduleId": "m07",
-      "title": "AOI audit: a 91 % true-call rate that still let 18 defects through",
+      "title": "AOI audit: a 70 % true-call rate that still let 18 defects through",
       "estMinutes": 30,
       "level": "advanced",
       "scenario": [
         "Board X ran twelve thousand boards through AOI. The audit log for four windows is in aoi-audit.csv: boards inspected, calls raised, calls verified, true defects, false calls and the defects found later by test, X-ray and visual audit.",
-        "The line reads the numbers optimistically: ninety percent of the calls were real, so the program is good. Quality has the opposite worry: eighteen defects left the line after AOI, and one of the X-ray follow-ups on a BGA ball looks bad.",
+        "The line reads the numbers optimistically: most of the calls were real, so the program is good. Quality has the opposite worry: eighteen defects left the line after AOI, and one of the X-ray follow-ups on a BGA ball looks bad.",
         "Compute the three rates that matter, say what they do and do not prove, and judge the ball in xray-bga.csv against the applicable limit."
       ],
       "dataFiles": [
@@ -1947,8 +1947,8 @@
         {
           "name": "xray-bga.csv",
           "kind": "csv",
-          "note": "Measured diameters from the X-ray image, one row per ball. A ball may carry more than one void; the criterion counts the cumulative area, not the largest void.",
-          "content": "ball,ball_d_mm,void1_d_mm,void2_d_mm,location\nA1,0.45,0.28,0.14,edge\nA2,0.45,0.10,,centre\nA3,0.45,0.12,0.06,centre\nA4,0.45,0.20,0.12,edge\n"
+          "note": "Measured diameters from the X-ray image, one row per ball, as projected areas on the image. A ball may carry more than one void: the criterion counts their cumulative area, not the largest one. Diameters are read as equivalent-circle diameters.",
+          "content": "ball,ball_d_mm,void1_d_mm,void2_d_mm,location\nA1,0.45,0.28,0.14,edge\nA2,0.45,0.10,,centre\nA3,0.45,0.12,0.06,centre\nA4,0.45,0.32,,edge\n"
         }
       ],
       "steps": [
@@ -2027,11 +2027,11 @@
         {
           "id": "s5",
           "type": "choice",
-          "prompt": "The line says: ninety percent of the calls were real, so the program is good. What is the correct reading?",
+          "prompt": "Using the audit rows, 210 of the 300 verified calls were real defects and 90 were not. What is the correct reading of that result?",
           "options": [
             {
               "id": "a",
-              "text": "Accept the program: a 91 % true-call rate is a good result on its own."
+              "text": "Accept the program: a 70 % true-call rate is a good result on its own."
             },
             {
               "id": "b",
@@ -2054,9 +2054,9 @@
             "False calls consume operator attention, and attention is what makes a 30 % rate dangerous.",
             "Judge the program on false calls, escapes and coverage together, not on the flattering ratio."
           ],
-          "feedbackCorrect": "Both costs are real: 30 % false calls burn reviewer attention, and 7.9 % of judged defects escaped.",
+          "feedbackCorrect": "Only 70 % of verified calls were real defects, 90 false calls burn reviewer attention, and 7.9 % of judged defects escaped.",
           "feedbackWrong": "Which two costs does the true-call rate leave out?",
-          "explanation": "A 91 % true-call rate is arithmetic, not a verdict. The same week produced 90 false calls that had to be reviewed by hand and 18 defects that left the line. False calls are not free: they train operators to clear calls quickly, which is exactly how the next escape happens. Tightening every threshold to chase zero escapes moves the cost to review capacity and, at some point, to people dismissing calls without looking. The program is judged on all three rates and on what the customer needs."
+          "explanation": "A 70 % true-call rate is arithmetic, not a verdict. The same week produced 90 false calls that had to be reviewed by hand and 18 defects that left the line. False calls are not free: they train operators to clear calls quickly, which is exactly how the next escape happens. Tightening every threshold to chase zero escapes moves the cost to review capacity and, at some point, to people dismissing calls without looking. The program is judged on all three rates and on what the customer needs."
         },
         {
           "id": "s6",
@@ -2124,7 +2124,7 @@
             "(0.10 / 0.45)^2 x 100.",
             "4.9 %."
           ],
-          "feedbackCorrect": "4.9 %: a void this size is a process indicator, not a defect.",
+          "feedbackCorrect": "4.9 %: a void this size is inside the limit, not a defect.",
           "feedbackWrong": "Square the diameter ratio; the pi cancels.",
           "explanation": "(0.10 / 0.45)^2 = 0.0494, so 4.9 %. Small central voids are common and the criterion is not a zero-void rule: chasing a void-free joint costs rework and heat cycles and buys nothing the standard asks for. The judgement is A1 fails and A2 passes, on the same board, which is what per-ball criteria are for."
         },
@@ -2161,19 +2161,53 @@
           "feedbackCorrect": "It defines a gap in coverage: hidden joints need their own sample, not a tighter AOI threshold.",
           "feedbackWrong": "Which defect classes in this case could AOI never have called?",
           "explanation": "AOI sees what the camera sees, and a BGA ball is under the package. The 18 escapes and the failed ball are the same lesson from two directions: the program's coverage claim has to be written per defect class, with X-ray or another method named for the hidden ones. Tightening AOI thresholds cannot find a void under an opaque package, and X-raying every board is a cost decision, not a threshold decision."
+        },
+        {
+          "id": "s10",
+          "type": "choice",
+          "prompt": "The failing ball is on the same Board X assembly that already carries the 8D from the AOI case. What belongs in that 8D, on this evidence?",
+          "options": [
+            {
+              "id": "a",
+              "text": "An action to tighten the AOI void threshold, since AOI is the inspection step."
+            },
+            {
+              "id": "b",
+              "text": "A containment of the affected boards plus a process action on the reflow and paste side, with the X-ray sample defined so the escape is measured rather than assumed."
+            },
+            {
+              "id": "c",
+              "text": "A note that voids are normal and no action is needed."
+            },
+            {
+              "id": "d",
+              "text": "An action to reject the whole lot on one ball."
+            }
+          ],
+          "answer": {
+            "value": "b"
+          },
+          "hints": [
+            "An AOI threshold cannot see a void under the package, so it cannot be the action.",
+            "The 8D needs containment, a cause on the process, and a measurement that will show whether the action worked.",
+            "Contain, act on the process, define the X-ray sample that measures the escape."
+          ],
+          "feedbackCorrect": "Containment, a process action on reflow and paste, and an X-ray sample that measures the escape.",
+          "feedbackWrong": "Which of these actions could actually change the void percentage?",
+          "explanation": "A void forms inside the joint during reflow: paste chemistry, profile and the escape path for volatiles decide its size, so the process action lives on that side. AOI cannot see it at all, so a tighter AOI threshold changes nothing. Containment holds the boards already built, and the X-ray sample is what turns 'we re-inspected' into a number the 8D can be closed against — the same rule m14 applies when it refuses to close an 8D on an improvement instead of the agreed metric."
         }
       ],
       "rubric": [
         {
           "criterion": "Coverage computed on calls, with its consequence stated",
-          "points": 15,
+          "points": 10,
           "steps": [
             "s1"
           ]
         },
         {
           "criterion": "False-call rate computed on verified calls, not on raised calls",
-          "points": 15,
+          "points": 10,
           "steps": [
             "s2"
           ]
@@ -2220,6 +2254,13 @@
           "steps": [
             "s9"
           ]
+        },
+        {
+          "criterion": "8D action placed on the process, with a sample that measures the escape",
+          "points": 10,
+          "steps": [
+            "s10"
+          ]
         }
       ],
       "templates": [
@@ -2249,7 +2290,7 @@
               "file": "aoi-audit-guide.md",
               "mime": "text/markdown",
               "label": "Guide",
-              "content": "# AOI and X-ray audit log\n\n## What this template is for\nRecord calls, verified calls, true defects, false calls and escapes for one window, so the three rates are computed from one consistent denominator.\n\n## How to fill it in\n1. Copy one row per audit window. Do not merge rows: one aperture, one reel, one interval or one 8D discipline per line.\n2. Keep the column order. The columns below are the ones the course's own worked examples use.\n3. Leave a cell blank rather than writing a guess. A blank cell is a question for the engineer; a guessed number is a defect in the record.\n\n## Columns\n- `window`\n- `boards`\n- `calls`\n- `verified_calls`\n- `true_calls`\n- `false_calls`\n- `escapes`\n\n## Worked example\nThe example variant of this file is the data file from case cx-m07-01 (AOI audit: a 91 % true-call rate that still let 18 defects through), filled in with Board X numbers.\n\n## Where the numbers come from\nEvery value in the example is produced by scripts/gen_cases.py and checked by scripts/check-cases.js. If you change a number in the example, the checker fails: that is deliberate.\n\n## Course link\nSee lesson m07l03 for the reasoning behind each column.\n"
+              "content": "# AOI and X-ray audit log\n\n## What this template is for\nRecord calls, verified calls, true defects, false calls and escapes for one window, so the three rates are computed from one consistent denominator.\n\n## How to fill it in\n1. Copy one row per audit window. Do not merge rows: one aperture, one reel, one interval or one 8D discipline per line.\n2. Keep the column order. The columns below are the ones the course's own worked examples use.\n3. Leave a cell blank rather than writing a guess. A blank cell is a question for the engineer; a guessed number is a defect in the record.\n\n## Columns\n- `window`\n- `boards`\n- `calls`\n- `verified_calls`\n- `true_calls`\n- `false_calls`\n- `escapes`\n\n## Worked example\nThe example variant of this file is the data file from case cx-m07-01 (AOI audit: a 70 % true-call rate that still let 18 defects through), filled in with Board X numbers.\n\n## Where the numbers come from\nEvery value in the example is produced by scripts/gen_cases.py and checked by scripts/check-cases.js. If you change a number in the example, the checker fails: that is deliberate.\n\n## Course link\nSee lesson m07l03 for the reasoning behind each column.\n"
             }
           ]
         },
@@ -2272,14 +2313,14 @@
               "file": "xray-void-example.csv",
               "mime": "text/csv",
               "label": "Example",
-              "content": "ball,ball_d_mm,void1_d_mm,void2_d_mm,location\nA1,0.45,0.28,0.14,edge\nA2,0.45,0.10,,centre\nA3,0.45,0.12,0.06,centre\nA4,0.45,0.20,0.12,edge\n"
+              "content": "ball,ball_d_mm,void1_d_mm,void2_d_mm,location\nA1,0.45,0.28,0.14,edge\nA2,0.45,0.10,,centre\nA3,0.45,0.12,0.06,centre\nA4,0.45,0.32,,edge\n"
             },
             {
               "variant": "guide",
               "file": "xray-void-guide.md",
               "mime": "text/markdown",
               "label": "Guide",
-              "content": "# X-ray void record\n\n## What this template is for\nRecord measured ball and void diameters per ball so the void percentage is a calculation, not an impression from a greyscale image.\n\n## How to fill it in\n1. Copy one row per ball. Do not merge rows: one aperture, one reel, one interval or one 8D discipline per line.\n2. Keep the column order. The columns below are the ones the course's own worked examples use.\n3. Leave a cell blank rather than writing a guess. A blank cell is a question for the engineer; a guessed number is a defect in the record.\n\n## Columns\n- `ball`\n- `ball_d_mm`\n- `void1_d_mm`\n- `void2_d_mm`\n- `location`\n\n## Worked example\nThe example variant of this file is the data file from case cx-m07-01 (AOI audit: a 91 % true-call rate that still let 18 defects through), filled in with Board X numbers.\n\n## Where the numbers come from\nEvery value in the example is produced by scripts/gen_cases.py and checked by scripts/check-cases.js. If you change a number in the example, the checker fails: that is deliberate.\n\n## Course link\nSee lesson m07l04 for the reasoning behind each column.\n"
+              "content": "# X-ray void record\n\n## What this template is for\nRecord measured ball and void diameters per ball so the void percentage is a calculation, not an impression from a greyscale image.\n\n## How to fill it in\n1. Copy one row per ball. Do not merge rows: one aperture, one reel, one interval or one 8D discipline per line.\n2. Keep the column order. The columns below are the ones the course's own worked examples use.\n3. Leave a cell blank rather than writing a guess. A blank cell is a question for the engineer; a guessed number is a defect in the record.\n\n## Columns\n- `ball`\n- `ball_d_mm`\n- `void1_d_mm`\n- `void2_d_mm`\n- `location`\n\n## Worked example\nThe example variant of this file is the data file from case cx-m07-01 (AOI audit: a 70 % true-call rate that still let 18 defects through), filled in with Board X numbers.\n\n## Where the numbers come from\nEvery value in the example is produced by scripts/gen_cases.py and checked by scripts/check-cases.js. If you change a number in the example, the checker fails: that is deliberate.\n\n## Course link\nSee lesson m07l04 for the reasoning behind each column.\n"
             }
           ]
         }
@@ -2332,7 +2373,7 @@
       "level": "advanced",
       "scenario": [
         "The short-filled J-01 from the wave case is reworked by hand on a Class 2 Board X assembly. The record in rework-record.csv carries the setpoint, the preheat, the dwell of each contact and what the operator measured afterwards: one trace nicked while the connector came off, and one joint that needed three contacts.",
-        "Two decisions are waiting. The first is the trace: it was 0.30 mm on the drawing and measures 0.24 mm after the nick. The second is the thermal budget: whether four and a half minutes of iron time on one joint is a record or a warning.",
+        "Two decisions are waiting. The first is the trace: the drawing sets a minimum width of 0.280 mm, and the trace measures 0.248 mm after the nick. The second is the thermal budget: three contacts on one joint, and a row where the first contact produced no solder flow at all.",
         "Judge the repair against the class, then say what the record has to contain so the next engineer can reproduce the result."
       ],
       "dataFiles": [
@@ -2340,7 +2381,7 @@
           "name": "rework-record.csv",
           "kind": "csv",
           "note": "One row per assembly. There is one dwell column per contact, so the total iron time is a sum over the row; dry_flag marks a contact that produced no solder flow.",
-          "content": "assembly,operation,tip,setpoint_c,preheat_c,contacts,dwell1_s,dwell2_s,dwell3_s,trace_nick_mm,dry_flag\nB-07,J-01 rework,chisel 1.2 mm,345,95,3,2.6,0.4,0.2,0.24,0\nB-08,J-01 rework,chisel 1.2 mm,345,95,2,2.2,0.1,0.30,1\nB-09,J-01 rework,chisel 1.2 mm,345,95,1,2.4,0.30,0\n"
+          "content": "assembly,operation,tip,setpoint_c,preheat_c,contacts,dwell1_s,dwell2_s,dwell3_s,trace_drawn_mm,trace_min_mm,trace_after_mm,dry_flag\nB-07,J-01 rework,chisel 1.2 mm,345,95,3,2.6,0.4,0.2,0.300,0.280,0.248,0\nB-08,J-01 rework,chisel 1.2 mm,345,95,2,2.2,0.1,0.0,0.300,0.280,0.280,1\nB-09,J-01 rework,chisel 1.2 mm,345,95,1,2.4,0.0,0.0,0.300,0.280,0.280,0\n"
         }
       ],
       "steps": [
@@ -2417,56 +2458,56 @@
         {
           "id": "s4",
           "type": "numeric",
-          "prompt": "The nicked trace was 0.30 mm and measures 0.24 mm. What is the width reduction, in percent?",
+          "prompt": "The drawing sets a minimum conductor width of 0.280 mm. The nicked trace measures 0.248 mm. What is the width reduction against that minimum, in percent? One decimal.",
           "answer": {
-            "value": 20.0,
+            "value": 11.4286,
             "tolerance": 0.2,
             "unit": "%"
           },
           "hints": [
-            "Reduction is measured against the drawing width, not against the repaired one.",
-            "(0.30 - 0.24) / 0.30.",
-            "20.0 %."
+            "The limit is written against the minimum width on the drawing, not the as-drawn width.",
+            "(0.280 - 0.248) / 0.280.",
+            "11.4 %."
           ],
-          "feedbackCorrect": "20.0 %: exactly at the Class 2 limit.",
-          "feedbackWrong": "The loss over the original width; a 20 % reduction is 0.06 mm on a 0.30 mm trace.",
-          "explanation": "0.06 / 0.30 = 20.0 %. On a Class 2 board that is the boundary value: acceptable at the limit, and not a millimetre to spare. On a Class 3 board the same repair would be a defect twice over, because the limit there is 10 %."
+          "feedbackCorrect": "11.4 %: inside Class 2, outside Class 3.",
+          "feedbackWrong": "The loss over the minimum width: 0.032 mm on a 0.280 mm trace.",
+          "explanation": "0.032 / 0.280 = 11.4 %. The denominator matters more than the numerator. The same 0.248 mm trace passes a Class 2 limit of 20 % and fails a Class 3 limit of 10 %, because IPC-A-600 caps the reduction of the minimum conductor width the drawing already fixes. Dividing by the as-drawn 0.300 mm would give a flattering 17.3 % and still pass Class 2, which is exactly why the standard names the minimum and not the nominal."
         },
         {
           "id": "s5",
           "type": "numeric",
-          "prompt": "What is the narrowest the trace may become and still meet the Class 2 limit, in mm?",
+          "prompt": "What is the narrowest that trace may become and still meet the Class 2 limit, in mm?",
           "answer": {
-            "value": 0.24,
+            "value": 0.224,
             "tolerance": 0.005,
             "unit": "mm"
           },
           "hints": [
-            "Turn the percentage into a width: the limit is 20 % of 0.30 mm.",
-            "0.30 x 0.80.",
-            "0.24 mm."
+            "Turn the percentage into a width: the limit is 20 % of the 0.280 mm minimum.",
+            "0.280 x 0.80.",
+            "0.224 mm."
           ],
-          "feedbackCorrect": "0.24 mm is exactly the floor for Class 2.",
-          "feedbackWrong": "Subtract the allowed loss from the drawing width, or multiply by (1 - 20 %).",
-          "explanation": "0.30 mm less 20 % is 0.24 mm, which is what the board measures. The repair passes on the number alone and sits on the edge of it: any further erosion during cleaning or another pass puts it inside the nonconforming band, which is why the measurement has to be in the record and not in someone's memory."
+          "feedbackCorrect": "0.224 mm is the floor for Class 2 on this drawing.",
+          "feedbackWrong": "Subtract the allowed loss from the minimum width, or multiply by (1 - 20 %).",
+          "explanation": "0.280 mm less 20 % is 0.224 mm. The board measures 0.248 mm, so it passes with 0.024 mm to spare, a real margin rather than a rounding one. That margin is what the record protects: a repair judged by eye as slightly thinner has no way of saying whether it sits 0.024 mm inside the limit or 0.024 mm outside it."
         },
         {
           "id": "s6",
           "type": "numeric",
           "prompt": "The same repair on a Class 3 board would be judged against 10 %. What is the narrowest acceptable width there, in mm?",
           "answer": {
-            "value": 0.27,
+            "value": 0.252,
             "tolerance": 0.005,
             "unit": "mm"
           },
           "hints": [
-            "Class 3 allows a tenth of the width, not a fifth.",
-            "0.30 x 0.90.",
-            "0.27 mm."
+            "Class 3 allows a tenth of the minimum width, not a fifth.",
+            "0.280 x 0.90.",
+            "0.252 mm."
           ],
-          "feedbackCorrect": "0.27 mm on Class 3: the same board would fail there.",
-          "feedbackWrong": "Multiply the drawing width by (1 - 10 %).",
-          "explanation": "0.30 x 0.90 = 0.27 mm. At 0.24 mm the trace is 0.03 mm below the Class 3 floor, so the identical physical repair is acceptable on Class 2 and a defect on Class 3. That is the point of recording the required class before the repair: the class is set by the product, not by the operator's judgement of how bad the nick looks."
+          "feedbackCorrect": "0.252 mm on Class 3: the same 0.248 mm trace would fail there.",
+          "feedbackWrong": "Multiply the minimum width by (1 - 10 %).",
+          "explanation": "0.280 x 0.90 = 0.252 mm. At 0.248 mm the trace is 0.004 mm under the Class 3 floor, so the identical physical repair passes Class 2 and fails Class 3 by four microns. That is why the class has to be on the record before the repair: it is set by the product, not by how bad the nick looks, and at this margin nothing but the number separates the two answers."
         },
         {
           "id": "s7",
@@ -2494,13 +2535,13 @@
             "value": "a"
           },
           "hints": [
-            "The limit is a maximum reduction, so a value equal to it is inside.",
-            "Class 2 allows 20 %; the board measured 20.0 %.",
-            "Accept, and record the measurement and the class it was judged against."
+            "The limit is a maximum reduction, so anything under it passes.",
+            "Class 2 allows 20 %; the board measured 11.4 %.",
+            "Accept, and record the measurement, the denominator and the class it was judged against."
           ],
-          "feedbackCorrect": "Accept at the limit, with the measurement and the class written down.",
-          "feedbackWrong": "Is the measured value over the limit for the class this board actually is?",
-          "explanation": "20.0 % is the Class 2 limit itself, so the trace is acceptable — but only because the class says 20 %. Recording it is what makes the acceptance defensible: a year later the board either has a line that says '0.24 mm, Class 2, limit 20 %' or it has nothing, and 'it still works' is not a record. Class 3 would have made the same measurement a defect, and no class makes it unnecessary to write the number down."
+          "feedbackCorrect": "Accept: 11.4 % is inside the 20 % limit, and both numbers go in the record.",
+          "feedbackWrong": "Is the measured reduction over the limit for the class this board actually is?",
+          "explanation": "11.4 % against a 20 % limit passes with margin. Recording it is what makes the acceptance durable: a year later the board either has a line that says '0.248 mm against a 0.280 mm minimum, 11.4 %, Class 2 limit 20 %' or it has nothing, and 'it still works' is not a record. Class 3 would have made the same measurement a defect at 0.252 mm, so the class is part of the finding and not a detail of the paperwork."
         },
         {
           "id": "s8",
@@ -2568,7 +2609,7 @@
           ],
           "feedbackCorrect": "Class, settings, measurements, the limit each was judged against, and the result.",
           "feedbackWrong": "Which of these could another engineer use to reach the same decision without asking you?",
-          "explanation": "A record that says 'passed' cannot be re-judged when the product class changes or the standard moves from Rev C to Rev D, and that is exactly what happened to this course's own source. Class, setpoint, tip, preheat, dwells, contact count, the measured width with its limit, and the inspection result make the decision reproducible. A photo is useful evidence and not a substitute for the numbers."
+          "explanation": "A record that says 'passed' cannot be re-judged when the product class changes or the standard moves from Rev C to Rev D, and that is exactly what happened to this course's own source. Class, setpoint, tip, preheat, dwells, contact count, the measured width against the minimum it was compared with, and the inspection result make the decision reproducible. A photo is useful evidence and not a substitute for the numbers."
         }
       ],
       "rubric": [
@@ -2649,21 +2690,21 @@
               "file": "rework-record-blank.csv",
               "mime": "text/csv",
               "label": "Blank",
-              "content": "assembly,operation,tip,setpoint_c,preheat_c,contacts,dwell1_s,dwell2_s,dwell3_s,trace_nick_mm,dry_flag\r\n,,,,,,,,,,\r\n,,,,,,,,,,\r\n,,,,,,,,,,\r\n"
+              "content": "assembly,operation,tip,setpoint_c,preheat_c,contacts,dwell1_s,dwell2_s,dwell3_s,trace_drawn_mm,trace_min_mm,trace_after_mm,dry_flag\r\n,,,,,,,,,,,,\r\n,,,,,,,,,,,,\r\n,,,,,,,,,,,,\r\n"
             },
             {
               "variant": "example",
               "file": "rework-record-example.csv",
               "mime": "text/csv",
               "label": "Example",
-              "content": "assembly,operation,tip,setpoint_c,preheat_c,contacts,dwell1_s,dwell2_s,dwell3_s,trace_nick_mm,dry_flag\nB-07,J-01 rework,chisel 1.2 mm,345,95,3,2.6,0.4,0.2,0.24,0\nB-08,J-01 rework,chisel 1.2 mm,345,95,2,2.2,0.1,0.30,1\nB-09,J-01 rework,chisel 1.2 mm,345,95,1,2.4,0.30,0\n"
+              "content": "assembly,operation,tip,setpoint_c,preheat_c,contacts,dwell1_s,dwell2_s,dwell3_s,trace_drawn_mm,trace_min_mm,trace_after_mm,dry_flag\nB-07,J-01 rework,chisel 1.2 mm,345,95,3,2.6,0.4,0.2,0.300,0.280,0.248,0\nB-08,J-01 rework,chisel 1.2 mm,345,95,2,2.2,0.1,0.0,0.300,0.280,0.280,1\nB-09,J-01 rework,chisel 1.2 mm,345,95,1,2.4,0.0,0.0,0.300,0.280,0.280,0\n"
             },
             {
               "variant": "guide",
               "file": "rework-record-guide.md",
               "mime": "text/markdown",
               "label": "Guide",
-              "content": "# Rework and repair record\n\n## What this template is for\nLog setpoint, tip, preheat, dwell, number of contacts and the measured result against the class limit, so a repair can be defended a year later.\n\n## How to fill it in\n1. Copy one row per rework operation. Do not merge rows: one aperture, one reel, one interval or one 8D discipline per line.\n2. Keep the column order. The columns below are the ones the course's own worked examples use.\n3. Leave a cell blank rather than writing a guess. A blank cell is a question for the engineer; a guessed number is a defect in the record.\n\n## Columns\n- `assembly`\n- `operation`\n- `tip`\n- `setpoint_c`\n- `preheat_c`\n- `contacts`\n- `dwell1_s`\n- `dwell2_s`\n- `dwell3_s`\n- `trace_nick_mm`\n- `dry_flag`\n\n## Worked example\nThe example variant of this file is the data file from case cx-m11-01 (Rework record: a connector joint, a nicked trace and a hand-held iron), filled in with Board X numbers.\n\n## Where the numbers come from\nEvery value in the example is produced by scripts/gen_cases.py and checked by scripts/check-cases.js. If you change a number in the example, the checker fails: that is deliberate.\n\n## Course link\nSee lesson m11l05 for the reasoning behind each column.\n"
+              "content": "# Rework and repair record\n\n## What this template is for\nLog setpoint, tip, preheat, dwell, number of contacts and the measured result against the class limit, so a repair can be defended a year later.\n\n## How to fill it in\n1. Copy one row per rework operation. Do not merge rows: one aperture, one reel, one interval or one 8D discipline per line.\n2. Keep the column order. The columns below are the ones the course's own worked examples use.\n3. Leave a cell blank rather than writing a guess. A blank cell is a question for the engineer; a guessed number is a defect in the record.\n\n## Columns\n- `assembly`\n- `operation`\n- `tip`\n- `setpoint_c`\n- `preheat_c`\n- `contacts`\n- `dwell1_s`\n- `dwell2_s`\n- `dwell3_s`\n- `trace_drawn_mm`\n- `trace_min_mm`\n- `trace_after_mm`\n- `dry_flag`\n\n## Worked example\nThe example variant of this file is the data file from case cx-m11-01 (Rework record: a connector joint, a nicked trace and a hand-held iron), filled in with Board X numbers.\n\n## Where the numbers come from\nEvery value in the example is produced by scripts/gen_cases.py and checked by scripts/check-cases.js. If you change a number in the example, the checker fails: that is deliberate.\n\n## Course link\nSee lesson m11l05 for the reasoning behind each column.\n"
             }
           ]
         }

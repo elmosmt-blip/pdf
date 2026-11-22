@@ -1371,7 +1371,7 @@ def build_cases():
         ["The annulus is the hole cylinder minus the lead cylinder.",
          "pi * (0.5^2 - 0.3^2) * 1.6.",
          "pi * 0.16 * 1.6 = 0.80 mm3."],
-        "0.80 mm3, and only about two thirds of it is asked for.",
+        "0.80 mm3 of annulus; the 75 % minimum asks for 0.60 mm3 of solder in it.",
         "Subtract the lead cross-section from the hole cross-section before multiplying by "
         "thickness.",
         "The hole holds pi * 0.5^2 * 1.6 = 1.26 mm3 and the lead takes pi * 0.3^2 * 1.6 = "
@@ -1392,6 +1392,10 @@ def build_cases():
         "minimum vertical barrel fill at 75 % for Class 2 and Class 3 alike; 68.75 % is a "
         "defect, not a cosmetic shortfall."))
 
+    # s8 is the millimetre shortfall and is asked before the disposition (s6/s7): a
+    # step added after them would sit below in the page order, and the numbering
+    # would no longer follow the reading order. The ids are kept as first published
+    # so a key CSV and a pilot sheet already in circulation stay valid.
     add_step(c, step_numeric(
         "s8",
         "The minimum is 75 % of the 1.60 mm board. How many millimetres of fill is J-01 "
@@ -1819,16 +1823,16 @@ def build_cases():
     c = {
         "caseId": "cx-m07-01",
         "moduleId": "m07",
-        "title": "AOI audit: a 91 % true-call rate that still let 18 defects through",
+        "title": "AOI audit: a 70 % true-call rate that still let 18 defects through",
         "estMinutes": 30,
         "level": "advanced",
         "scenario": [
             "Board X ran twelve thousand boards through AOI. The audit log for four windows is "
             "in aoi-audit.csv: boards inspected, calls raised, calls verified, true defects, "
             "false calls and the defects found later by test, X-ray and visual audit.",
-            "The line reads the numbers optimistically: ninety percent of the calls were real, "
-            "so the program is good. Quality has the opposite worry: eighteen defects left the "
-            "line after AOI, and one of the X-ray follow-ups on a BGA ball looks bad.",
+            "The line reads the numbers optimistically: most of the calls were real, so the "
+            "program is good. Quality has the opposite worry: eighteen defects left the line "
+            "after AOI, and one of the X-ray follow-ups on a BGA ball looks bad.",
             "Compute the three rates that matter, say what they do and do not prove, and judge "
             "the ball in xray-bga.csv against the applicable limit.",
         ],
@@ -1847,15 +1851,16 @@ def build_cases():
             {
                 "name": "xray-bga.csv",
                 "kind": "csv",
-                "note": "Measured diameters from the X-ray image, one row per ball. A ball may "
-                        "carry more than one void; the criterion counts the cumulative area, "
-                        "not the largest void.",
+                "note": "Measured diameters from the X-ray image, one row per ball, as projected "
+                        "areas on the image. A ball may carry more than one void: the criterion "
+                        "counts their cumulative area, not the largest one. Diameters are "
+                        "read as equivalent-circle diameters.",
                 "content": (
                     "ball,ball_d_mm,void1_d_mm,void2_d_mm,location\n"
                     "A1,0.45,0.28,0.14,edge\n"
                     "A2,0.45,0.10,,centre\n"
                     "A3,0.45,0.12,0.06,centre\n"
-                    "A4,0.45,0.20,0.12,edge\n"
+                    "A4,0.45,0.32,,edge\n"
                 ),
             },
         ],
@@ -1934,9 +1939,9 @@ def build_cases():
 
     add_step(c, step_choice(
         "s5",
-        "The line says: ninety percent of the calls were real, so the program is good. What is "
-        "the correct reading?",
-        [("a", "Accept the program: a 91 % true-call rate is a good result on its own."),
+        "Using the audit rows, 210 of the 300 verified calls were real defects and 90 were not. "
+        "What is the correct reading of that result?",
+        [("a", "Accept the program: a 70 % true-call rate is a good result on its own."),
          ("b", "The program still has a 30 % false-call rate that costs review capacity and a "
                "7.9 % escape rate on judged defects; the true-call rate alone proves neither "
                "capacity nor coverage."),
@@ -1949,10 +1954,10 @@ def build_cases():
          "dangerous.",
          "Judge the program on false calls, escapes and coverage together, not on the "
          "flattering ratio."],
-        "Both costs are real: 30 % false calls burn reviewer attention, and 7.9 % of judged "
-        "defects escaped.",
+        "Only 70 % of verified calls were real defects, 90 false calls burn reviewer attention, "
+        "and 7.9 % of judged defects escaped.",
         "Which two costs does the true-call rate leave out?",
-        "A 91 % true-call rate is arithmetic, not a verdict. The same week produced 90 false "
+        "A 70 % true-call rate is arithmetic, not a verdict. The same week produced 90 false "
         "calls that had to be reviewed by hand and 18 defects that left the line. False calls "
         "are not free: they train operators to clear calls quickly, which is exactly how the "
         "next escape happens. Tightening every threshold to chase zero escapes moves the cost "
@@ -2007,7 +2012,7 @@ def build_cases():
         ["With circular voids in one ball, the area ratio is the square of the diameter ratio.",
          "(0.10 / 0.45)^2 x 100.",
          "4.9 %."],
-        "4.9 %: a void this size is a process indicator, not a defect.",
+        "4.9 %: a void this size is inside the limit, not a defect.",
         "Square the diameter ratio; the pi cancels.",
         "(0.10 / 0.45)^2 = 0.0494, so 4.9 %. Small central voids are common and the criterion "
         "is not a zero-void rule: chasing a void-free joint costs rework and heat cycles and "
@@ -2036,6 +2041,31 @@ def build_cases():
         "ones. Tightening AOI thresholds cannot find a void under an opaque package, and "
         "X-raying every board is a cost decision, not a threshold decision."))
 
+    add_step(c, step_choice(
+        "s10",
+        "The failing ball is on the same Board X assembly that already carries the 8D from the "
+        "AOI case. What belongs in that 8D, on this evidence?",
+        [("a", "An action to tighten the AOI void threshold, since AOI is the inspection step."),
+         ("b", "A containment of the affected boards plus a process action on the reflow and "
+               "paste side, with the X-ray sample defined so the escape is measured rather than "
+               "assumed."),
+         ("c", "A note that voids are normal and no action is needed."),
+         ("d", "An action to reject the whole lot on one ball.")],
+        "b",
+        ["An AOI threshold cannot see a void under the package, so it cannot be the action.",
+         "The 8D needs containment, a cause on the process, and a measurement that will show "
+         "whether the action worked.",
+         "Contain, act on the process, define the X-ray sample that measures the escape."],
+        "Containment, a process action on reflow and paste, and an X-ray sample that measures "
+        "the escape.",
+        "Which of these actions could actually change the void percentage?",
+        "A void forms inside the joint during reflow: paste chemistry, profile and the escape "
+        "path for volatiles decide its size, so the process action lives on that side. AOI "
+        "cannot see it at all, so a tighter AOI threshold changes nothing. Containment holds "
+        "the boards already built, and the X-ray sample is what turns 'we re-inspected' into a "
+        "number the 8D can be closed against — the same rule m14 applies when it refuses to "
+        "close an 8D on an improvement instead of the agreed metric."))
+
     c["spec"] = [
         {"label": "Void limit per BGA ball", "value": BGA_VOID_MAX_PCT, "unit": "%",
          "note": "Cumulative projected area, per ball, X-ray image (m07l04)"},
@@ -2046,10 +2076,10 @@ def build_cases():
     ]
 
     c["rubric"] = [
-        {"criterion": "Coverage computed on calls, with its consequence stated", "points": 15,
+        {"criterion": "Coverage computed on calls, with its consequence stated", "points": 10,
          "steps": ["s1"]},
         {"criterion": "False-call rate computed on verified calls, not on raised calls",
-         "points": 15, "steps": ["s2"]},
+         "points": 10, "steps": ["s2"]},
         {"criterion": "Board-level escape rate computed on boards", "points": 10, "steps": ["s3"]},
         {"criterion": "Escape rate against judged defects computed on a matching denominator",
          "points": 15, "steps": ["s4"]},
@@ -2061,6 +2091,8 @@ def build_cases():
          "points": 10, "steps": ["s7"]},
         {"criterion": "Hidden-joint gap named as a coverage problem, not a threshold problem",
          "points": 5, "steps": ["s9"]},
+        {"criterion": "8D action placed on the process, with a sample that measures the escape",
+         "points": 10, "steps": ["s10"]},
     ]
     cases.append(c)
 
@@ -2077,29 +2109,39 @@ def build_cases():
     # dwells, trace mm, dry flag). The dwells are one column each, so the total iron
     # time is a sum over the row and not a number beside it.
     RW_ROWS = [
-        ("B-07", "J-01 rework", "chisel 1.2 mm", 345, 95, 3, (2.6, 0.4, 0.2), 0.24, 0),
-        ("B-08", "J-01 rework", "chisel 1.2 mm", 345, 95, 2, (2.2, 0.1), 0.30, 1),
-        ("B-09", "J-01 rework", "chisel 1.2 mm", 345, 95, 1, (2.4,), 0.30, 0),
+        ("B-07", "J-01 rework", "chisel 1.2 mm", 345, 95, 3, (2.6, 0.4, 0.2),
+         (0.300, 0.280, 0.248), 0),
+        ("B-08", "J-01 rework", "chisel 1.2 mm", 345, 95, 2, (2.2, 0.1, 0.0),
+         (0.300, 0.280, 0.280), 1),
+        ("B-09", "J-01 rework", "chisel 1.2 mm", 345, 95, 1, (2.4, 0.0, 0.0),
+         (0.300, 0.280, 0.280), 0),
     ]
+    # Three dwell columns on every row, so the CSV never has a short row: a short
+    # row shifts the next cell left and a check silently reads the wrong field.
     for _r in RW_ROWS:
-        assert len(_r[6]) == _r[5], "contacts and dwell columns disagree for " + _r[0]
+        assert len(_r[6]) == 3, "every row needs three dwell columns for " + _r[0]
+        assert _r[5] == len([d for d in _r[6] if d > 0]), \
+            "contacts must equal the non-zero dwells for " + _r[0]
     RW_DWELLS = list(RW_ROWS[0][6])
     RW_SECONDS = sum(RW_DWELLS)
     RW_WATTS = 45.0
     rw_thermal = (RW_SECONDS * RW_WATTS, "J",
                   "(%s)*%g W" % ("+".join("%g" % d for d in RW_DWELLS), RW_WATTS),
                   {"dwells_s": RW_DWELLS, "watts": RW_WATTS})
-    # the conductor the rework nicked: 0.30 mm on the drawing, 0.24 mm after
-    TRACE_ORIG_MM = 0.30
-    TRACE_AFTER_MM = 0.24
-    trace_reduction = share_of(TRACE_ORIG_MM - TRACE_AFTER_MM, TRACE_ORIG_MM)
+    # The conductor the rework nicked. IPC-A-600 caps the reduction of the
+    # MINIMUM conductor width the drawing sets, so the band works from that floor
+    # and not from the as-drawn width: dividing by the nominal would flatter the
+    # repair by three points and still pass.
+    TRACE_MIN_MM = 0.280
+    TRACE_AFTER_MM = 0.248
+    trace_reduction = share_of(TRACE_MIN_MM - TRACE_AFTER_MM, TRACE_MIN_MM)
     # the smallest width the class allows before the repair itself is a defect
-    trace_floor_c2 = (TRACE_ORIG_MM * (1 - CONDUCTOR_REDUCTION_PCT[2] / 100.0), "mm",
-                      "%g*(1-%d/100)" % (TRACE_ORIG_MM, CONDUCTOR_REDUCTION_PCT[2]),
-                      {"orig_mm": TRACE_ORIG_MM, "pct": CONDUCTOR_REDUCTION_PCT[2]})
-    trace_floor_c3 = (TRACE_ORIG_MM * (1 - CONDUCTOR_REDUCTION_PCT[3] / 100.0), "mm",
-                      "%g*(1-%d/100)" % (TRACE_ORIG_MM, CONDUCTOR_REDUCTION_PCT[3]),
-                      {"orig_mm": TRACE_ORIG_MM, "pct": CONDUCTOR_REDUCTION_PCT[3]})
+    trace_floor_c2 = (TRACE_MIN_MM * (1 - CONDUCTOR_REDUCTION_PCT[2] / 100.0), "mm",
+                      "%g*(1-%d/100)" % (TRACE_MIN_MM, CONDUCTOR_REDUCTION_PCT[2]),
+                      {"min_mm": TRACE_MIN_MM, "pct": CONDUCTOR_REDUCTION_PCT[2]})
+    trace_floor_c3 = (TRACE_MIN_MM * (1 - CONDUCTOR_REDUCTION_PCT[3] / 100.0), "mm",
+                      "%g*(1-%d/100)" % (TRACE_MIN_MM, CONDUCTOR_REDUCTION_PCT[3]),
+                      {"min_mm": TRACE_MIN_MM, "pct": CONDUCTOR_REDUCTION_PCT[3]})
 
     c = {
         "caseId": "cx-m11-01",
@@ -2112,9 +2154,10 @@ def build_cases():
             "assembly. The record in rework-record.csv carries the setpoint, the preheat, the "
             "dwell of each contact and what the operator measured afterwards: one trace nicked "
             "while the connector came off, and one joint that needed three contacts.",
-            "Two decisions are waiting. The first is the trace: it was 0.30 mm on the drawing "
-            "and measures 0.24 mm after the nick. The second is the thermal budget: whether "
-            "four and a half minutes of iron time on one joint is a record or a warning.",
+            "Two decisions are waiting. The first is the trace: the drawing sets a minimum "
+            "width of 0.280 mm, and the trace measures 0.248 mm after the nick. The second is "
+            "the thermal budget: three contacts on one joint, and a row where the first contact "
+            "produced no solder flow at all.",
             "Judge the repair against the class, then say what the record has to contain so "
             "the next engineer can reproduce the result.",
         ],
@@ -2127,12 +2170,13 @@ def build_cases():
                         "produced no solder flow.",
                 "content": (
                     "assembly,operation,tip,setpoint_c,preheat_c,contacts,"
-                    "dwell1_s,dwell2_s,dwell3_s,trace_nick_mm,dry_flag\n" +
+                    "dwell1_s,dwell2_s,dwell3_s,trace_drawn_mm,trace_min_mm,"
+                    "trace_after_mm,dry_flag\n" +
                     "".join(
-                        "%s,%s,%s,%d,%d,%d,%s,%s\n" % (
+                        "%s,%s,%s,%d,%d,%d,%s,%.3f,%.3f,%.3f,%d\n" % (
                             r[0], r[1], r[2], r[3], r[4], r[5],
                             ",".join("%.1f" % d for d in r[6]),
-                            "%.2f,%d" % (r[7], r[8]))
+                            r[7][0], r[7][1], r[7][2], r[8])
                         for r in RW_ROWS)
                 ),
             },
@@ -2207,46 +2251,52 @@ def build_cases():
 
     add_step(c, step_numeric(
         "s4",
-        "The nicked trace was 0.30 mm and measures 0.24 mm. What is the width reduction, in "
-        "percent?",
+        "The drawing sets a minimum conductor width of 0.280 mm. The nicked trace measures "
+        "0.248 mm. What is the width reduction against that minimum, in percent? One decimal.",
         trace_reduction, 0.2,
-        ["Reduction is measured against the drawing width, not against the repaired one.",
-         "(0.30 - 0.24) / 0.30.",
-         "20.0 %."],
-        "20.0 %: exactly at the Class 2 limit.",
-        "The loss over the original width; a 20 % reduction is 0.06 mm on a 0.30 mm trace.",
-        "0.06 / 0.30 = 20.0 %. On a Class 2 board that is the boundary value: acceptable at "
-        "the limit, and not a millimetre to spare. On a Class 3 board the same repair would be "
-        "a defect twice over, because the limit there is 10 %."))
+        ["The limit is written against the minimum width on the drawing, not the as-drawn "
+         "width.",
+         "(0.280 - 0.248) / 0.280.",
+         "11.4 %."],
+        "11.4 %: inside Class 2, outside Class 3.",
+        "The loss over the minimum width: 0.032 mm on a 0.280 mm trace.",
+        "0.032 / 0.280 = 11.4 %. The denominator matters more than the numerator. The same "
+        "0.248 mm trace passes a Class 2 limit of 20 % and fails a Class 3 limit of 10 %, "
+        "because IPC-A-600 caps the reduction of the minimum conductor width the drawing "
+        "already fixes. Dividing by the as-drawn 0.300 mm would give a flattering 17.3 % and "
+        "still pass Class 2, which is exactly why the standard names the minimum and not the "
+        "nominal."))
 
     add_step(c, step_numeric(
         "s5",
-        "What is the narrowest the trace may become and still meet the Class 2 limit, in mm?",
+        "What is the narrowest that trace may become and still meet the Class 2 limit, "
+        "in mm?",
         trace_floor_c2, 0.005,
-        ["Turn the percentage into a width: the limit is 20 % of 0.30 mm.",
-         "0.30 x 0.80.",
-         "0.24 mm."],
-        "0.24 mm is exactly the floor for Class 2.",
-        "Subtract the allowed loss from the drawing width, or multiply by (1 - 20 %).",
-        "0.30 mm less 20 % is 0.24 mm, which is what the board measures. The repair passes on "
-        "the number alone and sits on the edge of it: any further erosion during cleaning or "
-        "another pass puts it inside the nonconforming band, which is why the measurement has "
-        "to be in the record and not in someone's memory."))
+        ["Turn the percentage into a width: the limit is 20 % of the 0.280 mm minimum.",
+         "0.280 x 0.80.",
+         "0.224 mm."],
+        "0.224 mm is the floor for Class 2 on this drawing.",
+        "Subtract the allowed loss from the minimum width, or multiply by (1 - 20 %).",
+        "0.280 mm less 20 % is 0.224 mm. The board measures 0.248 mm, so it passes with "
+        "0.024 mm to spare, a real margin rather than a rounding one. That margin is what the "
+        "record protects: a repair judged by eye as slightly thinner has no way of saying "
+        "whether it sits 0.024 mm inside the limit or 0.024 mm outside it."))
 
     add_step(c, step_numeric(
         "s6",
-        "The same repair on a Class 3 board would be judged against 10 %. What is the narrowest "
-        "acceptable width there, in mm?",
+        "The same repair on a Class 3 board would be judged against 10 %. What is the "
+        "narrowest acceptable width there, in mm?",
         trace_floor_c3, 0.005,
-        ["Class 3 allows a tenth of the width, not a fifth.",
-         "0.30 x 0.90.",
-         "0.27 mm."],
-        "0.27 mm on Class 3: the same board would fail there.",
-        "Multiply the drawing width by (1 - 10 %).",
-        "0.30 x 0.90 = 0.27 mm. At 0.24 mm the trace is 0.03 mm below the Class 3 floor, so the "
-        "identical physical repair is acceptable on Class 2 and a defect on Class 3. That is "
-        "the point of recording the required class before the repair: the class is set by the "
-        "product, not by the operator's judgement of how bad the nick looks."))
+        ["Class 3 allows a tenth of the minimum width, not a fifth.",
+         "0.280 x 0.90.",
+         "0.252 mm."],
+        "0.252 mm on Class 3: the same 0.248 mm trace would fail there.",
+        "Multiply the minimum width by (1 - 10 %).",
+        "0.280 x 0.90 = 0.252 mm. At 0.248 mm the trace is 0.004 mm under the Class 3 floor, "
+        "so the identical physical repair passes Class 2 and fails Class 3 by four microns. "
+        "That is why the class has to be on the record before the repair: it is set by the "
+        "product, not by how bad the nick looks, and at this margin nothing but the number "
+        "separates the two answers."))
 
     add_step(c, step_choice(
         "s7",
@@ -2258,16 +2308,18 @@ def build_cases():
          ("c", "Accept and do not record it, since the board still works."),
          ("d", "Accept on Class 3 limits, which are looser.")],
         "a",
-        ["The limit is a maximum reduction, so a value equal to it is inside.",
-         "Class 2 allows 20 %; the board measured 20.0 %.",
-         "Accept, and record the measurement and the class it was judged against."],
-        "Accept at the limit, with the measurement and the class written down.",
-        "Is the measured value over the limit for the class this board actually is?",
-        "20.0 % is the Class 2 limit itself, so the trace is acceptable — but only because the "
-        "class says 20 %. Recording it is what makes the acceptance defensible: a year later "
-        "the board either has a line that says '0.24 mm, Class 2, limit 20 %' or it has "
-        "nothing, and 'it still works' is not a record. Class 3 would have made the same "
-        "measurement a defect, and no class makes it unnecessary to write the number down."))
+        ["The limit is a maximum reduction, so anything under it passes.",
+         "Class 2 allows 20 %; the board measured 11.4 %.",
+         "Accept, and record the measurement, the denominator and the class it was judged "
+         "against."],
+        "Accept: 11.4 % is inside the 20 % limit, and both numbers go in the record.",
+        "Is the measured reduction over the limit for the class this board actually is?",
+        "11.4 % against a 20 % limit passes with margin. Recording it is what makes the "
+        "acceptance durable: a year later the board either has a line that says '0.248 mm "
+        "against a 0.280 mm minimum, 11.4 %, Class 2 limit 20 %' or it has nothing, and "
+        "'it still works' is not a record. Class 3 would have made the same measurement a "
+        "defect at 0.252 mm, so the class is part of the finding and not a detail of the "
+        "paperwork."))
 
     add_step(c, step_choice(
         "s8",
@@ -2315,8 +2367,8 @@ def build_cases():
         "A record that says 'passed' cannot be re-judged when the product class changes or the "
         "standard moves from Rev C to Rev D, and that is exactly what happened to this course's "
         "own source. Class, setpoint, tip, preheat, dwells, contact count, the measured width "
-        "with its limit, and the inspection result make the decision reproducible. A photo is "
-        "useful evidence and not a substitute for the numbers."))
+        "against the minimum it was compared with, and the inspection result make the decision "
+        "reproducible. A photo is useful evidence and not a substitute for the numbers."))
 
     c["spec"] = [
         {"label": "Hand-soldering setpoint", "value": HAND_SETPOINT_MIN_C,
