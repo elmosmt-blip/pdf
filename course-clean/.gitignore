@@ -2,3 +2,5 @@
 # the toolchain venv lives above the repo root; never commit it
 ../.venv/
 .venv/
+__pycache__/
+*.pyc
