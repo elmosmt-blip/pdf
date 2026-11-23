@@ -383,7 +383,7 @@ Control numbers:
 | First pass, six deposits | mean 18.21 nL, **Cpk 3.05** |
 | Second pass, six deposits | mean 15.96 nL, **Cpk 0.99** |
 | Height from volume and area | **0.086 mm**, 86 % of the foil |
-| Program foil 0.125 mm over a 0.100 mm region | 108 % on screen = **86.4 %** on the board |
+| Program foil 0.125 mm over a 0.100 mm region | 69.0 % on screen = **86.3 %** on the board (the screen reads LOW: the program's nominal is 25 % too large) |
 
 ### Why this case and not another one
 
@@ -394,11 +394,37 @@ machine computed with the wrong foil. Both are invisible on the daily summary,
 both produce a line that ships boards, and both are arithmetic the learner can do
 by hand from the data file.
 
-The 25 % foil error is deliberately of the same size as the window: it moves a
-reading across the whole 75-125 % band, which is what makes it a measurement
-problem rather than a rounding problem. It is also the reason the case computes
+The 25 % oversize on the nominal is deliberately of the same size as the window:
+it moves a reading by 20 % of itself, which is more than a third of the band and
+enough to take a print that is at 86 % of its real nominal and show it at 69 % —
+below the 75 % floor, on a process that is inside it. That is what makes it a
+measurement problem rather than a rounding problem, and it is why the direction
+of the error is stated rather than assumed: a foil in the program that is thicker
+than the one on the press makes the machine divide by too much and read low. It is also the reason the case computes
 volume in nanolitres first — a volume does not care what the program believed,
 and that is the lesson worth carrying to a real line.
+
+### Direction of the foil error (corrected in the phase-4 audit)
+
+The case originally had the screen reading **high** — 108 % on screen against
+86 % on the board — with a program foil thicker than the press foil. Both halves
+of that cannot be true at once: nominal is area x foil, so a program foil of
+0.125 mm over a real 0.100 mm inflates the denominator and the screen must read
+**low**, 69.0 % for the 17.09 nL mean. The screen-vs-board ratio is program over
+press (1.25), which is the same factor whichever way the error runs, so the
+correction `reading x 0.125 / 0.100` was right while the story around it was
+backwards.
+
+The generator now derives the screen reading from the mean and the two foils
+(`spi_reading`, `spi_corrected`) instead of quoting a percentage in the step text,
+the step asks for 69 %, and the answer explains that the truth is
+`69.0 x 0.125 / 0.100 = 86.3 %`. `check-cases.js` no longer hard-codes 108 %:
+it recomputes the screen reading from the deposits and the setup file and then
+corrects it, so a percentage in the prose that contradicts the data fails the
+build instead of being repeated by the independent check. The template carries
+both rows — `What the screen shows` and `Corrected to the press foil` — and it
+was the template's own two rows (69.04 % and 86.30 %) that made the contradiction
+visible.
 
 ### One defect this round, found before the tests
 

@@ -92,9 +92,15 @@ def _m04():
              '=MIN((AVERAGE(COL[Window: high (nL)])-SUMMARY[Second-pass mean (nL)]),'
              '(SUMMARY[Second-pass mean (nL)]-AVERAGE(COL[Window: low (nL)])))/'
              '(3*STDEV(IF(COL[Squeegee pass]="second",COL[Volume (nL)])))'),
+            # The program's foil is thicker than the one the press cuts, so its
+            # nominal is larger and the screen reads LOW. The correction is one
+            # multiplication by program/press, and it lands on the row above.
             ("What the screen shows (%)",
              "=SUMMARY[Mean volume (nL)]/(INPUTS[Aperture area (mm2)]*"
              "INPUTS[SPI program foil (mm)]*1000)*100"),
+            ("Corrected to the press foil (%)",
+             "=SUMMARY[What the screen shows (%)]*INPUTS[SPI program foil (mm)]/"
+             "INPUTS[Foil over the region (mm)]"),
             ("Verdict", '=IF(SUMMARY[Cpk (all deposits)]<[[Cpk, minimum]],'
                         '"the mean passes and the process does not: split the passes",'
                         '"capable")'),
@@ -105,7 +111,9 @@ def _m04():
                      "18.7 nL and the second around 15.9 nL. Cpk on all twelve looks "
                      "respectable; Cpk on the second pass alone is the number that "
                      "matters. The third input is the trap — the SPI program carries "
-                     "the general stencil's foil, so it reads the print 25 % high.",
+                     "the general stencil's 0.125 mm foil while the press cuts "
+                     "0.100 mm, so the screen reads the print LOW: 69 % on screen, "
+                     "86 % on the board, corrected by the foil ratio alone.",
     )
 
 # --------------------------------------------------------------------------- m05
@@ -433,7 +441,8 @@ def _m11():
                  "Contacts", "Dwell 1 (s)", "Dwell 2 (s)", "Dwell 3 (s)",
                  "Width drawn (mm)", "Width after (mm)", "Iron time (s)",
                  "Energy (J)", "Reduction (%)", "Limit (%)", "Trace verdict",
-                 "Dry contact (1 = no flow)"],
+                 "Dry contact (1 = no flow)", "Drawing minimum (mm)",
+                 "Setpoint in band?", "Contacts within rule?", "Drawing minimum check"],
         formulas={
             "Iron time (s)": '=G{r}+H{r}+I{r}',
             "Energy (J)": '=L{r}*[[Iron power (W)]]',
@@ -447,6 +456,17 @@ def _m11():
                          '[[Class 3 width reduction (%)]],[[Class 2 width reduction (%)]])',
             "Trace verdict": '=IF(N{r}<=O{r},"within the class limit",'
                              '"outside the class limit")',
+            # A rework record that does not judge the iron is a diary. The setpoint
+            # band and the contact count are process rules in the threshold block;
+            # the drawn minimum comes off the drawing, so the row compares the
+            # limit the sheet computed with the one the drawing carries.
+            "Setpoint in band?": '=IF(AND(D{r}>=[[Iron setpoint, min (C)]],'
+                                 'D{r}<=[[Iron setpoint, max (C)]]),"in band","out of band")',
+            "Contacts within rule?": '=IF(F{r}<=[[Contacts, maximum]],"within rule",'
+                                     '"over the contact rule")',
+            "Drawing minimum check": '=IF(R{r}<=INPUTS[Drawing minimum width (mm)],'
+                                     '"drawing minimum agrees",'
+                                     '"drawing carries a looser minimum than the sheet")',
         },
         inputs=[
             ("Drawing minimum width (mm)", "mm", 0.280),
@@ -469,9 +489,12 @@ def _m11():
             ("Verdict", '=IF(COUNTIF(COL[Trace verdict],"outside*")>0,'
                         '"repair is outside the class limit: scrap or request a deviation",'
                         '"repair is within the class limit")'),
+            ("Rows out of the iron band", '=COUNTIF(COL[Setpoint in band?],"out of band")'),
+            ("Rows over the contact rule", '=COUNTIF(COL[Contacts within rule?],"over the contact '
+                                           'rule")'),
         ],
         example_rows=[[a, o, t, sp, ph, c, d1, d2, d3, drawn, wa, None, None, None,
-                       None, None, dry]
+                       None, None, dry, tmin, None, None, None]
                       for a, o, t, sp, ph, c, d1, d2, d3, drawn, tmin, wa, dry in rows],
         example_note="B-07 took 3.2 s of iron and 144 J, and it is the row that nicked "
                      "the trace: 0.248 mm against a 0.280 mm drawing minimum is an "
@@ -509,8 +532,15 @@ def _m12():
             "the area or the site.",
         thresholds=[
             ("Reference limit (ug/cm2)", 1.56, "src-018", "IPC-TM-650 2.3.25, per m12l03"),
+            # The customer's limit and the limit this build is judged against are
+            # the same number for Board X, and one fact lives in one place: the
+            # route limit reads the customer limit rather than repeating 0.5 and
+            # drifting away from it the first time the customer changes a spec.
             ("Customer limit (ug/cm2)", 0.5, None, "medical customer specification"),
-            ("Route limit (ug/cm2)", 0.5, None, "which limit this build is judged against"),
+            # Reads the customer limit above rather than repeating it: one fact
+            # lives in one place, and the build's route limit follows the spec.
+            ("Route limit (ug/cm2)", "=[[Customer limit (ug/cm2)]]", None,
+             "medical customer specification"),
             ("Target dry film (um)", 35, None, "customer drawing, cx-m12-01"),
             ("Coating solids (fraction)", 0.38, None, "coating datasheet, cx-m12-01"),
             ("One-sided tail z for 0.1 %", 3.0902, None, "normal distribution, course value"),
@@ -640,6 +670,16 @@ def _m13():
             # different measurements, so the sheet states both and compares them.
             ("Worst class left to the screens (%)",
              '=MAX(COL[Escapes the three (ppm)])/MAX(COL[Occurrence (ppm)])*100'),
+            # A class the screens leave almost entirely alone is not a small
+            # residual, it is a hole: the threshold block decides where "invisible"
+            # starts, so the row names the class instead of leaving the reader to
+            # divide every line by hand.
+            ("Worst class", '=INDEX(COL[Defect class],MATCH(MAX(COL[Escapes the three (ppm)]),'
+                            'COL[Escapes the three (ppm)],0))'),
+            ("Worst class alarm",
+             '=IF(SUMMARY[Worst class left to the screens (%)]'
+             '>=[[Class escape alarm (%)]],"class is effectively unscreened",'
+             '"class is caught by at least one screen")'),
             ("Verdict", '=IF(SUMMARY[Node coverage (%)]>SUMMARY[Defect coverage, three screens (%)],'
                         '"the node number is not the coverage: quote the defect coverage",'
                         '"the two coverage numbers agree")'),
@@ -692,6 +732,11 @@ def _m15():
             ("Downtime rate (USD/h)", "USD/h", 40),
             ("Change cost (USD)", "USD", 1200),
             ("Share of rework and scrap removed", "fraction", 0.6),
+            # The three measured facts the asks are judged against. They are
+            # inputs and not thresholds: the threshold block holds the acceptance
+            # the plant must clear, these are what the plant measured.
+            ("Worst fiducial residual (mm)", "mm", 0.14),
+            ("Fiducial separation (mm)", "mm", 10.0),
         ],
         summary=[
             ("First-pass yield (%)",
@@ -721,6 +766,26 @@ def _m15():
             ("Verdict", '=IF(SUMMARY[Boards to pay the change back]<=INPUTS[Boards started],'
                         '"the change pays back inside one order",'
                         '"the change needs more than one order to pay back")'),
+            # Every ask in the m15 pack is a number with a tolerance, an owner and
+            # a cost. These three rows are the tolerance tests, computed from the
+            # threshold block: without them the block was printed and never read,
+            # which makes the sheet a poster rather than a record.
+            ("Fiducial separation needed for 40 mm (mm)",
+             '=ROUND(INPUTS[Worst fiducial residual (mm)]*[[Distance to the panel edge '
+             '(mm)]]/[[Placement acceptance (mm)]],1)'),
+            ("Separation against the panel drawing (mm)",
+             '=INPUTS[Fiducial separation (mm)]'),
+            ("Separation ask: passed?",
+             '=IF(SUMMARY[Fiducial separation needed for 40 mm (mm)]'
+             '>SUMMARY[Separation against the panel drawing (mm)],'
+             '"pass: the design must move the fiducials apart",'
+             '"inside the drawing as it stands")'),
+            ("Defect rate against the effectiveness target (ppm)",
+             '=ROUND(INPUTS[Defects confirmed]/INPUTS[Boards started]*1000000,0)'),
+            ("Effectiveness ask: passed?",
+             '=IF(SUMMARY[Defect rate against the effectiveness target (ppm)]'
+             '<=[[Effectiveness target (ppm)]],"at or under the agreed target",'
+             '"over the agreed target: quantify the ask before sending")'),
         ],
         example_rows=[],
         example_note="The four cost drivers add to 3,141.50 USD on 1,240 boards. The "
@@ -836,7 +901,8 @@ ROWS = [
         columns=["Reel", "Part", "Package", "MSL", "Bag opened (h ago)",
                  "Cabinet RH (%)", "Cabinet qualifies?", "Line exposure (h)",
                  "Counted against floor life (h)", "Floor life (h)",
-                 "Remaining (h)", "Reflow planned in (h)", "Decision"],
+                 "Remaining (h)", "Reflow planned in (h)", "Decision",
+                 "Bake ceiling for the carrier (C)"],
         formulas={
             "Cabinet qualifies?": '=IF(F{r}<=[[Dry cabinet requirement (%, RH)]],"yes","no")',
             "Counted against floor life (h)": '=IF(G{r}="yes",H{r},E{r}+H{r})',
@@ -852,11 +918,23 @@ ROWS = [
             "Remaining (h)": '=IFERROR(J{r}-I{r},"")',
             "Decision": '=IF(OR(K{r}="",L{r}=""),"",IF(K{r}>=L{r},"release",'
                         '"bake or reschedule"))',
+            # A reel that needs a bake cannot simply be baked at the part's own
+            # temperature: the tape carrier sets a much lower ceiling, so the row
+            # names the ceiling the bake may use instead of leaving the reader to
+            # bake at 125 C because a tray would take it. N is the Decision
+            # column; check-templates recomputes this column, so a column that
+            # moves without this reference moving fails the build.
+            "Bake ceiling for the carrier (C)":
+                '=IF(N{r}="bake or reschedule",[[Tape-and-reel bake ceiling (C)]],'
+                'IF(N{r}="release","no bake",""))',
         },
         example_rows=[
-            ["R-4412", "BGA-256 14x14", "FBGA", 4, 58, 7, None, 6, None, None, None, 10, None],
-            ["R-4413", "QFP-64 0.5 mm", "QFP", 3, 58, 7, None, 0, None, None, None, 10, None],
-            ["R-4414", "0402 100 nF", "chip", 1, 58, 7, None, 0, None, None, None, 10, None],
+            ["R-4412", "BGA-256 14x14", "FBGA", 4, 58, 7, None, 6, None, None, None, 10,
+             None, None],
+            ["R-4413", "QFP-64 0.5 mm", "QFP", 3, 58, 7, None, 0, None, None, None, 10,
+             None, None],
+            ["R-4414", "0402 100 nF", "chip", 1, 58, 7, None, 0, None, None, None, 10,
+             None, None],
         ],
         fill_notes=[
             'The cabinet only pauses the clock when its logged RH is at or below the requirement in the threshold block. 7 % in a 5 % cabinet counts every hour.',
@@ -891,7 +969,7 @@ ROWS = [
         ],
         columns=["Aperture", "Component", "Shape", "Width or dia (mm)",
                  "Length (mm)", "Foil (mm)", "Area ratio", "Aspect ratio",
-                 "Release?"],
+                 "Release?", "Foil recognised?"],
         formulas={
             # A round aperture carries its diameter in the width/diameter
             # column; its area ratio is D/(4T) and it has no aspect ratio, so
@@ -902,17 +980,27 @@ ROWS = [
             "Release?": '=IF(IF(C{r}="round",G{r}>=[[Area ratio, minimum]],'
                         'AND(G{r}>=[[Area ratio, minimum]],'
                         'H{r}>=[[Aspect ratio, minimum]])),"ok","step the foil down")',
+            # The two foil values in the threshold block are the two the press
+            # actually carries. A row quoting a third thickness is a drawing
+            # error, and the ratio computed from it would be arithmetic on a
+            # stencil nobody has — so the row is judged on the foil it names and
+            # the check says which of the two known foils it matches.
+            "Foil recognised?": '=IF(OR(ABS(F{r}-[[Foil thickness, general (mm)]])<0.001,'
+                                'ABS(F{r}-[[Foil thickness, fine pitch (mm)]])<0.001),'
+                                '"known foil","not a foil this press carries")',
         },
         example_rows=[
             # cx-m03-01 aperture-table.csv, all six rows, in its order. The
             # first version of this list invented different apertures (A-09,
             # A-12), which is why the sheet disagreed with the case.
-            ["A-01", "0402 passive", "rect", 0.55, 0.60, 0.125, None, None, None],
-            ["A-02", "QFP-64 0.5 mm", "rect", 0.22, 0.90, 0.125, None, None, None],
-            ["A-03", "QFP-48 0.4 mm (current)", "rect", 0.20, 0.80, 0.125, None, None, None],
-            ["A-04", "QFP-48 0.4 mm (thin region)", "rect", 0.20, 0.80, 0.100, None, None, None],
-            ["A-05", "BGA 0.8 mm", "round", 0.50, None, 0.125, None, None, None],
-            ["A-06", "THT connector", "rect", 0.18, 0.80, 0.125, None, None, None],
+            ["A-01", "0402 passive", "rect", 0.55, 0.60, 0.125, None, None, None, None],
+            ["A-02", "QFP-64 0.5 mm", "rect", 0.22, 0.90, 0.125, None, None, None, None],
+            ["A-03", "QFP-48 0.4 mm (current)", "rect", 0.20, 0.80, 0.125, None, None, None,
+             None],
+            ["A-04", "QFP-48 0.4 mm (thin region)", "rect", 0.20, 0.80, 0.100, None, None,
+             None, None],
+            ["A-05", "BGA 0.8 mm", "round", 0.50, None, 0.125, None, None, None, None],
+            ["A-06", "THT connector", "rect", 0.18, 0.80, 0.125, None, None, None, None],
         ],
         fill_notes=[
             'Area ratio is aperture area divided by pad-wall area; for a round aperture that reduces to D / (4 x foil), so a round aperture has no aspect ratio and is judged on area alone.',
@@ -994,12 +1082,32 @@ ROWS = [
             # first row and the cooling is the last, whatever the table length.
             ("Ramp-up rate (C/s)", '=(CFIRSTROW-BFIRSTROW)/DFIRSTROW'),
             ("Cooling rate (C/s)", '=(BLASTROW-CLASTROW)/DLASTROW'),
+            # The verdict names which limit a failing profile broke, because a
+            # bare "outside window" sends the reader back to recompute the whole
+            # row. The cooling is judged against both ceilings on purpose: the
+            # course band (4 C/s) is the process limit and the J-STD-020
+            # component ceiling (6 C/s) is the one that voids the part, and a
+            # profile at 5 C/s is inside one and outside the other.
+            ("Peak within band?",
+             '=IF(AND(SUMROW[1]>=[[Peak, minimum (C)]],SUMROW[1]<=[[Peak, maximum (C)]]),'
+             '"ok","outside")'),
+            ("Time above liquidus within band?",
+             '=IF(AND(SUMROW[2]>=[[Time above liquidus, min (s)]],'
+             'SUMROW[2]>=[[Time above liquidus, course min (s)]],'
+             'SUMROW[2]<=[[Time above liquidus, max (s)]]),"ok","outside")'),
+            ("Ramp-up within limit?",
+             '=IF(SUMROW[3]<=[[Ramp-up, max (C/s)]],"ok","outside")'),
+            ("Cooling within the course band?",
+             '=IF(SUMROW[4]<=[[Cooling rate, max (C/s)]],"ok","outside")'),
+            ("Cooling within the component ceiling?",
+             '=IF(SUMROW[4]<=[[Cooling, J-STD-020 ceiling (C/s)]],"ok","outside")'),
             ("Profile verdict",
-             '=IF(AND(SUMROW[1]>=[[Peak, minimum (C)]],SUMROW[1]<=[[Peak, maximum (C)]],'
-             'SUMROW[2]>=[[Time above liquidus, min (s)]],'
-             'SUMROW[2]<=[[Time above liquidus, max (s)]],'
-             'SUMROW[3]<=[[Ramp-up, max (C/s)]],'
-             'SUMROW[4]<=[[Cooling rate, max (C/s)]]),"in window","outside window")'),
+             '=IF(AND(SUMMARY[Peak within band?]="ok",'
+             'SUMMARY[Time above liquidus within band?]="ok",'
+             'SUMMARY[Ramp-up within limit?]="ok",'
+             'SUMMARY[Cooling within the course band?]="ok",'
+             'SUMMARY[Cooling within the component ceiling?]="ok"),'
+             '"in window","outside window")'),
         ],
         fill_notes=[
             "Enter each interval's start temperature, end temperature and duration. The sheet derives every rate from those three numbers, so do not type a rate.",

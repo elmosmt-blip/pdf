@@ -1411,15 +1411,25 @@ def build_cases():
                  {"n": 6})
     spi_height = (spi_mean / 1000.0 / spi_area, "mm", "volume_nL/1000/area_mm2",
                   {"volume_nL": round(spi_mean, 4), "area_mm2": spi_area})
-    # The SPI program was built against the 0.125 mm general stencil, not the
-    # 0.100 mm fine-pitch region, so every reading is 25 % high.
+    # The SPI program was built against the 0.125 mm general stencil while the
+    # press carries 0.100 mm over the fine-pitch region. Nominal = area x foil,
+    # so the program's nominal is 25 % LARGER than the one the press cuts, and
+    # every percentage on its screen comes out 20 % SMALLER than the truth:
+    # 17.09 nL over 24.75 nL is 69.0 % on the screen, while 17.09 over 19.80 is
+    # 86.3 % on the board. The screen reads LOW here, and the arithmetic of the
+    # correction is the same either way: truth = reading x program / press.
     spi_program_foil = BOARD_FACTS["stencilThicknessMm"]      # 0.125
     spi_reading = spi_mean / (spi_area * spi_program_foil * 1000.0) * 100.0
-    spi_corrected = (spi_reading * spi_foil / spi_program_foil, "%",
-                     "reading*real_foil/program_foil*100",
+    # Fraction of the press foil the program foil is: 0.125 / 0.100 = 1.25.
+    # The screen divides by that factor, so multiplying the reading by it
+    # returns the truth. Passed as a ratio, not as a pre-multiplied number.
+    spi_foil_ratio = spi_program_foil / spi_foil              # 1.25
+    spi_corrected = (spi_reading * spi_foil_ratio, "%",
+                     "reading*program_foil/press_foil",
                      {"reading_pct": round(spi_reading, 2),
-                      "real_foil_mm": spi_foil,
-                      "program_foil_mm": spi_program_foil})
+                      "press_foil_mm": spi_foil,
+                      "program_foil_mm": spi_program_foil,
+                      "foil_ratio": spi_foil_ratio})
 
     c = {
         "caseId": "cx-m04-01",
@@ -1507,7 +1517,8 @@ def build_cases():
         "prints 'volume %', and it is the number the whole case hangs on: 16 nL is not "
         "'low' on its own, it is 81 % of this aperture and would be 65 % of a larger one. "
         "The foil figure matters as much as the area: the same aperture printed through "
-        "0.125 mm would hold 24.75 nL, which is the trap waiting in step 9."))
+        "0.125 mm would hold 24.75 nL — which is exactly the nominal the SPI program "
+        "was dividing by, and the trap waiting in step 9."))
 
     add_step(c, step_numeric(
         "s2",
@@ -1634,28 +1645,34 @@ def build_cases():
     add_step(c, step_choice(
         "s9",
         "The SPI program was built against the 0.125 mm general stencil, and the "
-        "fine-pitch region on the press is 0.100 mm. On that program the screen reads "
-        "108 % of nominal. What is really there?",
-        [("a", "108 % — the machine computes nominal from the aperture, so the foil in "
+        "fine-pitch region on the press is 0.100 mm — the foil the values above were "
+        "measured against. On that program the screen reads "
+        "69 % of nominal. What is really there?",
+        [("a", "69 % — the machine computes nominal from the aperture, so the foil in "
                "its program does not matter."),
-         ("b", "86 %: the machine's nominal is 25 % too large, so every reading is "
-               "inflated by that factor and the truth is 108 % x 0.100 / 0.125."),
-         ("c", "135 %: the thinner foil means more paste."),
-         ("d", "108 % is right, but the window should be widened to match the foil.")],
+         ("b", "86 %: the program's nominal is 25 % too large, so every percentage it "
+               "prints is 20 % too small, and the truth is 69 % x 0.125 / 0.100."),
+         ("c", "55 %: the thinner foil means less paste, so the reading overstates the "
+               "deposit."),
+         ("d", "69 % is right, but the window should be widened to match the foil.")],
         "b",
         ["Nominal = area x foil, and the machine uses the foil in its program.",
-         "A program foil thicker than reality makes the nominal too large.",
-         "108 x 0.100 / 0.125 = 86.4 %."],
-        "86 %, not 108 %: the program's nominal is 25 % too large and every reading "
-        "inherits the error.",
+         "A program foil thicker than reality makes the nominal too large, so the "
+         "percentage it divides out is too small.",
+         "69 x 0.125 / 0.100 = 86.25 %."],
+        "86 %, not 69 %: the program's nominal is 25 % too large, so every reading on "
+        "that screen sits 20 % low.",
         "Which foil value is inside the nominal the machine divides by?",
-        "The machine computes nominal as area x the foil in its program, so a program set "
-        "to 0.125 mm while the press carries 0.100 mm makes every percentage 25 % too "
-        "high: 108 % x 0.100 / 0.125 = 86.4 %. This is a measurement-system finding, not "
-        "a print finding, and it belongs first. It is also the reason the absolute "
-        "nanolitres matter: a volume does not care what the program believed, which is "
-        "why the volumes above were used to compute the mean rather than the percentages "
-        "on the screen."))
+        "The machine computes nominal as area x the foil in its program. Its nominal is "
+        "24.75 nL, while the press cuts apertures for 19.80 nL, so the 17.09 nL it is "
+        "looking at prints on the screen as 69.0 % and is 86.3 % on the board. The "
+        "direction is worth keeping straight: a program foil that is too thick inflates "
+        "the denominator, so the screen reads LOW, by the ratio of the two foils — "
+        "0.100 / 0.125, or 20 %. Correcting it is one multiplication: 69.0 x 0.125 / "
+        "0.100 = 86.3 %. This is a measurement-system finding, not a print finding, and "
+        "it belongs first. It is also the reason the absolute nanolitres matter: a "
+        "volume does not care what the program believed, which is why the volumes above "
+        "were used to compute the mean rather than the percentages on the screen."))
 
     add_step(c, step_choice(
         "s10",
@@ -1673,8 +1690,9 @@ def build_cases():
         "Measurement first, then the two-population question, then the print settings — "
         "and one variable at a time.",
         "Which finding would make you doubt the numbers the other two rest on?",
-        "The foil error is a constant 25 % on every reading, so it distorts the window, "
-        "the Cpk and the decision to raise pressure. Correcting it costs nothing and "
+        "The foil error is a constant factor — a 25 % oversize on the nominal, which "
+        "shows up as every reading 20 % low — so it distorts the window, the Cpk and "
+        "the decision to raise pressure. Correcting it costs nothing and "
         "gives the split a trustworthy scale. The split comes next because it is a "
         "structural difference between the passes, and until it is named, any pressure "
         "change is a guess applied to both halves of a two-humped distribution. Only then "

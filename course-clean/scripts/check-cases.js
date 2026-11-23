@@ -408,8 +408,16 @@ const EXPECTED = {
   },
   'cx-m04-01.s9': function (c) {
     const p = rows(c, 'spi-setup.csv', 'item', 'value');
-    /* the screen reading in the step text, corrected for the program's foil */
-    return 108 * +p['press_foil_mm'] / +p['program_foil_mm'];
+    /* The screen reading is derived, not read out of the step text: nominal is
+     * area x the foil in the program, so the screen's share is the mean over
+     * the program's nominal. It reads LOW here, because 0.125 > 0.100. */
+    const v = dataFile(c, 'spi-deposits.csv').map(function (r) { return +r.volume_nL; });
+    const m = v.reduce(function (a, b) { return a + b; }, 0) / v.length;
+    const screen = m / (+p['aperture_width_mm'] * +p['aperture_length_mm'] *
+      +p['program_foil_mm'] * 1000) * 100;
+    /* and the correction is the same multiplication whichever way the error
+     * runs: truth = screen x program / press */
+    return screen * +p['program_foil_mm'] / +p['press_foil_mm'];
   },
   'cx-m04-01.s10': function () { return 'correct the spi program'; },
   /* ---- m01: bare-board release. Every figure below is recomputed from the

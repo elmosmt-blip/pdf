@@ -207,3 +207,87 @@ with the case's answer keys.
 * The DOCX files are plain python-docx tables: correct and readable, but they have
   no page numbers or header/footer block, which a real quality system will want.
 * No LibreOffice recalculation, for the reason above.
+
+## Third pass: the technologist audit
+
+The brief was closed and pushed, then audited as a reviewer would audit it rather
+than as the builder had. Two findings held up; the rest of the audit was clean.
+
+### 1. m04 had a story that contradicted its own data (fixed)
+
+`cx-m04-01` step 9 said the SPI screen reads **108 %** while the board is at 86 %,
+and explained it with a program foil of 0.125 mm over a press foil of 0.100 mm.
+The explanation was backwards. Nominal is area x foil, so a program foil thicker
+than the real one makes the machine divide by too much: the screen reads **low**,
+not high. On this case's own numbers — 17.09 nL through a 0.198 mm² aperture —
+the program's nominal is 24.75 nL and the screen reads **69.0 %**, while the press
+foil gives 19.80 nL and the board is at **86.3 %**. A 108 % reading on that
+program would have required a press foil of 0.080 mm, which is not in the data.
+
+What was wrong was not the arithmetic of the correction (`reading x 0.125 / 0.100`
+is right whichever way the error runs) but the direction stated in the stem, the
+key option, the feedback and the explanation. Fixed in `gen_cases.py`: the screen
+reading is now computed from the mean and the two foils rather than typed into the
+step, the step asks 69 %, and the answer walks from 69.0 % to 86.3 %.
+
+The independent check had been unable to see this because it hard-coded the 108 %
+it was checking against. `check-cases.js` now recomputes the screen reading from
+`spi-deposits.csv` and `spi-setup.csv` and then corrects it, so a percentage in the
+prose that disagrees with the data now fails the build.
+
+The template earned its place here: its two rows, `What the screen shows (%)` and
+`Corrected to the press foil (%)`, evaluate to 69.04 % and 86.30 % on the example
+data, which is what made the contradiction visible in the first place. Both rows
+are now checked independently in `check-templates.py`.
+
+### 2. Thirteen thresholds were printed and never read (fixed)
+
+A sheet that declares a limit and never uses it is a poster. The audit scanned
+every threshold's value cell against every formula reference and found thirteen
+that nothing read. Each was dealt with on its own terms rather than by deleting
+the row or by wiring it to something arbitrary:
+
+| Template | Threshold | What now reads it |
+|---|---|---|
+| msl-log | Tape-and-reel bake ceiling (C) | `Bake ceiling for the carrier (C)`, a row per reel: 40 °C when the reel must be baked, "no bake" when it is released |
+| stencil-check | Foil thickness, general (mm) | `Foil recognised?`, a row per aperture: a drawing quoting a thickness the press does not carry is called out instead of being used in a ratio |
+| stencil-check | Foil thickness, fine pitch (mm) | same row |
+| reflow-profile | Cooling, J-STD-020 ceiling (C/s) | `Cooling within the component ceiling?`, judged separately from the course's 4 °C/s band |
+| reflow-profile | Time above liquidus, course min (s) | `Time above liquidus within band?`, alongside the 60 s floor |
+| design-feedback-pack | Placement acceptance (mm) | `Fiducial separation needed for 40 mm (mm)` — 37.3 mm — and `Separation ask: passed?` |
+| design-feedback-pack | Distance to the panel edge (mm) | same row |
+| design-feedback-pack | Effectiveness target (ppm) | `Defect rate against the effectiveness target (ppm)` — 30,645 ppm — and `Effectiveness ask: passed?` |
+| coverage-model | Class escape alarm (%) | `Worst class` and `Worst class alarm`, which name the class the screens leave alone rather than making the reader find it |
+| cleanliness-record | Customer limit (ug/cm2) | the route limit now *reads* it (`=[[Customer limit (ug/cm2)]]`), so one customer number lives in one cell |
+| rework-record | Iron setpoint, min (C) | `Setpoint in band?` per row, and `Rows out of the iron band` |
+| rework-record | Iron setpoint, max (C) | same row |
+| rework-record | Contacts, maximum | `Contacts within rule?` per row, and `Rows over the contact rule` |
+
+Three things came out of doing it that way:
+
+* The builder now lets a **threshold cell hold a formula that points at another
+  threshold**, because the m12 route limit and the customer limit were the same
+  0.5 typed twice, which is how two copies of one fact drift apart.
+* The m15 pack grew two measured inputs (worst fiducial residual, fiducial
+  separation) that had been prose in the case. They are inputs, not thresholds:
+  the threshold block holds the acceptance to clear, these are what the plant
+  measured.
+* Every new column is recomputed independently in `check-templates.py`. Two
+  mistakes were caught that way during the work: a check that pointed at column
+  M after the table had gained a column (it would have read the Decision column
+  as a width), and a spread of `#VALUE!` from a blank row.
+
+The one remaining unreferenced threshold, `Classification` on the Pareto sheet, is
+a text value ("per contract class") that states which classification table applies;
+there is no formula for it to drive, and it is labelled as such. It is left visible
+rather than deleted, because a reader needs to know which class the acceptance
+comes from.
+
+### What the audit did not change
+
+* Case keys, options and their rotation: sound. The audit re-derived the m04 and
+  m03 figures from the data files and the option letters in `cases.json` are the
+  post-rotation letters, as designed.
+* The 75-125 % SPI window remains a course/control-plan value, never IPC-7527.
+* No new vendor citations were added. The audit re-read the sourcing notes for the
+  hole-fill, conductor-width and SPI-window numbers and found them as recorded.

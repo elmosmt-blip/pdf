@@ -107,8 +107,15 @@ def xlsx_threshold_block(ws, spec, start_row=1):
         cell.border = BORDER
     r = start_row + 2
     addresses = {}
+    # A threshold may BE another threshold: the route limit is the customer's
+    # limit for this build, and typing 0.5 twice is how the two drift apart the
+    # first time the customer changes a spec. Addresses are assigned in a first
+    # pass so such a cell can be written as a formula pointing at its sibling.
+    for i, (label, _v, _s, _o) in enumerate(spec.get("thresholds", [])):
+        addresses[label] = "$B$%d" % (start_row + 2 + i)
     for label, value, src, origin in spec.get("thresholds", []):
-        addresses[label] = "$B$%d" % r
+        if isinstance(value, str) and value.startswith("="):
+            value = re.sub(r"\[\[([^]]+)\]\]", lambda m: addresses[m.group(1).strip()], value)
         ws.cell(row=r, column=1, value=label).border = BORDER
         v = ws.cell(row=r, column=2, value=value)
         v.border = BORDER

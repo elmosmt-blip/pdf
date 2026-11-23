@@ -48,8 +48,8 @@
         "guide": "msl-log-guide-v1-2026-10-31.md"
       },
       "bytes": {
-        "blank": 7983,
-        "example": 8199,
+        "blank": 8091,
+        "example": 8320,
         "guide": 2106
       }
     },
@@ -75,8 +75,8 @@
         "guide": "stencil-check-guide-v1-2026-10-31.md"
       },
       "bytes": {
-        "blank": 7727,
-        "example": 7876,
+        "blank": 7870,
+        "example": 8021,
         "guide": 2172
       }
     },
@@ -100,8 +100,8 @@
         "guide": "reflow-profile-guide-v1-2026-10-31.md"
       },
       "bytes": {
-        "blank": 8140,
-        "example": 8322,
+        "blank": 8281,
+        "example": 8460,
         "guide": 2160
       }
     },
@@ -125,8 +125,8 @@
         "guide": "design-feedback-pack-guide-v1-2026-10-31.md"
       },
       "bytes": {
-        "blank": 8158,
-        "example": 8302,
+        "blank": 8483,
+        "example": 8624,
         "guide": 1492
       }
     },
@@ -150,8 +150,8 @@
         "guide": "coverage-model-guide-v1-2026-10-31.md"
       },
       "bytes": {
-        "blank": 8387,
-        "example": 8785,
+        "blank": 8489,
+        "example": 8889,
         "guide": 1549
       }
     },
@@ -175,7 +175,7 @@
         "guide": "cleanliness-record-guide-v1-2026-10-31.md"
       },
       "bytes": {
-        "blank": 8629,
+        "blank": 8610,
         "example": 8837,
         "guide": 1546
       }
@@ -200,8 +200,8 @@
         "guide": "rework-record-guide-v1-2026-10-31.md"
       },
       "bytes": {
-        "blank": 8791,
-        "example": 9135,
+        "blank": 9233,
+        "example": 9567,
         "guide": 1540
       }
     },
@@ -325,8 +325,8 @@
         "guide": "spi-record-guide-v1-2026-10-31.md"
       },
       "bytes": {
-        "blank": 9007,
-        "example": 9312,
+        "blank": 9046,
+        "example": 9400,
         "guide": 1509
       }
     },

@@ -357,6 +357,17 @@ def check_stencil_by_row(spec):
                 fail("stencil", "row %d verdict %r, expected %r"
                      % (r, sol.get("I%d" % r), want_verdict))
                 bad += 1
+            # A foil that is neither of the two the press carries is a drawing
+            # error, and the row says so rather than computing a ratio on a
+            # stencil nobody has.
+            known = [th.get("Foil thickness, general (mm)"),
+                     th.get("Foil thickness, fine pitch (mm)")]
+            want_foil = ("known foil" if any(k is not None and abs(f - k) < 0.001 for k in known)
+                         else "not a foil this press carries")
+            if sol.get("J%d" % r) != want_foil:
+                fail("stencil", "row %d foil check %r, expected %r"
+                     % (r, sol.get("J%d" % r), want_foil))
+                bad += 1
             n += 1
             r += 1
     if not bad and n:
@@ -445,6 +456,7 @@ def check_msl_by_row(spec):
         if ws.cell(row=r, column=1).value:
             th[str(ws.cell(row=r, column=1).value)] = ws.cell(row=r, column=2).value
     cab = th.get("Dry cabinet requirement (%, RH)")
+    tape = th.get("Tape-and-reel bake ceiling (C)")
     floor = {"3": th.get("Floor life, MSL 3 (h)"), "4": th.get("Floor life, MSL 4 (h)"),
              "5": th.get("Floor life, MSL 5 (h)")}
     head = next(r for r in range(1, ws.max_row + 1)
@@ -472,6 +484,16 @@ def check_msl_by_row(spec):
             if sol.get("M%d" % r) not in ("", None):
                 fail("msl", "row %d: a decision was produced for an MSL with no floor "
                             "life in the table (%r)" % (r, sol.get("M%d" % r))); bad += 1
+            # The bake ceiling is a threshold, not a typed number: a row that
+            # needs a bake carries the tape-and-reel ceiling, a released row
+            # says there is nothing to bake.
+            want_bake = ("" if want_dec is None
+                         else ("no bake" if want_dec == "release" else tape))
+            # The engine reports an empty string cell as None, so compare on the
+            # empty-string-normalised value rather than on the raw type.
+            if (sol.get("N%d" % r) or "") != want_bake:
+                fail("msl", "row %d: bake ceiling %r, expected %r"
+                     % (r, sol.get("N%d" % r), want_bake)); bad += 1
         else:
             if abs(float(sol.get("J%d" % r)) - want_floor) > 1e-9:
                 fail("msl", "row %d: floor life %r" % (r, sol.get("J%d" % r))); bad += 1
@@ -608,6 +630,17 @@ def check_spi(spec):
          <= v["Window: high (nL)"] else "no", "in-window verdict"),
     ], [
         ("Mean volume (nL)", lambda: sum(_deposits()) / len(_deposits()), "mean volume"),
+        # The program foil is the general 0.125 mm, the press cuts 0.100 mm, so
+        # the screen's share is computed on a nominal 25 % too large — it reads
+        # LOW — and multiplying by program/press returns the truth. Written as
+        # an independent recomputation so the two figures cannot agree by
+        # construction: 69.0 % on the screen, 86.3 % on the board.
+        ("What the screen shows (%)",
+         lambda: sum(_deposits()) / len(_deposits()) / (0.22 * 0.90 * 0.125 * 1000) * 100,
+         "screen reading on the program's foil"),
+        ("Corrected to the press foil (%)",
+         lambda: sum(_deposits()) / len(_deposits()) / (0.22 * 0.90 * 0.125 * 1000) * 100
+         * 0.125 / 0.100, "reading corrected to the press foil"),
     ])
 
 
@@ -725,6 +758,13 @@ def check_design_pack(spec):
         ("Cost of poor quality (USD)",
          lambda: 38 * 9 / 60 * 45 + 12 * 180.0 + 1240 * 0.5 / 60 * 45 + 6.5 * 40.0, "CoPQ"),
         ("First-pass yield (%)", lambda: (1240 - 38) / 1240 * 100, "first-pass yield"),
+        # The three ask tests, recomputed from the threshold values the sheet
+        # carries rather than from the numbers in the note.
+        ("Fiducial separation needed for 40 mm (mm)",
+         lambda: round(0.14 * 40.0 / 0.15, 1), "separation the acceptance needs"),
+        ("Separation against the panel drawing (mm)", lambda: 10.0, "separation on the drawing"),
+        ("Defect rate against the effectiveness target (ppm)",
+         lambda: round(38 / 1240 * 1000000, 0), "defect rate in ppm"),
         ("Boards to pay the change back",
          lambda: 1200.0 / ((38 * 9 / 60 * 45 + 12 * 180.0) * 0.6 / 1240), "payback"),
     ])

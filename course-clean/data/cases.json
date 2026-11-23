@@ -1091,7 +1091,7 @@
           ],
           "feedbackCorrect": "19.8 nL — every SPI percentage in this case is a share of it.",
           "feedbackWrong": "Area times thickness, then mm³ to nL: multiply by 1000.",
-          "explanation": "0.198 mm² x 0.100 mm = 0.0198 mm³, and a cubic millimetre is a microlitre, so the deposit is 19.8 nL. This is the number the SPI machine computes when it prints 'volume %', and it is the number the whole case hangs on: 16 nL is not 'low' on its own, it is 81 % of this aperture and would be 65 % of a larger one. The foil figure matters as much as the area: the same aperture printed through 0.125 mm would hold 24.75 nL, which is the trap waiting in step 9."
+          "explanation": "0.198 mm² x 0.100 mm = 0.0198 mm³, and a cubic millimetre is a microlitre, so the deposit is 19.8 nL. This is the number the SPI machine computes when it prints 'volume %', and it is the number the whole case hangs on: 16 nL is not 'low' on its own, it is 81 % of this aperture and would be 65 % of a larger one. The foil figure matters as much as the area: the same aperture printed through 0.125 mm would hold 24.75 nL — which is exactly the nominal the SPI program was dividing by, and the trap waiting in step 9."
         },
         {
           "id": "s2",
@@ -1238,23 +1238,23 @@
         {
           "id": "s9",
           "type": "choice",
-          "prompt": "The SPI program was built against the 0.125 mm general stencil, and the fine-pitch region on the press is 0.100 mm. On that program the screen reads 108 % of nominal. What is really there?",
+          "prompt": "The SPI program was built against the 0.125 mm general stencil, and the fine-pitch region on the press is 0.100 mm — the foil the values above were measured against. On that program the screen reads 69 % of nominal. What is really there?",
           "options": [
             {
               "id": "a",
-              "text": "135 %: the thinner foil means more paste."
+              "text": "55 %: the thinner foil means less paste, so the reading overstates the deposit."
             },
             {
               "id": "b",
-              "text": "108 % is right, but the window should be widened to match the foil."
+              "text": "69 % is right, but the window should be widened to match the foil."
             },
             {
               "id": "c",
-              "text": "108 % — the machine computes nominal from the aperture, so the foil in its program does not matter."
+              "text": "69 % — the machine computes nominal from the aperture, so the foil in its program does not matter."
             },
             {
               "id": "d",
-              "text": "86 %: the machine's nominal is 25 % too large, so every reading is inflated by that factor and the truth is 108 % x 0.100 / 0.125."
+              "text": "86 %: the program's nominal is 25 % too large, so every percentage it prints is 20 % too small, and the truth is 69 % x 0.125 / 0.100."
             }
           ],
           "answer": {
@@ -1262,12 +1262,12 @@
           },
           "hints": [
             "Nominal = area x foil, and the machine uses the foil in its program.",
-            "A program foil thicker than reality makes the nominal too large.",
-            "108 x 0.100 / 0.125 = 86.4 %."
+            "A program foil thicker than reality makes the nominal too large, so the percentage it divides out is too small.",
+            "69 x 0.125 / 0.100 = 86.25 %."
           ],
-          "feedbackCorrect": "86 %, not 108 %: the program's nominal is 25 % too large and every reading inherits the error.",
+          "feedbackCorrect": "86 %, not 69 %: the program's nominal is 25 % too large, so every reading on that screen sits 20 % low.",
           "feedbackWrong": "Which foil value is inside the nominal the machine divides by?",
-          "explanation": "The machine computes nominal as area x the foil in its program, so a program set to 0.125 mm while the press carries 0.100 mm makes every percentage 25 % too high: 108 % x 0.100 / 0.125 = 86.4 %. This is a measurement-system finding, not a print finding, and it belongs first. It is also the reason the absolute nanolitres matter: a volume does not care what the program believed, which is why the volumes above were used to compute the mean rather than the percentages on the screen."
+          "explanation": "The machine computes nominal as area x the foil in its program. Its nominal is 24.75 nL, while the press cuts apertures for 19.80 nL, so the 17.09 nL it is looking at prints on the screen as 69.0 % and is 86.3 % on the board. The direction is worth keeping straight: a program foil that is too thick inflates the denominator, so the screen reads LOW, by the ratio of the two foils — 0.100 / 0.125, or 20 %. Correcting it is one multiplication: 69.0 x 0.125 / 0.100 = 86.3 %. This is a measurement-system finding, not a print finding, and it belongs first. It is also the reason the absolute nanolitres matter: a volume does not care what the program believed, which is why the volumes above were used to compute the mean rather than the percentages on the screen."
         },
         {
           "id": "s10",
@@ -1301,7 +1301,7 @@
           ],
           "feedbackCorrect": "Measurement first, then the two-population question, then the print settings — and one variable at a time.",
           "feedbackWrong": "Which finding would make you doubt the numbers the other two rest on?",
-          "explanation": "The foil error is a constant 25 % on every reading, so it distorts the window, the Cpk and the decision to raise pressure. Correcting it costs nothing and gives the split a trustworthy scale. The split comes next because it is a structural difference between the passes, and until it is named, any pressure change is a guess applied to both halves of a two-humped distribution. Only then does the print get tuned, one variable at a time, with SPI re-read after each change — the m04l07 rule this case exists to exercise."
+          "explanation": "The foil error is a constant factor — a 25 % oversize on the nominal, which shows up as every reading 20 % low — so it distorts the window, the Cpk and the decision to raise pressure. Correcting it costs nothing and gives the split a trustworthy scale. The split comes next because it is a structural difference between the passes, and until it is named, any pressure change is a guess applied to both halves of a two-humped distribution. Only then does the print get tuned, one variable at a time, with SPI re-read after each change — the m04l07 rule this case exists to exercise."
         }
       ],
       "rubric": [
