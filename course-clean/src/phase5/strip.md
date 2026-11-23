@@ -1,0 +1,36 @@
+m01l02
+Document package at receiving
+Every lot arrives as a document-controlled object first and a physical object second. To release it, receiving needs a packing list, a certificate of conformance or certificate of analysis, and any declaration the purchase order names; moisture-sensitive parts add a sealed dry pack with an MSL label and a humidity indicator card. The exact set follows the supplier agreement, the customer specification and the risk of the lot, but the purpose never changes: identity and quantity, conformity or measured properties, moisture history, and regulatory claims each need their own evidence.
+A familiar carton and a known supplier are not evidence. The package is what proves the lot is the lot the process was planned around, and it is what a later defect gets traced back to. It also tells the inspector whether to open the pack, sample it, or hold it.
+
+Packing list
+The packing list records what the supplier says it shipped and how it labelled it: purchase order, part number, revision, quantity, lot or batch code, date code, package type and handling notes. Against it, receiving matches cartons to the expected quantity and traceability code. For paste it names the type, container size and lot; for bare boards, the part number, revision, panel or array count and packaging requirements.
+A packing list settles what left the supplier's dock, not what it passed. When it disagrees with the purchase order, the carton labels or the certificate, the lot waits until the discrepancy is explained, and the packing-list number and the mismatch go into the incoming record.
+
+CoC and CoA
+The certificate of conformance says the delivered lot conforms to the purchase order and the referenced acceptance criteria. The certificate of analysis gives measured or tested values for named characteristics: electrical parameters, plating thickness or package integrity for components; metal content or viscosity for paste, often against IPC J-STD-004; laminate, copper weight, plating type and thickness, judged against IPC-A-600 or IPC-6012 for bare boards.
+Either certificate is only evidence for the lot it names. One that covers a different lot proves nothing about the received lot, however well the part number matches, so check the lot or date code, the certificate date, the supplier name and the referenced specification before accepting it.
+
+MSL label and dry pack
+A sealed dry pack carries an MSL label and a humidity indicator card. The label gives the moisture sensitivity level and the floor life assigned under IPC/JEDEC J-STD-033; the card shows whether the pack's environment went past the supplier's humidity threshold. Neither one declares the parts fit to place. What they record is handling: how the lot was protected, and how much of its floor life is left once the bag is opened.
+Opening the pack starts the clock, and the remainder is tracked against the label value and your own schedule. A damaged pack, a broken seal or a card showing an exceedance sends the lot to quarantine for evaluation. Record the MSL value, the floor-life value, the card status and the seal condition as part of the incoming evidence.
+
+Paste documentation
+Paste paperwork has to cover identity and process suitability at once. The packing list names type, container size and lot code. The CoA or CoC shows the lot was manufactured and tested against the agreed specification, often IPC J-STD-004, with shelf-life information, and the container label has to agree with both. Storage and handling conditions belong to the process: 2 °C to 10 °C is a common range, and your facility controls decide the rest.
+Paste that comes back into storage should carry its handling history — how many times it was opened, how long it sat outside — because both affect printability and may force mixing or discard. A certificate proves the paste was acceptable at the supplier, not that it survived transport, storage and handling. Record lot code, expiry date, storage condition and handling notes.
+
+Bare PCB documentation
+Bare boards arrive with evidence that they were built to the purchased design and acceptance level. The packing list fixes part number, revision, quantity and lot code. The CoC or CoA covers the laminate material, copper weight, plating finish and the dimensional or electrical results the purchase order asks for; acceptance may reference IPC-A-600 for visual and dimensional criteria and IPC-6012 for qualification and performance. Plated through holes need a plating type and thickness range, and the board needs a lot or panel mark that matches the documents.
+Controlled-impedance boards add coupon results or a statement that the coupons were tested; special finishes add the finish type and any storage limits. Where the revision, material class or finish does not match the purchase order, the lot is quarantined even if it looks right. Record the revision, the lot code and the certificate reference.
+
+Declarations
+Declarations sit beside the quality certificates and cover regulatory and contractual claims: restricted substances under RoHS or REACH where the purchase order invokes them, counterfeit avoidance for authorised-channel control on high-reliability or safety parts, conflict minerals where reporting applies. None of them says the lot will process well on your line. They say the supplier has made a specific claim about origin, composition or compliance.
+Tie the declaration to the lot or a defined lot range and keep it with the incoming record. A missing declaration does not make the boards unusable, but it blocks the compliance claim until the document arrives. Record the declaration type, its revision and the range it covers.
+
+Disposition from the package
+Disposition follows the evidence, and a document gap is still a stop. Matching part numbers, revisions, lot codes, quantities and certificates mean release is possible. A missing CoC, a mismatched lot code, a damaged dry pack or an expired shelf life is a document or handling defect rather than a physical one, and it holds the lot until the evidence is corrected.
+Write down the document numbers, certificate dates, MSL values, indicator status and any deviation. A quarantined lot records which document or condition failed and what has to happen before release; a released lot records that the package was complete and that its handling limits passed to the process. That record is what makes a defect traceable months later, and what turns a repeated document failure into a supplier corrective action.
+
+Handoff to the process
+The package does not stop at the receiving door. Paste type, shelf-life status, MSL floor-life start and board revision go onto the work order or MES record. Component lot codes are linked to the feeder or magazine, paste open time, storage time and open count are visible to the printer operator, and the board revision and lot code are linked to the panel or array actually assembled.
+The handoff is what keeps a released lot from being run with the wrong parameters, and it is what makes containment possible: when a suspect condition appears, the process can say which lots saw it. Record it in the same traceability system that holds the inspection result.

@@ -1,0 +1,76 @@
+{
+  "lessonId": "m01l02",
+  "title": "The documentation package: CoC/CoA, packing list, MSL label, declarations",
+  "takeaways": [],
+  "mistakes": [
+    {
+      "mistake": "",
+      "instead": ""
+    },
+    {
+      "mistake": "",
+      "instead": ""
+    },
+    {
+      "mistake": "",
+      "instead": ""
+    }
+  ],
+  "terms": [
+    {
+      "term": "",
+      "def": ""
+    },
+    {
+      "term": "",
+      "def": ""
+    }
+  ],
+  "entries": [
+    {
+      "index": 1,
+      "heading": "Document package at receiving",
+      "raw": "At receiving, the lot should be treated as a document-controlled object, not only a physical object. For components, solder paste, and bare PCBs, the minimum package normally includes a packing list, a certificate of conformance or certificate of analysis, and any declarations required by the purchase order. Moisture-sensitive components should also arrive in a sealed dry pack with an MSL label and humidity indicator card. The exact set depends on the supplier agreement, the customer specification, and the risk of the lot, but the purpose is the same: the packing list proves identity and quantity, the CoC or CoA proves conformity or measured properties, the MSL label proves moisture handling history, and declarations prove regulatory or contractual claims. Receiving should not release material based only on a familiar carton or a supplier name. The document package is the first evidence that the lot is the lot the process was planned to use, and it gives the traceability needed if a later defect points back to incoming material. It also gives the incoming inspector a basis for deciding whether to open the pack, sample the lot, or quarantine it."
+    },
+    {
+      "index": 2,
+      "heading": "Packing list: what it proves",
+      "raw": "The packing list proves what the supplier says was shipped and how it was identified. It should link the purchase order, part number, revision, quantity, lot or batch code, date code, package type, and any special handling notes. For a lot of components, it lets receiving match the physical cartons to the expected quantity and traceability code, and it supports later traceability to the assembly. For paste, it should identify the paste type, container size, lot code, and any storage or handling notes. For bare PCBs, it should identify the board part number, revision, panel or array count, lot code, and any special packaging requirements. If the packing list disagrees with the purchase order, the carton labels, or the certificate, the lot should be quarantined until the discrepancy is resolved. A packing list does not prove that the lot passed tests; it proves the supplier's shipping record and gives the starting point for traceability. Receiving should record the packing list number and any mismatch in the incoming inspection record."
+    },
+    {
+      "index": 3,
+      "heading": "CoC and CoA: what they prove",
+      "raw": "A certificate of conformance states that the delivered lot conforms to the purchase order and referenced acceptance criteria. A certificate of analysis provides measured or tested values for selected characteristics. For components, a CoC may prove that the lot was inspected and packaged to the specified grade, while a CoA may prove lot-specific test results such as electrical parameters, plating thickness, or package integrity. For solder paste, a CoA commonly reports metal content, viscosity, or other paste properties against the specification, often referencing IPC J-STD-004, and may include shelf-life information. For bare PCBs, a CoC or CoA may prove laminate material, copper weight, plating type, plating thickness, and acceptance against IPC-A-600 or IPC-6012, depending on the contract. The certificate should be traceable to the received lot by lot code, date code, or serial range. If the certificate covers a different lot, it does not prove the received lot, even if the part number matches. The inspector should check that the certificate date, supplier name, and referenced specification match the purchase order."
+    },
+    {
+      "index": 4,
+      "heading": "MSL label and dry pack",
+      "raw": "For moisture-sensitive surface-mount components, the sealed dry pack should carry an MSL label and a humidity indicator card. The MSL label identifies the moisture sensitivity level and the floor life assigned under IPC/JEDEC J-STD-033. The humidity indicator card gives a visual indication of whether the dry pack environment has exceeded the supplier's specified humidity threshold. The label and card do not prove that the components are acceptable for placement by themselves; they prove the handling history and the conditions under which the lot was protected. If the pack is opened, the floor-life clock starts, and the remaining time must be tracked against the label value and your process schedule. If the pack is damaged, the seal is broken, or the indicator card shows an exceedance, the lot should be quarantined and evaluated before use. The dry pack documents are part of the incoming evidence, not a substitute for incoming inspection. The inspector should record the MSL value, floor-life value, indicator card status, and seal condition."
+    },
+    {
+      "index": 5,
+      "heading": "Paste documentation",
+      "raw": "Solder paste requires documentation that supports both identity and process suitability. The packing list proves the paste type, container size, and lot code. The CoA or CoC proves that the paste was manufactured and tested against the agreed specification, often IPC J-STD-004, and may include shelf-life information. The container label should agree with the certificate and the packing list. Storage and handling conditions are process-specific; a common storage range is 2 °C to 10 °C, but verify against your paste/equipment datasheet and your facility controls. If the paste is returned to storage, the label should record the number of times it has been opened and the time outside storage, because those values affect printability and may require mixing or discard. For incoming lots, check that the paste type matches the stencil, printer, and reflow profile planned for the job. A certificate that proves the paste was acceptable at the supplier does not prove it is still suitable after transport, storage, or handling. The inspector should record the lot code, expiry date, storage condition, and any handling notes."
+    },
+    {
+      "index": 6,
+      "heading": "Bare PCB documentation",
+      "raw": "Bare PCBs should arrive with documents that prove the board was built to the purchased design and acceptance level. The packing list proves the board part number, revision, quantity, and lot code. The CoC or CoA proves the laminate material, copper weight, plating finish, and dimensional or electrical test results required by the purchase order. Acceptance may be referenced to IPC-A-600 for visual and dimensional criteria, while IPC-6012 may be used for qualification and performance requirements. For plated through holes, the certificate should identify the plating type and thickness range, and the board should carry a lot or panel traceability mark that matches the documents. For controlled-impedance boards, the certificate may include test coupon results or a statement that coupons were tested. For boards with special finishes, the certificate should state the finish type and any storage or handling limits. If the board revision, material class, or finish does not match the purchase order, the lot should be quarantined even if the boards look acceptable. The inspector should record the board revision, lot code, and certificate reference."
+    },
+    {
+      "index": 7,
+      "heading": "Declarations and special requirements",
+      "raw": "Declarations are separate from quality certificates and prove regulatory or contractual constraints. A restricted-substance declaration supports compliance with customer or market requirements, such as RoHS or REACH, when those requirements are part of the purchase order. A counterfeit-avoidance declaration supports the supplier's control of authorized distribution channels and may be important for high-reliability or safety-related products. A conflict-minerals declaration supports reporting obligations where applicable. These documents do not prove that the lot will process correctly on your line; they prove that the supplier has made a stated claim about the lot's origin, composition, or compliance. The declaration should be traceable to the lot or to a defined lot range, and it should be retained with the incoming inspection record. If a declaration is missing, the lot may still be physically acceptable, but the compliance claim cannot be released without evidence. The inspector should record the declaration type, revision, and traceability range."
+    },
+    {
+      "index": 8,
+      "heading": "Disposition based on the document package",
+      "raw": "Incoming disposition should be based on whether the documents prove the lot is what the process expects. A complete package shows matching part numbers, revisions, lot codes, quantities, and required certificates. A missing CoC, mismatched lot code, damaged dry pack, or expired shelf life is a document or handling defect, not necessarily a physical defect, but it prevents release until the evidence is corrected. Record the document numbers, certificate dates, MSL label values, humidity indicator status, and any deviations in the incoming inspection record. If the lot is quarantined, the record should state which document or condition failed and what action is required before release. If the lot is released, the record should show that the document package was complete and that any special handling limits were transferred to the process. This record supports traceability when a defect is found later in assembly, test, or field return. It also supports supplier corrective action when the same document failure repeats."
+    },
+    {
+      "index": 9,
+      "heading": "Handoff to the process",
+      "raw": "The document package should not stop at receiving. The values that affect the process, such as paste type, shelf-life status, MSL floor-life start time, and board revision, should be transferred to the work order or MES record. For components, the lot code should be linked to the feeder or magazine so that a later defect can be traced to the incoming lot. For paste, the opened time, storage time, and number of opens should be visible to the printer operator. For bare PCBs, the revision and lot code should be linked to the panel or array used in assembly. This handoff prevents a situation where a lot is released by quality but used with the wrong process parameters. It also makes the incoming documents useful during containment, because the process can identify which lots were exposed to a suspect condition. The handoff should be recorded in the same traceability system used for the incoming inspection."
+    }
+  ]
+}
