@@ -675,16 +675,76 @@ numeric), `check-quiz.js` OK, `tests/course.test.js` **193 / 0**,
 
 ---
 
+## 7j. Round 10 — design feedback (m15), and the last module closes
+
+| Case | Module | Steps | Rubric | Est. | What it makes the learner do |
+|---|---|---|---|---|---|
+| `cx-m15-01` Design feedback | m15 | 10 (5 numeric) | 100 | 45 min | Solve the design rule for the dimension the designer controls, state the defect rate with its denominator twice, assemble the cost of poor quality from quantified drivers, compute payback per board, write the ask as a rule with tolerance and pass condition, judge image evidence, judge the sample window, sort asks by owner, and name what closes the change |
+
+Control numbers:
+
+| Figure | Value |
+|---|---|
+| fiducial separation for 0.14 mm residual at r = 40 mm | **37.3 mm** (Board X has 10 mm) |
+| first-pass yield, 1,240 boards / 38 defects | **96.94 %** |
+| defects per 1,000 boards | **30.65** |
+| DPMO, 620 opportunities | 49.4 (the m14 number) |
+| cost of poor quality | **3,141.50 USD** — scrap 2,160, downtime 260, inspection 465, rework 256.50 |
+| payback on a 1,200 USD change | **1,026.3 boards** |
+
+### What the case is
+
+The only case that measures nothing new. Every input is a number an earlier case
+established — the fiducial residuals from m05, the 620 opportunities and the 38
+defects from m07/m14, the board facts every case reads — and the work is turning
+them into the two artefacts m15 is about: a rule with a dimension in it, and a
+pack whose cost arithmetic an auditor can redo.
+
+The arithmetic has one deliberate shape. Scrap is 69 % of the cost of poor
+quality and rework 8 %, so a programme that attacks rework attacks the small
+number — that is the argument the case makes, and it is the one a plant usually
+gets wrong because rework is the cost it sees every shift.
+
+### Why the rule is the hard part
+
+The fiducial ask is the case's spine, because it is the one thing on Board X that
+the plant cannot fix itself. Everything else in the pack — the QFP-48 aperture,
+the SPI window — has a different owner, and s9 makes the learner sort by owner
+before severity. A pack that mixes the three is returned at the first item with
+"not our scope" on it.
+
+### Honest limits
+
+* The 30-day / 1,000-board sample requirement is the lesson's, not a standard's;
+  the case applies it to a 300-board week and calls the result preliminary.
+* The cost drivers are Board X's own rates. The case excludes field-failure
+  exposure from the sum and says why, rather than putting an estimate in a total.
+* The payback is a single-order calculation. It ignores the stencil's own life
+  and the requalification cost, both of which the lesson tells the writer to
+  state separately.
+
+Verification after round 10: `gen_cases.py --check` OK (**15 cases, 137 steps**),
+`check-cases.js` **137/137**, `check-integrity.js` OK (15 cases, 137 steps, 83
+numeric), `check-quiz.js` OK, `tests/course.test.js` **195 / 0**,
+`tests/case-qa.js` **57 / 0**, pilot sheet 15 cases / 137 steps, 31 outline
+captures, 18 templates (54 files), thread 15 steps.
+
+---
+
 ## 8. Next
 
-Fourteen of fifteen modules now carry a case: m01-m06, m07, m08, m09, m10, m11,
-m12, m13, m14. One remains: m15, design feedback.
+All fifteen modules now carry a case: 15 cases, 137 steps, 137 computed keys,
+18 templates, a 15-step Board X thread. Nothing in the case set is outstanding.
 
-m15 is the last one and it is different in kind: every other case produces a
-measurement, and m15 has to assemble those measurements into the pack that goes
-back to the customer and to the design team. Its evidence is the thirteen earlier
-cases' own numbers, which makes it the natural closing exercise — and the only
-one whose data files are derived from other cases rather than measured.
+What remains is not features:
+
+* **the pilot.** Fifteen cases and 137 steps have never been read by anyone who
+  did not write them. That is the largest open risk in the product and no further
+  authoring closes it.
+* **the standards audit.** The IPC numbers are checked against summaries, not
+  against paid copies. Where a summary was ambiguous the case says so on the page.
+* **m12 and m13 landed after the last full technologist review round**; the audit
+  that follows this round covers them.
 
 ---
 

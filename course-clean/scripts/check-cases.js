@@ -186,6 +186,45 @@ function rows(c, name, keyCol, valCol) {
 const EXPECTED = {
   /* ---- m13: coverage. Every figure is recomputed from the defect model, with
    * the series combination written out per class rather than taken from a key. */
+  /* ---- m15: design feedback. Every input comes from the pack's own data files. */
+  'cx-m15-01.s1': function (c) {
+    const p = rows(c, 'placement-facts.csv', 'item', 'value');
+    /* separation = residual / (acceptance / radius) */
+    return +((+p['worst_fiducial_residual_mm']) /
+      ((+p['placement_acceptance_mm']) / (+p['panel_edge_part_radius_mm']))).toFixed(1);
+  },
+  'cx-m15-01.s2': function (c) {
+    const p = rows(c, 'production-pack.csv', 'item', 'value');
+    return +(((+p['boards_started'] - +p['defects_confirmed']) /
+      (+p['boards_started'])) * 100).toFixed(2);
+  },
+  'cx-m15-01.s3': function (c) {
+    const p = rows(c, 'production-pack.csv', 'item', 'value');
+    return +((+p['defects_confirmed']) / (+p['boards_started']) * 1000).toFixed(2);
+  },
+  'cx-m15-01.s4': function (c) {
+    const p = rows(c, 'production-pack.csv', 'item', 'value');
+    const rework = +p['defects_confirmed'] * (+p['rework_min_per_defect']) / 60 *
+      (+p['labour_rate_per_h']);
+    const scrap = +p['boards_scrapped'] * (+p['board_cost_usd']);
+    const inspect = +p['boards_started'] * (+p['inspection_min_per_board']) / 60 *
+      (+p['labour_rate_per_h']);
+    const down = +p['downtime_h'] * (+p['downtime_rate_per_h']);
+    return +(rework + scrap + inspect + down).toFixed(2);
+  },
+  'cx-m15-01.s5': function (c) {
+    const p = rows(c, 'production-pack.csv', 'item', 'value');
+    const rework = +p['defects_confirmed'] * (+p['rework_min_per_defect']) / 60 *
+      (+p['labour_rate_per_h']);
+    const scrap = +p['boards_scrapped'] * (+p['board_cost_usd']);
+    const perBoard = (rework + scrap) * (+p['expected_defect_reduction']) / (+p['boards_started']);
+    return +((+p['stencil_and_fiducial_change_usd']) / perBoard).toFixed(1);
+  },
+  'cx-m15-01.s6': function () { return 'at least 37 mm apart'; },
+  'cx-m15-01.s7': function () { return 'a stated field of view'; },
+  'cx-m15-01.s8': function () { return 'preliminary'; },
+  'cx-m15-01.s9': function () { return 'the fiducial ask only'; },
+  'cx-m15-01.s10': function () { return 'the post-change data that closes it'; },
   /* ---- m12: cleanliness. The blank, the area and the limit all come out of the
    * data files; nothing here repeats a number from the generator. */
   'cx-m12-01.s1': function (c) { return rosePpm(c, 'C-114'); },

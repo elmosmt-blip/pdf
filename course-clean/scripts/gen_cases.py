@@ -156,6 +156,8 @@ BOARD_THREAD = [
      "caseId": "cx-m13-01"},
     {"step": 13, "moduleId": "m12", "label": "Coating",
      "asset": "Cleanliness and coating record", "caseId": "cx-m12-01"},
+    {"step": 14, "moduleId": "m15", "label": "Feedback",
+     "asset": "Design feedback pack", "caseId": "cx-m15-01"},
     {"step": 14, "moduleId": "m14", "label": "8D report", "asset": "8D problem report",
      "caseId": "cx-m14-01"},
 ]
@@ -502,6 +504,16 @@ TEMPLATE_DEFS = {
                "probability on one sheet, so a coverage claim can be recomputed instead "
                "of quoted, and the uncovered classes carry a named control.",
         "rowNoun": "defect class",
+    },
+    "design-feedback": {
+        "name": "Design feedback pack",
+        "kind": "csv",
+        "sourceFile": "production-pack.csv",
+        "lesson": "m15l03",
+        "use": "Carry one ask from problem to closure: the rate with its denominator, "
+               "the rule with its dimension and pass condition, the cost drivers with "
+               "their prices, the verification sample and the post-change result.",
+        "rowNoun": "ask",
     },
     "cleanliness-record": {
         "name": "Cleanliness and coating record",
@@ -2915,6 +2927,395 @@ def build_cases():
                        "area", "points": 10, "steps": ["s8", "s9"]},
         {"criterion": "Evidence package carries area, blank, limit source, sites, coating "
                        "arithmetic and dispositions", "points": 5, "steps": ["s10"]},
+    ]
+    cases.append(c)
+
+
+    # =====================================================================
+    # m15 — design feedback: a rule with a number, a pack with a cost
+    # =====================================================================
+    # This case measures nothing new. It takes Board X's own numbers from the
+    # earlier cases and turns them into the two artefacts the module is about:
+    # a design rule with a dimension, a tolerance and a pass condition, and an
+    # evidence pack that carries its own cost arithmetic.
+    fd_boards = 1240
+    fd_defects = 38
+    fd_boards_reworked, fd_boards_scrapped = 26, 12
+    fd_fpy = ((fd_boards - fd_defects) / float(fd_boards) * 100.0, "%",
+              "(boards-defects)/boards*100",
+              {"boards": fd_boards, "defects": fd_defects})
+    fd_per_1000 = (fd_defects / float(fd_boards) * 1000.0, "per 1000 boards",
+                   "defects/boards*1000",
+                   {"boards": fd_boards, "defects": fd_defects})
+    # The fiducial ask: the worst residual seen is 0.14 mm, and a part at the
+    # panel edge sits 40 mm from the fiducial origin. Separation is what turns
+    # that residual into an angle, and the angle into a displacement.
+    fd_resid_mm = 0.160 - 0.020
+    fd_accept_mm, fd_edge_r_mm = 0.15, 40.0
+    fd_sep_needed = (round(fd_resid_mm / (fd_accept_mm / fd_edge_r_mm), 1), "mm",
+                     "residual/(acceptance/radius)",
+                     {"residual_mm": round(fd_resid_mm, 3), "acceptance_mm": fd_accept_mm,
+                      "radius_mm": fd_edge_r_mm})
+    # Cost of poor quality, from quantified drivers only.
+    fd_rework = (fd_defects * 9.0 / 60.0 * 45.0, "USD", "defects*min/60*rate",
+                 {"defects": fd_defects, "minutes_each": 9.0, "rate_per_h": 45.0})
+    fd_scrap = (fd_boards_scrapped * 180.0, "USD", "boards*board_cost",
+                {"boards": fd_boards_scrapped, "board_cost": 180.0})
+    fd_inspect = (fd_boards * 0.5 / 60.0 * 45.0, "USD", "boards*min/60*rate",
+                  {"boards": fd_boards, "minutes_each": 0.5, "rate_per_h": 45.0})
+    fd_downtime = (6.5 * 40.0, "USD", "hours*machine_rate",
+                   {"hours": 6.5, "rate_per_h": 40.0})
+    fd_copq = fd_rework[0] + fd_scrap[0] + fd_inspect[0] + fd_downtime[0]
+    fd_copq_total = (fd_copq, "USD", "sum of four drivers", {"drivers": 4})
+    fd_per_board = (fd_copq / fd_boards, "USD/board", "copq/boards",
+                    {"copq_usd": round(fd_copq, 2), "boards": fd_boards})
+    fd_change_cost, fd_reduction = 1200.0, 0.60
+    fd_payback = (round(fd_change_cost /
+                        ((fd_rework[0] + fd_scrap[0]) * fd_reduction / fd_boards), 1),
+                  "boards", "change_cost/(removed_per_board)",
+                  {"change_cost_usd": fd_change_cost,
+                   "removed_usd": round((fd_rework[0] + fd_scrap[0]) * fd_reduction, 2)})
+    fd_um_per_px = (8.0 / 1200.0 * 1000.0, "um/px", "field_of_view_mm/px*1000",
+                    {"field_mm": 8.0, "px": 1200})
+
+    c = {
+        "caseId": "cx-m15-01",
+        "moduleId": "m15",
+        "title": "Design feedback: a rule with a number, a pack with a cost",
+        "estMinutes": 45,
+        "level": "advanced",
+        "scenario": [
+            "Board X has run a production order of 1,240 boards for a year with the same "
+            "placement problem the m05 case found: a rotation between the two fiducials that "
+            "shows up as toe overhang on one side of the panel and as a rotated 0402 near the "
+            "panel edge. The line compensates every shift and calls it a process problem.",
+            "The quality manager wants a complaint sent to the design team. The design team "
+            "has three open questions and no data. Nothing this plant has written so far "
+            "names a dimension, a tolerance, an owner or a cost, so nothing has been acted "
+            "on — and the pack that would carry those things has never been assembled.",
+            "This case is the closing one. It produces two artefacts: a design rule with a "
+            "number in it, and an evidence pack whose cost arithmetic an auditor can redo. "
+            "Both come from measurements the other thirteen cases already made.",
+        ],
+        "dataFiles": [
+            {
+                "name": "production-pack.csv",
+                "kind": "csv",
+                "content": (
+                    "item,value\n"
+                    "boards_started,1240\n"
+                    "defects_confirmed,38\n"
+                    "boards_reworked,26\n"
+                    "boards_scrapped,12\n"
+                    "dpm_opportunities_per_board,620\n"
+                    "rework_min_per_defect,9\n"
+                    "labour_rate_per_h,45\n"
+                    "board_cost_usd,180\n"
+                    "downtime_h,6.5\n"
+                    "downtime_rate_per_h,40\n"
+                    "inspection_min_per_board,0.5\n"
+                    "stencil_and_fiducial_change_usd,1200\n"
+                    "expected_defect_reduction,0.60\n"
+                ),
+                "note": "One production order, one line, one product. The defect count is "
+                        "confirmed defects, not AOI calls: the m07 case is the reason that "
+                        "distinction is written down here.",
+            },
+            {
+                "name": "placement-facts.csv",
+                "kind": "csv",
+                "content": (
+                    "item,value\n"
+                    "worst_fiducial_residual_mm,0.14\n"
+                    "fiducial_separation_mm,10.0\n"
+                    "panel_edge_part_radius_mm,40.0\n"
+                    "placement_acceptance_mm,0.15\n"
+                    "board_layers,6\n"
+                    "board_diagonal_mm,200\n"
+                ),
+                "note": "The placement numbers are the m05 audit's; the board ones are the "
+                        "same facts every other case reads.",
+            },
+            {
+                "name": "image-log.csv",
+                "kind": "csv",
+                "content": (
+                    "image,view,field_of_view_mm,image_width_px,scale_bar_mm,what_it_shows\n"
+                    "IMG-0412,wide,40.0,1600,5.0,QFP-64 right-hand leads with toe overhang\n"
+                    "IMG-0413,close,8.0,1200,1.0,QFP-64 corner lead, 0.30 mm pad visible\n"
+                    "IMG-0414,close,8.0,1200,1.0,0402 near the panel edge, rotated\n"
+                ),
+            },
+        ],
+        "steps": [],
+        "rubric": [],
+        "templates": [
+            {"templateId": "design-feedback", "name": "Design feedback pack",
+             "status": "planned"}
+        ],
+        "toolLinks": [
+            {"label": "How designers read feedback (lesson m15l01)", "href": "#/l/m15l01"},
+            {"label": "The evidence pack (lesson m15l02)", "href": "#/l/m15l02"},
+            {"label": "Writing the change request (lesson m15l03)", "href": "#/l/m15l03"},
+            {"label": "Closure with post-change data (lesson m15l05)", "href": "#/l/m15l05"},
+        ],
+        "sources": ["src-001", "src-011", "src-024"],
+        "generatedBy": "scripts/gen_cases.py",
+    }
+
+    add_step(c, step_numeric(
+        "s1",
+        "The worst fiducial residual is 0.14 mm across the two fiducials, and the part at "
+        "the panel edge sits 40 mm from their midpoint. To keep that part inside the 0.15 mm "
+        "acceptance, how far apart must the fiducials be, in millimetres? One decimal.",
+        fd_sep_needed, 0.05,
+        ["Residual across two fiducials becomes an angle: residual / separation.",
+         "The displacement at radius r is r x that angle.",
+         "separation = residual / (acceptance / radius) = 0.14 / (0.15 / 40)."],
+        "37.3 mm — the board's fiducials are 10 mm apart, which is why the rotation is 0.80 "
+        "degrees and the edge part moves 0.56 mm.",
+        "Solve for the separation, not for the displacement: the acceptance and the radius "
+        "are both known.",
+        "0.14 / (0.15 / 40) = 37.3 mm. The rule is that separation and the radius it has to "
+        "protect are the only two numbers a fabricator controls — the residual is the "
+        "machine's, the acceptance is the product's. Board X puts its two fiducials 10 mm "
+        "apart near the middle, so a 0.14 mm residual becomes 0.80 degrees and a part 40 mm "
+        "out moves 0.56 mm, almost four times the acceptance. Written as a rule it is one "
+        "sentence with a dimension, a tolerance and a reason: 'place global fiducials at "
+        "least 37 mm apart, diagonal at the panel corners, because a 0.15 mm residual across "
+        "the pair must stay under 0.15 mm at the furthest part'. Written as a complaint it is "
+        "'placement is unstable', which is what the design team has been receiving."))
+
+    add_step(c, step_numeric(
+        "s2",
+        "The order ran 1,240 boards with 38 confirmed defects. What is the first-pass yield, "
+        "in percent? Two decimals.",
+        fd_fpy, 0.02,
+        ["First-pass yield counts boards that passed without rework or scrap.",
+         "Boards that did not pass = 38 defects, one per board.",
+         "(1240 - 38) / 1240."],
+        "96.94 % — and the number is a board rate, which is the first thing to fix.",
+        "Subtract the affected boards from the started boards, then divide by the started "
+        "boards.",
+        "1,202 of 1,240 boards passed first time: 96.94 %. Stated this way the number looks "
+        "healthy and means very little, because it counts boards, not defects, and Board X "
+        "has 620 opportunities per board. The same 38 defects are 49.4 DPMO when divided by "
+        "the opportunity count, and 30.6 defects per thousand boards when divided by the "
+        "board count. Three numbers, one reality — which is why the pack has to state its "
+        "denominator before it states a rate."))
+
+    add_step(c, step_numeric(
+        "s3",
+        "The design team asks how bad it is in the units the line uses. Express the same 38 "
+        "defects per 1,000 boards. Two decimals.",
+        fd_per_1000, 0.02,
+        ["The denominator is the board count this time, not the opportunity count.",
+         "38 / 1240 x 1000.",
+         "30.65 per thousand boards."],
+        "30.6 defects per thousand boards — the same data as 96.94 % yield and 49.4 DPMO.",
+        "Multiply by 1,000 after dividing by the boards; do not divide by 620.",
+        "38 / 1240 x 1000 = 30.65. The four numbers in this case — 96.94 % first-pass yield, "
+        "30.65 per thousand boards, 49.4 DPMO and 3.1 % of boards affected — are all the same "
+        "38 defects, and each one flatters or damns the line depending on who is reading. "
+        "The m15 lesson's requirement is that the pack chooses a denominator and states it; "
+        "the failure mode it prevents is a supplier and a customer arguing about a problem "
+        "for an hour because each is quoting a different unit for the same fact."))
+
+    add_step(c, step_numeric(
+        "s4",
+        "Add the four quantified cost drivers of poor quality: rework, scrap, inspection and "
+        "downtime. What is the total for this order, in USD? Two decimals.",
+        fd_copq_total, 1.0,
+        ["Rework: 38 defects x 9 min at 45 USD/h.",
+         "Scrap: 12 boards at 180 USD. Inspection: 1240 boards x 0.5 min. Downtime: 6.5 h "
+         "at 40 USD/h.",
+         "256.50 + 2160.00 + 465.00 + 260.00."],
+        "3,141.50 USD for the order — and scrap is 69 % of it.",
+        "Add only the four drivers that have a quantity and a unit price; the rest are "
+        "estimates and belong in a separate line.",
+        "Rework is 38 x 9 min x 45/60 = 256.50 USD; scrap is 12 x 180 = 2,160; inspection is "
+        "1,240 x 0.5 min = 465; downtime is 6.5 h at 40 = 260. The total is 3,141.50 USD, or "
+        "2.53 USD per board. Two things matter about that arithmetic and neither is the "
+        "total. First, scrap is 69 % of the cost and rework is 8 %, so a programme aimed at "
+        "reducing rework attacks the small number. Second, every driver has a quantity and a "
+        "price in the pack, so each can be argued with separately — the lesson's rule is to "
+        "label estimates as estimates and keep them off this line, which is why field failure "
+        "exposure is mentioned in the narrative and excluded from the sum."))
+
+    add_step(c, step_numeric(
+        "s5",
+        "The change costs 1,200 USD and is expected to remove 60 % of the rework and scrap. "
+        "In how many boards does it pay for itself? One decimal.",
+        fd_payback, 1.0,
+        ["Removed per board = 0.60 x (rework + scrap) / boards.",
+         "0.60 x (256.50 + 2160.00) = 1,449.90 USD over 1,240 boards.",
+         "1,200 / 1.169 = 1,026 boards."],
+        "1,026 boards — under one production order, which is why the ask is worth sending.",
+        "Divide the change cost by the saving per board, not by the saving for the whole "
+        "order.",
+        "The change removes 0.60 x (256.50 + 2,160) = 1,449.90 USD across 1,240 boards, or "
+        "1.169 USD per board, so 1,200 USD is repaid in 1,026 boards — a single production "
+        "order at Board X's volume. This is the sentence that decides whether a design "
+        "request is read at all: not 'placement is unstable' but 'a 1,200 USD change pays "
+        "back in one order and removes a class of defect that our test catches late'. The "
+        "same arithmetic can kill an ask, and should — a change costing 40,000 USD to remove "
+        "300 USD per order is not a design problem, it is a preference."))
+
+    add_step(c, step_choice(
+        "s6",
+        "Three asks are drafted. Which one is written as a rule the design team can act on?",
+        [("a", "Placement is unstable at the panel edge; please review the fiducial scheme."),
+         ("b", "Place global fiducials at least 37 mm apart, on the panel diagonal at "
+               "opposite corners, because a 0.14 mm residual across a 37 mm pair is 0.22 "
+               "degrees and moves a part at 40 mm by 0.15 mm; verify on the first article "
+               "with the fiducial audit sheet, pass when every part sits inside 0.15 mm."),
+         ("c", "The 0402 near the edge would not rotate if the panel had more breakaway rail."),
+         ("d", "IPC-7351 requires fiducials to be placed correctly; the current layout does "
+               "not comply.")],
+        "b",
+        ["A rule has a dimension, a tolerance and a pass condition.",
+         "It also names the evidence that verifies it.",
+         "The others are a complaint, a guess and an appeal to a standard the ask does not "
+         "actually rest on."],
+        "Only the second names the dimension, the tolerance, the mechanism, the verification "
+        "and the pass condition — everything a designer needs to change a file.",
+        "Look for a number, a tolerance and a pass condition in the same sentence.",
+        "The second draft is the only one an engineer can act on without asking a question: "
+        "37 mm is a dimension, the diagonal placement is where it goes, the 0.15 mm is the "
+        "criterion, the mechanism explains why, the audit sheet is the verification and the "
+        "pass condition is stated. The first is a complaint with no number. The third is a "
+        "guess — the rotation comes from the fiducial scheme, not from the rail. The fourth "
+        "is the most common failure of all: IPC-7351 covers land patterns and does not "
+        "specify fiducial separation, so citing it would invite exactly the reply it "
+        "deserves, and the whole pack loses credibility with it."))
+
+    add_step(c, step_choice(
+        "s7",
+        "The images in the pack: what makes them usable as evidence a year later?",
+        [("a", "High resolution, because a good camera settles arguments."),
+         ("b", "A scale reference and a stated field of view or magnification, in the file "
+               "name or caption, with board, station, defect type, date and shift — plus a "
+               "wide view next to the close-up."),
+         ("c", "A colour image, because colour shows flux and corrosion."),
+         ("d", "A photograph of the whole panel, because context is what matters.")],
+        "b",
+        ["An image without a scale cannot be measured by the next person.",
+         "The lesson asks for the close-up and the wide view on the same defect.",
+         "Metadata in the caption is what makes the file findable."],
+        "A scale reference, a stated field of view, full identification and both views — "
+        "that is what turns a photograph into evidence.",
+        "Resolution and colour are properties of the camera; evidence needs a scale and an "
+        "identity.",
+        "An image is evidence when somebody who was not there can measure it and interpret "
+        "it: a scale bar or a known dimension, the field of view, and a caption carrying "
+        "board, panel, station, defect type, date and shift. The pair matters too — the wide "
+        "view shows which component and which neighbours, the close-up shows the joint — "
+        "because a close-up alone cannot tell a designer that the defect is on the side of "
+        "the panel where the rotation is largest. IMG-0413 in this pack is a 8.0 mm field "
+        "across 1,200 pixels, so 6.67 um per pixel, and the 0.30 mm QFP pad is visible in it "
+        "as a scale reference of its own."))
+
+    add_step(c, step_choice(
+        "s8",
+        "One week and 300 boards produced the 38 defects. How should the pack describe that "
+        "sample?",
+        [("a", "As a stable production sample, because 38 defects is enough to see the mode."),
+         ("b", "As preliminary: the lesson asks for 30 consecutive production days or 1,000 "
+               "boards, and 300 boards over one week meets neither, so the comparison is "
+               "stated as preliminary and the action is to extend the window."),
+         ("c", "As a full population, because a week is a representative sample of a stable "
+               "process."),
+         ("d", "As invalid, so the release should be refused.")],
+        "b",
+        ["Check both conditions in the lesson: 30 days or 1,000 boards.",
+         "300 boards is a third of the board count and a quarter of the days.",
+         "Preliminary is a description, not a rejection."],
+        "Preliminary: 300 boards over one week meets neither threshold, so the pack says so "
+        "and asks for a longer window.",
+        "Count the boards and the days against the lesson's two conditions before deciding "
+        "how strongly to state the rate.",
+        "The m15 lesson asks for 30 consecutive production days or 1,000 boards, whichever "
+        "gives a stable sample. Three hundred boards over one week is neither, so the rate is "
+        "a preliminary estimate and the pack says so — that is a strength, not a weakness, "
+        "because the alternative is a number presented as stable that a customer will later "
+        "find was one good week. The rate on 38 defects is also about what the sample can "
+        "support: at 30 per thousand boards, 300 boards gives roughly nine defects, which "
+        "can see the mode and cannot rank causes."))
+
+    add_step(c, step_choice(
+        "s9",
+        "The three candidate asks are: the fiducial separation above; a paste aperture "
+        "reduction on the QFP-48 (the m04 case's Cpk 0.61); and a request that the customer "
+        "relax the 75-125 % SPI window. Which belongs in this pack to the design team?",
+        [("a", "All three: the pack should carry every improvement the plant has identified."),
+         ("b", "The fiducial ask only — it is the one the plant cannot fix itself and that "
+               "removes a defect class at its source; the aperture is a stencil the plant "
+               "owns, and the SPI window is a customer specification, not a design "
+               "parameter."),
+         ("c", "The aperture, because Cpk 0.61 is the worst number in the plant."),
+         ("d", "The SPI window, because the customer is the only party who can change it.")],
+        "b",
+        ["Ask who owns each change and who benefits.",
+         "A design feedback pack carries what only the designer can change.",
+         "The other two are real problems with different owners."],
+        "Only the fiducial ask belongs here: the plant owns the stencil and the customer owns "
+        "the specification, and neither is a design decision.",
+        "Sort the three by owner before sorting them by severity.",
+        "Three real problems, three different owners, and a pack that mixes them gets "
+        "returned with 'not our scope' stamped on the top item. The fiducial separation is "
+        "the design team's: it is a layout decision, it removes the rotation class at source, "
+        "and it costs 1,200 USD to repay in one order. The QFP-48 aperture is the plant's "
+        "own stencil — it goes to the stencil release, not to the design team, and it is "
+        "arguably the more urgent of the two. The SPI window is the customer's "
+        "specification and belongs in a deviation request. Separating them is the work; a "
+        "pack with everything in it is a pack nobody owns."))
+
+    add_step(c, step_choice(
+        "s10",
+        "The pack goes out. What has to be in it for the change to be closed later?",
+        [("a", "The defect photographs and the complaint, because that is what convinces "
+               "management."),
+         ("b", "Problem with its rate and denominator, the affected parts and revisions, the "
+               "measured evidence with scales and windows, the proposed rule with its "
+               "dimension and pass condition, the cost arithmetic with its drivers, the "
+               "verification plan with a sample size, and the post-change data that closes "
+               "it — plus whether the current activity is containment with an expiry."),
+         ("c", "A reference to IPC-A-610 Class 2, because acceptance settles the argument."),
+         ("d", "The cost estimate alone, because a design team acts on money.")],
+        "b",
+        ["Think about what closes a change rather than what opens it.",
+         "Closure needs post-change data against the same metric.",
+         "Containment has to be labelled, or it becomes the process."],
+        "Problem, evidence, rule, cost, verification and the post-change data that closes it "
+        "— with containment labelled and expiring.",
+        "A pack that only argues for a change cannot close it.",
+        "The lesson's closing requirement is the one most packs omit: the change is closed "
+        "with post-change data over a stated window — at least 30 production days or 1,000 "
+        "boards — against the same metric and the same denominator as the problem. Without "
+        "it, a change is implemented and never verified, and the next engineer inherits a "
+        "drawing revision nobody can justify. Two smaller items belong in the same list: "
+        "the revision of every controlled document the change touches, and an explicit label "
+        "on any temporary containment with its expiry condition, because a containment that "
+        "is not given an expiry quietly becomes the process."))
+
+    c["rubric"] = [
+        {"criterion": "Design rule solved for the dimension the designer controls",
+         "points": 15, "steps": ["s1"]},
+        {"criterion": "Defect rate stated with its denominator, and the denominator shown to "
+                       "change the story", "points": 15, "steps": ["s2", "s3"]},
+        {"criterion": "Cost of poor quality assembled from quantified drivers with unit "
+                       "prices", "points": 15, "steps": ["s4"]},
+        {"criterion": "Payback computed per board, so the ask carries a business case",
+         "points": 10, "steps": ["s5"]},
+        {"criterion": "The ask written as a rule with dimension, tolerance, mechanism, "
+                       "verification and pass condition", "points": 15, "steps": ["s6"]},
+        {"criterion": "Image evidence carries scale, field of view, identity and both views",
+         "points": 10, "steps": ["s7"]},
+        {"criterion": "Sample window judged against the 30-day / 1,000-board requirement",
+         "points": 5, "steps": ["s8"]},
+        {"criterion": "Asks sorted by owner before severity", "points": 10, "steps": ["s9"]},
+        {"criterion": "Closure: post-change data, revisions, containment with expiry",
+         "points": 5, "steps": ["s10"]},
     ]
     cases.append(c)
 

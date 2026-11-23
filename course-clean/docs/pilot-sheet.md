@@ -210,6 +210,36 @@ Protocol: `docs/pilot-protocol.md`.
 
 ---
 
+## cx-m15-01 — Design feedback: a rule with a number, a pack with a cost
+
+`#/c/cx-m15-01` · module m15 · 10 steps · 100 rubric points · about 45 min
+
+| # | Step | Type | Expected | Tolerance | Watch for |
+|---|---|---|---|---|---|
+| 1 | The worst fiducial residual is 0.14 mm across the two fiducials, and the part at the panel edge sits 40 mm from their midpoint. To keep that part inside the 0.15 mm acceptance, how far apart must the fiducials be, in millimetres? One decimal. | numeric | 37.3 mm | ±0.05 | Solve for the separation, not for the displacement: the acceptance and the radius are both known. |
+| 2 | The order ran 1,240 boards with 38 confirmed defects. What is the first-pass yield, in percent? Two decimals. | numeric | 96.9355 % | ±0.02 | Subtract the affected boards from the started boards, then divide by the started boards. |
+| 3 | The design team asks how bad it is in the units the line uses. Express the same 38 defects per 1,000 boards. Two decimals. | numeric | 30.6452 per 1000 boards | ±0.02 | Multiply by 1,000 after dividing by the boards; do not divide by 620. |
+| 4 | Add the four quantified cost drivers of poor quality: rework, scrap, inspection and downtime. What is the total for this order, in USD? Two decimals. | numeric | 3141.5 USD | ±1.0 | Add only the four drivers that have a quantity and a unit price; the rest are estimates and belong in a separate line. |
+| 5 | The change costs 1,200 USD and is expected to remove 60 % of the rework and scrap. In how many boards does it pay for itself? One decimal. | numeric | 1026.3 boards | ±1.0 | Divide the change cost by the saving per board, not by the saving for the whole order. |
+| 6 | Three asks are drafted. Which one is written as a rule the design team can act on? | choice | option b — “Place global fiducials at least 37 mm apart, on the panel diagonal at opposite corners, because a 0.14 mm residual across a 37 mm pair is 0.22 degrees and moves a part at 40 mm by 0.15 mm; verify on the first article with the fiducial audit sheet, pass when every part sits inside 0.15 mm.” | — | Look for a number, a tolerance and a pass condition in the same sentence. |
+| 7 | The images in the pack: what makes them usable as evidence a year later? | choice | option b — “A scale reference and a stated field of view or magnification, in the file name or caption, with board, station, defect type, date and shift — plus a wide view next to the close-up.” | — | Resolution and colour are properties of the camera; evidence needs a scale and an identity. |
+| 8 | One week and 300 boards produced the 38 defects. How should the pack describe that sample? | choice | option b — “As preliminary: the lesson asks for 30 consecutive production days or 1,000 boards, and 300 boards over one week meets neither, so the comparison is stated as preliminary and the action is to extend the window.” | — | Count the boards and the days against the lesson's two conditions before deciding how strongly to state the rate. |
+| 9 | The three candidate asks are: the fiducial separation above; a paste aperture reduction on the QFP-48 (the m04 case's Cpk 0.61); and a request that the customer relax the 75-125 % SPI window. Which belongs in this pack to the design team? | choice | option b — “The fiducial ask only — it is the one the plant cannot fix itself and that removes a defect class at its source; the aperture is a stencil the plant owns, and the SPI window is a customer specification, not a design parameter.” | — | Sort the three by owner before sorting them by severity. |
+| 10 | The pack goes out. What has to be in it for the change to be closed later? | choice | option b — “Problem with its rate and denominator, the affected parts and revisions, the measured evidence with scales and windows, the proposed rule with its dimension and pass condition, the cost arithmetic with its drivers, the verification plan with a sample size, and the post-change data that closes it — plus whether the current activity is containment with an expiry.” | — | A pack that only argues for a change cannot close it. |
+
+**Rubric** (pass mark 80 %):
+- Design rule solved for the dimension the designer controls — 15 pts (s1)
+- Defect rate stated with its denominator, and the denominator shown to change the story — 15 pts (s2, s3)
+- Cost of poor quality assembled from quantified drivers with unit prices — 15 pts (s4)
+- Payback computed per board, so the ask carries a business case — 10 pts (s5)
+- The ask written as a rule with dimension, tolerance, mechanism, verification and pass condition — 15 pts (s6)
+- Image evidence carries scale, field of view, identity and both views — 10 pts (s7)
+- Sample window judged against the 30-day / 1,000-board requirement — 5 pts (s8)
+- Asks sorted by owner before severity — 10 pts (s9)
+- Closure: post-change data, revisions, containment with expiry — 5 pts (s10)
+
+---
+
 ## cx-m02-01 — Moisture breach: the BGA reel sat in a 7 % RH cabinet
 
 `#/c/cx-m02-01` · module m02 · 6 steps · 100 rubric points · about 20 min
