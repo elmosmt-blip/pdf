@@ -129,8 +129,8 @@ recomputed · `check-integrity.js` OK · `check-quiz.js` OK · `tests/course.tes
 
 ## 6. Where the build is published
 
-`https://drive.google.com/file/d/1xQMZ-apWCDrg0StAjzubaP1UoWWLD5X1/view`
-(8,844,479 bytes, 14 cases / 127 steps — rebuilt after m10 was added). The zip has
+`https://drive.google.com/file/d/1iTdS9vCFlJfk3-hYUNPf_0ldomXXSJYL/view`
+(8,865,841 bytes, 14 cases / 127 steps — rebuilt after m10 was added). The zip has
 `index.html` at its root, so it opens from a double click instead of requiring
 the `build/course-clean/` path. Each rebuild replaces the link and trashes the
 previous file; an older copy that was zero bytes is already in the trash.
