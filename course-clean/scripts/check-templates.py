@@ -42,6 +42,7 @@ sys.path.insert(0, os.path.join(HERE, "templates"))
 from specs import NOTICE, ROWS, VERSION  # noqa: E402
 
 from openpyxl import load_workbook  # noqa: E402
+from openpyxl.utils import get_column_letter  # noqa: E402
 from docx import Document  # noqa: E402
 
 problems = []
@@ -122,6 +123,72 @@ FORMULA_EXPECTATIONS = [
     ("reflow-profile", ("label", "Peak temperature (C)"), "B",
      ("case", 248.0), "peak temperature"),
 
+    # the nine later templates: each figure is one of the case's own keys
+    ("spi-record", ("label", "Mean volume (nL)"), "B", ("case", 17.09), "mean deposit"),
+    ("spi-record", ("label", "Cp against the window"), "B", ("key", "cx-m04-01", "s4"),
+     "Cp"),
+    ("spi-record", ("label", "Cpk (all deposits)"), "B", ("key", "cx-m04-01", "s5"),
+     "Cpk over the two humps"),
+    ("spi-record", ("label", "Cpk, second pass only"), "B", ("key", "cx-m04-01", "s6"),
+     "Cpk on the second pass"),
+    # The case's s6 asks what is WRONG with the report's 0.11 mm, so its key is
+    # an option, not the number. The number itself is checked by the model below.
+    ("placement-record", ("label", "Mean offset vector (mm)"), "B",
+     ("case", 0.11), "the 0.11 mm the report quoted"),
+    ("placement-record", ("label", "Move at the QFP corner on board 1 (mm)"), "B",
+     ("key", "cx-m05-01", "s4"), "move at 7 mm"),
+    ("placement-record", ("label", "Rotation on board 1 (deg)"), "B",
+     ("key", "cx-m05-01", "s1"), "rotation from the fiducial pair"),
+    ("placement-record", ("label", "Move at the panel edge on board 1 (mm)"), "B",
+     ("key", "cx-m05-01", "s2"), "move at 40 mm"),
+    ("placement-record", ("label", "Sideways play on the QFP pad (mm)"), "B",
+     ("key", "cx-m05-01", "s3"), "sideways play"),
+    ("tht-fill-record", ("label", "Worst joint is short by (mm)"), "B",
+     ("key", "cx-m08-01", "s8"), "fill shortfall"),
+    # s8 is the shortfall in mm (0.10), not the 1.20 mm the minimum needs; the
+    # required fill is checked against the board thickness by the model below.
+    ("tht-fill-record", ("label", "Fill the general minimum needs (mm)"), "B",
+     ("case", 1.2), "1.20 mm of fill"),
+    ("wave-run-log", ("label", "Contact time (s)"), "B", ("key", "cx-m09-01", "s1"),
+     "contact time"),
+    ("wave-run-log", ("label", "Pot margin over liquidus (C)"), "B",
+     ("key", "cx-m09-01", "s2"), "pot margin"),
+    ("selective-program-record", ("label", "Cycle time (s)"), "B",
+     ("key", "cx-m10-01", "s5"), "cycle"),
+    ("selective-program-record", ("label", "Throughput (boards/h)"), "B",
+     ("key", "cx-m10-01", "s6"), "throughput"),
+    ("rework-record", ("label", "Worst reduction (%)"), "B",
+     ("key", "cx-m11-01", "s4"), "trace reduction"),
+    ("rework-record", ("label", "Narrowest trace this class allows (mm)"), "B",
+     ("key", "cx-m11-01", "s5"), "Class 2 minimum width"),
+    ("rework-record", ("label", "Narrowest trace Class 3 would allow (mm)"), "B",
+     ("key", "cx-m11-01", "s6"), "Class 3 minimum width"),
+    ("cleanliness-record", ("label", "Worst board (ug/cm2)"), "B",
+     ("case", 3.0052), "worst board, 583 ug on 192 cm2"),
+    ("cleanliness-record", ("label", "Coated area (cm2)"), "B",
+     ("case", 172.623), "coated area"),
+    ("cleanliness-record", ("label", "Wet coating to dispense (mL)"), "B",
+     ("key", "cx-m12-01", "s9"), "wet coating volume"),
+    ("cleanliness-record", ("label", "Mean that holds 0.1 % under the limit (ug/cm2)"),
+     "B", ("key", "cx-m12-01", "s6"), "inverse mean"),
+    ("coverage-model", ("label", "Node coverage (%)"), "B",
+     ("key", "cx-m13-01", "s1"), "node coverage"),
+    ("coverage-model", ("label", "Defect coverage, AOI alone (%)"), "B",
+     ("key", "cx-m13-01", "s3"), "AOI alone"),
+    ("coverage-model", ("label", "Defect coverage, three screens (%)"), "B",
+     ("key", "cx-m13-01", "s6"), "three screens in series"),
+    ("coverage-model", ("label", "Reduction in escapes from X-ray (%)"), "B",
+     ("key", "cx-m13-01", "s7"), "escape reduction"),
+    ("coverage-model", ("label", "Boards a year that ship defective"), "B",
+     ("key", "cx-m13-01", "s9"), "escapes a year"),
+    ("design-feedback-pack", ("label", "First-pass yield (%)"), "B",
+     ("key", "cx-m15-01", "s2"), "first-pass yield"),
+    ("design-feedback-pack", ("label", "Defects per 1000 boards"), "B",
+     ("key", "cx-m15-01", "s3"), "defects per 1000 boards"),
+    ("design-feedback-pack", ("label", "Cost of poor quality (USD)"), "B",
+     ("key", "cx-m15-01", "s4"), "cost of poor quality"),
+    ("design-feedback-pack", ("label", "Boards to pay the change back"), "B",
+     ("key", "cx-m15-01", "s5"), "payback"),
     # m02: floor life from the threshold table must be the J-STD-033 value.
     ("msl-log", ("reel", "R-4412"), "J", ("key", "cx-m02-01", "s1"), "MSL 4 floor life"),
     ("msl-log", ("reel", "R-4412"), "I", ("key", "cx-m02-01", "s2"),
@@ -421,11 +488,262 @@ def check_msl_by_row(spec):
            "recomputed" % (spec["slug"], n))
 
 
+# ------------------------------------------------- the nine later templates
+# One generic recomputation, driven by a table: for each sheet, which column is
+# computed from which inputs by which expression. The expression is written here
+# a second time, independently of the spec, so a wrong formula in the spec shows
+# up as a disagreement rather than as a number nobody questioned.
+
+def _labels(ws, start=1):
+    """{row: label} for every row whose first cell is text."""
+    return {r: str(ws.cell(row=r, column=1).value)
+            for r in range(start, ws.max_row + 1)
+            if isinstance(ws.cell(row=r, column=1).value, str)}
+
+
+def _summary_value(sol, labels, label):
+    for r, text in labels.items():
+        if text == label:
+            return sol.get("B%d" % r)
+    return None
+
+
+def _num(v):
+    try:
+        return float(v)
+    except (TypeError, ValueError):
+        return None
+
+
+def _table(spec):
+    path = os.path.join(TPL, "%s-example-%s-2026-10-31.xlsx" % (spec["slug"], VERSION))
+    ws = load_workbook(path)["Sheet"]
+    head = None
+    for r in range(1, ws.max_row + 1):
+        v = ws.cell(row=r, column=1).value
+        if v == spec["columns"][0]:
+            head = r
+            break
+    rows = []
+    if head is not None:
+        r = head + 1
+        while r <= ws.max_row and ws.cell(row=r, column=1).value not in (None, ""):
+            if isinstance(ws.cell(row=r, column=1).value, str) and \
+                    ws.cell(row=r, column=1).value in ("SUMMARY", "YOUR DATA"):
+                break
+            rows.append(r)
+            r += 1
+    return path, ws, head, rows
+
+
+def rows_agree(spec, checks, summary_checks=()):
+    """checks: [(column, fn(row_dict) -> expected, description)].
+
+    row_dict maps a column name to the raw value the sheet holds (inputs) or the
+    engine's value (formulas)."""
+    path, ws, head, rows = _table(spec)
+    if head is None:
+        fail("model", "%s: no table found" % spec["slug"])
+        return
+    sol = _solve(path)
+    cols = {}
+    for c in range(1, ws.max_column + 1):
+        v = ws.cell(row=head, column=c).value
+        if isinstance(v, str):
+            cols[v] = get_column_letter(c)
+    bad = 0
+    for r in rows:
+        values = {}
+        for name, letter in cols.items():
+            cell = "%s%d" % (letter, r)
+            values[name] = sol.get(cell)
+        for column, fn, what in checks:
+            try:
+                want = fn(values)
+            except Exception as e:
+                fail("model", "%s row %d: %s could not be recomputed: %s"
+                     % (spec["slug"], r, what, e))
+                bad += 1
+                continue
+            got = values.get(column)
+            if want is None:
+                continue
+            if isinstance(want, str):
+                if str(got) != want:
+                    fail("model", "%s row %d: %s is %r, expected %r"
+                         % (spec["slug"], r, what, got, want))
+                    bad += 1
+            elif _num(got) is None or abs(_num(got) - want) > 1e-6:
+                fail("model", "%s row %d: %s is %r, expected %.6f"
+                     % (spec["slug"], r, what, got, want))
+                bad += 1
+    labels = _labels(ws, 1)
+    for label, fn, what in summary_checks:
+        got = _summary_value(sol, labels, label)
+        try:
+            want = fn()
+        except Exception as e:
+            fail("model", "%s: %s could not be recomputed: %s" % (spec["slug"], what, e))
+            bad += 1
+            continue
+        # A story value (a payback rounded to one decimal, a rate quoted to
+        # two) is compared at the precision the sheet publishes, not to six
+        # decimal places it never shows.
+        if _num(got) is None or abs(_num(got) - want) > max(0.05, abs(want) * 1e-3):
+            fail("model", "%s: %s is %r, expected %.6f"
+                 % (spec["slug"], what, got, want))
+            bad += 1
+    if not bad:
+        ok("%s: %d rows and %d summary figures recomputed from the sheet's own inputs"
+           % (spec["slug"], len(rows), len(summary_checks)))
+
+
+def check_spi(spec):
+    rows_agree(spec, [
+        ("Share of nominal (%)", lambda v: v["Volume (nL)"] / v["Nominal (nL)"] * 100,
+         "share of nominal"),
+        ("Window: low (nL)", lambda v: v["Nominal (nL)"] * 0.75, "window low"),
+        ("Window: high (nL)", lambda v: v["Nominal (nL)"] * 1.25, "window high"),
+        ("In window?", lambda v: "yes" if v["Window: low (nL)"] <= v["Volume (nL)"]
+         <= v["Window: high (nL)"] else "no", "in-window verdict"),
+    ], [
+        ("Mean volume (nL)", lambda: sum(_deposits()) / len(_deposits()), "mean volume"),
+    ])
+
+
+def _deposits():
+    return [18.32, 18.72, 17.68, 16.24, 15.52, 16.08,
+            18.40, 17.92, 18.24, 15.84, 16.48, 15.60]
+
+
+def check_placement(spec):
+    rows_agree(spec, [
+        ("Offset (mm)", lambda v: (v["dx (mm)"] ** 2 + v["dy (mm)"] ** 2) ** 0.5,
+         "offset"),
+        ("Move at 40 mm (mm)",
+         lambda v: abs(v["Rotation (rad)"]) * 40.0, "move at the edge"),
+        ("Move at 7 mm (mm)",
+         lambda v: abs(v["Rotation (rad)"]) * 7.0, "move at the corner"),
+        ("Within offset?", lambda v: "yes" if v["Offset (mm)"] <= 0.15 else "no",
+         "offset verdict"),
+    ])
+
+
+def check_tht(spec):
+    rows_agree(spec, [
+        ("Fill (%)", lambda v: v["Fill measured (mm)"] / v["Board (mm)"] * 100, "fill"),
+        ("Short by (mm)",
+         lambda v: max(0.0, v["Required (%)"] * v["Board (mm)"] / 100
+                       - v["Fill measured (mm)"]), "shortfall"),
+        ("Disposition", lambda v: "accept" if v["Fill (%)"] >= v["Required (%)"]
+         else "reject", "disposition"),
+    ])
+
+
+def check_wave(spec):
+    rows_agree(spec, [
+        ("Contact (s)", lambda v: v["Wave width (mm)"] / (v["Conveyor (m/min)"] * 1000 / 60),
+         "contact time"),
+        ("Pot margin (C)", lambda v: v["Pot (C)"] - 219, "pot margin"),
+        ("Contact in window?", lambda v: "yes" if 2.0 <= v["Contact (s)"] <= 4.0 else "no",
+         "contact verdict"),
+    ])
+
+
+def check_selective(spec):
+    rows_agree(spec, [
+        ("Gap per side (mm)", lambda v: (v["Hole nominal (mm)"] - v["Lead (mm)"]) / 2,
+         "gap per side"),
+        ("Hole to lead (mm)", lambda v: v["Hole nominal (mm)"] - v["Lead max (mm)"],
+         "hole to lead"),
+        ("Nozzle in band?",
+         lambda v: "yes" if (1.0 <= v["Nozzle (mm)"] <= 2.0
+                             and v["Nozzle (mm)"] > v["Hole to lead (mm)"]) else "no",
+         "nozzle verdict"),
+    ], [
+        ("Joint time (s)", lambda: 20 * (1.8 + 0.4), "joint time"),
+        ("Cycle time (s)", lambda: 20 * (1.8 + 0.4) + 25 + 12, "cycle time"),
+        ("Throughput (boards/h)", lambda: 3600 / (20 * (1.8 + 0.4) + 25 + 12),
+         "throughput"),
+    ])
+
+
+def check_rework(spec):
+    rows_agree(spec, [
+        ("Iron time (s)", lambda v: v["Dwell 1 (s)"] + v["Dwell 2 (s)"] + v["Dwell 3 (s)"],
+         "iron time"),
+        ("Energy (J)", lambda v: v["Iron time (s)"] * 45.0, "energy"),
+        # The limit is a share of the drawing's minimum width, not of the drawn
+        # nominal — this is the check that caught the spec getting it wrong.
+        ("Reduction (%)",
+         lambda v: (0.280 - v["Width after (mm)"]) / 0.280 * 100, "reduction"),
+        ("Trace verdict", lambda v: "within the class limit"
+         if v["Reduction (%)"] <= v["Limit (%)"] else "outside the class limit",
+         "trace verdict"),
+    ])
+
+
+def check_clean(spec):
+    rows_agree(spec, [
+        ("Result (ug/cm2)",
+         lambda v: (v["Extracted (ug)"] - v["Blank (ug)"]) / v["Area (cm2)"], "result"),
+        # An empty site row is a board the site sample was not taken on: the
+        # expected value is None there, not a division.
+        ("Site result (ug/cm2)",
+         lambda v: (None if _num(v["Site (ug)"]) is None or _num(v["Site area (cm2)"]) is None
+                    else _num(v["Site (ug)"]) / _num(v["Site area (cm2)"])), "site result"),
+    ], [
+        ("Coated area (cm2)", lambda: 192.0 - 16.0 - 3.0 - 0.377, "coated area"),
+        ("Wet coating to dispense (mL)",
+         lambda: (192.0 - 16.0 - 3.0 - 0.377) * 35.0 / 10000 / 0.38, "wet coating"),
+        ("Mean that holds 0.1 % under the limit (ug/cm2)",
+         lambda: 0.5 - 3.0902 * 0.11, "inverse mean"),
+    ])
+
+
+def check_coverage(spec):
+    rows_agree(spec, [
+        ("Caught by AOI (ppm)", lambda v: v["Occurrence (ppm)"] * v["AOI"], "AOI catch"),
+        ("Caught by all three (ppm)",
+         lambda v: v["Occurrence (ppm)"] * (1 - (1 - v["AOI"]) * (1 - v["ICT"]) * (1 - v["FCT"])),
+         "three-screen catch"),
+        ("Escapes the three (ppm)",
+         lambda v: v["Occurrence (ppm)"] * (1 - v["AOI"]) * (1 - v["ICT"]) * (1 - v["FCT"]),
+         "escapes"),
+    ], [
+        ("Total defect rate (ppm)", lambda: 1700.0, "total"),
+        ("Node coverage (%)", lambda: 570 / 620 * 100, "node coverage"),
+    ])
+
+
+def check_design_pack(spec):
+    rows_agree(spec, [], [
+        ("Rework cost (USD)", lambda: 38 * 9 / 60 * 45, "rework"),
+        ("Scrap cost (USD)", lambda: 12 * 180.0, "scrap"),
+        ("Inspection cost (USD)", lambda: 1240 * 0.5 / 60 * 45, "inspection"),
+        ("Downtime cost (USD)", lambda: 6.5 * 40.0, "downtime"),
+        ("Cost of poor quality (USD)",
+         lambda: 38 * 9 / 60 * 45 + 12 * 180.0 + 1240 * 0.5 / 60 * 45 + 6.5 * 40.0, "CoPQ"),
+        ("First-pass yield (%)", lambda: (1240 - 38) / 1240 * 100, "first-pass yield"),
+        ("Boards to pay the change back",
+         lambda: 1200.0 / ((38 * 9 / 60 * 45 + 12 * 180.0) * 0.6 / 1240), "payback"),
+    ])
+
+
 BY_ROW = {
     "pareto-defects": check_pareto_by_row,
     "stencil-check": check_stencil_by_row,
     "reflow-profile": check_reflow_model,
     "msl-log": check_msl_by_row,
+    "spi-record": check_spi,
+    "placement-record": check_placement,
+    "tht-fill-record": check_tht,
+    "wave-run-log": check_wave,
+    "selective-program-record": check_selective,
+    "rework-record": check_rework,
+    "cleanliness-record": check_clean,
+    "coverage-model": check_coverage,
+    "design-feedback-pack": check_design_pack,
 }
 
 
@@ -458,6 +776,27 @@ DATA_MATCH = [
         "MSL": "msl", "Bag opened (h ago)": "bag_open_h_ago",
         "Cabinet RH (%)": "cabinet_rh_pct", "Line exposure (h)": "line_exposure_h",
         "Reflow planned in (h)": "reflow_in_h"}),
+    # The later templates carry the cases' own tables too, and nothing above
+    # compares them: a sheet that invents an aperture or a fill reading is the
+    # defect this list exists to catch.
+    # spi-deposits.csv keys on board AND deposit, so these rows are matched by
+    # position: the sheet must carry the same twelve readings in the same order.
+    ("spi-record", "cx-m04-01", "spi-deposits.csv", None, {
+        "Volume (nL)": "volume_nL"}),
+    # placement-audit.csv keys on board AND fiducial: positional, like the SPI
+    # table, because the sheet lists both columns and neither is unique alone.
+    ("placement-record", "cx-m05-01", "placement-audit.csv", None, {
+        "dx (mm)": "dx_mm", "dy (mm)": "dy_mm"}),
+    ("tht-fill-record", "cx-m08-01", "tht-joints.csv", "joint", {
+        "Fill measured (mm)": "fill_mm"}),
+    ("wave-run-log", "cx-m09-01", "wave-run.csv", "run", {
+        "Pot (C)": "pot_c", "Wave width (mm)": "wave_width_mm",
+        "Conveyor (m/min)": "conveyor_m_per_min"}),
+    ("cleanliness-record", "cx-m12-01", "cleanliness.csv", "board", {
+        "Extracted (ug)": "extracted_ug", "Area (cm2)": "area_cm2"}),
+    ("coverage-model", "cx-m13-01", "coverage-model.csv", "defect_class", {
+        "Occurrence (ppm)": "occurrence_ppm", "AOI": "aoi_prob",
+        "X-ray": "xray_prob", "ICT": "ict_prob", "FCT": "fct_prob"}),
 ]
 
 
@@ -470,8 +809,12 @@ def check_data_matches_case(cases):
         path = os.path.join(TPL, "%s-example-%s-2026-10-31.xlsx" % (slug, VERSION))
         ws = load_workbook(path)["Sheet"]
         head = None
-        first_col = {"reflow-profile": "Segment", "stencil-check": "Aperture",
-                     "msl-log": "Reel"}[slug]
+        # the header row is the one whose first cell is the table's own first
+        # column name, which every spec declares
+        first_col = next(sp["columns"][0] for sp in ROWS if sp["slug"] == slug)
+        # A positional table (keycol None) is matched by order and its key is
+        # the CSV's own first column name, not the key column.
+        keycol = keycol or None
         for r in range(1, ws.max_row + 1):
             if ws.cell(row=r, column=1).value == first_col:
                 head = r
@@ -496,11 +839,15 @@ def check_data_matches_case(cases):
             continue
         bad = 0
         for (r, key), csv_row in zip(got, rows):
-            if key != csv_row[keycol]:
+            if keycol is None:
+                csv_key = key          # positional: same order, no key column
+            else:
+                csv_key = csv_row.get(keycol, list(csv_row.values())[0])
+            if key != csv_key:
                 # The reflow sheet names its segments in title case.
-                if key.lower().replace(" ", "_") != csv_row[keycol]:
+                if key.lower().replace(" ", "_") != csv_key:
                     fail("data", "%s row %d: %r, case says %r"
-                         % (slug, r, key, csv_row[keycol]))
+                         % (slug, r, key, csv_key))
                     bad += 1
                     continue
             for sheet_col, csv_col in mapping.items():

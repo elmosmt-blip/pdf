@@ -106,6 +106,231 @@
       }
     },
     {
+      "slug": "design-feedback-pack",
+      "order": 15,
+      "title": "Design feedback pack",
+      "kind": "xlsx",
+      "modules": [
+        "m15"
+      ],
+      "cases": [
+        "cx-m15-01"
+      ],
+      "lesson": "m15l04",
+      "standard": "The plant's own production data; the placement acceptance and the fiducial geometry are Board X's",
+      "use": "Turn a production result into a design ask with a number in it and a price on it, so the design team can act on the next revision.",
+      "files": {
+        "blank": "design-feedback-pack-blank-v1-2026-10-31.xlsx",
+        "example": "design-feedback-pack-example-v1-2026-10-31.xlsx",
+        "guide": "design-feedback-pack-guide-v1-2026-10-31.md"
+      },
+      "bytes": {
+        "blank": 8158,
+        "example": 8302,
+        "guide": 1492
+      }
+    },
+    {
+      "slug": "coverage-model",
+      "order": 14,
+      "title": "Test coverage model",
+      "kind": "xlsx",
+      "modules": [
+        "m13"
+      ],
+      "cases": [
+        "cx-m13-01"
+      ],
+      "lesson": "m13l05",
+      "standard": "The plant's own defect model and screen probabilities; node coverage is a test-program measure, not a standard's",
+      "use": "Work out what a series of screens actually catches, class by class, instead of quoting the share of joints that carry a probe.",
+      "files": {
+        "blank": "coverage-model-blank-v1-2026-10-31.xlsx",
+        "example": "coverage-model-example-v1-2026-10-31.xlsx",
+        "guide": "coverage-model-guide-v1-2026-10-31.md"
+      },
+      "bytes": {
+        "blank": 8387,
+        "example": 8785,
+        "guide": 1549
+      }
+    },
+    {
+      "slug": "cleanliness-record",
+      "order": 13,
+      "title": "Cleanliness and coating record",
+      "kind": "xlsx",
+      "modules": [
+        "m12"
+      ],
+      "cases": [
+        "cx-m12-01"
+      ],
+      "lesson": "m12l03",
+      "standard": "IPC-TM-650 2.3.25 (ROSE); the customer's limit is a customer value, not the reference one",
+      "use": "Report an ionic result with the area it was divided by, the blank it was subtracted from and the local site it hides, then work out the coating volume from the film the drawing asks for.",
+      "files": {
+        "blank": "cleanliness-record-blank-v1-2026-10-31.xlsx",
+        "example": "cleanliness-record-example-v1-2026-10-31.xlsx",
+        "guide": "cleanliness-record-guide-v1-2026-10-31.md"
+      },
+      "bytes": {
+        "blank": 8629,
+        "example": 8837,
+        "guide": 1546
+      }
+    },
+    {
+      "slug": "rework-record",
+      "order": 12,
+      "title": "Rework and repair record",
+      "kind": "xlsx",
+      "modules": [
+        "m11"
+      ],
+      "cases": [
+        "cx-m11-01"
+      ],
+      "lesson": "m11l06",
+      "standard": "IPC-7711/7721 (rework and repair method), with the width limit from IPC-A-600 (20 % Class 2, 10 % Class 3)",
+      "use": "Record what the repair did to the board — heat, contacts, the trace it touched — and judge the damage against the class the customer requires.",
+      "files": {
+        "blank": "rework-record-blank-v1-2026-10-31.xlsx",
+        "example": "rework-record-example-v1-2026-10-31.xlsx",
+        "guide": "rework-record-guide-v1-2026-10-31.md"
+      },
+      "bytes": {
+        "blank": 8791,
+        "example": 9135,
+        "guide": 1540
+      }
+    },
+    {
+      "slug": "selective-program-record",
+      "order": 11,
+      "title": "Selective solder program record",
+      "kind": "xlsx",
+      "modules": [
+        "m10"
+      ],
+      "cases": [
+        "cx-m10-01"
+      ],
+      "lesson": "m10l05",
+      "standard": "IPC-A-610 (joint acceptance), IPC-7711/7721 (rework of what the program gets wrong)",
+      "use": "Check the nozzle against the joint it has to fill, and put the cycle time on the sheet before anyone promises a rate.",
+      "files": {
+        "blank": "selective-program-record-blank-v1-2026-10-31.xlsx",
+        "example": "selective-program-record-example-v1-2026-10-31.xlsx",
+        "guide": "selective-program-record-guide-v1-2026-10-31.md"
+      },
+      "bytes": {
+        "blank": 8216,
+        "example": 8424,
+        "guide": 1515
+      }
+    },
+    {
+      "slug": "wave-run-log",
+      "order": 10,
+      "title": "Wave solder run log",
+      "kind": "xlsx",
+      "modules": [
+        "m09"
+      ],
+      "cases": [
+        "cx-m09-01"
+      ],
+      "lesson": "m09l07",
+      "standard": "IPC-A-610 (joint acceptance); the wave windows are the machine's, taken from the course and the equipment datasheet",
+      "use": "Record the settings a wave run actually ran at, compute the contact time and the pot margin each one gives, and keep the findings on the same page as the record that explains them.",
+      "files": {
+        "blank": "wave-run-log-blank-v1-2026-10-31.xlsx",
+        "example": "wave-run-log-example-v1-2026-10-31.xlsx",
+        "guide": "wave-run-log-guide-v1-2026-10-31.md"
+      },
+      "bytes": {
+        "blank": 8362,
+        "example": 8538,
+        "guide": 1601
+      }
+    },
+    {
+      "slug": "tht-fill-record",
+      "order": 9,
+      "title": "Through-hole fill record",
+      "kind": "xlsx",
+      "modules": [
+        "m08"
+      ],
+      "cases": [
+        "cx-m08-01"
+      ],
+      "lesson": "m08l05",
+      "standard": "IPC-A-610 (vertical barrel fill, and the inner-layer exception)",
+      "use": "Record the barrel fill on every through-hole joint, compute it against the board thickness, and disposition it against the class that applies — without letting the thermal-plane exception become the rule.",
+      "files": {
+        "blank": "tht-fill-record-blank-v1-2026-10-31.xlsx",
+        "example": "tht-fill-record-example-v1-2026-10-31.xlsx",
+        "guide": "tht-fill-record-guide-v1-2026-10-31.md"
+      },
+      "bytes": {
+        "blank": 8299,
+        "example": 8567,
+        "guide": 1548
+      }
+    },
+    {
+      "slug": "placement-record",
+      "order": 8,
+      "title": "Placement audit record",
+      "kind": "xlsx",
+      "modules": [
+        "m05"
+      ],
+      "cases": [
+        "cx-m05-01"
+      ],
+      "lesson": "m05l06",
+      "standard": "IPC-A-610 (placement and soldering criteria); machine capability targets are the plant's, not a standard's",
+      "use": "Turn two fiducial readings into the translation and the rotation the placement report leaves out, and carry each one out to the parts that sit furthest from the rotation centre.",
+      "files": {
+        "blank": "placement-record-blank-v1-2026-10-31.xlsx",
+        "example": "placement-record-example-v1-2026-10-31.xlsx",
+        "guide": "placement-record-guide-v1-2026-10-31.md"
+      },
+      "bytes": {
+        "blank": 8403,
+        "example": 8613,
+        "guide": 1583
+      }
+    },
+    {
+      "slug": "spi-record",
+      "order": 7,
+      "title": "SPI print record",
+      "kind": "xlsx",
+      "modules": [
+        "m04"
+      ],
+      "cases": [
+        "cx-m04-01"
+      ],
+      "lesson": "m04l05",
+      "standard": "IPC-7527 (solder paste printing), IPC-7525 (stencil design)",
+      "use": "Record every deposit's volume against the nominal the stencil actually cuts, and keep the mean from hiding a print that has two humps.",
+      "files": {
+        "blank": "spi-record-blank-v1-2026-10-31.xlsx",
+        "example": "spi-record-example-v1-2026-10-31.xlsx",
+        "guide": "spi-record-guide-v1-2026-10-31.md"
+      },
+      "bytes": {
+        "blank": 9007,
+        "example": 9312,
+        "guide": 1509
+      }
+    },
+    {
       "slug": "8d-report",
       "order": 5,
       "title": "8D problem report",

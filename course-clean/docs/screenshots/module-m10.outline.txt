@@ -1,0 +1,292 @@
+Rendered outline of #/m/m10
+Produced by scripts/capture-case.js from the built tree (build/course-clean).
+This is the live DOM from the shipped engine, not a mock-up.
+
+main #main   [2997 chars]
+  p .kicker   [26 chars]
+    "Course program · Module 10"
+  header .page-head   [35 chars]
+    div   [35 chars]
+      h1   [24 chars]
+        "10 — Selective Soldering"
+      div .meta-line   [11 chars]
+        span .chip   [11 chars]
+          "prereq: m09"
+  p .progress-line   [75 chars]
+    "0/5 lessons started · 0/5 mastered (quiz ≥ 80%) · ≈150 min of planned study"
+  div .progress role=img
+    span
+  nav .bx-thread   [571 chars]
+    p .bx-thread-head   [54 chars]
+      "Board X thread"
+      span .muted   [39 chars]
+        "— where this module sits in the product"
+    ol .bx-thread-list   [517 chars]
+      li .bx-thread-item   [42 chars]
+        a href=#/c/cx-m01-01   [42 chars]
+          span .bx-thread-m   [19 chars]
+            "M1 Incoming release"
+          span .bx-thread-asset   [23 chars]
+            "Incoming release record"
+      li .bx-thread-item   [26 chars]
+        a href=#/c/cx-m02-01   [26 chars]
+          span .bx-thread-m   [10 chars]
+            "M2 MSL log"
+          span .bx-thread-asset   [16 chars]
+            "MSL exposure log"
+      li .bx-thread-item   [28 chars]
+        a href=#/c/cx-m03-01   [28 chars]
+          span .bx-thread-m   [10 chars]
+            "M3 Stencil"
+          span .bx-thread-asset   [18 chars]
+            "Stencil data sheet"
+      li .bx-thread-item   [30 chars]
+        a href=#/c/cx-m04-01   [30 chars]
+          span .bx-thread-m   [14 chars]
+            "M4 First print"
+          span .bx-thread-asset   [16 chars]
+            "SPI review sheet"
+      li .bx-thread-item   [35 chars]
+        a href=#/c/cx-m05-01   [35 chars]
+          span .bx-thread-m   [12 chars]
+            "M5 Placement"
+          span .bx-thread-asset   [23 chars]
+            "Placement offset record"
+      li .bx-thread-item   [35 chars]
+        a href=#/c/cx-m06-01   [35 chars]
+          span .bx-thread-m   [17 chars]
+            "M6 Reflow profile"
+          span .bx-thread-asset   [18 chars]
+            "Reflow profile log"
+      li .bx-thread-item   [46 chars]
+        a href=#/c/cx-m08-01   [46 chars]
+          span .bx-thread-m   [15 chars]
+            "M8 Through-hole"
+          span .bx-thread-asset   [31 chars]
+            "Hole and lead measurement sheet"
+      li .bx-thread-item   [33 chars]
+        a href=#/c/cx-m09-01   [33 chars]
+          span .bx-thread-m   [7 chars]
+            "M9 Wave"
+          span .bx-thread-asset   [26 chars]
+            "Wave solder process record"
+      li .bx-thread-item.bx-thread-item--here   [46 chars]
+        a href=#/c/cx-m10-01   [46 chars]
+          span .bx-thread-m   [13 chars]
+            "M10 Selective"
+          span .bx-thread-asset   [33 chars]
+            "Selective soldering program sheet"
+      li .bx-thread-item   [31 chars]
+        a href=#/c/cx-m07-01   [31 chars]
+          span .bx-thread-m   [12 chars]
+            "M7 AOI audit"
+          span .bx-thread-asset   [19 chars]
+            "AOI and X-ray audit"
+      li .bx-thread-item   [34 chars]
+        a href=#/c/cx-m11-01   [34 chars]
+          span .bx-thread-m   [10 chars]
+            "M11 Rework"
+          span .bx-thread-asset   [24 chars]
+            "Rework and repair record"
+      li .bx-thread-item   [28 chars]
+        a href=#/c/cx-m13-01   [28 chars]
+          span .bx-thread-m   [8 chars]
+            "M13 Test"
+          span .bx-thread-asset   [20 chars]
+            "Coverage model sheet"
+      li .bx-thread-item   [41 chars]
+        a href=#/c/cx-m12-01   [41 chars]
+          span .bx-thread-m   [11 chars]
+            "M12 Coating"
+          span .bx-thread-asset   [30 chars]
+            "Cleanliness and coating record"
+      li .bx-thread-item   [32 chars]
+        a href=#/c/cx-m15-01   [32 chars]
+          span .bx-thread-m   [12 chars]
+            "M15 Feedback"
+          span .bx-thread-asset   [20 chars]
+            "Design feedback pack"
+      li .bx-thread-item   [30 chars]
+        a href=#/c/cx-m14-01   [30 chars]
+          span .bx-thread-m   [13 chars]
+            "M14 8D report"
+          span .bx-thread-asset   [17 chars]
+            "8D problem report"
+  section .exam-card.exam-card--locked   [160 chars]
+    h2   [11 chars]
+      "Module exam"
+    p .flush   [81 chars]
+      "15 questions randomly drawn from a bank of 15. Pass mark: 80%. Not attempted yet."
+    p .flush   [68 chars]
+      span .chip.chip--locked   [36 chars]
+        "Opens after all lessons are mastered"
+      span .muted   [31 chars]
+        "0 of 5 lessons mastered so far."
+  section .toolkit   [1177 chars]
+    h2   [7 chars]
+      "Toolkit"
+    p .flush.muted   [104 chars]
+      "Apply the module on Board X. Each case is scored against a rubric; 80 % of the rubric marks it mastered."
+    ul .toolkit-list   [127 chars]
+      li .toolkit-item   [127 chars]
+        div .toolkit-main   [118 chars]
+          a .toolkit-title href=#/c/cx-m10-01   [87 chars]
+            "Selective soldering: the 20-pin connector, a nozzle that fits and a cycle that does not"
+          div .toolkit-meta   [31 chars]
+            span   [6 chars]
+              "35 min"
+            span   [8 chars]
+              "10 steps"
+            span   [4 chars]
+              "core"
+            span   [13 chars]
+              "not attempted"
+        a .btn.btn--small href=#/c/cx-m10-01   [9 chars]
+          "Open case"
+    div .toolkit-shelf   [327 chars]
+      h3   [9 chars]
+        "Templates"
+      p .muted.flush   [73 chars]
+        "Each template ships blank, filled in with Board X data, and with a guide."
+      ul .tpl-grid   [245 chars]
+        li .tpl-card   [245 chars]
+          p .tpl-name   [33 chars]
+            "Selective soldering program sheet"
+          p .tpl-use.muted.flush   [195 chars]
+            "Keep the nozzle, dwell, passes, flux, air knife and preheat beside the measured cycle, so a program can be re-…"
+          p .tpl-variants   [17 chars]
+            button .linkbtn type=button data-act=case-tpl   [5 chars]
+              "Blank"
+            button .linkbtn type=button data-act=case-tpl   [7 chars]
+              "Example"
+            button .linkbtn type=button data-act=case-tpl   [5 chars]
+              "Guide"
+    div .toolkit-shelf.tpl-downloads   [485 chars]
+      h3   [20 chars]
+        "Download these forms"
+      p .muted.flush   [243 chars]
+        "Real files, ready to use: blank, filled in with Board X numbers, and a one-page guide. Spreadsheets carry work…"
+      ul .tpl-grid   [222 chars]
+        li .tpl-card   [222 chars]
+          p .tpl-name   [31 chars]
+            "Selective solder program record"
+          p .tpl-use.muted.flush   [117 chars]
+            "Check the nozzle against the joint it has to fill, and put the cycle time on the sheet before anyone promises …"
+          p .tpl-variants   [45 chars]
+            a .linkbtn href=assets/templates/selective-program-record-blank-v1-2026-10-31.xlsx   [12 chars]
+              "Blank"
+              span .muted   [6 chars]
+                "(8 KB)"
+            a .linkbtn href=assets/templates/selective-program-record-example-v1-2026-10-31.xlsx   [21 chars]
+              "Worked example"
+              span .muted   [6 chars]
+                "(8 KB)"
+            a .linkbtn href=assets/templates/selective-program-record-guide-v1-2026-10-31.md   [12 chars]
+              "Guide"
+              span .muted   [6 chars]
+                "(1 KB)"
+          p .tpl-meta.muted.flush   [29 chars]
+            "XLSX · cx-m10-01 · version v1"
+    div .toolkit-shelf   [127 chars]
+      h3   [15 chars]
+        "Related lessons"
+      ul .toolkit-chips   [112 chars]
+        li   [41 chars]
+          a .chip href=#/l/m10l02   [41 chars]
+            "Nozzle strategy and dwell (lesson m10l02)"
+        li   [33 chars]
+          a .chip href=#/l/m10l04   [33 chars]
+            "Programming a run (lesson m10l04)"
+        li   [38 chars]
+          a .chip href=#/l/m10l05   [38 chars]
+            "Defects and validation (lesson m10l05)"
+  ul .lesson-list   [508 chars]
+    li .lesson-row   [109 chars]
+      span .lesson-num   [2 chars]
+        "01"
+      div .lesson-main   [103 chars]
+        a .lesson-title href=#/l/m10l01   [81 chars]
+          "Where selective beats wave: mixed assembly, heat-sensitive neighbours, throughput"
+        div .lesson-meta   [22 chars]
+          span   [6 chars]
+            "25 min"
+          span   [16 chars]
+            "5 quiz questions"
+      div .lesson-side   [4 chars]
+        a .btn.btn--small href=#/l/m10l01   [4 chars]
+          "Open"
+    li .lesson-row   [105 chars]
+      span .lesson-num   [2 chars]
+        "02"
+      div .lesson-main   [99 chars]
+        a .lesson-title href=#/l/m10l02   [77 chars]
+          "Nozzle strategy: size and shape, flux-on-the-fly, dwell per joint, multi-pass"
+        div .lesson-meta   [22 chars]
+          span   [6 chars]
+            "35 min"
+          span   [16 chars]
+            "5 quiz questions"
+      div .lesson-side   [4 chars]
+        a .btn.btn--small href=#/l/m10l02   [4 chars]
+          "Open"
+    li .lesson-row   [102 chars]
+      span .lesson-num   [2 chars]
+        "03"
+      div .lesson-main   [96 chars]
+        a .lesson-title href=#/l/m10l03   [74 chars]
+          "Thermal budget of the neighbours: heat spread, monitoring, sensitive parts"
+        div .lesson-meta   [22 chars]
+          span   [6 chars]
+            "30 min"
+          span   [16 chars]
+            "5 quiz questions"
+      div .lesson-side   [4 chars]
+        a .btn.btn--small href=#/l/m10l03   [4 chars]
+          "Open"
+    li .lesson-row   [91 chars]
+      span .lesson-num   [2 chars]
+        "04"
+      div .lesson-main   [85 chars]
+        a .lesson-title href=#/l/m10l04   [63 chars]
+          "Programming a run: path, order, fixtures, air knife, cycle time"
+        div .lesson-meta   [22 chars]
+          span   [6 chars]
+            "30 min"
+          span   [16 chars]
+            "5 quiz questions"
+      div .lesson-side   [4 chars]
+        a .btn.btn--small href=#/l/m10l04   [4 chars]
+          "Open"
+    li .lesson-row   [101 chars]
+      span .lesson-num   [2 chars]
+        "05"
+      div .lesson-main   [95 chars]
+        a .lesson-title href=#/l/m10l05   [73 chars]
+          "Selective defects and validation: cross-section, pull test, documentation"
+        div .lesson-meta   [22 chars]
+          span   [6 chars]
+            "30 min"
+          span   [16 chars]
+            "5 quiz questions"
+      div .lesson-side   [4 chars]
+        a .btn.btn--small href=#/l/m10l05   [4 chars]
+          "Open"
+  section .case-card   [445 chars]
+    div .case-card-head   [107 chars]
+      h3   [95 chars]
+        span .case-card-icon   [1 chars]
+          "✎"
+        "Case: Selective soldering: the 20-pin connector, a nozzle that fits and a cycle that does not"
+      span .chip.chip--stage   [12 chars]
+        "About 35 min"
+    p .flush.case-card-lead   [224 chars]
+      "Board X carries one 20-pin THT connector at 2.54 mm pitch: 1.00 mm finished holes, 0.60 mm leads, 1.6 mm board…"
+    p .case-card-actions   [56 chars]
+      a .btn.btn--primary href=#/c/cx-m10-01   [12 chars]
+        "Start case ↗"
+      button .linkbtn type=button data-act=case-data   [23 chars]
+        "↓ selective-program.csv"
+      button .linkbtn type=button data-act=case-data   [20 chars]
+        "↓ joint-geometry.csv"
+    p .case-card-foot.muted.flush   [58 chars]
+      "Fictional data. Rubric pass mark: 80 % · not attempted yet"

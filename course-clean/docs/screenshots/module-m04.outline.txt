@@ -2,7 +2,7 @@ Rendered outline of #/m/m04
 Produced by scripts/capture-case.js from the built tree (build/course-clean).
 This is the live DOM from the shipped engine, not a mock-up.
 
-main #main   [3125 chars]
+main #main   [3349 chars]
   p .kicker   [26 chars]
     "Course program · Module 04"
   header .page-head   [45 chars]
@@ -122,7 +122,7 @@ main #main   [3125 chars]
         "Opens after all lessons are mastered"
       span .muted   [31 chars]
         "0 of 7 lessons mastered so far."
-  section .toolkit   [1106 chars]
+  section .toolkit   [1330 chars]
     h2   [7 chars]
       "Toolkit"
     p .flush.muted   [104 chars]
@@ -161,12 +161,12 @@ main #main   [3125 chars]
               "Example"
             button .linkbtn type=button data-act=case-tpl   [5 chars]
               "Guide"
-    div .toolkit-shelf.tpl-downloads   [496 chars]
+    div .toolkit-shelf.tpl-downloads   [720 chars]
       h3   [20 chars]
         "Download these forms"
       p .muted.flush   [243 chars]
         "Real files, ready to use: blank, filled in with Board X numbers, and a one-page guide. Spreadsheets carry work…"
-      ul .tpl-grid   [233 chars]
+      ul .tpl-grid   [457 chars]
         li .tpl-card   [233 chars]
           p .tpl-name   [24 chars]
             "Stencil inspection sheet"
@@ -176,7 +176,7 @@ main #main   [3125 chars]
             a .linkbtn href=assets/templates/stencil-check-blank-v1-2026-10-31.xlsx   [12 chars]
               "Blank"
               span .muted   [6 chars]
-                "(7 KB)"
+                "(8 KB)"
             a .linkbtn href=assets/templates/stencil-check-example-v1-2026-10-31.xlsx   [21 chars]
               "Worked example"
               span .muted   [6 chars]
@@ -184,9 +184,29 @@ main #main   [3125 chars]
             a .linkbtn href=assets/templates/stencil-check-guide-v1-2026-10-31.md   [12 chars]
               "Guide"
               span .muted   [6 chars]
-                "(1 KB)"
+                "(2 KB)"
           p .tpl-meta.muted.flush   [40 chars]
             "XLSX · cx-m03-01, cx-m04-01 · version v1"
+        li .tpl-card   [224 chars]
+          p .tpl-name   [16 chars]
+            "SPI print record"
+          p .tpl-use.muted.flush   [134 chars]
+            "Record every deposit's volume against the nominal the stencil actually cuts, and keep the mean from hiding a p…"
+          p .tpl-variants   [45 chars]
+            a .linkbtn href=assets/templates/spi-record-blank-v1-2026-10-31.xlsx   [12 chars]
+              "Blank"
+              span .muted   [6 chars]
+                "(9 KB)"
+            a .linkbtn href=assets/templates/spi-record-example-v1-2026-10-31.xlsx   [21 chars]
+              "Worked example"
+              span .muted   [6 chars]
+                "(9 KB)"
+            a .linkbtn href=assets/templates/spi-record-guide-v1-2026-10-31.md   [12 chars]
+              "Guide"
+              span .muted   [6 chars]
+                "(1 KB)"
+          p .tpl-meta.muted.flush   [29 chars]
+            "XLSX · cx-m04-01 · version v1"
     div .toolkit-shelf   [115 chars]
       h3   [15 chars]
         "Related lessons"

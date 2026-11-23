@@ -149,13 +149,61 @@ few cells cannot see a table that is wrong in all of them.
 * The Toolkit block on every module page now carries **Download these forms** with
   the module's templates, in the brief's order, each link showing its file size.
 
+## The other nine templates
+
+The brief fixes the order of the first six and says "then the rest by module".
+The rest are built, in module order, in the same three-variant form:
+
+| # | slug | module | kind | what it computes |
+|---|---|---|---|---|
+| 7 | `spi-record` | m04 | xlsx | nominal volume, share of it, Cp and Cpk — and Cpk on each squeegee pass separately |
+| 8 | `placement-record` | m05 | xlsx | rotation from the fiducial pair, and the displacement it causes at 7 mm and at the panel edge |
+| 9 | `tht-fill-record` | m08 | xlsx | barrel fill against the board, with the 75 % minimum and the inner-layer exception as separate thresholds |
+| 10 | `wave-run-log` | m09 | xlsx | contact time from wave width and conveyor speed, pot margin, and the verdict per window |
+| 11 | `selective-program-record` | m10 | xlsx | nozzle against the joint, joint time, cycle time and throughput |
+| 12 | `rework-record` | m11 | xlsx | iron time, energy, and the trace reduction against the class limit |
+| 13 | `cleanliness-record` | m12 | xlsx | ROSE result after the blank, the local site, and the wet coating volume |
+| 14 | `coverage-model` | m13 | xlsx | what each screen catches per defect class, escapes, and what a fourth screen buys |
+| 15 | `design-feedback-pack` | m15 | xlsx | cost of poor quality from four drivers, and the payback in boards |
+
+Two of these needed a mechanism the first six did not. `spi-record` has to state
+the nominal it judges against; `design-feedback-pack` is mostly inputs. Both now
+carry a **YOUR DATA** block: the plant's own numbers in unlocked cells, with the
+summary computed from them by locked formulas. It is the same idea as the
+threshold block, applied to data instead of limits — the sheet cannot contain a
+computed number that was typed.
+
+### What the checks caught in these nine
+
+1. **The trace reduction was computed from the wrong base.** `rework-record`
+   divided the 0.248 mm trace by the 0.300 mm it was drawn at, giving a 17.3 %
+   reduction; the class limit is a share of the drawing's **minimum** width,
+   0.280 mm, which makes it 11.4 %. The sheet now reads 11.4 %, the Class 2
+   minimum is 0.224 mm and the Class 3 minimum is 0.252 mm — the case's own
+   answers, three for three.
+2. **The m12 template overstated the contamination escape.** The worked note said
+   98.5 % of the class gets through the three screens; the model's own numbers
+   give 83.8 %.
+3. **A payback rounded up to a whole board.** 1,026.3 boards became 1,027; a
+   planner reading the sheet and a report quoting the case would disagree by a
+   board. It is now published at one decimal, like the case.
+4. **A summary with nothing to guard it.** On a sheet whose numbers come from the
+   YOUR DATA block rather than a table row, the empty-input guard looked at the
+   wrong block, so the blank version of `design-feedback-pack` would have shown
+   errors. The guard now tests whatever the summary actually reads.
+5. **An inverted preheat test.** `wave-run-log` briefly asked for a top-side
+   preheat *above* a ceiling, which passes everything. Caught by reading the
+   computed row, not the formula.
+
+The check set is now **125**, and every one of the nine new sheets is checked
+three ways: its rows are recomputed from its own input cells, its rows are
+compared cell-for-cell with the case's CSV, and its headline figures are compared
+with the case's answer keys.
+
 ## What is not done
 
-* Only the six templates in the brief's order exist. The remaining modules (m04
-  aperture record, m05 placement record, m08 THT fill sheet, m09 wave log, m10
-  selective program, m11 rework record, m12 cleanliness record, m13 coverage
-  model, m15 design feedback pack) follow the same spec format and are the natural
-  next round.
+* All fifteen modules that carry a case now have a template. No template covers
+  a module without one, and none is planned: the set follows the cases.
 * The DOCX files are plain python-docx tables: correct and readable, but they have
   no page numbers or header/footer block, which a real quality system will want.
 * No LibreOffice recalculation, for the reason above.

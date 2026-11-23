@@ -27,6 +27,708 @@ NOTICE = "Training template. Adapt to your quality system."
 # a rebuild on a later day does not silently produce differently-named files.
 VERSION = "v1"
 
+# --------------------------------------------------------------------------- m04
+def _m04():
+    deposits = [
+        (1, 1, "first", 18.32), (1, 2, "first", 18.72), (1, 3, "first", 17.68),
+        (1, 4, "second", 16.24), (1, 5, "second", 15.52), (1, 6, "second", 16.08),
+        (2, 1, "first", 18.40), (2, 2, "first", 17.92), (2, 3, "first", 18.24),
+        (2, 4, "second", 15.84), (2, 5, "second", 16.48), (2, 6, "second", 15.60),
+    ]
+    return dict(
+        slug="spi-record",
+        order=7,
+        title="SPI print record",
+        kind="xlsx",
+        modules=["m04"],
+        cases=["cx-m04-01"],
+        lesson="m04l05",
+        standard="IPC-7527 (solder paste printing), IPC-7525 (stencil design)",
+        use="Record every deposit's volume against the nominal the stencil actually "
+            "cuts, and keep the mean from hiding a print that has two humps.",
+        why="The m04 case passes on the mean and fails on the split: six deposits "
+            "per squeegee pass, a gap of about 2 nL between them, and a program "
+            "built against the wrong foil. A record with one average per board "
+            "cannot show any of that.",
+        thresholds=[
+            ("Volume window, low (%)", 75, None, "Board X control plan, m04l05"),
+            ("Volume window, high (%)", 125, None, "Board X control plan, m04l05"),
+            ("Cpk, minimum", 1.33, None, "control plan (a capability target, not a standard)"),
+        ],
+        columns=["Board", "Deposit", "Squeegee pass", "Volume (nL)",
+                 "Nominal (nL)", "Share of nominal (%)", "Window: low (nL)",
+                 "Window: high (nL)", "In window?", "Pass mean (nL)"],
+        formulas={
+            "Nominal (nL)": '=INPUTS[Aperture area (mm2)]*INPUTS[Foil over the region (mm)]*1000',
+            "Share of nominal (%)": '=D{r}/E{r}*100',
+            "Window: low (nL)": '=E{r}*[[Volume window, low (%)]]/100',
+            "Window: high (nL)": '=E{r}*[[Volume window, high (%)]]/100',
+            "In window?": '=IF(AND(D{r}>=G{r},D{r}<=H{r}),"yes","no")',
+            "Pass mean (nL)": '=IF(C{r}="first",AVERAGEIF(COL[Squeegee pass],"first",'
+                              'COL[Volume (nL)]),IF(C{r}="second",'
+                              'AVERAGEIF(COL[Squeegee pass],"second",COL[Volume (nL)]),""))',
+        },
+        inputs=[
+            ("Aperture area (mm2)", "mm2", 0.198),
+            ("Foil over the region (mm)", "mm", 0.100),
+            ("SPI program foil (mm)", "mm", 0.125),
+        ],
+        summary=[
+            ("Deposits recorded", '=COUNT(COL[Volume (nL)])'),
+            ("Mean volume (nL)", '=AVERAGE(COL[Volume (nL)])'),
+            ("Mean as % of nominal", '=SUMMARY[Mean volume (nL)]/AVERAGE(COL[Nominal (nL)])*100'),
+            ("First-pass mean (nL)", '=AVERAGEIF(COL[Squeegee pass],"first",COL[Volume (nL)])'),
+            ("Second-pass mean (nL)", '=AVERAGEIF(COL[Squeegee pass],"second",COL[Volume (nL)])'),
+            # The whole point of the case: the two passes are two processes.
+            ("Gap between passes (nL)", '=SUMMARY[First-pass mean (nL)]-SUMMARY[Second-pass mean (nL)]'),
+            ("Standard deviation (nL)", '=STDEV(COL[Volume (nL)])'),
+            ("Cp against the window", '=(SUMMARY[Mean volume (nL)]/(AVERAGE(COL[Share of nominal (%)])/100)'
+                                      '*([[Volume window, high (%)]]-[[Volume window, low (%)]])/100)'
+                                      '/(6*SUMMARY[Standard deviation (nL)])'),
+            ("Cpk (all deposits)",
+             '=MIN((AVERAGE(COL[Window: high (nL)])-SUMMARY[Mean volume (nL)]),'
+             '(SUMMARY[Mean volume (nL)]-AVERAGE(COL[Window: low (nL)])))/(3*SUMROW[7])'),
+            ("Cpk, second pass only",
+             '=MIN((AVERAGE(COL[Window: high (nL)])-SUMMARY[Second-pass mean (nL)]),'
+             '(SUMMARY[Second-pass mean (nL)]-AVERAGE(COL[Window: low (nL)])))/'
+             '(3*STDEV(IF(COL[Squeegee pass]="second",COL[Volume (nL)])))'),
+            ("What the screen shows (%)",
+             "=SUMMARY[Mean volume (nL)]/(INPUTS[Aperture area (mm2)]*"
+             "INPUTS[SPI program foil (mm)]*1000)*100"),
+            ("Verdict", '=IF(SUMMARY[Cpk (all deposits)]<[[Cpk, minimum]],'
+                        '"the mean passes and the process does not: split the passes",'
+                        '"capable")'),
+        ],
+        example_rows=[[b, d, p_, v, None, None, None, None, None, None]
+                      for b, d, p_, v in deposits],
+        example_note="Two pops, not one distribution: the first pass sits around "
+                     "18.7 nL and the second around 15.9 nL. Cpk on all twelve looks "
+                     "respectable; Cpk on the second pass alone is the number that "
+                     "matters. The third input is the trap — the SPI program carries "
+                     "the general stencil's foil, so it reads the print 25 % high.",
+    )
+
+# --------------------------------------------------------------------------- m05
+def _m05():
+    audit = [(1, "A", 0.060, 0.020), (1, "B", 0.070, 0.160),
+             (2, "A", 0.062, 0.024), (2, "B", 0.072, 0.158),
+             (3, "A", 0.058, 0.018), (3, "B", 0.068, 0.162)]
+    return dict(
+        slug="placement-record",
+        order=8,
+        title="Placement audit record",
+        kind="xlsx",
+        modules=["m05"],
+        cases=["cx-m05-01"],
+        lesson="m05l06",
+        standard="IPC-A-610 (placement and soldering criteria); machine capability "
+                 "targets are the plant's, not a standard's",
+        use="Turn two fiducial readings into the translation and the rotation the "
+            "placement report leaves out, and carry each one out to the parts that "
+            "sit furthest from the rotation centre.",
+        why="The m05 case passes its 0.11 mm offset and fails the 0.80 degrees "
+            "behind it: at 7 mm that rotation moves a QFP lead 0.098 mm, and at the "
+            "panel edge it moves a part 0.56 mm. One average cannot show either.",
+        thresholds=[
+            ("Placement acceptance (mm)", 0.15, None, "cx-m05-01 placement-setup.csv, control plan"),
+            ("Rotation target (deg)", 1.0, None, "m05l06 typical 0.5-1.0 deg, course value"),
+        ],
+        columns=["Board", "Fiducial", "dx (mm)", "dy (mm)", "Offset (mm)",
+                 "Rotation (rad)", "Rotation (deg)", "Move at 40 mm (mm)",
+                 "Move at 7 mm (mm)", "Within offset?"],
+        formulas={
+            "Offset (mm)": '=SQRT(C{r}^2+D{r}^2)',
+            # The rotation comes from the pair on the same board: the difference of
+            # the two vertical residuals over their separation. SUMPRODUCT picks
+            # the A reading of this board out of the table.
+            "Rotation (rad)":
+                '=(D{r}-SUMPRODUCT((COL[Board]=A{r})*(COL[Fiducial]="A")*COL[dy (mm)]))'
+                '/INPUTS[Fiducial separation (mm)]',
+            "Rotation (deg)": '=DEGREES(F{r})',
+            "Move at 40 mm (mm)": '=ABS(F{r})*INPUTS[Distance to panel edge (mm)]',
+            "Move at 7 mm (mm)": '=ABS(F{r})*INPUTS[Distance to QFP corner (mm)]',
+            "Within offset?": '=IF(E{r}<=[[Placement acceptance (mm)]],"yes","no")',
+        },
+        inputs=[
+            ("Fiducial separation (mm)", "mm", 10.0),
+            ("Distance to panel edge (mm)", "mm", 40.0),
+            ("Distance to QFP corner (mm)", "mm", 7.0),
+            ("Pad width (mm)", "mm", 0.30),
+            ("Lead width (mm)", "mm", 0.20),
+        ],
+        summary=[
+            ("Mean dx (mm)", '=AVERAGE(COL[dx (mm)])'),
+            ("Mean dy (mm)", '=AVERAGE(COL[dy (mm)])'),
+            # What the report quoted: the length of the mean residual vector.
+            ("Mean offset vector (mm)", '=SQRT(SUMMARY[Mean dx (mm)]^2+SUMMARY[Mean dy (mm)]^2)'),
+            ("Rotation on board 1 (deg)",
+             '=SUMPRODUCT((COL[Board]=MIN(COL[Board]))*COL[Rotation (deg)])'),
+            ("Move at the QFP corner on board 1 (mm)",
+             '=SUMPRODUCT((COL[Board]=MIN(COL[Board]))*COL[Move at 7 mm (mm)])'),
+            ("Move at the panel edge on board 1 (mm)",
+             '=SUMPRODUCT((COL[Board]=MIN(COL[Board]))*COL[Move at 40 mm (mm)])'),
+            ("Sideways play on the QFP pad (mm)",
+             '=(INPUTS[Pad width (mm)]-INPUTS[Lead width (mm)])/2'),
+            # Two independent things fail different ways: the offset is judged
+            # against the acceptance, the rotation against the target and then
+            # against the play a lead actually has.
+            ("Verdict",
+             '=IF(AND(SUMMARY[Mean offset vector (mm)]<=[[Placement acceptance (mm)]],'
+             'SUMMARY[Rotation on board 1 (deg)]<=[[Rotation target (deg)]],'
+             'SUMMARY[Move at the panel edge on board 1 (mm)]<=SUMMARY[Sideways play on the QFP pad (mm)]),"releasable",'
+             'IF(AND(SUMMARY[Mean offset vector (mm)]<=[[Placement acceptance (mm)]],'
+             'SUMMARY[Move at the QFP corner on board 1 (mm)]>SUMMARY[Sideways play on the QFP pad (mm)]),'
+             '"offset passes, rotation fails: the edge parts move",'
+             '"outside the acceptance"))'),
+        ],
+        example_rows=[[b, f, dx, dy, None, None, None, None, None, None]
+                      for b, f, dx, dy in audit],
+        example_note="The mean offset vector is 0.11 mm and passes the 0.15 mm "
+                     "acceptance. The same readings give 0.80 degrees, which moves a "
+                     "QFP lead 0.098 mm — more than the 0.05 mm of play it has — and "
+                     "a part at the panel edge 0.56 mm. The offset is the average; the "
+                     "rotation is the finding.",
+    )
+
+# --------------------------------------------------------------------------- m08
+def _m08():
+    joints = [
+        ("J-01", "1.00", 0.95, 1.05, 0.60, 0.63, 1.60, 1.10, 68.75, 0),
+        ("J-02", "1.00", 0.95, 1.05, 0.60, 0.63, 1.60, 1.30, 81.25, 0),
+        ("J-03", "1.00", 0.95, 1.05, 0.60, 0.63, 1.60, 1.25, 78.13, 0),
+    ]
+    return dict(
+        slug="tht-fill-record",
+        order=9,
+        title="Through-hole fill record",
+        kind="xlsx",
+        modules=["m08"],
+        cases=["cx-m08-01"],
+        lesson="m08l05",
+        standard="IPC-A-610 (vertical barrel fill, and the inner-layer exception)",
+        use="Record the barrel fill on every through-hole joint, compute it against "
+            "the board thickness, and disposition it against the class that applies "
+            "— without letting the thermal-plane exception become the rule.",
+        why="The m08 case is one joint at 68.75 % on a joint that earns no exception, "
+            "while two neighbours at 78 % and 81 % pass. A sheet that records "
+            "\"looks full\" cannot tell those three apart.",
+        thresholds=[
+            ("Minimum vertical fill (%)", 75, "src-016", "IPC-A-610, m08l05"),
+            ("Inner-layer exception fill (%)", 50, "src-016", "IPC-A-610 exception, m08l05"),
+            ("Exception: leads on the part at least", 14, "src-016", "IPC-A-610 exception, m08l05"),
+            ("Board thickness (mm)", 1.60, None, "Board X stackup"),
+        ],
+        columns=["Joint", "Part", "Class", "Hole min (mm)", "Lead max (mm)",
+                 "Board (mm)", "Fill measured (mm)", "Fill (%)",
+                 "Required (%)", "Short by (mm)", "Barrel on a plane?",
+                 "Exception applies?", "Disposition"],
+        formulas={
+            "Fill (%)": '=IF(F{r}=0,"",G{r}/F{r}*100)',
+            # The required figure is per joint, not per sheet: a joint whose
+            # barrel ties into an internal plane and whose part has enough leads
+            # may be judged against the exception, and nothing else may.
+            "Required (%)":
+                '=IF(AND(K{r}="yes",[[Inner-layer exception fill (%)]]>0,'
+                '[[Exception: leads on the part at least]]>0),'
+                '[[Inner-layer exception fill (%)]],[[Minimum vertical fill (%)]])',
+            # What is missing is measured against the required percentage, not
+            # against the fill the joint happens to have.
+            "Short by (mm)": '=IF(F{r}=0,"",MAX(0,I{r}*F{r}/100-G{r}))',
+            "Exception applies?":
+                '=IF(I{r}=[[Inner-layer exception fill (%)]],"yes — plane-connected",'
+                '"no — the general minimum")',
+            "Disposition":
+                '=IF(F{r}=0,"",IF(H{r}>=I{r},"accept","reject"))',
+        },
+        summary=[
+            ("Joints recorded", '=COUNT(COL[Fill measured (mm)])'),
+            ("Joints rejected", '=COUNTIF(COL[Disposition],"reject")'),
+            ("Lowest fill (%)", '=MIN(COL[Fill (%)])'),
+            ("Worst joint is short by (mm)", '=MAX(COL[Short by (mm)])'),
+            ("Fill the general minimum needs (mm)",
+             '=[[Board thickness (mm)]]*[[Minimum vertical fill (%)]]/100'),
+            ("Verdict",
+             '=IF(SUMMARY[Joints rejected]>0,'
+             '"first article fails: a joint is below the minimum that applies to it",'
+             '"first article passes")'),
+        ],
+        example_rows=[[j, part, 2, hmin, lmax, board, fill, None, None, None,
+                       "yes" if plane else "no", None, None]
+                      for j, part, hmin, hmax, lnom, lmax, board, fill, pct, plane
+                      in joints],
+        example_note="J-01 is at 68.75 % on a joint with no plane connection, so its "
+                     "minimum is 75 % and it is 0.10 mm short — that is the finding. "
+                     "J-02 and J-03 clear the same 75 % and pass. The exception is "
+                     "for a part with 14 or more leads whose barrels tie into "
+                     "internal planes; on this sheet it is a threshold pair you can "
+                     "see and change, not a phrase in a report.",
+    )
+
+# --------------------------------------------------------------------------- m09
+def _m09():
+    return dict(
+        slug="wave-run-log",
+        order=10,
+        title="Wave solder run log",
+        kind="xlsx",
+        modules=["m09"],
+        cases=["cx-m09-01"],
+        lesson="m09l07",
+        standard="IPC-A-610 (joint acceptance); the wave windows are the machine's, "
+                 "taken from the course and the equipment datasheet",
+        use="Record the settings a wave run actually ran at, compute the contact time "
+            "and the pot margin each one gives, and keep the findings on the same "
+            "page as the record that explains them.",
+        why="The m09 case has a short barrel and a bridge on the same board, and the "
+            "line wants one cause. The record has to show contact time, pot margin and "
+            "wave width together, or the argument is decided by who speaks last.",
+        thresholds=[
+            ("Contact time, minimum (s)", 2.0, None, "course text m09l07"),
+            ("Contact time, maximum (s)", 4.0, None, "course text m09l07"),
+            ("Pot ceiling, C", 260, None, "machine datasheet, course value"),
+            ("Liquidus, SAC305 (C)", 219, "src-008", "m06l01"),
+            ("Preheat, top-side min (C)", 90, None, "course value, m09l04"),
+            ("Preheat, top-side max (C)", 120, None, "course value, m09l04"),
+        ],
+        columns=["Run", "Flux", "Preheat top (C)", "Pot (C)", "Wave width (mm)",
+                 "Conveyor (m/min)", "Contact (s)", "Pot margin (C)",
+                 "Contact in window?", "Preheat in window?", "Pot in window?",
+                 "Run verdict"],
+        formulas={
+            # Contact time is the wave width over the conveyor speed, in seconds:
+            # 50 mm at 1.5 m/min is 2.0 s, and that is the number the joint sees.
+            "Contact (s)": '=E{r}/(F{r}*1000/60)',
+            "Pot margin (C)": '=D{r}-[[Liquidus, SAC305 (C)]]',
+            "Contact in window?": '=IF(AND(G{r}>=[[Contact time, minimum (s)]],'
+                                  'G{r}<=[[Contact time, maximum (s)]]),"yes","no")',
+            "Preheat in window?": '=IF(AND(C{r}>=[[Preheat, top-side min (C)]],'
+                                  'C{r}<=[[Preheat, top-side max (C)]]),"yes","no")',
+            "Pot in window?": '=IF(AND(D{r}>=[[Liquidus, SAC305 (C)]],'
+                              'D{r}<=[[Pot ceiling, C]]),"yes","no")',
+            "Run verdict":
+                '=IF(AND(I{r}="yes",J{r}="yes",K{r}="yes"),"inside the windows",'
+                'IF(G{r}<[[Contact time, minimum (s)]],'
+                '"contact time is at the floor: nothing left to trade",'
+                '"outside a window"))',
+        },
+        summary=[
+            ("Runs recorded", '=COUNT(COL[Contact (s)])'),
+            ("Contact time (s)", '=MIN(COL[Contact (s)])'),
+            ("Pot margin over liquidus (C)", '=MIN(COL[Pot margin (C)])'),
+            ("Margin to the pot ceiling (C)", '=[[Pot ceiling, C]]-MAX(COL[Pot (C)])'),
+            # Widen the wave and the contact time rises: the cheapest lever that
+            # does not touch the pot.
+            ("Wave width for 3.0 s at this speed (mm)",
+             '=3*MAX(COL[Conveyor (m/min)])*1000/60'),
+            ("Verdict",
+             '=IF(SUMMARY[Margin to the pot ceiling (C)]<20,'
+             '"the pot is near its ceiling: the fix is contact time, not temperature",'
+             '"the pot has room")'),
+        ],
+        example_rows=[["FA-1", "rosin mildly activated", 105, 255, 50, 1.5,
+                       None, None, None, None, None, None]],
+        example_note="50 mm of wave at 1.5 m/min is 2.0 s of contact — inside the "
+                     "2-4 s window and sitting on its floor. The pot is at 255 C, only "
+                     "5 C under the machine's ceiling, so \"raise the pot\" is not the "
+                     "lever the record supports.",
+    )
+
+# --------------------------------------------------------------------------- m10
+def _m10():
+    return dict(
+        slug="selective-program-record",
+        order=11,
+        title="Selective solder program record",
+        kind="xlsx",
+        modules=["m10"],
+        cases=["cx-m10-01"],
+        lesson="m10l05",
+        standard="IPC-A-610 (joint acceptance), IPC-7711/7721 (rework of what the "
+                 "program gets wrong)",
+        use="Check the nozzle against the joint it has to fill, and put the cycle "
+            "time on the sheet before anyone promises a rate.",
+        why="The m10 case has a nozzle that fits and a cycle nobody accounted for: "
+            "20 joints at 1.8 s dwell and 0.4 s of travel is 44 s before preheat and "
+            "flux are added. A program record without the cycle cannot be quoted.",
+        thresholds=[
+            ("Nozzle min for the joint (mm)", 1.0, None, "course guidance, m10l03"),
+            ("Nozzle max for the joint (mm)", 2.0, None, "course guidance, m10l03"),
+            ("Dwell, min (s)", 1.0, None, "program value, cx-m10-01"),
+            ("Dwell, max (s)", 3.0, None, "program value, cx-m10-01"),
+        ],
+        columns=["Joint", "Hole nominal (mm)", "Hole tolerance (mm)", "Lead max (mm)",
+                 "Lead (mm)", "Gap per side (mm)", "Nozzle (mm)",
+                 "Hole to lead (mm)", "Nozzle in band?"],
+        formulas={
+            "Gap per side (mm)": '=(B{r}-E{r})/2',
+            "Hole to lead (mm)": '=B{r}-D{r}',
+            "Nozzle in band?": '=IF(AND(G{r}>=[[Nozzle min for the joint (mm)]],'
+                               'G{r}<=[[Nozzle max for the joint (mm)]],'
+                               'G{r}>H{r}),"yes","no")',
+        },
+        # Only what a person reads off the machine: the inputs carry no derived
+        # value, so nothing on the sheet can be typed and then disagree with its
+        # own arithmetic.
+        inputs=[
+            ("Joints in the program", "count", 20),
+            ("Dwell per joint (s)", "s", 1.8),
+            ("Travel between joints (s)", "s", 0.4),
+            ("Preheat (s)", "s", 25),
+            ("Flux and air knife (s)", "s", 12),
+        ],
+        summary=[
+            # The cycle is a sum of things the machine does, not a rate the
+            # planner hoped for: every joint costs its dwell plus the move to it.
+            ("Joint time (s)", '=INPUTS[Joints in the program]*'
+                               '(INPUTS[Dwell per joint (s)]+INPUTS[Travel between joints (s)])'),
+            ("Cycle time (s)", '=SUMMARY[Joint time (s)]+INPUTS[Preheat (s)]'
+                               '+INPUTS[Flux and air knife (s)]'),
+            ("Throughput (boards/h)", '=ROUND(3600/SUMMARY[Cycle time (s)],1)'),
+            ("Dwell in window?", '=IF(AND(INPUTS[Dwell per joint (s)]>=[[Dwell, min (s)]],'
+                                 'INPUTS[Dwell per joint (s)]<=[[Dwell, max (s)]]),'
+                                 '"yes","no")'),
+            ("Verdict", '=IF(COUNTIF(COL[Nozzle in band?],"no")>0,'
+                        '"a joint is outside the nozzle band: fix the nozzle before the dwell",'
+                        '"nozzle fits every joint")'),
+        ],
+        example_rows=[["P-01", 1.00, 0.05, 0.03, 0.60, None, 1.20, None, None]],
+        example_note="The 1.20 mm nozzle sits inside the 1.0-2.0 mm band and clears the "
+                     "0.40 mm hole-to-lead gap on every pin. The cycle is the finding: "
+                     "44 s of joints plus 37 s of preheat and flux is 81 s, and one board "
+                     "in the machine at a time makes that 44.4 boards an hour — not the "
+                     "rate a plan drawn from dwell alone would promise.",
+    )
+
+# --------------------------------------------------------------------------- m11
+def _m11():
+    rows = [
+        ("B-07", "J-01 rework", "chisel 1.2 mm", 345, 95, 3, 2.6, 0.4, 0.2, 0.300, 0.280, 0.248, 0),
+        ("B-08", "J-01 rework", "chisel 1.2 mm", 345, 95, 2, 2.2, 0.1, 0.0, 0.300, 0.280, 0.280, 1),
+        ("B-09", "J-01 rework", "chisel 1.2 mm", 345, 95, 1, 2.4, 0.0, 0.0, 0.300, 0.280, 0.280, 0),
+    ]
+    return dict(
+        slug="rework-record",
+        order=12,
+        title="Rework and repair record",
+        kind="xlsx",
+        modules=["m11"],
+        cases=["cx-m11-01"],
+        lesson="m11l06",
+        standard="IPC-7711/7721 (rework and repair method), with the width limit from "
+                 "IPC-A-600 (20 % Class 2, 10 % Class 3)",
+        use="Record what the repair did to the board — heat, contacts, the trace it "
+            "touched — and judge the damage against the class the customer requires.",
+        why="The m11 case is a repair that passes on the joint and fails on the trace: "
+            "0.248 mm against a 0.280 mm minimum is 11.4 %. Under Class 2 that is "
+            "inside the 20 % limit; under Class 3 it is not.",
+        thresholds=[
+            ("Class 2 width reduction (%)", 20, None, "IPC-A-600 §3.5.3.1, per m11l04"),
+            ("Class 3 width reduction (%)", 10, None, "IPC-A-600 §3.5.3.1, per m11l04"),
+            ("Iron setpoint, min (C)", 330, None, "course hand-soldering band, m11l03"),
+            ("Iron setpoint, max (C)", 360, None, "course hand-soldering band, m11l03"),
+            ("Contacts, maximum", 3, None, "process rule, cx-m11-01"),
+            ("Iron power (W)", 45, None, "station datasheet, course value"),
+        ],
+        columns=["Assembly", "Operation", "Tip", "Setpoint (C)", "Preheat (C)",
+                 "Contacts", "Dwell 1 (s)", "Dwell 2 (s)", "Dwell 3 (s)",
+                 "Width drawn (mm)", "Width after (mm)", "Iron time (s)",
+                 "Energy (J)", "Reduction (%)", "Limit (%)", "Trace verdict",
+                 "Dry contact (1 = no flow)"],
+        formulas={
+            "Iron time (s)": '=G{r}+H{r}+I{r}',
+            "Energy (J)": '=L{r}*[[Iron power (W)]]',
+            # The class limit is a percentage of the drawing's MINIMUM width, not
+            # of the drawn nominal: 0.248 against a 0.280 minimum is 11.4 %, and
+            # against the 0.300 the trace was drawn at it would read 17.3 % — a
+            # different answer to the same question.
+            "Reduction (%)": '=(INPUTS[Drawing minimum width (mm)]-K{r})'
+                             '/INPUTS[Drawing minimum width (mm)]*100',
+            "Limit (%)": '=IF(INPUTS[Applicable class]="Class 3",'
+                         '[[Class 3 width reduction (%)]],[[Class 2 width reduction (%)]])',
+            "Trace verdict": '=IF(N{r}<=O{r},"within the class limit",'
+                             '"outside the class limit")',
+        },
+        inputs=[
+            ("Drawing minimum width (mm)", "mm", 0.280),
+            ("Applicable class", "Class 2 or 3", "Class 2"),
+        ],
+        summary=[
+            ("Boards in the record", '=COUNT(COL[Width after (mm)])'),
+            # Published to one decimal, the precision the case asks for: a sheet
+            # that shows 11.428571 and a report that says 11.4 are the same
+            # number quoted at two precisions, and the difference invites an
+            # argument that is not about the board.
+            ("Worst reduction (%)", '=ROUND(MAX(COL[Reduction (%)]),1)'),
+            ("Narrowest trace this class allows (mm)",
+             '=INPUTS[Drawing minimum width (mm)]*(1-[[Class 2 width reduction (%)]]/100)'),
+            ("Narrowest trace Class 3 would allow (mm)",
+             '=INPUTS[Drawing minimum width (mm)]*(1-[[Class 3 width reduction (%)]]/100)'),
+            ("Boards with no solder flow on a contact",
+             '=SUM(COL[Dry contact (1 = no flow)])'),
+            ("Total iron time on the record (s)", '=SUM(COL[Iron time (s)])'),
+            ("Verdict", '=IF(COUNTIF(COL[Trace verdict],"outside*")>0,'
+                        '"repair is outside the class limit: scrap or request a deviation",'
+                        '"repair is within the class limit")'),
+        ],
+        example_rows=[[a, o, t, sp, ph, c, d1, d2, d3, drawn, wa, None, None, None,
+                       None, None, dry]
+                      for a, o, t, sp, ph, c, d1, d2, d3, drawn, tmin, wa, dry in rows],
+        example_note="B-07 took 3.2 s of iron and 144 J, and it is the row that nicked "
+                     "the trace: 0.248 mm against a 0.280 mm drawing minimum is an "
+                     "11.4 % reduction. Class 2 allows 20 %, Class 3 allows 10 % — so "
+                     "the same board passes one customer and fails the other. B-08 shows "
+                     "dry_flag 1: one contact produced no solder flow, which is a fact "
+                     "about the operator's technique, not about the joint.",
+    )
+
+# --------------------------------------------------------------------------- m12
+def _m12():
+    boards = [
+        ("C-114", 412, 6, 192, 12.0, 4.0),
+        ("C-118", 268, 6, 192, None, None),
+        ("C-121", 171.1, 6, 192, None, None),
+        ("C-124", 583, 6, 192, None, None),
+        ("C-127", 96, 6, 192, None, None),
+        ("C-131", 149, 6, 192, None, None),
+    ]
+    return dict(
+        slug="cleanliness-record",
+        order=13,
+        title="Cleanliness and coating record",
+        kind="xlsx",
+        modules=["m12"],
+        cases=["cx-m12-01"],
+        lesson="m12l03",
+        standard="IPC-TM-650 2.3.25 (ROSE); the customer's limit is a customer value, "
+                 "not the reference one",
+        use="Report an ionic result with the area it was divided by, the blank it was "
+            "subtracted from and the local site it hides, then work out the coating "
+            "volume from the film the drawing asks for.",
+        why="The m12 case is a board average that passes and a site under the BGA that "
+            "fails. A record with one number per board cannot show either the blank, "
+            "the area or the site.",
+        thresholds=[
+            ("Reference limit (ug/cm2)", 1.56, "src-018", "IPC-TM-650 2.3.25, per m12l03"),
+            ("Customer limit (ug/cm2)", 0.5, None, "medical customer specification"),
+            ("Route limit (ug/cm2)", 0.5, None, "which limit this build is judged against"),
+            ("Target dry film (um)", 35, None, "customer drawing, cx-m12-01"),
+            ("Coating solids (fraction)", 0.38, None, "coating datasheet, cx-m12-01"),
+            ("One-sided tail z for 0.1 %", 3.0902, None, "normal distribution, course value"),
+
+        ],
+        columns=["Board", "Extracted (ug)", "Blank (ug)", "Area (cm2)",
+                 "Result (ug/cm2)", "Site (ug)", "Site area (cm2)",
+                 "Site result (ug/cm2)", "Board verdict", "Site verdict"],
+        formulas={
+            "Result (ug/cm2)": '=(B{r}-C{r})/D{r}',
+            "Site result (ug/cm2)": '=IF(OR(F{r}="",G{r}=""),"",F{r}/G{r})',
+            "Board verdict":
+                '=IF(E{r}<=[[Route limit (ug/cm2)]],"pass",'
+                'IF(E{r}<=[[Reference limit (ug/cm2)]],'
+                '"pass the reference, fail the customer","fail"))',
+            "Site verdict": '=IF(H{r}="","",IF(H{r}<=[[Route limit (ug/cm2)]],"pass","fail"))',
+        },
+        inputs=[
+            ("Masked: connector (cm2)", "cm2", 16.0),
+            ("Masked: test points (cm2)", "cm2", 3.0),
+            ("Masked: under the BGA (cm2)", "cm2", 0.377),
+            ("Board area (cm2)", "cm2", 192.0),
+            ("Process sd (ug/cm2)", "ug/cm2", 0.11),
+        ],
+        summary=[
+            ("Boards in the record", '=COUNT(COL[Result (ug/cm2)])'),
+            ("Board mean (ug/cm2)", '=AVERAGE(COL[Result (ug/cm2)])'),
+            ("Worst board (ug/cm2)", '=MAX(COL[Result (ug/cm2)])'),
+            # Every verdict that is not a plain pass counts: "pass the reference,
+            # fail the customer" is still a board over the limit this build is
+            # judged against.
+            ("Boards over the route limit",
+             '=SUMMARY[Boards in the record]-COUNTIF(COL[Board verdict],"pass")'),
+            ("Coated area (cm2)", '=INPUTS[Board area (cm2)]-INPUTS[Masked: connector (cm2)]'
+                                  '-INPUTS[Masked: test points (cm2)]'
+                                  '-INPUTS[Masked: under the BGA (cm2)]'),
+            # A film thickness is a volume of solids per area; dividing by the
+            # solids fraction turns it back into the wet volume to dispense.
+            ("Wet coating to dispense (mL)",
+             '=SUMMARY[Coated area (cm2)]*[[Target dry film (um)]]/10000'
+             '/[[Coating solids (fraction)]]'),
+            # Inverse problem: the mean that holds a 0.1 % tail under the limit.
+            ("Mean that holds 0.1 % under the limit (ug/cm2)",
+             '=[[Route limit (ug/cm2)]]-[[One-sided tail z for 0.1 %]]*INPUTS[Process sd (ug/cm2)]'),
+            ("Verdict", '=IF(OR(SUMMARY[Boards over the route limit]>0,'
+                        'COUNTIF(COL[Site verdict],"fail")>0),'
+                        '"the board average is not the result: a board or a site fails",'
+                        '"clean")'),
+        ],
+        example_rows=[[b, ex, bl, area, None, site, sarea, None, None, None]
+                      for b, ex, bl, area, site, sarea in boards],
+        example_note="C-114 reads 2.11 ug/cm2 against the customer's 0.5 and passes "
+                     "nothing. Its 20 x 20 mm site under the connector reads 3.0 "
+                     "ug/cm2 — the number the field return was about. The reference "
+                     "1.56 ug/cm2 is not the limit this build is judged against, and "
+                     "the route limit cell is where that gets decided.",
+    )
+
+# --------------------------------------------------------------------------- m13
+def _m13():
+    model = [
+        ("visible open", 420, 0.95, 0.00, 0.99, 0.85),
+        ("hidden open", 260, 0.05, 0.85, 0.60, 0.70),
+        ("visible bridge", 310, 0.97, 0.00, 0.99, 0.90),
+        ("hidden short", 90, 0.10, 0.80, 0.55, 0.60),
+        ("wrong value", 60, 0.15, 0.00, 0.95, 0.50),
+        ("polarity", 110, 0.90, 0.00, 0.60, 0.80),
+        ("insufficient solder", 380, 0.92, 0.30, 0.35, 0.40),
+        ("contamination", 70, 0.10, 0.00, 0.02, 0.05),
+    ]
+    return dict(
+        slug="coverage-model",
+        order=14,
+        title="Test coverage model",
+        kind="xlsx",
+        modules=["m13"],
+        cases=["cx-m13-01"],
+        lesson="m13l05",
+        standard="The plant's own defect model and screen probabilities; node coverage "
+                 "is a test-program measure, not a standard's",
+        use="Work out what a series of screens actually catches, class by class, "
+            "instead of quoting the share of joints that carry a probe.",
+        why="The m13 case is 92 % of the nodes and 70 % of the defects: a screen that "
+            "touches a joint is not a screen that catches the defect at it, and one "
+            "class in the model — residue under a connector — has no screen at all.",
+        thresholds=[
+            ("Nodes on the board", 620, None, "board fact"),
+            ("Nodes with a probe or scan", 570, None, "test program, cx-m13-01"),
+            ("Boards per year", 20000, None, "cx-m13-01"),
+            # A share of a class that gets past every screen. Not a standard:
+            # it is the line the plant draws between "watched" and "invisible".
+            ("Class escape alarm (%)", 80, None, "course value: a class nothing catches"),
+        ],
+        columns=["Defect class", "Occurrence (ppm)", "AOI", "X-ray", "ICT", "FCT",
+                 "Caught by AOI (ppm)", "Caught by all three (ppm)",
+                 "Escapes the three (ppm)", "Caught with X-ray (ppm)"],
+        formulas={
+            "Caught by AOI (ppm)": '=B{r}*C{r}',
+            # Screens in series: a class is missed only if every screen misses it,
+            # so what one screen adds is the miss probability it removes.
+            "Caught by all three (ppm)": '=B{r}*(1-(1-C{r})*(1-E{r})*(1-F{r}))',
+            "Escapes the three (ppm)": '=B{r}*(1-C{r})*(1-E{r})*(1-F{r})',
+            "Caught with X-ray (ppm)": '=B{r}*(1-(1-C{r})*(1-D{r})*(1-E{r})*(1-F{r}))',
+        },
+        summary=[
+            ("Total defect rate (ppm)", '=SUM(COL[Occurrence (ppm)])'),
+            ("Node coverage (%)", '=[[Nodes with a probe or scan]]/[[Nodes on the board]]*100'),
+            ("Caught by AOI alone (ppm)", '=SUM(COL[Caught by AOI (ppm)])'),
+            ("Defect coverage, AOI alone (%)",
+             '=SUMMARY[Caught by AOI alone (ppm)]/SUMMARY[Total defect rate (ppm)]*100'),
+            ("Caught by the three screens (ppm)", '=SUM(COL[Caught by all three (ppm)])'),
+            ("Defect coverage, three screens (%)",
+             '=SUMMARY[Caught by the three screens (ppm)]/SUMMARY[Total defect rate (ppm)]*100'),
+            ("Escape rate (ppm)", '=SUMMARY[Total defect rate (ppm)]'
+                                  '-SUMMARY[Caught by the three screens (ppm)]'),
+            ("Caught with X-ray added (ppm)", '=SUM(COL[Caught with X-ray (ppm)])'),
+            ("Defect coverage with X-ray (%)",
+             '=SUMMARY[Caught with X-ray added (ppm)]/SUMMARY[Total defect rate (ppm)]*100'),
+            # X-ray is judged on what it does to the escapes, not on the
+            # coverage number it moves: 1.4 points of coverage is a third of
+            # the defects that were getting out.
+            ("Reduction in escapes from X-ray (%)",
+             '=ROUND((SUMMARY[Escape rate (ppm)]-(SUMMARY[Total defect rate (ppm)]'
+             '-SUMMARY[Caught with X-ray added (ppm)]))/SUMMARY[Escape rate (ppm)]*100,1)'),
+            ("Boards a year that ship defective", '=[[Boards per year]]*SUMMARY[Escape rate (ppm)]/1000000'),
+            # The headline the program quotes and the number that matters are
+            # different measurements, so the sheet states both and compares them.
+            ("Worst class left to the screens (%)",
+             '=MAX(COL[Escapes the three (ppm)])/MAX(COL[Occurrence (ppm)])*100'),
+            ("Verdict", '=IF(SUMMARY[Node coverage (%)]>SUMMARY[Defect coverage, three screens (%)],'
+                        '"the node number is not the coverage: quote the defect coverage",'
+                        '"the two coverage numbers agree")'),
+        ],
+        example_rows=[[n, occ, a, x, i, f, None, None, None, None]
+                      for n, occ, a, x, i, f in model],
+        example_note="The program reports 91.9 % of the nodes. The same model says the "
+                     "three screens catch 93.1 % of the defects — and 83.8 % of the "
+                     "contamination class gets through all three, because no screen in "
+                     "the list looks at it. Adding X-ray raises coverage by 1.4 points "
+                     "and cuts the escapes by more than a third; the residue needs a "
+                     "process control, not a fourth screen.",
+    )
+
+# --------------------------------------------------------------------------- m15
+def _m15():
+    return dict(
+        slug="design-feedback-pack",
+        order=15,
+        title="Design feedback pack",
+        kind="xlsx",
+        modules=["m15"],
+        cases=["cx-m15-01"],
+        lesson="m15l04",
+        standard="The plant's own production data; the placement acceptance and the "
+                 "fiducial geometry are Board X's",
+        use="Turn a production result into a design ask with a number in it and a "
+            "price on it, so the design team can act on the next revision.",
+        why="The m15 case ends with three asks, of which one is a rule. The pack has "
+            "to carry the cost of poor quality, the payback of the change, and the "
+            "sample the numbers came from.",
+        thresholds=[
+            ("Placement acceptance (mm)", 0.15, None, "control plan, cx-m15-01"),
+            ("Distance to the panel edge (mm)", 40.0, None, "panel drawing, cx-m15-01"),
+            ("Effectiveness target (ppm)", 1000, None, "agreed metric, cx-m14-01"),
+        ],
+        columns=["Item", "Unit", "Value", "What it is used for"],
+        formulas={
+            "Value": '=IF(A{r}="","",VALUE(C{r}))',
+        },
+        inputs=[
+            ("Boards started", "count", 1240),
+            ("Defects confirmed", "count", 38),
+            ("Boards scrapped", "count", 12),
+            ("Minutes to rework one defect", "min", 9),
+            ("Labour rate (USD/h)", "USD/h", 45),
+            ("Board cost (USD)", "USD", 180),
+            ("Inspection per board (min)", "min", 0.5),
+            ("Downtime (h)", "h", 6.5),
+            ("Downtime rate (USD/h)", "USD/h", 40),
+            ("Change cost (USD)", "USD", 1200),
+            ("Share of rework and scrap removed", "fraction", 0.6),
+        ],
+        summary=[
+            ("First-pass yield (%)",
+             '=(INPUTS[Boards started]-INPUTS[Defects confirmed])/INPUTS[Boards started]*100'),
+            ("Defects per 1000 boards",
+             '=INPUTS[Defects confirmed]/INPUTS[Boards started]*1000'),
+            ("Rework cost (USD)",
+             '=INPUTS[Defects confirmed]*INPUTS[Minutes to rework one defect]/60*INPUTS[Labour rate (USD/h)]'),
+            ("Scrap cost (USD)",
+             '=INPUTS[Boards scrapped]*INPUTS[Board cost (USD)]'),
+            ("Inspection cost (USD)",
+             '=INPUTS[Boards started]*INPUTS[Inspection per board (min)]/60*INPUTS[Labour rate (USD/h)]'),
+            ("Downtime cost (USD)", '=INPUTS[Downtime (h)]*INPUTS[Downtime rate (USD/h)]'),
+            ("Cost of poor quality (USD)", '=SUMMARY[Rework cost (USD)]+SUMMARY[Scrap cost (USD)]'
+                                           '+SUMMARY[Inspection cost (USD)]'
+                                           '+SUMMARY[Downtime cost (USD)]'),
+            ("Cost of poor quality per board (USD/board)",
+             '=SUMMARY[Cost of poor quality (USD)]/INPUTS[Boards started]'),
+            # The payback is expressed in boards, because that is the unit the
+            # planner can act on: how many boards until the change has paid.
+            # Two decimals, because a planner rounding 1,026.3 up to 1,050 and a
+            # report saying 1,027 should be the same number.
+            ("Boards to pay the change back",
+             '=ROUND(INPUTS[Change cost (USD)]/((SUMMARY[Rework cost (USD)]'
+             '+SUMMARY[Scrap cost (USD)])*INPUTS[Share of rework and scrap removed]'
+             '/INPUTS[Boards started]),1)'),
+            ("Verdict", '=IF(SUMMARY[Boards to pay the change back]<=INPUTS[Boards started],'
+                        '"the change pays back inside one order",'
+                        '"the change needs more than one order to pay back")'),
+        ],
+        example_rows=[],
+        example_note="The four cost drivers add to 3,141.50 USD on 1,240 boards. The "
+                     "1,200 USD change pays for itself in 1,026.3 boards if it removes "
+                     "60 % of the rework and scrap — inside the next order, which is "
+                     "what turns an opinion into a design ask.",
+    )
+
 ROWS = [
     # ---------------------------------------------------------------- incoming
     dict(
@@ -309,6 +1011,24 @@ ROWS = [
                      "measured, because the log records temperatures at segment ends. "
                      "The case's own numbers are in the m06 data file.",
     ),
+    # ---------------------------------------------------------- design feedback
+    _m15(),
+    # ---------------------------------------------------------------- coverage
+    _m13(),
+    # ------------------------------------------------------------ cleanliness
+    _m12(),
+    # ----------------------------------------------------------------- rework
+    _m11(),
+    # ------------------------------------------------------------- selective
+    _m10(),
+    # ------------------------------------------------------------------ wave
+    _m09(),
+    # --------------------------------------------------------------- THT fill
+    _m08(),
+    # ------------------------------------------------------------ placement
+    _m05(),
+    # ------------------------------------------------------------------ SPI
+    _m04(),
     # -------------------------------------------------------------------- 8D
     dict(
         slug="8d-report",

@@ -1,0 +1,306 @@
+Rendered outline of #/m/m12
+Produced by scripts/capture-case.js from the built tree (build/course-clean).
+This is the live DOM from the shipped engine, not a mock-up.
+
+main #main   [3329 chars]
+  p .kicker   [26 chars]
+    "Course program · Module 12"
+  header .page-head   [51 chars]
+    div   [51 chars]
+      h1   [35 chars]
+        "12 — Cleaning and Conformal Coating"
+      div .meta-line   [16 chars]
+        span .chip   [16 chars]
+          "prereq: m02, m06"
+  p .progress-line   [75 chars]
+    "0/6 lessons started · 0/6 mastered (quiz ≥ 80%) · ≈180 min of planned study"
+  div .progress role=img
+    span
+  nav .bx-thread   [571 chars]
+    p .bx-thread-head   [54 chars]
+      "Board X thread"
+      span .muted   [39 chars]
+        "— where this module sits in the product"
+    ol .bx-thread-list   [517 chars]
+      li .bx-thread-item   [42 chars]
+        a href=#/c/cx-m01-01   [42 chars]
+          span .bx-thread-m   [19 chars]
+            "M1 Incoming release"
+          span .bx-thread-asset   [23 chars]
+            "Incoming release record"
+      li .bx-thread-item   [26 chars]
+        a href=#/c/cx-m02-01   [26 chars]
+          span .bx-thread-m   [10 chars]
+            "M2 MSL log"
+          span .bx-thread-asset   [16 chars]
+            "MSL exposure log"
+      li .bx-thread-item   [28 chars]
+        a href=#/c/cx-m03-01   [28 chars]
+          span .bx-thread-m   [10 chars]
+            "M3 Stencil"
+          span .bx-thread-asset   [18 chars]
+            "Stencil data sheet"
+      li .bx-thread-item   [30 chars]
+        a href=#/c/cx-m04-01   [30 chars]
+          span .bx-thread-m   [14 chars]
+            "M4 First print"
+          span .bx-thread-asset   [16 chars]
+            "SPI review sheet"
+      li .bx-thread-item   [35 chars]
+        a href=#/c/cx-m05-01   [35 chars]
+          span .bx-thread-m   [12 chars]
+            "M5 Placement"
+          span .bx-thread-asset   [23 chars]
+            "Placement offset record"
+      li .bx-thread-item   [35 chars]
+        a href=#/c/cx-m06-01   [35 chars]
+          span .bx-thread-m   [17 chars]
+            "M6 Reflow profile"
+          span .bx-thread-asset   [18 chars]
+            "Reflow profile log"
+      li .bx-thread-item   [46 chars]
+        a href=#/c/cx-m08-01   [46 chars]
+          span .bx-thread-m   [15 chars]
+            "M8 Through-hole"
+          span .bx-thread-asset   [31 chars]
+            "Hole and lead measurement sheet"
+      li .bx-thread-item   [33 chars]
+        a href=#/c/cx-m09-01   [33 chars]
+          span .bx-thread-m   [7 chars]
+            "M9 Wave"
+          span .bx-thread-asset   [26 chars]
+            "Wave solder process record"
+      li .bx-thread-item   [46 chars]
+        a href=#/c/cx-m10-01   [46 chars]
+          span .bx-thread-m   [13 chars]
+            "M10 Selective"
+          span .bx-thread-asset   [33 chars]
+            "Selective soldering program sheet"
+      li .bx-thread-item   [31 chars]
+        a href=#/c/cx-m07-01   [31 chars]
+          span .bx-thread-m   [12 chars]
+            "M7 AOI audit"
+          span .bx-thread-asset   [19 chars]
+            "AOI and X-ray audit"
+      li .bx-thread-item   [34 chars]
+        a href=#/c/cx-m11-01   [34 chars]
+          span .bx-thread-m   [10 chars]
+            "M11 Rework"
+          span .bx-thread-asset   [24 chars]
+            "Rework and repair record"
+      li .bx-thread-item   [28 chars]
+        a href=#/c/cx-m13-01   [28 chars]
+          span .bx-thread-m   [8 chars]
+            "M13 Test"
+          span .bx-thread-asset   [20 chars]
+            "Coverage model sheet"
+      li .bx-thread-item.bx-thread-item--here   [41 chars]
+        a href=#/c/cx-m12-01   [41 chars]
+          span .bx-thread-m   [11 chars]
+            "M12 Coating"
+          span .bx-thread-asset   [30 chars]
+            "Cleanliness and coating record"
+      li .bx-thread-item   [32 chars]
+        a href=#/c/cx-m15-01   [32 chars]
+          span .bx-thread-m   [12 chars]
+            "M15 Feedback"
+          span .bx-thread-asset   [20 chars]
+            "Design feedback pack"
+      li .bx-thread-item   [30 chars]
+        a href=#/c/cx-m14-01   [30 chars]
+          span .bx-thread-m   [13 chars]
+            "M14 8D report"
+          span .bx-thread-asset   [17 chars]
+            "8D problem report"
+  section .exam-card.exam-card--locked   [160 chars]
+    h2   [11 chars]
+      "Module exam"
+    p .flush   [81 chars]
+      "15 questions randomly drawn from a bank of 18. Pass mark: 80%. Not attempted yet."
+    p .flush   [68 chars]
+      span .chip.chip--locked   [36 chars]
+        "Opens after all lessons are mastered"
+      span .muted   [31 chars]
+        "0 of 6 lessons mastered so far."
+  section .toolkit   [1303 chars]
+    h2   [7 chars]
+      "Toolkit"
+    p .flush.muted   [104 chars]
+      "Apply the module on Board X. Each case is scored against a rubric; 80 % of the rubric marks it mastered."
+    ul .toolkit-list   [114 chars]
+      li .toolkit-item   [114 chars]
+        div .toolkit-main   [105 chars]
+          a .toolkit-title href=#/c/cx-m12-01   [70 chars]
+            "Cleanliness: the board average passes and the site under the BGA fails"
+          div .toolkit-meta   [35 chars]
+            span   [6 chars]
+              "40 min"
+            span   [8 chars]
+              "10 steps"
+            span   [8 chars]
+              "advanced"
+            span   [13 chars]
+              "not attempted"
+        a .btn.btn--small href=#/c/cx-m12-01   [9 chars]
+          "Open case"
+    div .toolkit-shelf   [368 chars]
+      h3   [9 chars]
+        "Templates"
+      p .muted.flush   [73 chars]
+        "Each template ships blank, filled in with Board X data, and with a guide."
+      ul .tpl-grid   [286 chars]
+        li .tpl-card   [286 chars]
+          p .tpl-name   [30 chars]
+            "Cleanliness and coating record"
+          p .tpl-use.muted.flush   [239 chars]
+            "Report a cleanliness result with its area and its blank, the local site measured separately from the board ave…"
+          p .tpl-variants   [17 chars]
+            button .linkbtn type=button data-act=case-tpl   [5 chars]
+              "Blank"
+            button .linkbtn type=button data-act=case-tpl   [7 chars]
+              "Example"
+            button .linkbtn type=button data-act=case-tpl   [5 chars]
+              "Guide"
+    div .toolkit-shelf.tpl-downloads   [553 chars]
+      h3   [20 chars]
+        "Download these forms"
+      p .muted.flush   [243 chars]
+        "Real files, ready to use: blank, filled in with Board X numbers, and a one-page guide. Spreadsheets carry work…"
+      ul .tpl-grid   [290 chars]
+        li .tpl-card   [290 chars]
+          p .tpl-name   [30 chars]
+            "Cleanliness and coating record"
+          p .tpl-use.muted.flush   [186 chars]
+            "Report an ionic result with the area it was divided by, the blank it was subtracted from and the local site it…"
+          p .tpl-variants   [45 chars]
+            a .linkbtn href=assets/templates/cleanliness-record-blank-v1-2026-10-31.xlsx   [12 chars]
+              "Blank"
+              span .muted   [6 chars]
+                "(8 KB)"
+            a .linkbtn href=assets/templates/cleanliness-record-example-v1-2026-10-31.xlsx   [21 chars]
+              "Worked example"
+              span .muted   [6 chars]
+                "(9 KB)"
+            a .linkbtn href=assets/templates/cleanliness-record-guide-v1-2026-10-31.md   [12 chars]
+              "Guide"
+              span .muted   [6 chars]
+                "(2 KB)"
+          p .tpl-meta.muted.flush   [29 chars]
+            "XLSX · cx-m12-01 · version v1"
+    div .toolkit-shelf   [157 chars]
+      h3   [15 chars]
+        "Related lessons"
+      ul .toolkit-chips   [142 chars]
+        li   [44 chars]
+          a .chip href=#/l/m12l01   [44 chars]
+            "What residue does to a board (lesson m12l01)"
+        li   [51 chars]
+          a .chip href=#/l/m12l03   [51 chars]
+            "ROSE, ion chromatography, particles (lesson m12l03)"
+        li   [47 chars]
+          a .chip href=#/l/m12l05   [47 chars]
+            "Coating application and masking (lesson m12l05)"
+  ul .lesson-list   [649 chars]
+    li .lesson-row   [104 chars]
+      span .lesson-num   [2 chars]
+        "01"
+      div .lesson-main   [98 chars]
+        a .lesson-title href=#/l/m12l01   [76 chars]
+          "What residue is and why it matters: ionic residue, SIR, CAF, contact failure"
+        div .lesson-meta   [22 chars]
+          span   [6 chars]
+            "25 min"
+          span   [16 chars]
+            "5 quiz questions"
+      div .lesson-side   [4 chars]
+        a .btn.btn--small href=#/l/m12l01   [4 chars]
+          "Open"
+    li .lesson-row   [112 chars]
+      span .lesson-num   [2 chars]
+        "02"
+      div .lesson-main   [106 chars]
+        a .lesson-title href=#/l/m12l02   [84 chars]
+          "Cleaning methods: aqueous, semi-aqueous, solvent, ultrasonic; material compatibility"
+        div .lesson-meta   [22 chars]
+          span   [6 chars]
+            "30 min"
+          span   [16 chars]
+            "5 quiz questions"
+      div .lesson-side   [4 chars]
+        a .btn.btn--small href=#/l/m12l02   [4 chars]
+          "Open"
+    li .lesson-row   [102 chars]
+      span .lesson-num   [2 chars]
+        "03"
+      div .lesson-main   [96 chars]
+        a .lesson-title href=#/l/m12l03   [74 chars]
+          "Cleanliness verification: ROSE, ion chromatography, particle count, visual"
+        div .lesson-meta   [22 chars]
+          span   [6 chars]
+            "30 min"
+          span   [16 chars]
+            "5 quiz questions"
+      div .lesson-side   [4 chars]
+        a .btn.btn--small href=#/l/m12l03   [4 chars]
+          "Open"
+    li .lesson-row   [103 chars]
+      span .lesson-num   [2 chars]
+        "04"
+      div .lesson-main   [97 chars]
+        a .lesson-title href=#/l/m12l04   [75 chars]
+          "Coating types and selection: acrylic, urethane, silicone, parylene, UV cure"
+        div .lesson-meta   [22 chars]
+          span   [6 chars]
+            "30 min"
+          span   [16 chars]
+            "5 quiz questions"
+      div .lesson-side   [4 chars]
+        a .btn.btn--small href=#/l/m12l04   [4 chars]
+          "Open"
+    li .lesson-row   [106 chars]
+      span .lesson-num   [2 chars]
+        "05"
+      div .lesson-main   [100 chars]
+        a .lesson-title href=#/l/m12l05   [78 chars]
+          "Application and masking: spray, dip, selective, thickness, cure, repairability"
+        div .lesson-meta   [22 chars]
+          span   [6 chars]
+            "30 min"
+          span   [16 chars]
+            "5 quiz questions"
+      div .lesson-side   [4 chars]
+        a .btn.btn--small href=#/l/m12l05   [4 chars]
+          "Open"
+    li .lesson-row   [122 chars]
+      span .lesson-num   [2 chars]
+        "06"
+      div .lesson-main   [116 chars]
+        a .lesson-title href=#/l/m12l06   [94 chars]
+          "Contamination and coating defect cases: residue, white residue, corrosion, fish-eye, dewetting"
+        div .lesson-meta   [22 chars]
+          span   [6 chars]
+            "35 min"
+          span   [16 chars]
+            "5 quiz questions"
+      div .lesson-side   [4 chars]
+        a .btn.btn--small href=#/l/m12l06   [4 chars]
+          "Open"
+  section .case-card   [494 chars]
+    div .case-card-head   [90 chars]
+      h3   [78 chars]
+        span .case-card-icon   [1 chars]
+          "✎"
+        "Case: Cleanliness: the board average passes and the site under the BGA fails"
+      span .chip.chip--stage   [12 chars]
+        "About 40 min"
+    p .flush.case-card-lead   [293 chars]
+      "Board X is cleaned and then conformally coated. This build is for a medical customer whose specification carri…"
+    p .case-card-actions   [53 chars]
+      a .btn.btn--primary href=#/c/cx-m12-01   [12 chars]
+        "Start case ↗"
+      button .linkbtn type=button data-act=case-data   [17 chars]
+        "↓ cleanliness.csv"
+      button .linkbtn type=button data-act=case-data   [23 chars]
+        "↓ cleanliness-study.csv"
+    p .case-card-foot.muted.flush   [58 chars]
+      "Fictional data. Rubric pass mark: 80 % · not attempted yet"

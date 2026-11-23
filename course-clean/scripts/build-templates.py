@@ -133,8 +133,16 @@ def build_xlsx(spec, variant, data):
     # Thresholds first, so formulas can point at fixed cells.
     after, th_addr = xlsx_threshold_block(ws, spec, 1)
 
-    def resolve(formula):
+    inp_addr = {}                        # filled by the INPUTS block below
+    sum_label_addr = {}                  # filled where the table's shape is known
+
+    def resolve(formula, summary_refs=True):
         """Replace [[threshold label]] with the cell that holds it."""
+
+        def no_summary(m):
+            raise KeyError("%s: SUMROW[] is only available in the summary block, "
+                           "and this formula is in the %s block"
+                           % (spec["slug"], "inputs" if not summary_refs else "?"))
         # read at call time: the layout is fixed just below, before any formula
         # is resolved.
         sum_start = head_row + nrows + 3     # first value row of the summary block
@@ -163,13 +171,37 @@ def build_xlsx(spec, variant, data):
             return "$%s$%d:$%s$%d" % (letter, first, letter, last)
 
         formula = re.sub(r"COL\[([^]]+)\]", colsub, formula)
+        # INPUTS[label] names a value in the INPUTS block further down, so a
+        # summary can use a plant's own starting number without a hand-typed
+        # cell address in the spec.
+        def inpsub(m):
+            label = m.group(1).strip()
+            if label not in inp_addr:
+                raise KeyError("%s: formula refers to an input that does not exist: %r"
+                               % (spec["slug"], label))
+            return inp_addr[label]
+
+        formula = re.sub(r"INPUTS\[([^]]+)\]", inpsub, formula)
         formula = formula.replace("FIRSTROW", str(first)).replace("LASTROW", str(last))
+        # SUMMARY[label] is an address by label, not by position: adding an item
+        # to the summary no longer silently re-points every SUMROW[] below it.
+        def sumsub(m):
+            label = m.group(1).strip()
+            if label not in sum_label_addr:
+                raise KeyError("%s: formula refers to a summary row that does not "
+                               "exist: %r" % (spec["slug"], label))
+            return sum_label_addr[label]
+
+        formula = re.sub(r"SUMMARY\[([^]]+)\]", sumsub, formula)
         # Summary cells refer to each other by position in their own block, for
         # the same reason: a summary that names B22 breaks the moment the table
         # above it gains a row.
-        formula = re.sub(r"SUMROW\[(\d+)\]",
-                         lambda m: "$B$%d" % (sum_start + int(m.group(1)) - 1),
-                         formula)
+        if summary_refs:
+            formula = re.sub(r"SUMROW\[(\d+)\]",
+                             lambda m: "$B$%d" % (sum_start + int(m.group(1)) - 1),
+                             formula)
+        else:
+            formula = re.sub(r"SUMROW\[\d+\]", no_summary, formula)
         return formula
 
     def input_guard():
@@ -180,6 +212,11 @@ def build_xlsx(spec, variant, data):
         so an empty row shows an empty cell; the formula is still there, ready
         for the first number typed into the row.
         """
+        # A summary belongs to whatever it is computed from. On a sheet whose
+        # numbers come from the INPUTS block, that block is the test; the data
+        # table is the test only when the summary reads the table.
+        if spec.get("inputs") and not spec.get("example_rows"):
+            return ",".join(inp_addr.values())
         refs = []
         for j in range(nrows):
             r = head_row + 1 + j
@@ -197,6 +234,17 @@ def build_xlsx(spec, variant, data):
     cols = spec["columns"]
     head_row = after
     nrows = max(len(spec.get("example_rows", [])), 6)
+    # The INPUTS block lives below the summary, but its addresses have to exist
+    # before the table above it is written. Reserve the rows now; fill them in
+    # after the summary.
+    sum_start = head_row + nrows + 3
+    for i, item in enumerate(spec.get("summary", [])):
+        sum_label_addr[item[0]] = "$B$%d" % (sum_start + i)
+    inputs_top = head_row + nrows + 3 + 1 + len(spec.get("summary", []))
+    if spec.get("inputs"):
+        inputs_top += 2
+        for k, (label, _unit, _value) in enumerate(spec["inputs"]):
+            inp_addr[label] = "$B$%d" % (inputs_top + 2 + k)
     for i, c in enumerate(cols, start=1):
         cell = ws.cell(row=head_row, column=i, value=c)
         cell.font = Font(bold=True, color="FFFFFF")
@@ -230,12 +278,23 @@ def build_xlsx(spec, variant, data):
     last_data_row = head_row + nrows
 
     # Optional summary block, with its own formulas.
+    next_row_holder = []
     next_row = last_data_row + 2
     if spec.get("summary"):
         ws.cell(row=next_row, column=1, value="SUMMARY").font = Font(bold=True)
         next_row += 1
-        for label, formula in spec["summary"]:
+        for item in spec["summary"]:
+            label, formula = item[0], item[1]
+            kind = item[2] if len(item) > 2 else None
             ws.cell(row=next_row, column=1, value=label).font = Font(bold=True)
+            if kind == "input":
+                # A number the plant supplies, not one the sheet computes.
+                ws.cell(row=next_row, column=2, value=None)
+                ws.cell(row=next_row, column=1).font = Font(bold=False)
+                next_row_holder.append(next_row)
+                inp_addr[label] = "$B$%d" % next_row
+                next_row += 1
+                continue
             # The summary formulas were written against this block's layout.
             cell = ws.cell(row=next_row, column=2,
                            value=guarded(resolve(formula), input_guard()))
@@ -243,6 +302,38 @@ def build_xlsx(spec, variant, data):
             cell.border = BORDER
             formula_cells.append(cell.coordinate)
             next_row += 1
+
+    # Optional INPUTS block: the plant's own starting numbers, above the
+    # summary that uses them. An input cell is unlocked — it is the user's to
+    # type into — while everything computed from it stays locked.
+    if spec.get("inputs"):
+        next_row = inputs_top
+        hdr = ws.cell(row=next_row, column=1, value="YOUR DATA")
+        hdr.font = Font(bold=True, size=12, color="FFFFFF")
+        hdr.fill = HEAD_FILL
+        for c in range(2, 4):
+            ws.cell(row=next_row, column=c).fill = HEAD_FILL
+        next_row += 1
+        for i, h in enumerate(["Item", "Value", "Unit"], start=1):
+            cell = ws.cell(row=next_row, column=i, value=h)
+            cell.font = Font(bold=True)
+            cell.fill = THRESH_FILL
+            cell.border = BORDER
+        next_row += 1
+        for label, unit, value in spec["inputs"]:
+            ws.cell(row=next_row, column=1, value=label).border = BORDER
+            v = ws.cell(row=next_row, column=2, value=value)
+            v.border = BORDER
+            v.fill = INPUT_FILL
+            ws.cell(row=next_row, column=3, value=unit).border = BORDER
+            inp_addr[label] = "$B$%d" % next_row
+            next_row += 1
+        note = ws.cell(row=next_row, column=1,
+                       value="These are your numbers. Everything computed from them "
+                             "is a locked formula; change a value here and the "
+                             "results below follow.")
+        note.font = Font(italic=True, size=9)
+        next_row += 1
 
     if spec.get("example_note") and variant == "example":
         c = ws.cell(row=next_row + 1, column=1, value=spec["example_note"])
@@ -279,6 +370,11 @@ def build_xlsx(spec, variant, data):
             if c not in spec.get("formulas", {}):
                 ws.cell(row=r, column=i).protection = copy_protection(
                     ws.cell(row=r, column=i).protection, locked=False)
+    # the INPUTS block is the user's data: unlock its value cells
+    for addr in inp_addr.values():
+        row = int(addr.split("$")[-1])
+        ws.cell(row=row, column=2).protection = copy_protection(
+            ws.cell(row=row, column=2).protection, locked=False)
     # threshold values stay editable: they are the plant's to change
     for rr in range(2, 2 + len(spec.get("thresholds", []))):
         ws.cell(row=rr, column=2).protection = copy_protection(
