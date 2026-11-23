@@ -86,11 +86,64 @@ Every one of these was found by the check, not by looking at the files.
    Replaced with explicit references to the three floor-life thresholds. An
    unverifiable formula is not worth the flexibility.
 
+## Second pass: the defects the first pass left in
+
+The first pass shipped, then the whole thing was re-verified from the files
+themselves rather than from the build log. Six more defects came out, and two of
+them were in numbers the templates had been publishing since the first build.
+
+7. **The Pareto sheet was wrong in every row.** Rank, share and cumulative all
+   used `$B$7:$B$14` while the table starts at row 8, so the rank range included
+   the header row and the total excluded the last defect. The sheet printed a
+   total of 1,640 against a true 1,700, ranked `Wrong value` as `#N/A`, and built
+   the cumulative column on a wrong order. Worse, `Vital few?` compared against
+   `$B$5` — the note under the threshold block — so it could never answer. The
+   builder now substitutes `DATA_ROWS`/`RANK_COL` from the layout it is about to
+   write, and the check recomputes every row from the sheet's own counts.
+8. **Time above liquidus counted the wrong end of the cooling ramp.** The formula
+   took `C18` — the 100 °C end — where it needed `B18`, the 248 °C start, which
+   overstated TAL by 17 s. TAL is now a per-segment column summed by the summary,
+   so it holds whatever number of segments the table has.
+9. **The reflow and stencil examples were not the case's tables.** Reflow listed
+   five invented intervals; the case prints six (25→150/60, 150→190/90,
+   190→219/30, 219→248/65, hold 4, 248→100/40). Stencil listed six apertures of
+   which two (`A-09`, `A-12`) do not exist and the rest carried other dimensions.
+   Both are now the data files, cell for cell, and a new check reads the case CSV
+   and requires the sheet to match it.
+10. **The blank workbooks opened in `#DIV/0!` and `#N/A`.** A blank form that
+    greets the user with errors is not shippable. Every formula is now wrapped so
+    an empty row shows an empty cell, and a blank-sheet check requires zero error
+    cells.
+11. **The MSL log produced `#VALUE!` where it promised a blank.** R-4414 is MSL 1,
+    which has no floor life in the threshold table, and the example note said the
+    decision stays blank "by design" — it did not. `Remaining` and `Decision` now
+    handle the text case explicitly.
+12. **The 8D compared its lives in two different units.** D2 is DPMO (per
+    opportunity, 620 a board); D7 is the agreed effectiveness metric in ppm of
+    boards. The worked example carried a 31 % reduction that the case's own keys
+    put at 82.5 %, and its target row mixed 1,000 ppm with a 20-per-1,000-boards
+    rate. D2 and D7 now carry live `ROUND(...)` expressions, the check evaluates
+    them in the engine against the m14 keys, and the reduction reads 82.5 %.
+
+The stencil sheet also judged cooling against 6 °C/s — the J-STD-020 ramp-down
+ceiling — where the course teaches a 1-4 °C/s band. Both are kept, as separate
+lines, each saying which one it is.
+
+**What the second pass changed about the checking.** 25 checks became 43, and the
+sample-based ones are gone: whole-table recomputation (Pareto row by row, every
+stencil aperture, every reflow segment, every reel), template-vs-case data
+comparison for XLSX and DOCX, blank-sheet error scan, DOCX formula evaluation, and
+a determinism check that rebuilds everything and requires byte equality. The
+lesson is the one from the first pass, applied properly: a check that samples a
+few cells cannot see a table that is wrong in all of them.
+
 ## Tooling and deliverables
 
 * `scripts/build-templates.py` — writes the 18 files and `manifest.json`.
-* `scripts/check-templates.py` — 25 checks: values, notices, threshold blocks,
-  hard-coded limits, cell protection, manifest, naming.
+* `scripts/check-templates.py` — 43 checks: whole-table recomputation, values
+  against case keys, template-vs-case data comparison for XLSX and DOCX, blank
+  sheet error scan, notices, threshold blocks, hard-coded limits, cell
+  protection, manifest, naming, and byte-identical rebuild.
 * `scripts/templates/specs.py` — the content, in one place.
 * `assets/templates/manifest.json` — what the app reads.
 * The Toolkit block on every module page now carries **Download these forms** with

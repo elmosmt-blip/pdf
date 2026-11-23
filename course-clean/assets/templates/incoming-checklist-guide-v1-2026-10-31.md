@@ -16,6 +16,13 @@ The m01 case turns on a lot that measures fine and cannot be traced: two date co
 2. Where a row asks for a number, record the unit and the sample it came from in the same row.
 3. The evidence column is for what you attached — a photograph with a scale, a printout, a measurement file. A row with no evidence is an opinion.
 
+## Traps this record is built around
+
+* Record the sample size the plan **required** next to the one you actually pulled. A shortfall is a finding about the inspection, not about the lot.
+* Write the unit and the source beside every measurement. `2.60` alone cannot be checked in six months; `2.60 mm, carton 3, calipers` can.
+* The disposition is a decision, not a summary: name who decided and when, and attach the certificate of conformance you relied on.
+* A lot can measure clean and still be quarantined. Two date codes on one shipment is a traceability defect even when every board passes.
+
 ## What the worked example shows
 
 The example variant is filled with Board X numbers from case cx-m01-01. It is there to show the shape of a complete record, not to be copied: Board X is a fictional product and its limits are the course's.

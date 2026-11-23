@@ -23,9 +23,9 @@
         "guide": "incoming-checklist-guide-v1-2026-10-31.md"
       },
       "bytes": {
-        "blank": 37598,
-        "example": 37843,
-        "guide": 1286
+        "blank": 37622,
+        "example": 37857,
+        "guide": 1884
       }
     },
     {
@@ -48,9 +48,9 @@
         "guide": "msl-log-guide-v1-2026-10-31.md"
       },
       "bytes": {
-        "blank": 7770,
-        "example": 7989,
-        "guide": 1430
+        "blank": 7983,
+        "example": 8199,
+        "guide": 2106
       }
     },
     {
@@ -75,9 +75,9 @@
         "guide": "stencil-check-guide-v1-2026-10-31.md"
       },
       "bytes": {
-        "blank": 7593,
-        "example": 7737,
-        "guide": 1499
+        "blank": 7727,
+        "example": 7876,
+        "guide": 2172
       }
     },
     {
@@ -100,9 +100,9 @@
         "guide": "reflow-profile-guide-v1-2026-10-31.md"
       },
       "bytes": {
-        "blank": 7701,
-        "example": 7875,
-        "guide": 1432
+        "blank": 8140,
+        "example": 8322,
+        "guide": 2160
       }
     },
     {
@@ -125,9 +125,9 @@
         "guide": "8d-report-guide-v1-2026-10-31.md"
       },
       "bytes": {
-        "blank": 37793,
-        "example": 38462,
-        "guide": 1211
+        "blank": 37931,
+        "example": 38681,
+        "guide": 1859
       }
     },
     {
@@ -152,9 +152,9 @@
         "guide": "pareto-defects-guide-v1-2026-10-31.md"
       },
       "bytes": {
-        "blank": 7367,
-        "example": 7652,
-        "guide": 1487
+        "blank": 7451,
+        "example": 7727,
+        "guide": 2024
       }
     }
   ]

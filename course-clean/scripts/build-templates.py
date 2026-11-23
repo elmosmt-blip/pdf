@@ -135,17 +135,68 @@ def build_xlsx(spec, variant, data):
 
     def resolve(formula):
         """Replace [[threshold label]] with the cell that holds it."""
+        # read at call time: the layout is fixed just below, before any formula
+        # is resolved.
+        sum_start = head_row + nrows + 3     # first value row of the summary block
         def sub(m):
             label = m.group(1).strip()
             if label not in th_addr:
                 raise KeyError("%s: formula refers to a threshold that does not exist: %r"
                                % (spec["slug"], label))
             return th_addr[label]
-        return re.sub(r"\[\[([^]]+)\]\]", sub, formula)
+        formula = re.sub(r"\[\[([^]]+)\]\]", sub, formula)
+        # The data range is decided here, from the layout the builder is about to
+        # write. A spec that hard-codes row numbers goes wrong the moment a
+        # threshold is added above the table — which is exactly what happened to
+        # the Pareto sheet.
+        first, last = head_row + 1, head_row + nrows
+        formula = formula.replace("DATA_ROWS", "$B$%d:$B$%d" % (first, last))
+        formula = formula.replace("RANK_COL", "$C$%d:$C$%d" % (first, last))
+        # COL[header] names the whole data column under that header, so a
+        # summary never has to know which row the table ends on.
+        def colsub(m):
+            name = m.group(1).strip()
+            if name not in cols:
+                raise KeyError("%s: no such column in the data table: %r"
+                               % (spec["slug"], name))
+            letter = get_column_letter(cols.index(name) + 1)
+            return "$%s$%d:$%s$%d" % (letter, first, letter, last)
 
-    # The data table.
+        formula = re.sub(r"COL\[([^]]+)\]", colsub, formula)
+        formula = formula.replace("FIRSTROW", str(first)).replace("LASTROW", str(last))
+        # Summary cells refer to each other by position in their own block, for
+        # the same reason: a summary that names B22 breaks the moment the table
+        # above it gains a row.
+        formula = re.sub(r"SUMROW\[(\d+)\]",
+                         lambda m: "$B$%d" % (sum_start + int(m.group(1)) - 1),
+                         formula)
+        return formula
+
+    def input_guard():
+        """A COUNTA reference list over every input cell of the data table.
+
+        A blank template is a form, and a form that greets the user with
+        #DIV/0! in every computed column is not usable. Each formula is wrapped
+        so an empty row shows an empty cell; the formula is still there, ready
+        for the first number typed into the row.
+        """
+        refs = []
+        for j in range(nrows):
+            r = head_row + 1 + j
+            for i, c in enumerate(cols, start=1):
+                if c not in spec.get("formulas", {}):
+                    refs.append("%s%d" % (get_column_letter(i), r))
+        return ",".join(refs)
+
+    def guarded(expr, refs):
+        """Wrap a formula so it evaluates to an empty string on empty input."""
+        return '=IF(COUNTA(%s)=0,"",%s)' % (refs, expr[1:]) if refs else expr
+
+    # The data table. Its shape is known before any formula is resolved, so
+    # resolve() below can name the range it will actually write.
     cols = spec["columns"]
     head_row = after
+    nrows = max(len(spec.get("example_rows", [])), 6)
     for i, c in enumerate(cols, start=1):
         cell = ws.cell(row=head_row, column=i, value=c)
         cell.font = Font(bold=True, color="FFFFFF")
@@ -154,7 +205,6 @@ def build_xlsx(spec, variant, data):
         cell.border = BORDER
     ws.row_dimensions[head_row].height = 30
 
-    nrows = max(len(spec.get("example_rows", [])), 6)
     formula_cells = []
     for j in range(nrows):
         r = head_row + 1 + j
@@ -165,7 +215,11 @@ def build_xlsx(spec, variant, data):
         for i, c in enumerate(cols, start=1):
             f = spec.get("formulas", {}).get(c)
             if f:
-                cell = ws.cell(row=r, column=i, value=resolve(f.format(r=r)))
+                refs = ",".join("%s%d" % (get_column_letter(k), r)
+                                for k, cc in enumerate(cols, start=1)
+                                if cc not in spec.get("formulas", {}))
+                cell = ws.cell(row=r, column=i,
+                               value=guarded(resolve(f.format(r=r)), refs))
                 cell.fill = LOCKED_FILL
                 formula_cells.append(cell.coordinate)
             else:
@@ -183,7 +237,8 @@ def build_xlsx(spec, variant, data):
         for label, formula in spec["summary"]:
             ws.cell(row=next_row, column=1, value=label).font = Font(bold=True)
             # The summary formulas were written against this block's layout.
-            cell = ws.cell(row=next_row, column=2, value=resolve(formula))
+            cell = ws.cell(row=next_row, column=2,
+                           value=guarded(resolve(formula), input_guard()))
             cell.fill = LOCKED_FILL
             cell.border = BORDER
             formula_cells.append(cell.coordinate)
@@ -292,7 +347,14 @@ def build_docx(spec, variant, data):
             for label, kind in fields:
                 cells = table.add_row().cells
                 cells[0].text = label
-                cells[1].text = str(spec["example"].get(label, ""))
+                raw = str(spec["example"].get(label, ""))
+                # A field declared as "formula" is an Excel expression, not a
+                # finished number: the example ships the expression, so the
+                # reader can type it into a cell and watch it move with the
+                # inputs instead of taking a printed figure on trust.
+                if kind == "formula":
+                    raw = "= " + raw.lstrip("=")
+                cells[1].text = raw
                 cells[0].paragraphs[0].runs[0].bold = True
                 for c in cells:
                     for p in c.paragraphs:
@@ -373,6 +435,9 @@ def build_guide(spec):
             "scale, a printout, a measurement file. A row with no evidence is an "
             "opinion.",
         ]
+    if spec.get("fill_notes"):
+        lines += ["", "## Traps this record is built around", ""]
+        lines += ["* " + n for n in spec["fill_notes"]]
     lines += [
         "",
         "## What the worked example shows",
@@ -427,6 +492,14 @@ def main(argv):
                 formulas[p] = fc
         p, _ = build_guide(spec)
         written.append(p)
+
+    # Reproducibility: pin the OOXML metadata and the ZIP clock to the release
+    # date. Without this a rebuild produces different bytes every time, and a
+    # reviewer cannot diff what changed between two builds of the same template.
+    from office_normalise import normalise
+    changed = sum(1 for p in written if p.endswith((".xlsx", ".docx")) and normalise(p))
+    if changed:
+        print("normalised %d OOXML file(s) to the release date" % changed)
 
     print("wrote %d files into assets/templates/" % len(written))
     for p in sorted(written):
