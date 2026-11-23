@@ -33,6 +33,18 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
     """Plain static handler that refuses to let anything be cached."""
 
+    EXTRA_TYPES = {
+        ".xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        ".docx": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        ".md": "text/markdown; charset=utf-8",
+    }
+
+    def guess_type(self, path):
+        ext = os.path.splitext(str(path))[1].lower()
+        if ext in self.EXTRA_TYPES:
+            return self.EXTRA_TYPES[ext]
+        return super().guess_type(path)
+
     def end_headers(self):
         self.send_header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0")
         self.send_header("Pragma", "no-cache")

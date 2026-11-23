@@ -603,6 +603,14 @@ table.tbl{width:100%;border-collapse:collapse}
 .tpl-name{margin:0;font-weight:600;color:var(--txt)}
 .tpl-use{margin:4px 0 0;font-size:13px}
 .tpl-variants{display:flex;flex-wrap:wrap;gap:14px;margin:10px 0 0;font-size:13px}
+/* Phase 4: the downloadable set. The links are real files, so they carry a
+   download attribute and a size — a reader deciding whether to fetch 38 KB of
+   DOCX should see the 38 KB. */
+.tpl-downloads .tpl-card{border-color:var(--line)}
+.tpl-downloads .tpl-variants{gap:10px}
+.tpl-downloads .linkbtn{display:inline-flex;align-items:baseline;gap:4px}
+.tpl-downloads .linkbtn .muted{font-size:11px}
+.tpl-meta{margin:8px 0 0;font-size:11px;letter-spacing:.02em;text-transform:none}
 
 /* ---- exam gate ------------------------------------------------------- */
 .exam-card--locked{border-color:rgba(255,152,0,.35)}

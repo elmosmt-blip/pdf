@@ -2,7 +2,7 @@ Rendered outline of #/c/cx-m01-01
 Produced by scripts/capture-case.js from the built tree (build/course-clean).
 This is the live DOM from the shipped engine, not a mock-up.
 
-main #main   [9582 chars]
+main #main   [9687 chars]
   p .kicker   [41 chars]
     "Toolkit · Module 01 · Incoming Inspection"
   header .page-head   [113 chars]
@@ -27,14 +27,14 @@ main #main   [9582 chars]
       "The flatness check reports 2.60 mm under one raised corner by the production method, on a 160 x 120 mm board —…"
     p   [183 chars]
       "Decide what this lot is: accepted, quarantined or rejected. Then decide how many boards should have been pulle…"
-  details .case-board   [1303 chars]
+  details .case-board   [1408 chars]
     summary   [38 chars]
       "Board X — the product behind this case"
-    div .details-body   [1265 chars]
+    div .details-body   [1370 chars]
       p .muted.flush   [158 chars]
         "6-layer 1.6 mm FR-4 controller board: QFP-64 at 0.5 mm pitch, QFP-48 at 0.4 mm pitch, one 256-ball BGA at 0.8 …"
-      table .case-facts   [1107 chars]
-        tbody   [1107 chars]
+      table .case-facts   [1212 chars]
+        tbody   [1212 chars]
           tr   [23 chars]
             th   [20 chars]
               "Board thickness (mm)"
@@ -200,6 +200,26 @@ main #main   [9582 chars]
               "Hand-soldering setpoint (°C)"
             td   [7 chars]
               "330–360"
+          tr   [21 chars]
+            th   [17 chars]
+              "Rose Limit Ug Cm2"
+            td   [4 chars]
+              "1.56"
+          tr   [29 chars]
+            th   [26 chars]
+              "Board outline, length (mm)"
+            td   [3 chars]
+              "160"
+          tr   [28 chars]
+            th   [25 chars]
+              "Board outline, width (mm)"
+            td   [3 chars]
+              "120"
+          tr   [27 chars]
+            th   [24 chars]
+              "Board surface area (cm²)"
+            td   [3 chars]
+              "192"
           tr   [42 chars]
             th   [38 chars]
               "Bow and twist, SMT board, IPC-6012 (%)"
@@ -417,22 +437,22 @@ main #main   [9582 chars]
         fieldset .case-options   [219 chars]
           legend .sr-only   [10 chars]
             "Choose one"
-          label .case-opt   [48 chars]
-            input #in-s3-a type=radio name=c-s3 value=a
-            span .case-opt-text   [48 chars]
-              "Code J, n = 80, accept on 2 or fewer defectives."
           label .case-opt   [62 chars]
-            input #in-s3-b type=radio name=c-s3 value=b
+            input #in-s3-a type=radio name=c-s3 value=a
             span .case-opt-text   [62 chars]
               "Code K, n = 125, accept on 3 or fewer defectives, reject on 4."
           label .case-opt   [49 chars]
-            input #in-s3-c type=radio name=c-s3 value=c
+            input #in-s3-b type=radio name=c-s3 value=b
             span .case-opt-text   [49 chars]
               "Code K, n = 200, accept on 5 or fewer defectives."
           label .case-opt   [50 chars]
-            input #in-s3-d type=radio name=c-s3 value=d
+            input #in-s3-c type=radio name=c-s3 value=c
             span .case-opt-text   [50 chars]
               "Inspect every board, because 2,800 is a large lot."
+          label .case-opt   [48 chars]
+            input #in-s3-d type=radio name=c-s3 value=d
+            span .case-opt-text   [48 chars]
+              "Code J, n = 80, accept on 2 or fewer defectives."
         p #err-s3 .case-error role=alert hidden=
         div .case-step-actions   [12 chars]
           button .btn.btn--small type=button data-act=case-check   [12 chars]
@@ -478,22 +498,22 @@ main #main   [9582 chars]
         fieldset .case-options   [393 chars]
           legend .sr-only   [10 chars]
             "Choose one"
-          label .case-opt   [66 chars]
+          label .case-opt   [62 chars]
             input #in-s5-a type=radio name=c-s5 value=a
+            span .case-opt-text   [62 chars]
+              "It means the AQL should be halved to keep the same protection."
+          label .case-opt   [66 chars]
+            input #in-s5-b type=radio name=c-s5 value=b
             span .case-opt-text   [66 chars]
               "It does not; 1,400 is a different lot size and needs its own plan."
           label .case-opt   [188 chars]
-            input #in-s5-b type=radio name=c-s5 value=b
+            input #in-s5-c type=radio name=c-s5 value=c
             span .case-opt-text   [188 chars]
               "The two date codes may be two lots, and a lot is the population the plan applies to. Splitting leaves two lots…"
           label .case-opt   [67 chars]
-            input #in-s5-c type=radio name=c-s5 value=c
+            input #in-s5-d type=radio name=c-s5 value=d
             span .case-opt-text   [67 chars]
               "It means the sample can be pulled from whichever carton is nearest."
-          label .case-opt   [62 chars]
-            input #in-s5-d type=radio name=c-s5 value=d
-            span .case-opt-text   [62 chars]
-              "It means the AQL should be halved to keep the same protection."
         p #err-s5 .case-error role=alert hidden=
         div .case-step-actions   [12 chars]
           button .btn.btn--small type=button data-act=case-check   [12 chars]
@@ -539,22 +559,22 @@ main #main   [9582 chars]
         fieldset .case-options   [342 chars]
           legend .sr-only   [10 chars]
             "Choose one"
-          label .case-opt   [71 chars]
+          label .case-opt   [44 chars]
             input #in-s7-a type=radio name=c-s7 value=a
+            span .case-opt-text   [44 chars]
+              "Accept the good cartons and reject carton 3."
+          label .case-opt   [71 chars]
+            input #in-s7-b type=radio name=c-s7 value=b
             span .case-opt-text   [71 chars]
               "Accept it: the twist is inside the limit and the humidity card is blue."
           label .case-opt   [63 chars]
-            input #in-s7-b type=radio name=c-s7 value=b
+            input #in-s7-c type=radio name=c-s7 value=c
             span .case-opt-text   [63 chars]
               "Reject it: the boards are out of flatness by a factor of eight."
           label .case-opt   [154 chars]
-            input #in-s7-c type=radio name=c-s7 value=c
+            input #in-s7-d type=radio name=c-s7 value=d
             span .case-opt-text   [154 chars]
               "Quarantine it: the product measurements pass, but the date codes and the counts do not let the lots be defined…"
-          label .case-opt   [44 chars]
-            input #in-s7-d type=radio name=c-s7 value=d
-            span .case-opt-text   [44 chars]
-              "Accept the good cartons and reject carton 3."
         p #err-s7 .case-error role=alert hidden=
         div .case-step-actions   [12 chars]
           button .btn.btn--small type=button data-act=case-check   [12 chars]
@@ -611,22 +631,22 @@ main #main   [9582 chars]
         fieldset .case-options   [444 chars]
           legend .sr-only   [10 chars]
             "Choose one"
-          label .case-opt   [52 chars]
-            input #in-s9-a type=radio name=c-s9 value=a
-            span .case-opt-text   [52 chars]
-              "A statement that the lot was inspected and released."
-          label .case-opt   [34 chars]
-            input #in-s9-b type=radio name=c-s9 value=b
-            span .case-opt-text   [34 chars]
-              "The inspector's name and the date."
           label .case-opt   [314 chars]
-            input #in-s9-c type=radio name=c-s9 value=c
+            input #in-s9-a type=radio name=c-s9 value=a
             span .case-opt-text   [314 chars]
               "The two lot sizes and the date codes as received, the plan and AQL with the sample size and the accept number,…"
           label .case-opt   [34 chars]
-            input #in-s9-d type=radio name=c-s9 value=d
+            input #in-s9-b type=radio name=c-s9 value=b
             span .case-opt-text   [34 chars]
               "A photograph of the carton labels."
+          label .case-opt   [52 chars]
+            input #in-s9-c type=radio name=c-s9 value=c
+            span .case-opt-text   [52 chars]
+              "A statement that the lot was inspected and released."
+          label .case-opt   [34 chars]
+            input #in-s9-d type=radio name=c-s9 value=d
+            span .case-opt-text   [34 chars]
+              "The inspector's name and the date."
         p #err-s9 .case-error role=alert hidden=
         div .case-step-actions   [12 chars]
           button .btn.btn--small type=button data-act=case-check   [12 chars]

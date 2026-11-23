@@ -1,0 +1,161 @@
+{
+  "version": "v1",
+  "date": "2026-10-31",
+  "notice": "Training template. Adapt to your quality system.",
+  "templates": [
+    {
+      "slug": "incoming-checklist",
+      "order": 1,
+      "title": "Incoming inspection checklist",
+      "kind": "docx",
+      "modules": [
+        "m01"
+      ],
+      "cases": [
+        "cx-m01-01"
+      ],
+      "lesson": "m01l04",
+      "standard": "ISO 2859-1 (sampling), IPC-6012 (bare-board acceptability)",
+      "use": "Record what was checked on the dock, what was sampled, which lot the sample came from, and what the disposition is — so a quarantine can be explained a year later.",
+      "files": {
+        "blank": "incoming-checklist-blank-v1-2026-10-31.docx",
+        "example": "incoming-checklist-example-v1-2026-10-31.docx",
+        "guide": "incoming-checklist-guide-v1-2026-10-31.md"
+      },
+      "bytes": {
+        "blank": 37598,
+        "example": 37843,
+        "guide": 1286
+      }
+    },
+    {
+      "slug": "msl-log",
+      "order": 2,
+      "title": "MSL exposure log",
+      "kind": "xlsx",
+      "modules": [
+        "m02"
+      ],
+      "cases": [
+        "cx-m02-01"
+      ],
+      "lesson": "m02l04",
+      "standard": "J-STD-033 (floor life, dry storage, bake)",
+      "use": "Track the clock on every moisture-sensitive reel: floor life, what has been counted against it, what is left, and what the bake decision is.",
+      "files": {
+        "blank": "msl-log-blank-v1-2026-10-31.xlsx",
+        "example": "msl-log-example-v1-2026-10-31.xlsx",
+        "guide": "msl-log-guide-v1-2026-10-31.md"
+      },
+      "bytes": {
+        "blank": 7770,
+        "example": 7989,
+        "guide": 1430
+      }
+    },
+    {
+      "slug": "stencil-check",
+      "order": 3,
+      "title": "Stencil inspection sheet",
+      "kind": "xlsx",
+      "modules": [
+        "m03",
+        "m04"
+      ],
+      "cases": [
+        "cx-m03-01",
+        "cx-m04-01"
+      ],
+      "lesson": "m03l05",
+      "standard": "IPC-7525 (area and aspect ratio), IPC-7526 (stencil cleaning)",
+      "use": "Compute the release indicators for every aperture on the board and decide which need a stepped foil, before the first print.",
+      "files": {
+        "blank": "stencil-check-blank-v1-2026-10-31.xlsx",
+        "example": "stencil-check-example-v1-2026-10-31.xlsx",
+        "guide": "stencil-check-guide-v1-2026-10-31.md"
+      },
+      "bytes": {
+        "blank": 7593,
+        "example": 7737,
+        "guide": 1499
+      }
+    },
+    {
+      "slug": "reflow-profile",
+      "order": 4,
+      "title": "Reflow profile log",
+      "kind": "xlsx",
+      "modules": [
+        "m06"
+      ],
+      "cases": [
+        "cx-m06-01"
+      ],
+      "lesson": "m06l07",
+      "standard": "IPC-7530 (profiling), J-STD-020 (classification temperatures)",
+      "use": "Record the thermocouple readings, compute the ramp rates and the time above liquidus, and decide whether the profile is inside the window.",
+      "files": {
+        "blank": "reflow-profile-blank-v1-2026-10-31.xlsx",
+        "example": "reflow-profile-example-v1-2026-10-31.xlsx",
+        "guide": "reflow-profile-guide-v1-2026-10-31.md"
+      },
+      "bytes": {
+        "blank": 7701,
+        "example": 7875,
+        "guide": 1432
+      }
+    },
+    {
+      "slug": "8d-report",
+      "order": 5,
+      "title": "8D problem report",
+      "kind": "docx",
+      "modules": [
+        "m14"
+      ],
+      "cases": [
+        "cx-m14-01"
+      ],
+      "lesson": "m14l05",
+      "standard": "8D discipline; IATF 16949 / AS9100 corrective-action expectations",
+      "use": "Take a defect from containment to closure in the standard eight disciplines, with the numbers that prove each one.",
+      "files": {
+        "blank": "8d-report-blank-v1-2026-10-31.docx",
+        "example": "8d-report-example-v1-2026-10-31.docx",
+        "guide": "8d-report-guide-v1-2026-10-31.md"
+      },
+      "bytes": {
+        "blank": 37793,
+        "example": 38462,
+        "guide": 1211
+      }
+    },
+    {
+      "slug": "pareto-defects",
+      "order": 6,
+      "title": "Defect Pareto sheet",
+      "kind": "xlsx",
+      "modules": [
+        "m07",
+        "m14"
+      ],
+      "cases": [
+        "cx-m07-01",
+        "cx-m14-01"
+      ],
+      "lesson": "m14l04",
+      "standard": "Pareto analysis; defect classification per IPC-A-610 class",
+      "use": "Rank defect types by count, carry the cumulative share, and show which few types account for most of the loss.",
+      "files": {
+        "blank": "pareto-defects-blank-v1-2026-10-31.xlsx",
+        "example": "pareto-defects-example-v1-2026-10-31.xlsx",
+        "guide": "pareto-defects-guide-v1-2026-10-31.md"
+      },
+      "bytes": {
+        "blank": 7367,
+        "example": 7652,
+        "guide": 1487
+      }
+    }
+  ]
+}

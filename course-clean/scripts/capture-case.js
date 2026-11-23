@@ -19,6 +19,9 @@
  *   node scripts/capture-case.js cx-m03-01 --outline
  *   node scripts/capture-case.js cx-m03-01 --png docs/screenshots/cx-m03-01.png
  *   node scripts/capture-case.js --all --outline     # every case
+  node scripts/capture-case.js --module m01        # a module page: the Toolkit
+                                                   # block, including the Phase 4
+                                                   # download shelf
  * ========================================================================= */
 
 'use strict';
@@ -122,10 +125,27 @@ function main() {
   const all = process.argv.includes('--all');
   const pngOut = arg('--png');
 
+  /* --module m07 captures the module page, which is where the Toolkit block and
+   * the Phase 4 download shelf live. It exists because the shelf is only
+   * evidence when it is rendered, not when it is in the source. */
+  const moduleId = arg('--module');
+  if (moduleId) {
+    const dom = loadPage('#/m/' + moduleId);
+    const text = outline(dom);
+    const out = path.join(ROOT, 'docs', 'screenshots', 'module-' + moduleId + '.outline.txt');
+    fs.mkdirSync(path.dirname(out), { recursive: true });
+    fs.writeFileSync(out, 'Rendered outline of #/m/' + moduleId + '\n' +
+      'Produced by scripts/capture-case.js from the built tree (build/course-clean).\n' +
+      'This is the live DOM from the shipped engine, not a mock-up.\n\n' + text + '\n');
+    console.log('wrote ' + path.relative(ROOT, out) + '  (' + text.split('\n').length + ' nodes)');
+    dom.window.close();
+    return 0;
+  }
+
   const cases = JSON.parse(fs.readFileSync(path.join(BUILD, 'data', 'cases.json'), 'utf8')).cases;
   const ids = all ? cases.map(function (c) { return c.caseId; }) : (target ? [target] : null);
   if (!ids) {
-    console.error('usage: capture-case.js <caseId> [--outline] | --all --outline');
+    console.error('usage: capture-case.js <caseId> [--outline] | --all --outline | --module m01');
     return 1;
   }
 

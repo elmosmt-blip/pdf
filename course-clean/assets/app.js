@@ -105,6 +105,11 @@
   var CASES = [];
   var CASE_DOC = null;
   var CASE_MASTERED_PCT = 80;
+  /* Phase 4: the downloadable template set, read from assets/templates/manifest.json
+     if it is present. Empty array means the shelf simply does not render, so a
+     build without the template package still works. */
+  var TEMPLATES = [];
+  var TEMPLATES_VERSION = '';
   var casesByModule = {};
   var byCase = {};
   var caseState = { caseId: null, answers: {}, shown: {}, hints: {}, result: null };
@@ -214,6 +219,8 @@
       var cd = window.COURSE_DATA;
       if (cd && Array.isArray(cd.lessons)) {
         indexData(cd.lessons, cd.questions, cd.sources, cd.caseDoc);
+        TEMPLATES = (cd.templates && cd.templates.templates) || TEMPLATES;
+        TEMPLATES_VERSION = (cd.templates && cd.templates.version) || TEMPLATES_VERSION;
         done('embed', reason);
       } else {
         done('none', reason + '; assets/data-embed.js is missing — run `node scripts/embed.js`');
@@ -229,9 +236,13 @@
       fetchJson('data/questions.json'),
       fetchJson('data/sources.json'),
       /* cases are optional: an old build without cases.json still runs */
-      fetchJson('data/cases.json').catch(function () { return null; })
+      fetchJson('data/cases.json').catch(function () { return null; }),
+      /* the template manifest is optional too */
+      fetchJson('assets/templates/manifest.json').catch(function () { return null; })
     ]).then(function (parts) {
       indexData(parts[0], parts[1], parts[2], parts[3]);
+      TEMPLATES = (parts[4] && parts[4].templates) || [];
+      TEMPLATES_VERSION = (parts[4] && parts[4].version) || '';
       done('fetch', null);
     }).catch(function (e) {
       useEmbed('fetch failed (' + (e && e.message ? e.message : String(e)) + ')');
@@ -1112,6 +1123,52 @@
           esc(t.templateId + '/' + v.variant) + '">' + esc(v.label) + '</button>';
       });
       html += '</p></li>';
+    });
+    return html + '</ul></div>' + downloadShelfHtml(cs);
+  }
+
+  /* Phase 4 — the downloadable set: XLSX with working formulas, DOCX for the
+   * textual records, each in blank / worked-example / one-page guide, each file
+   * named with its version and date. These are real files in assets/templates/,
+   * served as downloads by the static host, not blobs built in the browser: a
+   * spreadsheet with formulas has to be a spreadsheet.
+   *
+   * The shelf shows the templates that serve this module's cases, in the order
+   * the brief set (incoming, MSL, stencil, reflow, 8D, Pareto, then the rest). */
+  function downloadShelfHtml(cs) {
+    if (!TEMPLATES.length) return '';
+    var caseIds = {};
+    cs.forEach(function (c) { caseIds[c.caseId] = true; });
+    var list = TEMPLATES.filter(function (t) {
+      return (t.cases || []).some(function (id) { return caseIds[id]; });
+    });
+    if (!list.length) return '';
+    list.sort(function (a, b) { return (a.order || 99) - (b.order || 99); });
+    var html = '<div class="toolkit-shelf tpl-downloads"><h3>Download these forms</h3>' +
+      '<p class="muted flush">Real files, ready to use: blank, filled in with Board X ' +
+      'numbers, and a one-page guide. Spreadsheets carry working formulas with the ' +
+      'thresholds in their own cells; the cells you must not edit are locked. ' +
+      'Version and date are in every file name.</p><ul class="tpl-grid">';
+    list.forEach(function (t) {
+      var f = t.files || {};
+      var kb = function (n) {
+        var b = (t.bytes || {})[n] || 0;
+        return b ? (b < 1024 ? b + ' B' : Math.round(b / 1024) + ' KB') : '';
+      };
+      html += '<li class="tpl-card"><p class="tpl-name">' + esc(t.title) + '</p>' +
+        '<p class="tpl-use muted flush">' + esc(t.use || '') + '</p>' +
+        '<p class="tpl-variants">';
+      [['blank', 'Blank'], ['example', 'Worked example'], ['guide', 'Guide']]
+        .forEach(function (pair) {
+          if (!f[pair[0]]) return;
+          html += '<a class="linkbtn" download href="assets/templates/' +
+            encodeURIComponent(f[pair[0]]) + '" data-tpl="' + esc(t.slug) + '">' +
+            esc(pair[1]) + (kb(pair[0]) ? ' <span class="muted">(' + kb(pair[0]) + ')</span>' : '') +
+            '</a>';
+        });
+      html += '</p><p class="tpl-meta muted flush">' + esc(t.kind.toUpperCase()) +
+        ' · ' + esc((t.cases || []).join(', ')) + ' · version ' +
+        esc(TEMPLATES_VERSION) + '</p></li>';
     });
     return html + '</ul></div>';
   }

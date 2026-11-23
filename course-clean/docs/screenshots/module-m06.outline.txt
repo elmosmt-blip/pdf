@@ -1,221 +1,317 @@
-Rendered outline of #/m/m06 (module page) — produced by the shipped engine.
+Rendered outline of #/m/m06
+Produced by scripts/capture-case.js from the built tree (build/course-clean).
+This is the live DOM from the shipped engine, not a mock-up.
 
-main #main
-  p .kicker
+main #main   [3057 chars]
+  p .kicker   [26 chars]
     "Course program · Module 06"
-  header .page-head
-    div
-      h1
+  header .page-head   [32 chars]
+    div   [32 chars]
+      h1   [21 chars]
         "06 — Reflow Soldering"
-      div .meta-line
-        span .chip
+      div .meta-line   [11 chars]
+        span .chip   [11 chars]
           "prereq: m04"
-  p .progress-line
+  p .progress-line   [75 chars]
     "0/7 lessons started · 0/7 mastered (quiz ≥ 80%) · ≈210 min of planned study"
-  div .progress
+  div .progress role=img
     span
-  nav .bx-thread
-    p .bx-thread-head
+  nav .bx-thread   [571 chars]
+    p .bx-thread-head   [54 chars]
       "Board X thread"
-      span .muted
+      span .muted   [39 chars]
         "— where this module sits in the product"
-    ol .bx-thread-list
-      li .bx-thread-item
-        a href=#/c/cx-m02-01
-          span .bx-thread-m
+    ol .bx-thread-list   [517 chars]
+      li .bx-thread-item   [42 chars]
+        a href=#/c/cx-m01-01   [42 chars]
+          span .bx-thread-m   [19 chars]
+            "M1 Incoming release"
+          span .bx-thread-asset   [23 chars]
+            "Incoming release record"
+      li .bx-thread-item   [26 chars]
+        a href=#/c/cx-m02-01   [26 chars]
+          span .bx-thread-m   [10 chars]
             "M2 MSL log"
-          span .bx-thread-asset
+          span .bx-thread-asset   [16 chars]
             "MSL exposure log"
-      li .bx-thread-item
-        a href=#/c/cx-m03-01
-          span .bx-thread-m
+      li .bx-thread-item   [28 chars]
+        a href=#/c/cx-m03-01   [28 chars]
+          span .bx-thread-m   [10 chars]
             "M3 Stencil"
-          span .bx-thread-asset
+          span .bx-thread-asset   [18 chars]
             "Stencil data sheet"
-      li .bx-thread-item.bx-thread-item--here
-        a href=#/c/cx-m06-01
-          span .bx-thread-m
+      li .bx-thread-item   [30 chars]
+        a href=#/c/cx-m04-01   [30 chars]
+          span .bx-thread-m   [14 chars]
+            "M4 First print"
+          span .bx-thread-asset   [16 chars]
+            "SPI review sheet"
+      li .bx-thread-item   [35 chars]
+        a href=#/c/cx-m05-01   [35 chars]
+          span .bx-thread-m   [12 chars]
+            "M5 Placement"
+          span .bx-thread-asset   [23 chars]
+            "Placement offset record"
+      li .bx-thread-item.bx-thread-item--here   [35 chars]
+        a href=#/c/cx-m06-01   [35 chars]
+          span .bx-thread-m   [17 chars]
             "M6 Reflow profile"
-          span .bx-thread-asset
+          span .bx-thread-asset   [18 chars]
             "Reflow profile log"
-      li .bx-thread-item
-        a href=#/c/cx-m14-01
-          span .bx-thread-m
+      li .bx-thread-item   [46 chars]
+        a href=#/c/cx-m08-01   [46 chars]
+          span .bx-thread-m   [15 chars]
+            "M8 Through-hole"
+          span .bx-thread-asset   [31 chars]
+            "Hole and lead measurement sheet"
+      li .bx-thread-item   [33 chars]
+        a href=#/c/cx-m09-01   [33 chars]
+          span .bx-thread-m   [7 chars]
+            "M9 Wave"
+          span .bx-thread-asset   [26 chars]
+            "Wave solder process record"
+      li .bx-thread-item   [46 chars]
+        a href=#/c/cx-m10-01   [46 chars]
+          span .bx-thread-m   [13 chars]
+            "M10 Selective"
+          span .bx-thread-asset   [33 chars]
+            "Selective soldering program sheet"
+      li .bx-thread-item   [31 chars]
+        a href=#/c/cx-m07-01   [31 chars]
+          span .bx-thread-m   [12 chars]
+            "M7 AOI audit"
+          span .bx-thread-asset   [19 chars]
+            "AOI and X-ray audit"
+      li .bx-thread-item   [34 chars]
+        a href=#/c/cx-m11-01   [34 chars]
+          span .bx-thread-m   [10 chars]
+            "M11 Rework"
+          span .bx-thread-asset   [24 chars]
+            "Rework and repair record"
+      li .bx-thread-item   [28 chars]
+        a href=#/c/cx-m13-01   [28 chars]
+          span .bx-thread-m   [8 chars]
+            "M13 Test"
+          span .bx-thread-asset   [20 chars]
+            "Coverage model sheet"
+      li .bx-thread-item   [41 chars]
+        a href=#/c/cx-m12-01   [41 chars]
+          span .bx-thread-m   [11 chars]
+            "M12 Coating"
+          span .bx-thread-asset   [30 chars]
+            "Cleanliness and coating record"
+      li .bx-thread-item   [32 chars]
+        a href=#/c/cx-m15-01   [32 chars]
+          span .bx-thread-m   [12 chars]
+            "M15 Feedback"
+          span .bx-thread-asset   [20 chars]
+            "Design feedback pack"
+      li .bx-thread-item   [30 chars]
+        a href=#/c/cx-m14-01   [30 chars]
+          span .bx-thread-m   [13 chars]
             "M14 8D report"
-          span .bx-thread-asset
+          span .bx-thread-asset   [17 chars]
             "8D problem report"
-  section .exam-card.exam-card--locked
-    h2
+  section .exam-card.exam-card--locked   [160 chars]
+    h2   [11 chars]
       "Module exam"
-    p .flush
+    p .flush   [81 chars]
       "15 questions randomly drawn from a bank of 21. Pass mark: 80%. Not attempted yet."
-    p .flush
-      span .chip.chip--locked
+    p .flush   [68 chars]
+      span .chip.chip--locked   [36 chars]
         "Opens after all lessons are mastered"
-      span .muted
+      span .muted   [31 chars]
         "0 of 7 lessons mastered so far."
-  section .toolkit
-    h2
+  section .toolkit   [1002 chars]
+    h2   [7 chars]
       "Toolkit"
-    p .flush.muted
+    p .flush.muted   [104 chars]
       "Apply the module on Board X. Each case is scored against a rubric; 80 % of the rubric marks it mastered."
-    ul .toolkit-list
-      li .toolkit-item
-        div .toolkit-main
-          a .toolkit-title href=#/c/cx-m06-01
+    ul .toolkit-list   [85 chars]
+      li .toolkit-item   [85 chars]
+        div .toolkit-main   [76 chars]
+          a .toolkit-title href=#/c/cx-m06-01   [46 chars]
             "Profile validation: Board X runs a 248 °C peak"
-          div .toolkit-meta
-            span
+          div .toolkit-meta   [30 chars]
+            span   [6 chars]
               "25 min"
-            span
-              "7 steps"
-            span
+            span   [7 chars]
+              "8 steps"
+            span   [4 chars]
               "core"
-            span
+            span   [13 chars]
               "not attempted"
-        a .btn.btn--small href=#/c/cx-m06-01
+        a .btn.btn--small href=#/c/cx-m06-01   [9 chars]
           "Open case"
-    div .toolkit-shelf
-      h3
+    div .toolkit-shelf   [217 chars]
+      h3   [9 chars]
         "Templates"
-      p .muted.flush
+      p .muted.flush   [73 chars]
         "Each template ships blank, filled in with Board X data, and with a guide."
-      ul .tpl-grid
-        li .tpl-card
-          p .tpl-name
+      ul .tpl-grid   [135 chars]
+        li .tpl-card   [135 chars]
+          p .tpl-name   [18 chars]
             "Reflow profile log"
-          p .tpl-use.muted.flush
+          p .tpl-use.muted.flush   [100 chars]
             "Record the measured interval, its rate and where each thermocouple sat before a profile is released."
-          p .tpl-variants
-            button .linkbtn data-act=case-tpl
+          p .tpl-variants   [17 chars]
+            button .linkbtn type=button data-act=case-tpl   [5 chars]
               "Blank"
-            button .linkbtn data-act=case-tpl
+            button .linkbtn type=button data-act=case-tpl   [7 chars]
               "Example"
-            button .linkbtn data-act=case-tpl
+            button .linkbtn type=button data-act=case-tpl   [5 chars]
               "Guide"
-    div .toolkit-shelf
-      h3
+    div .toolkit-shelf.tpl-downloads   [493 chars]
+      h3   [20 chars]
+        "Download these forms"
+      p .muted.flush   [243 chars]
+        "Real files, ready to use: blank, filled in with Board X numbers, and a one-page guide. Spreadsheets carry work…"
+      ul .tpl-grid   [230 chars]
+        li .tpl-card   [230 chars]
+          p .tpl-name   [18 chars]
+            "Reflow profile log"
+          p .tpl-use.muted.flush   [138 chars]
+            "Record the thermocouple readings, compute the ramp rates and the time above liquidus, and decide whether the p…"
+          p .tpl-variants   [45 chars]
+            a .linkbtn href=assets/templates/reflow-profile-blank-v1-2026-10-31.xlsx   [12 chars]
+              "Blank"
+              span .muted   [6 chars]
+                "(8 KB)"
+            a .linkbtn href=assets/templates/reflow-profile-example-v1-2026-10-31.xlsx   [21 chars]
+              "Worked example"
+              span .muted   [6 chars]
+                "(8 KB)"
+            a .linkbtn href=assets/templates/reflow-profile-guide-v1-2026-10-31.md   [12 chars]
+              "Guide"
+              span .muted   [6 chars]
+                "(1 KB)"
+          p .tpl-meta.muted.flush   [29 chars]
+            "XLSX · cx-m06-01 · version v1"
+    div .toolkit-shelf   [96 chars]
+      h3   [15 chars]
         "Related lessons"
-      ul .toolkit-chips
-        li
-          a .chip href=#/l/m06l02
+      ul .toolkit-chips   [81 chars]
+        li   [31 chars]
+          a .chip href=#/l/m06l02   [31 chars]
             "Profile anatomy (lesson m06l02)"
-        li
-          a .chip href=#/l/m06l05
+        li   [50 chars]
+          a .chip href=#/l/m06l05   [50 chars]
             "Alloy systems and profile families (lesson m06l05)"
-  ul .lesson-list
-    li .lesson-row
-      span .lesson-num
+  ul .lesson-list   [742 chars]
+    li .lesson-row   [104 chars]
+      span .lesson-num   [2 chars]
         "01"
-      div .lesson-main
-        a .lesson-title href=#/l/m06l01
+      div .lesson-main   [98 chars]
+        a .lesson-title href=#/l/m06l01   [76 chars]
           "Heat transfer in the oven: convection, conduction, radiation, zone structure"
-        div .lesson-meta
-          span
+        div .lesson-meta   [22 chars]
+          span   [6 chars]
             "25 min"
-          span
+          span   [16 chars]
             "5 quiz questions"
-      div .lesson-side
-        a .btn.btn--small href=#/l/m06l01
+      div .lesson-side   [4 chars]
+        a .btn.btn--small href=#/l/m06l01   [4 chars]
           "Open"
-    li .lesson-row
-      span .lesson-num
+    li .lesson-row   [112 chars]
+      span .lesson-num   [2 chars]
         "02"
-      div .lesson-main
-        a .lesson-title href=#/l/m06l02
+      div .lesson-main   [106 chars]
+        a .lesson-title href=#/l/m06l02   [84 chars]
           "Profile anatomy: ramp, soak, time above liquidus, peak, cooling — what each controls"
-        div .lesson-meta
-          span
+        div .lesson-meta   [22 chars]
+          span   [6 chars]
             "30 min"
-          span
+          span   [16 chars]
             "5 quiz questions"
-      div .lesson-side
-        a .btn.btn--small href=#/l/m06l02
+      div .lesson-side   [4 chars]
+        a .btn.btn--small href=#/l/m06l02   [4 chars]
           "Open"
-    li .lesson-row
-      span .lesson-num
+    li .lesson-row   [107 chars]
+      span .lesson-num   [2 chars]
         "03"
-      div .lesson-main
-        a .lesson-title href=#/l/m06l03
+      div .lesson-main   [101 chars]
+        a .lesson-title href=#/l/m06l03   [79 chars]
           "Running a thermal survey: thermocouple attachment, test coupon, worst-case site"
-        div .lesson-meta
-          span
+        div .lesson-meta   [22 chars]
+          span   [6 chars]
             "35 min"
-          span
+          span   [16 chars]
             "5 quiz questions"
-      div .lesson-side
-        a .btn.btn--small href=#/l/m06l03
+      div .lesson-side   [4 chars]
+        a .btn.btn--small href=#/l/m06l03   [4 chars]
           "Open"
-    li .lesson-row
-      span .lesson-num
+    li .lesson-row   [122 chars]
+      span .lesson-num   [2 chars]
         "04"
-      div .lesson-main
-        a .lesson-title href=#/l/m06l04
+      div .lesson-main   [116 chars]
+        a .lesson-title href=#/l/m06l04   [94 chars]
           "Board thermal mass and layout: heavy planes, thermal relief, mixed population, dense vs sparse"
-        div .lesson-meta
-          span
+        div .lesson-meta   [22 chars]
+          span   [6 chars]
             "35 min"
-          span
+          span   [16 chars]
             "5 quiz questions"
-      div .lesson-side
-        a .btn.btn--small href=#/l/m06l04
+      div .lesson-side   [4 chars]
+        a .btn.btn--small href=#/l/m06l04   [4 chars]
           "Open"
-    li .lesson-row
-      span .lesson-num
+    li .lesson-row   [111 chars]
+      span .lesson-num   [2 chars]
         "05"
-      div .lesson-main
-        a .lesson-title href=#/l/m06l05
+      div .lesson-main   [105 chars]
+        a .lesson-title href=#/l/m06l05   [83 chars]
           "Alloy systems and profile families: SnAgCu vs SnPb, liquidus basis, nitrogen vs air"
-        div .lesson-meta
-          span
+        div .lesson-meta   [22 chars]
+          span   [6 chars]
             "30 min"
-          span
+          span   [16 chars]
             "5 quiz questions"
-      div .lesson-side
-        a .btn.btn--small href=#/l/m06l05
+      div .lesson-side   [4 chars]
+        a .btn.btn--small href=#/l/m06l05   [4 chars]
           "Open"
-    li .lesson-row
-      span .lesson-num
+    li .lesson-row   [106 chars]
+      span .lesson-num   [2 chars]
         "06"
-      div .lesson-main
-        a .lesson-title href=#/l/m06l06
+      div .lesson-main   [100 chars]
+        a .lesson-title href=#/l/m06l06   [78 chars]
           "Reflow defect atlas: tombstone, balling, beading, dewetting, voids, distortion"
-        div .lesson-meta
-          span
+        div .lesson-meta   [22 chars]
+          span   [6 chars]
             "30 min"
-          span
+          span   [16 chars]
             "5 quiz questions"
-      div .lesson-side
-        a .btn.btn--small href=#/l/m06l06
+      div .lesson-side   [4 chars]
+        a .btn.btn--small href=#/l/m06l06   [4 chars]
           "Open"
-    li .lesson-row
-      span .lesson-num
+    li .lesson-row   [80 chars]
+      span .lesson-num   [2 chars]
         "07"
-      div .lesson-main
-        a .lesson-title href=#/l/m06l07
+      div .lesson-main   [74 chars]
+        a .lesson-title href=#/l/m06l07   [52 chars]
           "Profile validation, documentation and change control"
-        div .lesson-meta
-          span
+        div .lesson-meta   [22 chars]
+          span   [6 chars]
             "25 min"
-          span
+          span   [16 chars]
             "5 quiz questions"
-      div .lesson-side
-        a .btn.btn--small href=#/l/m06l07
+      div .lesson-side   [4 chars]
+        a .btn.btn--small href=#/l/m06l07   [4 chars]
           "Open"
-  section .case-card
-    div .case-card-head
-      h3
-        span .case-card-icon
+  section .case-card   [449 chars]
+    div .case-card-head   [66 chars]
+      h3   [54 chars]
+        span .case-card-icon   [1 chars]
           "✎"
         "Case: Profile validation: Board X runs a 248 °C peak"
-      span .chip.chip--stage
+      span .chip.chip--stage   [12 chars]
         "About 25 min"
-    p .flush.case-card-lead
-      "Board X is a 1.6 mm six-layer board with heavy ground planes and a large BGA. The thermal survey from the worst-case sit"
-    p .case-card-actions
-      a .btn.btn--primary href=#/c/cx-m06-01
+    p .flush.case-card-lead   [280 chars]
+      "Board X is a 1.6 mm six-layer board with heavy ground planes and a large BGA. The thermal survey from the wors…"
+    p .case-card-actions   [45 chars]
+      a .btn.btn--primary href=#/c/cx-m06-01   [12 chars]
         "Start case ↗"
-      button .linkbtn data-act=case-data
+      button .linkbtn type=button data-act=case-data   [13 chars]
         "↓ profile.csv"
-    p .case-card-foot.muted.flush
+      button .linkbtn type=button data-act=case-data   [19 chars]
+        "↓ thermocouples.csv"
+    p .case-card-foot.muted.flush   [58 chars]
       "Fictional data. Rubric pass mark: 80 % · not attempted yet"

@@ -68,6 +68,18 @@ function build() {
     counts.cases = 0;
   }
 
+  /* Phase 4: the template manifest travels too, so the Toolkit shelf renders
+     from file:// without a second request. The template FILES stay outside the
+     embed — they are downloads, not data. */
+  const tplPath = path.join(ROOT, 'assets', 'templates', 'manifest.json');
+  if (fs.existsSync(tplPath)) {
+    const tpl = readJson(tplPath);
+    payload.templates = tpl;
+    counts.templates = (tpl.templates || []).length;
+  } else {
+    counts.templates = 0;
+  }
+
   /* JSON.stringify with no indentation keeps the file small; the trailing
      newline is deliberate so `git diff` stays clean when only the tail moves. */
   const json = JSON.stringify(payload);

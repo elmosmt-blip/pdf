@@ -97,6 +97,15 @@ function main(argv) {
       'font, style, embed and app links to carry ?v=');
   }
 
+  /* Phase 4: the downloadable templates are real files, so they are copied as
+     a directory — xlsx, docx, md and the manifest — not inlined anywhere. */
+  const tplDir = path.join(ROOT, 'assets', 'templates');
+  if (!fs.existsSync(tplDir)) {
+    throw new Error('assets/templates is missing — run scripts/build-templates.py');
+  }
+  files += copyDir(tplDir, path.join(out, 'assets', 'templates'),
+    function (n) { return /\.(xlsx|docx|md|json)$/i.test(n); });
+
   /* fonts and images are whole directories */
   files += copyDir(path.join(ROOT, 'assets', 'fonts'), path.join(out, 'assets', 'fonts'));
   files += copyDir(path.join(ROOT, 'assets', 'img'), path.join(out, 'assets', 'img'),

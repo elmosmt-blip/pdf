@@ -184,3 +184,22 @@ node scripts/capture-case.js --all --png
 
 Без браузера команда завершается с кодом 2 и сообщением «no browser binary
 found» — не подсовывает картинку, которой не было.
+
+---
+
+## 7. Шаблоны для скачивания (Фаза 4)
+
+Восемнадцать файлов в `assets/templates/`, по три на шаблон: пустой, заполненный
+примером и одностраничная инструкция.
+
+| Что | Ожидаемый результат |
+|---|---|
+| `python3 scripts/build-templates.py` | `wrote 18 files`, `formula cells: 194 across 8 workbooks` |
+| `python3 scripts/check-templates.py` | `OK — 25 checks passed, formulas recomputed by an independent engine` |
+| модуль 01 → Toolkit | блок **Download these forms**, три ссылки `.docx` |
+| модуль 14 → Toolkit | шесть ссылок: 8D в `.docx`, Парето в `.xlsx` |
+
+Проверка формул считается независимым движком (`formulas`), а не тем, что писало
+файл, и сверяется с ключами кейсов: например `msl-log` ячейка `K11` обязана дать
+**8 h**, `stencil-check` `G10` — **0.64**, а `reflow-profile` `B25` — **3.7**.
+Если поменять порог в блоке THRESHOLDS, эти числа поедут — так и задумано.
