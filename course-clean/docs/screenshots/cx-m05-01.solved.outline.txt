@@ -2,7 +2,7 @@ Rendered outline of #/c/cx-m05-01
 Produced by scripts/capture-case.js from the built tree (build/course-clean).
 This is the live DOM from the shipped engine, not a mock-up.
 
-main #main   [15264 chars]
+main #main   [15369 chars]
   p .kicker   [41 chars]
     "Toolkit · Module 05 · Component Placement"
   header .page-head   [110 chars]
@@ -27,14 +27,14 @@ main #main   [15264 chars]
       "Two things on the board disagree with that report. The corner leads of the QFP-64 on the right-hand side show …"
     p   [164 chars]
       "The two global fiducials are 10 mm apart and their residuals are in the audit file, per board. Work out what t…"
-  details .case-board   [1303 chars]
+  details .case-board   [1408 chars]
     summary   [38 chars]
       "Board X — the product behind this case"
-    div .details-body   [1265 chars]
+    div .details-body   [1370 chars]
       p .muted.flush   [158 chars]
         "6-layer 1.6 mm FR-4 controller board: QFP-64 at 0.5 mm pitch, QFP-48 at 0.4 mm pitch, one 256-ball BGA at 0.8 …"
-      table .case-facts   [1107 chars]
-        tbody   [1107 chars]
+      table .case-facts   [1212 chars]
+        tbody   [1212 chars]
           tr   [23 chars]
             th   [20 chars]
               "Board thickness (mm)"
@@ -200,6 +200,26 @@ main #main   [15264 chars]
               "Hand-soldering setpoint (°C)"
             td   [7 chars]
               "330–360"
+          tr   [21 chars]
+            th   [17 chars]
+              "Rose Limit Ug Cm2"
+            td   [4 chars]
+              "1.56"
+          tr   [29 chars]
+            th   [26 chars]
+              "Board outline, length (mm)"
+            td   [3 chars]
+              "160"
+          tr   [28 chars]
+            th   [25 chars]
+              "Board outline, width (mm)"
+            td   [3 chars]
+              "120"
+          tr   [27 chars]
+            th   [24 chars]
+              "Board surface area (cm²)"
+            td   [3 chars]
+              "192"
           tr   [42 chars]
             th   [38 chars]
               "Bow and twist, SMT board, IPC-6012 (%)"
@@ -520,22 +540,22 @@ main #main   [15264 chars]
         fieldset .case-options   [395 chars]
           legend .sr-only   [10 chars]
             "Choose one"
-          label .case-opt   [80 chars]
+          label .case-opt   [61 chars]
             input #in-s6-a type=radio name=c-s6 value=a
+            span .case-opt-text   [61 chars]
+              "The error is in the acceptance limit, not in the measurement."
+          label .case-opt   [80 chars]
+            input #in-s6-b type=radio name=c-s6 value=b
             span .case-opt-text   [80 chars]
               "Nothing: 0.11 mm is below the 0.15 mm acceptance, and the process is repeatable."
           label .case-opt.case-opt--picked   [173 chars]
-            input #in-s6-b type=radio name=c-s6 value=b
+            input #in-s6-c type=radio name=c-s6 value=c
             span .case-opt-text   [173 chars]
               "The mean of two residuals cancels the rotation: it reports where the board is centred, not how it is turned, s…"
           label .case-opt   [71 chars]
-            input #in-s6-c type=radio name=c-s6 value=c
+            input #in-s6-d type=radio name=c-s6 value=d
             span .case-opt-text   [71 chars]
               "The acceptance should be 0.05 mm, so the setup fails on the number too."
-          label .case-opt   [61 chars]
-            input #in-s6-d type=radio name=c-s6 value=d
-            span .case-opt-text   [61 chars]
-              "The error is in the acceptance limit, not in the measurement."
         p #err-s6 .case-error role=alert hidden=
         p .case-feedback.case-feedback--ok   [136 chars]
           strong   [8 chars]
@@ -562,22 +582,22 @@ main #main   [15264 chars]
         fieldset .case-options   [350 chars]
           legend .sr-only   [10 chars]
             "Choose one"
-          label .case-opt   [68 chars]
-            input #in-s7-a type=radio name=c-s7 value=a
-            span .case-opt-text   [68 chars]
-              "Board support or conveyor seating, since the error varies per board."
-          label .case-opt.case-opt--picked   [134 chars]
-            input #in-s7-b type=radio name=c-s7 value=b
-            span .case-opt-text   [134 chars]
-              "The board coordinate system itself: fiducial coordinates in the program, or the vision calibration that turns …"
           label .case-opt   [74 chars]
-            input #in-s7-c type=radio name=c-s7 value=c
+            input #in-s7-a type=radio name=c-s7 value=a
             span .case-opt-text   [74 chars]
               "A worn nozzle on the QFP-64 head, since the leads are the visible symptom."
           label .case-opt   [64 chars]
-            input #in-s7-d type=radio name=c-s7 value=d
+            input #in-s7-b type=radio name=c-s7 value=b
             span .case-opt-text   [64 chars]
               "Paste slump after placement, since the parts look rotated later."
+          label .case-opt   [68 chars]
+            input #in-s7-c type=radio name=c-s7 value=c
+            span .case-opt-text   [68 chars]
+              "Board support or conveyor seating, since the error varies per board."
+          label .case-opt.case-opt--picked   [134 chars]
+            input #in-s7-d type=radio name=c-s7 value=d
+            span .case-opt-text   [134 chars]
+              "The board coordinate system itself: fiducial coordinates in the program, or the vision calibration that turns …"
         p #err-s7 .case-error role=alert hidden=
         p .case-feedback.case-feedback--ok   [129 chars]
           strong   [8 chars]
@@ -646,22 +666,22 @@ main #main   [15264 chars]
         fieldset .case-options   [394 chars]
           legend .sr-only   [10 chars]
             "Choose one"
-          label .case-opt   [42 chars]
-            input #in-s9-a type=radio name=c-s9 value=a
-            span .case-opt-text   [42 chars]
-              "The acceptance limit and a pass/fail mark."
           label .case-opt.case-opt--picked   [254 chars]
-            input #in-s9-b type=radio name=c-s9 value=b
+            input #in-s9-a type=radio name=c-s9 value=a
             span .case-opt-text   [254 chars]
               "The mean offset in X and Y with its sign, the rotation in degrees with its sign, the fiducial residuals, the l…"
           label .case-opt   [44 chars]
-            input #in-s9-c type=radio name=c-s9 value=c
+            input #in-s9-b type=radio name=c-s9 value=b
             span .case-opt-text   [44 chars]
               "A photograph of the overhanging corner lead."
           label .case-opt   [44 chars]
-            input #in-s9-d type=radio name=c-s9 value=d
+            input #in-s9-c type=radio name=c-s9 value=c
             span .case-opt-text   [44 chars]
               "The machine's own report, exported as a PDF."
+          label .case-opt   [42 chars]
+            input #in-s9-d type=radio name=c-s9 value=d
+            span .case-opt-text   [42 chars]
+              "The acceptance limit and a pass/fail mark."
         p #err-s9 .case-error role=alert hidden=
         p .case-feedback.case-feedback--ok   [141 chars]
           strong   [8 chars]

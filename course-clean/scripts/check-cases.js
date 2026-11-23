@@ -561,13 +561,14 @@ const EXPECTED = {
     const bad = dataFile(c, 'tht-joints.csv').filter(function (r) {
       return +r.fill_pct < min && +r.leads_on_thermal_plane < 14;
     });
-    return bad.length ? 'b' : 'a';
+    /* phrase, not letter: the generator rotates options in place */
+    return bad.length ? 'reject it against the 75 % minimum' : 'accept it';
   },
   'cx-m08-01.s7': function (c, doc) {
     const rows = dataFile(c, 'tht-joints.csv');
     const min = doc.thresholds.holeFillMinPct[0];
     const fails = rows.filter(function (r) { return +r.fill_pct < min; });
-    return fails.length ? 'b' : 'a';
+    return fails.length ? 'the build fails on j-01' : 'the build passes';
   },
   "cx-m08-01.s9": function () { return "raise preheat"; },
 
@@ -650,7 +651,7 @@ const EXPECTED = {
       .filter(function (d) { return d > 0; });
     const pct = voids.reduce(function (a, d) { return a + d * d; }, 0) /
       Math.pow(+r.ball_d_mm, 2) * 100;
-    return pct > doc.thresholds.bgaVoidMaxPct[0] ? 'b' : 'a';
+    return pct > doc.thresholds.bgaVoidMaxPct[0] ? 'reject the ball' : 'accept the ball';
   },
   'cx-m07-01.s8': function (c, doc) {
     const r = dataFile(c, 'xray-bga.csv').filter(function (x) { return x.ball === 'A2'; })[0];
@@ -742,7 +743,8 @@ const EXPECTED = {
     const ra = ppm(+a.defects, +a.boards);
     return (rb - ra) / rb * 100;
   },
-  'cx-m14-01.s10': function () { return 'b'; }
+  /* letter-independent: the generator rotates options, so the key is a phrase */
+  'cx-m14-01.s10': function () { return 'keep the 8d open'; }
 };
 
 /* -------------------------------------------------------------- the check */
@@ -907,6 +909,47 @@ function main() {
       }
     }
   });
+
+  /* ------------------------------------------------- choice key distribution
+   * This product shipped with 49 of 54 choice keys on 'b': a learner who always
+   * picked the second option scored 91 % without reading. The generator now
+   * rotates options deterministically, and this check is what keeps that true —
+   * a future case added with its key in one place would fail here rather than
+   * quietly reintroduce the shortcut. */
+  (function () {
+    const letters = {};
+    const perCase = {};
+    doc.cases.forEach(function (c) {
+      perCase[c.caseId] = {};
+      (c.steps || []).forEach(function (s) {
+        if (s.type !== 'choice') return;
+        letters[s.answer.value] = (letters[s.answer.value] || 0) + 1;
+        perCase[c.caseId][s.answer.value] =
+          (perCase[c.caseId][s.answer.value] || 0) + 1;
+        if (!s.options.some(function (o) { return o.id === s.answer.value; })) {
+          fail('choice-key', c.caseId + '/' + s.id + ': key is not among the options');
+        }
+      });
+    });
+    const total = Object.keys(letters).reduce(function (a, k) { return a + letters[k]; }, 0);
+    const worst = Object.keys(letters).sort(function (a, b) {
+      return letters[b] - letters[a];
+    })[0];
+    if (total >= 16 && letters[worst] / total > 0.40) {
+      fail('choice-balance', 'choice keys are ' + worst + ' in ' + letters[worst] +
+        ' of ' + total + ' steps (' + Math.round(letters[worst] / total * 100) +
+        '%); a fixed-position guess must not score above 40 %');
+    }
+    Object.keys(perCase).forEach(function (cid) {
+      const mine = perCase[cid];
+      const n = Object.keys(mine).reduce(function (a, k) { return a + mine[k]; }, 0);
+      Object.keys(mine).forEach(function (k) {
+        if (n >= 4 && mine[k] === n) {
+          fail('choice-balance', cid + ': every choice key in this case is ' + k);
+        }
+      });
+    });
+  })();
 
   /* ---------------------------------------------------- brief control numbers */
   const control = [

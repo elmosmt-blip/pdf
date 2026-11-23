@@ -683,22 +683,22 @@ main #main   [12517 chars]
         fieldset .case-options   [359 chars]
           legend .sr-only   [10 chars]
             "Choose one"
-          label .case-opt   [79 chars]
+          label .case-opt   [68 chars]
             input #in-s5-a type=radio name=c-s5 value=a
+            span .case-opt-text   [68 chars]
+              "A bad batch of connectors, since both findings are on the same part."
+          label .case-opt   [79 chars]
+            input #in-s5-b type=radio name=c-s5 value=b
             span .case-opt-text   [79 chars]
               "A single cause: the pot is too cold, so some joints do not fill and some flood."
           label .case-opt.case-opt--picked   [150 chars]
-            input #in-s5-b type=radio name=c-s5 value=b
+            input #in-s5-c type=radio name=c-s5 value=c
             span .case-opt-text   [150 chars]
               "A wetting and drainage problem around one component: the joint that did not reach temperature stayed short, an…"
           label .case-opt   [52 chars]
-            input #in-s5-c type=radio name=c-s5 value=c
+            input #in-s5-d type=radio name=c-s5 value=d
             span .case-opt-text   [52 chars]
               "Two unrelated random defects; no action is possible."
-          label .case-opt   [68 chars]
-            input #in-s5-d type=radio name=c-s5 value=d
-            span .case-opt-text   [68 chars]
-              "A bad batch of connectors, since both findings are on the same part."
         p #err-s5 .case-error role=alert hidden=
         p .case-feedback.case-feedback--ok   [130 chars]
           strong   [8 chars]
@@ -725,22 +725,22 @@ main #main   [12517 chars]
         fieldset .case-options   [362 chars]
           legend .sr-only   [10 chars]
             "Choose one"
-          label .case-opt   [74 chars]
-            input #in-s6-a type=radio name=c-s6 value=a
-            span .case-opt-text   [74 chars]
-              "Raise the pot temperature from 255 to 270 °C and shorten the contact time."
           label .case-opt.case-opt--picked   [146 chars]
-            input #in-s6-b type=radio name=c-s6 value=b
+            input #in-s6-a type=radio name=c-s6 value=a
             span .case-opt-text   [146 chars]
               "Raise top-side preheat within the 90-120 °C band and lengthen contact toward the middle of the 2-4 s window, t…"
           label .case-opt   [62 chars]
-            input #in-s6-c type=radio name=c-s6 value=c
+            input #in-s6-b type=radio name=c-s6 value=b
             span .case-opt-text   [62 chars]
               "Change the flux to water-soluble and keep every other setting."
           label .case-opt   [70 chars]
-            input #in-s6-d type=radio name=c-s6 value=d
+            input #in-s6-c type=radio name=c-s6 value=c
             span .case-opt-text   [70 chars]
               "Add a pallet and keep every setting, so the board is supported better."
+          label .case-opt   [74 chars]
+            input #in-s6-d type=radio name=c-s6 value=d
+            span .case-opt-text   [74 chars]
+              "Raise the pot temperature from 255 to 270 °C and shorten the contact time."
         p #err-s6 .case-error role=alert hidden=
         p .case-feedback.case-feedback--ok   [93 chars]
           strong   [8 chars]
@@ -798,22 +798,22 @@ main #main   [12517 chars]
         fieldset .case-options   [364 chars]
           legend .sr-only   [10 chars]
             "Choose one"
-          label .case-opt   [61 chars]
-            input #in-s8-a type=radio name=c-s8 value=a
-            span .case-opt-text   [61 chars]
-              "Reject the lot: one nonconforming joint condemns every board."
-          label .case-opt.case-opt--picked   [174 chars]
-            input #in-s8-b type=radio name=c-s8 value=b
-            span .case-opt-text   [174 chars]
-              "Contain the boards that have run, fix the process settings, re-qualify with a first article, and judge the lot…"
           label .case-opt   [49 chars]
-            input #in-s8-c type=radio name=c-s8 value=c
+            input #in-s8-a type=radio name=c-s8 value=a
             span .case-opt-text   [49 chars]
               "Release the lot: 5 % of one connector is trivial."
           label .case-opt   [70 chars]
-            input #in-s8-d type=radio name=c-s8 value=d
+            input #in-s8-b type=radio name=c-s8 value=b
             span .case-opt-text   [70 chars]
               "Release the lot and inspect 100 % by eye, since the defect is visible."
+          label .case-opt   [61 chars]
+            input #in-s8-c type=radio name=c-s8 value=c
+            span .case-opt-text   [61 chars]
+              "Reject the lot: one nonconforming joint condemns every board."
+          label .case-opt.case-opt--picked   [174 chars]
+            input #in-s8-d type=radio name=c-s8 value=d
+            span .case-opt-text   [174 chars]
+              "Contain the boards that have run, fix the process settings, re-qualify with a first article, and judge the lot…"
         p #err-s8 .case-error role=alert hidden=
         p .case-feedback.case-feedback--ok   [92 chars]
           strong   [8 chars]

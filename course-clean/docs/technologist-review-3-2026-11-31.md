@@ -11,7 +11,7 @@ did not exist when the previous review ran.
 |---|---|
 | Numeric keys recomputed independently | **38 keys re-derived; 38 agree** |
 | Cases whose keys were re-derived | 14 of 15 (m06 re-derived in the earlier round) |
-| Defects found in this audit | **4** — two fixed, one fixed at the class level, one recorded as a decision |
+| Defects found in this audit | **4** — all four fixed |
 | Rubrics not summing to 100 | 0 of 15 |
 | Data-file rows with the wrong width | 0 |
 | Broken lesson links / unknown source ids | 0 |
@@ -35,32 +35,43 @@ evidence is still in `case-keys.csv`, so an auditor can see both. The checker's
 `Exact` comparison is stronger, not weaker, for it — CSV and JSON are compared at
 0.1 %, so a four-place key against a one-place CSV no longer passes silently.
 
-### 2.2 The key distribution gave the answer away (49 of 54, fixed as a policy)
+### 2.2 The key distribution gave the answer away (fixed by rotation, not by rewriting)
 
 Forty-nine of the fifty-four choice steps had `b` as the key. A learner who always
-picks the second option scores 91 % on the case set without reading a word. No
-test caught it: `case-qa.js` checks accessibility, not answer balance, and
-`check-cases.js` re-derives each key independently without ever looking at the
-distribution.
+picked the second option scored 91 % on the case set without reading a word.
 
-Two parts to the fix:
+The first pass of this audit recorded that as a known open item, on the argument
+that rewriting 54 stems and 216 options would risk the most carefully written text
+in the product. That argument was wrong, and it took the customer about a minute to
+say so. The text does not have to change: only the order of the options does.
 
-* **Wrong-answer feedback no longer names option letters.** Only one step did it
-  (m01 s3: "the plan in option c cannot exist"). With all keys on `b`, an
-  eliminated option and a surviving letter is a complete answer key. That step now
-  names the plan by its content, `n = 200`, which is better teaching anyway.
-* **The distribution stays unbalanced, deliberately, and is recorded.** Rewriting
-  54 stems and 216 options to shuffle letters would risk the meaning of the most
-  carefully written text in the product for a gaming benefit that is small: `b`
-  lands on 91 %, not 100 %, because the eight cases that carry more than one
-  choice step are the eight where the correct option is genuinely second. A
-  learner who reads the case and picks the right answer scores 100 %; one who
-  guesses gets 91 % and cannot tell which 9 % they missed. If the course is ever
-  taken by an unsupervised cohort, the case scores should be read next to the
-  lesson quiz scores, which are balanced.
+**The fix.** `balance_options` in the generator rotates each choice step's options
+before the step is stored:
 
-This is the one finding this audit leaves open on purpose, and it is the one a
-reviewer should look at first.
+* the target slot is one of the letters *this case* has used least so far, so a
+  single case cannot pile up on one slot;
+* ties are broken by a SHA-256 of the case id and step id, so the sequence is not
+  a predictable a-b-c-d cycle either;
+* option ids are relabelled a..d in display order, so the letters always run top
+  to bottom;
+* `_key.raw` is updated with the rotation, so `case-keys.csv` and the checker see
+  the published letter.
+
+Result: **a 14, b 14, c 12, d 14** across 54 choice steps, and no case with more
+than four choice steps has them all in one slot.
+
+**What it broke, and why that is the point.** The rotation immediately failed 28
+keys in `check-cases.js` and 39 rows of the keys CSV, because a rotation makes any
+key that was written as a bare letter meaningless. That is the check doing its job.
+Four of those keys were functional — m07 s7, m08 s6 and s7, m14 s10 returned `'b'`
+from a computation — and they are now phrases, so they carry their meaning rather
+than their position. The rest were the checker's phrase keys, which were already
+letter-independent.
+
+**The guard.** `check-cases.js` now fails if any letter exceeds 40 % of the choice
+keys, or if a case with four or more choice steps has them all on one letter. It
+was tested by putting every key in m09 back on `b`: the check fired. Without that,
+the next case added would quietly reintroduce the shortcut.
 
 ### 2.3 The board area was a threshold as well as a fact (fixed)
 
@@ -140,8 +151,9 @@ quotes as 117 and 59.
   was ambiguous the case says so on the page rather than choosing the convenient
   number — but a reviewer with the standards in front of them may still find a
   number quoted at the wrong class or the wrong table.
-* **The choice-key balance is a known open item** (§2.2). It is recorded rather
-  than fixed, with the reason.
+* **Nothing in §2 is left open.** The choice-key balance was the one item recorded
+  as a decision in the first pass; it is fixed at the generator, and a checker rule
+  now holds it.
 
 ## 7. Verification at the end of this audit
 

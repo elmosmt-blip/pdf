@@ -419,23 +419,23 @@
           "options": [
             {
               "id": "a",
-              "text": "Acceptable: it is above 0.60, the practical floor for a laser-cut foil."
-            },
-            {
-              "id": "b",
-              "text": "Marginal to inadequate: it is below the 0.66 guidance, so release depends on paste rheology and SPI evidence, not on geometry alone."
-            },
-            {
-              "id": "c",
               "text": "Acceptable, because area ratio only matters below 0.5."
             },
             {
-              "id": "d",
+              "id": "b",
               "text": "Irrelevant, because aspect ratio is the only release indicator."
+            },
+            {
+              "id": "c",
+              "text": "Acceptable: it is above 0.60, the practical floor for a laser-cut foil."
+            },
+            {
+              "id": "d",
+              "text": "Marginal to inadequate: it is below the 0.66 guidance, so release depends on paste rheology and SPI evidence, not on geometry alone."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "d"
           },
           "hints": [
             "The lesson treats 0.66 as guidance rather than a wall, and asks what supports a marginal aperture.",
@@ -542,23 +542,23 @@
           "options": [
             {
               "id": "a",
-              "text": "Reduce the whole stencil to 0.100 mm."
-            },
-            {
-              "id": "b",
               "text": "Step the foil down to 0.100 mm over the QFP-48 region only."
             },
             {
-              "id": "c",
+              "id": "b",
               "text": "Raise squeegee pressure until the apertures fill."
             },
             {
-              "id": "d",
+              "id": "c",
               "text": "Reduce the aperture width to 0.18 mm to lower the wall contact."
+            },
+            {
+              "id": "d",
+              "text": "Reduce the whole stencil to 0.100 mm."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "a"
           },
           "hints": [
             "Which parts of the board are already printing inside the indicators?",
@@ -744,23 +744,23 @@
           "options": [
             {
               "id": "a",
-              "text": "Code J, n = 80, accept on 2 or fewer defectives."
-            },
-            {
-              "id": "b",
               "text": "Code K, n = 125, accept on 3 or fewer defectives, reject on 4."
             },
             {
-              "id": "c",
+              "id": "b",
               "text": "Code K, n = 200, accept on 5 or fewer defectives."
             },
             {
-              "id": "d",
+              "id": "c",
               "text": "Inspect every board, because 2,800 is a large lot."
+            },
+            {
+              "id": "d",
+              "text": "Code J, n = 80, accept on 2 or fewer defectives."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "a"
           },
           "hints": [
             "2,800 falls in the 1,201-3,200 band of Table I.",
@@ -796,23 +796,23 @@
           "options": [
             {
               "id": "a",
-              "text": "It does not; 1,400 is a different lot size and needs its own plan."
+              "text": "It means the AQL should be halved to keep the same protection."
             },
             {
               "id": "b",
-              "text": "The two date codes may be two lots, and a lot is the population the plan applies to. Splitting leaves two lots of 1,400, and both sit in the 1,201-3,200 band, so the plan holds either way."
+              "text": "It does not; 1,400 is a different lot size and needs its own plan."
             },
             {
               "id": "c",
-              "text": "It means the sample can be pulled from whichever carton is nearest."
+              "text": "The two date codes may be two lots, and a lot is the population the plan applies to. Splitting leaves two lots of 1,400, and both sit in the 1,201-3,200 band, so the plan holds either way."
             },
             {
               "id": "d",
-              "text": "It means the AQL should be halved to keep the same protection."
+              "text": "It means the sample can be pulled from whichever carton is nearest."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "c"
           },
           "hints": [
             "A lot is one part number, revision, supplier lot and date code — not one shipment.",
@@ -848,23 +848,23 @@
           "options": [
             {
               "id": "a",
-              "text": "Accept it: the twist is inside the limit and the humidity card is blue."
+              "text": "Accept the good cartons and reject carton 3."
             },
             {
               "id": "b",
-              "text": "Reject it: the boards are out of flatness by a factor of eight."
+              "text": "Accept it: the twist is inside the limit and the humidity card is blue."
             },
             {
               "id": "c",
-              "text": "Quarantine it: the product measurements pass, but the date codes and the counts do not let the lots be defined or traced until the supplier explains them."
+              "text": "Reject it: the boards are out of flatness by a factor of eight."
             },
             {
               "id": "d",
-              "text": "Accept the good cartons and reject carton 3."
+              "text": "Quarantine it: the product measurements pass, but the date codes and the counts do not let the lots be defined or traced until the supplier explains them."
             }
           ],
           "answer": {
-            "value": "c"
+            "value": "d"
           },
           "hints": [
             "Separate what was measured from what cannot be established.",
@@ -916,23 +916,23 @@
           "options": [
             {
               "id": "a",
-              "text": "A statement that the lot was inspected and released."
-            },
-            {
-              "id": "b",
-              "text": "The inspector's name and the date."
-            },
-            {
-              "id": "c",
               "text": "The two lot sizes and the date codes as received, the plan and AQL with the sample size and the accept number, the measured twist with its method and the limit it was compared with, the humidity card reading, the 40-board quantity gap with its closure, the quarantine and its release, and the supplier's statement."
             },
             {
-              "id": "d",
+              "id": "b",
               "text": "A photograph of the carton labels."
+            },
+            {
+              "id": "c",
+              "text": "A statement that the lot was inspected and released."
+            },
+            {
+              "id": "d",
+              "text": "The inspector's name and the date."
             }
           ],
           "answer": {
-            "value": "c"
+            "value": "a"
           },
           "hints": [
             "A record is judged by whether someone else could re-take the same decision.",
@@ -1242,23 +1242,23 @@
           "options": [
             {
               "id": "a",
-              "text": "108 % — the machine computes nominal from the aperture, so the foil in its program does not matter."
-            },
-            {
-              "id": "b",
-              "text": "86 %: the machine's nominal is 25 % too large, so every reading is inflated by that factor and the truth is 108 % x 0.100 / 0.125."
-            },
-            {
-              "id": "c",
               "text": "135 %: the thinner foil means more paste."
             },
             {
-              "id": "d",
+              "id": "b",
               "text": "108 % is right, but the window should be widened to match the foil."
+            },
+            {
+              "id": "c",
+              "text": "108 % — the machine computes nominal from the aperture, so the foil in its program does not matter."
+            },
+            {
+              "id": "d",
+              "text": "86 %: the machine's nominal is 25 % too large, so every reading is inflated by that factor and the truth is 108 % x 0.100 / 0.125."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "d"
           },
           "hints": [
             "Nominal = area x foil, and the machine uses the foil in its program.",
@@ -1276,23 +1276,23 @@
           "options": [
             {
               "id": "a",
-              "text": "Print pressure first, then the split, then the SPI program."
+              "text": "Nothing: the mean is inside the window and the boards pass."
             },
             {
               "id": "b",
-              "text": "Correct the SPI program's foil figure and re-read the data, then establish what differs between the two squeegee passes, then tune the print if it is still needed."
+              "text": "Print pressure first, then the split, then the SPI program."
             },
             {
               "id": "c",
-              "text": "All three at once, since they are all part of the same print step."
+              "text": "Correct the SPI program's foil figure and re-read the data, then establish what differs between the two squeegee passes, then tune the print if it is still needed."
             },
             {
               "id": "d",
-              "text": "Nothing: the mean is inside the window and the boards pass."
+              "text": "All three at once, since they are all part of the same print step."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "c"
           },
           "hints": [
             "A measurement that is wrong by a constant factor cannot rank anything.",
@@ -1532,23 +1532,23 @@
           "options": [
             {
               "id": "a",
-              "text": "Nothing: 0.11 mm is below the 0.15 mm acceptance, and the process is repeatable."
+              "text": "The error is in the acceptance limit, not in the measurement."
             },
             {
               "id": "b",
-              "text": "The mean of two residuals cancels the rotation: it reports where the board is centred, not how it is turned, so a passing offset and an 0.80° rotation coexist in one number."
+              "text": "Nothing: 0.11 mm is below the 0.15 mm acceptance, and the process is repeatable."
             },
             {
               "id": "c",
-              "text": "The acceptance should be 0.05 mm, so the setup fails on the number too."
+              "text": "The mean of two residuals cancels the rotation: it reports where the board is centred, not how it is turned, so a passing offset and an 0.80° rotation coexist in one number."
             },
             {
               "id": "d",
-              "text": "The error is in the acceptance limit, not in the measurement."
+              "text": "The acceptance should be 0.05 mm, so the setup fails on the number too."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "c"
           },
           "hints": [
             "Ask what averaging two points on a 10 mm baseline does to a rotation.",
@@ -1566,23 +1566,23 @@
           "options": [
             {
               "id": "a",
-              "text": "Board support or conveyor seating, since the error varies per board."
-            },
-            {
-              "id": "b",
-              "text": "The board coordinate system itself: fiducial coordinates in the program, or the vision calibration that turns pixels into millimetres."
-            },
-            {
-              "id": "c",
               "text": "A worn nozzle on the QFP-64 head, since the leads are the visible symptom."
             },
             {
-              "id": "d",
+              "id": "b",
               "text": "Paste slump after placement, since the parts look rotated later."
+            },
+            {
+              "id": "c",
+              "text": "Board support or conveyor seating, since the error varies per board."
+            },
+            {
+              "id": "d",
+              "text": "The board coordinate system itself: fiducial coordinates in the program, or the vision calibration that turns pixels into millimetres."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "d"
           },
           "hints": [
             "The pattern is constant, not varying: something in the coordinate chain, not in the handling.",
@@ -1634,23 +1634,23 @@
           "options": [
             {
               "id": "a",
-              "text": "The acceptance limit and a pass/fail mark."
-            },
-            {
-              "id": "b",
               "text": "The mean offset in X and Y with its sign, the rotation in degrees with its sign, the fiducial residuals, the lever arm at which each was judged, the repeatability over the sample, the calibration status and its date, and the program and library versions."
             },
             {
-              "id": "c",
+              "id": "b",
               "text": "A photograph of the overhanging corner lead."
             },
             {
-              "id": "d",
+              "id": "c",
               "text": "The machine's own report, exported as a PDF."
+            },
+            {
+              "id": "d",
+              "text": "The acceptance limit and a pass/fail mark."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "a"
           },
           "hints": [
             "A second engineer must be able to re-judge the setup without you.",
@@ -1963,23 +1963,23 @@
           "options": [
             {
               "id": "a",
-              "text": "Nothing: 49.3 against 44.4 is an 11 % gain for a step that only moves air."
+              "text": "The cycle cannot be recomputed without the machine."
             },
             {
               "id": "b",
-              "text": "The air knife controls how much flux reaches the joint; removing it leaves excess flux that boils at the nozzle, which is how blowback, voids and bridging appear — the gain is real and smaller than the cost."
+              "text": "Nothing: 49.3 against 44.4 is an 11 % gain for a step that only moves air."
             },
             {
               "id": "c",
-              "text": "It changes the dwell, which is the number that matters."
+              "text": "The air knife controls how much flux reaches the joint; removing it leaves excess flux that boils at the nozzle, which is how blowback, voids and bridging appear — the gain is real and smaller than the cost."
             },
             {
               "id": "d",
-              "text": "The cycle cannot be recomputed without the machine."
+              "text": "It changes the dwell, which is the number that matters."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "c"
           },
           "hints": [
             "Ask what the air knife does to the joint, not to the board.",
@@ -1997,23 +1997,23 @@
           "options": [
             {
               "id": "a",
-              "text": "Dwell: shorten it from 1.8 s so less solder is delivered."
-            },
-            {
-              "id": "b",
-              "text": "Nozzle inside diameter: bring it down toward the joint so the meniscus sits on the annular ring and no further."
-            },
-            {
-              "id": "c",
               "text": "Preheat: raise it so the joint wets faster."
             },
             {
-              "id": "d",
+              "id": "b",
               "text": "Flux volume: increase it so the joint wets more completely."
+            },
+            {
+              "id": "c",
+              "text": "Dwell: shorten it from 1.8 s so less solder is delivered."
+            },
+            {
+              "id": "d",
+              "text": "Nozzle inside diameter: bring it down toward the joint so the meniscus sits on the annular ring and no further."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "d"
           },
           "hints": [
             "The defect is solder where it should not be, not solder missing where it should.",
@@ -2031,23 +2031,23 @@
           "options": [
             {
               "id": "a",
-              "text": "1.8 s is inside the 0.8-2.5 s low-mass range, so it is fine everywhere."
-            },
-            {
-              "id": "b",
               "text": "High-mass joints start at 1.5 s and reach 4.0 s; 1.8 s is at the bottom of that band, and the course prefers two shorter passes to one long dwell when the mass is large."
             },
             {
-              "id": "c",
+              "id": "b",
               "text": "High-mass joints need less dwell because the plane conducts heat."
             },
             {
-              "id": "d",
+              "id": "c",
               "text": "Dwell should be the same for every joint so the cycle is predictable."
+            },
+            {
+              "id": "d",
+              "text": "1.8 s is inside the 0.8-2.5 s low-mass range, so it is fine everywhere."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "a"
           },
           "hints": [
             "A ground-plane pin is a heat sink: the plane takes heat away from the joint.",
@@ -2065,23 +2065,23 @@
           "options": [
             {
               "id": "a",
-              "text": "The nozzle size, the bath temperature and the board part number."
+              "text": "A photograph of the first article."
             },
             {
               "id": "b",
-              "text": "The nozzle size and shape per joint group, the dwell per group, the pass strategy, the flux volume and the air-knife settings, the preheat, the measured cycle, the joint temperatures from the thermocouples, and the first-article result against IPC-A-610 for the class."
+              "text": "The nozzle size, the bath temperature and the board part number."
             },
             {
               "id": "c",
-              "text": "The machine's exported program file."
+              "text": "The nozzle size and shape per joint group, the dwell per group, the pass strategy, the flux volume and the air-knife settings, the preheat, the measured cycle, the joint temperatures from the thermocouples, and the first-article result against IPC-A-610 for the class."
             },
             {
               "id": "d",
-              "text": "A photograph of the first article."
+              "text": "The machine's exported program file."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "c"
           },
           "hints": [
             "A record is judged by whether the program can be rebuilt and defended.",
@@ -2357,23 +2357,23 @@
           "options": [
             {
               "id": "a",
-              "text": "X-ray would have caught it, so the fourth screen should be X-ray."
-            },
-            {
-              "id": "b",
               "text": "Contamination is detected at 2-10 % by every screen in the list, so no fourth electrical or optical screen fixes it: it is controlled by cleaning, ionic testing and process control, not by adding test."
             },
             {
-              "id": "c",
+              "id": "b",
               "text": "The return was a one-off and the model does not apply to it."
             },
             {
-              "id": "d",
+              "id": "c",
               "text": "Functional test would have caught it if the test coverage were raised."
+            },
+            {
+              "id": "d",
+              "text": "X-ray would have caught it, so the fourth screen should be X-ray."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "a"
           },
           "hints": [
             "Look up the contamination row before arguing about screens.",
@@ -2409,23 +2409,23 @@
           "options": [
             {
               "id": "a",
-              "text": "The coverage percentage, so the customer can compare suppliers."
-            },
-            {
-              "id": "b",
-              "text": "The defect model with its sources and date, the classes the strategy leaves uncovered with their escape in ppm, the compensating controls for those classes, and the assumption behind the arithmetic — independent classes and probabilities from this plant's own logs."
-            },
-            {
-              "id": "c",
               "text": "The list of test machines and their purchase dates."
             },
             {
-              "id": "d",
+              "id": "b",
               "text": "The first-pass yield target."
+            },
+            {
+              "id": "c",
+              "text": "The coverage percentage, so the customer can compare suppliers."
+            },
+            {
+              "id": "d",
+              "text": "The defect model with its sources and date, the classes the strategy leaves uncovered with their escape in ppm, the compensating controls for those classes, and the assumption behind the arithmetic — independent classes and probabilities from this plant's own logs."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "d"
           },
           "hints": [
             "A coverage number without its model cannot be re-judged or compared.",
@@ -2617,23 +2617,23 @@
           "options": [
             {
               "id": "a",
-              "text": "The boards pass, because 1.00 is below the 1.56 reference value and that is the limit that applies."
-            },
-            {
-              "id": "b",
-              "text": "The boards fail the customer's 0.5 and would pass the reference 1.56; the customer limit governs, so the process is not in control for this build."
-            },
-            {
-              "id": "c",
               "text": "The boards are acceptable because the average is below the reference limit."
             },
             {
-              "id": "d",
+              "id": "b",
               "text": "The 1.56 value is a legal maximum, so a customer cannot ask for less."
+            },
+            {
+              "id": "c",
+              "text": "The boards pass, because 1.00 is below the 1.56 reference value and that is the limit that applies."
+            },
+            {
+              "id": "d",
+              "text": "The boards fail the customer's 0.5 and would pass the reference 1.56; the customer limit governs, so the process is not in control for this build."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "d"
           },
           "hints": [
             "The lesson treats 1.56 as the default that applies when nobody specified anything.",
@@ -2651,23 +2651,23 @@
           "options": [
             {
               "id": "a",
-              "text": "An outlier, to be reported as an excursion, with the process left alone."
-            },
-            {
-              "id": "b",
               "text": "Not an outlier but what a whole-board average does to a local pocket: the 20 x 20 mm site under the BGA extracted 12 ug on its own, which is 3.00 ug/cm2 on the site while the rest of the board sits near 0.5."
             },
             {
-              "id": "c",
+              "id": "b",
               "text": "An invalid site test, because ROSE is only defined per whole board."
             },
             {
-              "id": "d",
+              "id": "c",
               "text": "A board to reclean and retest, with no further action."
+            },
+            {
+              "id": "d",
+              "text": "An outlier, to be reported as an excursion, with the process left alone."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "a"
           },
           "hints": [
             "Work the site out: 12 ug on 4 cm2.",
@@ -2721,23 +2721,23 @@
           "options": [
             {
               "id": "a",
-              "text": "The whole-board result: 198 ug less the 6 ug blank is 192 ug over 192 cm2, which is 1.00 ug/cm2 against this customer's 0.5."
+              "text": "Visual inspection, because neither test measures what blocks coating."
             },
             {
               "id": "b",
-              "text": "Neither: ROSE is a gate and both results are under their limits."
+              "text": "The whole-board result: 198 ug less the 6 ug blank is 192 ug over 192 cm2, which is 1.00 ug/cm2 against this customer's 0.5."
             },
             {
               "id": "c",
-              "text": "The whole-board result is an artefact of the blank and should be corrected upwards to 1.03, a pass against the reference."
+              "text": "Neither: ROSE is a gate and both results are under their limits."
             },
             {
               "id": "d",
-              "text": "Visual inspection, because neither test measures what blocks coating."
+              "text": "The whole-board result is an artefact of the blank and should be corrected upwards to 1.03, a pass against the reference."
             }
           ],
           "answer": {
-            "value": "a"
+            "value": "b"
           },
           "hints": [
             "Do the arithmetic on 198 ug before comparing anything.",
@@ -2755,23 +2755,23 @@
           "options": [
             {
               "id": "a",
-              "text": "90 um, because the film thickness is what was applied, and that is inside the window."
+              "text": "237 um, because the solids are added rather than multiplied."
             },
             {
               "id": "b",
-              "text": "34.2 um, which is inside the window but near its floor."
+              "text": "90 um, because the film thickness is what was applied, and that is inside the window."
             },
             {
               "id": "c",
-              "text": "55.8 um, which is 90 um less the 38 % solids, inside the window."
+              "text": "34.2 um, which is inside the window but near its floor."
             },
             {
               "id": "d",
-              "text": "237 um, because the solids are added rather than multiplied."
+              "text": "55.8 um, which is 90 um less the 38 % solids, inside the window."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "c"
           },
           "hints": [
             "The solvent leaves during cure; what stays is the solids fraction.",
@@ -3082,23 +3082,23 @@
           "options": [
             {
               "id": "a",
-              "text": "Placement is unstable at the panel edge; please review the fiducial scheme."
-            },
-            {
-              "id": "b",
               "text": "Place global fiducials at least 37 mm apart, on the panel diagonal at opposite corners, because a 0.14 mm residual across a 37 mm pair is 0.22 degrees and moves a part at 40 mm by 0.15 mm; verify on the first article with the fiducial audit sheet, pass when every part sits inside 0.15 mm."
             },
             {
-              "id": "c",
+              "id": "b",
               "text": "The 0402 near the edge would not rotate if the panel had more breakaway rail."
             },
             {
-              "id": "d",
+              "id": "c",
               "text": "IPC-7351 requires fiducials to be placed correctly; the current layout does not comply."
+            },
+            {
+              "id": "d",
+              "text": "Placement is unstable at the panel edge; please review the fiducial scheme."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "a"
           },
           "hints": [
             "A rule has a dimension, a tolerance and a pass condition.",
@@ -3116,23 +3116,23 @@
           "options": [
             {
               "id": "a",
-              "text": "High resolution, because a good camera settles arguments."
+              "text": "A photograph of the whole panel, because context is what matters."
             },
             {
               "id": "b",
-              "text": "A scale reference and a stated field of view or magnification, in the file name or caption, with board, station, defect type, date and shift — plus a wide view next to the close-up."
+              "text": "High resolution, because a good camera settles arguments."
             },
             {
               "id": "c",
-              "text": "A colour image, because colour shows flux and corrosion."
+              "text": "A scale reference and a stated field of view or magnification, in the file name or caption, with board, station, defect type, date and shift — plus a wide view next to the close-up."
             },
             {
               "id": "d",
-              "text": "A photograph of the whole panel, because context is what matters."
+              "text": "A colour image, because colour shows flux and corrosion."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "c"
           },
           "hints": [
             "An image without a scale cannot be measured by the next person.",
@@ -3150,23 +3150,23 @@
           "options": [
             {
               "id": "a",
-              "text": "As a stable production sample, because 38 defects is enough to see the mode."
-            },
-            {
-              "id": "b",
-              "text": "As preliminary: the lesson asks for 30 consecutive production days or 1,000 boards, and 300 boards over one week meets neither, so the comparison is stated as preliminary and the action is to extend the window."
-            },
-            {
-              "id": "c",
               "text": "As a full population, because a week is a representative sample of a stable process."
             },
             {
-              "id": "d",
+              "id": "b",
               "text": "As invalid, so the release should be refused."
+            },
+            {
+              "id": "c",
+              "text": "As a stable production sample, because 38 defects is enough to see the mode."
+            },
+            {
+              "id": "d",
+              "text": "As preliminary: the lesson asks for 30 consecutive production days or 1,000 boards, and 300 boards over one week meets neither, so the comparison is stated as preliminary and the action is to extend the window."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "d"
           },
           "hints": [
             "Check both conditions in the lesson: 30 days or 1,000 boards.",
@@ -3449,23 +3449,23 @@
           "options": [
             {
               "id": "a",
-              "text": "It suspends the clock, because any dry cabinet below 10 % RH is equivalent to sealed dry pack."
+              "text": "It has no effect either way; only the bag seal matters."
             },
             {
               "id": "b",
-              "text": "It slows the clock, but 5 % RH or less is the condition that suspends it, so this storage gave no credit."
+              "text": "It suspends the clock, because any dry cabinet below 10 % RH is equivalent to sealed dry pack."
             },
             {
               "id": "c",
-              "text": "It resets the clock, because the parts were dry when they went in."
+              "text": "It slows the clock, but 5 % RH or less is the condition that suspends it, so this storage gave no credit."
             },
             {
               "id": "d",
-              "text": "It has no effect either way; only the bag seal matters."
+              "text": "It resets the clock, because the parts were dry when they went in."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "c"
           },
           "hints": [
             "The lesson was corrected on exactly this point: 10 % RH is not the requirement.",
@@ -3500,23 +3500,23 @@
           "options": [
             {
               "id": "a",
-              "text": "Bake the reel at 125 °C now and accept some tape deformation."
-            },
-            {
-              "id": "b",
-              "text": "De-reel into trays, bake the loose parts at the permitted higher temperature, then re-reel; or move the build inside the remaining floor life."
-            },
-            {
-              "id": "c",
               "text": "Skip the bake and raise the reflow peak by 10 °C to drive the moisture out."
             },
             {
-              "id": "d",
+              "id": "b",
               "text": "Run the reel as-is and inspect the BGA after reflow."
+            },
+            {
+              "id": "c",
+              "text": "Bake the reel at 125 °C now and accept some tape deformation."
+            },
+            {
+              "id": "d",
+              "text": "De-reel into trays, bake the loose parts at the permitted higher temperature, then re-reel; or move the build inside the remaining floor life."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "d"
           },
           "hints": [
             "Which constraint is physical and which is scheduling?",
@@ -4096,23 +4096,23 @@
           "options": [
             {
               "id": "a",
-              "text": "Accept it: 68.75 % is close to 75 % and the joint is electrically connected."
-            },
-            {
-              "id": "b",
-              "text": "Reject it against the 75 % minimum and rework it; every other joint in the sheet is judged on its own."
-            },
-            {
-              "id": "c",
               "text": "Accept it under the thermal-plane exception for 14 or more leads."
             },
             {
-              "id": "d",
+              "id": "b",
               "text": "Accept it and raise the pot temperature by 10 °C so the next board fills further."
+            },
+            {
+              "id": "c",
+              "text": "Accept it: 68.75 % is close to 75 % and the joint is electrically connected."
+            },
+            {
+              "id": "d",
+              "text": "Reject it against the 75 % minimum and rework it; every other joint in the sheet is judged on its own."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "d"
           },
           "hints": [
             "The minimum for Class 2 and Class 3 is the same number; which is it?",
@@ -4130,23 +4130,23 @@
           "options": [
             {
               "id": "a",
-              "text": "The build passes: the mean of the three joints is 76.04 %, above 75 %."
-            },
-            {
-              "id": "b",
               "text": "The build fails on J-01, and the sheet has to record each joint so the failing one cannot be averaged away."
             },
             {
-              "id": "c",
+              "id": "b",
               "text": "The build passes because two joints out of three are above the minimum."
             },
             {
-              "id": "d",
+              "id": "c",
               "text": "The build passes once J-01 is re-inspected by a second operator."
+            },
+            {
+              "id": "d",
+              "text": "The build passes: the mean of the three joints is 76.04 %, above 75 %."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "a"
           },
           "hints": [
             "Averaging is exactly the mistake this sheet exists to prevent.",
@@ -4164,23 +4164,23 @@
           "options": [
             {
               "id": "a",
-              "text": "Raise the conveyor speed so the board spends less time in the wave."
+              "text": "Accept the fill and add 100 % X-ray inspection."
             },
             {
               "id": "b",
-              "text": "Raise preheat so the top side of the hole reaches a temperature that lets the solder climb, and verify dwell and contact time against the equipment limits."
+              "text": "Raise the conveyor speed so the board spends less time in the wave."
             },
             {
               "id": "c",
-              "text": "Add flux by hand at the connector before the wave."
+              "text": "Raise preheat so the top side of the hole reaches a temperature that lets the solder climb, and verify dwell and contact time against the equipment limits."
             },
             {
               "id": "d",
-              "text": "Accept the fill and add 100 % X-ray inspection."
+              "text": "Add flux by hand at the connector before the wave."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "c"
           },
           "hints": [
             "Look at the wave record: contact time is 2.0 s, the bottom of the 2-4 s window the course teaches.",
@@ -4481,23 +4481,23 @@
           "options": [
             {
               "id": "a",
-              "text": "A single cause: the pot is too cold, so some joints do not fill and some flood."
+              "text": "A bad batch of connectors, since both findings are on the same part."
             },
             {
               "id": "b",
-              "text": "A wetting and drainage problem around one component: the joint that did not reach temperature stayed short, and solder pooled where drainage was poor."
+              "text": "A single cause: the pot is too cold, so some joints do not fill and some flood."
             },
             {
               "id": "c",
-              "text": "Two unrelated random defects; no action is possible."
+              "text": "A wetting and drainage problem around one component: the joint that did not reach temperature stayed short, and solder pooled where drainage was poor."
             },
             {
               "id": "d",
-              "text": "A bad batch of connectors, since both findings are on the same part."
+              "text": "Two unrelated random defects; no action is possible."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "c"
           },
           "hints": [
             "A cold pot would make every joint worse, and the record says the pot is not cold.",
@@ -4515,23 +4515,23 @@
           "options": [
             {
               "id": "a",
-              "text": "Raise the pot temperature from 255 to 270 °C and shorten the contact time."
-            },
-            {
-              "id": "b",
               "text": "Raise top-side preheat within the 90-120 °C band and lengthen contact toward the middle of the 2-4 s window, then re-run one board and re-measure."
             },
             {
-              "id": "c",
+              "id": "b",
               "text": "Change the flux to water-soluble and keep every other setting."
             },
             {
-              "id": "d",
+              "id": "c",
               "text": "Add a pallet and keep every setting, so the board is supported better."
+            },
+            {
+              "id": "d",
+              "text": "Raise the pot temperature from 255 to 270 °C and shorten the contact time."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "a"
           },
           "hints": [
             "One change at a time is what makes the next measurement mean something.",
@@ -4567,23 +4567,23 @@
           "options": [
             {
               "id": "a",
-              "text": "Reject the lot: one nonconforming joint condemns every board."
-            },
-            {
-              "id": "b",
-              "text": "Contain the boards that have run, fix the process settings, re-qualify with a first article, and judge the lot against the re-qualified process rather than against one joint."
-            },
-            {
-              "id": "c",
               "text": "Release the lot: 5 % of one connector is trivial."
             },
             {
-              "id": "d",
+              "id": "b",
               "text": "Release the lot and inspect 100 % by eye, since the defect is visible."
+            },
+            {
+              "id": "c",
+              "text": "Reject the lot: one nonconforming joint condemns every board."
+            },
+            {
+              "id": "d",
+              "text": "Contain the boards that have run, fix the process settings, re-qualify with a first article, and judge the lot against the re-qualified process rather than against one joint."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "d"
           },
           "hints": [
             "A single joint is evidence about the process, not a measurement of the lot.",
@@ -4885,23 +4885,23 @@
           "options": [
             {
               "id": "a",
-              "text": "Accept: the largest single void is 0.28 mm, which is under half the ball."
-            },
-            {
-              "id": "b",
-              "text": "Reject the ball: the cumulative void area is far above 25 % of the ball area, and the criterion counts cumulative area per ball, not the largest void."
-            },
-            {
-              "id": "c",
               "text": "Accept: voids at the ball edge drain better than central voids."
             },
             {
-              "id": "d",
+              "id": "b",
               "text": "Accept and average the four balls: the array as a whole is under 25 %."
+            },
+            {
+              "id": "c",
+              "text": "Accept: the largest single void is 0.28 mm, which is under half the ball."
+            },
+            {
+              "id": "d",
+              "text": "Reject the ball: the cumulative void area is far above 25 % of the ball area, and the criterion counts cumulative area per ball, not the largest void."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "d"
           },
           "hints": [
             "The criterion is cumulative projected area per ball, in an X-ray image.",
@@ -4937,23 +4937,23 @@
           "options": [
             {
               "id": "a",
-              "text": "Nothing: voids under a BGA are invisible to AOI, so it is a separate issue."
-            },
-            {
-              "id": "b",
               "text": "It confirms the escape question: AOI cannot see under the package, so the hidden-joint sample has to be defined in the program rather than assumed to be covered by the AOI call rate."
             },
             {
-              "id": "c",
+              "id": "b",
               "text": "It means AOI should be replaced by X-ray on every board."
             },
             {
-              "id": "d",
+              "id": "c",
               "text": "It means the AOI thresholds were too loose and must be tightened."
+            },
+            {
+              "id": "d",
+              "text": "Nothing: voids under a BGA are invisible to AOI, so it is a separate issue."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "a"
           },
           "hints": [
             "Ask what AOI can physically see: component presence, fillet shape, exposed joints.",
@@ -4971,23 +4971,23 @@
           "options": [
             {
               "id": "a",
-              "text": "An action to tighten the AOI void threshold, since AOI is the inspection step."
+              "text": "An action to reject the whole lot on one ball."
             },
             {
               "id": "b",
-              "text": "A containment of the affected boards plus a process action on the reflow and paste side, with the X-ray sample defined so the escape is measured rather than assumed."
+              "text": "An action to tighten the AOI void threshold, since AOI is the inspection step."
             },
             {
               "id": "c",
-              "text": "A note that voids are normal and no action is needed."
+              "text": "A containment of the affected boards plus a process action on the reflow and paste side, with the X-ray sample defined so the escape is measured rather than assumed."
             },
             {
               "id": "d",
-              "text": "An action to reject the whole lot on one ball."
+              "text": "A note that voids are normal and no action is needed."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "c"
           },
           "hints": [
             "An AOI threshold cannot see a void under the package, so it cannot be the action.",
@@ -5352,23 +5352,23 @@
           "options": [
             {
               "id": "a",
-              "text": "Nothing: a dry contact is an operator error and is not a process signal."
+              "text": "The solder wire was the wrong diameter."
             },
             {
               "id": "b",
-              "text": "The joint needed more heat than one contact could deliver, so the preheat, tip size or board support is loading the joint beyond the budget — the same thermal question the wave case raised."
+              "text": "Nothing: a dry contact is an operator error and is not a process signal."
             },
             {
               "id": "c",
-              "text": "The setpoint was too low and should be raised for every joint."
+              "text": "The joint needed more heat than one contact could deliver, so the preheat, tip size or board support is loading the joint beyond the budget — the same thermal question the wave case raised."
             },
             {
               "id": "d",
-              "text": "The solder wire was the wrong diameter."
+              "text": "The setpoint was too low and should be raised for every joint."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "c"
           },
           "hints": [
             "A contact that produced no flow means the joint was not at temperature.",
@@ -5386,23 +5386,23 @@
           "options": [
             {
               "id": "a",
-              "text": "The pass/fail verdict and the operator's initials."
-            },
-            {
-              "id": "b",
-              "text": "Required class, setpoint, tip, preheat, dwells and number of contacts, measured trace width with the limit it was judged against, and the inspection result."
-            },
-            {
-              "id": "c",
               "text": "The serial number and the date, because the process is standard."
             },
             {
-              "id": "d",
+              "id": "b",
               "text": "A photograph of the joint, since numbers cannot describe solder."
+            },
+            {
+              "id": "c",
+              "text": "The pass/fail verdict and the operator's initials."
+            },
+            {
+              "id": "d",
+              "text": "Required class, setpoint, tip, preheat, dwells and number of contacts, measured trace width with the limit it was judged against, and the inspection result."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "d"
           },
           "hints": [
             "Reproducing a result needs the settings, the measurements and the standard they were judged against.",
@@ -5679,23 +5679,23 @@
           "options": [
             {
               "id": "a",
-              "text": "Reject the lot: any nonconformity in a containment sample fails it."
-            },
-            {
-              "id": "b",
               "text": "Accept the lot against this plan (Ac = 3) — acceptance sampling qualifies the lot, not the process, so the 8D stays open until the ppm target is met."
             },
             {
-              "id": "c",
+              "id": "b",
               "text": "Accept the lot and close the 8D."
             },
             {
-              "id": "d",
+              "id": "c",
               "text": "Reject and double the sample until zero defects are found."
+            },
+            {
+              "id": "d",
+              "text": "Reject the lot: any nonconformity in a containment sample fails it."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "a"
           },
           "hints": [
             "Ac is the acceptance number for the plan, and it is not zero.",
@@ -5785,23 +5785,23 @@
           "options": [
             {
               "id": "a",
-              "text": "Close the 8D: an 82.5 % reduction is a passing result."
-            },
-            {
-              "id": "b",
-              "text": "Keep the 8D open: the action improved the rate but did not reach the agreed metric, so effectiveness is not demonstrated."
-            },
-            {
-              "id": "c",
               "text": "Close the 8D and open a new one for the residual 2,800 ppm."
             },
             {
-              "id": "d",
+              "id": "b",
               "text": "Change the target to 3,000 ppm so the action passes."
+            },
+            {
+              "id": "c",
+              "text": "Close the 8D: an 82.5 % reduction is a passing result."
+            },
+            {
+              "id": "d",
+              "text": "Keep the 8D open: the action improved the rate but did not reach the agreed metric, so effectiveness is not demonstrated."
             }
           ],
           "answer": {
-            "value": "b"
+            "value": "d"
           },
           "hints": [
             "Effectiveness is judged against the metric agreed before the action.",

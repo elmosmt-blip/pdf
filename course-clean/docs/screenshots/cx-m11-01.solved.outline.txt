@@ -639,22 +639,22 @@ main #main   [14341 chars]
         fieldset .case-options   [372 chars]
           legend .sr-only   [10 chars]
             "Choose one"
-          label .case-opt   [72 chars]
+          label .case-opt   [39 chars]
             input #in-s8-a type=radio name=c-s8 value=a
+            span .case-opt-text   [39 chars]
+              "The solder wire was the wrong diameter."
+          label .case-opt   [72 chars]
+            input #in-s8-b type=radio name=c-s8 value=b
             span .case-opt-text   [72 chars]
               "Nothing: a dry contact is an operator error and is not a process signal."
           label .case-opt.case-opt--picked   [189 chars]
-            input #in-s8-b type=radio name=c-s8 value=b
+            input #in-s8-c type=radio name=c-s8 value=c
             span .case-opt-text   [189 chars]
               "The joint needed more heat than one contact could deliver, so the preheat, tip size or board support is loadin…"
           label .case-opt   [62 chars]
-            input #in-s8-c type=radio name=c-s8 value=c
+            input #in-s8-d type=radio name=c-s8 value=d
             span .case-opt-text   [62 chars]
               "The setpoint was too low and should be raised for every joint."
-          label .case-opt   [39 chars]
-            input #in-s8-d type=radio name=c-s8 value=d
-            span .case-opt-text   [39 chars]
-              "The solder wire was the wrong diameter."
         p #err-s8 .case-error role=alert hidden=
         p .case-feedback.case-feedback--ok   [99 chars]
           strong   [8 chars]
@@ -681,22 +681,22 @@ main #main   [14341 chars]
         fieldset .case-options   [344 chars]
           legend .sr-only   [10 chars]
             "Choose one"
-          label .case-opt   [50 chars]
-            input #in-s9-a type=radio name=c-s9 value=a
-            span .case-opt-text   [50 chars]
-              "The pass/fail verdict and the operator's initials."
-          label .case-opt.case-opt--picked   [156 chars]
-            input #in-s9-b type=radio name=c-s9 value=b
-            span .case-opt-text   [156 chars]
-              "Required class, setpoint, tip, preheat, dwells and number of contacts, measured trace width with the limit it …"
           label .case-opt   [64 chars]
-            input #in-s9-c type=radio name=c-s9 value=c
+            input #in-s9-a type=radio name=c-s9 value=a
             span .case-opt-text   [64 chars]
               "The serial number and the date, because the process is standard."
           label .case-opt   [64 chars]
-            input #in-s9-d type=radio name=c-s9 value=d
+            input #in-s9-b type=radio name=c-s9 value=b
             span .case-opt-text   [64 chars]
               "A photograph of the joint, since numbers cannot describe solder."
+          label .case-opt   [50 chars]
+            input #in-s9-c type=radio name=c-s9 value=c
+            span .case-opt-text   [50 chars]
+              "The pass/fail verdict and the operator's initials."
+          label .case-opt.case-opt--picked   [156 chars]
+            input #in-s9-d type=radio name=c-s9 value=d
+            span .case-opt-text   [156 chars]
+              "Required class, setpoint, tip, preheat, dwells and number of contacts, measured trace width with the limit it …"
         p #err-s9 .case-error role=alert hidden=
         p .case-feedback.case-feedback--ok   [90 chars]
           strong   [8 chars]

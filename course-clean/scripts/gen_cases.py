@@ -30,6 +30,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import hashlib
 import math
 import re
 import os
@@ -818,7 +819,57 @@ def build_cases():
     cases = []
     keys = []
 
+    _option_use = {}
+
+    def balance_options(case_id, step):
+        """Rotate a choice step's options so that the key does not sit in one slot.
+
+        Every choice step in this course was written with the correct answer
+        second, which meant that always picking the second option scored 91 %
+        without reading anything. Rewriting 54 stems to fix that would risk the
+        text; rotating the options at generation time fixes it without touching a
+        word.
+
+        The rotation is keyed on the case id and step id, so it is deterministic:
+        the same build always produces the same order, the solved page and the
+        checker agree, and `published_decimals`-style surprises are impossible.
+        Option ids are relabelled a..d after the rotation, so the letters always
+        run in order top to bottom.
+        """
+        if step.get("type") != "choice" or len(step["options"]) < 3:
+            return step
+        opts = step["options"]
+        n = len(opts)
+        h = hashlib.sha256(("%s/%s" % (case_id, step["id"])).encode()).hexdigest()
+        # Land the key on one of the letters this case has used least so far, so a
+        # single case cannot pile up on one slot, and break the tie with the hash
+        # so the sequence is not a predictable cycle either.
+        used = _option_use.setdefault(case_id, [0] * n)
+        low = min(used)
+        candidates = [i for i in range(n) if used[i] == low]
+        target = candidates[int(h[:8], 16) % len(candidates)]
+        used[target] += 1
+        key = step["answer"]["value"]
+        idx = next(i for i, o in enumerate(opts) if o["id"] == key)
+        # rotate so the key moves from idx to target
+        # A left rotation by `shift` moves the option at index i to i - shift, so
+        # the key at `idx` lands on `target` when shift = idx - target.
+        shift = (idx - target) % n
+        rotated = opts[shift:] + opts[:shift]
+        step = dict(step)
+        step["options"] = [{"id": chr(ord("a") + i), "text": o["text"]}
+                           for i, o in enumerate(rotated)]
+        step["answer"] = dict(step["answer"])
+        step["answer"]["value"] = chr(ord("a") + target)
+        # the keys CSV and the checker both read _key.raw, which still holds the
+        # letter the option had before the rotation
+        step["_key"] = dict(step["_key"])
+        step["_key"]["raw"] = chr(ord("a") + target)
+        return step
+
     def add_step(case, step):
+        if step.get("type") == "choice":
+            step = balance_options(case["caseId"], step)
         # The keys CSV is what a reader recomputes from by hand, so it must carry
         # the same figure the page publishes — the rounded answer — not the
         # generator's full-precision intermediate.

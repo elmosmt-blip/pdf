@@ -641,22 +641,22 @@ main #main   [14638 chars]
         fieldset .case-options   [406 chars]
           legend .sr-only   [10 chars]
             "Choose one"
-          label .case-opt   [65 chars]
-            input #in-s8-a type=radio name=c-s8 value=a
-            span .case-opt-text   [65 chars]
-              "X-ray would have caught it, so the fourth screen should be X-ray."
           label .case-opt.case-opt--picked   [201 chars]
-            input #in-s8-b type=radio name=c-s8 value=b
+            input #in-s8-a type=radio name=c-s8 value=a
             span .case-opt-text   [201 chars]
               "Contamination is detected at 2-10 % by every screen in the list, so no fourth electrical or optical screen fix…"
           label .case-opt   [60 chars]
-            input #in-s8-c type=radio name=c-s8 value=c
+            input #in-s8-b type=radio name=c-s8 value=b
             span .case-opt-text   [60 chars]
               "The return was a one-off and the model does not apply to it."
           label .case-opt   [70 chars]
-            input #in-s8-d type=radio name=c-s8 value=d
+            input #in-s8-c type=radio name=c-s8 value=c
             span .case-opt-text   [70 chars]
               "Functional test would have caught it if the test coverage were raised."
+          label .case-opt   [65 chars]
+            input #in-s8-d type=radio name=c-s8 value=d
+            span .case-opt-text   [65 chars]
+              "X-ray would have caught it, so the fourth screen should be X-ray."
         p #err-s8 .case-error role=alert hidden=
         p .case-feedback.case-feedback--ok   [143 chars]
           strong   [8 chars]
@@ -714,22 +714,22 @@ main #main   [14638 chars]
         fieldset .case-options   [417 chars]
           legend .sr-only   [10 chars]
             "Choose one"
-          label .case-opt   [63 chars]
-            input #in-s10-a type=radio name=c-s10 value=a
-            span .case-opt-text   [63 chars]
-              "The coverage percentage, so the customer can compare suppliers."
-          label .case-opt.case-opt--picked   [265 chars]
-            input #in-s10-b type=radio name=c-s10 value=b
-            span .case-opt-text   [265 chars]
-              "The defect model with its sources and date, the classes the strategy leaves uncovered with their escape in ppm…"
           label .case-opt   [51 chars]
-            input #in-s10-c type=radio name=c-s10 value=c
+            input #in-s10-a type=radio name=c-s10 value=a
             span .case-opt-text   [51 chars]
               "The list of test machines and their purchase dates."
           label .case-opt   [28 chars]
-            input #in-s10-d type=radio name=c-s10 value=d
+            input #in-s10-b type=radio name=c-s10 value=b
             span .case-opt-text   [28 chars]
               "The first-pass yield target."
+          label .case-opt   [63 chars]
+            input #in-s10-c type=radio name=c-s10 value=c
+            span .case-opt-text   [63 chars]
+              "The coverage percentage, so the customer can compare suppliers."
+          label .case-opt.case-opt--picked   [265 chars]
+            input #in-s10-d type=radio name=c-s10 value=d
+            span .case-opt-text   [265 chars]
+              "The defect model with its sources and date, the classes the strategy leaves uncovered with their escape in ppm…"
         p #err-s10 .case-error role=alert hidden=
         p .case-feedback.case-feedback--ok   [158 chars]
           strong   [8 chars]

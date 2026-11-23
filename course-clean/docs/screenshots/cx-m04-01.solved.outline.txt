@@ -719,22 +719,22 @@ main #main   [14120 chars]
         fieldset .case-options   [347 chars]
           legend .sr-only   [10 chars]
             "Choose one"
-          label .case-opt   [99 chars]
-            input #in-s9-a type=radio name=c-s9 value=a
-            span .case-opt-text   [99 chars]
-              "108 % — the machine computes nominal from the aperture, so the foil in its program does not matter."
-          label .case-opt.case-opt--picked   [130 chars]
-            input #in-s9-b type=radio name=c-s9 value=b
-            span .case-opt-text   [130 chars]
-              "86 %: the machine's nominal is 25 % too large, so every reading is inflated by that factor and the truth is 10…"
           label .case-opt   [41 chars]
-            input #in-s9-c type=radio name=c-s9 value=c
+            input #in-s9-a type=radio name=c-s9 value=a
             span .case-opt-text   [41 chars]
               "135 %: the thinner foil means more paste."
           label .case-opt   [67 chars]
-            input #in-s9-d type=radio name=c-s9 value=d
+            input #in-s9-b type=radio name=c-s9 value=b
             span .case-opt-text   [67 chars]
               "108 % is right, but the window should be widened to match the foil."
+          label .case-opt   [99 chars]
+            input #in-s9-c type=radio name=c-s9 value=c
+            span .case-opt-text   [99 chars]
+              "108 % — the machine computes nominal from the aperture, so the foil in its program does not matter."
+          label .case-opt.case-opt--picked   [130 chars]
+            input #in-s9-d type=radio name=c-s9 value=d
+            span .case-opt-text   [130 chars]
+              "86 %: the machine's nominal is 25 % too large, so every reading is inflated by that factor and the truth is 10…"
         p #err-s9 .case-error role=alert hidden=
         p .case-feedback.case-feedback--ok   [103 chars]
           strong   [8 chars]
@@ -764,19 +764,19 @@ main #main   [14120 chars]
           label .case-opt   [59 chars]
             input #in-s10-a type=radio name=c-s10 value=a
             span .case-opt-text   [59 chars]
+              "Nothing: the mean is inside the window and the boards pass."
+          label .case-opt   [59 chars]
+            input #in-s10-b type=radio name=c-s10 value=b
+            span .case-opt-text   [59 chars]
               "Print pressure first, then the split, then the SPI program."
           label .case-opt.case-opt--picked   [163 chars]
-            input #in-s10-b type=radio name=c-s10 value=b
+            input #in-s10-c type=radio name=c-s10 value=c
             span .case-opt-text   [163 chars]
               "Correct the SPI program's foil figure and re-read the data, then establish what differs between the two squeeg…"
           label .case-opt   [66 chars]
-            input #in-s10-c type=radio name=c-s10 value=c
+            input #in-s10-d type=radio name=c-s10 value=d
             span .case-opt-text   [66 chars]
               "All three at once, since they are all part of the same print step."
-          label .case-opt   [59 chars]
-            input #in-s10-d type=radio name=c-s10 value=d
-            span .case-opt-text   [59 chars]
-              "Nothing: the mean is inside the window and the boards pass."
         p #err-s10 .case-error role=alert hidden=
         p .case-feedback.case-feedback--ok   [115 chars]
           strong   [8 chars]

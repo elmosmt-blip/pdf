@@ -946,11 +946,13 @@ Every case, every key, every threshold and all of the prose, written up in
    defect class, so the fix went into `step_numeric` rather than into eighteen
    cases: the key now carries exactly the precision the prompt asks for, and the
    unrounded value stays in `case-keys.csv`.
-2. **Answer distribution (49 of 54 choice keys are `b`).** Always picking the
-   second option scores 91 % without reading the case. Wrong-answer feedback no
-   longer names option letters, which was the only place that made the imbalance
-   exploitable with certainty. The distribution itself is recorded as a known open
-   item with the reason, not silently rewritten.
+2. **Answer distribution (49 of 54 choice keys were `b`).** Always picking the
+   second option scored 91 % without reading the case. Fixed at the generator: the
+   options of every choice step are rotated deterministically — target slot is the
+   least-used letter in that case, ties broken by a hash of case and step id — so
+   the text is untouched and the published key follows the option. Result a 14,
+   b 14, c 12, d 14, and four keys that used to return a bare letter now return a
+   phrase. A checker rule fails the build if any letter exceeds 40 %.
 3. **Board area carried twice** — as a fact and as a threshold. Same class as the
    connector defect of round 8; the duplicate is gone.
 4. **m15 s6's worked example did not add up** (0.35 degrees where its own numbers

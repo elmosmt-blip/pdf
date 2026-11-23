@@ -625,22 +625,22 @@ main #main   [14118 chars]
         fieldset .case-options   [366 chars]
           legend .sr-only   [10 chars]
             "Choose one"
-          label .case-opt   [73 chars]
-            input #in-s7-a type=radio name=c-s7 value=a
-            span .case-opt-text   [73 chars]
-              "Accept: the largest single void is 0.28 mm, which is under half the ball."
-          label .case-opt.case-opt--picked   [150 chars]
-            input #in-s7-b type=radio name=c-s7 value=b
-            span .case-opt-text   [150 chars]
-              "Reject the ball: the cumulative void area is far above 25 % of the ball area, and the criterion counts cumulat…"
           label .case-opt   [63 chars]
-            input #in-s7-c type=radio name=c-s7 value=c
+            input #in-s7-a type=radio name=c-s7 value=a
             span .case-opt-text   [63 chars]
               "Accept: voids at the ball edge drain better than central voids."
           label .case-opt   [70 chars]
-            input #in-s7-d type=radio name=c-s7 value=d
+            input #in-s7-b type=radio name=c-s7 value=b
             span .case-opt-text   [70 chars]
               "Accept and average the four balls: the array as a whole is under 25 %."
+          label .case-opt   [73 chars]
+            input #in-s7-c type=radio name=c-s7 value=c
+            span .case-opt-text   [73 chars]
+              "Accept: the largest single void is 0.28 mm, which is under half the ball."
+          label .case-opt.case-opt--picked   [150 chars]
+            input #in-s7-d type=radio name=c-s7 value=d
+            span .case-opt-text   [150 chars]
+              "Reject the ball: the cumulative void area is far above 25 % of the ball area, and the criterion counts cumulat…"
         p #err-s7 .case-error role=alert hidden=
         p .case-feedback.case-feedback--ok   [92 chars]
           strong   [8 chars]
@@ -698,22 +698,22 @@ main #main   [14118 chars]
         fieldset .case-options   [388 chars]
           legend .sr-only   [10 chars]
             "Choose one"
-          label .case-opt   [75 chars]
-            input #in-s9-a type=radio name=c-s9 value=a
-            span .case-opt-text   [75 chars]
-              "Nothing: voids under a BGA are invisible to AOI, so it is a separate issue."
           label .case-opt.case-opt--picked   [182 chars]
-            input #in-s9-b type=radio name=c-s9 value=b
+            input #in-s9-a type=radio name=c-s9 value=a
             span .case-opt-text   [182 chars]
               "It confirms the escape question: AOI cannot see under the package, so the hidden-joint sample has to be define…"
           label .case-opt   [56 chars]
-            input #in-s9-c type=radio name=c-s9 value=c
+            input #in-s9-b type=radio name=c-s9 value=b
             span .case-opt-text   [56 chars]
               "It means AOI should be replaced by X-ray on every board."
           label .case-opt   [65 chars]
-            input #in-s9-d type=radio name=c-s9 value=d
+            input #in-s9-c type=radio name=c-s9 value=c
             span .case-opt-text   [65 chars]
               "It means the AOI thresholds were too loose and must be tightened."
+          label .case-opt   [75 chars]
+            input #in-s9-d type=radio name=c-s9 value=d
+            span .case-opt-text   [75 chars]
+              "Nothing: voids under a BGA are invisible to AOI, so it is a separate issue."
         p #err-s9 .case-error role=alert hidden=
         p .case-feedback.case-feedback--ok   [104 chars]
           strong   [8 chars]
@@ -740,22 +740,22 @@ main #main   [14118 chars]
         fieldset .case-options   [352 chars]
           legend .sr-only   [10 chars]
             "Choose one"
-          label .case-opt   [78 chars]
+          label .case-opt   [46 chars]
             input #in-s10-a type=radio name=c-s10 value=a
+            span .case-opt-text   [46 chars]
+              "An action to reject the whole lot on one ball."
+          label .case-opt   [78 chars]
+            input #in-s10-b type=radio name=c-s10 value=b
             span .case-opt-text   [78 chars]
               "An action to tighten the AOI void threshold, since AOI is the inspection step."
           label .case-opt.case-opt--picked   [165 chars]
-            input #in-s10-b type=radio name=c-s10 value=b
+            input #in-s10-c type=radio name=c-s10 value=c
             span .case-opt-text   [165 chars]
               "A containment of the affected boards plus a process action on the reflow and paste side, with the X-ray sample…"
           label .case-opt   [53 chars]
-            input #in-s10-c type=radio name=c-s10 value=c
+            input #in-s10-d type=radio name=c-s10 value=d
             span .case-opt-text   [53 chars]
               "A note that voids are normal and no action is needed."
-          label .case-opt   [46 chars]
-            input #in-s10-d type=radio name=c-s10 value=d
-            span .case-opt-text   [46 chars]
-              "An action to reject the whole lot on one ball."
         p #err-s10 .case-error role=alert hidden=
         p .case-feedback.case-feedback--ok   [105 chars]
           strong   [8 chars]
