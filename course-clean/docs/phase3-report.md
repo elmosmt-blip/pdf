@@ -933,3 +933,28 @@ A full re-audit of thirteen cases after the new rounds, written up in
 
 Verification unchanged and green: 13 cases / 117 steps, `check-cases.js` 117/117,
 `course.test.js` 191/0, `case-qa.js` 51/0.
+
+---
+
+## 10. Third technologist review — full product audit (round 10b)
+
+Every case, every key, every threshold and all of the prose, written up in
+`docs/technologist-review-3-2026-11-31.md`. Four findings:
+
+1. **Precision (18 steps, fixed structurally).** Keys were published at four
+   decimal places next to questions asking for one or two. Third appearance of one
+   defect class, so the fix went into `step_numeric` rather than into eighteen
+   cases: the key now carries exactly the precision the prompt asks for, and the
+   unrounded value stays in `case-keys.csv`.
+2. **Answer distribution (49 of 54 choice keys are `b`).** Always picking the
+   second option scores 91 % without reading the case. Wrong-answer feedback no
+   longer names option letters, which was the only place that made the imbalance
+   exploitable with certainty. The distribution itself is recorded as a known open
+   item with the reason, not silently rewritten.
+3. **Board area carried twice** — as a fact and as a threshold. Same class as the
+   connector defect of round 8; the duplicate is gone.
+4. **m15 s6's worked example did not add up** (0.35 degrees where its own numbers
+   give 0.22). Corrected.
+
+Re-derivation: 38 keys recomputed from the data files in a separate script, all
+agree. Rubrics, links, sources, row widths, hints and template files all clean.

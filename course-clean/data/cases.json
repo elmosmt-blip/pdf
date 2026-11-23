@@ -144,11 +144,6 @@
       1.56,
       "src-013",
       "m12l03"
-    ],
-    "boardAreaCm2": [
-      192.0,
-      null,
-      "m12l03"
     ]
   },
   "thread": [
@@ -774,7 +769,7 @@
           ],
           "feedbackCorrect": "Code K: 125 boards, accept at 3 defectives, reject at 4.",
           "feedbackWrong": "Find the lot-size band first, then the code letter, then the AQL column.",
-          "explanation": "A lot of 1,201 to 3,200 at general level II is code K, and code K at AQL 1.0 is 125 pieces with Ac = 3, Re = 4. The inspector pulled 20. Twenty is not a plan, it is a look: at 20 pieces you cannot see enough of even a 2 % defect rate to tell it from a 5 % one, and the acceptance number that would go with it comes from a band this lot is not in. Re = Ac + 1 in single sampling, which is why the plan in option c cannot exist: 200 pieces is code L, and that plan's numbers belong to a different lot size."
+          "explanation": "A lot of 1,201 to 3,200 at general level II is code K, and code K at AQL 1.0 is 125 pieces with Ac = 3, Re = 4. The inspector pulled 20. Twenty is not a plan, it is a look: at 20 pieces you cannot see enough of even a 2 % defect rate to tell it from a 5 % one, and the acceptance number that would go with it comes from a band this lot is not in. Re = Ac + 1 in single sampling, which is why the plan with n = 200 cannot exist: 200 pieces is code L, and that plan's numbers belong to a different lot size."
         },
         {
           "id": "s4",
@@ -1103,7 +1098,7 @@
           "type": "numeric",
           "prompt": "Across the twelve deposits, what is the mean volume as a percentage of that nominal? One decimal.",
           "answer": {
-            "value": 86.2963,
+            "value": 86.3,
             "tolerance": 0.3,
             "unit": "%"
           },
@@ -1139,7 +1134,7 @@
           "type": "numeric",
           "prompt": "Compute Cp for the twelve deposits against that window. Two decimals.",
           "answer": {
-            "value": 1.3429,
+            "value": 1.34,
             "tolerance": 0.05,
             "unit": "ratio"
           },
@@ -1157,7 +1152,7 @@
           "type": "numeric",
           "prompt": "Compute Cpk for the same twelve deposits. Two decimals.",
           "answer": {
-            "value": 0.6068,
+            "value": 0.61,
             "tolerance": 0.05,
             "unit": "ratio"
           },
@@ -1175,7 +1170,7 @@
           "type": "numeric",
           "prompt": "Split the twelve deposits by squeegee pass and compute Cpk for the second pass alone. Two decimals.",
           "answer": {
-            "value": 0.9883,
+            "value": 0.99,
             "tolerance": 0.06,
             "unit": "ratio"
           },
@@ -2234,7 +2229,7 @@
           "type": "numeric",
           "prompt": "The board has 620 joints and 570 are on a probe or a scan cell. What node coverage is that, in percent? One decimal.",
           "answer": {
-            "value": 91.9355,
+            "value": 91.9,
             "tolerance": 0.2,
             "unit": "%"
           },
@@ -2342,7 +2337,7 @@
           "type": "numeric",
           "prompt": "Adding X-ray as a fourth screen raises coverage from 93.1 % to 95.5 %. What reduction in the escape does that buy, in percent? One decimal.",
           "answer": {
-            "value": 34.5648,
+            "value": 34.6,
             "tolerance": 0.5,
             "unit": "%"
           },
@@ -3013,7 +3008,7 @@
           "type": "numeric",
           "prompt": "The order ran 1,240 boards with 38 confirmed defects. What is the first-pass yield, in percent? Two decimals.",
           "answer": {
-            "value": 96.9355,
+            "value": 96.94,
             "tolerance": 0.02,
             "unit": "%"
           },
@@ -3031,7 +3026,7 @@
           "type": "numeric",
           "prompt": "The design team asks how bad it is in the units the line uses. Express the same 38 defects per 1,000 boards. Two decimals.",
           "answer": {
-            "value": 30.6452,
+            "value": 30.65,
             "tolerance": 0.02,
             "unit": "per 1000 boards"
           },
@@ -4045,7 +4040,7 @@
           "type": "numeric",
           "prompt": "At nominal diameters, what is the annular volume the solder has to fill through the 1.6 mm board, in mm3? Use pi = 3.14159 and give two decimals.",
           "answer": {
-            "value": 0.8042,
+            "value": 0.8,
             "tolerance": 0.01,
             "unit": "mm3"
           },
@@ -4063,7 +4058,7 @@
           "type": "numeric",
           "prompt": "Cross-section shows 1.10 mm of fill on a 1.60 mm board. What is the vertical fill as a percentage? One decimal place.",
           "answer": {
-            "value": 68.75,
+            "value": 68.8,
             "tolerance": 0.2,
             "unit": "%"
           },
@@ -4466,7 +4461,7 @@
           "type": "numeric",
           "prompt": "The bridge on J-02 spans 3.20 mm across a 2.54 mm pitch. How many pitches does the bridge cover? Two decimals.",
           "answer": {
-            "value": 1.2598,
+            "value": 1.26,
             "tolerance": 0.02,
             "unit": "dimensionless"
           },
@@ -4764,7 +4759,7 @@
           "type": "numeric",
           "prompt": "What was the verification coverage, in percent: verified calls over the calls AOI raised? One decimal.",
           "answer": {
-            "value": 83.3333,
+            "value": 83.3,
             "tolerance": 0.2,
             "unit": "%"
           },
@@ -4818,7 +4813,7 @@
           "type": "numeric",
           "prompt": "Quality wants the escape rate against the defects AOI actually caught. Using verified true calls and escapes, what is that rate, in percent? One decimal.",
           "answer": {
-            "value": 7.8947,
+            "value": 7.9,
             "tolerance": 0.2,
             "unit": "%"
           },
@@ -4870,7 +4865,7 @@
           "type": "numeric",
           "prompt": "Ball A1 measures 0.45 mm and carries two voids, 0.28 mm and 0.14 mm. What is the cumulative void area as a percentage of the ball area? One decimal.",
           "answer": {
-            "value": 48.3951,
+            "value": 48.4,
             "tolerance": 0.2,
             "unit": "%"
           },
@@ -4922,7 +4917,7 @@
           "type": "numeric",
           "prompt": "Ball A2 carries one 0.10 mm void in a 0.45 mm ball. What is its void percentage? One decimal.",
           "answer": {
-            "value": 4.9383,
+            "value": 4.9,
             "tolerance": 0.1,
             "unit": "%"
           },
@@ -5267,7 +5262,7 @@
           "type": "numeric",
           "prompt": "The drawing sets a minimum conductor width of 0.280 mm. The nicked trace measures 0.248 mm. What is the width reduction against that minimum, in percent? One decimal.",
           "answer": {
-            "value": 11.4286,
+            "value": 11.4,
             "tolerance": 0.2,
             "unit": "%"
           },
@@ -5594,7 +5589,7 @@
           "type": "numeric",
           "prompt": "Compute DPMO for Board X from the confirmed defects. DPMO = defects / (boards x opportunities per board) x 1,000,000. One decimal.",
           "answer": {
-            "value": 49.4277,
+            "value": 49.4,
             "tolerance": 0.3,
             "unit": "DPMO"
           },
@@ -5612,7 +5607,7 @@
           "type": "numeric",
           "prompt": "AOI raised 47 calls of which 38 were confirmed. What is the false-call rate, in percent? One decimal.",
           "answer": {
-            "value": 19.1489,
+            "value": 19.1,
             "tolerance": 0.3,
             "unit": "%"
           },
@@ -5910,7 +5905,7 @@
               "file": "8d-example.csv",
               "mime": "text/csv",
               "label": "Example",
-              "content": "d,title,content,evidence,owner,status\r\nD2,Describe the problem,49.4277 DPMO,\"AOI/BGA void family, Board X lot\",process engineer,open\r\nD4,Root cause verified,49.4277 DPMO,false-call audit,process engineer,open\r\nD6,Action implemented and measured,16000 ppm,before-window count,process engineer,open\r\nD7,Action verified in a second window,2800 ppm,after-window count,process engineer,open\r\nD8,Effectiveness against the target,\"Keep the 8D open: the action improved the rate but did not reach the agreed metric, so effectiveness is not demonstrated.\",agreed metric,process engineer,open\r\n"
+              "content": "d,title,content,evidence,owner,status\r\nD2,Describe the problem,49.4 DPMO,\"AOI/BGA void family, Board X lot\",process engineer,open\r\nD4,Root cause verified,49.4 DPMO,false-call audit,process engineer,open\r\nD6,Action implemented and measured,16000 ppm,before-window count,process engineer,open\r\nD7,Action verified in a second window,2800 ppm,after-window count,process engineer,open\r\nD8,Effectiveness against the target,\"Keep the 8D open: the action improved the rate but did not reach the agreed metric, so effectiveness is not demonstrated.\",agreed metric,process engineer,open\r\n"
             },
             {
               "variant": "guide",

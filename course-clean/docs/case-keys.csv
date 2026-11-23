@@ -17,11 +17,11 @@ cx-m01-01,s7,choice,choice key = c,c,0,,{}
 cx-m01-01,s8,choice,choice key = b,b,0,,{}
 cx-m01-01,s9,choice,choice key = c,c,0,,{}
 cx-m04-01,s1,numeric,area_mm2*foil_mm*1000,19.8,0.05,nL,"{""area_mm2"": 0.198, ""foil_mm"": 0.1}"
-cx-m04-01,s2,numeric,mean/nominal*100,86.2963,0.3,%,"{""mean_nL"": 17.0867, ""nominal_nL"": 19.8}"
+cx-m04-01,s2,numeric,mean/nominal*100,86.3,0.3,%,"{""mean_nL"": 17.0867, ""nominal_nL"": 19.8}"
 cx-m04-01,s3,numeric,nominal*window_low/100,14.85,0.05,nL,"{""nominal_nL"": 19.8, ""window_low_pct"": 75}"
-cx-m04-01,s4,numeric,(USL-LSL)/(6*sd),1.3429,0.05,ratio,"{""lsl_nL"": 14.85, ""mean_nL"": 17.0867, ""n"": 12, ""sd_nL"": 1.2287, ""usl_nL"": 24.75}"
-cx-m04-01,s5,numeric,"min(USL-mean,mean-LSL)/(3*sd)",0.6068,0.05,ratio,"{""lsl_nL"": 14.85, ""mean_nL"": 17.0867, ""n"": 12, ""sd_nL"": 1.2287, ""usl_nL"": 24.75}"
-cx-m04-01,s6,numeric,Cpk of the second squeegee pass alone,0.9883,0.06,ratio,"{""n"": 6}"
+cx-m04-01,s4,numeric,(USL-LSL)/(6*sd),1.34,0.05,ratio,"{""lsl_nL"": 14.85, ""mean_nL"": 17.0867, ""n"": 12, ""sd_nL"": 1.2287, ""usl_nL"": 24.75}"
+cx-m04-01,s5,numeric,"min(USL-mean,mean-LSL)/(3*sd)",0.61,0.05,ratio,"{""lsl_nL"": 14.85, ""mean_nL"": 17.0867, ""n"": 12, ""sd_nL"": 1.2287, ""usl_nL"": 24.75}"
+cx-m04-01,s6,numeric,Cpk of the second squeegee pass alone,0.99,0.06,ratio,"{""n"": 6}"
 cx-m04-01,s7,choice,choice key = b,b,0,,{}
 cx-m04-01,s8,numeric,volume_nL/1000/area_mm2,0.0863,0.002,mm,"{""area_mm2"": 0.198, ""volume_nL"": 17.0867}"
 cx-m04-01,s9,choice,choice key = b,b,0,,{}
@@ -46,13 +46,13 @@ cx-m10-01,s7,choice,choice key = b,b,0,,{}
 cx-m10-01,s8,choice,choice key = b,b,0,,{}
 cx-m10-01,s9,choice,choice key = b,b,0,,{}
 cx-m10-01,s10,choice,choice key = b,b,0,,{}
-cx-m13-01,s1,numeric,nodes_hit/nodes*100,91.9355,0.2,%,"{""nodes_hit"": 570, ""nodes_total"": 620}"
+cx-m13-01,s1,numeric,nodes_hit/nodes*100,91.9,0.2,%,"{""nodes_hit"": 570, ""nodes_total"": 620}"
 cx-m13-01,s2,numeric,sum(occurrence_ppm),1700,0.5,ppm,"{""classes"": 8}"
 cx-m13-01,s3,numeric,sum(occ*(1-prod(1-p)))/total*100,69.7824,0.3,%,"{""methods"": ""aoi"", ""total_ppm"": 1700}"
 cx-m13-01,s4,numeric,sum(occ*(1-prod(1-p)))/total*100,86.4806,0.3,%,"{""methods"": ""aoi+xray"", ""total_ppm"": 1700}"
 cx-m13-01,s5,numeric,sum(occ*(1-prod(1-p)))/total*100,86.8234,0.3,%,"{""methods"": ""aoi+ict"", ""total_ppm"": 1700}"
 cx-m13-01,s6,numeric,sum(occ*(1-prod(1-p)))/total*100,93.1221,0.3,%,"{""methods"": ""aoi+ict+fct"", ""total_ppm"": 1700}"
-cx-m13-01,s7,numeric,(escape_3-escape_4)/escape_3*100,34.5648,0.5,%,"{""escape_3_ppm"": 116.92, ""escape_4_ppm"": 76.51}"
+cx-m13-01,s7,numeric,(escape_3-escape_4)/escape_3*100,34.6,0.5,%,"{""escape_3_ppm"": 116.92, ""escape_4_ppm"": 76.51}"
 cx-m13-01,s8,choice,choice key = b,b,0,,{}
 cx-m13-01,s9,numeric,boards*escape_ppm/1e6,2.3385,1.0,boards,"{""boards"": 20000, ""escape_ppm"": 116.92}"
 cx-m13-01,s10,choice,choice key = b,b,0,,{}
@@ -67,8 +67,8 @@ cx-m12-01,s8,choice,choice key = b,b,0,,{}
 cx-m12-01,s9,numeric,coated_cm2*(DFT_cm)/solids,1.59,0.02,mL,"{""coated_cm2"": 172.623, ""dft_um"": 35.0, ""solids"": 0.38}"
 cx-m12-01,s10,choice,choice key = b,b,0,,{}
 cx-m15-01,s1,numeric,residual/(acceptance/radius),37.3,0.05,mm,"{""acceptance_mm"": 0.15, ""radius_mm"": 40.0, ""residual_mm"": 0.14}"
-cx-m15-01,s2,numeric,(boards-defects)/boards*100,96.9355,0.02,%,"{""boards"": 1240, ""defects"": 38}"
-cx-m15-01,s3,numeric,defects/boards*1000,30.6452,0.02,per 1000 boards,"{""boards"": 1240, ""defects"": 38}"
+cx-m15-01,s2,numeric,(boards-defects)/boards*100,96.94,0.02,%,"{""boards"": 1240, ""defects"": 38}"
+cx-m15-01,s3,numeric,defects/boards*1000,30.65,0.02,per 1000 boards,"{""boards"": 1240, ""defects"": 38}"
 cx-m15-01,s4,numeric,sum of four drivers,3141.5,1.0,USD,"{""drivers"": 4}"
 cx-m15-01,s5,numeric,change_cost/(removed_per_board),1026.3,1.0,boards,"{""change_cost_usd"": 1200.0, ""removed_usd"": 1449.9}"
 cx-m15-01,s6,choice,choice key = b,b,0,,{}
@@ -93,8 +93,8 @@ cx-m06-01,s7,choice,choice key = b,b,0,,{}
 cx-m08-01,s1,numeric,1-0.6,0.4,0.005,mm,"{""hole_d_mm"": 1.0, ""lead_d_mm"": 0.6}"
 cx-m08-01,s2,numeric,0.95-0.63,0.32,0.005,mm,"{""hole_d_mm"": 0.95, ""lead_d_mm"": 0.63}"
 cx-m08-01,s3,numeric,(0.95-0.63)/2,0.16,0.005,mm,"{""hole_min_mm"": 0.95, ""lead_max_mm"": 0.63}"
-cx-m08-01,s4,numeric,pi*((1/2)^2-(0.6/2)^2)*1.6,0.8042,0.01,mm3,"{""h_mm"": 1.6, ""hole_d_mm"": 1.0, ""lead_d_mm"": 0.6}"
-cx-m08-01,s5,numeric,1.1/1.6*100,68.75,0.2,%,"{""board_mm"": 1.6, ""fill_mm"": 1.1}"
+cx-m08-01,s4,numeric,pi*((1/2)^2-(0.6/2)^2)*1.6,0.8,0.01,mm3,"{""h_mm"": 1.6, ""hole_d_mm"": 1.0, ""lead_d_mm"": 0.6}"
+cx-m08-01,s5,numeric,1.1/1.6*100,68.8,0.2,%,"{""board_mm"": 1.6, ""fill_mm"": 1.1}"
 cx-m08-01,s8,numeric,0.75*1.6-1.1,0.1,0.01,mm,"{""fill_mm"": 1.1, ""required_mm"": 1.2000000000000002}"
 cx-m08-01,s6,choice,choice key = b,b,0,,{}
 cx-m08-01,s7,choice,choice key = b,b,0,,{}
@@ -102,32 +102,32 @@ cx-m08-01,s9,choice,choice key = b,b,0,,{}
 cx-m09-01,s1,numeric,(50/1000)/(1.5/60),2.0,0.1,s,"{""speed_m_per_min"": 1.5, ""wave_mm"": 50.0}"
 cx-m09-01,s2,numeric,255-219,36.0,0.5,°C,"{""liquidus_c"": 219, ""pot_c"": 255.0}"
 cx-m09-01,s3,choice,choice key = b,b,0,,{}
-cx-m09-01,s4,numeric,3.2/2.54,1.2598,0.02,dimensionless,"{""pitch_mm"": 2.54, ""span_mm"": 3.2}"
+cx-m09-01,s4,numeric,3.2/2.54,1.26,0.02,dimensionless,"{""pitch_mm"": 2.54, ""span_mm"": 3.2}"
 cx-m09-01,s5,choice,choice key = b,b,0,,{}
 cx-m09-01,s6,choice,choice key = b,b,0,,{}
 cx-m09-01,s7,numeric,1/20*100,5.0,0.1,%,"{""failed"": 1, ""joints"": 20}"
 cx-m09-01,s8,choice,choice key = b,b,0,,{}
-cx-m07-01,s1,numeric,300/360*100,83.3333,0.2,%,"{""part"": 300, ""whole"": 360}"
+cx-m07-01,s1,numeric,300/360*100,83.3,0.2,%,"{""part"": 300, ""whole"": 360}"
 cx-m07-01,s2,numeric,90/300*100,30.0,0.2,%,"{""part"": 90, ""whole"": 300}"
 cx-m07-01,s3,numeric,18/12000*100,0.15,0.02,%,"{""part"": 18, ""whole"": 12000}"
-cx-m07-01,s4,numeric,18/228*100,7.8947,0.2,%,"{""part"": 18, ""whole"": 228}"
+cx-m07-01,s4,numeric,18/228*100,7.9,0.2,%,"{""part"": 18, ""whole"": 228}"
 cx-m07-01,s5,choice,choice key = b,b,0,,{}
-cx-m07-01,s6,numeric,sum(pi*(d/2)^2)/ (pi*(0.45/2)^2)*100,48.3951,0.2,%,"{""ball_mm"": 0.45, ""voids_mm"": [0.28, 0.14]}"
+cx-m07-01,s6,numeric,sum(pi*(d/2)^2)/ (pi*(0.45/2)^2)*100,48.4,0.2,%,"{""ball_mm"": 0.45, ""voids_mm"": [0.28, 0.14]}"
 cx-m07-01,s7,choice,choice key = b,b,0,,{}
-cx-m07-01,s8,numeric,(0.10/0.45)^2*100,4.9383,0.1,%,"{""ball_mm"": 0.45, ""void_mm"": 0.1}"
+cx-m07-01,s8,numeric,(0.10/0.45)^2*100,4.9,0.1,%,"{""ball_mm"": 0.45, ""void_mm"": 0.1}"
 cx-m07-01,s9,choice,choice key = b,b,0,,{}
 cx-m07-01,s10,choice,choice key = b,b,0,,{}
 cx-m11-01,s1,choice,choice key = b,b,0,,{}
 cx-m11-01,s2,numeric,2.6+0.4+0.2,3.2,0.1,s,"{""dwells_s"": [2.6, 0.4, 0.2]}"
 cx-m11-01,s3,numeric,(2.6+0.4+0.2)*45 W,144.0,2.0,J,"{""dwells_s"": [2.6, 0.4, 0.2], ""watts"": 45.0}"
-cx-m11-01,s4,numeric,0.032/0.28*100,11.4286,0.2,%,"{""part"": 0.03200000000000003, ""whole"": 0.28}"
+cx-m11-01,s4,numeric,0.032/0.28*100,11.4,0.2,%,"{""part"": 0.03200000000000003, ""whole"": 0.28}"
 cx-m11-01,s5,numeric,0.28*(1-20/100),0.224,0.005,mm,"{""min_mm"": 0.28, ""pct"": 20}"
 cx-m11-01,s6,numeric,0.28*(1-10/100),0.252,0.005,mm,"{""min_mm"": 0.28, ""pct"": 10}"
 cx-m11-01,s7,choice,choice key = a,a,0,,{}
 cx-m11-01,s8,choice,choice key = b,b,0,,{}
 cx-m11-01,s9,choice,choice key = b,b,0,,{}
-cx-m14-01,s1,numeric,38/(1240*620)*1e6,49.4277,0.3,DPMO,"{""boards"": 1240, ""defects"": 38, ""opportunities"": 620}"
-cx-m14-01,s2,numeric,9/47*100,19.1489,0.3,%,"{""part"": 9, ""whole"": 47}"
+cx-m14-01,s1,numeric,38/(1240*620)*1e6,49.4,0.3,DPMO,"{""boards"": 1240, ""defects"": 38, ""opportunities"": 620}"
+cx-m14-01,s2,numeric,9/47*100,19.1,0.3,%,"{""part"": 9, ""whole"": 47}"
 cx-m14-01,s3,choice,choice key = b,b,0,,{}
 cx-m14-01,s4,numeric,"ISO 2859-1 level II, AQL 1.0, lot 3000 -> code K: n=125, Ac=3, Re=4",125,0.5,pieces,"{""ac"": 3, ""code"": ""K"", ""lot_size"": 3000, ""n"": 125, ""re"": 4}"
 cx-m14-01,s5,choice,choice key = b,b,0,,{}

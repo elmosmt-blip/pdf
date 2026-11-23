@@ -31,6 +31,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import re
 import os
 import sys
 
@@ -442,15 +443,37 @@ def iso_sample(lot_size: int, code: str, n: int, ac: int, re_: int):
 # Case definitions. Values are computed here; the JSON only ever receives the
 # result of a computation performed above in this file.
 # --------------------------------------------------------------------------
+DECIMAL_WORDS = {"one": 1, "two": 2, "three": 3, "four": 4}
+
+
+def published_decimals(prompt):
+    """How many decimals the prompt asks for, or None if it does not say.
+
+    This exists because of a defect class that survived four rounds: the page
+    printed value=44.4444 next to a question asking for one decimal. The key has
+    to be the number the learner is told to give, not the number the arithmetic
+    produced. The unrounded value is still in case-keys.csv under `formula`
+    inputs, so nothing is lost for an auditor.
+    """
+    m = re.search(r"\b(one|two|three|four)\s+decimal", prompt, re.I)
+    return DECIMAL_WORDS[m.group(1).lower()] if m else None
+
+
 def step_numeric(sid, prompt, computed, tolerance, hints, ok, bad, explanation,
                  display=None):
     value, unit, formula, inputs = computed
+    # Round to what the prompt asks for; fall back to the historic 4 places.
+    places = published_decimals(prompt)
+    if places is None:
+        shown = round(value, 4)
+    else:
+        shown = round(value, places)
     return {
         "id": sid,
         "type": "numeric",
         "prompt": prompt,
         "answer": {
-            "value": round(value, 4) if display is None else round(value, 4),
+            "value": shown,
             "tolerance": tolerance,
             "unit": unit,
         },
@@ -1150,7 +1173,7 @@ def build_cases():
         "it is a look: at 20 pieces you cannot see enough of even a 2 % defect rate to "
         "tell it from a 5 % one, and the acceptance number that would go with it comes "
         "from a band this lot is not in. Re = Ac + 1 in single sampling, which is why "
-        "the plan in option c cannot exist: 200 pieces is code L, and that plan's "
+        "the plan with n = 200 cannot exist: 200 pieces is code L, and that plan's "
         "numbers belong to a different lot size."))
 
     add_step(c, step_numeric(
@@ -5172,7 +5195,8 @@ def build_document():
             "selNozzleRangeMm": [[SEL_NOZZLE_MIN_MM, SEL_NOZZLE_MAX_MM], None, "m10l02"],
             "selDwellRangeS": [[SEL_DWELL_MIN_S, SEL_DWELL_MAX_S], None, "m10l04"],
             "roseLimitUgCm2": [ROSE_LIMIT_UG_CM2, "src-013", "m12l03"],
-            "boardAreaCm2": [round(board_area_cm2(), 1), None, "m12l03"],
+            # boardAreaCm2 is NOT repeated here: it is a board fact, derived from the
+            # board outline, and a number carried in two tables drifts.
         },
         "thread": BOARD_THREAD,
         "board": BOARD,

@@ -489,7 +489,7 @@ main #main   [18988 chars]
             "Your answer"
             span .muted   [3 chars]
               "(%)"
-          input #in-s2 .case-input type=text name=c-s2 value=96.9355
+          input #in-s2 .case-input type=text name=c-s2 value=96.94
           span .case-tol.muted   [17 chars]
             "tolerance ±0.02 %"
         p #err-s2 .case-error role=alert hidden=
@@ -520,7 +520,7 @@ main #main   [18988 chars]
             "Your answer"
             span .muted   [17 chars]
               "(per 1000 boards)"
-          input #in-s3 .case-input type=text name=c-s3 value=30.6452
+          input #in-s3 .case-input type=text name=c-s3 value=30.65
           span .case-tol.muted   [31 chars]
             "tolerance ±0.02 per 1000 boards"
         p #err-s3 .case-error role=alert hidden=

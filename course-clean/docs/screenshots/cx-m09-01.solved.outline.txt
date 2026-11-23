@@ -2,7 +2,7 @@ Rendered outline of #/c/cx-m09-01
 Produced by scripts/capture-case.js from the built tree (build/course-clean).
 This is the live DOM from the shipped engine, not a mock-up.
 
-main #main   [12412 chars]
+main #main   [12517 chars]
   p .kicker   [36 chars]
     "Toolkit · Module 09 · Wave Soldering"
   header .page-head   [114 chars]
@@ -27,14 +27,14 @@ main #main   [12412 chars]
       "Two findings came off the same board. J-01 is short of fill at 1.10 mm of a 1.60 mm barrel. On the neighbourin…"
     p   [97 chars]
       "Check the record against the course's wave windows, then decide what to change and in what order."
-  details .case-board   [1303 chars]
+  details .case-board   [1408 chars]
     summary   [38 chars]
       "Board X — the product behind this case"
-    div .details-body   [1265 chars]
+    div .details-body   [1370 chars]
       p .muted.flush   [158 chars]
         "6-layer 1.6 mm FR-4 controller board: QFP-64 at 0.5 mm pitch, QFP-48 at 0.4 mm pitch, one 256-ball BGA at 0.8 …"
-      table .case-facts   [1107 chars]
-        tbody   [1107 chars]
+      table .case-facts   [1212 chars]
+        tbody   [1212 chars]
           tr   [23 chars]
             th   [20 chars]
               "Board thickness (mm)"
@@ -200,6 +200,26 @@ main #main   [12412 chars]
               "Hand-soldering setpoint (°C)"
             td   [7 chars]
               "330–360"
+          tr   [21 chars]
+            th   [17 chars]
+              "Rose Limit Ug Cm2"
+            td   [4 chars]
+              "1.56"
+          tr   [29 chars]
+            th   [26 chars]
+              "Board outline, length (mm)"
+            td   [3 chars]
+              "160"
+          tr   [28 chars]
+            th   [25 chars]
+              "Board outline, width (mm)"
+            td   [3 chars]
+              "120"
+          tr   [27 chars]
+            th   [24 chars]
+              "Board surface area (cm²)"
+            td   [3 chars]
+              "192"
           tr   [42 chars]
             th   [38 chars]
               "Bow and twist, SMT board, IPC-6012 (%)"
@@ -634,7 +654,7 @@ main #main   [12412 chars]
         div .case-input-row   [26 chars]
           label .case-input-label   [11 chars]
             "Your answer"
-          input #in-s4 .case-input type=text name=c-s4 value=1.2598
+          input #in-s4 .case-input type=text name=c-s4 value=1.26
           span .case-tol.muted   [15 chars]
             "tolerance ±0.02"
         p #err-s4 .case-error role=alert hidden=

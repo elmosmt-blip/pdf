@@ -2,7 +2,7 @@ Rendered outline of #/c/cx-m04-01
 Produced by scripts/capture-case.js from the built tree (build/course-clean).
 This is the live DOM from the shipped engine, not a mock-up.
 
-main #main   [14015 chars]
+main #main   [14120 chars]
   p .kicker   [51 chars]
     "Toolkit · Module 04 · Solder Paste Printing and SPI"
   header .page-head   [92 chars]
@@ -27,14 +27,14 @@ main #main   [14015 chars]
       "Then the SPI map is printed instead of the summary, and the six deposits printed on the first squeegee pass si…"
     p   [218 chars]
       "A third number is waiting as well: the SPI program carries the 0.125 mm figure from the general stencil, while…"
-  details .case-board   [1303 chars]
+  details .case-board   [1408 chars]
     summary   [38 chars]
       "Board X — the product behind this case"
-    div .details-body   [1265 chars]
+    div .details-body   [1370 chars]
       p .muted.flush   [158 chars]
         "6-layer 1.6 mm FR-4 controller board: QFP-64 at 0.5 mm pitch, QFP-48 at 0.4 mm pitch, one 256-ball BGA at 0.8 …"
-      table .case-facts   [1107 chars]
-        tbody   [1107 chars]
+      table .case-facts   [1212 chars]
+        tbody   [1212 chars]
           tr   [23 chars]
             th   [20 chars]
               "Board thickness (mm)"
@@ -200,6 +200,26 @@ main #main   [14015 chars]
               "Hand-soldering setpoint (°C)"
             td   [7 chars]
               "330–360"
+          tr   [21 chars]
+            th   [17 chars]
+              "Rose Limit Ug Cm2"
+            td   [4 chars]
+              "1.56"
+          tr   [29 chars]
+            th   [26 chars]
+              "Board outline, length (mm)"
+            td   [3 chars]
+              "160"
+          tr   [28 chars]
+            th   [25 chars]
+              "Board outline, width (mm)"
+            td   [3 chars]
+              "120"
+          tr   [27 chars]
+            th   [24 chars]
+              "Board surface area (cm²)"
+            td   [3 chars]
+              "192"
           tr   [42 chars]
             th   [38 chars]
               "Bow and twist, SMT board, IPC-6012 (%)"
@@ -473,7 +493,7 @@ main #main   [14015 chars]
             "Your answer"
             span .muted   [3 chars]
               "(%)"
-          input #in-s2 .case-input type=text name=c-s2 value=86.2963
+          input #in-s2 .case-input type=text name=c-s2 value=86.3
           span .case-tol.muted   [16 chars]
             "tolerance ±0.3 %"
         p #err-s2 .case-error role=alert hidden=
@@ -535,7 +555,7 @@ main #main   [14015 chars]
             "Your answer"
             span .muted   [7 chars]
               "(ratio)"
-          input #in-s4 .case-input type=text name=c-s4 value=1.3429
+          input #in-s4 .case-input type=text name=c-s4 value=1.34
           span .case-tol.muted   [21 chars]
             "tolerance ±0.05 ratio"
         p #err-s4 .case-error role=alert hidden=
@@ -566,7 +586,7 @@ main #main   [14015 chars]
             "Your answer"
             span .muted   [7 chars]
               "(ratio)"
-          input #in-s5 .case-input type=text name=c-s5 value=0.6068
+          input #in-s5 .case-input type=text name=c-s5 value=0.61
           span .case-tol.muted   [21 chars]
             "tolerance ±0.05 ratio"
         p #err-s5 .case-error role=alert hidden=
@@ -597,7 +617,7 @@ main #main   [14015 chars]
             "Your answer"
             span .muted   [7 chars]
               "(ratio)"
-          input #in-s6 .case-input type=text name=c-s6 value=0.9883
+          input #in-s6 .case-input type=text name=c-s6 value=0.99
           span .case-tol.muted   [21 chars]
             "tolerance ±0.06 ratio"
         p #err-s6 .case-error role=alert hidden=

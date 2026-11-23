@@ -2,7 +2,7 @@ Rendered outline of #/c/cx-m01-01
 Produced by scripts/capture-case.js from the built tree (build/course-clean).
 This is the live DOM from the shipped engine, not a mock-up.
 
-main #main   [15643 chars]
+main #main   [15749 chars]
   p .kicker   [41 chars]
     "Toolkit · Module 01 · Incoming Inspection"
   header .page-head   [113 chars]
@@ -27,14 +27,14 @@ main #main   [15643 chars]
       "The flatness check reports 2.60 mm under one raised corner by the production method, on a 160 x 120 mm board —…"
     p   [183 chars]
       "Decide what this lot is: accepted, quarantined or rejected. Then decide how many boards should have been pulle…"
-  details .case-board   [1303 chars]
+  details .case-board   [1408 chars]
     summary   [38 chars]
       "Board X — the product behind this case"
-    div .details-body   [1265 chars]
+    div .details-body   [1370 chars]
       p .muted.flush   [158 chars]
         "6-layer 1.6 mm FR-4 controller board: QFP-64 at 0.5 mm pitch, QFP-48 at 0.4 mm pitch, one 256-ball BGA at 0.8 …"
-      table .case-facts   [1107 chars]
-        tbody   [1107 chars]
+      table .case-facts   [1212 chars]
+        tbody   [1212 chars]
           tr   [23 chars]
             th   [20 chars]
               "Board thickness (mm)"
@@ -200,6 +200,26 @@ main #main   [15643 chars]
               "Hand-soldering setpoint (°C)"
             td   [7 chars]
               "330–360"
+          tr   [21 chars]
+            th   [17 chars]
+              "Rose Limit Ug Cm2"
+            td   [4 chars]
+              "1.56"
+          tr   [29 chars]
+            th   [26 chars]
+              "Board outline, length (mm)"
+            td   [3 chars]
+              "160"
+          tr   [28 chars]
+            th   [25 chars]
+              "Board outline, width (mm)"
+            td   [3 chars]
+              "120"
+          tr   [27 chars]
+            th   [24 chars]
+              "Board surface area (cm²)"
+            td   [3 chars]
+              "192"
           tr   [42 chars]
             th   [38 chars]
               "Bow and twist, SMT board, IPC-6012 (%)"
@@ -354,8 +374,8 @@ main #main   [15643 chars]
       p .flush   [25 chars]
         button .btn.btn--small type=button data-act=case-data   [25 chars]
           "Download receipt-plan.csv"
-  form .case-form   [9026 chars]
-    ol .case-steps   [9004 chars]
+  form .case-form   [9027 chars]
+    ol .case-steps   [9005 chars]
       li #step-s1 .case-step.case-step--ok   [806 chars]
         div .case-step-head   [32 chars]
           span .case-step-n   [18 chars]
@@ -418,7 +438,7 @@ main #main   [15643 chars]
             "Worked reasoning"
           p   [500 chars]
             "2 x 200 x 0.75 % = 3.00 mm, and the worst carton measures 2.60 mm, which is the 0.65 % of the previous step se…"
-      li #step-s3 .case-step.case-step--ok   [981 chars]
+      li #step-s3 .case-step.case-step--ok   [982 chars]
         div .case-step-head   [25 chars]
           span .case-step-n   [19 chars]
             "Step 3 (7.5 points)"
@@ -455,10 +475,10 @@ main #main   [15643 chars]
             "Show a hint"
             span .muted   [8 chars]
               "(3 left)"
-        details .case-expl   [520 chars]
+        details .case-expl   [521 chars]
           summary   [16 chars]
             "Worked reasoning"
-          p   [504 chars]
+          p   [505 chars]
             "A lot of 1,201 to 3,200 at general level II is code K, and code K at AQL 1.0 is 125 pieces with Ac = 3, Re = 4…"
       li #step-s4 .case-step.case-step--ok   [697 chars]
         div .case-step-head   [33 chars]
