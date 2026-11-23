@@ -71,6 +71,9 @@ BOARD_FACTS = {
 # Human labels for the Board Facts. They live beside the facts so the page never
 # has to invent a name for a key it was not told about.
 BOARD_FACT_LABELS = {
+    "boardLengthMm": "Board outline, length (mm)",
+    "boardWidthMm": "Board outline, width (mm)",
+    "boardAreaCm2": "Board surface area (cm\u00b2)",
     "boardThicknessMm": "Board thickness (mm)",
     "layers": "Layers",
     "surfaceFinish": "Surface finish",
@@ -151,7 +154,9 @@ BOARD_THREAD = [
      "caseId": "cx-m11-01"},
     {"step": 12, "moduleId": "m13", "label": "Test", "asset": "Coverage model sheet",
      "caseId": "cx-m13-01"},
-    {"step": 13, "moduleId": "m14", "label": "8D report", "asset": "8D problem report",
+    {"step": 13, "moduleId": "m12", "label": "Coating",
+     "asset": "Cleanliness and coating record", "caseId": "cx-m12-01"},
+    {"step": 14, "moduleId": "m14", "label": "8D report", "asset": "8D problem report",
      "caseId": "cx-m14-01"},
 ]
 
@@ -234,6 +239,14 @@ BOARD_FACTS["handSetpointWindowC"] = [HAND_SETPOINT_MIN_C, HAND_SETPOINT_MAX_C]
 # 80-120 %, 75-125 %, and 50-150 % with 80-150 % as the control band — so this is
 # not a standard and is not cited as one. It is the Board X control plan's own
 # window, chosen mid-range, and the case says on the page where it comes from.
+# Cleanliness limits. 1.56 ug NaCl equivalent per cm2 is the reference value the
+# m12l03 lesson reports for IPC-TM-650 2.3.25 (ROSE), historically applied to
+# assembled boards through J-STD-001 and to bare boards through IPC-6012. The
+# tightened tiers are what customers write into their own specifications and the
+# lesson names them as customer values, so they carry no source id of their own.
+ROSE_LIMIT_UG_CM2 = 1.56
+ROSE_TIERS_UG_CM2 = {"standard": 1.56, "telecom": 1.0, "aerospace": 0.75, "medical": 0.5}
+BOARD_FACTS["roseLimitUgCm2"] = ROSE_LIMIT_UG_CM2
 # Selective soldering: the course's own starting ranges (m10l02, m10l04). They are
 # starting points the text tells the reader to verify on the machine, so the case
 # uses them to judge a program and never as a claim about an alloy.
@@ -247,6 +260,20 @@ SPI_VOLUME_LOW_PCT = 75          # None source: Board X control plan, m04l05
 SPI_VOLUME_HIGH_PCT = 125
 BOW_TWIST_SMT_PCT = 0.75
 BOW_TWIST_OTHER_PCT = 1.5
+# Board outline. It was typed into the m01 data file alone until the m12 case
+# needed the surface area; a dimension restated in two places drifts, so it lives
+# here now and every case reads it.
+BOARD_LENGTH_MM = 160
+BOARD_WIDTH_MM = 120
+
+
+def board_area_cm2():
+    return BOARD_LENGTH_MM * BOARD_WIDTH_MM / 100.0
+
+
+BOARD_FACTS["boardLengthMm"] = BOARD_LENGTH_MM
+BOARD_FACTS["boardWidthMm"] = BOARD_WIDTH_MM
+BOARD_FACTS["boardAreaCm2"] = round(board_area_cm2(), 1)
 BOARD_FACTS["bowTwistSmtPct"] = BOW_TWIST_SMT_PCT
 BOARD_FACTS["bowTwistOtherPct"] = BOW_TWIST_OTHER_PCT
 BOARD_FACTS["spiVolumeWindowPct"] = [SPI_VOLUME_LOW_PCT, SPI_VOLUME_HIGH_PCT]
@@ -475,6 +502,17 @@ TEMPLATE_DEFS = {
                "probability on one sheet, so a coverage claim can be recomputed instead "
                "of quoted, and the uncovered classes carry a named control.",
         "rowNoun": "defect class",
+    },
+    "cleanliness-record": {
+        "name": "Cleanliness and coating record",
+        "kind": "csv",
+        "sourceFile": "cleanliness.csv",
+        "lesson": "m12l03",
+        "use": "Report a cleanliness result with its area and its blank, the local site "
+               "measured separately from the board average, the limit it was compared "
+               "with and where that limit came from, so a pass cannot be quoted without "
+               "the arithmetic behind it.",
+        "rowNoun": "board",
     },
     "selective-program": {
         "name": "Selective soldering program sheet",
@@ -1022,8 +1060,8 @@ def build_cases():
                     "item,value\n"
                     "lot_size_declared,2800\n"
                     "lot_size_counted,2760\n"
-                    "board_length_mm,160\n"
-                    "board_width_mm,120\n"
+                    "board_length_mm,%d\n"
+                    "board_width_mm,%d\n" % (BOARD_LENGTH_MM, BOARD_WIDTH_MM) +
                     "sample_taken,20\n"
                     "inspection_level,II\n"
                     "aql,1.0\n"
@@ -2523,6 +2561,360 @@ def build_cases():
          "points": 10, "steps": ["s8"]},
         {"criterion": "Escape converted to boards a year, and the record states the model",
          "points": 10, "steps": ["s9", "s10"]},
+    ]
+    cases.append(c)
+
+
+    # =====================================================================
+    # m12 — cleanliness and conformal coating: the limit, the area, the blank
+    # =====================================================================
+    # Every measurement is Board X's own. The reference limit is the 1.56
+    # ug/cm2 the m12l03 lesson reports for ROSE; the tighter tiers are customer
+    # values the lesson names as such and are not standards.
+    cl_area = board_area_cm2()                    # 192.0 cm2
+    cl_blank_ug = 6.0                             # solvent + container blank
+    cl_masks = {"connector": 4.0 * 4.0, "test_points": 5.0 * 0.6,
+                "bga": 12 * math.pi * (0.1 ** 2)}
+    cl_kit = [("C-114", 412.0), ("C-118", 268.0), ("C-121", 171.1),
+              ("C-124", 583.0), ("C-127", 96.0), ("C-131", 149.0)]
+    cl_cust_limit = ROSE_TIERS_UG_CM2["medical"]  # 0.5
+    cl_proc_mean, cl_proc_sd = 1.00, 0.11
+
+    def rose(extracted_ug, area_cm2=None):
+        return (extracted_ug - cl_blank_ug) / (area_cm2 or cl_area)
+
+    cl_rose = (round(rose(412.0), 2), "ug/cm2", "(extracted-blank)/area",
+               {"extracted_ug": 412.0, "blank_ug": cl_blank_ug, "area_cm2": cl_area})
+    cl_total_ug = (cl_cust_limit * cl_area, "ug", "limit*area",
+                   {"limit_ug_cm2": cl_cust_limit, "area_cm2": cl_area})
+    # Inverse problem: what mean holds a one-sided 0.1 % tail under the limit?
+    # z for a 0.1 % one-sided tail is 3.0902.
+    CL_Z_0P1 = 3.0902
+    cl_needed_mean = (round(cl_cust_limit - CL_Z_0P1 * cl_proc_sd, 2), "ug/cm2",
+                      "limit - 3.0902*sd",
+                      {"limit": cl_cust_limit, "sd": cl_proc_sd, "z": CL_Z_0P1})
+    cl_site_area = 2.0 * 2.0                      # a 20 x 20 mm site, in cm2
+    cl_site = (12.0 / cl_site_area, "ug/cm2", "site_ug/site_area",
+               {"site_ug": 12.0, "site_area_cm2": cl_site_area})
+    cl_dry = (90.0 * 0.38, "um", "wet*1.0*solids", {"wet_um": 90.0, "solids": 0.38})
+    cl_masked = sum(cl_masks.values())
+    cl_coated = cl_area - cl_masked
+    CL_DFT_UM, CL_SOLIDS = 35.0, 0.38
+    cl_wet = (round(cl_coated * (CL_DFT_UM / 10000.0) / CL_SOLIDS, 2), "mL",
+              "coated_cm2*(DFT_cm)/solids",
+              {"coated_cm2": round(cl_coated, 3), "dft_um": CL_DFT_UM,
+               "solids": CL_SOLIDS})
+
+    c = {
+        "caseId": "cx-m12-01",
+        "moduleId": "m12",
+        "title": "Cleanliness: the board average passes and the site under the BGA fails",
+        "estMinutes": 40,
+        "level": "advanced",
+        "scenario": [
+            "Board X is cleaned and then conformally coated. This build is for a medical "
+            "customer whose specification carries its own ionic limit rather than the "
+            "reference value. The cleanliness gate is ROSE per IPC-TM-650 2.3.25, reported "
+            "in micrograms of sodium chloride equivalent per square centimetre.",
+            "The line reports one number per board: total ionic contamination divided by the "
+            "board area. Six boards from the run are in the extraction log. The process study "
+            "says the line runs at 1.00 ug/cm2 with a standard deviation of 0.11, which sits "
+            "comfortably inside the 1.56 reference limit — so the number has been treated as "
+            "healthy for a year.",
+            "A field return from this build came back corroded under the BGA, where the "
+            "cleaning solution never reached. This case is about the three things one number "
+            "per board hides: the area it was divided by, the blank it was not subtracted "
+            "from, and the local site it averaged away.",
+        ],
+        "dataFiles": [
+            {
+                "name": "cleanliness.csv",
+                "kind": "csv",
+                "content": (
+                    "board,extracted_ug,blank_ug,area_cm2,method,limit_ug_cm2,"
+                    "limit_source,site_ug,site_area_cm2\n"
+                    "C-114,412,6,192,ROSE 2.3.25,0.5,medical customer spec,12.0,4.0\n"
+                    "C-118,268,6,192,ROSE 2.3.25,0.5,medical customer spec,,\n"
+                    "C-121,171.1,6,192,ROSE 2.3.25,0.5,medical customer spec,,\n"
+                    "C-124,583,6,192,ROSE 2.3.25,0.5,medical customer spec,,\n"
+                    "C-127,96,6,192,ROSE 2.3.25,0.5,medical customer spec,,\n"
+                    "C-131,149,6,192,ROSE 2.3.25,0.5,medical customer spec,,\n"
+                ),
+                "note": "One row per board, whole-board extraction. The site columns are the "
+                        "separate local test on C-114: a 20 x 20 mm area under the BGA, "
+                        "extracted on its own.",
+            },
+            {
+                "name": "cleanliness-study.csv",
+                "kind": "csv",
+                "content": (
+                    "item,value\n"
+                    "process_mean_ug_cm2,1.00\n"
+                    "process_sd_ug_cm2,0.11\n"
+                    "reference_limit_ug_cm2,1.56\n"
+                    "customer_limit_ug_cm2,0.50\n"
+                    "mask_connector_cm2,16.0\n"
+                    "mask_test_points_cm2,3.0\n"
+                    "mask_bga_cm2,0.377\n"
+                    "coating_solids_fraction,0.38\n"
+                    "target_dry_film_um,35\n"
+                ),
+            },
+        ],
+        "steps": [],
+        "rubric": [],
+        "templates": [
+            {"templateId": "cleanliness-record", "name": "Cleanliness and coating record",
+             "status": "planned"}
+        ],
+        "toolLinks": [
+            {"label": "What residue does to a board (lesson m12l01)", "href": "#/l/m12l01"},
+            {"label": "ROSE, ion chromatography, particles (lesson m12l03)", "href": "#/l/m12l03"},
+            {"label": "Coating application and masking (lesson m12l05)", "href": "#/l/m12l05"},
+        ],
+        "sources": ["src-002", "src-013", "src-010"],
+        "generatedBy": "scripts/gen_cases.py",
+    }
+
+    add_step(c, step_numeric(
+        "s1",
+        "Board C-114 extracted 412 ug of sodium chloride equivalent into the test solvent. "
+        "Subtract the 6 ug method blank and divide by the 192 cm2 board area. What is the "
+        "result, in ug/cm2? Two decimals.",
+        cl_rose, 0.005,
+        ["The blank is the solvent, the container and the handling, not the board.",
+         "(412 - 6) / 192.",
+         "406 / 192 = 2.11 ug/cm2."],
+        "2.11 ug/cm2 — four times the customer's limit, and the blank was worth 3 % of it.",
+        "Subtract the blank first, then divide by the board area.",
+        "406 ug over 192 cm2 is 2.11 ug/cm2 of sodium chloride equivalent. The blank looks "
+        "like bookkeeping and is not: at a 0.5 ug/cm2 limit the 6 ug blank is worth 0.03 "
+        "ug/cm2, and on a small board it can be worth more than the margin. Done the other "
+        "way round — 412 / 192 — the answer is 2.15, a 2 % error here and a much larger one "
+        "on a 30 cm2 assembly. A ROSE number without its area and its blank is not a "
+        "measurement, it is a reading."))
+
+    add_step(c, step_numeric(
+        "s2",
+        "This customer's specification sets 0.5 ug/cm2, not the 1.56 reference value. What "
+        "is one board allowed to carry in total, in micrograms, on its 192 cm2?",
+        cl_total_ug, 0.05,
+        ["The limit is per square centimetre, so multiply it by the area.",
+         "0.5 x 192.",
+         "96 ug for the whole board."],
+        "96 ug for the whole board — C-114 brought 406 ug net into the cell.",
+        "Multiply the per-area limit by the area; do not compare a total with a per-area "
+        "limit.",
+        "0.5 ug/cm2 on 192 cm2 allows 96 ug in the extraction cell; C-114 came in with 406 ug "
+        "net. The same liquid that fails this board would pass it against the reference 1.56, "
+        "which allows 299.5 ug, so the customer specification is not a formality — it is the "
+        "limit that decides. A per-area limit and a total are different numbers, and the "
+        "line compares them with each other more often than anyone would like to believe."))
+
+    add_step(c, step_choice(
+        "s3",
+        "The customer's spec says 0.5 ug/cm2, the reference value is 1.56, and the twelve "
+        "study boards sit at 1.00. Which statement is right?",
+        [("a", "The boards pass, because 1.00 is below the 1.56 reference value and that is "
+               "the limit that applies."),
+         ("b", "The boards fail the customer's 0.5 and would pass the reference 1.56; the "
+               "customer limit governs, so the process is not in control for this build."),
+         ("c", "The boards are acceptable because the average is below the reference limit."),
+         ("d", "The 1.56 value is a legal maximum, so a customer cannot ask for less.")],
+        "b",
+        ["The lesson treats 1.56 as the default that applies when nobody specified anything.",
+         "1.00 against 0.5 is a fail; 1.00 against 1.56 is a pass.",
+         "Decide which limit governs before deciding pass or fail."],
+        "1.00 fails the 0.5 customer limit and passes the 1.56 reference — the customer "
+        "limit governs, so this process is not capable for this build.",
+        "One measurement cannot be compared with two limits and accepted if it clears "
+        "either of them.",
+        "1.56 ug/cm2 is what applies when nothing tighter has been specified; the lesson "
+        "lists 1.0, 0.75 and 0.5 as the tiers customers write for telecom, aerospace and "
+        "medical work. Here the customer wrote 0.5, so 0.5 governs. A process mean of 1.00 "
+        "sits at twice the allowed level, and the whole distribution is above it — this is "
+        "not a marginal call but a process that was never qualified against the limit it is "
+        "measured against. That is the expensive form of the mistake: a line that has been "
+        "passing itself against the wrong number, on paper, for a year."))
+
+    add_step(c, step_choice(
+        "s4",
+        "The line manager calls C-114 an outlier: one board at 2.11 against a mean of 1.00. "
+        "What does the C-114 data actually show?",
+        [("a", "An outlier, to be reported as an excursion, with the process left alone."),
+         ("b", "Not an outlier but what a whole-board average does to a local pocket: the "
+               "20 x 20 mm site under the BGA extracted 12 ug on its own, which is 3.00 "
+               "ug/cm2 on the site while the rest of the board sits near 0.5."),
+         ("c", "An invalid site test, because ROSE is only defined per whole board."),
+         ("d", "A board to reclean and retest, with no further action.")],
+        "b",
+        ["Work the site out: 12 ug on 4 cm2.",
+         "Divide the whole-board result by 192 and it cannot see a 4 cm2 pocket.",
+         "A residue pocket is hidden by the area it is averaged over."],
+        "3.00 ug/cm2 on the site against 2.11 for the board — the residue is a pocket under "
+        "the BGA, and the average is the wrong instrument.",
+        "Divide the site result by the site area, then compare it with the board average.",
+        "12 ug on 4 cm2 is 3.00 ug/cm2 at the site. If the rest of the board sits near 0.5, "
+        "then 4 cm2 out of 192 is producing almost the entire whole-board figure of 2.11 — "
+        "which is exactly how a wash that cannot reach under a 256-ball BGA looks in a number "
+        "that passes. The lesson is direct about it: averaging hides a local residue pocket, "
+        "so high-risk areas are tested separately. The dangerous version of this is not the "
+        "board that fails, it is the board whose average passes while a site fails."))
+
+    add_step(c, step_numeric(
+        "s5",
+        "C-121 extracted 171.1 ug with the same 6 ug blank and the same 192 cm2. What is its "
+        "result, in ug/cm2? Two decimals.",
+        (round(rose(171.1), 2), "ug/cm2", "(extracted-blank)/area",
+         {"extracted_ug": 171.1, "blank_ug": cl_blank_ug, "area_cm2": cl_area}), 0.005,
+        ["Same blank, same area; only the extracted mass changes.",
+         "(171.1 - 6) / 192.",
+         "165.1 / 192 = 0.86 ug/cm2."],
+        "0.86 ug/cm2 — 72 % over the customer limit and comfortably inside the reference.",
+        "Subtract the blank, then divide by 192.",
+        "0.86 ug/cm2 is the most instructive number in the case. Against the reference 1.56 "
+        "this board passes with 45 % of the allowance unused; against the customer's 0.5 it "
+        "is 72 % over. Same measurement, same instrument, opposite decisions, and the only "
+        "difference is which limit the line writes on the report. A cleanliness result "
+        "quoted without its limit is not a result."))
+
+    add_step(c, step_numeric(
+        "s6",
+        "The process runs at 1.00 ug/cm2 with a standard deviation of 0.11. To have no more "
+        "than 0.1 % of boards above the customer's 0.50 limit, what mean would the process "
+        "have to hold, in ug/cm2? Two decimals.",
+        cl_needed_mean, 0.005,
+        ["Work back from the limit: 0.1 % in one tail is 3.09 standard deviations.",
+         "needed mean = 0.50 - 3.09 x 0.11.",
+         "0.50 - 0.34 = 0.16 ug/cm2."],
+        "0.16 ug/cm2 — the process is at 1.00, six times the mean it would have to hold.",
+        "Subtract the allowance from the limit; a wide spread does not become acceptable "
+        "because the mean is high.",
+        "A one-sided 0.1 % tail sits 3.09 standard deviations below the limit, so the mean "
+        "would have to hold 0.50 - 3.09 x 0.11 = 0.16 ug/cm2. The process is at 1.00, six "
+        "times that. This is the number that turns a complaint into a project: the gap is not "
+        "closed by better sampling or a stricter test, it is closed by cleaning chemistry, "
+        "rinse quality, bath life and the fixtures that stop the wash reaching under the BGA. "
+        "Reporting the study mean against the reference limit, for a customer whose limit is "
+        "a third of it, is how a process spends a year looking healthy while every board it "
+        "ships is out of specification."))
+
+    add_step(c, step_choice(
+        "s7",
+        "A board extracts 198 ug and passes ROSE, and a 20 x 20 mm site under a connector "
+        "extracts nothing. Which result should block the coating?",
+        [("a", "The whole-board result: 198 ug less the 6 ug blank is 192 ug over 192 cm2, "
+               "which is 1.00 ug/cm2 against this customer's 0.5."),
+         ("b", "Neither: ROSE is a gate and both results are under their limits."),
+         ("c", "The whole-board result is an artefact of the blank and should be corrected "
+               "upwards to 1.03, a pass against the reference."),
+         ("d", "Visual inspection, because neither test measures what blocks coating.")],
+        "a",
+        ["Do the arithmetic on 198 ug before comparing anything.",
+         "(198 - 6) / 192 = 1.00, exactly twice the customer's limit.",
+         "A clean site does not rescue the rest of the board."],
+        "The whole-board result is 1.00 after the blank, twice the customer limit, and it "
+        "blocks the coating whatever the site shows.",
+        "Compare 1.00 with 0.5, not with 1.56, and remember that a clean site is evidence "
+        "about 4 cm2 only.",
+        "(198 - 6) / 192 = 1.00 ug/cm2 exactly, twice this customer's limit, so the board "
+        "fails and coating it would seal the residue in. The site is clean because the "
+        "residue is somewhere else; a clean site is evidence about 4 cm2 and nothing more. "
+        "This is the mirror image of C-114 — there the average passed and the site failed, "
+        "here the site passes and the average fails — and in both cases one number taken "
+        "alone gives the wrong disposition. The rule that covers both is to test the "
+        "high-risk sites separately and require every result to be under the governing limit "
+        "before coating."))
+
+    add_step(c, step_choice(
+        "s8",
+        "A 90 um wet film is applied and the coating is 38 % solids. What is the dry film, "
+        "and is it inside a 25-130 um qualification window?",
+        [("a", "90 um, because the film thickness is what was applied, and that is inside the "
+               "window."),
+         ("b", "34.2 um, which is inside the window but near its floor."),
+         ("c", "55.8 um, which is 90 um less the 38 % solids, inside the window."),
+         ("d", "237 um, because the solids are added rather than multiplied.")],
+        "b",
+        ["The solvent leaves during cure; what stays is the solids fraction.",
+         "Multiply the wet film by 0.38.",
+         "90 x 0.38 = 34.2 um."],
+        "34.2 um dry from a 90 um wet film — inside the window and close to the floor.",
+        "The solids fraction multiplies the wet film; it does not divide it.",
+        "90 um wet at 38 % solids leaves 34.2 um dry, inside the 25-130 um window and close "
+        "enough to the floor that a 60 um wet film would fall to 22.8 um and out of it. The "
+        "window is a qualification range, not a target, and the criterion that matters for "
+        "protection is a minimum. Wet-film measurement before cure is the only cheap chance "
+        "to catch this: after cure the thickness is measured destructively on coupons, so the "
+        "trend across coupons matters more than any single reading."))
+
+    add_step(c, step_numeric(
+        "s9",
+        "Coating is applied at 35 um dry over the area that is not masked: 192 cm2 less 16.0 "
+        "for the connector, 3.0 for the test points and 0.377 under the BGA. At 38 % solids, "
+        "what wet volume has to be dispensed, in millilitres? Two decimals.",
+        cl_wet, 0.02,
+        ["Coated area = 192 - 19.377 cm2.",
+         "Dry volume = area x thickness, with 35 um written as 0.0035 cm.",
+         "Wet volume = dry volume / 0.38, and 1 cm3 = 1 mL."],
+        "1.59 mL of wet coating — the number the dispenser program needs.",
+        "Divide the dry volume by the solids fraction; multiplying gives the solids, not the "
+        "liquid.",
+        "The coated area is 172.623 cm2, the dry film volume 0.604 cm3, and at 38 % solids the "
+        "wet volume is 1.59 mL. A program that dispenses 0.60 mL paints a third of the board. "
+        "The masked area is the part that is easy to get wrong, because it is not just the "
+        "connector: the BGA needs masking of its own, and the test points are the area nobody "
+        "remembers until the fixture cannot probe the board. That is what coating work really "
+        "turns on — the areas that must stay bare decide the area that gets covered, and the "
+        "volume follows."))
+
+    add_step(c, step_choice(
+        "s10",
+        "The customer asks for the evidence that this build is clean and coated. What is the "
+        "package?",
+        [("a", "The ROSE result per board, because the pass limit is the whole criterion."),
+         ("b", "Per board: the extracted mass, the blank, the area, the method, the limit with "
+               "its source, and the site results for the high-risk areas; plus coating "
+               "thickness on coupons with the wet-to-dry arithmetic, the masked areas, and "
+               "the disposition of the boards that failed."),
+         ("c", "A certificate stating that the process is qualified to IPC-CC-830."),
+         ("d", "The ion chromatography results, because they identify the ions and are "
+               "therefore stricter than ROSE.")],
+        "b",
+        ["Ask what a second engineer would need in order to recompute a decision.",
+         "The limit, its source, the area and the blank are all part of the number.",
+         "The disposition of the failures is evidence too, not an admission."],
+        "The record that carries its area, blank, limit and source, the local sites, the "
+        "coating arithmetic and the failure dispositions is the one that can be audited.",
+        "A certificate and a single number both describe the process; the record has to let "
+        "somebody check it.",
+        "The record has to answer the questions the numbers raise: which area the result "
+        "applies to, which blank was subtracted, which limit governs and where it came from, "
+        "what the high-risk sites measured on their own, how the coating thickness was derived "
+        "from the wet film, which areas were masked, and what happened to the boards that "
+        "failed. IPC-CC-830 qualifies a coating material and 2.3.25 defines the test; neither "
+        "tells this customer whether this build is acceptable, and that judgement is what the "
+        "package has to carry."))
+
+    c["rubric"] = [
+        {"criterion": "ROSE result computed with the blank and the area, not from the raw "
+                       "extract", "points": 15, "steps": ["s1"]},
+        {"criterion": "A per-area limit converted to a total for the board in question",
+         "points": 10, "steps": ["s2"]},
+        {"criterion": "The governing limit identified among reference, customer and process "
+                       "mean", "points": 15, "steps": ["s3"]},
+        {"criterion": "Local site computed and the board average shown to hide it",
+         "points": 10, "steps": ["s4"]},
+        {"criterion": "One measurement against both limits, and the decision shown to depend "
+                       "on which is written", "points": 15, "steps": ["s5"]},
+        {"criterion": "Process capability worked from the distribution, not the mean",
+         "points": 10, "steps": ["s6"]},
+        {"criterion": "A clean site and a failing average both resolved to a disposition",
+         "points": 10, "steps": ["s7"]},
+        {"criterion": "Wet-to-dry film arithmetic and the coating volume for the unmasked "
+                       "area", "points": 10, "steps": ["s8", "s9"]},
+        {"criterion": "Evidence package carries area, blank, limit source, sites, coating "
+                       "arithmetic and dispositions", "points": 5, "steps": ["s10"]},
     ]
     cases.append(c)
 
@@ -4378,6 +4770,8 @@ def build_document():
             "spiVolumeWindowPct": [[SPI_VOLUME_LOW_PCT, SPI_VOLUME_HIGH_PCT], None, "m04l05"],
             "selNozzleRangeMm": [[SEL_NOZZLE_MIN_MM, SEL_NOZZLE_MAX_MM], None, "m10l02"],
             "selDwellRangeS": [[SEL_DWELL_MIN_S, SEL_DWELL_MAX_S], None, "m10l04"],
+            "roseLimitUgCm2": [ROSE_LIMIT_UG_CM2, "src-013", "m12l03"],
+            "boardAreaCm2": [round(board_area_cm2(), 1), None, "m12l03"],
         },
         "thread": BOARD_THREAD,
         "board": BOARD,

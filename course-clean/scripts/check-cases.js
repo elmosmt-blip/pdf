@@ -112,6 +112,18 @@ function dpmo(defects, boards, opp) { return (defects / (boards * opp)) * 1e6; }
 function ppm(d, b) { return (d / b) * 1e6; }
 /* Coverage arithmetic, written independently of the generator: a class is caught
  * when at least one screen in the series flags it, so the misses multiply. */
+/* Board area from the board facts, not from a constant in this file. */
+function boardAreaCm2(c) {
+  const f = (c.board && c.board.facts) || {};
+  return (+f.boardLengthMm) * (+f.boardWidthMm) / 100;
+}
+/* ROSE per cm2: extracted mass less the method blank, over the board area. */
+function rosePpm(c, board) {
+  const r = rows(c, 'cleanliness.csv', 'board', 'extracted_ug')[board];
+  const blank = rows(c, 'cleanliness.csv', 'board', 'blank_ug')[board];
+  const area = rows(c, 'cleanliness.csv', 'board', 'area_cm2')[board];
+  return +(((+r) - (+blank)) / (+area)).toFixed(2);
+}
 function coveragePct(c, cols) {
   const rowsM = dataFile(c, 'coverage-model.csv');
   let caught = 0, total = 0;
@@ -174,6 +186,31 @@ function rows(c, name, keyCol, valCol) {
 const EXPECTED = {
   /* ---- m13: coverage. Every figure is recomputed from the defect model, with
    * the series combination written out per class rather than taken from a key. */
+  /* ---- m12: cleanliness. The blank, the area and the limit all come out of the
+   * data files; nothing here repeats a number from the generator. */
+  'cx-m12-01.s1': function (c) { return rosePpm(c, 'C-114'); },
+  'cx-m12-01.s2': function (c) {
+    const r = rows(c, 'cleanliness.csv', 'board', 'limit_ug_cm2');
+    return +r['C-114'] * boardAreaCm2(c);
+  },
+  'cx-m12-01.s3': function () { return 'the customer limit governs'; },
+  'cx-m12-01.s4': function () { return '3.00 ug/cm2 on the site'; },
+  'cx-m12-01.s5': function (c) { return rosePpm(c, 'C-121'); },
+  'cx-m12-01.s6': function (c) {
+    const p = rows(c, 'cleanliness-study.csv', 'item', 'value');
+    /* mean that leaves 0.1 % above the limit: z = 3.0902 for a one-sided tail */
+    return +(+p['customer_limit_ug_cm2'] - 3.0902 * (+p['process_sd_ug_cm2'])).toFixed(2);
+  },
+  'cx-m12-01.s7': function () { return '192 ug over 192 cm2'; },
+  'cx-m12-01.s8': function () { return '34.2 um'; },
+  'cx-m12-01.s9': function (c) {
+    const p = rows(c, 'cleanliness-study.csv', 'item', 'value');
+    const area = boardAreaCm2(c) -
+      (+p['mask_connector_cm2'] + +p['mask_test_points_cm2'] + +p['mask_bga_cm2']);
+    const dryCm3 = area * (+p['target_dry_film_um']) / 10000;
+    return +(dryCm3 / (+p['coating_solids_fraction'])).toFixed(2);
+  },
+  'cx-m12-01.s10': function () { return 'the extracted mass, the blank'; },
   'cx-m13-01.s1': function (c) {
     const p = rows(c, 'test-strategy.csv', 'item', 'value');
     return +p['nodes_covered'] / +p['nodes_total'] * 100;

@@ -615,20 +615,76 @@ numeric), `check-quiz.js` OK, `tests/course.test.js` **191 / 0**,
 
 ---
 
+## 7i. Round 9 — cleanliness and coating (m12)
+
+| Case | Module | Steps | Rubric | Est. | What it makes the learner do |
+|---|---|---|---|---|---|
+| `cx-m12-01` Cleanliness | m12 | 10 (5 numeric) | 100 | 40 min | ROSE computed with the blank and the area, a per-area limit converted to a total, the governing limit chosen between reference and customer, a local site computed against the board average, one measurement read against both limits, the process capability worked backwards from a target escape, a clean site and a failing average each turned into a disposition, wet-to-dry film arithmetic, the coating volume for the unmasked area, and the evidence package |
+
+Control numbers:
+
+| Board | extracted | blank | net | ug/cm2 | vs 0.5 customer | vs 1.56 reference |
+|---|---|---|---|---|---|---|
+| C-114 | 412 ug | 6 ug | 406 ug | **2.11** | fail, 4x | fail |
+| C-121 | 171.1 ug | 6 ug | 165.1 ug | **0.86** | **fail, +72 %** | **pass, 45 % spare** |
+| C-114 site (4 cm2) | 12 ug | — | 12 ug | **3.00** | fail | fail |
+| process study | — | — | — | 1.00 ± 0.11 | **99.9997 % above** | pass |
+
+* one board allows **96 ug** at 0.5 ug/cm2 on 192 cm2, against 299.5 ug at the reference
+* to hold 0.1 % above the limit the mean would have to be **0.16 ug/cm2** — six times
+  under where the line runs
+* 90 um wet at 38 % solids gives **34.2 um** dry, inside a 25-130 um window
+* 172.623 cm2 coated at 35 um needs **1.59 mL** of wet coating
+
+### What the case is built on
+
+The reference value is 1.56 ug/cm2 of sodium chloride equivalent, reported by the
+m12l03 lesson for ROSE per IPC-TM-650 2.3.25, and the tightened tiers — 1.0, 0.75,
+0.5 — are customer values the lesson names as customer values. The case carries
+both because the whole point is that one measurement against two limits gives two
+decisions, and the one written on the report is the one that governs.
+
+The field return is the residency case m13 handed over: the m13 model put 59 of
+its 76.5 ppm of residual escape on contamination, which no screen detects above
+10 %, and this case measures what the other control has to hold.
+
+### The part most cleanliness exercises skip
+
+The average hides the pocket. C-114 is not an outlier to be written up as an
+excursion — 4 cm2 out of 192 produces almost all of its 2.11, and a line that
+reports only the whole-board figure would pass the next board whose site fails.
+The companion board is the mirror image: the site extracts nothing, the board
+extracts 198 ug, and the board still cannot be coated.
+
+### Honest limits
+
+* ROSE measures a conductivity equivalent, not an ion, and the case says so — it
+  is why ion chromatography appears in the answer to the evidence question rather
+  than as another number to compute.
+* The 0.1 % target in the capability step is the case's own planning choice, not a
+  standard. The step publishes the z it used so the assumption is visible.
+* The coating thickness window (25-130 um) is a qualification range from the
+  lesson's own text, not a product requirement; the criterion that matters is the
+  minimum.
+
+Verification after round 9: `gen_cases.py --check` OK (**14 cases, 127 steps**),
+`check-cases.js` **127/127**, `check-integrity.js` OK (14 cases, 127 steps, 78
+numeric), `check-quiz.js` OK, `tests/course.test.js` **193 / 0**,
+`tests/case-qa.js` **54 / 0**, pilot sheet regenerated for 14 cases / 127 steps,
+29 outline captures.
+
+---
+
 ## 8. Next
 
-Thirteen of fifteen modules now carry a case: m01, m02, m03, m04, m05, m06, m07,
-m08, m09, m10, m11, m13, m14. The remaining two are m12 (cleanliness and
-conformance coating) and m15 (design feedback).
+Fourteen of fifteen modules now carry a case: m01-m06, m07, m08, m09, m10, m11,
+m12, m13, m14. One remains: m15, design feedback.
 
-m12 is the natural next one and now has an explicit hook: the m13 case ends by
-handing contamination to cleaning and ionic testing, so the next case can measure
-the thing the previous one could not screen. m15 closes the loop, because its
-evidence pack is built from the measurements the other twelve cases produce.
-
-Templates referenced from the cases are generated in three variants (blank,
-example, guide) for all twelve template types; the "check" workflow on the five
-originally `planned` ones is Phase 4 work.
+m15 is the last one and it is different in kind: every other case produces a
+measurement, and m15 has to assemble those measurements into the pack that goes
+back to the customer and to the design team. Its evidence is the thirteen earlier
+cases' own numbers, which makes it the natural closing exercise — and the only
+one whose data files are derived from other cases rather than measured.
 
 ---
 

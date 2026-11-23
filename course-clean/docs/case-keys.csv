@@ -56,6 +56,16 @@ cx-m13-01,s7,numeric,(escape_3-escape_4)/escape_3*100,34.5648,0.5,%,"{""escape_3
 cx-m13-01,s8,choice,choice key = b,b,0,,{}
 cx-m13-01,s9,numeric,boards*escape_ppm/1e6,2.3385,1.0,boards,"{""boards"": 20000, ""escape_ppm"": 116.92}"
 cx-m13-01,s10,choice,choice key = b,b,0,,{}
+cx-m12-01,s1,numeric,(extracted-blank)/area,2.11,0.005,ug/cm2,"{""area_cm2"": 192.0, ""blank_ug"": 6.0, ""extracted_ug"": 412.0}"
+cx-m12-01,s2,numeric,limit*area,96.0,0.05,ug,"{""area_cm2"": 192.0, ""limit_ug_cm2"": 0.5}"
+cx-m12-01,s3,choice,choice key = b,b,0,,{}
+cx-m12-01,s4,choice,choice key = b,b,0,,{}
+cx-m12-01,s5,numeric,(extracted-blank)/area,0.86,0.005,ug/cm2,"{""area_cm2"": 192.0, ""blank_ug"": 6.0, ""extracted_ug"": 171.1}"
+cx-m12-01,s6,numeric,limit - 3.0902*sd,0.16,0.005,ug/cm2,"{""limit"": 0.5, ""sd"": 0.11, ""z"": 3.0902}"
+cx-m12-01,s7,choice,choice key = a,a,0,,{}
+cx-m12-01,s8,choice,choice key = b,b,0,,{}
+cx-m12-01,s9,numeric,coated_cm2*(DFT_cm)/solids,1.59,0.02,mL,"{""coated_cm2"": 172.623, ""dft_um"": 35.0, ""solids"": 0.38}"
+cx-m12-01,s10,choice,choice key = b,b,0,,{}
 cx-m02-01,s1,numeric,"J-STD-033 Table 5-1, MSL 4",72.0,0.5,h,"{""msl"": 4}"
 cx-m02-01,s2,numeric,58+6,64.0,0.5,h,"{""bag_open_h"": 58, ""line_h"": 6}"
 cx-m02-01,s3,numeric,72-64,8.0,0.5,h,"{""exposure_h"": 64.0, ""floor_life_h"": 72.0}"

@@ -1,0 +1,1018 @@
+Rendered outline of #/c/cx-m12-01
+Produced by scripts/capture-case.js from the built tree (build/course-clean).
+This is the live DOM from the shipped engine, not a mock-up.
+
+main #main   [17765 chars]
+  p .kicker   [52 chars]
+    "Toolkit · Module 12 · Cleaning and Conformal Coating"
+  header .page-head   [119 chars]
+    div   [119 chars]
+      h1   [70 chars]
+        "Cleanliness: the board average passes and the site under the BGA fails"
+      div .meta-line   [49 chars]
+        span .chip.chip--stage   [7 chars]
+          "Board X"
+        span .chip   [6 chars]
+          "40 min"
+        span .chip   [8 chars]
+          "10 steps"
+        span .chip   [14 chars]
+          "rubric 100 pts"
+        span .chip   [14 chars]
+          "Score 0 of 100"
+  section .case-scenario   [907 chars]
+    p   [293 chars]
+      "Board X is cleaned and then conformally coated. This build is for a medical customer whose specification carri…"
+    p   [340 chars]
+      "The line reports one number per board: total ionic contamination divided by the board area. Six boards from th…"
+    p   [274 chars]
+      "A field return from this build came back corroded under the BGA, where the cleaning solution never reached. Th…"
+  details .case-board   [1408 chars]
+    summary   [38 chars]
+      "Board X — the product behind this case"
+    div .details-body   [1370 chars]
+      p .muted.flush   [158 chars]
+        "6-layer 1.6 mm FR-4 controller board: QFP-64 at 0.5 mm pitch, QFP-48 at 0.4 mm pitch, one 256-ball BGA at 0.8 …"
+      table .case-facts   [1212 chars]
+        tbody   [1212 chars]
+          tr   [23 chars]
+            th   [20 chars]
+              "Board thickness (mm)"
+            td   [3 chars]
+              "1.6"
+          tr   [7 chars]
+            th   [6 chars]
+              "Layers"
+            td   [1 chars]
+              "6"
+          tr   [18 chars]
+            th   [14 chars]
+              "Surface finish"
+            td   [4 chars]
+              "ENIG"
+          tr   [25 chars]
+            th   [13 chars]
+              "Base material"
+            td   [12 chars]
+              "FR-4, Tg 170"
+          tr   [17 chars]
+            th   [12 chars]
+              "Stencil (mm)"
+            td   [5 chars]
+              "0.125"
+          tr   [34 chars]
+            th   [31 chars]
+              "Stencil, fine-pitch region (mm)"
+            td   [3 chars]
+              "0.1"
+          tr   [36 chars]
+            th   [12 chars]
+              "Solder paste"
+            td   [24 chars]
+              "SAC305, Type 4, no-clean"
+          tr   [20 chars]
+            th   [17 chars]
+              "QFP-64 pitch (mm)"
+            td   [3 chars]
+              "0.5"
+          tr   [13 chars]
+            th   [11 chars]
+              "QFP-64 pins"
+            td   [2 chars]
+              "64"
+          tr   [20 chars]
+            th   [17 chars]
+              "QFP-48 pitch (mm)"
+            td   [3 chars]
+              "0.4"
+          tr   [22 chars]
+            th   [19 chars]
+              "BGA ball pitch (mm)"
+            td   [3 chars]
+              "0.8"
+          tr   [12 chars]
+            th   [9 chars]
+              "BGA balls"
+            td   [3 chars]
+              "256"
+          tr   [20 chars]
+            th   [16 chars]
+              "Smallest passive"
+            td   [4 chars]
+              "0402"
+          tr   [71 chars]
+            th   [13 chars]
+              "THT connector"
+            td   [58 chars]
+              "20-pin, 2.54 mm pitch, 1.00 mm finished hole, 0.60 mm lead"
+          tr   [21 chars]
+            th   [17 chars]
+              "Lot size (boards)"
+            td   [4 chars]
+              "1240"
+          tr   [26 chars]
+            th   [23 chars]
+              "Solder joints per board"
+            td   [3 chars]
+              "620"
+          tr   [11 chars]
+            th   [5 chars]
+              "Alloy"
+            td   [6 chars]
+              "SAC305"
+          tr   [16 chars]
+            th   [13 chars]
+              "Liquidus (°C)"
+            td   [3 chars]
+              "219"
+          tr   [15 chars]
+            th   [12 chars]
+              "Solidus (°C)"
+            td   [3 chars]
+              "217"
+          tr   [28 chars]
+            th   [23 chars]
+              "Time above liquidus (s)"
+            td   [5 chars]
+              "60–90"
+          tr   [30 chars]
+            th   [23 chars]
+              "Peak window, paste (°C)"
+            td   [7 chars]
+              "235–245"
+          tr   [35 chars]
+            th   [28 chars]
+              "Typical production peak (°C)"
+            td   [7 chars]
+              "235–245"
+          tr   [35 chars]
+            th   [32 chars]
+              "Peak ceiling, large package (°C)"
+            td   [3 chars]
+              "250"
+          tr   [36 chars]
+            th   [34 chars]
+              "Minimum barrel fill, IPC-A-610 (%)"
+            td   [2 chars]
+              "75"
+          tr   [34 chars]
+            th   [32 chars]
+              "Thermal-plane exception fill (%)"
+            td   [2 chars]
+              "50"
+          tr   [36 chars]
+            th   [34 chars]
+              "Leads before the exception applies"
+            td   [2 chars]
+              "14"
+          tr   [24 chars]
+            th   [23 chars]
+              "THT hole, finished (mm)"
+            td   [1 chars]
+              "1"
+          tr   [29 chars]
+            th   [25 chars]
+              "THT hole tolerance (± mm)"
+            td   [4 chars]
+              "0.05"
+          tr   [24 chars]
+            th   [21 chars]
+              "Wave contact time (s)"
+            td   [3 chars]
+              "2–4"
+          tr   [29 chars]
+            th   [27 chars]
+              "Void limit per BGA ball (%)"
+            td   [2 chars]
+              "25"
+          tr   [77 chars]
+            th   [38 chars]
+              "Conductor width reduction by class (%)"
+            td   [39 chars]
+              "Class 1: 30 · Class 2: 20 · Class 3: 10"
+          tr   [39 chars]
+            th   [35 chars]
+              "Annular ring, Class 3 external (mm)"
+            td   [4 chars]
+              "0.05"
+          tr   [35 chars]
+            th   [28 chars]
+              "Hand-soldering setpoint (°C)"
+            td   [7 chars]
+              "330–360"
+          tr   [21 chars]
+            th   [17 chars]
+              "Rose Limit Ug Cm2"
+            td   [4 chars]
+              "1.56"
+          tr   [29 chars]
+            th   [26 chars]
+              "Board outline, length (mm)"
+            td   [3 chars]
+              "160"
+          tr   [28 chars]
+            th   [25 chars]
+              "Board outline, width (mm)"
+            td   [3 chars]
+              "120"
+          tr   [27 chars]
+            th   [24 chars]
+              "Board surface area (cm²)"
+            td   [3 chars]
+              "192"
+          tr   [42 chars]
+            th   [38 chars]
+              "Bow and twist, SMT board, IPC-6012 (%)"
+            td   [4 chars]
+              "0.75"
+          tr   [44 chars]
+            th   [41 chars]
+              "Bow and twist, other boards, IPC-6012 (%)"
+            td   [3 chars]
+              "1.5"
+          tr   [38 chars]
+            th   [32 chars]
+              "SPI volume window (% of nominal)"
+            td   [6 chars]
+              "75–125"
+          tr   [29 chars]
+            th   [24 chars]
+              "Selective nozzle ID (mm)"
+            td   [5 chars]
+              "0.8–2"
+          tr   [36 chars]
+            th   [29 chars]
+              "Selective dwell, low mass (s)"
+            td   [7 chars]
+              "0.8–2.5"
+  details .case-data   [576 chars]
+    summary   [27 chars]
+      "Data file — cleanliness.csv"
+    div .details-body   [549 chars]
+      p .muted.flush   [152 chars]
+        "One row per board, whole-board extraction. The site columns are the separate local test on C-114: a 20 x 20 mm…"
+      div .case-table-wrap   [373 chars]
+        table .case-table   [373 chars]
+          thead   [83 chars]
+            tr   [83 chars]
+              th   [5 chars]
+                "board"
+              th   [12 chars]
+                "extracted_ug"
+              th   [8 chars]
+                "blank_ug"
+              th   [8 chars]
+                "area_cm2"
+              th   [6 chars]
+                "method"
+              th   [12 chars]
+                "limit_ug_cm2"
+              th   [12 chars]
+                "limit_source"
+              th   [7 chars]
+                "site_ug"
+              th   [13 chars]
+                "site_area_cm2"
+          tbody   [290 chars]
+            tr   [54 chars]
+              td   [5 chars]
+                "C-114"
+              td .num   [3 chars]
+                "412"
+              td .num   [1 chars]
+                "6"
+              td .num   [3 chars]
+                "192"
+              td   [11 chars]
+                "ROSE 2.3.25"
+              td .num   [3 chars]
+                "0.5"
+              td   [21 chars]
+                "medical customer spec"
+              td .num   [4 chars]
+                "12.0"
+              td .num   [3 chars]
+                "4.0"
+            tr   [47 chars]
+              td   [5 chars]
+                "C-118"
+              td .num   [3 chars]
+                "268"
+              td .num   [1 chars]
+                "6"
+              td .num   [3 chars]
+                "192"
+              td   [11 chars]
+                "ROSE 2.3.25"
+              td .num   [3 chars]
+                "0.5"
+              td   [21 chars]
+                "medical customer spec"
+              td
+              td
+            tr   [49 chars]
+              td   [5 chars]
+                "C-121"
+              td .num   [5 chars]
+                "171.1"
+              td .num   [1 chars]
+                "6"
+              td .num   [3 chars]
+                "192"
+              td   [11 chars]
+                "ROSE 2.3.25"
+              td .num   [3 chars]
+                "0.5"
+              td   [21 chars]
+                "medical customer spec"
+              td
+              td
+            tr   [47 chars]
+              td   [5 chars]
+                "C-124"
+              td .num   [3 chars]
+                "583"
+              td .num   [1 chars]
+                "6"
+              td .num   [3 chars]
+                "192"
+              td   [11 chars]
+                "ROSE 2.3.25"
+              td .num   [3 chars]
+                "0.5"
+              td   [21 chars]
+                "medical customer spec"
+              td
+              td
+            tr   [46 chars]
+              td   [5 chars]
+                "C-127"
+              td .num   [2 chars]
+                "96"
+              td .num   [1 chars]
+                "6"
+              td .num   [3 chars]
+                "192"
+              td   [11 chars]
+                "ROSE 2.3.25"
+              td .num   [3 chars]
+                "0.5"
+              td   [21 chars]
+                "medical customer spec"
+              td
+              td
+            tr   [47 chars]
+              td   [5 chars]
+                "C-131"
+              td .num   [3 chars]
+                "149"
+              td .num   [1 chars]
+                "6"
+              td .num   [3 chars]
+                "192"
+              td   [11 chars]
+                "ROSE 2.3.25"
+              td .num   [3 chars]
+                "0.5"
+              td   [21 chars]
+                "medical customer spec"
+              td
+              td
+      p .flush   [24 chars]
+        button .btn.btn--small type=button data-act=case-data   [24 chars]
+          "Download cleanliness.csv"
+  details .case-data   [276 chars]
+    summary   [33 chars]
+      "Data file — cleanliness-study.csv"
+    div .details-body   [243 chars]
+      div .case-table-wrap   [213 chars]
+        table .case-table   [213 chars]
+          thead   [9 chars]
+            tr   [9 chars]
+              th   [4 chars]
+                "item"
+              th   [5 chars]
+                "value"
+          tbody   [204 chars]
+            tr   [23 chars]
+              td   [19 chars]
+                "process_mean_ug_cm2"
+              td .num   [4 chars]
+                "1.00"
+            tr   [21 chars]
+              td   [17 chars]
+                "process_sd_ug_cm2"
+              td .num   [4 chars]
+                "0.11"
+            tr   [26 chars]
+              td   [22 chars]
+                "reference_limit_ug_cm2"
+              td .num   [4 chars]
+                "1.56"
+            tr   [25 chars]
+              td   [21 chars]
+                "customer_limit_ug_cm2"
+              td .num   [4 chars]
+                "0.50"
+            tr   [22 chars]
+              td   [18 chars]
+                "mask_connector_cm2"
+              td .num   [4 chars]
+                "16.0"
+            tr   [23 chars]
+              td   [20 chars]
+                "mask_test_points_cm2"
+              td .num   [3 chars]
+                "3.0"
+            tr   [17 chars]
+              td   [12 chars]
+                "mask_bga_cm2"
+              td .num   [5 chars]
+                "0.377"
+            tr   [27 chars]
+              td   [23 chars]
+                "coating_solids_fraction"
+              td .num   [4 chars]
+                "0.38"
+            tr   [20 chars]
+              td   [18 chars]
+                "target_dry_film_um"
+              td .num   [2 chars]
+                "35"
+      p .flush   [30 chars]
+        button .btn.btn--small type=button data-act=case-data   [30 chars]
+          "Download cleanliness-study.csv"
+  form .case-form   [10415 chars]
+    ol .case-steps   [10393 chars]
+      li #step-s1 .case-step.case-step--ok   [828 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 1 (15 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [195 chars]
+          "Board C-114 extracted 412 ug of sodium chloride equivalent into the test solvent. Subtract the 6 ug method bla…"
+        div .case-input-row   [43 chars]
+          label .case-input-label   [20 chars]
+            "Your answer"
+            span .muted   [8 chars]
+              "(ug/cm2)"
+          input #in-s1 .case-input type=text name=c-s1 value=2.11
+          span .case-tol.muted   [23 chars]
+            "tolerance ±0.005 ug/cm2"
+        p #err-s1 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [90 chars]
+          strong   [8 chars]
+            "Correct."
+          "2.11 ug/cm2 — four times the customer's limit, and the blank was worth 3 % of it."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [448 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [432 chars]
+            "406 ug over 192 cm2 is 2.11 ug/cm2 of sodium chloride equivalent. The blank looks like bookkeeping and is not:…"
+      li #step-s2 .case-step.case-step--ok   [744 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 2 (10 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [152 chars]
+          "This customer's specification sets 0.5 ug/cm2, not the 1.56 reference value. What is one board allowed to carr…"
+        div .case-input-row   [34 chars]
+          label .case-input-label   [16 chars]
+            "Your answer"
+            span .muted   [4 chars]
+              "(ug)"
+          input #in-s2 .case-input type=text name=c-s2 value=96
+          span .case-tol.muted   [18 chars]
+            "tolerance ±0.05 ug"
+        p #err-s2 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [76 chars]
+          strong   [8 chars]
+            "Correct."
+          "96 ug for the whole board — C-114 brought 406 ug net into the cell."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [430 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [414 chars]
+            "0.5 ug/cm2 on 192 cm2 allows 96 ug in the extraction cell; C-114 came in with 406 ug net. The same liquid that…"
+      li #step-s3 .case-step.case-step--ok   [1291 chars]
+        div .case-step-head   [24 chars]
+          span .case-step-n   [18 chars]
+            "Step 3 (15 points)"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [132 chars]
+          "The customer's spec says 0.5 ug/cm2, the reference value is 1.56, and the twelve study boards sit at 1.00. Whi…"
+        fieldset .case-options   [399 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt   [99 chars]
+            input #in-s3-a type=radio name=c-s3 value=a
+            span .case-opt-text   [99 chars]
+              "The boards pass, because 1.00 is below the 1.56 reference value and that is the limit that applies."
+          label .case-opt.case-opt--picked   [146 chars]
+            input #in-s3-b type=radio name=c-s3 value=b
+            span .case-opt-text   [146 chars]
+              "The boards fail the customer's 0.5 and would pass the reference 1.56; the customer limit governs, so the proce…"
+          label .case-opt   [75 chars]
+            input #in-s3-c type=radio name=c-s3 value=c
+            span .case-opt-text   [75 chars]
+              "The boards are acceptable because the average is below the reference limit."
+          label .case-opt   [69 chars]
+            input #in-s3-d type=radio name=c-s3 value=d
+            span .case-opt-text   [69 chars]
+              "The 1.56 value is a legal maximum, so a customer cannot ask for less."
+        p #err-s3 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [149 chars]
+          strong   [8 chars]
+            "Correct."
+          "1.00 fails the 0.5 customer limit and passes the 1.56 reference — the customer limit governs, so this process …"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [567 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [551 chars]
+            "1.56 ug/cm2 is what applies when nothing tighter has been specified; the lesson lists 1.0, 0.75 and 0.5 as the…"
+      li #step-s4 .case-step.case-step--ok   [1224 chars]
+        div .case-step-head   [24 chars]
+          span .case-step-n   [18 chars]
+            "Step 4 (10 points)"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [122 chars]
+          "The line manager calls C-114 an outlier: one board at 2.11 against a mean of 1.00. What does the C-114 data ac…"
+        fieldset .case-options   [410 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt   [72 chars]
+            input #in-s4-a type=radio name=c-s4 value=a
+            span .case-opt-text   [72 chars]
+              "An outlier, to be reported as an excursion, with the process left alone."
+          label .case-opt.case-opt--picked   [207 chars]
+            input #in-s4-b type=radio name=c-s4 value=b
+            span .case-opt-text   [207 chars]
+              "Not an outlier but what a whole-board average does to a local pocket: the 20 x 20 mm site under the BGA extrac…"
+          label .case-opt   [67 chars]
+            input #in-s4-c type=radio name=c-s4 value=c
+            span .case-opt-text   [67 chars]
+              "An invalid site test, because ROSE is only defined per whole board."
+          label .case-opt   [54 chars]
+            input #in-s4-d type=radio name=c-s4 value=d
+            span .case-opt-text   [54 chars]
+              "A board to reclean and retest, with no further action."
+        p #err-s4 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [141 chars]
+          strong   [8 chars]
+            "Correct."
+          "3.00 ug/cm2 on the site against 2.11 for the board — the residue is a pocket under the BGA, and the average is…"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [507 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [491 chars]
+            "12 ug on 4 cm2 is 3.00 ug/cm2 at the site. If the rest of the board sits near 0.5, then 4 cm2 out of 192 is pr…"
+      li #step-s5 .case-step.case-step--ok   [683 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 5 (15 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [116 chars]
+          "C-121 extracted 171.1 ug with the same 6 ug blank and the same 192 cm2. What is its result, in ug/cm2? Two dec…"
+        div .case-input-row   [43 chars]
+          label .case-input-label   [20 chars]
+            "Your answer"
+            span .muted   [8 chars]
+              "(ug/cm2)"
+          input #in-s5 .case-input type=text name=c-s5 value=0.86
+          span .case-tol.muted   [23 chars]
+            "tolerance ±0.005 ug/cm2"
+        p #err-s5 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [89 chars]
+          strong   [8 chars]
+            "Correct."
+          "0.86 ug/cm2 — 72 % over the customer limit and comfortably inside the reference."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [383 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [367 chars]
+            "0.86 ug/cm2 is the most instructive number in the case. Against the reference 1.56 this board passes with 45 %…"
+      li #step-s6 .case-step.case-step--ok   [1014 chars]
+        div .case-step-head   [32 chars]
+          span .case-step-n   [18 chars]
+            "Step 6 (10 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [203 chars]
+          "The process runs at 1.00 ug/cm2 with a standard deviation of 0.11. To have no more than 0.1 % of boards above …"
+        div .case-input-row   [43 chars]
+          label .case-input-label   [20 chars]
+            "Your answer"
+            span .muted   [8 chars]
+              "(ug/cm2)"
+          input #in-s6 .case-input type=text name=c-s6 value=0.16
+          span .case-tol.muted   [23 chars]
+            "tolerance ±0.005 ug/cm2"
+        p #err-s6 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [88 chars]
+          strong   [8 chars]
+            "Correct."
+          "0.16 ug/cm2 — the process is at 1.00, six times the mean it would have to hold."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [628 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [612 chars]
+            "A one-sided 0.1 % tail sits 3.09 standard deviations below the limit, so the mean would have to hold 0.50 - 3.…"
+      li #step-s7 .case-step.case-step--ok   [1296 chars]
+        div .case-step-head   [24 chars]
+          span .case-step-n   [18 chars]
+            "Step 7 (10 points)"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [137 chars]
+          "A board extracts 198 ug and passes ROSE, and a 20 x 20 mm site under a connector extracts nothing. Which resul…"
+        fieldset .case-options   [388 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt.case-opt--picked   [124 chars]
+            input #in-s7-a type=radio name=c-s7 value=a
+            span .case-opt-text   [124 chars]
+              "The whole-board result: 198 ug less the 6 ug blank is 192 ug over 192 cm2, which is 1.00 ug/cm2 against this c…"
+          label .case-opt   [64 chars]
+            input #in-s7-b type=radio name=c-s7 value=b
+            span .case-opt-text   [64 chars]
+              "Neither: ROSE is a gate and both results are under their limits."
+          label .case-opt   [121 chars]
+            input #in-s7-c type=radio name=c-s7 value=c
+            span .case-opt-text   [121 chars]
+              "The whole-board result is an artefact of the blank and should be corrected upwards to 1.03, a pass against the…"
+          label .case-opt   [69 chars]
+            input #in-s7-d type=radio name=c-s7 value=d
+            span .case-opt-text   [69 chars]
+              "Visual inspection, because neither test measures what blocks coating."
+        p #err-s7 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [133 chars]
+          strong   [8 chars]
+            "Correct."
+          "The whole-board result is 1.00 after the blank, twice the customer limit, and it blocks the coating whatever t…"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [594 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [578 chars]
+            "(198 - 6) / 192 = 1.00 ug/cm2 exactly, twice this customer's limit, so the board fails and coating it would se…"
+      li #step-s8 .case-step.case-step--ok   [1025 chars]
+        div .case-step-head   [23 chars]
+          span .case-step-n   [17 chars]
+            "Step 8 (5 points)"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [132 chars]
+          "A 90 um wet film is applied and the coating is 38 % solids. What is the dry film, and is it inside a 25-130 um…"
+        fieldset .case-options   [274 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt   [85 chars]
+            input #in-s8-a type=radio name=c-s8 value=a
+            span .case-opt-text   [85 chars]
+              "90 um, because the film thickness is what was applied, and that is inside the window."
+          label .case-opt.case-opt--picked   [55 chars]
+            input #in-s8-b type=radio name=c-s8 value=b
+            span .case-opt-text   [55 chars]
+              "34.2 um, which is inside the window but near its floor."
+          label .case-opt   [64 chars]
+            input #in-s8-c type=radio name=c-s8 value=c
+            span .case-opt-text   [64 chars]
+              "55.8 um, which is 90 um less the 38 % solids, inside the window."
+          label .case-opt   [60 chars]
+            input #in-s8-d type=radio name=c-s8 value=d
+            span .case-opt-text   [60 chars]
+              "237 um, because the solids are added rather than multiplied."
+        p #err-s8 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [86 chars]
+          strong   [8 chars]
+            "Correct."
+          "34.2 um dry from a 90 um wet film — inside the window and close to the floor."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [490 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [474 chars]
+            "90 um wet at 38 % solids leaves 34.2 um dry, inside the 25-130 um window and close enough to the floor that a …"
+      li #step-s9 .case-step.case-step--ok   [930 chars]
+        div .case-step-head   [31 chars]
+          span .case-step-n   [17 chars]
+            "Step 9 (5 points)"
+          span .case-step-type   [14 chars]
+            "numeric answer"
+        p .case-prompt   [234 chars]
+          "Coating is applied at 35 um dry over the area that is not masked: 192 cm2 less 16.0 for the connector, 3.0 for…"
+        div .case-input-row   [34 chars]
+          label .case-input-label   [16 chars]
+            "Your answer"
+            span .muted   [4 chars]
+              "(mL)"
+          input #in-s9 .case-input type=text name=c-s9 value=1.59
+          span .case-tol.muted   [18 chars]
+            "tolerance ±0.02 mL"
+        p #err-s9 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [73 chars]
+          strong   [8 chars]
+            "Correct."
+          "1.59 mL of wet coating — the number the dispenser program needs."
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [538 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [522 chars]
+            "The coated area is 172.623 cm2, the dry film volume 0.604 cm3, and at 38 % solids the wet volume is 1.59 mL. A…"
+      li #step-s10 .case-step.case-step--ok   [1358 chars]
+        div .case-step-head   [24 chars]
+          span .case-step-n   [18 chars]
+            "Step 10 (5 points)"
+          span .case-step-type   [6 chars]
+            "choice"
+        p .case-prompt   [92 chars]
+          "The customer asks for the evidence that this build is clean and coated. What is the package?"
+        fieldset .case-options   [516 chars]
+          legend .sr-only   [10 chars]
+            "Choose one"
+          label .case-opt   [73 chars]
+            input #in-s10-a type=radio name=c-s10 value=a
+            span .case-opt-text   [73 chars]
+              "The ROSE result per board, because the pass limit is the whole criterion."
+          label .case-opt.case-opt--picked   [267 chars]
+            input #in-s10-b type=radio name=c-s10 value=b
+            span .case-opt-text   [267 chars]
+              "Per board: the extracted mass, the blank, the area, the method, the limit with its source, and the site result…"
+          label .case-opt   [66 chars]
+            input #in-s10-c type=radio name=c-s10 value=c
+            span .case-opt-text   [66 chars]
+              "A certificate stating that the process is qualified to IPC-CC-830."
+          label .case-opt   [100 chars]
+            input #in-s10-d type=radio name=c-s10 value=d
+            span .case-opt-text   [100 chars]
+              "The ion chromatography results, because they identify the ions and are therefore stricter than ROSE."
+        p #err-s10 .case-error role=alert hidden=
+        p .case-feedback.case-feedback--ok   [168 chars]
+          strong   [8 chars]
+            "Correct."
+          "The record that carries its area, blank, limit and source, the local sites, the coating arithmetic and the fai…"
+        div .case-hints   [20 chars]
+          button .btn.btn--small.case-hint-btn type=button data-act=case-hint   [20 chars]
+            "Show a hint"
+            span .muted   [8 chars]
+              "(3 left)"
+        details .case-expl   [538 chars]
+          summary   [16 chars]
+            "Worked reasoning"
+          p   [522 chars]
+            "The record has to answer the questions the numbers raise: which area the result applies to, which blank was su…"
+    div .quiz-actions   [22 chars]
+      button .btn.btn--primary type=submit   [16 chars]
+        "Check my answers"
+      button .btn type=button data-act=case-reset   [5 chars]
+        "Clear"
+  div #case-result-slot   [905 chars]
+    section #case-result .case-result   [905 chars]
+      h2   [6 chars]
+        "Result"
+      p .case-score.case-score--pass   [32 chars]
+        "100 % — 100 of 100 rubric points"
+      p .flush   [110 chars]
+        "Mastered. The rubric threshold is 80 %. Best result so far: 100 %. This attempt took about 1 min with 0 hints."
+      table .case-rubric   [703 chars]
+        thead   [21 chars]
+          tr   [21 chars]
+            th   [9 chars]
+              "Criterion"
+            th   [6 chars]
+              "Points"
+            th   [6 chars]
+              "Earned"
+        tbody   [682 chars]
+          tr   [78 chars]
+            td   [74 chars]
+              "ROSE result computed with the blank and the area, not from the raw extract"
+            td .num   [2 chars]
+              "15"
+            td .num   [2 chars]
+              "15"
+          tr   [67 chars]
+            td   [63 chars]
+              "A per-area limit converted to a total for the board in question"
+            td .num   [2 chars]
+              "10"
+            td .num   [2 chars]
+              "10"
+          tr   [77 chars]
+            td   [73 chars]
+              "The governing limit identified among reference, customer and process mean"
+            td .num   [2 chars]
+              "15"
+            td .num   [2 chars]
+              "15"
+          tr   [62 chars]
+            td   [58 chars]
+              "Local site computed and the board average shown to hide it"
+            td .num   [2 chars]
+              "10"
+            td .num   [2 chars]
+              "10"
+          tr   [93 chars]
+            td   [89 chars]
+              "One measurement against both limits, and the decision shown to depend on which is written"
+            td .num   [2 chars]
+              "15"
+            td .num   [2 chars]
+              "15"
+          tr   [65 chars]
+            td   [61 chars]
+              "Process capability worked from the distribution, not the mean"
+            td .num   [2 chars]
+              "10"
+            td .num   [2 chars]
+              "10"
+          tr   [69 chars]
+            td   [65 chars]
+              "A clean site and a failing average both resolved to a disposition"
+            td .num   [2 chars]
+              "10"
+            td .num   [2 chars]
+              "10"
+          tr   [75 chars]
+            td   [71 chars]
+              "Wet-to-dry film arithmetic and the coating volume for the unmasked area"
+            td .num   [2 chars]
+              "10"
+            td .num   [2 chars]
+              "10"
+          tr   [96 chars]
+            td   [94 chars]
+              "Evidence package carries area, blank, limit source, sites, coating arithmetic and dispositions"
+            td .num   [1 chars]
+              "5"
+            td .num   [1 chars]
+              "5"
+      div .quiz-actions   [54 chars]
+        button .btn type=button data-act=case-retake   [28 chars]
+          "Try again from a clean sheet"
+        button .btn type=button data-act=case-csv   [25 chars]
+          "Download my answers (CSV)"
+  details .case-rubric-box   [828 chars]
+    summary   [32 chars]
+      "Rubric — how this case is scored"
+    div .details-body   [796 chars]
+      table .case-rubric   [680 chars]
+        thead   [15 chars]
+          tr   [15 chars]
+            th   [9 chars]
+              "Criterion"
+            th   [6 chars]
+              "Points"
+        tbody   [665 chars]
+          tr   [76 chars]
+            td   [74 chars]
+              "ROSE result computed with the blank and the area, not from the raw extract"
+            td .num   [2 chars]
+              "15"
+          tr   [65 chars]
+            td   [63 chars]
+              "A per-area limit converted to a total for the board in question"
+            td .num   [2 chars]
+              "10"
+          tr   [75 chars]
+            td   [73 chars]
+              "The governing limit identified among reference, customer and process mean"
+            td .num   [2 chars]
+              "15"
+          tr   [60 chars]
+            td   [58 chars]
+              "Local site computed and the board average shown to hide it"
+            td .num   [2 chars]
+              "10"
+          tr   [91 chars]
+            td   [89 chars]
+              "One measurement against both limits, and the decision shown to depend on which is written"
+            td .num   [2 chars]
+              "15"
+          tr   [63 chars]
+            td   [61 chars]
+              "Process capability worked from the distribution, not the mean"
+            td .num   [2 chars]
+              "10"
+          tr   [67 chars]
+            td   [65 chars]
+              "A clean site and a failing average both resolved to a disposition"
+            td .num   [2 chars]
+              "10"
+          tr   [73 chars]
+            td   [71 chars]
+              "Wet-to-dry film arithmetic and the coating volume for the unmasked area"
+            td .num   [2 chars]
+              "10"
+          tr   [95 chars]
+            td   [94 chars]
+              "Evidence package carries area, blank, limit source, sites, coating arithmetic and dispositions"
+            td .num   [1 chars]
+              "5"
+      p .muted.flush   [116 chars]
+        "Criteria are scored in proportion to the steps they name. A criterion spanning two steps pays half per correct…"
+  section .sources   [2230 chars]
+    details .spoiler   [2230 chars]
+      summary   [11 chars]
+        "Sources — 3"
+      div .details-body   [2219 chars]
+        ul   [2219 chars]
+          li   [949 chars]
+            span .src-id   [7 chars]
+              "src-002"
+            strong   [72 chars]
+              "J-STD-001 Requirements for Soldered Electrical and Electronic Assemblies"
+            "— Rev G, section §8 cleanliness — objective evidence in place of the single ROSE limit, standard"
+            span .src-note   [375 chars]
+              "License: paraphrase only · verified by READ. Amendment 1 to Rev G (2018) and Rev H (September 2020) confirmed …"
+            span .src-currency   [152 chars]
+              "Superseded. J-STD-001 Rev J was released in 2024 and is the current revision. This course was written against …"
+            span .src-edition   [245 chars]
+              strong   [18 chars]
+                "Superseded edition"
+              "· publisher lists Rev J (April 2024)"
+              span .src-edition-note   [190 chars]
+                "Written against Rev G/H. IPC lists J-STD-001 Rev J, April 2024, as current. Some vendor pages assert a "Rev J …"
+          li   [637 chars]
+            span .src-id   [7 chars]
+              "src-013"
+            strong   [63 chars]
+              "IPC-TM-650 method 2.3.25 (ROSE) and 2.3.28 (ion chromatography)"
+            "— rolling document; methods 2.3.25 and 2.3.28, section Method 2.3.25 (ROSE, soluble ionic contamination) and m…"
+            span .src-note   [294 chars]
+              "License: paraphrase only · verified by READ. Method numbers and titles confirmed. 2.3.25 measures soluble ioni…"
+            span .src-edition   [118 chars]
+              strong   [16 chars]
+                "Rolling document"
+              "· publisher lists rolling document"
+              span .src-edition-note   [67 chars]
+                "IPC-TM-650 is revised per test method, so it has no single edition."
+          li   [633 chars]
+            span .src-id   [7 chars]
+              "src-010"
+            strong   [96 chars]
+              "IPC-CC-830 Qualification and Performance of Electrical Insulating Compound for Conformal Coating"
+            "— Rev C, section §1.3.1 coating type designations; qualification and performance requirements, standard"
+            span .src-note   [323 chars]
+              "License: paraphrase only · verified by READ from two independent renderings. Type AR acrylic, Type ER EPOXY, T…"
+            span .src-edition.src-edition--ok   [102 chars]
+              strong   [15 chars]
+                "Current edition"
+              "· publisher lists Rev C (January 2019)"
+              span .src-edition-note   [48 chars]
+                "Rev C is the newest IPC-CC-830 in the IPC table."
+  nav .pager   [49 chars]
+    a .pager-prev href=#/m/m12   [49 chars]
+      span .pager-label   [7 chars]
+        "Back to"
+      span .pager-title   [42 chars]
+        "Module 12 — Cleaning and Conformal Coating"
+    span

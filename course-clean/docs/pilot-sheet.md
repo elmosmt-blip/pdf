@@ -180,6 +180,36 @@ Protocol: `docs/pilot-protocol.md`.
 
 ---
 
+## cx-m12-01 — Cleanliness: the board average passes and the site under the BGA fails
+
+`#/c/cx-m12-01` · module m12 · 10 steps · 100 rubric points · about 40 min
+
+| # | Step | Type | Expected | Tolerance | Watch for |
+|---|---|---|---|---|---|
+| 1 | Board C-114 extracted 412 ug of sodium chloride equivalent into the test solvent. Subtract the 6 ug method blank and divide by the 192 cm2 board area. What is the result, in ug/cm2? Two decimals. | numeric | 2.11 ug/cm2 | ±0.005 | Subtract the blank first, then divide by the board area. |
+| 2 | This customer's specification sets 0.5 ug/cm2, not the 1.56 reference value. What is one board allowed to carry in total, in micrograms, on its 192 cm2? | numeric | 96 ug | ±0.05 | Multiply the per-area limit by the area; do not compare a total with a per-area limit. |
+| 3 | The customer's spec says 0.5 ug/cm2, the reference value is 1.56, and the twelve study boards sit at 1.00. Which statement is right? | choice | option b — “The boards fail the customer's 0.5 and would pass the reference 1.56; the customer limit governs, so the process is not in control for this build.” | — | One measurement cannot be compared with two limits and accepted if it clears either of them. |
+| 4 | The line manager calls C-114 an outlier: one board at 2.11 against a mean of 1.00. What does the C-114 data actually show? | choice | option b — “Not an outlier but what a whole-board average does to a local pocket: the 20 x 20 mm site under the BGA extracted 12 ug on its own, which is 3.00 ug/cm2 on the site while the rest of the board sits near 0.5.” | — | Divide the site result by the site area, then compare it with the board average. |
+| 5 | C-121 extracted 171.1 ug with the same 6 ug blank and the same 192 cm2. What is its result, in ug/cm2? Two decimals. | numeric | 0.86 ug/cm2 | ±0.005 | Subtract the blank, then divide by 192. |
+| 6 | The process runs at 1.00 ug/cm2 with a standard deviation of 0.11. To have no more than 0.1 % of boards above the customer's 0.50 limit, what mean would the process have to hold, in ug/cm2? Two decimals. | numeric | 0.16 ug/cm2 | ±0.005 | Subtract the allowance from the limit; a wide spread does not become acceptable because the mean is high. |
+| 7 | A board extracts 198 ug and passes ROSE, and a 20 x 20 mm site under a connector extracts nothing. Which result should block the coating? | choice | option a — “The whole-board result: 198 ug less the 6 ug blank is 192 ug over 192 cm2, which is 1.00 ug/cm2 against this customer's 0.5.” | — | Compare 1.00 with 0.5, not with 1.56, and remember that a clean site is evidence about 4 cm2 only. |
+| 8 | A 90 um wet film is applied and the coating is 38 % solids. What is the dry film, and is it inside a 25-130 um qualification window? | choice | option b — “34.2 um, which is inside the window but near its floor.” | — | The solids fraction multiplies the wet film; it does not divide it. |
+| 9 | Coating is applied at 35 um dry over the area that is not masked: 192 cm2 less 16.0 for the connector, 3.0 for the test points and 0.377 under the BGA. At 38 % solids, what wet volume has to be dispensed, in millilitres? Two decimals. | numeric | 1.59 mL | ±0.02 | Divide the dry volume by the solids fraction; multiplying gives the solids, not the liquid. |
+| 10 | The customer asks for the evidence that this build is clean and coated. What is the package? | choice | option b — “Per board: the extracted mass, the blank, the area, the method, the limit with its source, and the site results for the high-risk areas; plus coating thickness on coupons with the wet-to-dry arithmetic, the masked areas, and the disposition of the boards that failed.” | — | A certificate and a single number both describe the process; the record has to let somebody check it. |
+
+**Rubric** (pass mark 80 %):
+- ROSE result computed with the blank and the area, not from the raw extract — 15 pts (s1)
+- A per-area limit converted to a total for the board in question — 10 pts (s2)
+- The governing limit identified among reference, customer and process mean — 15 pts (s3)
+- Local site computed and the board average shown to hide it — 10 pts (s4)
+- One measurement against both limits, and the decision shown to depend on which is written — 15 pts (s5)
+- Process capability worked from the distribution, not the mean — 10 pts (s6)
+- A clean site and a failing average both resolved to a disposition — 10 pts (s7)
+- Wet-to-dry film arithmetic and the coating volume for the unmasked area — 10 pts (s8, s9)
+- Evidence package carries area, blank, limit source, sites, coating arithmetic and dispositions — 5 pts (s10)
+
+---
+
 ## cx-m02-01 — Moisture breach: the BGA reel sat in a 7 % RH cabinet
 
 `#/c/cx-m02-01` · module m02 · 6 steps · 100 rubric points · about 20 min
