@@ -1,0 +1,4 @@
+
+# the toolchain venv lives above the repo root; never commit it
+../.venv/
+.venv/
