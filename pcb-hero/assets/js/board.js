@@ -93,11 +93,18 @@
   const addTrace = (points, opts = {}) => {
     if (points.length < 2) return null;
     const d = points.map((p, i) => `${i ? "L" : "M"}${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(" ");
+    const w = opts.width || 1.15;
+    // copper sitting beneath the lacquer: a soft, wider halo first
+    gTraces.appendChild(svgEl("path", {
+      d, fill: "none",
+      stroke: opts.hot ? "rgba(231,204,158,0.11)" : "rgba(146,165,185,0.055)",
+      "stroke-width": (w * 3.2).toFixed(2),
+      "stroke-linejoin": "round", "stroke-linecap": "round",
+    }));
     const layer = opts.hot ? "tr-board tr-hot" : (opts.dim ? "tr-board tr-dim" : "tr-board");
     const p = svgEl("path", {
-      d,
-      class: layer,
-      "stroke-width": (opts.width || 1.15).toFixed(2),
+      d, class: layer,
+      "stroke-width": w.toFixed(2),
       "stroke-linejoin": "round",
       "stroke-linecap": "round",
     });
@@ -106,16 +113,23 @@
   };
 
   const addPad = (x, y, r = 2.6, opts = {}) => {
+    // solder-mask opening, ENIG land, specular highlight
+    gPads.appendChild(svgEl("circle", { cx: x, cy: y, r: r + 2.4, fill: "rgba(255,255,255,0.028)" }));
     gPads.appendChild(svgEl("circle", { cx: x, cy: y, r, class: "pad" }));
+    gPads.appendChild(svgEl("circle", { cx: x - r * 0.28, cy: y - r * 0.3, r: r * 0.45, fill: "rgba(255,255,255,0.42)" }));
     if (opts.ring !== false) {
-      gPads.appendChild(svgEl("circle", { cx: x, cy: y, r: r + 1.6, class: "pad-ring" }));
+      gPads.appendChild(svgEl("circle", { cx: x, cy: y, r: r + 1.2, class: "pad-ring" }));
     }
   };
 
   const addVia = (x, y, r = 3.4, opts = {}) => {
-    gPads.appendChild(svgEl("circle", { cx: x, cy: y, r: r + 1.1, class: "pad", opacity: opts.opacity || 0.5 }));
-    gPads.appendChild(svgEl("circle", { cx: x, cy: y, r, fill: "#08120e", stroke: "rgba(226,166,104,0.55)", "stroke-width": "0.8", opacity: opts.opacity || 0.75 }));
-    gPads.appendChild(svgEl("circle", { cx: x, cy: y, r: r * 0.42, class: "via-hole" }));
+    const o = opts.opacity || 0.7;
+    // solder-mask opening + gold annular ring + drill
+    gPads.appendChild(svgEl("circle", { cx: x, cy: y, r: r + 2.2, fill: "rgba(255,255,255,0.022)" }));
+    gPads.appendChild(svgEl("circle", { cx: x, cy: y, r, fill: "rgba(231,204,158,0.5)", opacity: o }));
+    gPads.appendChild(svgEl("circle", { cx: x, cy: y, r: r * 0.62, fill: "#05090c" }));
+    gPads.appendChild(svgEl("circle", { cx: x, cy: y, r: r * 0.6, fill: "none", stroke: "rgba(0,0,0,0.55)", "stroke-width": "0.6" }));
+    gPads.appendChild(svgEl("circle", { cx: x - r * 0.3, cy: y - r * 0.35, r: r * 0.28, fill: "rgba(255,255,255,0.45)" }));
   };
 
   /* route from a source near the chip out to a target port */
@@ -204,16 +218,18 @@
 
   const smdBody = (x, y, w, h, rot = 0, opts = {}) => {
     const g = svgEl("g", { transform: `translate(${x} ${y}) rotate(${rot})` });
-    const padW = Math.max(2.6, w * 0.24);
-    const capCls = opts.warm ? "smd-cap smd-cap--dark" : "smd-cap";
-    g.appendChild(svgEl("rect", { x: -w / 2 - 1.4, y: -h / 2, width: padW, height: h, rx: 0.8, class: capCls, opacity: 0.9 }));
-    g.appendChild(svgEl("rect", { x: w / 2 + 1.4 - padW, y: -h / 2, width: padW, height: h, rx: 0.8, class: capCls, opacity: 0.9 }));
-    g.appendChild(svgEl("rect", { x: -w / 2, y: -h / 2, width: w, height: h, rx: 0.6, class: "smd-body" }));
-    if (opts.warm) {
-      g.appendChild(svgEl("rect", { x: -w / 2 + 1.4, y: -h / 2 + 0.8, width: w - 2.8, height: h - 1.6, rx: 0.4, fill: "rgba(150,96,48,0.5)" }));
-    } else {
-      g.appendChild(svgEl("rect", { x: -w / 2 + 1.6, y: -h / 2 + 0.9, width: w - 3.2, height: 1.1, fill: "rgba(238,243,236,0.14)" }));
-    }
+    const termW = Math.max(2.4, w * 0.2);
+    // contact shadow on the solder mask
+    g.appendChild(svgEl("rect", { x: -w / 2 - termW, y: -h / 2 + 1.2, width: w + termW * 2, height: h, rx: 0.7, fill: "rgba(0,0,0,0.55)" }));
+    // tinned solder terminations
+    g.appendChild(svgEl("rect", { x: -w / 2 - termW, y: -h / 2, width: termW, height: h, rx: 0.7, fill: "#aeb9c3" }));
+    g.appendChild(svgEl("rect", { x: w / 2, y: -h / 2, width: termW, height: h, rx: 0.7, fill: "#aeb9c3" }));
+    g.appendChild(svgEl("rect", { x: -w / 2 - termW + 0.6, y: -h / 2 + 0.5, width: termW - 1.2, height: Math.max(1, h * 0.3), rx: 0.4, fill: "rgba(255,255,255,0.5)" }));
+    g.appendChild(svgEl("rect", { x: w / 2 + 0.6, y: -h / 2 + 0.5, width: termW - 1.2, height: Math.max(1, h * 0.3), rx: 0.4, fill: "rgba(255,255,255,0.5)" }));
+    // body: warm = MLCC ceramic, cool = dark resistor overcoat
+    g.appendChild(svgEl("rect", { x: -w / 2, y: -h / 2, width: w, height: h, rx: 0.5, fill: opts.warm ? "#87765f" : "#222c35" }));
+    g.appendChild(svgEl("rect", { x: -w / 2, y: -h / 2, width: w, height: Math.max(1, h * 0.32), rx: 0.5, fill: "rgba(255,255,255,0.16)" }));
+    g.appendChild(svgEl("rect", { x: -w / 2, y: h / 2 - Math.max(1, h * 0.2), width: w, height: Math.max(1, h * 0.2), rx: 0.3, fill: "rgba(0,0,0,0.32)" }));
     gParts.appendChild(g);
     return g;
   };
@@ -372,6 +388,32 @@
   scatter.forEach(([x, y], i) => {
     smd(x, y, i % 3 === 0 ? 90 : 0, null, { w: 12, h: 6, warm: i % 2 === 0 });
   });
+
+  /* --- extra realism: SOIC with pin-1 and legend, tantalums, micro silk --- */
+  (() => {
+    // second SOIC (op-amp) upper-left quadrant
+    label(250, 222, "U5 · OPA", "silk");
+    // tiny 0402 passives hugging a QFN, like real decoupling
+    for (let i = 0; i < 4; i++) {
+      smdBody(122 + (i % 2) * 14, 286 + Math.floor(i / 2) * 12, 7, 4, i % 2 ? 90 : 0, { warm: i % 2 === 0 });
+    }
+    // tantalum caps: chamfered body + polarity bar
+    const tantalum = (x, y, rot) => {
+      const g = svgEl("g", { transform: `translate(${x} ${y}) rotate(${rot})` });
+      g.appendChild(svgEl("rect", { x: -11, y: -7 + 1.4, width: 22, height: 14, rx: 1.6, fill: "rgba(0,0,0,0.55)" }));
+      g.appendChild(svgEl("rect", { x: -12, y: -7, width: 24, height: 14, rx: 1.8, fill: "#c99a3f" }));
+      g.appendChild(svgEl("rect", { x: -12, y: -7, width: 24, height: 5, rx: 1.6, fill: "rgba(255,255,255,0.28)" }));
+      g.appendChild(svgEl("rect", { x: 6.4, y: -7, width: 5.6, height: 14, rx: 1.4, fill: "rgba(60,38,10,0.55)" }));
+      g.appendChild(svgEl("rect", { x: -12, y: -7, width: 3.2, height: 14, rx: 1.2, fill: "#aeb9c3" }));
+      g.appendChild(svgEl("rect", { x: 8.8, y: -7, width: 3.2, height: 14, rx: 1.2, fill: "#aeb9c3" }));
+      gParts.appendChild(g);
+    };
+    tantalum(300, 548, 0);
+    tantalum(332, 548, 0);
+    label(316, 552, "C41 · C42  10 µF", "silk");
+    // micro silkscreen: fab panel in the free top strip
+    label(760, 30, "OPENTRACE LABS · REV 3.1 · 2026‑11", "silk", "middle");
+  })();
 
   mountHole(390, 52);
   mountHole(1050, 52);
@@ -543,7 +585,7 @@
 
     const defs = svgEl("defs");
     const glow = svgEl("filter", { id: "pulseGlow", x: "-200%", y: "-200%", width: "500%", height: "500%" });
-    glow.appendChild(svgEl("feGaussianBlur", { stdDeviation: "1.1", result: "b" }));
+    glow.appendChild(svgEl("feGaussianBlur", { stdDeviation: "1.4", result: "b" }));
     const merge = svgEl("feMerge");
     merge.appendChild(svgEl("feMergeNode", { in: "b" }));
     merge.appendChild(svgEl("feMergeNode", { in: "SourceGraphic" }));
@@ -560,11 +602,11 @@
       const tail = svgEl("path", {
         d, fill: "none",
         stroke: warm ? "rgba(238,201,141,0.95)" : "rgba(120,248,196,0.92)",
-        "stroke-width": warm ? "1.5" : "1.6",
+        "stroke-width": warm ? "1.3" : "1.4",
         "stroke-linecap": "round",
         filter: "url(#pulseGlow)",
       });
-      tail.style.strokeDasharray = `13 ${len + 60}`;
+      tail.style.strokeDasharray = `9 ${len + 60}`;
       gPulse.appendChild(tail);
 
       // head
@@ -599,9 +641,9 @@
       }
     };
 
-    const inwardCount = Math.min(18, sorted.length);
+    const inwardCount = Math.min(13, sorted.length);
     for (let i = 0; i < inwardCount; i++) makeRunner(sorted[i].path, true, i % 4 === 0);
-    for (let i = inwardCount; i < Math.min(sorted.length, inwardCount + 24); i += 2) {
+    for (let i = inwardCount; i < Math.min(sorted.length, inwardCount + 24); i += 4) {
       makeRunner(sorted[i].path, false, i % 6 === 0);
     }
 
