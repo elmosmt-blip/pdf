@@ -67,7 +67,7 @@ module.exports = {
   ],
   mistakes: [
     { mistake: "Setting the window at the detection time", instead: "Start from the last verified good point, because defects created earlier were passing until now." },
-    { mistake: "Quarantining without shipping data", instead: "Include shipped and returned units, because the customer holds the rest of the population." },
+    { mistake: "Quarantining without the shipping and returns data", instead: "Include shipped and returned units, because the customer holds the rest of the population." },
     { mistake: "Closing an 8D on the corrective action alone", instead: "Verify effectiveness after implementation, because a fix that was not measured is a hope." }
   ],
   terms: [

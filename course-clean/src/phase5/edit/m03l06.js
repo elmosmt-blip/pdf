@@ -59,7 +59,7 @@ module.exports = {
   mistakes: [
     { mistake: "Passing a report that omits the area ratio", instead: "Require the characteristic on the report and hold the stencil until it is measured." },
     { mistake: "Treating a cleaning cycle as validated because it looks clean", instead: "Inspect apertures under magnification and requalify the cycle after any chemistry or power change." },
-    { mistake: "Retiring on cycle count alone", instead: "Retire on tension, thickness and repeat-defect trend, and keep the records that show the drift." }
+    { mistake: "Retiring the tip on the cycle count alone", instead: "Retire on tension, thickness and repeat-defect trend, and keep the records that show the drift." }
   ],
   terms: [
     { term: "Registration", def: "How accurately the aperture pattern aligns with the board pads during printing." },

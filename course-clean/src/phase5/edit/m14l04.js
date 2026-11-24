@@ -66,7 +66,7 @@ module.exports = {
   mistakes: [
     { mistake: "Writing the cause into the D2 problem statement", instead: "Describe what was observed, because a leading statement biases every later step." },
     { mistake: "Closing on the corrective action date", instead: "Verify the metric afterwards, since implementation and effect are different events." },
-    { mistake: "Skipping horizontal deployment", instead: "Apply the fix to similar products, because the same design repeats across the line." }
+    { mistake: "Skipping horizontal deployment to similar products", instead: "Apply the fix to similar products, because the same design repeats across the line." }
   ],
   terms: [
     { term: "Occurrence root cause", def: "The process condition that created the defect." },

@@ -69,7 +69,7 @@ module.exports = {
   ],
   mistakes: [
     { mistake: "Accepting a board on the ROSE number alone", instead: "Test SIR where the product calls for it, since organic residue passes ROSE." },
-    { mistake: "Choosing the strongest solvent available", instead: "Match chemistry to plating and elastomers, because the cleaner can damage the assembly it saves." },
+    { mistake: "Choosing the strongest solvent available as a default", instead: "Match chemistry to plating and elastomers, because the cleaner can damage the assembly it saves." },
     { mistake: "Cleaning after floor life has expired without a bake", instead: "Bake per IPC/JEDEC J-STD-033 first, because cleaning adds moisture rather than removing it." }
   ],
   terms: [

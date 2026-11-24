@@ -66,7 +66,7 @@ module.exports = {
   mistakes: [
     { mistake: "Buying a fixture for a prototype lot", instead: "Use flying probe, because fixture cost needs volume to justify it." },
     { mistake: "Assuming flying probe limits match in-circuit limits", instead: "Loosen them to the probe's repeatability, because a tighter limit only raises false calls." },
-    { mistake: "Ignoring probe contamination between lots", instead: "Clean tips and verify force, since flux and oxide raise contact resistance and read as opens." }
+    { mistake: "Ignoring probe contamination between production lots", instead: "Clean tips and verify force, since flux and oxide raise contact resistance and read as opens." }
   ],
   terms: [
     { term: "Pogo pin", def: "A spring-loaded contact used in bed-of-nails fixtures to press onto a test point." },

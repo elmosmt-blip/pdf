@@ -71,7 +71,7 @@ module.exports = {
   mistakes: [
     { mistake: "Reducing aperture area to stop bridging without recalculating the ratios", instead: "Recalculate area ratio and aspect ratio after every area change, and reduce foil if the ratio falls below 0.66." },
     { mistake: "Choosing foil thickness from habit rather than from the joint", instead: "Derive the thickness from the volume the joint needs and the area the aperture has." },
-    { mistake: "Documenting only the aperture dimensions", instead: "Record the foil thickness, both ratios and the paste used, or the design cannot be reproduced." }
+    { mistake: "Documenting only the aperture dimensions on the drawing", instead: "Record the foil thickness, both ratios and the paste used, or the design cannot be reproduced." }
   ],
   terms: [
     { term: "Area reduction", def: "The percentage by which the aperture area is made smaller than the pad area." },

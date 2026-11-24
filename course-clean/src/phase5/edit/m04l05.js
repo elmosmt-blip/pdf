@@ -60,7 +60,7 @@ module.exports = {
     "Distinguish a step change from a gradual drift, because the first points to an event and the second to wear."
   ],
   mistakes: [
-    { mistake: "Recalculating capability after every adjustment", instead: "Establish stability on a control chart first, then compute capability from that data." },
+    { mistake: "Recalculating capability after every process adjustment", instead: "Establish stability on a control chart first, then compute capability from that data." },
     { mistake: "Adjusting print parameters during a drift before checking paste age", instead: "Check paste temperature, open time and stencil cleanliness first, then touch the machine." },
     { mistake: "Reading a bimodal histogram as random variation", instead: "Find the two populations — panel side, stencil zone, board type — before changing limits." }
   ],

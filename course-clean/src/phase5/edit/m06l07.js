@@ -64,7 +64,7 @@ module.exports = {
   mistakes: [
     { mistake: "Accepting a profile measured with a detached thermocouple", instead: "Confirm sensor attachment and location before trusting any curve." },
     { mistake: "Treating a new paste as a recipe adjustment", instead: "Run a formal qualification with statistical evidence for a material change." },
-    { mistake: "Changing peak and cooling together", instead: "Change one variable at a time, then re-measure both time above liquidus and peak." }
+    { mistake: "Changing the peak and the cooling rate together", instead: "Change one variable at a time, then re-measure both time above liquidus and peak." }
   ],
   terms: [
     { term: "Thermocouple map", def: "The record of where each thermocouple was attached and what it measured." },

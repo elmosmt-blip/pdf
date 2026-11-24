@@ -62,7 +62,7 @@ module.exports = {
   ],
   mistakes: [
     { mistake: "Chasing a falling volume trend with squeegee pressure", instead: "Check paste temperature, open time and stencil cleanliness first." },
-    { mistake: "Reading volume percent alone", instead: "Confirm height and area, since slump and incomplete fill both lower volume but need opposite responses." },
+    { mistake: "Reading the paste volume percent alone", instead: "Confirm height and area, since slump and incomplete fill both lower volume but need opposite responses." },
     { mistake: "Changing several settings in one trial", instead: "Change one variable per trial, or the result tells you nothing about which setting mattered." }
   ],
   terms: [

@@ -72,7 +72,7 @@ module.exports = {
   ],
   mistakes: [
     { mistake: "Buying a fixture for a high-mix low-volume line", instead: "Use flying probe, because fixture cost cannot spread over a few hundred units." },
-    { mistake: "Reporting coverage as one number", instead: "Break it down by class and condition, because defects live in the gaps." },
+    { mistake: "Reporting coverage for the board as one number", instead: "Break it down by class and condition, because defects live in the gaps." },
     { mistake: "Leaving functional test to find structural faults", instead: "Cover structure early, because functional failures are the hardest to debug." }
   ],
   terms: [

@@ -87,7 +87,7 @@ module.exports = {
   mistakes: [
     { mistake: "Accepting a board on the extract value alone", instead: "Inspect and coat a coupon, since adhesion is the property that fails." },
     { mistake: "Reworking without finding the residue source", instead: "Identify the process that left it, because cleaning the same way will leave it again." },
-    { mistake: "Peeling ESD-safe tape without grounding", instead: "Handle inside the ESD program, since peeling generates charge." }
+    { mistake: "Peeling ESD-safe masking tape without grounding yourself", instead: "Handle inside the ESD program, since peeling generates charge." }
   ],
   terms: [
     { term: "Fish-eye", def: "A circular area where coating fails to wet the surface, leaving bare substrate." },

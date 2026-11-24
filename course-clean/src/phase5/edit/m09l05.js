@@ -62,7 +62,7 @@ module.exports = {
   mistakes: [
     { mistake: "Judging shadowing from the top-side appearance", instead: "Inspect the solder side and cross-section, since the top looks the same either way." },
     { mistake: "Adding masking without checking the mask edge", instead: "Keep the edge clear of the joint, or the mask itself bridges the gap." },
-    { mistake: "Trusting the geometric shadow alone", instead: "Add a turbulence margin and confirm on a coupon." }
+    { mistake: "Trusting the geometric shadow calculation alone", instead: "Add a turbulence margin and confirm on a coupon." }
   ],
   terms: [
     { term: "Low-energy zone", def: "The region behind an obstacle where the wave arrives weakened and cooled." },

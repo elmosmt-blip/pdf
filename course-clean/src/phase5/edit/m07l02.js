@@ -64,7 +64,7 @@ module.exports = {
   mistakes: [
     { mistake: "Tightening thresholds until the false-call report looks clean", instead: "Check the escape data as well, because the two move in opposite directions." },
     { mistake: "Quoting an escape rate from incomplete verification coverage", instead: "State the coverage, or the rate describes only the calls someone happened to review." },
-    { mistake: "Comparing rates across program revisions", instead: "Rebaseline after a program or board-mix change, since the denominator moved." }
+    { mistake: "Comparing defect rates across program revisions", instead: "Rebaseline after a program or board-mix change, since the denominator moved." }
   ],
   terms: [
     { term: "Escape", def: "A defect the inspection did not call and a later stage or the field found." },

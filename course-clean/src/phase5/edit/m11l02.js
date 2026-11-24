@@ -71,7 +71,7 @@ module.exports = {
   mistakes: [
     { mistake: "Melting solder on the tip to carry it to the joint", instead: "Feed to the joint, because solder on the tip arrives without a wetted interface." },
     { mistake: "Extending dwell when a joint will not wet", instead: "Change tip, preheat or technique first, since dwell is already the expensive variable." },
-    { mistake: "Recording only the setpoint", instead: "Record measured tip and board temperature, because the display can drift from reality." }
+    { mistake: "Recording only the iron setpoint in the budget log", instead: "Record measured tip and board temperature, because the display can drift from reality." }
   ],
   terms: [
     { term: "Disturbed joint", def: "A joint whose component moved while the solder was solidifying, leaving a rough surface." },
