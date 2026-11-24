@@ -181,7 +181,7 @@ a { color: inherit; text-decoration: none; }
 button, input { font: inherit; color: inherit; }
 button { background: none; border: 0; cursor: pointer; }
 svg { display: block; }
-::selection { background: rgba(94, 240, 184, 0.28); color: #f4fff9; }
+::selection { background: rgba(83, 209, 204, 0.28); color: #f7fafc; }
 
 :focus-visible {
   outline: 2px solid var(--sig);
@@ -433,7 +433,7 @@ svg { display: block; }
 .brand__mark {
   width: 26px; height: 26px;
   color: var(--gold);
-  filter: drop-shadow(0 0 6px rgba(226, 166, 104, 0.35));
+  filter: drop-shadow(0 0 6px rgba(83, 209, 204, 0.35));
 }
 
 .brand__name {
@@ -450,9 +450,9 @@ svg { display: block; }
   letter-spacing: 0.16em;
   color: var(--sig);
   padding: 2px 5px;
-  border: 1px solid rgba(94, 240, 184, 0.28);
+  border: 1px solid rgba(83, 209, 204, 0.28);
   border-radius: 3px;
-  background: rgba(94, 240, 184, 0.07);
+  background: rgba(83, 209, 204, 0.07);
 }
 
 /* ---------- header search = a socketed receptacle ---------- */
@@ -1122,7 +1122,7 @@ svg { display: block; }
   transform: translate(-50%, -50%);
   border-radius: 50%;
   background:
-    radial-gradient(circle, rgba(94, 240, 184, 0.2) 0%, rgba(94, 240, 184, 0.07) 30%, transparent 62%);
+    radial-gradient(circle, rgba(83, 209, 204, 0.2) 0%, rgba(83, 209, 204, 0.07) 30%, transparent 62%);
   filter: blur(6px);
   pointer-events: none;
   animation: breathe 6s ease-in-out infinite;
@@ -1323,11 +1323,11 @@ svg { display: block; }
   stroke: rgba(240, 190, 130, 0.85);
   stroke-width: 0.7;
   opacity: 0.55;
-  filter: drop-shadow(0 0 2px rgba(238, 201, 141, 0.45));
+  filter: drop-shadow(0 0 2px rgba(231, 204, 158, 0.4));
 }
 .xray-pads circle { fill: rgba(231, 204, 158, 0.8); opacity: 0.7; }
 .xray-sub path {
-  stroke: rgba(94, 240, 184, 0.45);
+  stroke: rgba(83, 209, 204, 0.45);
   stroke-width: 0.7;
   opacity: 0.5;
   stroke-dasharray: 7 2;
@@ -1349,8 +1349,8 @@ svg { display: block; }
 }
 .chip__silk--a { top: 3.2%; left: 4%; font-size: clamp(7px, 0.8vw, 10px); color: rgba(238, 243, 236, 0.6); }
 .chip__silk--b { bottom: 3.4%; left: 4%; }
-.chip__silk--c { bottom: 3.4%; right: 4%; color: rgba(226, 166, 104, 0.55); }
-.chip__silk--d { top: 3.2%; right: 4%; color: rgba(94, 240, 184, 0.55); }
+.chip__silk--c { bottom: 3.4%; right: 4%; color: rgba(231, 204, 158, 0.6); }
+.chip__silk--d { top: 3.2%; right: 4%; color: rgba(83, 209, 204, 0.55); }
 
 .chip__pin1 {
   position: absolute;
@@ -1528,7 +1528,7 @@ svg { display: block; }
   top: 0; bottom: 0;
   width: 100%;
   pointer-events: none;
-  background-image: radial-gradient(circle, rgba(226, 166, 104, 0.4) 0.9px, transparent 1.2px);
+  background-image: radial-gradient(circle, rgba(146, 165, 185, 0.35) 0.9px, transparent 1.2px);
   background-size: 22px 22px;
   opacity: 0.18;
   z-index: 0;
