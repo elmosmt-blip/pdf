@@ -10,7 +10,7 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23080d0a'/%3E%3Cpath d='M23 8h-6L9 16l8 8h6' fill='none' stroke='%23dfb877' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='9' cy='16' r='2' fill='%235ef0b8'/%3E%3C/svg%3E">
   <link rel="preload" href="assets/fonts/plexsans-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/plexsans-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/style.css?v=1795553222">
+  <link rel="stylesheet" href="assets/css/style.css?v=1795558346">
 </head>
 <body>
   <a class="skip" href="#main">К содержимому</a>
@@ -164,151 +164,172 @@
         </div>
 
         <!-- BGA centerpiece -->
-        <div class="chip" id="chip" tabindex="0" role="button" aria-pressed="false" aria-label="BGA-256. Нажмите, чтобы включить рентген-режим и увидеть кристалл и перемычки.">
+        <div class="chip" id="chip" tabindex="0" role="button" aria-pressed="false" aria-label="BGA-256. Перетаскивайте мышью, чтобы вращать корпус. Нажмите, чтобы включить рентген-режим.">
+          <div class="chip__shadow" aria-hidden="true"></div>
           <div class="chip__float" id="chip-float">
             <div class="chip__glow" aria-hidden="true"></div>
-            <div class="chip__pkg">
-              <div class="chip__substrate" aria-hidden="true"></div>
-              <svg class="chip__fanout" viewBox="0 0 200 200" fill="none" aria-hidden="true" id="chip-fanout"></svg>
-              <div class="chip__balls" id="chip-balls" aria-hidden="true"></div>
-              <div class="chip__sheen" aria-hidden="true"></div>
-              <div class="chip__die" aria-hidden="true">
-                <div class="chip__die-sheen"></div>
-                <svg class="chip__die-art" viewBox="0 0 200 200" fill="none">
-                  <defs>
-                    <linearGradient id="dieSheen" x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0" stop-color="#a8c6dd" stop-opacity=".16"/>
-                      <stop offset=".5" stop-color="#a8c6dd" stop-opacity="0"/>
-                      <stop offset="1" stop-color="#0e3b30" stop-opacity=".3"/>
-                    </linearGradient>
-                    <pattern id="sram" width="5" height="5" patternUnits="userSpaceOnUse">
-                      <rect width="5" height="5" fill="none"/>
-                      <rect x=".8" y=".8" width="3.4" height="3.4" fill="rgba(150, 205, 232, .13)"/>
-                    </pattern>
-                  </defs>
 
-                  <rect x="0" y="0" width="200" height="200" fill="url(#dieSheen)"/>
+            <div class="chip__body" id="chip-body" aria-hidden="true">
+              <!-- solder-ball face -->
+              <div class="chip__face chip__face--bottom">
+                <div class="chip__pkg">
+                    <div class="chip__substrate" aria-hidden="true"></div>
+                    <svg class="chip__fanout" viewBox="0 0 200 200" fill="none" aria-hidden="true" id="chip-fanout"></svg>
+                    <div class="chip__balls" id="chip-balls" aria-hidden="true"></div>
+                    <div class="chip__sheen" aria-hidden="true"></div>
+                  <div class="chip__die" aria-hidden="true">
+                    <div class="chip__die-sheen"></div>
+                    <svg class="chip__die-art" viewBox="0 0 200 200" fill="none">
+                      <defs>
+                        <linearGradient id="dieSheen" x1="0" y1="0" x2="1" y2="1">
+                          <stop offset="0" stop-color="#a8c6dd" stop-opacity=".16"/>
+                          <stop offset=".5" stop-color="#a8c6dd" stop-opacity="0"/>
+                          <stop offset="1" stop-color="#0e3b30" stop-opacity=".3"/>
+                        </linearGradient>
+                        <pattern id="sram" width="5" height="5" patternUnits="userSpaceOnUse">
+                          <rect width="5" height="5" fill="none"/>
+                          <rect x=".8" y=".8" width="3.4" height="3.4" fill="rgba(150, 205, 232, .13)"/>
+                        </pattern>
+                      </defs>
 
-                  <!-- seal ring -->
-                  <rect x="6.5" y="6.5" width="187" height="187" rx="3" stroke="rgba(150, 205, 232, .38)" stroke-width="1.1"/>
-                  <rect x="10.5" y="10.5" width="179" height="179" rx="2" stroke="rgba(150, 205, 232, .14)" stroke-width=".6"/>
+                      <rect x="0" y="0" width="200" height="200" fill="url(#dieSheen)"/>
 
-                  <!-- IO pads around the ring -->
-                  <g fill="rgba(150, 205, 232, .42)">
-                    <rect x="1" y="26" width="5" height="2.6"/><rect x="1" y="46" width="5" height="2.6"/><rect x="1" y="66" width="5" height="2.6"/>
-                    <rect x="1" y="86" width="5" height="2.6"/><rect x="1" y="106" width="5" height="2.6"/><rect x="1" y="126" width="5" height="2.6"/>
-                    <rect x="1" y="146" width="5" height="2.6"/><rect x="1" y="166" width="5" height="2.6"/>
-                    <rect x="194" y="26" width="5" height="2.6"/><rect x="194" y="46" width="5" height="2.6"/><rect x="194" y="66" width="5" height="2.6"/>
-                    <rect x="194" y="86" width="5" height="2.6"/><rect x="194" y="106" width="5" height="2.6"/><rect x="194" y="126" width="5" height="2.6"/>
-                    <rect x="194" y="146" width="5" height="2.6"/><rect x="194" y="166" width="5" height="2.6"/>
-                    <rect x="26" y="1" width="2.6" height="5"/><rect x="46" y="1" width="2.6" height="5"/><rect x="66" y="1" width="2.6" height="5"/>
-                    <rect x="86" y="1" width="2.6" height="5"/><rect x="106" y="1" width="2.6" height="5"/><rect x="126" y="1" width="2.6" height="5"/>
-                    <rect x="146" y="1" width="2.6" height="5"/><rect x="166" y="1" width="2.6" height="5"/>
-                    <rect x="26" y="194" width="2.6" height="5"/><rect x="46" y="194" width="2.6" height="5"/><rect x="66" y="194" width="2.6" height="5"/>
-                    <rect x="86" y="194" width="2.6" height="5"/><rect x="106" y="194" width="2.6" height="5"/><rect x="126" y="194" width="2.6" height="5"/>
-                    <rect x="146" y="194" width="2.6" height="5"/><rect x="166" y="194" width="2.6" height="5"/>
-                  </g>
+                      <!-- seal ring -->
+                      <rect x="6.5" y="6.5" width="187" height="187" rx="3" stroke="rgba(150, 205, 232, .38)" stroke-width="1.1"/>
+                      <rect x="10.5" y="10.5" width="179" height="179" rx="2" stroke="rgba(150, 205, 232, .14)" stroke-width=".6"/>
 
-                  <!-- core array -->
-                  <g>
-                    <rect x="52" y="52" width="96" height="96" rx="1.5" fill="url(#sram)" stroke="rgba(150, 205, 232, .3)" stroke-width=".8"/>
-                    <g stroke="rgba(150, 205, 232, .16)" stroke-width=".4">
-                      <path d="M52 76h96M52 100h96M52 124h96M76 52v96M100 52v96M124 52v96"/>
+                      <!-- IO pads around the ring -->
+                      <g fill="rgba(150, 205, 232, .42)">
+                        <rect x="1" y="26" width="5" height="2.6"/><rect x="1" y="46" width="5" height="2.6"/><rect x="1" y="66" width="5" height="2.6"/>
+                        <rect x="1" y="86" width="5" height="2.6"/><rect x="1" y="106" width="5" height="2.6"/><rect x="1" y="126" width="5" height="2.6"/>
+                        <rect x="1" y="146" width="5" height="2.6"/><rect x="1" y="166" width="5" height="2.6"/>
+                        <rect x="194" y="26" width="5" height="2.6"/><rect x="194" y="46" width="5" height="2.6"/><rect x="194" y="66" width="5" height="2.6"/>
+                        <rect x="194" y="86" width="5" height="2.6"/><rect x="194" y="106" width="5" height="2.6"/><rect x="194" y="126" width="5" height="2.6"/>
+                        <rect x="194" y="146" width="5" height="2.6"/><rect x="194" y="166" width="5" height="2.6"/>
+                        <rect x="26" y="1" width="2.6" height="5"/><rect x="46" y="1" width="2.6" height="5"/><rect x="66" y="1" width="2.6" height="5"/>
+                        <rect x="86" y="1" width="2.6" height="5"/><rect x="106" y="1" width="2.6" height="5"/><rect x="126" y="1" width="2.6" height="5"/>
+                        <rect x="146" y="1" width="2.6" height="5"/><rect x="166" y="1" width="2.6" height="5"/>
+                        <rect x="26" y="194" width="2.6" height="5"/><rect x="46" y="194" width="2.6" height="5"/><rect x="66" y="194" width="2.6" height="5"/>
+                        <rect x="86" y="194" width="2.6" height="5"/><rect x="106" y="194" width="2.6" height="5"/><rect x="126" y="194" width="2.6" height="5"/>
+                        <rect x="146" y="194" width="2.6" height="5"/><rect x="166" y="194" width="2.6" height="5"/>
+                      </g>
+
+                      <!-- core array -->
+                      <g>
+                        <rect x="52" y="52" width="96" height="96" rx="1.5" fill="url(#sram)" stroke="rgba(150, 205, 232, .3)" stroke-width=".8"/>
+                        <g stroke="rgba(150, 205, 232, .16)" stroke-width=".4">
+                          <path d="M52 76h96M52 100h96M52 124h96M76 52v96M100 52v96M124 52v96"/>
+                        </g>
+                        <rect x="84" y="84" width="32" height="32" rx="1" fill="rgba(150, 205, 232, .1)" stroke="rgba(150, 205, 232, .5)" stroke-width=".8"/>
+                        <!-- logo mark -->
+                        <path d="M100 92 92 100l8 8 8-8Z" stroke="rgba(196, 230, 246, .85)" stroke-width="1"/>
+                        <path d="M94 113h12m-6-4v8" stroke="rgba(196, 230, 246, .5)" stroke-width=".7"/>
+                      </g>
+
+                      <!-- PHY / analog strips -->
+                      <g stroke="rgba(150, 205, 232, .22)" stroke-width=".5" fill="rgba(150, 205, 232, .05)">
+                        <rect x="16" y="58" width="28" height="84" rx="1"/>
+                        <rect x="156" y="58" width="28" height="84" rx="1"/>
+                        <rect x="58" y="16" width="84" height="28" rx="1"/>
+                        <rect x="58" y="156" width="84" height="28" rx="1"/>
+                      </g>
+                      <g stroke="rgba(150, 205, 232, .18)" stroke-width=".4">
+                        <path d="M20 66h20M20 74h20M20 82h20M20 90h20M20 98h20M20 106h20M20 114h20M20 122h20M20 130h20"/>
+                        <path d="M160 66h20M160 74h20M160 82h20M160 90h20M160 98h20M160 106h20M160 114h20M160 122h20M160 130h20"/>
+                        <path d="M66 20v20M74 20v20M82 20v20M90 20v20M98 20v20M106 20v20M114 20v20M122 20v20M130 20v20"/>
+                        <path d="M66 160v20M74 160v20M82 160v20M90 160v20M98 160v20M106 160v20M114 160v20M122 160v20M130 160v20"/>
+                      </g>
+
+                      <!-- clock tree -->
+                      <g class="die-clk" stroke="rgba(150, 205, 232, .4)" stroke-width=".7" fill="none">
+                        <path d="M100 52V34M52 100H34M148 100h18M100 148v18"/>
+                        <circle cx="100" cy="100" r="22" stroke-dasharray="2 3" opacity=".5"/>
+                      </g>
+
+                      <!-- power grid sheen -->
+                      <g stroke="rgba(255,255,255,.05)" stroke-width=".5">
+                        <path d="M16 44h168M16 150h168M44 16v168M150 16v168"/>
+                      </g>
+
+                      <text x="100" y="190" text-anchor="middle" class="die-text">OT‑256 · 5 nm · GAA</text>
+                    </svg>
+                    <div class="chip__die-glow"></div>
+                  </div>
+
+                  <svg class="chip__xray" viewBox="0 0 400 400" fill="none" aria-hidden="true">
+                    <g class="xray-wires">
+                      <path d="M200 118C160 118 140 96 108 96"/>
+                      <path d="M200 132C154 132 136 74 92 74"/>
+                      <path d="M200 146C160 146 128 128 96 128"/>
+                      <path d="M200 160C168 160 132 176 100 176"/>
+                      <path d="M200 174C172 174 148 200 116 200"/>
+                      <path d="M200 186c-22 0-38 18-62 26"/>
+                      <path d="M200 282c-40 0-60 22-92 22"/>
+                      <path d="M200 268c-46 0-64 58-108 58"/>
+                      <path d="M200 254c-40 0-72 18-104 18"/>
+                      <path d="M200 240c-32 0-68-16-100-16"/>
+                      <path d="M200 226c-28 0-52-26-84-26"/>
+                      <path d="M200 214c-22 0-38-18-62-26"/>
+                      <path d="M282 200c0-40 22-60 22-92"/>
+                      <path d="M268 200c0-46 58-64 58-108"/>
+                      <path d="M254 200c0-40 18-72 18-104"/>
+                      <path d="M240 200c0-32-16-68-16-100"/>
+                      <path d="M226 200c0-28-26-52-26-84"/>
+                      <path d="M118 200c0-40-22-60-22-92"/>
+                      <path d="M132 200c0-46-58-64-58-108"/>
+                      <path d="M146 200c0-40-18-72-18-104"/>
+                      <path d="M160 200c0-32 16-68 16-100"/>
+                      <path d="M174 200c0-28 26-52 26-84"/>
+                      <path d="M282 210c40 0 60 22 92 22"/>
+                      <path d="M268 224c46 0 64 58 108 58"/>
+                      <path d="M254 238c40 0 72 18 104 18"/>
+                      <path d="M240 252c32 0 68-16 100-16"/>
+                      <path d="M226 266c28 0 52-26 84-26"/>
+                      <path d="M214 278c22 0 38 18 62 26"/>
+                      <path d="M118 190c-40 0-60-22-92-22"/>
+                      <path d="M132 176c-46 0-64-58-108-58"/>
+                      <path d="M146 162c-40 0-72-18-104-18"/>
+                      <path d="M160 148c-32 0-68 16-100 16"/>
+                      <path d="M174 134c-28 0-52 26-84 26"/>
+                      <path d="M186 122c-22 0-38-18-62-26"/>
+                      <path d="M282 190c40 0 60-22 92-22"/>
+                      <path d="M268 176c46 0 64-58 108-58"/>
+                      <path d="M254 162c40 0 72-18 104-18"/>
+                      <path d="M240 148c32 0 68 16 100 16"/>
+                      <path d="M226 134c28 0 52 26 84 26"/>
+                      <path d="M214 122c22 0 38-18 62-26"/>
                     </g>
-                    <rect x="84" y="84" width="32" height="32" rx="1" fill="rgba(150, 205, 232, .1)" stroke="rgba(150, 205, 232, .5)" stroke-width=".8"/>
-                    <!-- logo mark -->
-                    <path d="M100 92 92 100l8 8 8-8Z" stroke="rgba(196, 230, 246, .85)" stroke-width="1"/>
-                    <path d="M94 113h12m-6-4v8" stroke="rgba(196, 230, 246, .5)" stroke-width=".7"/>
-                  </g>
+                    <rect x="128" y="106" width="144" height="188" rx="4" stroke="var(--sig)" stroke-width="1" opacity=".55"/>
+                    <rect x="84" y="52" width="232" height="296" rx="8" stroke="var(--copper-hi)" stroke-width=".8" opacity=".35" stroke-dasharray="4 6"/>
+                  </svg>
 
-                  <!-- PHY / analog strips -->
-                  <g stroke="rgba(150, 205, 232, .22)" stroke-width=".5" fill="rgba(150, 205, 232, .05)">
-                    <rect x="16" y="58" width="28" height="84" rx="1"/>
-                    <rect x="156" y="58" width="28" height="84" rx="1"/>
-                    <rect x="58" y="16" width="84" height="28" rx="1"/>
-                    <rect x="58" y="156" width="84" height="28" rx="1"/>
-                  </g>
-                  <g stroke="rgba(150, 205, 232, .18)" stroke-width=".4">
-                    <path d="M20 66h20M20 74h20M20 82h20M20 90h20M20 98h20M20 106h20M20 114h20M20 122h20M20 130h20"/>
-                    <path d="M160 66h20M160 74h20M160 82h20M160 90h20M160 98h20M160 106h20M160 114h20M160 122h20M160 130h20"/>
-                    <path d="M66 20v20M74 20v20M82 20v20M90 20v20M98 20v20M106 20v20M114 20v20M122 20v20M130 20v20"/>
-                    <path d="M66 160v20M74 160v20M82 160v20M90 160v20M98 160v20M106 160v20M114 160v20M122 160v20M130 160v20"/>
-                  </g>
-
-                  <!-- clock tree -->
-                  <g class="die-clk" stroke="rgba(150, 205, 232, .4)" stroke-width=".7" fill="none">
-                    <path d="M100 52V34M52 100H34M148 100h18M100 148v18"/>
-                    <circle cx="100" cy="100" r="22" stroke-dasharray="2 3" opacity=".5"/>
-                  </g>
-
-                  <!-- power grid sheen -->
-                  <g stroke="rgba(255,255,255,.05)" stroke-width=".5">
-                    <path d="M16 44h168M16 150h168M44 16v168M150 16v168"/>
-                  </g>
-
-                  <text x="100" y="190" text-anchor="middle" class="die-text">OT‑256 · 5 nm · GAA</text>
-                </svg>
-                <div class="chip__die-glow"></div>
+                  <span class="chip__silk chip__silk--a">U1</span>
+                  <span class="chip__silk chip__silk--b">BGA‑256 · 0.80P</span>
+                  <span class="chip__silk chip__silk--c">OT‑256</span>
+                  <span class="chip__silk chip__silk--d">▲ 1</span>
+                  <span class="chip__pin1" aria-hidden="true"></span>
+                  <span class="chip__scan" aria-hidden="true"></span>
+                  <span class="chip__xray-label" aria-hidden="true">X‑RAY · DIE 5 nm</span>
+                </div>
+                </div>
               </div>
 
-              <svg class="chip__xray" viewBox="0 0 400 400" fill="none" aria-hidden="true">
-                <g class="xray-wires">
-                  <path d="M200 118C160 118 140 96 108 96"/>
-                  <path d="M200 132C154 132 136 74 92 74"/>
-                  <path d="M200 146C160 146 128 128 96 128"/>
-                  <path d="M200 160C168 160 132 176 100 176"/>
-                  <path d="M200 174C172 174 148 200 116 200"/>
-                  <path d="M200 186c-22 0-38 18-62 26"/>
-                  <path d="M200 282c-40 0-60 22-92 22"/>
-                  <path d="M200 268c-46 0-64 58-108 58"/>
-                  <path d="M200 254c-40 0-72 18-104 18"/>
-                  <path d="M200 240c-32 0-68-16-100-16"/>
-                  <path d="M200 226c-28 0-52-26-84-26"/>
-                  <path d="M200 214c-22 0-38-18-62-26"/>
-                  <path d="M282 200c0-40 22-60 22-92"/>
-                  <path d="M268 200c0-46 58-64 58-108"/>
-                  <path d="M254 200c0-40 18-72 18-104"/>
-                  <path d="M240 200c0-32-16-68-16-100"/>
-                  <path d="M226 200c0-28-26-52-26-84"/>
-                  <path d="M118 200c0-40-22-60-22-92"/>
-                  <path d="M132 200c0-46-58-64-58-108"/>
-                  <path d="M146 200c0-40-18-72-18-104"/>
-                  <path d="M160 200c0-32 16-68 16-100"/>
-                  <path d="M174 200c0-28 26-52 26-84"/>
-                  <path d="M282 210c40 0 60 22 92 22"/>
-                  <path d="M268 224c46 0 64 58 108 58"/>
-                  <path d="M254 238c40 0 72 18 104 18"/>
-                  <path d="M240 252c32 0 68-16 100-16"/>
-                  <path d="M226 266c28 0 52-26 84-26"/>
-                  <path d="M214 278c22 0 38 18 62 26"/>
-                  <path d="M118 190c-40 0-60-22-92-22"/>
-                  <path d="M132 176c-46 0-64-58-108-58"/>
-                  <path d="M146 162c-40 0-72-18-104-18"/>
-                  <path d="M160 148c-32 0-68 16-100 16"/>
-                  <path d="M174 134c-28 0-52 26-84 26"/>
-                  <path d="M186 122c-22 0-38-18-62-26"/>
-                  <path d="M282 190c40 0 60-22 92-22"/>
-                  <path d="M268 176c46 0 64-58 108-58"/>
-                  <path d="M254 162c40 0 72-18 104-18"/>
-                  <path d="M240 148c32 0 68 16 100 16"/>
-                  <path d="M226 134c28 0 52 26 84 26"/>
-                  <path d="M214 122c22 0 38-18 62-26"/>
-                </g>
-                <rect x="128" y="106" width="144" height="188" rx="4" stroke="var(--sig)" stroke-width="1" opacity=".55"/>
-                <rect x="84" y="52" width="232" height="296" rx="8" stroke="var(--copper-hi)" stroke-width=".8" opacity=".35" stroke-dasharray="4 6"/>
-              </svg>
+              <!-- moulded lid -->
+              <div class="chip__face chip__face--top">
+                <div class="chip__lid">
+                  <span class="chip__lid-mark">OT‑256</span>
+                  <span class="chip__lid-sub">BGA‑256 · 0.80P</span>
+                  <span class="chip__lid-pin1"></span>
+                  <span class="chip__lid-lot">LOT 26W47 · TW</span>
+                </div>
+              </div>
 
-              <span class="chip__silk chip__silk--a">U1</span>
-              <span class="chip__silk chip__silk--b">BGA‑256 · 0.80P</span>
-              <span class="chip__silk chip__silk--c">OT‑256</span>
-              <span class="chip__silk chip__silk--d">▲ 1</span>
-              <span class="chip__pin1" aria-hidden="true"></span>
-              <span class="chip__scan" aria-hidden="true"></span>
-              <span class="chip__xray-label" aria-hidden="true">X‑RAY · DIE 5 nm</span>
             </div>
-            <div class="chip__tag" aria-hidden="true"><span class="chip__tag-led"></span>SIGNAL <b>LOCK</b> · 0.8 mm</div>
-            <div class="chip__hint" id="chip-hint" aria-hidden="true">наведите — рентген · клик — закрепить</div>
+
           </div>
+
+          <div class="chip__tag" aria-hidden="true"><span class="chip__tag-led"></span>SIGNAL <b>LOCK</b> · 0.8 mm</div>
+          <div class="chip__hint" id="chip-hint" aria-hidden="true">перетащите — вращение · клик — рентген</div>
         </div>
 
         <div class="stage__caption" aria-hidden="true">
@@ -499,6 +520,6 @@
     </div>
   </footer>
 
-  <script src="assets/js/board.js?v=1795553222" defer></script>
+  <script src="assets/js/board.js?v=1795558346" defer></script>
 </body>
 </html>

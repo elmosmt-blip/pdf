@@ -70,6 +70,15 @@
       gloss.appendChild(svgEl("stop", { offset: o, "stop-color": c.startsWith("rgba(255") ? "#ffffff" : "#000000", "stop-opacity": c.match(/,([\d.]+)\)$/)[1] })));
     defs.appendChild(gloss);
 
+    // micro grain for moulded plastic: extremely subtle, sold as texture
+    const grain = svgEl("filter", { id: "grain", x: "0", y: "0", width: "100%", height: "100%" });
+    grain.appendChild(svgEl("feTurbulence", { type: "fractalNoise", baseFrequency: "0.9", numOctaves: "2", result: "n" }));
+    grain.appendChild(svgEl("feColorMatrix", { in: "n", type: "saturate", values: "0" }));
+    const ct = svgEl("feComponentTransfer");
+    ct.appendChild(svgEl("feFuncA", { type: "linear", slope: "0.42", intercept: "0" }));
+    grain.appendChild(ct);
+    defs.appendChild(grain);
+
     // specular blob from the ring light
     const spec = svgEl("radialGradient", { id: "specGrad" });
     spec.appendChild(svgEl("stop", { offset: "0", "stop-color": "#ffffff", "stop-opacity": "0.85" }));
@@ -85,15 +94,16 @@
       defs.appendChild(gd);
     };
     // solder-plated termination: bright crest → dark heel
-    lin("metalGrad", [["0", "#ffffff"], ["0.16", "#eef4f8"], ["0.46", "#c3ccd4"], ["0.74", "#818c96"], ["1", "#39434b"]]);
+    lin("solderGrad", [["0", "#f2f5f7"], ["0.14", "#e6ecef"], ["0.4", "#cdd5da"], ["0.66", "#a7b1b8"], ["0.86", "#7d878f"], ["1", "#5a646c"]]);
+    lin("metalGrad", [["0", "#f4f7f9"], ["0.18", "#dfe5e9"], ["0.5", "#b6c0c7"], ["0.78", "#8b959d"], ["1", "#4a545c"]]);
     // dark moulded epoxy body
     lin("bodyDarkGrad", [["0", "#2f3a44"], ["0.16", "#1e262d"], ["0.7", "#12181e"], ["1", "#0a0f13"]]);
     // matte moulded epoxy for large packages: almost flat, slight top light
     lin("mouldGrad", [["0", "#28313a"], ["0.3", "#222a32"], ["0.75", "#1a2128"], ["1", "#141a20"]]);
     // tan ceramic chip
-    lin("bodyWarmGrad", [["0", "#b9a483"], ["0.4", "#9a8567"], ["1", "#5f5039"]]);
+    lin("bodyWarmGrad", [["0", "#c2ae8b"], ["0.35", "#a58f6d"], ["1", "#665440"]]);
     // yellow tantalum moulding
-    lin("bodyTanGrad", [["0", "#e5b345"], ["0.35", "#c9902c"], ["1", "#6f4c10"]]);
+    lin("bodyTanGrad", [["0", "#dcae43"], ["0.3", "#c79433"], ["0.72", "#a97a24"], ["1", "#6d4d12"]]);
     svg.insertBefore(defs, gPour);
   })();
 
@@ -295,17 +305,20 @@
     }));
   };
 
-  /* silkscreen courtyard around a part — the strongest "real board" cue */
-  const silkOutline = (g, x0, y0, w, h, rx, opts = {}) => {
-    g.appendChild(svgEl("rect", {
-      x: x0 - (opts.gap ?? 1.6), y: y0 - (opts.gap ?? 1.6),
-      width: w + (opts.gap ?? 1.6) * 2, height: h + (opts.gap ?? 1.6) * 2,
-      rx: Math.max(0.4, rx * 0.7),
-      fill: "none",
-      stroke: opts.color || "rgba(236,243,250,0.5)",
-      "stroke-width": opts.width || 0.95,
-      "stroke-linecap": "round",
-    }));
+  /* silkscreen field marks: two pin-1 bars beside the part (as on real
+     two-terminal passives), never a frame around the body */
+  const silkMarks = (g, x0, y0, w, h, opts = {}) => {
+    const len = h * (opts.len ?? 0.72);
+    const th = opts.width ?? 1.25;
+    const gap = opts.gap ?? 1.5;
+    const cy = y0 + h / 2;
+    const col = opts.color || "rgba(238,244,250,0.62)";
+    [x0 - gap, x0 + w + gap].forEach((x) => {
+      g.appendChild(svgEl("rect", {
+        x: x - th / 2, y: cy - len / 2, width: th, height: len, rx: th / 2,
+        fill: col,
+      }));
+    });
   };
 
   /* extruded box: darker side walls facing away from the light + lit top face */
@@ -377,75 +390,135 @@
 
   /* tinned termination: metal block + solder fillet rising to the pad */
   const termination = (g, x0, y0, w, h, rot, L, opts = {}) => {
-    // NOTE: x0/y0/w/h are in the *already rotated* parent space, so the block
-    // geometry is emitted unrotated while the light comes in parent-local too.
-    block3D(g, x0, y0, w, h, Math.min(0.8, Math.min(w, h) * 0.26), 1.4,
-      opts.top || "url(#metalGrad)", opts.side || "#6b7782", L,
-      { shine: false, sideBase: "#8d99a4" });
-    // specular crest (a thin, slightly inset highlight — not a full white bar)
+    // 1) solder fillet wicking up the end of the chip (matte, slightly warm)
     g.appendChild(svgEl("rect", {
-      x: x0 + w * 0.16, y: y0 + h * 0.12,
-      width: Math.max(0.6, w * 0.32), height: Math.max(0.6, h * 0.74),
-      rx: Math.min(0.55, w * 0.2), fill: "rgba(255,255,255,0.5)",
+      x: x0 - 0.5, y: y0 - 0.5, width: w + 1, height: h + 1, rx: 0.9,
+      fill: "rgba(150, 158, 164, 0.55)",
     }));
-    // dark heel toward the board shadow side
+    // 2) the metal cap itself
+    block3D(g, x0, y0, w, h, Math.min(0.7, Math.min(w, h) * 0.24), 1.1,
+      opts.top || "url(#solderGrad)", opts.side || "#5c666f", L,
+      { shine: false, sideBase: "#7c868e" });
+    // 3) bright top facet (the flat of the cap catches the ring light)
     g.appendChild(svgEl("rect", {
-      x: x0 + w * 0.62, y: y0 + 0.3,
-      width: Math.max(0.5, w * 0.3), height: Math.max(0.5, h - 0.6),
-      rx: 0.3, fill: "rgba(24,32,38,0.4)",
+      x: x0 + w * 0.12, y: y0 + h * 0.08,
+      width: Math.max(0.6, w * 0.5), height: Math.max(0.6, h * 0.5),
+      rx: Math.min(0.45, w * 0.18), fill: "rgba(255,255,255,0.34)",
+    }));
+    // 4) dark meniscus where the cap meets the ceramic body
+    g.appendChild(svgEl("rect", {
+      x: x0 + w * 0.72, y: y0 + 0.2,
+      width: Math.max(0.5, w * 0.24), height: Math.max(0.5, h - 0.4),
+      rx: 0.3, fill: "rgba(18,24,30,0.5)",
+    }));
+    // 5) occluded underside
+    g.appendChild(svgEl("rect", {
+      x: x0 + 0.25, y: y0 + h - Math.max(0.6, h * 0.14) - 0.2,
+      width: Math.max(0.5, w - 0.5), height: Math.max(0.6, h * 0.14), rx: 0.25,
+      fill: "rgba(12,18,24,0.5)",
     }));
   };
 
   /* --- passives: 0402 / 0603 / 0805 with real bodies -------------- */
   const smdBody = (x, y, w, h, rot = 0, opts = {}) => {
     const g = svgEl("g", { transform: `translate(${x} ${y}) rotate(${rot})` });
-    const termW = Math.max(1.7, w * 0.19);
+    const termW = Math.max(1.9, w * 0.22);   // real 0603: caps ≈ 20% of length
     const L = localLight(rot);
-    const depth = Math.max(3.2, h * 0.52);
+    const depth = Math.max(3.4, h * 0.5);
 
-    dropShadow(g, w + termW * 2, h, 0.9, rot);
+    dropShadow(g, w + termW * 2, h, 0.9, rot, 3.4, 1.2);
 
-    // body sits between the terminations
-    block3D(g, -w / 2, -h / 2, w, h, 0.55, depth,
-      opts.warm ? "url(#bodyWarmGrad)" : "url(#bodyDarkGrad)",
-      opts.warm ? "#6a5741" : "#1b242d", L,
-      { sideBase: opts.warm ? "#7d6a52" : "#1b232a", specX: 0.2, specY: 0.16, glint: true });
-
-    // ceramic dielectric sheen for MLCC (warm) — faint banding
-    if (opts.warm) {
-      g.appendChild(svgEl("rect", {
-        x: -w / 2 + 1, y: -h / 2 + 1, width: w - 2, height: Math.max(0.7, h * 0.26),
-        rx: 0.3, fill: "rgba(255,255,255,0.2)",
-      }));
-    }
-
-    // solder lands just outside the metal, wetted up the termination flank
+    // ENIG land under the joint (peeks out an eyelash)
     [-1, 1].forEach((side) => {
-      const x0 = side < 0 ? -w / 2 - termW - 1.5 : w / 2 + termW - 0.8;
+      const lx = side < 0 ? -w / 2 - termW - 1.1 : w / 2 + termW - 0.6;
       g.appendChild(svgEl("rect", {
-        x: x0, y: -h / 2 - 0.35, width: 1.5, height: h + 0.7, rx: 0.6,
-        fill: "rgba(212,182,126,0.3)",
+        x: lx, y: -h / 2 + 0.4, width: 1.8, height: h - 0.8, rx: 0.5,
+        fill: "rgba(214,186,140,0.34)",
       }));
     });
 
-    // terminations wrap the ends
-    termination(g, -w / 2 - termW, -h / 2, termW, h, rot, L);
-    termination(g, w / 2, -h / 2, termW, h, rot, L);
+    // camera-locked shading: the light stays put while the part rotates, so the
+    // top-face gradient is counter-rotated through gradientTransform
+    if (rot) {
+      const uid = `${Math.round(x)}_${Math.round(y)}`;
+      const shadeId = `shade_${uid}`;
+      const lightId = `light_${uid}`;
+      const gs = svgEl("linearGradient", {
+        id: shadeId, x1: "0", y1: "0", x2: "0", y2: "1",
+        gradientTransform: `rotate(${(-rot).toFixed(1)} 0.5 0.5)`,
+      });
+      gs.appendChild(svgEl("stop", { offset: "0", "stop-color": "#ffffff", "stop-opacity": "0" }));
+      gs.appendChild(svgEl("stop", { offset: "0.42", "stop-color": "#ffffff", "stop-opacity": "0.05" }));
+      gs.appendChild(svgEl("stop", { offset: "1", "stop-color": "#000000", "stop-opacity": "0.42" }));
+      const gl = svgEl("linearGradient", {
+        id: lightId, x1: "0", y1: "0", x2: "0", y2: "1",
+        gradientTransform: `rotate(${(-rot).toFixed(1)} 0.5 0.5)`,
+      });
+      gl.appendChild(svgEl("stop", { offset: "0", "stop-color": "#ffffff", "stop-opacity": "0.16" }));
+      gl.appendChild(svgEl("stop", { offset: "0.34", "stop-color": "#ffffff", "stop-opacity": "0.03" }));
+      gl.appendChild(svgEl("stop", { offset: "1", "stop-color": "#ffffff", "stop-opacity": "0" }));
+      gParts.appendChild(gs);
+      gParts.appendChild(gl);
+      g.appendChild(svgEl("rect", {
+        x: -w / 2, y: -h / 2, width: w, height: h, rx: 0.7,
+        fill: `url(#${shadeId})`, style: "mix-blend-mode: multiply",
+      }));
+      g.appendChild(svgEl("rect", {
+        x: -w / 2, y: -h / 2, width: w, height: h, rx: 0.7,
+        fill: `url(#${lightId})`, style: "mix-blend-mode: screen",
+      }));
+    }
 
-    // silkscreen courtyard drawn *under* nothing — it sits on the mask beside the part
-    silkOutline(g, -w / 2 - termW, -h / 2, w + termW * 2, h, 1.2, { gap: 2.4, width: 1.1 });
+    // grain overlay is added after the body is drawn (see below)
 
-    // laser marking on resistors (3-digit code) when there is room
-    if (!opts.warm && w >= 11) {
+    // body: matte moulded epoxy (resistor) or ceramic (MLCC)
+    const bodyTop = opts.warm ? "#b9a684" : "#14191e";
+    const bodySide = opts.warm ? "#6d5c45" : "#0a0e12";
+    block3D(g, -w / 2, -h / 2, w, h, 0.7, depth,
+      bodyTop, bodySide, L,
+      { sideBase: opts.warm ? "#8a7659" : "#232b32", matte: true, glint: false });
+
+    // micro texture: fractal noise, barely visible, kills the "vector" feel
+    g.appendChild(svgEl("rect", {
+      x: -w / 2 + 0.4, y: -h / 2 + 0.4, width: w - 0.8, height: h - 0.8, rx: 0.5,
+      filter: "url(#grain)", opacity: opts.warm ? "0.16" : "0.2",
+      style: "mix-blend-mode: overlay",
+    }));
+
+    // laser-ablated marking: pale, slightly recessed, only on resistor bodies
+    if (!opts.warm && w >= 14) {
+      const fs = Math.min(4.4, h * 0.5);
       const t = svgEl("text", {
-        x: 0, y: 0.85, "text-anchor": "middle",
-        fill: "rgba(226,232,240,0.42)",
-        "font-family": "var(--font-mono)", "font-size": Math.min(3.1, h * 0.42),
-        "letter-spacing": "0.08em",
+        x: 0, y: fs * 0.36, "text-anchor": "middle",
+        fill: "rgba(214,222,230,0.5)",
+        "font-family": "var(--font-mono)", "font-size": fs,
+        "letter-spacing": "0.06em",
       });
       t.textContent = "103";
       g.appendChild(t);
     }
+
+    // MLCC: faint dielectric banding + rounded, glazed top
+    if (opts.warm) {
+      g.appendChild(svgEl("rect", {
+        x: -w / 2 + 1.4, y: h / 2 - Math.max(1.2, h * 0.3),
+        width: w - 2.8, height: Math.max(0.8, h * 0.16), rx: 0.4,
+        fill: "rgba(70,54,34,0.35)",
+      }));
+      g.appendChild(svgEl("rect", {
+        x: -w / 2 + 1.4, y: -h / 2 + 1.2,
+        width: w - 2.8, height: Math.max(0.8, h * 0.18), rx: 0.4,
+        fill: "rgba(255,255,255,0.16)",
+      }));
+    }
+
+    // solder caps on both ends (drawn last so they sit proud of the body)
+    termination(g, -w / 2 - termW, -h / 2, termW, h, rot, L);
+    termination(g, w / 2, -h / 2, termW, h, rot, L);
+
+    // pin-1 silk bars on the mask
+    silkMarks(g, -w / 2 - termW * 2 - 2.6, -h / 2, w + termW * 4 + 5.2, h, { width: 1.35, gap: 0, len: 0.62 });
+
     gParts.appendChild(g);
     return g;
   };
@@ -1221,6 +1294,7 @@
   const chip = document.getElementById("chip");
   const stage = document.getElementById("stage");
 
+  let suppressClick = false;
   if (chip) {
     let pinned = false;
     const paint = () => {
@@ -1228,6 +1302,7 @@
       chip.setAttribute("aria-pressed", String(pinned));
     };
     chip.addEventListener("click", () => {
+      if (suppressClick) { suppressClick = false; return; }
       pinned = !pinned;
       paint();
     });
@@ -1252,30 +1327,168 @@
     });
   }
 
-  if (finePointer && !reduced && chip && stage) {
-    let raf = 0;
-    let tx = 0, ty = 0;
+  /* ============================================================
+     8b. BGA package — drag to spin, physical shading follows the tilt
+     ============================================================ */
+  if (chip && !reduced) {
     const float = document.getElementById("chip-float");
-    stage.addEventListener("pointermove", (e) => {
-      const r = stage.getBoundingClientRect();
-      tx = ((e.clientX - r.left) / r.width - 0.5) * 2;
-      ty = ((e.clientY - r.top) / r.height - 0.5) * 2;
-      if (raf) return;
-      raf = requestAnimationFrame(() => {
-        raf = 0;
-        if (float) {
-          float.style.transform = `rotateX(${(-ty * 7).toFixed(2)}deg) rotateY(${(tx * 9).toFixed(2)}deg)`;
+    const body = document.getElementById("chip-body");
+    const shadow = chip.querySelector(".chip__shadow");
+    const ballEls = Array.from(chip.querySelectorAll(".ball"));
+
+    // resting pose: slightly tipped so the package reads as a solid object
+    const HOME = { x: 17, y: -14 };
+    let rotX = HOME.x, rotY = HOME.y;
+    let velX = 0, velY = 0;
+    let dragging = false;
+    let lastX = 0, lastY = 0, lastT = 0;
+    let raf = 0, idleSpin = 0;
+    let touched = false;
+    let dragMoved = 0;
+
+    const clampPitch = (v) => Math.max(-46, Math.min(46, v));
+
+    const paintBalls = () => {
+      // light comes from the upper-left of the *screen*, so the highlight
+      // must not travel with the package when it rotates
+      const rad = (rotY * Math.PI) / 180;
+      const pitch = (rotX * Math.PI) / 180;
+      // approximate the light vector in the package's local frame
+      const lx = -0.55, ly = -0.5;
+      const cosA = Math.cos(rad), sinA = Math.sin(rad);
+      let px = lx * cosA + ly * sinA;          // rotate into local space
+      let py = -lx * sinA + ly * cosA;
+      const cosP = Math.cos(pitch);
+      py = py * cosP + 0.16;                    // flatten the highlight on tilt
+      const sx = 50 + px * 30;
+      const sy = 50 + py * 30;
+      const spread = Math.min(1, Math.abs(Math.sin(pitch)) + 0.3);
+      for (let i = 0; i < ballEls.length; i++) {
+        const b = ballEls[i];
+        b.style.setProperty("--lx", sx.toFixed(1) + "%");
+        b.style.setProperty("--ly", sy.toFixed(1) + "%");
+        b.style.setProperty("--bx", (px * 2.4 * spread).toFixed(2) + "px");
+        b.style.setProperty("--by", (py * 2.4 * spread + 1).toFixed(2) + "px");
+        b.style.setProperty("--bd", (spread * 2.2).toFixed(2) + "px");
+        // spheres catch a little more light the flatter we look at them
+        b.style.setProperty("--ball-xf", `scale(${(1 + Math.abs(Math.sin(pitch)) * 0.02).toFixed(3)})`);
+      }
+    };
+
+    const paint = () => {
+      if (float) float.style.transform =
+        `perspective(1400px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg)`;
+      if (shadow) {
+        // the shadow slides opposite the tilt and softens as the part lifts
+        const pitch = (rotX * Math.PI) / 180;
+        const yaw = (rotY * Math.PI) / 180;
+        const off = Math.sin(pitch) * 16;
+        const sc = 1 + Math.abs(Math.sin(pitch)) * 0.16;
+        shadow.style.transform =
+          `translate(${(Math.sin(yaw) * -10).toFixed(1)}px, ${off.toFixed(1)}px) scale(${sc.toFixed(2)})`;
+        shadow.style.opacity = (0.9 - Math.abs(Math.sin(pitch)) * 0.25).toFixed(2);
+      }
+      paintBalls();
+    };
+
+    const tick = () => {
+      raf = 0;
+      if (!dragging) {
+        // inertia
+        rotY += velY;
+        rotX = clampPitch(rotX + velX);
+        velY *= 0.94;
+        velX *= 0.94;
+        // settle slowly toward the resting pose when idle
+        if (Math.abs(velY) < 0.04 && Math.abs(velX) < 0.04) {
+          velX = 0; velY = 0;
+          rotX += (HOME.x - rotX) * 0.035;
+          rotY += (HOME.y - rotY) * 0.035;
+          if (Math.abs(HOME.x - rotX) < 0.05 && Math.abs(HOME.y - rotY) < 0.05) {
+            rotX = HOME.x; rotY = HOME.y;
+            chip.classList.remove("is-spinning");
+            paint();
+            return;
+          }
+        } else {
+          raf = requestAnimationFrame(tick);
         }
-        svg.style.transform = `translate3d(${(tx * -10).toFixed(1)}px, ${(ty * -7).toFixed(1)}px, 0) scale(1.02)`;
-        const glow = chip.querySelector(".chip__glow");
-        if (glow) glow.style.background =
-          `radial-gradient(circle at ${50 + tx * 12}% ${50 + ty * 12}%, rgba(94,240,184,.26) 0%, rgba(94,240,184,.08) 30%, transparent 62%)`;
+      }
+      paint();
+      if (!dragging && (velX || velY)) raf = requestAnimationFrame(tick);
+    };
+
+    chip.addEventListener("pointerdown", (e) => {
+      if (e.button !== 0 && e.pointerType === "mouse") return;
+      dragging = true;
+      touched = true;
+      dragMoved = 0;
+      lastX = e.clientX; lastY = e.clientY; lastT = performance.now();
+      velX = 0; velY = 0;
+      chip.classList.add("is-spinning");
+      chip.setPointerCapture?.(e.pointerId);
+      e.preventDefault();
+    });
+
+    chip.addEventListener("pointermove", (e) => {
+      if (!dragging) return;
+      const now = performance.now();
+      const dt = Math.max(8, now - lastT);
+      const dx = e.clientX - lastX;
+      const dy = e.clientY - lastY;
+      lastX = e.clientX; lastY = e.clientY; lastT = now;
+      dragMoved += Math.abs(dx) + Math.abs(dy);
+      rotY += dx * 0.55;
+      rotX = clampPitch(rotX - dy * 0.45);
+      velY = (dx * 0.55) * (16 / dt);
+      velX = (-dy * 0.45) * (16 / dt);
+      paint();
+    });
+
+    const endDrag = () => {
+      if (!dragging) return;
+      dragging = false;
+      // a real drag must not toggle the x-ray pin
+      if (dragMoved > 6) suppressClick = true;
+      if (!raf) raf = requestAnimationFrame(tick);
+    };
+    chip.addEventListener("pointerup", endDrag);
+    chip.addEventListener("pointercancel", endDrag);
+    chip.addEventListener("pointerleave", endDrag);
+
+    // keyboard: arrow keys give a deliberate turn
+    chip.addEventListener("keydown", (e) => {
+      const step = 6;
+      if (e.key === "ArrowLeft") { rotY -= step; paint(); e.preventDefault(); }
+      if (e.key === "ArrowRight") { rotY += step; paint(); e.preventDefault(); }
+      if (e.key === "ArrowUp") { rotX = clampPitch(rotX - step); paint(); e.preventDefault(); }
+      if (e.key === "ArrowDown") { rotX = clampPitch(rotX + step); paint(); e.preventDefault(); }
+    });
+
+    // subtle parallax while the pointer crosses the stage (desktop only)
+    if (finePointer && stage) {
+      let praf = 0, tx = 0, ty = 0;
+      stage.addEventListener("pointermove", (e) => {
+        if (dragging) return;
+        const r = stage.getBoundingClientRect();
+        tx = ((e.clientX - r.left) / r.width - 0.5) * 2;
+        ty = ((e.clientY - r.top) / r.height - 0.5) * 2;
+        if (praf) return;
+        praf = requestAnimationFrame(() => {
+          praf = 0;
+          svg.style.transform = `translate3d(${(tx * -10).toFixed(1)}px, ${(ty * -7).toFixed(1)}px, 0) scale(1.02)`;
+          const glow = chip.querySelector(".chip__glow");
+          if (glow) glow.style.background =
+            `radial-gradient(circle at ${50 + tx * 12}% ${50 + ty * 12}%, rgba(94,240,184,.26) 0%, rgba(94,240,184,.08) 30%, transparent 62%)`;
+        });
       });
-    });
-    stage.addEventListener("pointerleave", () => {
-      if (float) float.style.transform = "";
-      svg.style.transform = "";
-    });
+      stage.addEventListener("pointerleave", () => {
+        svg.style.transform = "";
+      });
+    }
+
+    paint();
+    chip.__resetTilt = () => { rotX = HOME.x; rotY = HOME.y; velX = velY = 0; paint(); };
   }
 
   /* mobile menu */
