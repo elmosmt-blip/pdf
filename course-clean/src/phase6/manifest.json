@@ -192,5 +192,53 @@
     "section": 0,
     "alt": "Reference sheet: board with global and local fiducials, camera search box, dot-grid vision calibration target, offset vector with DX, DY and rotation, skew versus offset and a photo of a copper fiducial",
     "imageCaption": "Fiducials, vision calibration and placement offset: coordinate system, offset vector and rotation"
+  },
+  {
+    "id": "m04l03",
+    "section": 0,
+    "alt": "Reference sheet: side views of squeegee pressure as force per blade length, squeegee speed, snap-off gap, separation speed and the understencil wipe cycle, a squeegee photo and a coupled-process diagram",
+    "imageCaption": "Printer setup: squeegee pressure and speed, snap-off, separation and wipe cycle as one coupled process"
+  },
+  {
+    "id": "m05l04",
+    "section": 0,
+    "alt": "Reference sheet: top-view tiles for a correct part, offset, skew, tilt, tombstone, missing, wrong part and reversed polarity, the SPI to post-reflow AOI evidence sequence, defect grouping by feeder, nozzle and location, a tombstone photo and an action-limit band",
+    "imageCaption": "Placement defect atlas: offset, skew, tilt, tombstone, missing, wrong part and polarity, with the evidence sequence"
+  },
+  {
+    "id": "m05l05",
+    "section": 0,
+    "alt": "Reference sheet: component library entry fields, physical sample check against the reel pocket, program verification screen, calibration certificate marked missing or expired equals failed setup, a first-article inspection photo and a release record",
+    "imageCaption": "Library setup, program verification and first-article check"
+  },
+  {
+    "id": "m05l06",
+    "section": 0,
+    "alt": "Reference sheet: fine-pitch QFP measured on two opposite corners with DX, DY and rotation, lead-on-pad tolerance band, SPI to reflow evidence sequence, a QFP photo, internal limit nested inside IPC-A-610 acceptance and a list of placement mechanisms",
+    "imageCaption": "Case: shift and skew on a fine-pitch QFP — measure, attribute, limit"
+  },
+  {
+    "id": "m06l04",
+    "section": 0,
+    "alt": "Reference sheet: dense versus sparse board with thermal-mass gauges, cross-section of a heavy copper plane sinking heat from a joint, thermal relief versus solid connection, heavy and light joint thermal response curves, a multilayer PCB cross-section photo and a thermocouple on the hardest joint",
+    "imageCaption": "Board thermal mass and layout: heavy planes, thermal relief, mixed population, dense versus sparse"
+  },
+  {
+    "id": "m06l05",
+    "section": 0,
+    "alt": "Reference sheet: SnAgCu and SnPb profiles overlaid with each liquidus and time above liquidus, alloy thermal budget below the package classification ceiling, ramp and soak, nitrogen versus air fillets, a QFP fillet photo and the data-source note that liquidus comes from the paste datasheet",
+    "imageCaption": "Alloy systems and profile families: liquidus basis, thermal budget versus ceiling, nitrogen versus air"
+  },
+  {
+    "id": "m06l07",
+    "section": 0,
+    "alt": "Reference sheet: thermocouple map with five positions, measured profiles with validation envelope, validation record fields, a taped thermocouple photo, the change-control flow and adjustment versus qualification",
+    "imageCaption": "Profile validation, documentation and change control"
+  },
+  {
+    "id": "m07l04",
+    "section": 0,
+    "alt": "Reference sheet: X-ray image of a BGA array with void, small ball and bridge callouts, ball collapse side views, centre versus edge void, through-hole fill with a void, a disposition card and the 2D, oblique and CT method choice",
+    "imageCaption": "X-ray interpretation: BGA ball size and voids, bridging, through-hole fill, disposition by criterion and class"
   }
 ]

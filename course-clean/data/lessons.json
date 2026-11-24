@@ -3220,8 +3220,8 @@
             {
               "t": "image",
               "src": "assets/img/m04l03.webp",
-              "alt": "Side view of a printer showing the squeegee, the paste roll, the snap-off gap between stencil and board, the separation motion and the wipe cycle",
-              "caption": "Printer setup: squeegee pressure and speed, snap-off, separation and wipe cycle"
+              "alt": "Reference sheet: side views of squeegee pressure as force per blade length, squeegee speed, snap-off gap, separation speed and the understencil wipe cycle, a squeegee photo and a coupled-process diagram",
+              "caption": "Printer setup: squeegee pressure and speed, snap-off, separation and wipe cycle as one coupled process"
             }
           ]
         },
@@ -4437,8 +4437,8 @@
             {
               "t": "image",
               "src": "assets/img/m05l04.webp",
-              "alt": "Six small board views labelled with each placement defect, shown beside a correctly placed component",
-              "caption": "Placement defect atlas: tombstone, skew, tilt, missing, wrong part and polarity"
+              "alt": "Reference sheet: top-view tiles for a correct part, offset, skew, tilt, tombstone, missing, wrong part and reversed polarity, the SPI to post-reflow AOI evidence sequence, defect grouping by feeder, nozzle and location, a tombstone photo and an action-limit band",
+              "caption": "Placement defect atlas: offset, skew, tilt, tombstone, missing, wrong part and polarity, with the evidence sequence"
             }
           ]
         },
@@ -4590,8 +4590,8 @@
             {
               "t": "image",
               "src": "assets/img/m05l05.webp",
-              "alt": "A component library entry with package, nozzle and vision settings, beside a program verification screen and a first-article board under inspection",
-              "caption": "Component library setup, program verification and first-article check"
+              "alt": "Reference sheet: component library entry fields, physical sample check against the reel pocket, program verification screen, calibration certificate marked missing or expired equals failed setup, a first-article inspection photo and a release record",
+              "caption": "Library setup, program verification and first-article check"
             }
           ]
         },
@@ -4744,8 +4744,8 @@
             {
               "t": "image",
               "src": "assets/img/m05l06.webp",
-              "alt": "A fine-pitch QFP with measured shift and skew against a crosshair overlay, and the lead pitch tolerance band marked",
-              "caption": "Case: shift and skew on a fine-pitch QFP"
+              "alt": "Reference sheet: fine-pitch QFP measured on two opposite corners with DX, DY and rotation, lead-on-pad tolerance band, SPI to reflow evidence sequence, a QFP photo, internal limit nested inside IPC-A-610 acceptance and a list of placement mechanisms",
+              "caption": "Case: shift and skew on a fine-pitch QFP — measure, attribute, limit"
             }
           ]
         },
@@ -5392,7 +5392,7 @@
             {
               "t": "image",
               "src": "assets/img/m06l04.webp",
-              "alt": "Two board layouts side by side, one dense with heavy copper planes and one sparse, with a thermal mass indicator on each",
+              "alt": "Reference sheet: dense versus sparse board with thermal-mass gauges, cross-section of a heavy copper plane sinking heat from a joint, thermal relief versus solid connection, heavy and light joint thermal response curves, a multilayer PCB cross-section photo and a thermocouple on the hardest joint",
               "caption": "Board thermal mass and layout: heavy planes, thermal relief, mixed population, dense versus sparse"
             }
           ]
@@ -5538,8 +5538,8 @@
             {
               "t": "image",
               "src": "assets/img/m06l05.webp",
-              "alt": "Two thermal profile curves overlaid, one for a SAC-type alloy and one for a tin-lead eutectic, with each liquidus marked",
-              "caption": "Alloy systems and profile families: SAC305 versus SnPb on a liquidus basis, and nitrogen versus air"
+              "alt": "Reference sheet: SnAgCu and SnPb profiles overlaid with each liquidus and time above liquidus, alloy thermal budget below the package classification ceiling, ramp and soak, nitrogen versus air fillets, a QFP fillet photo and the data-source note that liquidus comes from the paste datasheet",
+              "caption": "Alloy systems and profile families: liquidus basis, thermal budget versus ceiling, nitrogen versus air"
             }
           ]
         },
@@ -5836,7 +5836,7 @@
             {
               "t": "image",
               "src": "assets/img/m06l07.webp",
-              "alt": "A validated profile record with thermocouple locations and measured data, beside a change-control request routing the revision",
+              "alt": "Reference sheet: thermocouple map with five positions, measured profiles with validation envelope, validation record fields, a taped thermocouple photo, the change-control flow and adjustment versus qualification",
               "caption": "Profile validation, documentation and change control"
             }
           ]
@@ -6443,8 +6443,8 @@
             {
               "t": "image",
               "src": "assets/img/m07l04.webp",
-              "alt": "An X-ray view of a BGA package showing ball size variation, voids and a bridge, beside an X-ray view of through-hole fill",
-              "caption": "X-ray interpretation: BGA ball size and voiding, bridging and through-hole fill"
+              "alt": "Reference sheet: X-ray image of a BGA array with void, small ball and bridge callouts, ball collapse side views, centre versus edge void, through-hole fill with a void, a disposition card and the 2D, oblique and CT method choice",
+              "caption": "X-ray interpretation: BGA ball size and voids, bridging, through-hole fill, disposition by criterion and class"
             }
           ]
         },
