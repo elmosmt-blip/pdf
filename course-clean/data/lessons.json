@@ -4744,7 +4744,7 @@
             {
               "t": "image",
               "src": "assets/img/m05l06.webp",
-              "alt": "Reference sheet: fine-pitch QFP measured on two opposite corners with DX, DY and rotation, lead-on-pad tolerance band, SPI to reflow evidence sequence, a QFP photo, internal limit nested inside IPC-A-610 acceptance and a list of placement mechanisms",
+              "alt": "Reference sheet: fine-pitch QFP measured on two opposite corners with DX, DY and rotation, lead-on-pad tolerance band, SPI to reflow evidence sequence, a QFP photo, internal limit nested inside the customer acceptance limit and a list of placement mechanisms",
               "caption": "Case: shift and skew on a fine-pitch QFP — measure, attribute, limit"
             }
           ]
