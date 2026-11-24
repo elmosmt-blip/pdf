@@ -240,5 +240,59 @@
     "section": 0,
     "alt": "Reference sheet: X-ray image of a BGA array with void, small ball and bridge callouts, ball collapse side views, centre versus edge void, through-hole fill with a void, a disposition card and the 2D, oblique and CT method choice",
     "imageCaption": "X-ray interpretation: BGA ball size and voids, bridging, through-hole fill, disposition by criterion and class"
+  },
+  {
+    "id": "m05l01",
+    "section": 0,
+    "alt": "Reference sheet: top view of a pick-and-place machine with gantry, placement head, feeder bank, conveyor and fiducial-marked board, X/Y/Z/theta axes, accuracy versus repeatability targets, a nozzle pick-up photo, a pick-vision-place cycle timeline and a calibration certificate",
+    "imageCaption": "Pick-and-place machine overview: layout, axes, accuracy versus repeatability, throughput and calibration status"
+  },
+  {
+    "id": "m06l06",
+    "section": 0,
+    "alt": "Reference sheet: joint cross-section tiles for a sound joint, tombstone, solder balling, beading, dewetting, voids and distortion, a signature-to-zone table, a solder balling photo and the signature → zone → one variable → trial article → verify flow",
+    "imageCaption": "Reflow defect atlas: signatures, the zone each points to, and the bounded-change sequence"
+  },
+  {
+    "id": "m08l05",
+    "section": 0,
+    "alt": "Reference sheet: plated through-hole geometry with hole, lead, diametral and radial clearance, a blank BOM worksheet, tight versus loose clearance, vertical fill with fillets on both sides, a cross-section photo and class minimum versus customer requirement",
+    "imageCaption": "Clearance and expected fill: geometry, worksheet, tight versus loose, disposition"
+  },
+  {
+    "id": "m09l02",
+    "section": 0,
+    "alt": "Reference sheet: spray fluxer under a conveyor, liquid volume versus solids per area, activity driven by finish and oxide, complete versus incomplete spray pattern, coverage coupon and wetting test, and a photo of a wet flux film under blue light",
+    "imageCaption": "Flux selection and application: solids basis, activity, pattern and verification"
+  },
+  {
+    "id": "m09l03",
+    "section": 0,
+    "alt": "Reference sheet: wave line with fluxer, bottom preheaters and wave, top versus bottom thermocouple curves, flux activation window under the component limit, thick board note, a preheat photo and a profiler",
+    "imageCaption": "Wave preheat: top versus bottom temperature, flux activation window and verification at the board"
+  },
+  {
+    "id": "m09l07",
+    "section": 0,
+    "alt": "Reference sheet: solder pot with pump, nozzle and sampling ladle, contamination bars against a limit, tin consumption trend with top-ups, parameter record fields, a wave-soldered underside photo and a first-article image kept with the record",
+    "imageCaption": "Wave process control: bath contamination, tin consumption, parameter record and first article"
+  },
+  {
+    "id": "m10l03",
+    "section": 0,
+    "alt": "Reference sheet: selective nozzle heating one joint with heat spreading through copper planes to neighbours, conduction, convection and substrate paths, a board heat map, sensitive part icons, a thermocouple-on-capacitor photo and mitigation list",
+    "imageCaption": "Thermal budget of the neighbours: heat paths, sensitive parts, monitoring and mitigation"
+  },
+  {
+    "id": "m10l05",
+    "section": 0,
+    "alt": "Reference sheet: through-hole joint cross-section labels, pull-test fixture with force gauge, joint and neighbour thermocouples in one run, sacrificial board, a metallographic section photo and a validation record",
+    "imageCaption": "Selective soldering validation: cross-section, pull test, same-run monitoring and documentation"
+  },
+  {
+    "id": "m11l03",
+    "section": 0,
+    "alt": "Reference sheet: hot-air station with bottom preheater and joint thermocouple, vacuum removal of a BGA, wick clean and paste-in-pad through a mini-stencil, split-vision alignment, a rework photo and a cycle budget tally",
+    "imageCaption": "Hot-air rework of BGA and QFN: setup, removal, paste-in-pad, replacement and cycle budget"
   }
 ]

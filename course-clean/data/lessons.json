@@ -3989,8 +3989,8 @@
             {
               "t": "image",
               "src": "assets/img/m05l01.webp",
-              "alt": "Pick-and-place machine with gantry, placement head and nozzles, feeder bank, fiducial marks on a board and an axes travel diagram",
-              "caption": "Pick-and-place machine overview: placement accuracy and repeatability, feeder bank, fiducials, axes travel"
+              "alt": "Reference sheet: top view of a pick-and-place machine with gantry, placement head, feeder bank, conveyor and fiducial-marked board, X/Y/Z/theta axes, accuracy versus repeatability targets, a nozzle pick-up photo, a pick-vision-place cycle timeline and a calibration certificate",
+              "caption": "Pick-and-place machine overview: layout, axes, accuracy versus repeatability, throughput and calibration status"
             }
           ]
         },
@@ -5685,8 +5685,8 @@
             {
               "t": "image",
               "src": "assets/img/m06l06.webp",
-              "alt": "Six small joint views labelled with each reflow defect, shown beside a sound joint for comparison",
-              "caption": "Reflow defect atlas: tombstone, balling, beading, dewetting, voids and distortion"
+              "alt": "Reference sheet: joint cross-section tiles for a sound joint, tombstone, solder balling, beading, dewetting, voids and distortion, a signature-to-zone table, a solder balling photo and the signature → zone → one variable → trial article → verify flow",
+              "caption": "Reflow defect atlas: signatures, the zone each points to, and the bounded-change sequence"
             }
           ]
         },
@@ -7524,8 +7524,8 @@
             {
               "t": "image",
               "src": "assets/img/m08l05.webp",
-              "alt": "A calculation panel showing hole diameter, lead diameter, clearance and expected fill for a small set of through-hole parts",
-              "caption": "Calculation drill: clearance and expected fill for a real bill-of-materials subset"
+              "alt": "Reference sheet: plated through-hole geometry with hole, lead, diametral and radial clearance, a blank BOM worksheet, tight versus loose clearance, vertical fill with fillets on both sides, a cross-section photo and class minimum versus customer requirement",
+              "caption": "Clearance and expected fill: geometry, worksheet, tight versus loose, disposition"
             }
           ]
         },
@@ -7822,8 +7822,8 @@
             {
               "t": "image",
               "src": "assets/img/m09l02.webp",
-              "alt": "A fluxer head spraying a pattern onto a board underside, with a solids readout, an activity class label and a verification coupon",
-              "caption": "Flux selection and application: solids, activity, amount, pattern and verification"
+              "alt": "Reference sheet: spray fluxer under a conveyor, liquid volume versus solids per area, activity driven by finish and oxide, complete versus incomplete spray pattern, coverage coupon and wetting test, and a photo of a wet flux film under blue light",
+              "caption": "Flux selection and application: solids basis, activity, pattern and verification"
             }
           ]
         },
@@ -7967,8 +7967,8 @@
             {
               "t": "image",
               "src": "assets/img/m09l03.webp",
-              "alt": "A board cross-section with top and bottom temperature probes, a preheat curve, and a flux activation temperature band",
-              "caption": "Preheat: board top versus bottom temperature, flux activation and thermal limits"
+              "alt": "Reference sheet: wave line with fluxer, bottom preheaters and wave, top versus bottom thermocouple curves, flux activation window under the component limit, thick board note, a preheat photo and a profiler",
+              "caption": "Wave preheat: top versus bottom temperature, flux activation window and verification at the board"
             }
           ]
         },
@@ -8580,8 +8580,8 @@
             {
               "t": "image",
               "src": "assets/img/m09l07.webp",
-              "alt": "A solder pot with a contamination analysis readout and a tin consumption chart, beside a record sheet and a first-article board",
-              "caption": "Wave process control: bath contamination, tin consumption, records and first article"
+              "alt": "Reference sheet: solder pot with pump, nozzle and sampling ladle, contamination bars against a limit, tin consumption trend with top-ups, parameter record fields, a wave-soldered underside photo and a first-article image kept with the record",
+              "caption": "Wave process control: bath contamination, tin consumption, parameter record and first article"
             }
           ]
         },
@@ -9092,8 +9092,8 @@
             {
               "t": "image",
               "src": "assets/img/m10l03.webp",
-              "alt": "A board cross-section showing heat spreading from a soldered joint into adjacent copper and components, with a temperature map",
-              "caption": "Thermal budget of the neighbours: heat spread, monitoring and sensitive parts"
+              "alt": "Reference sheet: selective nozzle heating one joint with heat spreading through copper planes to neighbours, conduction, convection and substrate paths, a board heat map, sensitive part icons, a thermocouple-on-capacitor photo and mitigation list",
+              "caption": "Thermal budget of the neighbours: heat paths, sensitive parts, monitoring and mitigation"
             }
           ]
         },
@@ -9404,8 +9404,8 @@
             {
               "t": "image",
               "src": "assets/img/m10l05.webp",
-              "alt": "A joint cross-section, a pull-test fixture holding a lead, and a validation record sheet",
-              "caption": "Selective defects and validation: cross-section, pull test and documentation"
+              "alt": "Reference sheet: through-hole joint cross-section labels, pull-test fixture with force gauge, joint and neighbour thermocouples in one run, sacrificial board, a metallographic section photo and a validation record",
+              "caption": "Selective soldering validation: cross-section, pull test, same-run monitoring and documentation"
             }
           ]
         },
@@ -9901,8 +9901,8 @@
             {
               "t": "image",
               "src": "assets/img/m11l03.webp",
-              "alt": "A hot-air rework station with a preheated board, a component being lifted, and a replacement part being placed with paste in the pads",
-              "caption": "Rework: hot air, preheat, paste-in-pad, BGA and QFN removal and replacement"
+              "alt": "Reference sheet: hot-air station with bottom preheater and joint thermocouple, vacuum removal of a BGA, wick clean and paste-in-pad through a mini-stencil, split-vision alignment, a rework photo and a cycle budget tally",
+              "caption": "Hot-air rework of BGA and QFN: setup, removal, paste-in-pad, replacement and cycle budget"
             }
           ]
         },
