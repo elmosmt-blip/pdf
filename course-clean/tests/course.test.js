@@ -850,6 +850,111 @@ async function renderLayer() {
     ok(/not found/i.test(nd.querySelector('h1').textContent), '#/g/zz is not a valid glossary route');
   }
 
+  /* Phase 7: learning paths, version / change log, report link, print meta,
+     keyboard-operable figures. Counts come from data/paths.json and
+     data/meta.json, never typed here. */
+  {
+    const meta = JSON.parse(fs.readFileSync(path.join(BUILD, 'data', 'meta.json'), 'utf8'));
+    const pathsDoc = JSON.parse(fs.readFileSync(path.join(BUILD, 'data', 'paths.json'), 'utf8'));
+    const allLessons = JSON.parse(fs.readFileSync(path.join(BUILD, 'data', 'lessons.json'), 'utf8'));
+    const caseDoc7 = JSON.parse(fs.readFileSync(path.join(BUILD, 'data', 'cases.json'), 'utf8'));
+
+    /* home: one card per path; sidebar: one link per path + the version line */
+    const h7 = load('#/');
+    const hd7 = h7.window.document;
+    eq(hd7.querySelectorAll('.home-paths .path-card').length, pathsDoc.paths.length, 'the home page offers every learning path');
+    eq(hd7.querySelectorAll('#toc .toc-paths a').length, pathsDoc.paths.length, 'the sidebar lists every learning path');
+    const sb = hd7.getElementById('side-build').textContent;
+    ok(sb.indexOf('v' + meta.version) !== -1, 'the sidebar shows the course version', sb);
+    ok(sb.indexOf(meta.date) !== -1, 'the sidebar shows the version date', sb);
+    ok(!!hd7.querySelector('#side-build a[href="#/about/"]'), 'the version line links to the About page');
+    h7.window.close();
+
+    /* path page: every lesson of the path in order, cases listed, follow button works */
+    const p0 = pathsDoc.paths[0];
+    const pdom = load('#/p/' + p0.id);
+    const pdoc = pdom.window.document;
+    const hrefs = Array.prototype.map.call(pdoc.querySelectorAll('.path-list-item a'), function (a) {
+      return a.getAttribute('href').replace('#/l/', '');
+    });
+    eq(hrefs.join(','), p0.lessons.join(','), 'the path page lists its lessons in path order');
+    eq(pdoc.querySelectorAll('.home-case-card').length, (p0.cases || []).length, 'the path page lists its cases');
+    const follow = pdoc.querySelector('[data-act="path-select"]');
+    ok(!!follow, 'an unchosen path offers a Follow button');
+    follow.dispatchEvent(new pdom.window.MouseEvent('click', { bubbles: true }));
+    const saved = JSON.parse(pdom.window.localStorage.getItem('dfm-course-progress-v1'));
+    eq(saved.path, p0.id, 'following a path is stored in progress');
+    ok(!!pdoc.querySelector('[data-act="path-clear"]'), 'a chosen path offers a Leave button');
+    pdom.window.close();
+
+    /* a lesson inside the chosen path shows its step and the next lesson;
+       one outside the path says so and offers the way back */
+    const inside = p0.lessons[1];
+    const ld = load('#/l/' + inside, { v: 1, visited: {}, quiz: {}, exams: {}, cases: {}, path: p0.id }).window.document;
+    const strip = ld.querySelector('.path-strip');
+    ok(!!strip, 'a lesson on the chosen path shows the path strip');
+    ok(/step 2 of \d+/.test(strip.textContent), 'the strip states the step number', strip.textContent);
+    ok(strip.querySelector('.path-strip-next').getAttribute('href') === '#/l/' + p0.lessons[2],
+      'the strip links to the next lesson of the path');
+    const outsideId = allLessons.map(function (l) { return l.lessonId; }).filter(function (id) {
+      return p0.lessons.indexOf(id) === -1;
+    })[0];
+    const od = load('#/l/' + outsideId, { v: 1, visited: {}, quiz: {}, exams: {}, cases: {}, path: p0.id }).window.document;
+    ok(/outside your path/.test(od.querySelector('.path-strip').textContent), 'a lesson off the path says so');
+    ok(!!od.querySelector('.path-strip-next[href^="#/l/"]'), 'and offers the next path lesson');
+    const nd7 = load('#/l/' + inside).window.document;
+    ok(!nd7.querySelector('.path-strip'), 'no strip when no path is chosen');
+
+    /* every lesson and every case carries the report link with its id, version and build */
+    let missingReport = 0;
+    allLessons.forEach(function (l) {
+      const d = load('#/l/' + l.lessonId).window.document;
+      const a = d.querySelector('.report-link');
+      const href = a ? a.getAttribute('href') : '';
+      if (!a || href.indexOf(l.lessonId) === -1 || href.indexOf(encodeURIComponent(meta.version)) === -1 ||
+        !d.querySelector('.print-meta')) missingReport++;
+    });
+    eq(missingReport, 0, 'every lesson has a Report an error link with lesson id + version, and a print footer');
+    let missingCaseReport = 0;
+    caseDoc7.cases.forEach(function (c) {
+      const d = load('#/c/' + c.caseId).window.document;
+      const a = d.querySelector('.report-link');
+      if (!a || a.getAttribute('href').indexOf(c.caseId) === -1) missingCaseReport++;
+    });
+    eq(missingCaseReport, 0, 'every case has a Report an error link with its id');
+
+    /* about page: version, every change-log entry, report section */
+    const ad = load('#/about/').window.document;
+    ok(ad.querySelector('h1').textContent.length > 0, 'the About page renders');
+    eq(ad.querySelectorAll('.changelog-entry').length, meta.changelog.length, 'the About page lists every change-log entry');
+    ok(ad.querySelector('.changelog-ver').textContent === 'v' + meta.version, 'the newest entry is the current version');
+    ok(!!ad.getElementById('report') && !!ad.getElementById('changelog'), 'About has #report and #changelog anchors');
+
+    /* keyboard: figures are buttons; Enter zooms, Escape closes */
+    const withFig = allLessons.filter(function (l) { return /"t":"(image|figure)"/.test(JSON.stringify(l.content)); })[0];
+    const fdom = load('#/l/' + withFig.lessonId);
+    const fig = fdom.window.document.querySelector('.fig--photo, .fig--zoomable');
+    ok(!!fig && fig.getAttribute('tabindex') === '0' && fig.getAttribute('role') === 'button', 'figures are focusable buttons');
+    fig.focus();
+    fig.dispatchEvent(new fdom.window.KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+    ok(fig.classList.contains('is-zoomed'), 'Enter zooms a focused figure');
+    fdom.window.document.dispatchEvent(new fdom.window.KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+    ok(!fig.classList.contains('is-zoomed'), 'Escape closes the zoom');
+    fdom.window.close();
+
+    /* the audit script itself passes */
+    const a11y = runNode([path.join(ROOT, 'scripts', 'check-a11y.js')]);
+    ok(a11y.code === 0, 'check-a11y exits 0', a11y.out.split('\n').filter(function (l) { return /FAIL/.test(l); }).join(' | '));
+
+    /* print stylesheet hides chrome and shows the footer */
+    const css = fs.readFileSync(path.join(BUILD, 'assets', 'style.css'), 'utf8');
+    const printBlock = css.slice(css.indexOf('@media print'));
+    ok(printBlock.length > 500, 'style.css has a print block');
+    ok(/#sidebar,[^{]*\{display:none/.test(printBlock.replace(/\n/g, '')), 'print hides the sidebar');
+    ok(/\.print-meta\{display:block/.test(printBlock), 'print shows the page footer');
+    ok(/\.print-meta\{display:none\}/.test(css), 'the print footer is hidden on screen');
+  }
+
   home.window.close();
 }
 

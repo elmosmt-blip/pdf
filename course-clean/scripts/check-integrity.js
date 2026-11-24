@@ -358,6 +358,59 @@ function run() {
     }
   }
 
+  /* ---- 7c. phase 7: meta (version / change log / report target) and paths ---- */
+  const metaPath = path.join(ROOT, 'data', 'meta.json');
+  const pathsPath = path.join(ROOT, 'data', 'paths.json');
+  if (!fs.existsSync(metaPath)) {
+    problems.push({ code: 'meta-missing', count: 1, sample: ['data/meta.json'] });
+  } else {
+    const meta = readJson(metaPath);
+    const semver = /^\d+\.\d+\.\d+$/;
+    if (!semver.test(String(meta.version))) problems.push({ code: 'meta-version', count: 1, sample: [String(meta.version)] });
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(String(meta.date))) problems.push({ code: 'meta-date', count: 1, sample: [String(meta.date)] });
+    const log = Array.isArray(meta.changelog) ? meta.changelog : [];
+    if (!log.length || log[0].version !== meta.version) {
+      problems.push({ code: 'changelog-head', count: 1, sample: ['first change-log entry must be the current version ' + meta.version] });
+    }
+    const badEntries = log.filter(function (e) { return !semver.test(String(e.version)) || !Array.isArray(e.items) || !e.items.length; });
+    if (badEntries.length) problems.push({ code: 'changelog-entry', count: badEntries.length, sample: badEntries.map(function (e) { return String(e.version); }) });
+    const r = meta.report || {};
+    if (!r.formUrl && !r.email) {
+      problems.push({ code: 'report-target', count: 1, sample: ['meta.report needs formUrl or email'] });
+    } else if (/REPLACE/.test(String(r.formUrl || ''))) {
+      warn.push('meta.report.formUrl is still the placeholder — "Report an error" links lead nowhere until it is set');
+    }
+    info.version = meta.version;
+  }
+  if (!fs.existsSync(pathsPath)) {
+    problems.push({ code: 'paths-missing', count: 1, sample: ['data/paths.json'] });
+  } else {
+    const pd = readJson(pathsPath);
+    const list = Array.isArray(pd.paths) ? pd.paths : [];
+    const caseIds = {};
+    const casesFile7 = path.join(ROOT, 'data', 'cases.json');
+    if (fs.existsSync(casesFile7)) {
+      const cd7 = readJson(casesFile7);
+      (cd7.cases || []).forEach(function (c) { caseIds[c.caseId] = true; });
+    }
+    const badLessons = [], badCases = [], dupes = [], ids = {};
+    list.forEach(function (p) {
+      if (ids[p.id]) dupes.push(p.id); ids[p.id] = true;
+      const seen = {};
+      (p.lessons || []).forEach(function (id) {
+        if (!lessonIds.has(id)) badLessons.push(p.id + ':' + id);
+        if (seen[id]) dupes.push(p.id + ':' + id); seen[id] = true;
+      });
+      (p.cases || []).forEach(function (id) { if (!caseIds[id]) badCases.push(p.id + ':' + id); });
+      if (!p.title || !Array.isArray(p.lessons) || p.lessons.length < 5) badLessons.push(p.id + ': fewer than 5 lessons or no title');
+    });
+    if (list.length < 3) problems.push({ code: 'paths-count', count: 1, sample: ['expected at least 3 paths, found ' + list.length] });
+    if (badLessons.length) problems.push({ code: 'path-lesson', count: badLessons.length, sample: badLessons.slice(0, 10) });
+    if (badCases.length) problems.push({ code: 'path-case', count: badCases.length, sample: badCases.slice(0, 10) });
+    if (dupes.length) problems.push({ code: 'path-dupe', count: dupes.length, sample: dupes.slice(0, 10) });
+    info.paths = list.map(function (p) { return p.id + ':' + (p.lessons || []).length; });
+  }
+
   /* ---- 8. embed equals the JSON ---- */
   if (!fs.existsSync(PATHS.embed)) {
     problems.push({ code: 'embed-missing', count: 1, sample: [path.relative(ROOT, PATHS.embed)] });
@@ -373,7 +426,9 @@ function run() {
         questions: JSON.stringify(e.value.questions) === JSON.stringify(questions),
         sources: JSON.stringify(e.value.sources) === JSON.stringify(sources),
         reference: !fs.existsSync(refPath) ||
-          JSON.stringify(e.value.reference) === JSON.stringify(readJson(refPath))
+          JSON.stringify(e.value.reference) === JSON.stringify(readJson(refPath)),
+        meta: !fs.existsSync(metaPath) || JSON.stringify(e.value.meta) === JSON.stringify(readJson(metaPath)),
+        paths: !fs.existsSync(pathsPath) || JSON.stringify(e.value.paths) === JSON.stringify(readJson(pathsPath))
       };
       info.embed = { present: true, parseable: true, matches: same };
       const stale = Object.keys(same).filter(function (k) { return !same[k]; });

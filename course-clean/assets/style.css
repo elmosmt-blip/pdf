@@ -301,7 +301,7 @@ details summary:hover{color:var(--signal-light)}
 .opt input{margin-top:8px;accent-color:var(--signal);width:24px;height:24px;flex:0 0 24px}
 .opt--correct{background:rgba(76,175,80,.1);border-color:rgba(76,175,80,.5)}
 .opt--wrong{background:rgba(244,67,54,.1);border-color:rgba(244,67,54,.5)}
-.opt--muted{opacity:.55}
+.opt--muted{opacity:.7} /* 6.7:1 — .55 sat at the 4.5 edge (phase 7 audit) */
 .opt-mark{margin-left:auto;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--signal);white-space:nowrap}
 .opt--correct .opt-mark{color:var(--green)}
 .opt--wrong .opt-mark{color:var(--red)}
@@ -615,7 +615,7 @@ table.tbl{width:100%;border-collapse:collapse}
 /* ---- exam gate ------------------------------------------------------- */
 .exam-card--locked{border-color:rgba(255,152,0,.35)}
 .chip--locked{color:var(--yellow);border-color:rgba(255,152,0,.4);background:rgba(255,152,0,.08)}
-.toc-exam--locked{opacity:.75}
+.toc-exam--locked{opacity:.85} /* 5.6:1 (phase 7 audit) */
 
 /* ---- spec chips on the case page ------------------------------------- */
 .spec-chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px;padding:0;list-style:none}
@@ -739,3 +739,123 @@ table.tbl{width:100%;border-collapse:collapse}
 .corrections{margin:28px 0;padding:12px 16px;border:1px dashed var(--line);border-radius:var(--r-md);font-size:14px}
 .corrections h2{font-size:15px;margin:0 0 8px}
 .corrections ul{margin:0;padding-left:20px}
+
+/* =====================================================================
+   Phase 7 — navigation and trust
+   ===================================================================== */
+
+/* the version line is now a link to the change log, so it must read:
+   full opacity, mut on bg is 7:1 */
+.side-build{opacity:1;font-size:11px;line-height:1.6;color:var(--mut)}
+.side-build a{color:var(--mut);text-decoration:underline;text-decoration-color:rgba(148,163,184,.4)}
+.side-build a:hover{color:var(--signal)}
+
+/* ---- learning paths ---- */
+.home-paths{margin:36px 0 8px}
+.path-current{margin:14px 0 0;padding:12px 16px;border:1px solid rgba(83,209,204,.3);border-radius:var(--r-md);
+  background:rgba(83,209,204,.06);display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;max-width:none!important}
+.path-grid{list-style:none;margin:16px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.path-grid li{margin:0;max-width:none}
+.path-card{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:var(--r-md);background:var(--panel);
+  box-shadow:var(--sh-1);overflow:hidden;transition:border-color .15s,transform .2s var(--ease)}
+.path-card:hover{border-color:rgba(83,209,204,.45);transform:translateY(-2px)}
+.path-card--active{border-color:var(--signal)}
+.path-card-link{display:flex;flex-direction:column;gap:8px;padding:18px 18px 14px;color:var(--txt);flex:1}
+.path-card-link:hover{color:var(--txt)}
+.path-card-title{font-family:var(--serif);font-size:20px;font-weight:600;line-height:1.25;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.path-card-aud{font-size:14px;color:var(--mut);line-height:1.5}
+.path-card-meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-family:var(--mono);font-size:12px;color:var(--mut);margin-top:auto}
+.path-card-actions{padding:0 18px 18px}
+.path-actions{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.path-list{list-style:none;margin:12px 0 0;padding:0;counter-reset:none}
+.path-list li{max-width:none}
+.path-list-mod{margin:22px 0 6px;font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
+.path-list-item{margin:0}
+.path-list-item a{display:grid;grid-template-columns:36px 1fr auto;gap:12px;align-items:center;padding:10px 12px;
+  border:1px solid var(--line);border-radius:12px;margin:6px 0;color:var(--txt)}
+.path-list-item a:hover{border-color:rgba(83,209,204,.45);color:var(--txt)}
+.path-step{font-family:var(--mono);font-size:12px;color:var(--signal);font-weight:700;width:32px;height:32px;border-radius:10px;
+  display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(83,209,204,.3)}
+.path-list-item--visited .path-step{background:rgba(83,209,204,.1)}
+.path-list-item--mastered .path-step{background:var(--green);border-color:var(--green);color:#0D1117}
+.path-step-title{font-size:15px;line-height:1.35}
+.path-step-meta{font-family:var(--mono);font-size:11.5px;color:var(--mut);white-space:nowrap}
+.path-strip{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;margin:0 0 20px;padding:10px 16px;
+  border:1px solid rgba(83,209,204,.3);border-radius:12px;background:rgba(83,209,204,.06);font-size:14px}
+.path-strip-label{color:var(--mut)}
+.path-strip-pos{font-family:var(--mono);font-size:12px;color:var(--signal)}
+.path-strip-next{margin-left:auto;font-weight:600}
+.toc-path--chosen{color:var(--signal)}
+
+/* ---- report an error / page identity ---- */
+.report-line{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;margin:36px 0 0;padding:14px 16px;
+  border:1px dashed var(--line2);border-radius:var(--r-md);font-size:14px}
+.report-link{font-weight:600}
+.report-meta{font-family:var(--mono);font-size:12px;color:var(--mut);margin-left:auto}
+.report-meta a{color:var(--mut);text-decoration:underline;text-decoration-color:rgba(148,163,184,.4)}
+.report-meta a:hover{color:var(--signal)}
+.print-meta{display:none}
+
+/* ---- about: change log ---- */
+.changelog{list-style:none;margin:0;padding:0}
+.changelog li{max-width:none}
+.changelog-entry{margin:0 0 18px;padding:14px 18px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--panel)}
+.changelog-head{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;margin-bottom:6px}
+.changelog-ver{font-family:var(--mono);font-weight:700;color:var(--signal)}
+.changelog-date{font-family:var(--mono);font-size:12px;color:var(--mut)}
+.changelog-title{font-weight:600;color:#fff}
+.changelog-entry ul{margin:0;padding-left:20px}
+.changelog-entry li{max-width:70ch}
+
+/* keyboard focus on figures: the whole card is the control */
+.fig:focus-visible{outline:2px solid var(--signal);outline-offset:3px}
+
+@media (max-width:700px){
+  .path-list-item a{grid-template-columns:32px 1fr}
+  .path-step-meta{grid-column:2;white-space:normal}
+  .report-meta,.path-strip-next{margin-left:0}
+}
+
+/* =====================================================================
+   Print — a lesson or case as a plain document
+   ===================================================================== */
+@media print{
+  @page{margin:16mm 14mm 18mm}
+  :root{--bg:#fff;--txt:#000;--body:#111;--mut:#444;--dim:#555;--signal:#0b5f5c;--signal-light:#0b5f5c;
+    --panel:#fff;--panel2:#fff;--strong:#fff;--line:#bbb;--line2:#999;--green:#1b5e20;--orange:#8a4b00;--red:#b71c1c;}
+  html{scroll-behavior:auto}
+  body{background:#fff!important;color:#000;font-size:11pt;line-height:1.45;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  #app{display:block}
+  #shell{background-image:none!important;background:#fff!important}
+  #sidebar,#topbar,.skip-link,.site-foot,.hero-bg,.pipeline,.pager,.path-strip,.report-link,
+  .quiz,.quiz-section,form,.quiz-actions,button,.btn,.case-rubric-box,#case-result-slot,
+  .home-cases,.home-paths,.path-card-actions,.path-actions,.progress,.progress-line,.stats,.hero-cta,
+  .draft-banner,.banner--info,.fig--photo.is-zoomed::before,.fig--zoomable.is-zoomed::before{display:none!important}
+  #main{max-width:none;margin:0;padding:0;animation:none}
+  #main p,#main li{max-width:none}
+  h1,h2,h3,h4,strong,.changelog-title{color:#000}
+  h1{font-size:22pt;margin:0 0 6pt}
+  h2{font-size:15pt;margin:16pt 0 6pt;page-break-after:avoid;break-after:avoid}
+  h3,h4{page-break-after:avoid;break-after:avoid}
+  p,li{color:#111;orphans:3;widows:3}
+  a{color:#000;text-decoration:none}
+  .sources a[href^="http"]::after,.source-item a[href^="http"]::after{content:" (" attr(href) ")";font-size:9pt;color:#444;word-break:break-all}
+  .chip,.kicker{color:#333;border-color:#999;background:none}
+  .fig,.callout,.calc,.defect,.takeaways,.mistakes,.terms,.prereq,.corrections,.table-wrap,table,figure,
+  .changelog-entry,.path-list-item{page-break-inside:avoid;break-inside:avoid;box-shadow:none!important;
+    backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:#fff!important;border-color:#bbb}
+  .fig img{aspect-ratio:auto;object-fit:contain;border:1px solid #bbb;max-height:120mm;width:auto;max-width:100%;margin:0 auto}
+  .fig svg{max-height:120mm}
+  .fig figcaption{color:#333}
+  .fig--photo.is-zoomed img,.fig--zoomable.is-zoomed svg{position:static;transform:none;width:auto;max-width:100%;box-shadow:none}
+  table{border-collapse:collapse;width:100%;font-size:9.5pt}
+  th,td{border:1px solid #999;padding:3pt 5pt;color:#000}
+  th{background:#eee!important}
+  .report-line{border:none;padding:0;margin:14pt 0 0}
+  .report-meta{color:#444;margin-left:0}
+  .report-meta a::after{content:none}
+  /* footer line on every printed page of the document */
+  .print-meta{display:block;position:fixed;bottom:0;left:0;right:0;font-family:var(--mono);font-size:8pt;color:#444;
+    border-top:1px solid #bbb;padding-top:3pt;background:#fff}
+  #main{padding-bottom:14mm}
+}

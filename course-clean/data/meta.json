@@ -1,0 +1,68 @@
+{
+  "version": "1.0.0",
+  "date": "2026-10-31",
+  "status": "release candidate",
+  "report": {
+    "formUrl": "https://forms.gle/REPLACE-WITH-YOUR-FORM-ID",
+    "email": "",
+    "params": { "lesson": "entry.lesson", "build": "entry.build", "version": "entry.version", "url": "entry.url" },
+    "note": "formUrl is a placeholder: replace it with the real form address (Google Form prefilled link, Typeform, …). The engine appends lesson, build, version and url as GET parameters using the names in `params`. If formUrl is empty and email is set, a mailto: link is used instead."
+  },
+  "changelog": [
+    {
+      "version": "1.0.0",
+      "date": "2026-10-31",
+      "title": "Navigation and trust",
+      "items": [
+        "Three learning paths (new to the line, process technologist, inspector) with their own progress and a next-in-path link on every lesson.",
+        "Course version and change log on the About page and in the sidebar; build hash shown next to the version.",
+        "Report an error link on every lesson and case, carrying the lesson id, version and build.",
+        "Print stylesheet: a lesson prints as a clean document with a version footer; quizzes and navigation stay on screen.",
+        "Keyboard and contrast audit (scripts/check-a11y.js): zoomable figures operable from the keyboard, all colour pairs at or above WCAG AA."
+      ]
+    },
+    {
+      "version": "0.9.6",
+      "date": "2026-10-30",
+      "title": "Images without standards designations",
+      "items": [
+        "All 92 lesson illustrations re-checked by OCR; standards-body designations and logos removed from the images (lesson text still names its sources).",
+        "Alt texts of two illustrations reworded to match."
+      ]
+    },
+    {
+      "version": "0.9.5",
+      "date": "2026-10-29",
+      "title": "Illustration audit",
+      "items": [
+        "56 reference-sheet illustrations regenerated, 27 kept, 9 numeric figures replaced by inline SVG drawn from the lesson's own numbers."
+      ]
+    },
+    {
+      "version": "0.9.0",
+      "date": "2026-10-27",
+      "title": "Editorial pass and reference pages",
+      "items": [
+        "All 92 lessons rewritten; key takeaways, common mistakes and terms per lesson; reading time from the text.",
+        "Glossary (309 terms) and formula sheet (11 relations) derived from the lessons.",
+        "Four technologist reviews closed; corrections listed inside the affected lessons."
+      ]
+    },
+    {
+      "version": "0.8.0",
+      "date": "2026-10-24",
+      "title": "Toolkit templates",
+      "items": [
+        "Six downloadable forms (18 files) with formulas verified by a spreadsheet engine."
+      ]
+    },
+    {
+      "version": "0.7.0",
+      "date": "2026-10-22",
+      "title": "Toolkit cases",
+      "items": [
+        "15 scored cases on one fictional product (Board X), each with data files, generated keys and a rubric."
+      ]
+    }
+  ]
+}

@@ -36,7 +36,9 @@ const INCLUDE = [
   'data/questions.json',
   'data/sources.json',
   'data/cases.json',
-  'data/reference.json'
+  'data/reference.json',
+  'data/meta.json',
+  'data/paths.json'
 ];
 
 function copyDir(from, to, filter) {

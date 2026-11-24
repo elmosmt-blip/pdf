@@ -107,11 +107,17 @@
   /* Phase 5: derived glossary + formula sheet (data/reference.json). Optional:
    * when absent, the #/g/ and #/f/ pages say so instead of inventing content. */
   var REFERENCE = null;
+  /* Phase 7: course meta (version, change log, error-report target) and the
+   * learning paths. Both optional: without them the About page says so and the
+   * path block does not render. */
+  var META = null;
+  var PATHS = [];
+  var pathById = {};
   var casesByModule = {};
   var byCase = {};
   var caseState = { caseId: null, answers: {}, shown: {}, hints: {}, result: null };
 
-  function freshProgress() { return { v: 1, visited: {}, quiz: {}, exams: {}, cases: {} }; }
+  function freshProgress() { return { v: 1, visited: {}, quiz: {}, exams: {}, cases: {}, path: '' }; }
 
   function loadProgress() {
     var raw = lsGet(STORE_KEY);
@@ -124,7 +130,8 @@
           visited: (p.visited && typeof p.visited === 'object' && !Array.isArray(p.visited)) ? p.visited : {},
           quiz: (p.quiz && typeof p.quiz === 'object' && !Array.isArray(p.quiz)) ? p.quiz : {},
           exams: (p.exams && typeof p.exams === 'object' && !Array.isArray(p.exams)) ? p.exams : {},
-          cases: (p.cases && typeof p.cases === 'object' && !Array.isArray(p.cases)) ? p.cases : {}
+          cases: (p.cases && typeof p.cases === 'object' && !Array.isArray(p.cases)) ? p.cases : {},
+          path: typeof p.path === 'string' ? p.path : ''
         };
       }
     } catch (e) { /* corrupt -> start fresh */ }
@@ -219,6 +226,7 @@
         TEMPLATES = (cd.templates && cd.templates.templates) || TEMPLATES;
         TEMPLATES_VERSION = (cd.templates && cd.templates.version) || TEMPLATES_VERSION;
         REFERENCE = cd.reference || null;
+        setMeta(cd.meta || null, cd.paths || null);
         done('embed', reason);
       } else {
         done('none', reason + '; assets/data-embed.js is missing — run `node scripts/embed.js`');
@@ -238,16 +246,31 @@
       /* the template manifest is optional too */
       fetchJson('assets/templates/manifest.json').catch(function () { return null; }),
       /* and the derived reference pages */
-      fetchJson('data/reference.json').catch(function () { return null; })
+      fetchJson('data/reference.json').catch(function () { return null; }),
+      /* phase 7: version / change log and the learning paths */
+      fetchJson('data/meta.json').catch(function () { return null; }),
+      fetchJson('data/paths.json').catch(function () { return null; })
     ]).then(function (parts) {
       indexData(parts[0], parts[1], parts[2], parts[3]);
       TEMPLATES = (parts[4] && parts[4].templates) || [];
       TEMPLATES_VERSION = (parts[4] && parts[4].version) || '';
       REFERENCE = parts[5] || null;
+      setMeta(parts[6] || null, parts[7] || null);
       done('fetch', null);
     }).catch(function (e) {
       useEmbed('fetch failed (' + (e && e.message ? e.message : String(e)) + ')');
     });
+  }
+
+  function setMeta(meta, pathDoc) {
+    META = (meta && typeof meta === 'object') ? meta : null;
+    PATHS = (pathDoc && Array.isArray(pathDoc.paths)) ? pathDoc.paths.filter(function (p) {
+      return p && p.id && Array.isArray(p.lessons);
+    }) : [];
+    pathById = {};
+    PATHS.forEach(function (p) { pathById[p.id] = p; });
+    /* a remembered path that this build no longer ships is simply forgotten */
+    if (progress.path && !pathById[progress.path]) { progress.path = ''; saveProgress(); }
   }
 
   /* -------------------------------------------------------------- helpers */
@@ -416,6 +439,8 @@
       });
       html += '</ul></section>';
     }
+
+    html += homePathsHtml();
 
     html += '<h2>Course program</h2>';
 
@@ -1274,7 +1299,9 @@
     if ((c.sources || []).length) {
       html += sourcesBlock(c.sources);
     }
-    html += '<nav class="pager">' +
+    html += reportLinkHtml('case', c.caseId, c.title);
+    html += printMetaHtml('case', c.caseId, c.title);
+    html += '<nav class="pager" aria-label="Case navigation">' +
       '<a class="pager-prev" href="#/m/' + encodeURIComponent(c.moduleId) + '">' +
       '<span class="pager-label">Back to</span><span class="pager-title">' +
       esc(m ? 'Module ' + pad2(m.n) + ' — ' + m.title : 'the module') + '</span></a>' +
@@ -1797,7 +1824,7 @@
 
   function figureHtml(b) {
     var svg = typeof b.svg === 'string' ? b.svg.trim() : '';
-    var html = '<figure class="fig fig--zoomable">';
+    var html = '<figure class="fig fig--zoomable" tabindex="0" role="button" aria-label="Figure: press Enter to enlarge, Escape to close" aria-pressed="false">';
     // Trusted-data raw insert — see the raw-HTML policy above.
     if (SVG_FIGURE_RE.test(svg)) html += svg;
     else html += '<p class="fig-fallback">' + esc(svg || 'figure block: no inline SVG given') + '</p>';
@@ -1807,7 +1834,7 @@
 
   function imageHtml(b) {
     var src = typeof b.src === 'string' ? b.src.trim() : '';
-    var html = '<figure class="fig fig--photo">';
+    var html = '<figure class="fig fig--photo" tabindex="0" role="button" aria-label="Illustration: press Enter to enlarge, Escape to close" aria-pressed="false">';
     if (src && !/^\s*javascript:/i.test(src)) {
       html += '<img src="' + esc(src) + '" alt="' + esc(b.alt || b.caption || '') +
         '" width="1280" height="896" loading="lazy">';
@@ -2354,6 +2381,7 @@
 
     // Line-position strip: shown for any lesson attached to a stage.
     if (lesson.stageId) html += '<div class="pipeline">' + stagePipeline(lesson.stageId) + '</div>';
+    html += pathStripHtml(lesson);
 
     html += draftBannerHtml(lesson);
     html += prereqHtml(lesson);
@@ -2368,7 +2396,336 @@
     html += quizSectionHtml(lesson);
     html += sourcesHtml(lesson);
     html += correctionsHtml(content);
+    html += reportLinkHtml('lesson', lesson.lessonId, lesson.title);
     html += pagerHtml(lesson);
+    html += printMetaHtml('lesson', lesson.lessonId, lesson.title);
+    return html;
+  }
+
+
+  /* =========================================================================
+   * Phase 7 — navigation and trust: learning paths, version / change log,
+   * "Report an error", print metadata.
+   * ====================================================================== */
+
+  function courseVersion() { return META && META.version ? String(META.version) : ''; }
+  function courseDate() { return META && META.date ? String(META.date) : ''; }
+
+  /* The link every lesson and case carries. Target comes from data/meta.json:
+   * an external form (lesson id, version, build and page URL appended as GET
+   * parameters, names configurable) or, if no form is set, a mailto: with the
+   * same facts in subject and body. Nothing is rendered without a target —
+   * a dead link is worse than none, and check-integrity warns about it. */
+  function reportHref(kind, id, title) {
+    var r = META && META.report ? META.report : null;
+    if (!r) return '';
+    var ver = courseVersion() || 'dev';
+    var build = buildStamp();
+    var url = '';
+    try { url = String(window.location.href || ''); } catch (e) { url = ''; }
+    var label = (kind === 'case' ? 'case ' : 'lesson ') + id;
+    if (r.formUrl) {
+      var names = r.params || {};
+      var q = [
+        [names.lesson || 'lesson', label],
+        [names.version || 'version', ver],
+        [names.build || 'build', build],
+        [names.url || 'url', url]
+      ].map(function (kv) { return encodeURIComponent(kv[0]) + '=' + encodeURIComponent(kv[1]); }).join('&');
+      return String(r.formUrl) + (String(r.formUrl).indexOf('?') === -1 ? '?' : '&') + q;
+    }
+    if (r.email) {
+      var subject = '[Course v' + ver + '] ' + label + ' — ' + (title || '');
+      var body = 'Page: ' + label + '\nTitle: ' + (title || '') + '\nVersion: ' + ver +
+        '\nBuild: ' + build + '\nURL: ' + url + '\n\nWhat is wrong (quote the sentence or number):\n\n';
+      return 'mailto:' + encodeURIComponent(String(r.email)).replace(/%40/g, '@') +
+        '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    }
+    return '';
+  }
+
+  function reportLinkHtml(kind, id, title) {
+    var href = reportHref(kind, id, title);
+    var ver = courseVersion();
+    var html = '<div class="report-line">';
+    if (href) {
+      var external = href.indexOf('mailto:') !== 0;
+      html += '<a class="report-link" href="' + esc(href) + '"' +
+        (external ? ' target="_blank" rel="noopener"' : '') + '>' +
+        '<span aria-hidden="true">&#9873;</span> Report an error in this ' +
+        (kind === 'case' ? 'case' : 'lesson') + '</a>';
+    }
+    html += '<span class="report-meta">' + esc(kind === 'case' ? 'case ' : 'lesson ') + esc(id) +
+      (ver ? ' · v' + esc(ver) : '') + ' · build ' + esc(buildStamp()) +
+      ' · <a href="#/about/">what changed</a></span></div>';
+    return html;
+  }
+
+  /* Printed pages carry the facts a screen reader never needs: which course,
+     which version, which page. Hidden on screen by CSS. */
+  function printMetaHtml(kind, id, title) {
+    var ver = courseVersion();
+    return '<div class="print-meta" aria-hidden="true">' + esc(COURSE_TITLE) +
+      (ver ? ' · v' + esc(ver) : '') + (courseDate() ? ' (' + esc(courseDate()) + ')' : '') +
+      ' · ' + esc(kind) + ' ' + esc(id) + ' · ' + esc(title || '') +
+      ' · printed from build ' + esc(buildStamp()) + '</div>';
+  }
+
+  /* ---- learning paths ---- */
+
+  function activePath() { return progress.path && pathById[progress.path] ? pathById[progress.path] : null; }
+
+  function pathLessons(p) {
+    return (p.lessons || []).filter(function (id) { return byLesson[id]; });
+  }
+  function pathCases(p) {
+    return (p.cases || []).filter(function (id) { return byCase[id]; });
+  }
+  function pathMinutes(p) {
+    var sum = 0;
+    pathLessons(p).forEach(function (id) { sum += lessonMinutes(id) || 0; });
+    pathCases(p).forEach(function (id) { sum += Number(byCase[id].estMinutes) || 0; });
+    return sum;
+  }
+  function pathMastered(p) {
+    var n = 0;
+    pathLessons(p).forEach(function (id) { if (lessonMastered(id)) n++; });
+    return n;
+  }
+  function pathCasesMastered(p) {
+    var n = 0;
+    pathCases(p).forEach(function (id) { if (caseMastered(id)) n++; });
+    return n;
+  }
+  function pathPosition(p, lessonId) { return pathLessons(p).indexOf(lessonId); }
+
+  /* First lesson of the path that is not mastered yet; null when complete. */
+  function pathNextLesson(p) {
+    var ls = pathLessons(p);
+    for (var i = 0; i < ls.length; i++) if (!lessonMastered(ls[i])) return ls[i];
+    return null;
+  }
+
+  function pathCardHtml(p, compact) {
+    var ls = pathLessons(p);
+    var done = pathMastered(p);
+    var cs = pathCases(p);
+    var mins = pathMinutes(p);
+    var active = progress.path === p.id;
+    var html = '<li class="path-card' + (active ? ' path-card--active' : '') + '">' +
+      '<a class="path-card-link" href="#/p/' + encodeURIComponent(p.id) + '">' +
+      '<span class="path-card-title">' + esc(p.title) +
+      (active ? ' <span class="chip chip--ok">your path</span>' : '') + '</span>' +
+      '<span class="path-card-aud">' + esc(p.audience || '') + '</span>' +
+      '<span class="path-card-meta">' +
+      '<span>' + esc(ls.length) + ' lessons</span>' +
+      (cs.length ? '<span>' + esc(cs.length) + ' case' + (cs.length === 1 ? '' : 's') + '</span>' : '') +
+      (mins ? '<span>&#8776;' + esc(Math.round(mins / 60 * 10) / 10) + ' h</span>' : '') +
+      (done ? '<span class="module-progress">' + esc(done) + ' of ' + esc(ls.length) + ' mastered</span>' : '') +
+      '</span></a>';
+    if (!compact) {
+      html += '<div class="path-card-actions">' +
+        (active
+          ? '<button type="button" class="btn" data-act="path-clear">Leave this path</button>'
+          : '<button type="button" class="btn btn--primary" data-act="path-select" data-path="' +
+            esc(p.id) + '">Follow this path</button>') +
+        '</div>';
+    }
+    return html + '</li>';
+  }
+
+  function homePathsHtml() {
+    if (!PATHS.length) return '';
+    var ap = activePath();
+    var html = '<section class="home-paths"><div class="home-cases-head">' +
+      '<h2 class="flush">Choose a learning path</h2>' +
+      '<p class="muted flush">The full course runs in module order from the sidebar. A path is a ' +
+      'shorter, ordered route through it for one job: pick one and every lesson shows where you ' +
+      'are in it and what comes next. You can switch or leave a path at any time; progress is kept.</p></div>';
+    if (ap) {
+      var nx = pathNextLesson(ap);
+      html += '<p class="path-current">Following <strong>' + esc(ap.title) + '</strong> · ' +
+        esc(pathMastered(ap)) + ' of ' + esc(pathLessons(ap).length) + ' lessons mastered · ' +
+        (nx ? '<a class="btn btn--primary" href="#/l/' + encodeURIComponent(nx) + '">Continue: ' +
+          esc(byLesson[nx].title) + ' &#8594;</a>' : '<span class="chip chip--ok">path complete</span>') +
+        ' <a href="#/p/' + encodeURIComponent(ap.id) + '">open the path</a></p>';
+    }
+    html += '<ul class="path-grid">';
+    PATHS.forEach(function (p) { html += pathCardHtml(p, true); });
+    return html + '</ul></section>';
+  }
+
+  function pathsView() {
+    var html = '<p class="kicker">Learning paths</p>' +
+      '<header class="page-head"><div><h1 tabindex="-1">Three ways through the course</h1>' +
+      '<p class="lead">Same lessons, different order and depth. Each path lists its lessons and ' +
+      'cases in the order they are meant to be taken; the sidebar always shows the full course.</p>' +
+      '</div></header>';
+    if (!PATHS.length) return html + emptyBox('No paths in this build', 'data/paths.json is missing or empty.');
+    html += '<ul class="path-grid path-grid--full">';
+    PATHS.forEach(function (p) { html += pathCardHtml(p, false); });
+    return html + '</ul>';
+  }
+
+  function pathView(pathId) {
+    var p = pathById[pathId];
+    if (!p) return notFoundView('Path not found', 'No learning path "' + pathId + '" in data/paths.json.');
+    var ls = pathLessons(p);
+    var cs = pathCases(p);
+    var active = progress.path === p.id;
+    var done = pathMastered(p);
+    var html = '<p class="kicker"><a href="#/p/">Learning paths</a></p>' +
+      '<header class="page-head"><div><h1 tabindex="-1">' + esc(p.title) + '</h1>' +
+      '<div class="meta-line">' +
+      '<span class="chip">' + esc(ls.length) + ' lessons</span>' +
+      (cs.length ? '<span class="chip">' + esc(cs.length) + ' cases</span>' : '') +
+      (pathMinutes(p) ? '<span class="chip">&#8776;' + esc(pathMinutes(p)) + ' min</span>' : '') +
+      (active ? '<span class="chip chip--ok">your path</span>' : '') +
+      '</div></div></header>';
+    html += '<p class="lead">' + esc(p.lead || '') + '</p>';
+    if (p.audience) html += '<p><strong>Who it is for.</strong> ' + esc(p.audience) + '</p>';
+    if (p.outcome) html += '<p><strong>What you can do at the end.</strong> ' + esc(p.outcome) + '</p>';
+
+    html += '<div class="path-actions">' +
+      (active
+        ? '<button type="button" class="btn" data-act="path-clear">Leave this path</button>'
+        : '<button type="button" class="btn btn--primary" data-act="path-select" data-path="' +
+          esc(p.id) + '">Follow this path</button>');
+    var nx = pathNextLesson(p);
+    if (nx) html += ' <a class="btn" href="#/l/' + encodeURIComponent(nx) + '">' +
+      (done ? 'Continue' : 'Start') + ': ' + esc(byLesson[nx].title) + ' &#8594;</a>';
+    html += '</div>';
+
+    html += progressLine(ls.filter(function (id) { return progress.visited[id]; }).length, done, ls.length, pathMinutes(p));
+    html += progressBar(done, ls.length);
+
+    html += '<h2>Lessons in order</h2><ol class="path-list">';
+    var lastMod = null;
+    ls.forEach(function (id, i) {
+      var l = byLesson[id];
+      var m = moduleById(l.moduleId);
+      if (m && lastMod !== m.id) {
+        html += '<li class="path-list-mod" aria-hidden="true">Module ' + esc(pad2(m.n)) + ' · ' + esc(m.title) + '</li>';
+        lastMod = m.id;
+      }
+      var mastered = lessonMastered(id);
+      html += '<li class="path-list-item' + (mastered ? ' path-list-item--mastered' : '') +
+        (progress.visited[id] ? ' path-list-item--visited' : '') + '">' +
+        '<a href="#/l/' + encodeURIComponent(id) + '"><span class="path-step">' + esc(i + 1) + '</span>' +
+        '<span class="path-step-title">' + esc(l.title) + '</span>' +
+        '<span class="path-step-meta">' + esc(lessonMinutes(id) || '') + ' min' +
+        (mastered ? ' · mastered' : progress.visited[id] ? ' · started' : '') + '</span></a></li>';
+    });
+    html += '</ol>';
+
+    if (cs.length) {
+      html += '<h2>Cases on this path</h2><ul class="home-case-grid">';
+      cs.forEach(function (id) {
+        var c = byCase[id];
+        var m = moduleById(c.moduleId);
+        var rec = caseRecord(c.caseId);
+        var ok = caseMastered(c.caseId);
+        html += '<li class="home-case-card' + (ok ? ' home-case-card--done' : '') + '">' +
+          '<a class="home-case-link" href="#/c/' + encodeURIComponent(c.caseId) + '">' +
+          '<span class="home-case-mod">M' + esc(m ? pad2(m.n) : '') + ' · ' + esc(m ? m.title : '') + '</span>' +
+          '<span class="home-case-title">' + esc(c.title) + '</span>' +
+          '<span class="home-case-meta"><span>' + esc(c.estMinutes) + ' min</span>' +
+          '<span>' + esc((c.steps || []).length) + ' steps</span></span>' +
+          '<span class="home-case-state">' + (ok ? 'Mastered · best ' + esc(rec.best) + ' %'
+            : rec ? 'Best so far ' + esc(rec.best) + ' % · continue' : 'Not attempted yet') + '</span>' +
+          '</a></li>';
+      });
+      html += '</ul>';
+    }
+    return html;
+  }
+
+  /* On a lesson page: where this lesson sits in the chosen path and the next
+     step. Rendered only when a path is active; a lesson outside the path says
+     so and offers the way back, so the reader never loses the thread. */
+  function pathStripHtml(lesson) {
+    var p = activePath();
+    if (!p) return '';
+    var ls = pathLessons(p);
+    var pos = pathPosition(p, lesson.lessonId);
+    var html = '<nav class="path-strip" aria-label="Learning path position">';
+    if (pos === -1) {
+      var back = pathNextLesson(p);
+      html += '<span class="path-strip-label">Path: <a href="#/p/' + encodeURIComponent(p.id) + '">' +
+        esc(p.title) + '</a></span><span class="path-strip-pos">this lesson is outside your path</span>' +
+        (back ? '<a class="path-strip-next" href="#/l/' + encodeURIComponent(back) + '">Back to the path: ' +
+          esc(byLesson[back].title) + ' &#8594;</a>' : '');
+    } else {
+      var next = pos < ls.length - 1 ? ls[pos + 1] : null;
+      html += '<span class="path-strip-label">Path: <a href="#/p/' + encodeURIComponent(p.id) + '">' +
+        esc(p.title) + '</a></span>' +
+        '<span class="path-strip-pos">step ' + esc(pos + 1) + ' of ' + esc(ls.length) + '</span>' +
+        (next ? '<a class="path-strip-next" href="#/l/' + encodeURIComponent(next) + '">Next in path: ' +
+          esc(byLesson[next].title) + ' &#8594;</a>'
+          : '<span class="path-strip-next">Last lesson of the path · <a href="#/p/' +
+            encodeURIComponent(p.id) + '">review it</a></span>');
+    }
+    return html + '</nav>';
+  }
+
+  /* ---- about: version, change log, how to report, print, accessibility ---- */
+
+  function aboutView() {
+    var ver = courseVersion();
+    var html = '<p class="kicker">About this course</p>' +
+      '<header class="page-head"><div><h1 tabindex="-1">Version and change log</h1>' +
+      '<div class="meta-line">' +
+      (ver ? '<span class="chip chip--stage">v' + esc(ver) + '</span>' : '') +
+      (courseDate() ? '<span class="chip">' + esc(courseDate()) + '</span>' : '') +
+      (META && META.status ? '<span class="chip">' + esc(META.status) + '</span>' : '') +
+      '<span class="chip">build ' + esc(buildStamp()) + '</span>' +
+      '</div></div></header>';
+    if (!META) return html + emptyBox('No version record', 'data/meta.json is missing from this build.');
+
+    html += '<p class="lead">The version names the content; the build hash names the exact files ' +
+      'your browser is running. Quote both when you report something.</p>';
+
+    html += '<h2 id="report">Report an error</h2>';
+    var r = META.report || {};
+    if (r.formUrl) {
+      html += '<p>Every lesson and case ends with a <strong>Report an error</strong> link. It opens a ' +
+        'form with the page id, the course version and the build already filled in — add the ' +
+        'sentence or number you doubt and, if you can, the source that says otherwise.</p>';
+      if (/REPLACE/.test(String(r.formUrl))) {
+        html += '<div class="banner banner--warn"><p class="banner-title">Configuration</p><p class="flush">' +
+          'The report form address in data/meta.json is still the placeholder. Links render but lead nowhere ' +
+          'until it is replaced.</p></div>';
+      }
+    } else if (r.email) {
+      html += '<p>Every lesson and case ends with a <strong>Report an error</strong> link that opens an ' +
+        'e-mail to <code>' + esc(r.email) + '</code> with the page id, version and build in the subject.</p>';
+    } else {
+      html += '<p class="muted">No report target is configured in data/meta.json (formUrl or email).</p>';
+    }
+
+    html += '<h2 id="changelog">Change log</h2>';
+    var log = Array.isArray(META.changelog) ? META.changelog : [];
+    if (!log.length) html += '<p class="muted">No entries.</p>';
+    html += '<ol class="changelog">';
+    log.forEach(function (e) {
+      html += '<li class="changelog-entry"><div class="changelog-head"><span class="changelog-ver">v' +
+        esc(e.version) + '</span><span class="changelog-date">' + esc(e.date || '') + '</span>' +
+        (e.title ? '<span class="changelog-title">' + esc(e.title) + '</span>' : '') + '</div>';
+      html += listHtml('ul', e.items || []);
+      html += '</li>';
+    });
+    html += '</ol>';
+
+    html += '<h2 id="print">Printing</h2>' +
+      '<p>Any lesson prints as a plain document: the sidebar, quiz and navigation are left out, ' +
+      'figures and tables are kept on one page where possible, and the footer names the course ' +
+      'version, lesson id and build. Use your browser\u2019s Print command (Ctrl/Cmd+P).</p>';
+
+    html += '<h2 id="accessibility">Keyboard and contrast</h2>' +
+      '<p>Everything is reachable by keyboard: Tab moves between links, buttons, answers and figures; ' +
+      'Enter or Space opens a figure at full size and Escape closes it; the first link on every page ' +
+      'is <em>Skip to content</em>. Colour pairs used for text meet WCAG AA contrast and the check ' +
+      'runs in <code>scripts/check-a11y.js</code> on every build.</p>';
     return html;
   }
 
@@ -2388,7 +2745,11 @@
   function renderSidebar() {
     var pct = LESSONS.length ? Math.round((totalMastered() / LESSONS.length) * 100) : 0;
     var stampEl = document.getElementById('side-build');
-    if (stampEl) stampEl.textContent = 'build ' + buildStamp();
+    if (stampEl) {
+      var ver = courseVersion();
+      stampEl.innerHTML = (ver ? '<a href="#/about/">v' + esc(ver) + (courseDate() ? ' · ' + esc(courseDate()) : '') +
+        '</a> · ' : '') + 'build ' + esc(buildStamp()) + ' · <a href="#/about/#changelog">what changed</a>';
+    }
     var pctEl = document.getElementById('side-pct');
     var barEl = document.getElementById('side-bar');
     if (pctEl) pctEl.textContent = pct + '%';
@@ -2453,6 +2814,19 @@
         }
       }
     });
+    /* Learning paths (phase 7): the chosen one first, with its progress. */
+    if (PATHS.length) {
+      var apS = activePath();
+      html += '<div class="toc-ref toc-paths"><p class="toc-cases-head">Learning paths</p>';
+      PATHS.forEach(function (p) {
+        var isA = apS && apS.id === p.id;
+        html += '<a class="toc-ref-item' + ((route.view === 'path' && route.pathId === p.id) ? ' toc-ref-item--active' : '') +
+          (isA ? ' toc-path--chosen' : '') + '" href="#/p/' + encodeURIComponent(p.id) + '">' +
+          (isA ? '&#9679; ' : '') + esc(p.title) +
+          ' <span class="muted">(' + esc(pathMastered(p)) + '/' + esc(pathLessons(p).length) + ')</span></a>';
+      });
+      html += '</div>';
+    }
     /* Reference pages, below the modules: present only when the build has them. */
     if (REFERENCE) {
       html += '<div class="toc-ref"><p class="toc-cases-head">Reference</p>' +
@@ -2460,6 +2834,8 @@
         (Array.isArray(REFERENCE.terms) ? ' <span class="muted">(' + REFERENCE.terms.length + ')</span>' : '') + '</a>' +
         '<a class="toc-ref-item' + (route.view === 'formulas' ? ' toc-ref-item--active' : '') + '" href="#/f/">Formula sheet' +
         (Array.isArray(REFERENCE.formulas) ? ' <span class="muted">(' + REFERENCE.formulas.length + ')</span>' : '') + '</a>' +
+        '<a class="toc-ref-item' + (route.view === 'about' ? ' toc-ref-item--active' : '') + '" href="#/about/">About &amp; change log' +
+        (courseVersion() ? ' <span class="muted">(v' + esc(courseVersion()) + ')</span>' : '') + '</a>' +
         '</div>';
     }
     toc.innerHTML = html;
@@ -2485,6 +2861,12 @@
           '">Module ' + esc(pad2(cm.n)) + ' · ' + esc(cm.title) + '</a>';
       }
       html += '<span class="sep">&#8594;</span><a href="#/" title="All four cases are listed on the home page">Toolkit case</a>';
+    } else if (route.view === 'paths' || route.view === 'path') {
+      html += '<span class="sep">·</span>' + (route.view === 'path' && pathById[route.pathId]
+        ? '<a href="#/p/">Learning paths</a><span class="sep">&#8594;</span><strong>' + esc(pathById[route.pathId].title) + '</strong>'
+        : '<strong>Learning paths</strong>');
+    } else if (route.view === 'about') {
+      html += '<span class="sep">·</span><strong>About &amp; change log</strong>';
     } else if (route.view === 'lesson') {
       var l = byLesson[route.lessonId];
       if (l) {
@@ -2512,6 +2894,10 @@
     /* Reference pages (phase 5). #/g/A jumps to a letter; #/f/ has no sub-route. */
     if ((m = h.match(/^#\/g\/?([A-Za-z#])?$/))) return { view: 'glossary', letter: m[1] ? m[1].toUpperCase() : '' };
     if (h === '#/f' || h === '#/f/') return { view: 'formulas' };
+    /* Phase 7: learning paths and the about / change-log page */
+    if (h === '#/p' || h === '#/p/') return { view: 'paths' };
+    if ((m = h.match(/^#\/p\/([^\/?#]+)$/))) return { view: 'path', pathId: safeDecode(m[1]).toLowerCase() };
+    if ((m = h.match(/^#\/about\/?(?:#([a-z]+))?$/))) return { view: 'about', anchor: m[1] || '' };
     return { view: 'notfound', hash: h };
   }
 
@@ -2545,6 +2931,16 @@
     } else if (route.view === 'formulas') {
       html = formulasView();
       title = 'Formula sheet';
+    } else if (route.view === 'paths') {
+      html = pathsView();
+      title = 'Learning paths';
+    } else if (route.view === 'path') {
+      html = pathView(route.pathId);
+      var pp = pathById[route.pathId];
+      title = pp ? 'Path — ' + pp.title : 'Path not found';
+    } else if (route.view === 'about') {
+      html = aboutView();
+      title = 'About — v' + (courseVersion() || 'dev');
     } else {
       html = notFoundView('Page not found', 'Unrecognised address "' + route.hash + '".');
       title = 'Not found';
@@ -2569,6 +2965,10 @@
     if (route.view === 'glossary' && route.letter) {
       var gh = document.getElementById('g-' + route.letter);
       if (gh && gh.scrollIntoView) gh.scrollIntoView();
+    }
+    if (route.view === 'about' && route.anchor) {
+      var ah = document.getElementById(route.anchor);
+      if (ah && ah.scrollIntoView) ah.scrollIntoView();
     }
   }
 
@@ -2731,18 +3131,49 @@
     var fig = e.target && e.target.closest ? e.target.closest('.fig--photo, .fig--zoomable') : null;
     if (!fig) return;
     if (fig.classList.contains('is-zoomed')) {
-      fig.classList.remove('is-zoomed');
+      setZoom(fig, false);
       return;
     }
     var onMedia = e.target.tagName === 'IMG' ||
       (e.target.closest && e.target.ownerSVGElement !== undefined && e.target.closest('svg'));
-    if (onMedia) fig.classList.add('is-zoomed');
+    if (onMedia) setZoom(fig, true);
+  });
+
+  function setZoom(fig, on) {
+    fig.classList.toggle('is-zoomed', !!on);
+    fig.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  /* Keyboard: Enter / Space toggle the focused figure, Escape closes any. */
+  app.addEventListener('keydown', function (e) {
+    var fig = e.target && e.target.classList &&
+      (e.target.classList.contains('fig--photo') || e.target.classList.contains('fig--zoomable')) ? e.target : null;
+    if (!fig) return;
+    if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+      e.preventDefault();
+      setZoom(fig, !fig.classList.contains('is-zoomed'));
+    }
   });
 
   document.addEventListener('keydown', function (e) {
     if (e.key !== 'Escape') return;
     var zoomed = app.querySelector('.fig--photo.is-zoomed, .fig--zoomable.is-zoomed');
-    if (zoomed) zoomed.classList.remove('is-zoomed');
+    if (zoomed) { setZoom(zoomed, false); if (zoomed.focus) zoomed.focus(); }
+  });
+
+  /* Learning-path choice (phase 7). */
+  app.addEventListener('click', function (e) {
+    var btn = e.target && e.target.closest ? e.target.closest('[data-act="path-select"],[data-act="path-clear"]') : null;
+    if (!btn) return;
+    e.preventDefault();
+    if (btn.getAttribute('data-act') === 'path-select') {
+      var id = btn.getAttribute('data-path');
+      if (pathById[id]) progress.path = id;
+    } else {
+      progress.path = '';
+    }
+    saveProgress();
+    render();
   });
 
   window.addEventListener('hashchange', render);

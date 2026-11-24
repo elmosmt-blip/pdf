@@ -1,0 +1,77 @@
+{
+  "version": "1.0.0",
+  "note": "Learning paths are ordered subsets of the 92 lessons. The full course (all modules in order) is always available from the sidebar; a path is a recommended route through it for one audience. Lesson ids must exist in data/lessons.json and case ids in data/cases.json — scripts/check-integrity.js enforces this.",
+  "paths": [
+    {
+      "id": "novice",
+      "title": "New to the line",
+      "audience": "Operators moving into process work, new engineers, anyone who has not yet worked a full SMT/THT line.",
+      "lead": "One pass along the whole line: what each stage does, which numbers matter there and what the typical defect looks like. Depth comes later — this path builds the map.",
+      "outcome": "You can name every stage from dock to test, read the key measurement at each one (MSL label, area ratio, SPI volume, reflow profile, wave dwell) and recognise the common defects by sight.",
+      "lessons": [
+        "m01l01", "m01l02", "m01l04",
+        "m02l01", "m02l02", "m02l03", "m02l05",
+        "m03l01", "m03l02",
+        "m04l01", "m04l03", "m04l04", "m04l06",
+        "m05l01", "m05l02", "m05l04",
+        "m06l01", "m06l02", "m06l06",
+        "m07l01", "m07l05",
+        "m08l01", "m08l03",
+        "m09l01", "m09l04", "m09l06",
+        "m10l01",
+        "m11l01", "m11l02",
+        "m12l01", "m12l04",
+        "m13l01",
+        "m14l01", "m14l02",
+        "m15l01"
+      ],
+      "cases": ["cx-m02-01", "cx-m06-01"]
+    },
+    {
+      "id": "technologist",
+      "title": "Process technologist",
+      "audience": "Process engineers who own stencil, print, placement, reflow, wave and selective soldering settings and must defend them with data.",
+      "lead": "The full depth of the process modules: every calculation, every setting and the case for each stage. Inspection and test are covered only as far as a technologist needs them to read evidence.",
+      "outcome": "You can size an aperture, judge an SPI distribution, validate a reflow profile, compute wave dwell and clearance, plan a selective run and close an 8D with verified effectiveness.",
+      "lessons": [
+        "m01l05", "m01l06",
+        "m02l01", "m02l03", "m02l04",
+        "m03l01", "m03l02", "m03l03", "m03l04", "m03l05", "m03l06",
+        "m04l01", "m04l02", "m04l03", "m04l04", "m04l05", "m04l06", "m04l07",
+        "m05l02", "m05l03", "m05l05", "m05l06",
+        "m06l01", "m06l02", "m06l03", "m06l04", "m06l05", "m06l06", "m06l07",
+        "m07l03", "m07l04",
+        "m08l02", "m08l05",
+        "m09l02", "m09l03", "m09l04", "m09l05", "m09l06", "m09l07",
+        "m10l02", "m10l03", "m10l04", "m10l05",
+        "m11l03",
+        "m12l02", "m12l03", "m12l05",
+        "m14l02", "m14l03", "m14l04", "m14l05", "m14l06", "m14l07",
+        "m15l02", "m15l03", "m15l04", "m15l05"
+      ],
+      "cases": ["cx-m03-01", "cx-m04-01", "cx-m05-01", "cx-m06-01", "cx-m09-01", "cx-m10-01", "cx-m14-01", "cx-m15-01"]
+    },
+    {
+      "id": "inspector",
+      "title": "Quality inspector",
+      "audience": "Incoming, in-process and final inspectors; AOI/X-ray operators; anyone who writes dispositions.",
+      "lead": "What to look at, what to measure and how to word the result: receipt, MSL evidence, SPI and AOI metrics, workmanship classes, rework acceptance, cleanliness and the data a CAPA needs.",
+      "outcome": "You can sample a lot, read an MSL history, interpret SPI and AOI numbers, classify a joint as defect / process indicator / acceptable, re-inspect rework and hand defect data to the engineer in a form that is usable.",
+      "lessons": [
+        "m01l01", "m01l02", "m01l03", "m01l04", "m01l05", "m01l06", "m01l07",
+        "m02l02", "m02l03", "m02l04", "m02l06",
+        "m04l02", "m04l05", "m04l06",
+        "m05l03", "m05l04",
+        "m06l06", "m06l07",
+        "m07l01", "m07l02", "m07l03", "m07l04", "m07l05", "m07l06",
+        "m08l02",
+        "m09l06",
+        "m11l04", "m11l05",
+        "m12l03", "m12l06",
+        "m13l05",
+        "m14l01", "m14l03", "m14l04"
+      ],
+      "cases": ["cx-m01-01", "cx-m04-01", "cx-m05-01", "cx-m07-01", "cx-m08-01", "cx-m11-01", "cx-m12-01"]
+    }
+  ]
+}

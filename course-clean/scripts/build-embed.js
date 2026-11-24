@@ -91,6 +91,18 @@ function build() {
     counts.formulas = (ref.formulas || []).length;
   }
 
+  /* Phase 7: course version / change log / error-report config and the
+     learning paths. Both optional so an older tree still embeds. */
+  [['meta', 'meta.json'], ['paths', 'paths.json']].forEach(function (pair) {
+    const f = path.join(DATA, pair[1]);
+    if (fs.existsSync(f)) {
+      const v = readJson(f);
+      payload[pair[0]] = v;
+      if (pair[0] === 'paths') counts.paths = (v.paths || []).length;
+      if (pair[0] === 'meta') counts.version = v.version;
+    }
+  });
+
   /* JSON.stringify with no indentation keeps the file small; the trailing
      newline is deliberate so `git diff` stays clean when only the tail moves. */
   const json = JSON.stringify(payload);
