@@ -1,0 +1,2734 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/build-reference.js",
+  "generatedFor": "phase 5: glossary and formula reference",
+  "counts": {
+    "lessons": 92,
+    "terms": 302,
+    "formulas": 11
+  },
+  "terms": [
+    {
+      "term": "8D",
+      "def": "An eight-discipline problem-solving report structure used for escapes and recurring defects.",
+      "definedIn": "m14l03",
+      "moduleId": "m14",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Accept number",
+      "def": "The largest number of defective units in the sample that still allows the lot to be accepted.",
+      "definedIn": "m01l03",
+      "moduleId": "m01",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Acceptable quality level",
+      "def": "The quality level at which a sampling plan accepts a lot with high probability when the supplier's process runs at that average.",
+      "definedIn": "m01l03",
+      "moduleId": "m01",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Accuracy",
+      "def": "How close the commanded placement position is to the true board location.",
+      "definedIn": "m05l01",
+      "moduleId": "m05",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Action limit",
+      "def": "The measured value at which the process is stopped or investigated, set from capability and geometry.",
+      "definedIn": "m05l04",
+      "moduleId": "m05",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Activity",
+      "def": "The ability of a flux to remove oxides from the metal surface during soldering.",
+      "definedIn": "m09l02",
+      "moduleId": "m09",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Air knife",
+      "def": "A timed air or nitrogen curtain that removes excess flux from the board surface.",
+      "definedIn": "m10l04",
+      "moduleId": "m10",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Annular clearance",
+      "def": "The radial gap between the finished hole wall and the lead.",
+      "definedIn": "m08l01",
+      "moduleId": "m08",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Annular ring",
+      "def": "The width of copper remaining around a drilled hole after plating.",
+      "definedIn": "m11l04",
+      "moduleId": "m11",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Aperture reduction",
+      "def": "Deliberately making the stencil opening smaller than the land to control paste volume and bridging.",
+      "definedIn": "m03l04",
+      "moduleId": "m03",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Area ratio",
+      "def": "Aperture opening area divided by the stencil sidewall area, the usual indicator of paste release.",
+      "definedIn": "m03l01",
+      "moduleId": "m03",
+      "alsoDefinedIn": [
+        "m03l02",
+        "m03l03",
+        "m04l01"
+      ]
+    },
+    {
+      "term": "Area reduction",
+      "def": "The percentage by which the aperture area is made smaller than the pad area.",
+      "definedIn": "m04l01",
+      "moduleId": "m04",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Aspect ratio",
+      "def": "Aperture width divided by stencil thickness, taken on the narrowest dimension of a rectangular aperture.",
+      "definedIn": "m03l01",
+      "moduleId": "m03",
+      "alsoDefinedIn": [
+        "m03l02",
+        "m03l03",
+        "m04l01",
+        "m08l02",
+        "m09l06"
+      ]
+    },
+    {
+      "term": "Attenuation length",
+      "def": "The distance over which the temperature rise from a source falls by a factor of e.",
+      "definedIn": "m10l03",
+      "moduleId": "m10",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Bake",
+      "def": "Controlled heating that drives absorbed moisture out of a package so the floor-life clock can restart.",
+      "definedIn": "m02l02",
+      "moduleId": "m02",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Bed-of-nails",
+      "def": "A fixture with spring-loaded probes that contact all test points at once.",
+      "definedIn": "m13l01",
+      "moduleId": "m13",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Bimodal histogram",
+      "def": "A distribution with two peaks, showing that two different populations are being measured together.",
+      "definedIn": "m04l05",
+      "moduleId": "m04",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Blank correction",
+      "def": "Subtracting contamination contributed by solvent, container and handling from the measured result.",
+      "definedIn": "m12l03",
+      "moduleId": "m12",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Blowhole",
+      "def": "A void or crater in the joint caused by expanding trapped volatiles.",
+      "definedIn": "m09l06",
+      "moduleId": "m09",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Board clearance",
+      "def": "The gap between the wave crest and the board underside at wave entry.",
+      "definedIn": "m09l04",
+      "moduleId": "m09",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Boundary sample",
+      "def": "A physical specimen showing the limit of acceptability, used to align inspectors.",
+      "definedIn": "m14l07",
+      "moduleId": "m14",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Boundary scan",
+      "def": "An electrical test method that uses scan cells inside devices to drive and observe package pins.",
+      "definedIn": "m07l01",
+      "moduleId": "m07",
+      "alsoDefinedIn": [
+        "m13l01"
+      ]
+    },
+    {
+      "term": "Bounded change",
+      "def": "A single, limited change to the process that can be verified against a defined outcome.",
+      "definedIn": "m06l06",
+      "moduleId": "m06",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Bounded change control",
+      "def": "Changing one variable at a time and verifying the outcome before the next change.",
+      "definedIn": "m06l07",
+      "moduleId": "m06",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "BSDL",
+      "def": "The boundary-scan description language file that tells the tester how a device's scan cells are arranged.",
+      "definedIn": "m13l04",
+      "moduleId": "m13",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Bypass",
+      "def": "A joint that the wave failed to wet at all.",
+      "definedIn": "m09l06",
+      "moduleId": "m09",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Calibration interval",
+      "def": "The period within which an instrument or axis must be recalibrated.",
+      "definedIn": "m05l05",
+      "moduleId": "m05",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "CAPA",
+      "def": "Corrective and preventive action, the quality-system record behind the 8D.",
+      "definedIn": "m14l05",
+      "moduleId": "m14",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Capture velocity",
+      "def": "The air speed at the extraction inlet needed to pull fume away from the joint.",
+      "definedIn": "m11l01",
+      "moduleId": "m11",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Carrier",
+      "def": "A fixture that holds the board flat through the wave.",
+      "definedIn": "m08l04",
+      "moduleId": "m08",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Cavitation",
+      "def": "The formation and collapse of vapour bubbles in a liquid that dislodges contamination.",
+      "definedIn": "m12l02",
+      "moduleId": "m12",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Centre offset",
+      "def": "The translation of a component centre from its intended position, reported as X and Y.",
+      "definedIn": "m05l06",
+      "moduleId": "m05",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Certificate of analysis",
+      "def": "A supplier report of measured or tested values for named characteristics of a specific lot.",
+      "definedIn": "m01l02",
+      "moduleId": "m01",
+      "alsoDefinedIn": [
+        "m01l05"
+      ]
+    },
+    {
+      "term": "Certificate of analysis (CoA)",
+      "def": "Supplier report of measured or tested values for named characteristics of a specific lot — alloy, metal content, flux chemistry, plating thickness and similar.",
+      "definedIn": "m01l01",
+      "moduleId": "m01",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Certificate of conformance",
+      "def": "A supplier statement that the delivered lot conforms to the purchase order and the acceptance criteria it references.",
+      "definedIn": "m01l02",
+      "moduleId": "m01",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Certificate of conformance (CoC)",
+      "def": "Supplier declaration that a lot meets the purchase order and the referenced acceptance criteria; it is evidence of declared conformity, not of inspection by the buyer.",
+      "definedIn": "m01l01",
+      "moduleId": "m01",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Change control",
+      "def": "The approval route for a documented change to a process or specification.",
+      "definedIn": "m14l05",
+      "moduleId": "m14",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Change point",
+      "def": "A point in time at which a process measurement shifts, often following a deliberate change.",
+      "definedIn": "m14l02",
+      "moduleId": "m14",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Classification drill",
+      "def": "A structured exercise in naming defect type and disposition from images.",
+      "definedIn": "m07l06",
+      "moduleId": "m07",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Classification temperature",
+      "def": "The peak temperature J-STD-020 allows for a package, set by thickness and volume.",
+      "definedIn": "m06l01",
+      "moduleId": "m06",
+      "alsoDefinedIn": [
+        "m06l05"
+      ]
+    },
+    {
+      "term": "Clinch",
+      "def": "Bending the protruding lead to hold the component during handling and soldering.",
+      "definedIn": "m08l03",
+      "moduleId": "m08",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Cold chain",
+      "def": "The controlled temperature path a material follows from manufacture through storage and transport to use.",
+      "definedIn": "m01l05",
+      "moduleId": "m01",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Cold joint",
+      "def": "A dull, grainy joint that never wet properly because of insufficient heat or poor flux activity.",
+      "definedIn": "m07l06",
+      "moduleId": "m07",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Collapse",
+      "def": "The reduction in BGA ball height during reflow as the ball settles onto the land.",
+      "definedIn": "m07l04",
+      "moduleId": "m07",
+      "alsoDefinedIn": [
+        "m11l03"
+      ]
+    },
+    {
+      "term": "Common-cause spread",
+      "def": "The stable, ordinary variation of a process that is running as designed.",
+      "definedIn": "m04l02",
+      "moduleId": "m04",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Component library",
+      "def": "The stored geometry, orientation and handling data the machine uses for each part number.",
+      "definedIn": "m05l05",
+      "moduleId": "m05",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Concession",
+      "def": "A written approval to use material that does not meet the stated requirement.",
+      "definedIn": "m01l07",
+      "moduleId": "m01",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Condition",
+      "def": "An observable state that may or may not be a defect depending on the class and criteria applied.",
+      "definedIn": "m07l05",
+      "moduleId": "m07",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Conductive anodic filament",
+      "def": "A copper filament that grows through laminate along glass fibres under bias and moisture.",
+      "definedIn": "m12l01",
+      "moduleId": "m12",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Contact resistance",
+      "def": "The resistance added by the probe-to-pad interface, which must stay low and stable.",
+      "definedIn": "m13l02",
+      "moduleId": "m13",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Contact time",
+      "def": "The interval a board spends in contact with the solder wave.",
+      "definedIn": "m09l01",
+      "moduleId": "m09",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Containment",
+      "def": "Immediate action to stop nonconforming material from moving further into the process or to the customer.",
+      "definedIn": "m01l07",
+      "moduleId": "m01",
+      "alsoDefinedIn": [
+        "m02l06",
+        "m14l03"
+      ]
+    },
+    {
+      "term": "Control plan",
+      "def": "The document stating what is measured, how often, against what limit, and the reaction when it fails.",
+      "definedIn": "m14l06",
+      "moduleId": "m14",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Coplanarity",
+      "def": "How well the leads or terminations of a component lie in one plane.",
+      "definedIn": "m05l06",
+      "moduleId": "m05",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Cost of poor quality",
+      "def": "The cost of scrap, rework, inspection and lost capacity caused by defects.",
+      "definedIn": "m15l02",
+      "moduleId": "m15",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Counterfeit part",
+      "def": "A part whose identity, grade or origin is misrepresented, including re-marked, refurbished or unauthorised copies.",
+      "definedIn": "m01l04",
+      "moduleId": "m01",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Cp",
+      "def": "The specification width divided by six standard deviations, a measure of spread alone.",
+      "definedIn": "m04l05",
+      "moduleId": "m04",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Cpk",
+      "def": "The distance from the mean to the nearer specification limit in standard deviations, a measure of spread and centring.",
+      "definedIn": "m04l05",
+      "moduleId": "m04",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Crest height",
+      "def": "The height of the solder wave above the nozzle opening.",
+      "definedIn": "m09l07",
+      "moduleId": "m09",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Cumulative bake time",
+      "def": "The total time a package has spent above 90 °C, limited because solderability degrades with it.",
+      "definedIn": "m02l04",
+      "moduleId": "m02",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Cumulative exposure",
+      "def": "The total time a device has spent outside a compliant moisture barrier bag since its last valid reset.",
+      "definedIn": "m02l03",
+      "moduleId": "m02",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Date code",
+      "def": "The manufacturer's code for the production date of a lot, read against that manufacturer's convention.",
+      "definedIn": "m01l04",
+      "moduleId": "m01",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "DCR",
+      "def": "Design change request, the engineering request that initiates a change before formal approval.",
+      "definedIn": "m15l03",
+      "moduleId": "m15",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Defect coverage",
+      "def": "The fraction of expected defect modes a method can detect, weighted by occurrence.",
+      "definedIn": "m13l05",
+      "moduleId": "m13",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Defect density",
+      "def": "Defects normalised to board area or joint count, allowing comparison across sizes.",
+      "definedIn": "m15l02",
+      "moduleId": "m15",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Defects per million opportunities",
+      "def": "A defect rate normalised by the number of countable opportunities in the product.",
+      "definedIn": "m15l02",
+      "moduleId": "m15",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Delamination",
+      "def": "Separation between layers inside a package, such as mold compound and die or substrate.",
+      "definedIn": "m02l01",
+      "moduleId": "m02",
+      "alsoDefinedIn": [
+        "m11l04"
+      ]
+    },
+    {
+      "term": "Design rule",
+      "def": "A measurable constraint applied during layout or stencil design.",
+      "definedIn": "m15l01",
+      "moduleId": "m15",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Design variable",
+      "def": "A drawing, layer, dimension or library attribute the designer controls.",
+      "definedIn": "m15l01",
+      "moduleId": "m15",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Detection escape",
+      "def": "A defect that passed the inspection or test intended to catch it.",
+      "definedIn": "m14l02",
+      "moduleId": "m14",
+      "alsoDefinedIn": [
+        "m14l04",
+        "m14l07"
+      ]
+    },
+    {
+      "term": "Detection limit",
+      "def": "The smallest value an analytical method can report as distinguishable from background.",
+      "definedIn": "m12l03",
+      "moduleId": "m12",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Detection probability",
+      "def": "The likelihood that a method reports a present defect of a given class.",
+      "definedIn": "m13l05",
+      "moduleId": "m13",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Deviation",
+      "def": "A limited, time-bound and approved acceptance of a lot outside a requirement, with the exposure and the additional checks recorded.",
+      "definedIn": "m01l01",
+      "moduleId": "m01",
+      "alsoDefinedIn": [
+        "m11l06"
+      ]
+    },
+    {
+      "term": "Dewetting",
+      "def": "Solder that spreads and then retracts, leaving thin irregular areas on the pad.",
+      "definedIn": "m06l02",
+      "moduleId": "m06",
+      "alsoDefinedIn": [
+        "m06l06",
+        "m12l06"
+      ]
+    },
+    {
+      "term": "Diametral clearance",
+      "def": "Hole diameter minus lead diameter at the joint.",
+      "definedIn": "m08l05",
+      "moduleId": "m08",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Die shadow",
+      "def": "The area under the die where the package mass changes heat flow and paste behaviour.",
+      "definedIn": "m07l04",
+      "moduleId": "m07",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Disagreement audit",
+      "def": "A second review of a sample of dispositions to test consistency.",
+      "definedIn": "m07l03",
+      "moduleId": "m07",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Disposition",
+      "def": "The recorded decision on a nonconforming item: accept, reject, rework, repair, scrap or use-as-is.",
+      "definedIn": "m07l05",
+      "moduleId": "m07",
+      "alsoDefinedIn": [
+        "m11l04",
+        "m11l06"
+      ]
+    },
+    {
+      "term": "Dissipative",
+      "def": "A surface resistance range that bleeds charge away slowly enough to protect sensitive devices.",
+      "definedIn": "m12l06",
+      "moduleId": "m12",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Disturbed joint",
+      "def": "A joint whose component moved while the solder was solidifying, leaving a rough surface.",
+      "definedIn": "m11l02",
+      "moduleId": "m11",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Document control",
+      "def": "The system that holds current revisions and marks superseded ones obsolete.",
+      "definedIn": "m15l05",
+      "moduleId": "m15",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Documented exception",
+      "def": "A stated allowance in the standard that permits a lower value under defined conditions.",
+      "definedIn": "m08l05",
+      "moduleId": "m08",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Drainage",
+      "def": "The path that lets flux and air escape from under a board or mask.",
+      "definedIn": "m08l04",
+      "moduleId": "m08",
+      "alsoDefinedIn": [
+        "m09l05"
+      ]
+    },
+    {
+      "term": "Dross",
+      "def": "Oxide and intermetallic debris that forms on molten solder.",
+      "definedIn": "m09l01",
+      "moduleId": "m09",
+      "alsoDefinedIn": [
+        "m09l07"
+      ]
+    },
+    {
+      "term": "Dry joint",
+      "def": "A joint that received too little solder to wet and form properly.",
+      "definedIn": "m08l03",
+      "moduleId": "m08",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Dry pack",
+      "def": "The moisture barrier bag, desiccant and humidity indicator card that protect a moisture-sensitive device before use.",
+      "definedIn": "m02l04",
+      "moduleId": "m02",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Dry-film thickness",
+      "def": "The coating thickness remaining after solvents have evaporated and cure is complete.",
+      "definedIn": "m12l04",
+      "moduleId": "m12",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Dwell",
+      "def": "The time the board underside spends in contact with the solder wave.",
+      "definedIn": "m09l04",
+      "moduleId": "m09",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Dye-and-pry",
+      "def": "A destructive test that reveals cracks by forcing dye into them and separating the part.",
+      "definedIn": "m05l02",
+      "moduleId": "m05",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "ECN",
+      "def": "Engineering change notice, the formal record that authorises a design change.",
+      "definedIn": "m15l01",
+      "moduleId": "m15",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Effectiveness metric",
+      "def": "The measurable rate used to prove that a corrective action worked.",
+      "definedIn": "m14l05",
+      "moduleId": "m14",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Engineering disposition",
+      "def": "The formal decision on whether a nonconforming assembly may be used, repaired or scrapped.",
+      "definedIn": "m11l05",
+      "moduleId": "m11",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "EPA",
+      "def": "An ESD protected area, the controlled zone where sensitive assemblies are handled.",
+      "definedIn": "m12l02",
+      "moduleId": "m12",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Equipotential bonding",
+      "def": "Connecting conductive items so they sit at the same potential and cannot discharge into each other.",
+      "definedIn": "m02l05",
+      "moduleId": "m02",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Escape",
+      "def": "A defect the inspection did not call and a later stage or the field found.",
+      "definedIn": "m07l02",
+      "moduleId": "m07",
+      "alsoDefinedIn": [
+        "m13l05",
+        "m13l06"
+      ]
+    },
+    {
+      "term": "ESD protected area",
+      "def": "A defined space in which all conductive items and personnel are bonded and sensitive items are handled under documented controls.",
+      "definedIn": "m02l05",
+      "moduleId": "m02",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Excursion",
+      "def": "A period in which a material left its specified storage or transport temperature range.",
+      "definedIn": "m01l05",
+      "moduleId": "m01",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Expected deposit volume",
+      "def": "Aperture volume corrected for taper and multiplied by transfer efficiency.",
+      "definedIn": "m03l05",
+      "moduleId": "m03",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "EXTEST",
+      "def": "The scan instruction that drives and observes package pins for interconnect testing.",
+      "definedIn": "m13l04",
+      "moduleId": "m13",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "False call",
+      "def": "An inspection call that verification shows was not a defect.",
+      "definedIn": "m07l02",
+      "moduleId": "m07",
+      "alsoDefinedIn": [
+        "m13l03",
+        "m14l01"
+      ]
+    },
+    {
+      "term": "Fault tree",
+      "def": "A top-down logic diagram using AND and OR gates to decompose a failure event.",
+      "definedIn": "m14l02",
+      "moduleId": "m14",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Feeder map",
+      "def": "The table that assigns each part number to a physical feeder slot.",
+      "definedIn": "m05l05",
+      "moduleId": "m05",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Fiducial",
+      "def": "A high-contrast mark used by the placement machine to establish coordinates.",
+      "definedIn": "m15l04",
+      "moduleId": "m15",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Fill factor",
+      "def": "Measured deposit volume divided by the theoretical aperture volume.",
+      "definedIn": "m04l07",
+      "moduleId": "m04",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Fill height",
+      "def": "The height the solder reaches inside the plated hole, measured from the exit side.",
+      "definedIn": "m08l01",
+      "moduleId": "m08",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Fine pitch",
+      "def": "Component lead spacing small enough that aperture dimensions approach the limits of paste release.",
+      "definedIn": "m03l02",
+      "moduleId": "m03",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "First article",
+      "def": "The first unit built to a changed design, inspected in full.",
+      "definedIn": "m15l03",
+      "moduleId": "m15",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "First-article inspection",
+      "def": "A full check of the first unit produced after a change.",
+      "definedIn": "m14l06",
+      "moduleId": "m14",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "First-in, first-out",
+      "def": "Consuming the oldest acceptable lot first so material does not expire in stores.",
+      "definedIn": "m01l05",
+      "moduleId": "m01",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "First-pass yield",
+      "def": "Units completed without rework divided by units started.",
+      "definedIn": "m07l03",
+      "moduleId": "m07",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Fish-eye",
+      "def": "A circular area where coating fails to wet the surface, leaving bare substrate.",
+      "definedIn": "m12l06",
+      "moduleId": "m12",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Floor life",
+      "def": "The time a moisture-sensitive component may spend out of its dry pack at a stated ambient condition before reflow, assigned by moisture sensitivity level.",
+      "definedIn": "m01l02",
+      "moduleId": "m01",
+      "alsoDefinedIn": [
+        "m01l06",
+        "m02l01"
+      ]
+    },
+    {
+      "term": "Floor-life deviation",
+      "def": "A batch whose recorded exposure exceeds the allowed floor life before reflow.",
+      "definedIn": "m02l06",
+      "moduleId": "m02",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Floor-life suspension",
+      "def": "The stop of floor-life accumulation that J-STD-033 grants at 5 % RH or less in qualified dry storage.",
+      "definedIn": "m02l04",
+      "moduleId": "m02",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Flux activation range",
+      "def": "The temperature band in which the flux removes oxides effectively.",
+      "definedIn": "m09l07",
+      "moduleId": "m09",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Flux migration",
+      "def": "Flux travelling away from the intended joint onto neighbouring pads or components.",
+      "definedIn": "m10l01",
+      "moduleId": "m10",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Flux-cored wire",
+      "def": "Solder wire with a flux core that cleans the interface as it melts.",
+      "definedIn": "m11l02",
+      "moduleId": "m11",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Flux-on-the-fly",
+      "def": "Flux applied immediately before solder contact so it stays active at wetting temperature.",
+      "definedIn": "m10l02",
+      "moduleId": "m10",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Fluxometer",
+      "def": "An instrument that measures the flux solids deposited per unit area.",
+      "definedIn": "m09l02",
+      "moduleId": "m09",
+      "alsoDefinedIn": [
+        "m09l04"
+      ]
+    },
+    {
+      "term": "Fog height",
+      "def": "The height of the flux fog applied to the board underside before the wave.",
+      "definedIn": "m09l02",
+      "moduleId": "m09",
+      "alsoDefinedIn": [
+        "m09l03"
+      ]
+    },
+    {
+      "term": "FTIR conversion",
+      "def": "A spectroscopic check of how completely the coating has cured.",
+      "definedIn": "m12l05",
+      "moduleId": "m12",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Global fiducial",
+      "def": "A board or panel reference mark used to establish origin, scale and rotation for the whole board.",
+      "definedIn": "m05l03",
+      "moduleId": "m05",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Golden board",
+      "def": "A known-good reference board used to build and check the inspection program.",
+      "definedIn": "m07l02",
+      "moduleId": "m07",
+      "alsoDefinedIn": [
+        "m13l02"
+      ]
+    },
+    {
+      "term": "Guard",
+      "def": "A driven node that isolates a component or net so it can be measured in circuit.",
+      "definedIn": "m13l02",
+      "moduleId": "m13",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Guard circuit",
+      "def": "A driven node that isolates a component so its value can be measured in circuit.",
+      "definedIn": "m13l01",
+      "moduleId": "m13",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Heat sink",
+      "def": "A large copper area that conducts heat away from a joint.",
+      "definedIn": "m06l04",
+      "moduleId": "m06",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "High mix",
+      "def": "A production profile with many different assemblies in small quantities.",
+      "definedIn": "m13l06",
+      "moduleId": "m13",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Hoof tip",
+      "def": "A curved tip shape that carries a solder bead to a joint, useful on through-hole and large pads.",
+      "definedIn": "m11l01",
+      "moduleId": "m11",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Horizontal deployment",
+      "def": "Applying a corrective action to other products, lines or sites with the same risk.",
+      "definedIn": "m14l04",
+      "moduleId": "m14",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Humidity indicator card",
+      "def": "A card in a dry pack that changes colour to show whether the pack exceeded a stated humidity threshold.",
+      "definedIn": "m01l02",
+      "moduleId": "m01",
+      "alsoDefinedIn": [
+        "m02l02",
+        "m02l04"
+      ]
+    },
+    {
+      "term": "Icicle",
+      "def": "A pointed solder projection formed on a through-hole joint or lead during solidification.",
+      "definedIn": "m07l06",
+      "moduleId": "m07",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "IDCODE",
+      "def": "A device identification register readable through the scan port.",
+      "definedIn": "m13l04",
+      "moduleId": "m13",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Insertion force",
+      "def": "The force needed to push a lead into a plated hole, an indicator of clearance and burrs.",
+      "definedIn": "m08l02",
+      "moduleId": "m08",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Interface temperature",
+      "def": "The temperature at the boundary between solder and the surfaces being joined.",
+      "definedIn": "m11l02",
+      "moduleId": "m11",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Intermetallic compound",
+      "def": "The brittle layer formed between solder and the pad metal during melting.",
+      "definedIn": "m06l02",
+      "moduleId": "m06",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Ion chromatography",
+      "def": "A test that measures ionic contamination left by flux residues.",
+      "definedIn": "m09l01",
+      "moduleId": "m09",
+      "alsoDefinedIn": [
+        "m12l03"
+      ]
+    },
+    {
+      "term": "Ionizer",
+      "def": "Equipment that neutralises static charge by delivering balanced positive and negative ions to the air.",
+      "definedIn": "m02l05",
+      "moduleId": "m02",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "IPC-CC-830",
+      "def": "The qualification and performance standard for conformal coating materials.",
+      "definedIn": "m12l04",
+      "moduleId": "m12",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Joint group",
+      "def": "A set of joints processed with one nozzle path, flux application and thermal profile.",
+      "definedIn": "m10l01",
+      "moduleId": "m10",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Keep-out",
+      "def": "An area that must stay uncoated, defined in the coating program or mask layout.",
+      "definedIn": "m12l05",
+      "moduleId": "m12",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Keepout",
+      "def": "An area kept clear of components or copper for a process reason.",
+      "definedIn": "m15l04",
+      "moduleId": "m15",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Laminar X-ray",
+      "def": "Tomographic X-ray that reconstructs a slice through the assembly.",
+      "definedIn": "m07l01",
+      "moduleId": "m07",
+      "alsoDefinedIn": [
+        "m07l04"
+      ]
+    },
+    {
+      "term": "Land pattern",
+      "def": "The copper geometry on the board that the aperture and the component termination must match.",
+      "definedIn": "m03l04",
+      "moduleId": "m03",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Latent defect",
+      "def": "A fault that is present but does not show under the test conditions applied.",
+      "definedIn": "m13l01",
+      "moduleId": "m13",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Latent ESD failure",
+      "def": "Damage that leaves a part working at test and failing later in service.",
+      "definedIn": "m02l06",
+      "moduleId": "m02",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Lead-in and lead-out",
+      "def": "The non-soldering travel into and away from a joint.",
+      "definedIn": "m10l04",
+      "moduleId": "m10",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Liquidus",
+      "def": "The temperature above which an alloy is fully molten.",
+      "definedIn": "m06l02",
+      "moduleId": "m06",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Local fiducial",
+      "def": "A reference mark near a fine-pitch area that compensates local distortion or warpage.",
+      "definedIn": "m05l03",
+      "moduleId": "m05",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Low-energy zone",
+      "def": "The region behind an obstacle where the wave arrives weakened and cooled.",
+      "definedIn": "m09l05",
+      "moduleId": "m09",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Manufacturer lot traceability",
+      "def": "Evidence linking the packaged parts to a specific manufacturing lot at the original manufacturer.",
+      "definedIn": "m01l04",
+      "moduleId": "m01",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Matched conditions",
+      "def": "A comparison where product, line, materials and process settings are held comparable.",
+      "definedIn": "m15l02",
+      "moduleId": "m15",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Material review board",
+      "def": "The cross-functional group that dispositions nonconforming material and records the basis for its decision.",
+      "definedIn": "m01l07",
+      "moduleId": "m01",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Measurement confidence",
+      "def": "The SPI system's own rating of how reliable a given reading is.",
+      "definedIn": "m04l02",
+      "moduleId": "m04",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Measurement integrity",
+      "def": "The ability of an inspection system to detect defects without inventing them.",
+      "definedIn": "m14l01",
+      "moduleId": "m14",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Measurement report",
+      "def": "The supplier's record of measured stencil characteristics against the issued drawing.",
+      "definedIn": "m03l05",
+      "moduleId": "m03",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Meniscus",
+      "def": "The curved solder surface at the top of a filled hole or at the joint edge.",
+      "definedIn": "m09l06",
+      "moduleId": "m09",
+      "alsoDefinedIn": [
+        "m10l02"
+      ]
+    },
+    {
+      "term": "Metal load",
+      "def": "The percentage of metal powder by weight in the solder paste.",
+      "definedIn": "m04l04",
+      "moduleId": "m04",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Mini-wave",
+      "def": "A small localised solder wave formed by a nozzle, used for selective joints.",
+      "definedIn": "m10l01",
+      "moduleId": "m10",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Misprint",
+      "def": "A paste deposit that is displaced, incomplete or absent relative to the aperture.",
+      "definedIn": "m07l06",
+      "moduleId": "m07",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Moisture barrier bag",
+      "def": "A foil-laminate bag that slows moisture ingress and carries the MSL and exposure data.",
+      "definedIn": "m02l02",
+      "moduleId": "m02",
+      "alsoDefinedIn": [
+        "m02l03"
+      ]
+    },
+    {
+      "term": "Moisture sensitivity level",
+      "def": "The J-STD-020 classification of how much ambient exposure a non-hermetic package tolerates before reflow.",
+      "definedIn": "m02l01",
+      "moduleId": "m02",
+      "alsoDefinedIn": [
+        "m10l03"
+      ]
+    },
+    {
+      "term": "Mouse bite",
+      "def": "A breakaway tab with drilled perforations used to separate a board from its panel.",
+      "definedIn": "m15l04",
+      "moduleId": "m15",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Near-eutectic",
+      "def": "An alloy close to the composition with the lowest melting point in its system.",
+      "definedIn": "m06l05",
+      "moduleId": "m06",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Nitrogen reflow",
+      "def": "Reflow in a nitrogen atmosphere that limits oxide formation during melting.",
+      "definedIn": "m06l05",
+      "moduleId": "m06",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Node coverage",
+      "def": "The fraction of electrical nodes a test method exercises.",
+      "definedIn": "m13l05",
+      "moduleId": "m13",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Nozzle map",
+      "def": "The machine table that pairs each component with its nozzle and vacuum setting.",
+      "definedIn": "m05l01",
+      "moduleId": "m05",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Occurrence root cause",
+      "def": "The process condition that created the defect.",
+      "definedIn": "m14l04",
+      "moduleId": "m14",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Organic solderability preservative",
+      "def": "An organic coating on copper that protects solderability and is displaced during soldering.",
+      "definedIn": "m01l06",
+      "moduleId": "m01",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Overtravel",
+      "def": "The extra downward travel after first contact, which establishes vacuum without compressing the part.",
+      "definedIn": "m05l02",
+      "moduleId": "m05",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Pad-level profile",
+      "def": "A temperature record taken at the joint rather than at the oven air.",
+      "definedIn": "m06l04",
+      "moduleId": "m06",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Pallet opening",
+      "def": "The cut-out that exposes a joint to the wave through the fixture.",
+      "definedIn": "m09l05",
+      "moduleId": "m09",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Panelisation",
+      "def": "The arrangement of boards on a production panel, which a design change can affect.",
+      "definedIn": "m15l03",
+      "moduleId": "m15",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Parallel efficiency",
+      "def": "The fraction of the ideal multi-probe throughput a tester actually achieves.",
+      "definedIn": "m13l03",
+      "moduleId": "m13",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Pareto",
+      "def": "A ranked bar chart of defect counts or rates by category, used to choose where to work first.",
+      "definedIn": "m14l01",
+      "moduleId": "m14",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Particle count",
+      "def": "The number of particles above a stated size in a defined area or volume.",
+      "definedIn": "m12l03",
+      "moduleId": "m12",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Paste relief",
+      "def": "A reduction or splitting of paste aperture area to control volume and voiding.",
+      "definedIn": "m15l04",
+      "moduleId": "m15",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Paste roll",
+      "def": "The bead of paste that rolls ahead of the squeegee and feeds the apertures.",
+      "definedIn": "m04l03",
+      "moduleId": "m04",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Paste-in-pad",
+      "def": "A repair method that prints or dispenses paste onto the land pattern before placing the component.",
+      "definedIn": "m11l03",
+      "moduleId": "m11",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Patch test",
+      "def": "A rapid extraction test that estimates ionic contamination over a defined area.",
+      "definedIn": "m12l06",
+      "moduleId": "m12",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "PFMEA",
+      "def": "Process failure mode and effects analysis, the risk document the 8D updates.",
+      "definedIn": "m14l05",
+      "moduleId": "m14",
+      "alsoDefinedIn": [
+        "m14l06"
+      ]
+    },
+    {
+      "term": "Pick height",
+      "def": "The nozzle Z position at which it contacts the component in the feeder or tray.",
+      "definedIn": "m05l01",
+      "moduleId": "m05",
+      "alsoDefinedIn": [
+        "m05l02"
+      ]
+    },
+    {
+      "term": "Pilot build",
+      "def": "A limited production run used to confirm a change before release.",
+      "definedIn": "m15l05",
+      "moduleId": "m15",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Pilot panel",
+      "def": "A limited build used to prove a change before full release.",
+      "definedIn": "m15l01",
+      "moduleId": "m15",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Pitch class",
+      "def": "The component lead spacing band that governs aperture and foil choices.",
+      "definedIn": "m04l01",
+      "moduleId": "m04",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Plating thickness",
+      "def": "The copper thickness on the hole wall, which sets current capacity and wall strength.",
+      "definedIn": "m08l01",
+      "moduleId": "m08",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Pogo pin",
+      "def": "A spring-loaded contact used in bed-of-nails fixtures to press onto a test point.",
+      "definedIn": "m13l03",
+      "moduleId": "m13",
+      "alsoDefinedIn": [
+        "m13l06"
+      ]
+    },
+    {
+      "term": "Point load",
+      "def": "Force concentrated on a small area, which is what causes cracks in brittle components.",
+      "definedIn": "m05l02",
+      "moduleId": "m05",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Poka-yoke",
+      "def": "A design or process feature that prevents an error from being made.",
+      "definedIn": "m14l04",
+      "moduleId": "m14",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Polarity defect",
+      "def": "A polarised component placed in the reverse orientation.",
+      "definedIn": "m05l04",
+      "moduleId": "m05",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Popcorn effect",
+      "def": "Package cracking or interface separation caused by moisture vaporising during reflow.",
+      "definedIn": "m02l01",
+      "moduleId": "m02",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Pot temperature",
+      "def": "The temperature of the molten solder in the wave reservoir.",
+      "definedIn": "m09l07",
+      "moduleId": "m09",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Pre-production sample",
+      "def": "A controlled first run inspected before the line is released.",
+      "definedIn": "m05l05",
+      "moduleId": "m05",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Probe mark",
+      "def": "The indentation or witness mark a probe leaves on a test pad.",
+      "definedIn": "m13l03",
+      "moduleId": "m13",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Process capability",
+      "def": "How well a process holds its specification, stated as a measurable index.",
+      "definedIn": "m14l07",
+      "moduleId": "m14",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Process qualification",
+      "def": "Formal evidence that a process meets requirements under defined conditions.",
+      "definedIn": "m06l07",
+      "moduleId": "m06",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Process window",
+      "def": "The range of print metrics that produces acceptable joints for a product.",
+      "definedIn": "m04l02",
+      "moduleId": "m04",
+      "alsoDefinedIn": [
+        "m08l02"
+      ]
+    },
+    {
+      "term": "Program revision",
+      "def": "The versioned record of path, dwell, pass and process settings.",
+      "definedIn": "m10l05",
+      "moduleId": "m10",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Projected height",
+      "def": "The obstacle dimension that faces the wave travel direction.",
+      "definedIn": "m09l05",
+      "moduleId": "m09",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Projection image",
+      "def": "A 2D X-ray image in which every layer contributes to the same picture.",
+      "definedIn": "m07l01",
+      "moduleId": "m07",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Pull test",
+      "def": "A mechanical test that measures the force needed to separate a joint.",
+      "definedIn": "m10l05",
+      "moduleId": "m10",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Qualified deviation",
+      "def": "A documented engineering approval to use a value outside the issued specification.",
+      "definedIn": "m03l05",
+      "moduleId": "m03",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Qualifying bake",
+      "def": "A bake performed to the J-STD-033 condition for the package and MSL, recorded and followed by proper repacking.",
+      "definedIn": "m02l03",
+      "moduleId": "m02",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Quarantine",
+      "def": "Controlled hold on a lot whose conformity is uncertain, preserved until evidence, retest, supplier review or an approved disposition closes it.",
+      "definedIn": "m01l01",
+      "moduleId": "m01",
+      "alsoDefinedIn": [
+        "m01l04",
+        "m01l07"
+      ]
+    },
+    {
+      "term": "Radial clearance",
+      "def": "Half the diametral clearance, the gap on one side of the lead.",
+      "definedIn": "m08l05",
+      "moduleId": "m08",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Re-inspection",
+      "def": "The inspection of a repaired area and its surroundings against the required class.",
+      "definedIn": "m11l05",
+      "moduleId": "m11",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Reaction plan",
+      "def": "The defined response when a measured value falls outside its limit.",
+      "definedIn": "m14l06",
+      "moduleId": "m14",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Recipe adjustment",
+      "def": "A small, bounded change to oven settings verified by profile and inspection.",
+      "definedIn": "m06l07",
+      "moduleId": "m06",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Reference condition",
+      "def": "The 30 °C and 60 % RH ambient at which J-STD-033 floor lives are defined.",
+      "definedIn": "m02l02",
+      "moduleId": "m02",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Registration",
+      "def": "How accurately the aperture pattern aligns with the board pads during printing.",
+      "definedIn": "m03l06",
+      "moduleId": "m03",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Repair",
+      "def": "Making a nonconforming assembly acceptable without necessarily restoring the design.",
+      "definedIn": "m11l05",
+      "moduleId": "m11",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Repeatability",
+      "def": "How tightly repeated placements cluster around their own mean.",
+      "definedIn": "m05l01",
+      "moduleId": "m05",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Reset point",
+      "def": "The bake completion or dry-event moment from which floor life is counted again.",
+      "definedIn": "m02l03",
+      "moduleId": "m02",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Residual risk",
+      "def": "The remaining weakness a repair leaves behind, accepted or rejected by the product owner.",
+      "definedIn": "m11l04",
+      "moduleId": "m11",
+      "alsoDefinedIn": [
+        "m15l03"
+      ]
+    },
+    {
+      "term": "Retroactive search",
+      "def": "Identifying other units that share a suspect cause with the detected defect.",
+      "definedIn": "m14l03",
+      "moduleId": "m14",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Rework",
+      "def": "Processing that restores a nonconforming item to the original acceptance criteria.",
+      "definedIn": "m07l05",
+      "moduleId": "m07",
+      "alsoDefinedIn": [
+        "m11l05"
+      ]
+    },
+    {
+      "term": "Rework loop",
+      "def": "The time and cost from detecting a defect to producing a corrected unit.",
+      "definedIn": "m13l06",
+      "moduleId": "m13",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Rollback plan",
+      "def": "The documented route back to the previous revision if a change fails.",
+      "definedIn": "m15l05",
+      "moduleId": "m15",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Root cause",
+      "def": "The condition whose correction prevents recurrence under the same assumptions.",
+      "definedIn": "m14l02",
+      "moduleId": "m14",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "ROSE",
+      "def": "Resistivity of solvent extract, a test of soluble ionic contamination expressed as sodium chloride equivalent.",
+      "definedIn": "m12l01",
+      "moduleId": "m12",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Rotation error",
+      "def": "Angular displacement of the component about its centre after placement.",
+      "definedIn": "m05l06",
+      "moduleId": "m05",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Sacrificial board",
+      "def": "A production-equivalent board used for thermal or destructive testing.",
+      "definedIn": "m10l05",
+      "moduleId": "m10",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Sample size code letter",
+      "def": "The ISO 2859-1 letter derived from lot size and inspection level that fixes the sample size for the plan.",
+      "definedIn": "m01l03",
+      "moduleId": "m01",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Saponifier",
+      "def": "An alkaline additive that converts flux residue into a water-soluble soap for rinsing.",
+      "definedIn": "m12l01",
+      "moduleId": "m12",
+      "alsoDefinedIn": [
+        "m12l02"
+      ]
+    },
+    {
+      "term": "Semi-aqueous cleaning",
+      "def": "A process using solvent chemistry followed by an aqueous rinse.",
+      "definedIn": "m12l02",
+      "moduleId": "m12",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Separation",
+      "def": "The stencil-to-board gap set at the start of the print stroke.",
+      "definedIn": "m04l03",
+      "moduleId": "m04",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Shading",
+      "def": "Incomplete wetting on a through-hole or pad caused by oxidation or insufficient flux activity.",
+      "definedIn": "m09l01",
+      "moduleId": "m09",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Shadowing",
+      "def": "A dry or starved joint caused by geometry blocking the solder wave.",
+      "definedIn": "m08l03",
+      "moduleId": "m08",
+      "alsoDefinedIn": [
+        "m12l04"
+      ]
+    },
+    {
+      "term": "Shelf life",
+      "def": "The time a sealed material remains usable under stated storage conditions before requalification.",
+      "definedIn": "m01l06",
+      "moduleId": "m01",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Shielding bag",
+      "def": "Packaging that limits electrostatic field exposure to the parts inside it.",
+      "definedIn": "m02l05",
+      "moduleId": "m02",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Silicone migration",
+      "def": "The transfer of low-molecular silicone to nearby surfaces, raising contact resistance.",
+      "definedIn": "m12l04",
+      "moduleId": "m12",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Single-variable experiment",
+      "def": "A trial that changes one process setting and holds every other condition constant.",
+      "definedIn": "m04l07",
+      "moduleId": "m04",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Skew",
+      "def": "A consistent directional displacement of deposits across pads or panel locations.",
+      "definedIn": "m04l06",
+      "moduleId": "m04",
+      "alsoDefinedIn": [
+        "m05l03",
+        "m05l04"
+      ]
+    },
+    {
+      "term": "Slot nozzle",
+      "def": "A nozzle with a narrow linear opening, used for rows and long joints.",
+      "definedIn": "m10l02",
+      "moduleId": "m10",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Slump",
+      "def": "Lateral flow of the deposit after release, showing as larger area and lower height.",
+      "definedIn": "m04l04",
+      "moduleId": "m04",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Slumping",
+      "def": "Lateral flow of the deposit after release, producing a wider, flatter print.",
+      "definedIn": "m04l06",
+      "moduleId": "m04",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Snap-off",
+      "def": "The controlled separation of the board from the stencil after the print stroke.",
+      "definedIn": "m04l03",
+      "moduleId": "m04",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Snap-off distance",
+      "def": "The gap the board and stencil reach during separation after the print stroke.",
+      "definedIn": "m04l07",
+      "moduleId": "m04",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Soak",
+      "def": "The near-isothermal segment where the assembly equalises and the flux works before melting.",
+      "definedIn": "m06l02",
+      "moduleId": "m06",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Solids content",
+      "def": "The non-volatile fraction of a flux that remains after the solvent evaporates.",
+      "definedIn": "m09l02",
+      "moduleId": "m09",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Solids deposition",
+      "def": "The mass of flux solids left per unit of board area.",
+      "definedIn": "m09l03",
+      "moduleId": "m09",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Solidus",
+      "def": "The temperature below which an alloy is fully solid.",
+      "definedIn": "m06l05",
+      "moduleId": "m06",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Special cause",
+      "def": "A variation that comes from an identifiable change rather than from ordinary process noise.",
+      "definedIn": "m04l02",
+      "moduleId": "m04",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "SPI artefact",
+      "def": "A reading caused by the inspection setup rather than by the printed deposit.",
+      "definedIn": "m04l07",
+      "moduleId": "m04",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Stage Pareto",
+      "def": "Defect counts sorted by the process stage where they were detected or attributed.",
+      "definedIn": "m14l07",
+      "moduleId": "m14",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Stand-off",
+      "def": "The gap between the component body and the board surface.",
+      "definedIn": "m08l03",
+      "moduleId": "m08",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Standoff",
+      "def": "The gap between the component body and the board surface.",
+      "definedIn": "m10l01",
+      "moduleId": "m10",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Stencil serial number",
+      "def": "The unique identifier that ties a stencil to its measurement report and lifetime history.",
+      "definedIn": "m03l06",
+      "moduleId": "m03",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Step change",
+      "def": "An abrupt shift in a trend chart caused by a single event in the process.",
+      "definedIn": "m04l05",
+      "moduleId": "m04",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Step depth",
+      "def": "The local thickness difference built into a step stencil.",
+      "definedIn": "m03l06",
+      "moduleId": "m03",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Step stencil",
+      "def": "A stencil with locally reduced thickness that lowers paste volume in selected areas.",
+      "definedIn": "m03l01",
+      "moduleId": "m03",
+      "alsoDefinedIn": [
+        "m03l03"
+      ]
+    },
+    {
+      "term": "Stratification",
+      "def": "Splitting a metric by product, line, shift or defect type so the population is comparable.",
+      "definedIn": "m07l03",
+      "moduleId": "m07",
+      "alsoDefinedIn": [
+        "m14l01"
+      ]
+    },
+    {
+      "term": "Surface insulation resistance",
+      "def": "The resistance measured across a surface between conductors under humidity and applied bias.",
+      "definedIn": "m12l01",
+      "moduleId": "m12",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Switching rules",
+      "def": "The standard's rules for moving between normal, tightened and reduced inspection according to recent inspection results.",
+      "definedIn": "m01l03",
+      "moduleId": "m01",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "TAP controller",
+      "def": "The state machine inside a scan-capable device that sequences test access port operations.",
+      "definedIn": "m13l04",
+      "moduleId": "m13",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Tension",
+      "def": "The stretching force on the stencil mesh or foil, expressed in N/cm, that keeps the print area flat.",
+      "definedIn": "m03l06",
+      "moduleId": "m03",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Test access point",
+      "def": "A pad or via reserved for probing, sized for the probe tip and clearance.",
+      "definedIn": "m13l02",
+      "moduleId": "m13",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Test coupon",
+      "def": "A sample board that reproduces the production laminate, copper and component mass.",
+      "definedIn": "m06l03",
+      "moduleId": "m06",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Test coverage map",
+      "def": "The record of which defects each inspection and test step can detect.",
+      "definedIn": "m15l05",
+      "moduleId": "m15",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Thermal budget",
+      "def": "The temperature and time a part may tolerate without damage.",
+      "definedIn": "m10l05",
+      "moduleId": "m10",
+      "alsoDefinedIn": [
+        "m11l01",
+        "m11l02"
+      ]
+    },
+    {
+      "term": "Thermal cycle",
+      "def": "One complete heating and cooling exposure counted against the allowed rework budget.",
+      "definedIn": "m11l03",
+      "moduleId": "m11",
+      "alsoDefinedIn": [
+        "m11l06"
+      ]
+    },
+    {
+      "term": "Thermal lag",
+      "def": "The delay between oven air temperature and the temperature reached at the joint.",
+      "definedIn": "m06l03",
+      "moduleId": "m06",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Thermal mass",
+      "def": "The heat capacity of the board and its parts, which sets how fast they heat and cool.",
+      "definedIn": "m06l04",
+      "moduleId": "m06",
+      "alsoDefinedIn": [
+        "m10l02"
+      ]
+    },
+    {
+      "term": "Thermal pad",
+      "def": "The large central land under a QFN or LGA that carries heat and needs a controlled paste volume.",
+      "definedIn": "m03l04",
+      "moduleId": "m03",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Thermal relief",
+      "def": "Spokes in a plane connection that reduce heat flow into or out of a pad.",
+      "definedIn": "m06l04",
+      "moduleId": "m06",
+      "alsoDefinedIn": [
+        "m08l01"
+      ]
+    },
+    {
+      "term": "Thermal resistance",
+      "def": "How strongly a path resists heat flow; the lowest-resistance path carries the most heat.",
+      "definedIn": "m10l03",
+      "moduleId": "m10",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Thermal shield",
+      "def": "A physical barrier that reduces radiant or convective heat reaching a part.",
+      "definedIn": "m10l03",
+      "moduleId": "m10",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Thermal shock",
+      "def": "Rapid temperature change that can crack components or delaminate the board.",
+      "definedIn": "m09l03",
+      "moduleId": "m09",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Thermal survey",
+      "def": "A recorded temperature history from thermocouples on a representative board.",
+      "definedIn": "m06l03",
+      "moduleId": "m06",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Thermocouple",
+      "def": "A temperature sensor attached to the board to record the actual thermal history.",
+      "definedIn": "m06l01",
+      "moduleId": "m06",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Thermocouple map",
+      "def": "The record of where each thermocouple was attached and what it measured.",
+      "definedIn": "m06l07",
+      "moduleId": "m06",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Thixotropy",
+      "def": "The recovery of paste viscosity after shear, which lets a printed deposit hold its shape.",
+      "definedIn": "m04l04",
+      "moduleId": "m04",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Time above liquidus",
+      "def": "The interval during which the solder alloy is fully molten.",
+      "definedIn": "m06l01",
+      "moduleId": "m06",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Tolerance stack-up",
+      "def": "The combined worst-case effect of several independent tolerances on one gap.",
+      "definedIn": "m08l02",
+      "moduleId": "m08",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Tombstone",
+      "def": "A chip component standing on one end after reflow because one joint wetted before the other.",
+      "definedIn": "m05l04",
+      "moduleId": "m05",
+      "alsoDefinedIn": [
+        "m06l06"
+      ]
+    },
+    {
+      "term": "Tombstoning",
+      "def": "One end of a chip component lifting during reflow because the two joints wet at different rates.",
+      "definedIn": "m03l04",
+      "moduleId": "m03",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Top-surface temperature",
+      "def": "The board temperature on the component side just before wave contact.",
+      "definedIn": "m09l03",
+      "moduleId": "m09",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Touch-up",
+      "def": "A short iron pass used to correct a joint after the main rework heating.",
+      "definedIn": "m11l06",
+      "moduleId": "m11",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Traceability",
+      "def": "The record linking an assembly to its materials, equipment, programs and time window.",
+      "definedIn": "m14l03",
+      "moduleId": "m14",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Traceability range",
+      "def": "The set of units, lots and handling records that the evidence shows to be affected by an exposure.",
+      "definedIn": "m02l06",
+      "moduleId": "m02",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Transfer efficiency",
+      "def": "The share of nominal aperture volume that reaches the pad as a printed deposit.",
+      "definedIn": "m03l01",
+      "moduleId": "m03",
+      "alsoDefinedIn": [
+        "m03l02"
+      ]
+    },
+    {
+      "term": "Under-fill",
+      "def": "A deposit that is short in volume, height and area because the aperture did not fill or release.",
+      "definedIn": "m04l06",
+      "moduleId": "m04",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Use-as-is",
+      "def": "A documented concession to accept an item that does not meet the stated requirement.",
+      "definedIn": "m07l05",
+      "moduleId": "m07",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Vacuum hold-down",
+      "def": "A fixture method that pulls the board flat against a support surface.",
+      "definedIn": "m10l04",
+      "moduleId": "m10",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Verification coverage",
+      "def": "The share of inspection calls that were actually reviewed.",
+      "definedIn": "m07l02",
+      "moduleId": "m07",
+      "alsoDefinedIn": [
+        "m07l03"
+      ]
+    },
+    {
+      "term": "Version control",
+      "def": "Keeping each program revision tied to the board, fixture and material set it was qualified with.",
+      "definedIn": "m10l04",
+      "moduleId": "m10",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Vertical barrel fill",
+      "def": "The percentage of the plated hole depth filled with solder.",
+      "definedIn": "m08l05",
+      "moduleId": "m08",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Vision calibration",
+      "def": "The established relationship between camera pixel measurements and machine coordinates.",
+      "definedIn": "m05l03",
+      "moduleId": "m05",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Void",
+      "def": "A cavity of trapped gas or flux residue inside a solder joint.",
+      "definedIn": "m06l06",
+      "moduleId": "m06",
+      "alsoDefinedIn": [
+        "m07l04"
+      ]
+    },
+    {
+      "term": "Volume percent",
+      "def": "Measured deposit volume divided by nominal aperture volume, expressed as a percentage.",
+      "definedIn": "m04l04",
+      "moduleId": "m04",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Volume percentage",
+      "def": "Measured deposit volume as a percentage of the nominal aperture volume.",
+      "definedIn": "m04l06",
+      "moduleId": "m04",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Volume solids",
+      "def": "The fraction of the wet coating that remains as dry film after cure.",
+      "definedIn": "m12l05",
+      "moduleId": "m12",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Wake",
+      "def": "The region downstream of an obstacle where the solder wave is disturbed or absent.",
+      "definedIn": "m08l04",
+      "moduleId": "m08",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Wall taper",
+      "def": "The change in aperture size between the top and bottom of the laser-cut wall.",
+      "definedIn": "m03l03",
+      "moduleId": "m03",
+      "alsoDefinedIn": [
+        "m03l05"
+      ]
+    },
+    {
+      "term": "Warpage",
+      "def": "Departure of a board from flatness, measured as bow or twist against a reference surface.",
+      "definedIn": "m01l06",
+      "moduleId": "m01",
+      "alsoDefinedIn": [
+        "m11l03"
+      ]
+    },
+    {
+      "term": "Wave-side lead protrusion",
+      "def": "The length of lead standing proud of the solder side after clinching.",
+      "definedIn": "m08l04",
+      "moduleId": "m08",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Wet film thickness",
+      "def": "The coating thickness measured immediately after application, before solvent loss.",
+      "definedIn": "m12l05",
+      "moduleId": "m12",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Wettable flank",
+      "def": "A plated side feature on a QFN that lets optical inspection judge the fillet.",
+      "definedIn": "m07l01",
+      "moduleId": "m07",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Wetting",
+      "def": "The spreading of molten solder over a metal surface to form a metallurgical bond.",
+      "definedIn": "m06l01",
+      "moduleId": "m06",
+      "alsoDefinedIn": [
+        "m11l01"
+      ]
+    },
+    {
+      "term": "Wetting imbalance",
+      "def": "Uneven solder wetting that pulls a component out of position during reflow.",
+      "definedIn": "m05l06",
+      "moduleId": "m05",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Wipe cycle",
+      "def": "The interval and method used to clean the stencil underside between prints.",
+      "definedIn": "m04l03",
+      "moduleId": "m04",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Witness board",
+      "def": "A test board used to measure the effective contact length and wave footprint.",
+      "definedIn": "m09l04",
+      "moduleId": "m09",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Worst-case site",
+      "def": "The location on the board that reaches the lowest or the highest temperature.",
+      "definedIn": "m06l03",
+      "moduleId": "m06",
+      "alsoDefinedIn": []
+    }
+  ],
+  "formulas": [
+    {
+      "name": "Area ratio (stencil aperture)",
+      "expr": "(L × W) / (2 × (L + W) × T)",
+      "where": "release capability of a rectangular aperture; L and W are the aperture sides, T the foil thickness",
+      "lessonId": "m03l01",
+      "lessonTitle": "The paste volume budget: what the joint needs before the aperture is drawn",
+      "moduleId": "m03",
+      "alsoUsedIn": [
+        "m03l02",
+        "m03l03",
+        "m03l04",
+        "m03l05",
+        "m04l01",
+        "m06l06"
+      ],
+      "quote": "Area ratio is the aperture area divided by the sidewall area of the stencil wall.",
+      "heading": "Area ratio compares contact area with wall adhesion"
+    },
+    {
+      "name": "Aspect ratio (stencil aperture)",
+      "expr": "W / T",
+      "where": "release capability on the narrow side; W is aperture width, T the foil thickness",
+      "lessonId": "m03l01",
+      "lessonTitle": "The paste volume budget: what the joint needs before the aperture is drawn",
+      "moduleId": "m03",
+      "alsoUsedIn": [
+        "m03l02",
+        "m03l03",
+        "m03l05",
+        "m04l01"
+      ],
+      "quote": "Aspect ratio is aperture width divided by stencil thickness, and for rectangular apertures you take the smaller dimension, because that dimension controls the narrowest release path.",
+      "heading": "Aspect ratio describes depth against width"
+    },
+    {
+      "name": "Squeegee pressure per blade length",
+      "expr": "p = F / L",
+      "where": "pressure in N/mm; F is the force applied to the blade, L the blade length",
+      "lessonId": "m04l03",
+      "lessonTitle": "Printer setup: squeegee pressure and speed, snap-off, separation, wipe cycle",
+      "moduleId": "m04",
+      "alsoUsedIn": [
+        "m04l07"
+      ],
+      "quote": "Industry guidance clusters around 0.45 to 0.70 kg per 25 mm of blade, which is 0.2 to 0.6 N/mm; work in N/mm and state the blade length with every setting, because 0.2 N/mm on a 250 mm blade is 50 N and 0.6 N/mm is 150 N.",
+      "heading": "Squeegee pressure"
+    },
+    {
+      "name": "Process capability index",
+      "expr": "Cpk = min[(USL − mean), (mean − LSL)] / (3 × sd)",
+      "where": "capability of a stable process against its specification limits",
+      "lessonId": "m04l05",
+      "lessonTitle": "SPI as process evidence: mean, spread, capability, stop/adjust decisions",
+      "moduleId": "m04",
+      "alsoUsedIn": [
+        "m15l01"
+      ],
+      "quote": "Cpk adds centring — whether it actually is centred enough to meet them.",
+      "heading": "Capability for volume and height"
+    },
+    {
+      "name": "Wave contact time from contact length",
+      "expr": "t = L / v",
+      "where": "dwell over the wave; L is the effective contact length, v the conveyor speed",
+      "lessonId": "m09l04",
+      "lessonTitle": "Contact time and fog height: dwell calculation, wave height vs board clearance",
+      "moduleId": "m09",
+      "alsoUsedIn": [],
+      "quote": "Calculate it as t = L / v, where L is the effective contact length in mm and v the conveyor speed in mm/s.",
+      "heading": "Contact time and why it matters"
+    },
+    {
+      "name": "Shadow length behind a lifted lead",
+      "expr": "shadow = height × tan(wave angle)",
+      "where": "the wake a tall part casts in the wave, plus a turbulence margin",
+      "lessonId": "m09l05",
+      "lessonTitle": "Shadowing and orientation: shading, pallets, board direction, lead geometry",
+      "moduleId": "m09",
+      "alsoUsedIn": [
+        "m03l05",
+        "m08l03",
+        "m08l04"
+      ],
+      "quote": "Board direction changes the shadow length, because the same component presents a different projected height to the wave.",
+      "heading": "Board and wave direction"
+    },
+    {
+      "name": "Thermal budget index for hand rework",
+      "expr": "index = (tip setpoint − board preheat) × contact time",
+      "where": "a comparable number for one rework contact, in °C·s",
+      "lessonId": "m11l02",
+      "lessonTitle": "Technique: contact order, dwell, feed, lead-free discipline, technique defects",
+      "moduleId": "m11",
+      "alsoUsedIn": [],
+      "quote": "State thermal budget: tip setpoint 330-350 °C, board preheat 100 °C, contact time 1.5-2.5 s, initial contact; thermal budget index = (tip setpoint - board preheat) × contact time = 230-250 °C × 1.5-2.5 s = 345-625 °C·s per contact.",
+      "heading": "Worked calculation"
+    },
+    {
+      "name": "Estimated dry-film thickness from wet film",
+      "expr": "DFT = WFT × (volume solids fraction)",
+      "where": "coating thickness after cure; WFT is the measured wet film, solids given as a fraction",
+      "lessonId": "m12l05",
+      "lessonTitle": "Application and masking: spray, dip, selective, thickness, cure, repairability",
+      "moduleId": "m12",
+      "alsoUsedIn": [],
+      "quote": "The coating has a volume solids content of 45% by volume.",
+      "heading": "Worked calculation"
+    },
+    {
+      "name": "Defect rate in parts per million",
+      "expr": "ppm = (defects / opportunities) × 1,000,000",
+      "where": "defect rate normalised by the opportunity count the report states",
+      "lessonId": "m13l05",
+      "lessonTitle": "Coverage math: node vs defect coverage, escape risk, where inspection ends and test starts",
+      "moduleId": "m13",
+      "alsoUsedIn": [
+        "m05l04",
+        "m14l01",
+        "m14l03",
+        "m14l04",
+        "m14l05",
+        "m14l06",
+        "m15l01"
+      ],
+      "quote": "Use SI units such as millimetre and micrometre for physical inspection limits, and ppm as the dimensionless rate for escape risk.",
+      "heading": "Coverage math needs a defect model"
+    },
+    {
+      "name": "Escape count from a defect rate",
+      "expr": "escapes = boards × (escape rate)",
+      "where": "how many defective units reach the next stage at a stated rate",
+      "lessonId": "m14l03",
+      "lessonTitle": "Containment and traceability: quarantine scope, lot trace, retroactive search",
+      "moduleId": "m14",
+      "alsoUsedIn": [
+        "m07l02",
+        "m07l03",
+        "m13l05",
+        "m14l01",
+        "m14l02",
+        "m14l05"
+      ],
+      "quote": "Measure effectiveness with a metric tied to the defect: solder defect ppm, first pass yield, rework rate, test escape rate or audit findings.",
+      "heading": "Owners, dates and effectiveness metrics"
+    },
+    {
+      "name": "Sample size for a no-defect demonstration",
+      "expr": "n = ln(1 − confidence) / ln(1 − p)",
+      "where": "units needed to show a defect rate p with no defect found",
+      "lessonId": "m15l01",
+      "lessonTitle": "How designers read process feedback: language, format, what gets acted on",
+      "moduleId": "m15",
+      "alsoUsedIn": [
+        "m14l06"
+      ],
+      "quote": "With confidence = 0.95 and target = 0.0010, n = ln(0.05) / ln(0.999) = 2995.",
+      "heading": "Worked calculation"
+    }
+  ],
+  "termConflicts": [
+    {
+      "term": "Quarantine",
+      "first": "m01l01",
+      "again": "m01l04"
+    },
+    {
+      "term": "Certificate of analysis",
+      "first": "m01l02",
+      "again": "m01l05"
+    },
+    {
+      "term": "Floor life",
+      "first": "m01l02",
+      "again": "m01l06"
+    },
+    {
+      "term": "Quarantine",
+      "first": "m01l01",
+      "again": "m01l07"
+    },
+    {
+      "term": "Floor life",
+      "first": "m01l02",
+      "again": "m02l01"
+    },
+    {
+      "term": "Humidity indicator card",
+      "first": "m01l02",
+      "again": "m02l02"
+    },
+    {
+      "term": "Moisture barrier bag",
+      "first": "m02l02",
+      "again": "m02l03"
+    },
+    {
+      "term": "Humidity indicator card",
+      "first": "m01l02",
+      "again": "m02l04"
+    },
+    {
+      "term": "Containment",
+      "first": "m01l07",
+      "again": "m02l06"
+    },
+    {
+      "term": "Area ratio",
+      "first": "m03l01",
+      "again": "m03l02"
+    },
+    {
+      "term": "Aspect ratio",
+      "first": "m03l01",
+      "again": "m03l02"
+    },
+    {
+      "term": "Transfer efficiency",
+      "first": "m03l01",
+      "again": "m03l02"
+    },
+    {
+      "term": "Step stencil",
+      "first": "m03l01",
+      "again": "m03l03"
+    },
+    {
+      "term": "Area ratio",
+      "first": "m03l01",
+      "again": "m03l03"
+    },
+    {
+      "term": "Aspect ratio",
+      "first": "m03l01",
+      "again": "m03l03"
+    },
+    {
+      "term": "Wall taper",
+      "first": "m03l03",
+      "again": "m03l05"
+    },
+    {
+      "term": "Area ratio",
+      "first": "m03l01",
+      "again": "m04l01"
+    },
+    {
+      "term": "Aspect ratio",
+      "first": "m03l01",
+      "again": "m04l01"
+    },
+    {
+      "term": "Pick height",
+      "first": "m05l01",
+      "again": "m05l02"
+    },
+    {
+      "term": "Skew",
+      "first": "m04l06",
+      "again": "m05l03"
+    },
+    {
+      "term": "Skew",
+      "first": "m04l06",
+      "again": "m05l04"
+    },
+    {
+      "term": "Classification temperature",
+      "first": "m06l01",
+      "again": "m06l05"
+    },
+    {
+      "term": "Tombstone",
+      "first": "m05l04",
+      "again": "m06l06"
+    },
+    {
+      "term": "Dewetting",
+      "first": "m06l02",
+      "again": "m06l06"
+    },
+    {
+      "term": "Verification coverage",
+      "first": "m07l02",
+      "again": "m07l03"
+    },
+    {
+      "term": "Void",
+      "first": "m06l06",
+      "again": "m07l04"
+    },
+    {
+      "term": "Laminar X-ray",
+      "first": "m07l01",
+      "again": "m07l04"
+    },
+    {
+      "term": "Thermal relief",
+      "first": "m06l04",
+      "again": "m08l01"
+    },
+    {
+      "term": "Aspect ratio",
+      "first": "m03l01",
+      "again": "m08l02"
+    },
+    {
+      "term": "Process window",
+      "first": "m04l02",
+      "again": "m08l02"
+    },
+    {
+      "term": "Fog height",
+      "first": "m09l02",
+      "again": "m09l03"
+    },
+    {
+      "term": "Fluxometer",
+      "first": "m09l02",
+      "again": "m09l04"
+    },
+    {
+      "term": "Drainage",
+      "first": "m08l04",
+      "again": "m09l05"
+    },
+    {
+      "term": "Aspect ratio",
+      "first": "m03l01",
+      "again": "m09l06"
+    },
+    {
+      "term": "Dross",
+      "first": "m09l01",
+      "again": "m09l07"
+    },
+    {
+      "term": "Meniscus",
+      "first": "m09l06",
+      "again": "m10l02"
+    },
+    {
+      "term": "Thermal mass",
+      "first": "m06l04",
+      "again": "m10l02"
+    },
+    {
+      "term": "Moisture sensitivity level",
+      "first": "m02l01",
+      "again": "m10l03"
+    },
+    {
+      "term": "Thermal budget",
+      "first": "m10l05",
+      "again": "m11l01"
+    },
+    {
+      "term": "Wetting",
+      "first": "m06l01",
+      "again": "m11l01"
+    },
+    {
+      "term": "Thermal budget",
+      "first": "m10l05",
+      "again": "m11l02"
+    },
+    {
+      "term": "Collapse",
+      "first": "m07l04",
+      "again": "m11l03"
+    },
+    {
+      "term": "Warpage",
+      "first": "m01l06",
+      "again": "m11l03"
+    },
+    {
+      "term": "Disposition",
+      "first": "m07l05",
+      "again": "m11l04"
+    },
+    {
+      "term": "Delamination",
+      "first": "m02l01",
+      "again": "m11l04"
+    },
+    {
+      "term": "Rework",
+      "first": "m07l05",
+      "again": "m11l05"
+    },
+    {
+      "term": "Deviation",
+      "first": "m01l01",
+      "again": "m11l06"
+    },
+    {
+      "term": "Disposition",
+      "first": "m07l05",
+      "again": "m11l06"
+    },
+    {
+      "term": "Thermal cycle",
+      "first": "m11l03",
+      "again": "m11l06"
+    },
+    {
+      "term": "Saponifier",
+      "first": "m12l01",
+      "again": "m12l02"
+    },
+    {
+      "term": "Ion chromatography",
+      "first": "m09l01",
+      "again": "m12l03"
+    },
+    {
+      "term": "Shadowing",
+      "first": "m08l03",
+      "again": "m12l04"
+    },
+    {
+      "term": "Dewetting",
+      "first": "m06l02",
+      "again": "m12l06"
+    },
+    {
+      "term": "Boundary scan",
+      "first": "m07l01",
+      "again": "m13l01"
+    },
+    {
+      "term": "Golden board",
+      "first": "m07l02",
+      "again": "m13l02"
+    },
+    {
+      "term": "False call",
+      "first": "m07l02",
+      "again": "m13l03"
+    },
+    {
+      "term": "Escape",
+      "first": "m07l02",
+      "again": "m13l05"
+    },
+    {
+      "term": "Pogo pin",
+      "first": "m13l03",
+      "again": "m13l06"
+    },
+    {
+      "term": "Escape",
+      "first": "m07l02",
+      "again": "m13l06"
+    },
+    {
+      "term": "False call",
+      "first": "m07l02",
+      "again": "m14l01"
+    },
+    {
+      "term": "Stratification",
+      "first": "m07l03",
+      "again": "m14l01"
+    },
+    {
+      "term": "Containment",
+      "first": "m01l07",
+      "again": "m14l03"
+    },
+    {
+      "term": "Detection escape",
+      "first": "m14l02",
+      "again": "m14l04"
+    },
+    {
+      "term": "PFMEA",
+      "first": "m14l05",
+      "again": "m14l06"
+    },
+    {
+      "term": "Detection escape",
+      "first": "m14l02",
+      "again": "m14l07"
+    },
+    {
+      "term": "Residual risk",
+      "first": "m11l04",
+      "again": "m15l03"
+    }
+  ],
+  "formulasNotFound": []
+}

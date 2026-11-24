@@ -323,6 +323,41 @@ function run() {
   if (noCalc.length) problems.push({ code: 'no-calc', count: noCalc.length, sample: noCalc.slice(0, 10) });
   if (noDefect.length) problems.push({ code: 'no-defect', count: noDefect.length, sample: noDefect.slice(0, 10) });
 
+  /* ---- 7b. phase 5 fields and the derived reference file ---- */
+  const noP5 = [];
+  lessons.forEach(function (l) {
+    const c = l.content || {};
+    const okMin = typeof l.minutes === 'number' && l.minutes >= 10 && l.minutes <= 60;
+    const okT = Array.isArray(c.takeaways) && c.takeaways.length >= 3;
+    const okM = Array.isArray(c.mistakes) && c.mistakes.length >= 3 &&
+      c.mistakes.every(function (m) { return m && m.mistake && m.instead; });
+    const okG = Array.isArray(c.terms) && c.terms.length >= 2 &&
+      c.terms.every(function (t) { return t && t.term && t.def; });
+    if (!(okMin && okT && okM && okG)) noP5.push(l.lessonId);
+  });
+  info.lessonsWithPhase5 = lessons.length - noP5.length;
+  if (noP5.length) problems.push({ code: 'no-phase5', count: noP5.length, sample: noP5.slice(0, 10) });
+
+  /* data/reference.json is derived from the lessons; a stale copy means the
+     glossary shows a term a lesson no longer defines. Rebuilding in memory and
+     comparing is cheap, so it is done here instead of trusting a timestamp. */
+  const refPath = path.join(ROOT, 'data', 'reference.json');
+  if (!fs.existsSync(refPath)) {
+    problems.push({ code: 'reference-missing', count: 1, sample: ['run node scripts/build-reference.js'] });
+  } else {
+    try {
+      const fresh = require('./build-reference.js').build();
+      const onDisk = readJson(refPath);
+      info.reference = { terms: onDisk.terms.length, formulas: onDisk.formulas.length,
+        termConflicts: (onDisk.termConflicts || []).length };
+      if (JSON.stringify(fresh) !== JSON.stringify(onDisk)) {
+        problems.push({ code: 'reference-stale', count: 1, sample: ['run node scripts/build-reference.js'] });
+      }
+    } catch (e) {
+      problems.push({ code: 'reference-parse', count: 1, sample: [String(e && e.message)] });
+    }
+  }
+
   /* ---- 8. embed equals the JSON ---- */
   if (!fs.existsSync(PATHS.embed)) {
     problems.push({ code: 'embed-missing', count: 1, sample: [path.relative(ROOT, PATHS.embed)] });
@@ -336,7 +371,9 @@ function run() {
       const same = {
         lessons: JSON.stringify(e.value.lessons) === JSON.stringify(lessons),
         questions: JSON.stringify(e.value.questions) === JSON.stringify(questions),
-        sources: JSON.stringify(e.value.sources) === JSON.stringify(sources)
+        sources: JSON.stringify(e.value.sources) === JSON.stringify(sources),
+        reference: !fs.existsSync(refPath) ||
+          JSON.stringify(e.value.reference) === JSON.stringify(readJson(refPath))
       };
       info.embed = { present: true, parseable: true, matches: same };
       const stale = Object.keys(same).filter(function (k) { return !same[k]; });

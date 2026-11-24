@@ -36,16 +36,23 @@ const { ROOT, readJson, LESSONS_PATH, words } = require('./lib');
 
 const WPM = 120, QUIZ_S = 60, CALC_READ_MIN = 2, SOL_LINE_S = 40, CONSOLIDATE_MIN = 2;
 
-const app = fs.readFileSync(path.join(ROOT, 'assets', 'app.js'), 'utf8');
-const plan = {};
-const block = app.slice(app.indexOf('var LESSON_MINUTES'), app.indexOf('};', app.indexOf('var LESSON_MINUTES')));
-block.replace(/'(m\d\dl\d\d)':\s*(\d+)/g, function (_, id, m) { plan[id] = +m; return _; });
+/* The planned minutes used to live in assets/app.js as LESSON_MINUTES. Phase 5
+ * moved the published number into the lesson record, and the plan table with
+ * it, because app.js no longer carries a second copy of the same figure. The
+ * plan is now read from the frozen snapshot kept beside this script, so the
+ * comparison this report exists for still works. */
+const plan = require('./plan-minutes.json');
 
 const lessons = readJson(LESSONS_PATH);
 const rows = [];
 lessons.forEach(function (l) {
+  /* A theory paragraph may be a string or an array of strings: the editorial
+   * pass re-splits long paragraphs, so counting only the string form silently
+   * under-reports the body by half. */
   const theory = l.content.theory.reduce(function (a, t) {
-    return a + (typeof t.p === 'string' ? words(t.p).length : 0);
+    if (!t) return a;
+    const list = Array.isArray(t.p) ? t.p : (typeof t.p === 'string' ? [t.p] : []);
+    return a + words(list.join(' ')).length;
   }, 0);
   const quiz = (l.quiz || []).length;
   const sol = String(l.content.calc.solution || '');

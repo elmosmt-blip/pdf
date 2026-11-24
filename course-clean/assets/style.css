@@ -697,3 +697,41 @@ table.tbl{width:100%;border-collapse:collapse}
 /* the running build, so "am I seeing the new code?" has an answer on screen */
 .side-build{margin:14px 0 0;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;
   color:var(--mut);opacity:.55}
+
+/* ---- phase 5: prerequisites, takeaways, mistakes, terms ------------- */
+.prereq,.takeaways,.mistakes,.terms{margin:28px 0}
+.prereq{padding:14px 16px;border:1px solid var(--line);border-radius:var(--r-md);background:rgba(255,255,255,.02)}
+.prereq h2{margin-top:0}
+.prereq-list{margin:6px 0 12px;padding-left:20px}
+.prereq-list li{margin:4px 0}
+.takeaways ol{padding-left:20px}
+.takeaways li{margin:8px 0}
+.mistake-list{display:flex;flex-direction:column;gap:12px}
+.mistake{padding:12px 14px;border:1px solid rgba(255,193,7,.3);border-left:3px solid rgba(255,193,7,.7);
+  border-radius:var(--r-sm);background:rgba(255,193,7,.05)}
+.mistake-what{margin:0 0 6px}
+.mistake-label{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--mut);margin-right:6px;min-width:64px}
+.term-list{margin:0}
+.term-list dt{font-weight:700;margin-top:12px}
+.term-list dd{margin:4px 0 0 0;color:var(--body)}
+.small{font-size:12.5px}
+
+/* ---- phase 5: reference pages (glossary, formula sheet) ------------- */
+.glossary-nav{font-family:var(--mono);font-size:13px;letter-spacing:.12em;word-spacing:.3em}
+.glossary-letter{margin-top:32px;padding-bottom:4px;border-bottom:1px solid var(--line);font-family:var(--mono)}
+.term-where{font-family:var(--mono);font-weight:400;font-size:11.5px;color:var(--mut);margin-left:6px}
+.term-where a{color:var(--mut);text-decoration:none;margin-right:4px}
+.term-where a:hover{color:var(--signal)}
+.formula-module{margin-top:32px}
+.formula{margin:18px 0;padding:14px 16px;border:1px solid var(--line);border-radius:var(--r-md)}
+.formula h3{margin:0 0 8px}
+.formula-expr{margin:0 0 8px}
+.formula-expr code{font-size:15px;padding:4px 8px;background:rgba(83,209,204,.08);border-radius:6px}
+.formula-quote{margin:10px 0;padding:6px 12px;border-left:2px solid var(--line);color:var(--mut);font-style:italic}
+
+/* ---- sidebar: reference block --------------------------------------- */
+.toc-ref{margin:14px 0 0;padding:10px 10px 6px;border:1px solid var(--line);border-radius:12px}
+.toc-ref-item{display:block;padding:6px 8px;border-radius:8px;text-decoration:none;color:var(--body);font-size:13px}
+.toc-ref-item:hover{background:rgba(83,209,204,.08);color:var(--txt)}
+.toc-ref-item--active{background:rgba(83,209,204,.12);color:var(--signal)}

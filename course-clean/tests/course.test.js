@@ -792,6 +792,56 @@ async function renderLayer() {
   }
   examDom.window.close();
 
+  /* Phase 5: the lesson page carries prerequisites, takeaways, mistakes and
+     terms from the data, and the two reference pages are derived from the same
+     lessons. Counts are read from the data, never typed here. */
+  {
+    const lessonsForP5 = JSON.parse(fs.readFileSync(path.join(BUILD, 'data', 'lessons.json'), 'utf8'));
+    const ref = JSON.parse(fs.readFileSync(path.join(BUILD, 'data', 'reference.json'), 'utf8'));
+    const withAll = lessonsForP5.filter(function (l) {
+      const c = l.content || {};
+      return typeof l.minutes === 'number' && Array.isArray(c.takeaways) && c.takeaways.length &&
+        Array.isArray(c.mistakes) && c.mistakes.length && Array.isArray(c.terms) && c.terms.length;
+    });
+    eq(withAll.length, lessonsForP5.length, 'every lesson ships minutes, takeaways, mistakes and terms');
+    const probe = withAll[Math.floor(withAll.length / 2)];
+    const pd = load('#/l/' + probe.lessonId).window.document;
+    const chips = Array.prototype.map.call(pd.querySelectorAll('.page-head .chip'), function (c) { return c.textContent; });
+    ok(chips.indexOf(probe.minutes + ' min') !== -1, 'the minutes chip shows lesson.minutes', chips.join(' | '));
+    eq(pd.querySelectorAll('.takeaways li').length, probe.content.takeaways.length, 'takeaways render one item each');
+    eq(pd.querySelectorAll('.mistakes .mistake').length, probe.content.mistakes.length, 'mistakes render one block each');
+    eq(pd.querySelectorAll('.terms dt').length, probe.content.terms.length, 'terms render one dt each');
+    const pre = (probe.prereqs && probe.prereqs.lessons) || [];
+    if (pre.length) {
+      eq(pd.querySelectorAll('.prereq a[href^="#/l/"]').length, pre.length, 'prerequisite lessons link out');
+    }
+    ok(!!pd.querySelector('.terms a[href="#/g/"]'), 'the lesson terms block links to the glossary');
+
+    const gd = load('#/g/').window.document;
+    eq(gd.querySelectorAll('.term-list dt').length, ref.terms.length, 'glossary lists every derived term once');
+    const keys = {};
+    let dup = 0;
+    Array.prototype.forEach.call(gd.querySelectorAll('.term-list dt'), function (dt) {
+      const k = dt.firstChild.textContent.trim().toLowerCase();
+      if (keys[k]) dup++; keys[k] = true;
+    });
+    eq(dup, 0, 'no glossary term appears twice');
+    ok(gd.querySelectorAll('.term-where a[href^="#/l/"]').length >= ref.terms.length,
+      'every glossary term links to at least one defining lesson');
+    ok(!!gd.querySelector('.toc-ref-item--active'), 'the sidebar marks the glossary as active');
+
+    const fd = load('#/f/').window.document;
+    eq(fd.querySelectorAll('.formula').length, ref.formulas.length, 'formula sheet lists every derived relation');
+    const linkedLessons = Array.prototype.map.call(fd.querySelectorAll('.formula > p.small a[href^="#/l/"]'),
+      function (a) { return a.getAttribute('href').slice(4); });
+    ok(linkedLessons.every(function (id) { return lessonsForP5.some(function (l) { return l.lessonId === id; }); }),
+      'every formula links to a lesson that exists', linkedLessons.join(','));
+    ok(!!fd.querySelector('h1') && /Formula/.test(fd.querySelector('h1').textContent), 'formula page has its heading');
+
+    const nd = load('#/g/zz').window.document;
+    ok(/not found/i.test(nd.querySelector('h1').textContent), '#/g/zz is not a valid glossary route');
+  }
+
   home.window.close();
 }
 

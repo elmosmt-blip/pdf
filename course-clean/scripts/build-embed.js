@@ -80,6 +80,17 @@ function build() {
     counts.templates = 0;
   }
 
+  /* Phase 5: the derived glossary / formula sheet (data/reference.json,
+     written by scripts/build-reference.js) travels too, for the same file://
+     reason. Optional: a build without it simply shows no reference pages. */
+  const refPath = path.join(DATA, 'reference.json');
+  if (fs.existsSync(refPath)) {
+    const ref = readJson(refPath);
+    payload.reference = ref;
+    counts.terms = (ref.terms || []).length;
+    counts.formulas = (ref.formulas || []).length;
+  }
+
   /* JSON.stringify with no indentation keeps the file small; the trailing
      newline is deliberate so `git diff` stays clean when only the tail moves. */
   const json = JSON.stringify(payload);

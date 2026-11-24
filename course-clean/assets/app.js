@@ -64,24 +64,18 @@
     { id: 'm15', n: 15, stageId: null, title: 'Feedback to the Designer', competencies: 'K10, K2, K7', lessons: 5, prereq: 'm14', pilot: false }
   ];
 
-  // lessonId -> planned minutes (curriculum.md lesson tables).
-  var LESSON_MINUTES = {
-    'm01l01': 20, 'm01l02': 25, 'm01l03': 30, 'm01l04': 30, 'm01l05': 25, 'm01l06': 25, 'm01l07': 20,
-    'm02l01': 20, 'm02l02': 30, 'm02l03': 25, 'm02l04': 30, 'm02l05': 30, 'm02l06': 35,
-    'm03l01': 25, 'm03l02': 35, 'm03l03': 25, 'm03l04': 35, 'm03l05': 30, 'm03l06': 25,
-    'm04l01': 30, 'm04l02': 35, 'm04l03': 35, 'm04l04': 25, 'm04l05': 35, 'm04l06': 30, 'm04l07': 30,
-    'm05l01': 25, 'm05l02': 30, 'm05l03': 35, 'm05l04': 30, 'm05l05': 25, 'm05l06': 35,
-    'm06l01': 25, 'm06l02': 30, 'm06l03': 35, 'm06l04': 35, 'm06l05': 30, 'm06l06': 30, 'm06l07': 25,
-    'm07l01': 25, 'm07l02': 30, 'm07l03': 30, 'm07l04': 35, 'm07l05': 25, 'm07l06': 35,
-    'm08l01': 20, 'm08l02': 35, 'm08l03': 25, 'm08l04': 25, 'm08l05': 30,
-    'm09l01': 25, 'm09l02': 25, 'm09l03': 30, 'm09l04': 35, 'm09l05': 30, 'm09l06': 35, 'm09l07': 25,
-    'm10l01': 25, 'm10l02': 35, 'm10l03': 30, 'm10l04': 30, 'm10l05': 30,
-    'm11l01': 25, 'm11l02': 30, 'm11l03': 35, 'm11l04': 30, 'm11l05': 25, 'm11l06': 30,
-    'm12l01': 25, 'm12l02': 30, 'm12l03': 30, 'm12l04': 30, 'm12l05': 30, 'm12l06': 35,
-    'm13l01': 25, 'm13l02': 30, 'm13l03': 25, 'm13l04': 30, 'm13l05': 35, 'm13l06': 30,
-    'm14l01': 25, 'm14l02': 30, 'm14l03': 25, 'm14l04': 35, 'm14l05': 30, 'm14l06': 25, 'm14l07': 40,
-    'm15l01': 25, 'm15l02': 30, 'm15l03': 35, 'm15l04': 30, 'm15l05': 25
-  };
+  /* Lesson durations used to be typed here from the curriculum tables. They
+   * are now computed from the text by src/phase5/run.js and shipped as
+   * lesson.minutes in data/lessons.json, so the number a reader sees is the
+   * number the reading model produced. The plan figure lives in
+   * docs/phase5-report.md, where a difference between plan and text is the
+   * finding, not a copy-paste error.
+   *
+   * `LESSON_MINUTES` stays as an EMPTY map on purpose: tests and the phase-5
+   * time script grep for it by name, and a reader who remembers the old
+   * constant finds the note instead of a stale table. Nothing may add to it.
+   */
+  var LESSON_MINUTES = {};
 
   var STATUS_LABEL = {
     draft: 'draft',
@@ -110,6 +104,9 @@
      build without the template package still works. */
   var TEMPLATES = [];
   var TEMPLATES_VERSION = '';
+  /* Phase 5: derived glossary + formula sheet (data/reference.json). Optional:
+   * when absent, the #/g/ and #/f/ pages say so instead of inventing content. */
+  var REFERENCE = null;
   var casesByModule = {};
   var byCase = {};
   var caseState = { caseId: null, answers: {}, shown: {}, hints: {}, result: null };
@@ -221,6 +218,7 @@
         indexData(cd.lessons, cd.questions, cd.sources, cd.caseDoc);
         TEMPLATES = (cd.templates && cd.templates.templates) || TEMPLATES;
         TEMPLATES_VERSION = (cd.templates && cd.templates.version) || TEMPLATES_VERSION;
+        REFERENCE = cd.reference || null;
         done('embed', reason);
       } else {
         done('none', reason + '; assets/data-embed.js is missing — run `node scripts/embed.js`');
@@ -238,11 +236,14 @@
       /* cases are optional: an old build without cases.json still runs */
       fetchJson('data/cases.json').catch(function () { return null; }),
       /* the template manifest is optional too */
-      fetchJson('assets/templates/manifest.json').catch(function () { return null; })
+      fetchJson('assets/templates/manifest.json').catch(function () { return null; }),
+      /* and the derived reference pages */
+      fetchJson('data/reference.json').catch(function () { return null; })
     ]).then(function (parts) {
       indexData(parts[0], parts[1], parts[2], parts[3]);
       TEMPLATES = (parts[4] && parts[4].templates) || [];
       TEMPLATES_VERSION = (parts[4] && parts[4].version) || '';
+      REFERENCE = parts[5] || null;
       done('fetch', null);
     }).catch(function (e) {
       useEmbed('fetch failed (' + (e && e.message ? e.message : String(e)) + ')');
@@ -260,11 +261,17 @@
 
   function moduleMinutes(moduleId) {
     var sum = 0;
-    lessonsOf(moduleId).forEach(function (l) { sum += LESSON_MINUTES[l.lessonId] || 0; });
+    lessonsOf(moduleId).forEach(function (l) { sum += lessonMinutes(l.lessonId) || 0; });
     return sum;
   }
 
+  /* Minutes come from the lesson record (phase 5 computes them from the text).
+   * The old typed table is kept only as a fallback for a build whose data
+   * predates the field, and it is empty, so an absent value renders no chip
+   * rather than an invented duration. */
   function lessonMinutes(lessonId) {
+    var l = byLesson[lessonId];
+    if (l && typeof l.minutes === 'number') return l.minutes;
     var m = LESSON_MINUTES[lessonId];
     return typeof m === 'number' ? m : null;
   }
@@ -1475,6 +1482,156 @@
     return html;
   }
 
+  /* ---------------------------------------------------------- phase 5 blocks
+   * Prerequisites, key takeaways, common mistakes and the lesson glossary come
+   * from data/lessons.json (written by src/phase5/run.js). Each block renders
+   * nothing when its field is absent, so an older data file still works. */
+
+  function prereqHtml(lesson) {
+    var p = lesson && lesson.prereqs;
+    var ls = (p && Array.isArray(p.lessons)) ? p.lessons.filter(function (id) { return byLesson[id]; }) : [];
+    var sk = (p && Array.isArray(p.skills)) ? p.skills : [];
+    if (!ls.length && !sk.length) return '';
+    var html = '<section class="prereq"><h2>Before you start</h2>';
+    if (ls.length) {
+      html += '<p class="flush">Read first:</p><ul class="prereq-list">';
+      ls.forEach(function (id) {
+        var l = byLesson[id];
+        var m = moduleById(l.moduleId);
+        html += '<li><a href="#/l/' + esc(id) + '">' + esc(l.title) + '</a>' +
+          (m ? ' <span class="muted">· Module ' + esc(pad2(m.n)) + '</span>' : '') + '</li>';
+      });
+      html += '</ul>';
+    }
+    if (sk.length) {
+      html += '<p class="flush">You should already be able to:</p><ul class="prereq-list">';
+      sk.forEach(function (t) { html += '<li>' + esc(t) + '</li>'; });
+      html += '</ul>';
+    }
+    html += '</section>';
+    return html;
+  }
+
+  function takeawaysHtml(content) {
+    var t = content && Array.isArray(content.takeaways) ? content.takeaways : [];
+    if (!t.length) return '';
+    var html = '<section class="takeaways"><h2>Key takeaways</h2><ol>';
+    t.forEach(function (x) { html += '<li>' + esc(x) + '</li>'; });
+    return html + '</ol></section>';
+  }
+
+  function mistakesHtml(content) {
+    var m = content && Array.isArray(content.mistakes) ? content.mistakes : [];
+    m = m.filter(function (x) { return x && x.mistake; });
+    if (!m.length) return '';
+    var html = '<section class="mistakes"><h2>Common mistakes</h2><div class="mistake-list">';
+    m.forEach(function (x) {
+      html += '<div class="mistake"><p class="mistake-what"><span class="mistake-label">Mistake</span> ' + esc(x.mistake) + '</p>' +
+        (x.instead ? '<p class="mistake-fix flush"><span class="mistake-label">Instead</span> ' + esc(x.instead) + '</p>' : '') +
+        '</div>';
+    });
+    return html + '</div></section>';
+  }
+
+  function termsHtml(content) {
+    var t = content && Array.isArray(content.terms) ? content.terms : [];
+    t = t.filter(function (x) { return x && x.term && x.def; });
+    if (!t.length) return '';
+    var html = '<section class="terms"><h2>Terms used in this lesson</h2><dl class="term-list">';
+    t.forEach(function (x) {
+      html += '<dt id="t-' + esc(slug(x.term)) + '">' + esc(x.term) + '</dt><dd>' + esc(x.def) + '</dd>';
+    });
+    html += '</dl><p class="muted small">All terms, across every lesson: <a href="#/g/">Glossary</a>.</p></section>';
+    return html;
+  }
+
+  function slug(str) {
+    return String(str).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  }
+
+  /* Reference pages: #/g/ glossary and #/f/ formula sheet. Both come from
+   * data/reference.json, which scripts/build-reference.js derives from the
+   * lessons; nothing on these pages is typed by hand. */
+
+  function referenceMissingView(title) {
+    return '<header class="page-head"><h1 tabindex="-1">' + esc(title) + '</h1></header>' +
+      emptyBox('data/reference.json is not in this build. Run <code>node scripts/build-reference.js</code> ' +
+        'then <code>node scripts/build-embed.js</code>.');
+  }
+
+  function lessonLink(id) {
+    var l = byLesson[id];
+    if (!l) return esc(id);
+    var m = moduleById(l.moduleId);
+    return '<a href="#/l/' + esc(id) + '" title="' + esc(l.title) + '">' +
+      (m ? esc(pad2(m.n)) + '.' : '') + esc(id.slice(-2)) + '</a>';
+  }
+
+  function glossaryView() {
+    if (!REFERENCE || !Array.isArray(REFERENCE.terms)) return referenceMissingView('Glossary');
+    var terms = REFERENCE.terms;
+    var conflicts = {};
+    (REFERENCE.termConflicts || []).forEach(function (c) {
+      (conflicts[c.term.toLowerCase()] = conflicts[c.term.toLowerCase()] || []).push(c.again);
+    });
+    var html = '<p class="kicker">Reference</p>' +
+      '<header class="page-head"><div><h1 tabindex="-1">Glossary</h1>' +
+      '<div class="meta-line"><span class="chip">' + esc(terms.length) + ' terms</span>' +
+      '<span class="chip">' + esc(LESSONS.length) + ' lessons</span></div></div></header>' +
+      '<p>Every term a lesson defines, in one list. The definition shown is the one from the first lesson ' +
+      'that defines the term; the lesson codes link to each lesson that defines it. ' +
+      'Formulas are on their own page: <a href="#/f/">Formula sheet</a>.</p>';
+    var letter = '';
+    var nav = '';
+    var body = '';
+    terms.forEach(function (t) {
+      var L0 = t.term.charAt(0).toUpperCase();
+      if (!/[A-Z]/.test(L0)) L0 = '#';
+      if (L0 !== letter) {
+        if (letter) body += '</dl>';
+        letter = L0;
+        nav += '<a href="#/g/' + esc(L0) + '">' + esc(L0) + '</a> ';
+        body += '<h2 id="g-' + esc(L0) + '" class="glossary-letter">' + esc(L0) + '</h2><dl class="term-list">';
+      }
+      var where = [t.definedIn].concat(t.alsoDefinedIn || []).map(lessonLink).join(' ');
+      var c = conflicts[t.term.toLowerCase()];
+      body += '<dt id="t-' + esc(slug(t.term)) + '">' + esc(t.term) + ' <span class="term-where">' + where + '</span></dt>' +
+        '<dd>' + esc(t.def) +
+        (c ? '<br><span class="muted small">Also defined, with different wording, in ' +
+          c.map(lessonLink).join(', ') + '. The first wording is shown.</span>' : '') +
+        '</dd>';
+    });
+    if (letter) body += '</dl>';
+    return html + '<p class="glossary-nav">' + nav + '</p>' + body;
+  }
+
+  function formulasView() {
+    if (!REFERENCE || !Array.isArray(REFERENCE.formulas)) return referenceMissingView('Formula sheet');
+    var f = REFERENCE.formulas;
+    var html = '<p class="kicker">Reference</p>' +
+      '<header class="page-head"><div><h1 tabindex="-1">Formula sheet</h1>' +
+      '<div class="meta-line"><span class="chip">' + esc(f.length) + ' relations</span></div></div></header>' +
+      '<p>The working relations this course uses, each with the lesson that derives it. ' +
+      'Use the lesson, not this sheet, when the units or the limits matter: the sheet names the relation, ' +
+      'the lesson states the conditions. Terms are on their own page: <a href="#/g/">Glossary</a>.</p>';
+    var lastModule = '';
+    f.forEach(function (x) {
+      var m = moduleById(x.moduleId);
+      if (x.moduleId !== lastModule) {
+        lastModule = x.moduleId;
+        html += '<h2 class="formula-module">' + (m ? 'Module ' + esc(pad2(m.n)) + ' · ' + esc(m.title) : esc(x.moduleId)) + '</h2>';
+      }
+      html += '<section class="formula"><h3>' + esc(x.name) + '</h3>' +
+        '<p class="formula-expr"><code>' + esc(x.expr) + '</code></p>' +
+        '<p class="flush">' + esc(x.where) + '</p>' +
+        (x.quote ? '<blockquote class="formula-quote">' + esc(x.quote) + '</blockquote>' : '') +
+        '<p class="muted small flush">Derived in <a href="#/l/' + esc(x.lessonId) + '">' + esc(x.lessonTitle) + '</a>' +
+        (x.alsoUsedIn && x.alsoUsedIn.length ? ' · also used in ' + x.alsoUsedIn.map(lessonLink).join(' ') : '') +
+        '</p></section>';
+    });
+    return html;
+  }
+
   /* Edition currency for one source. Phase 2: every source entry carries
    * editionStatus / currentEdition, so the reader can see whether the number in
    * the lesson was read against the edition the publisher lists today. Nothing
@@ -2186,11 +2343,15 @@
     if (lesson.stageId) html += '<div class="pipeline">' + stagePipeline(lesson.stageId) + '</div>';
 
     html += draftBannerHtml(lesson);
+    html += prereqHtml(lesson);
     html += goalsHtml(lesson);
     html += theoryHtml(content);
     html += sectionsHtml(content);
     html += calcHtml(content);
     html += defectHtml(content);
+    html += takeawaysHtml(content);
+    html += mistakesHtml(content);
+    html += termsHtml(content);
     html += quizSectionHtml(lesson);
     html += sourcesHtml(lesson);
     html += pagerHtml(lesson);
@@ -2278,6 +2439,15 @@
         }
       }
     });
+    /* Reference pages, below the modules: present only when the build has them. */
+    if (REFERENCE) {
+      html += '<div class="toc-ref"><p class="toc-cases-head">Reference</p>' +
+        '<a class="toc-ref-item' + (route.view === 'glossary' ? ' toc-ref-item--active' : '') + '" href="#/g/">Glossary' +
+        (Array.isArray(REFERENCE.terms) ? ' <span class="muted">(' + REFERENCE.terms.length + ')</span>' : '') + '</a>' +
+        '<a class="toc-ref-item' + (route.view === 'formulas' ? ' toc-ref-item--active' : '') + '" href="#/f/">Formula sheet' +
+        (Array.isArray(REFERENCE.formulas) ? ' <span class="muted">(' + REFERENCE.formulas.length + ')</span>' : '') + '</a>' +
+        '</div>';
+    }
     toc.innerHTML = html;
   }
 
@@ -2325,6 +2495,9 @@
     if ((m = h.match(/^#\/l\/([^\/?#]+)$/))) return { view: 'lesson', lessonId: safeDecode(m[1]).toLowerCase() };
     if ((m = h.match(/^#\/e\/([^\/?#]+)$/))) return { view: 'exam', moduleId: safeDecode(m[1]).toLowerCase() };
     if ((m = h.match(/^#\/c\/([^\/?#]+)$/))) return { view: 'case', caseId: safeDecode(m[1]).toLowerCase() };
+    /* Reference pages (phase 5). #/g/A jumps to a letter; #/f/ has no sub-route. */
+    if ((m = h.match(/^#\/g\/?([A-Za-z#])?$/))) return { view: 'glossary', letter: m[1] ? m[1].toUpperCase() : '' };
+    if (h === '#/f' || h === '#/f/') return { view: 'formulas' };
     return { view: 'notfound', hash: h };
   }
 
@@ -2352,10 +2525,12 @@
       html = examView(route.moduleId);
       var me = moduleById(route.moduleId);
       if (me) title = 'Module ' + pad2(me.n) + ' exam — ' + me.title;
-    } else if (route.view === 'case') {
-      html = caseView(route.caseId);
-      var cc = byCase[route.caseId];
-      if (cc) title = cc.title;
+    } else if (route.view === 'glossary') {
+      html = glossaryView();
+      title = 'Glossary';
+    } else if (route.view === 'formulas') {
+      html = formulasView();
+      title = 'Formula sheet';
     } else {
       html = notFoundView('Page not found', 'Unrecognised address "' + route.hash + '".');
       title = 'Not found';
@@ -2376,6 +2551,11 @@
 
     var h1 = app.querySelector('h1');
     if (h1) h1.focus();
+    /* glossary letter jump: scroll after the paint, so the heading exists */
+    if (route.view === 'glossary' && route.letter) {
+      var gh = document.getElementById('g-' + route.letter);
+      if (gh && gh.scrollIntoView) gh.scrollIntoView();
+    }
   }
 
   /* ---------------------------------------------------------- event wiring */
