@@ -73,3 +73,21 @@ m01l05, m02l02, m04l03, m05l01 ×2, m06l06, m12l02, m12l06, m08l04, m07l06, plus
 node src/phase5/run.js && node scripts/build-embed.js && node scripts/build.js \
   && node scripts/check-integrity.js && node tests/course.test.js
 ```
+
+## Addendum — standards designations removed from all rasters
+
+Per review, designations of standards bodies (IPC-xxxx, J-STD-xxx, IPC/JEDEC,
+IEEE 1149.1, ANSI/ESD, WHMA, the IPC logo and `www.ipc.org`) were removed from every
+raster image. The lesson *text* still cites standards normally; only the images were
+changed.
+
+- Detection: `rapidocr-onnxruntime` OCR at 2× over all 92 rasters → 63 hits in 56 images
+  (`/tmp/std-hits.json` at run time).
+- Edit: `scripts/phase6-destandard.py` fills each hit box with the local background and
+  redraws a neutral replacement in the same colour/size (DejaVu Sans Mono):
+  footer `REF: …` → `REF: INTERNAL PROCESS SPECIFICATION`; inline tokens →
+  `STANDARD`, `CLASS LIMIT`, `CUSTOMER ACCEPTANCE LIMIT`, `CLASSIFICATION:`, etc.;
+  long "REFER TO <standard>" sentences → generic guideline wording; the IPC logo on
+  m03l02 blanked. Per-image overrides live in the script's `OVERRIDES` table.
+- Verification: second OCR pass → 0 remaining hits; spot-checked crops and full sheets.
+- Pipeline re-run green (integrity OK, course tests 211/0, case-qa 57/0).
