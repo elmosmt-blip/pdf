@@ -336,5 +336,35 @@
     "section": 0,
     "alt": "Reference sheet: D1 to D8 case timeline with evidence at each step, Pareto by stage, AOI measurement integrity check, root cause / contributing / detection escape split, an evidence review photo and closure by removing the action",
     "imageCaption": "8D workshop: symptom to closure with evidence at every step"
+  },
+  {
+    "id": "m08l04",
+    "section": 0,
+    "alt": "Reference sheet: board orientation against the wave with a component shadow removed by rotating first, short lead directed away versus long lead toward a pad forming a dam, composite pallet cross-section, kapton tape, peelable mask and masking boot, a pallet photo and the trial board → inspect → record → release loop",
+    "imageCaption": "Preparing the board for wave: orientation first, lead protrusion, pallet, masking and taping, verification loop"
+  },
+  {
+    "id": "m11l02",
+    "section": 0,
+    "alt": "Reference sheet: four-step contact, dwell, feed and remove sequence for a hand-soldered through-hole joint, heat bridge at the tip, dwell window from no wetting to board damage, cold joint, balled solder, bridge and lifted pad tiles, a soldering photo and a thermal budget card",
+    "imageCaption": "Hand soldering technique: contact order, dwell window, feed, technique defects and the written thermal budget"
+  },
+  {
+    "id": "m13l04",
+    "section": 0,
+    "alt": "Reference sheet: boundary-scan chain of four devices from the TAP with TDI, TDO, TCK and TMS, BGA with no probe access, coverage map with an untested region outside the chain, a finds / cannot-find list, a BGA package and JTAG header photo and the ICT, flying probe, boundary scan and functional test strategy boxes",
+    "imageCaption": "Boundary scan / JTAG: chain structure, BGA access, what it finds, what it cannot find"
+  },
+  {
+    "id": "m07l06",
+    "section": 0,
+    "alt": "Reference sheet: four stage photos to classify — print, placement, reflow and THT — the name-the-stage → condition → criterion → disposition flow, what the image proves versus what you suspect, a disposition record and stage icons",
+    "imageCaption": "Classification drill: name the stage, classify the condition, cite the criterion, record the disposition"
+  },
+  {
+    "id": "m15l03",
+    "section": 0,
+    "alt": "Reference sheet: a change request form with six sections — problem, impact, proposal, alternatives, risk, verification — each with a one-line example, change plus proof equals contract, the evidence → impact → alternatives → proposal reading order, a review photo and a sign-off route",
+    "imageCaption": "Writing the change request: problem, impact, proposal, alternatives, risk and verification"
   }
 ]
