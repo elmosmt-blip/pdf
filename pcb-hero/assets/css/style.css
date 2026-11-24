@@ -1675,9 +1675,9 @@ svg { display: block; }
   color: var(--dim);
 }
 .pkg__foot {
-  width: 34px; height: 34px;
+  width: 46px; height: 46px;
   margin-left: auto;
-  opacity: 0.9;
+  opacity: 0.95;
 }
 .pkg h3 {
   font-family: var(--font-sans);

@@ -10,7 +10,7 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23080d0a'/%3E%3Cpath d='M23 8h-6L9 16l8 8h6' fill='none' stroke='%23dfb877' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='9' cy='16' r='2' fill='%235ef0b8'/%3E%3C/svg%3E">
   <link rel="preload" href="assets/fonts/plexsans-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/plexsans-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/style.css?v=1795551136">
+  <link rel="stylesheet" href="assets/css/style.css?v=1795551962">
 </head>
 <body>
   <a class="skip" href="#main">К содержимому</a>
@@ -347,16 +347,62 @@
             <span class="pkg__ref">U1</span>
             <span class="pkg__type">BGA · 16×16</span>
             <svg class="pkg__foot" viewBox="0 0 64 64" fill="none" aria-hidden="true">
-              <rect x="8" y="8" width="48" height="48" rx="5" stroke="var(--copper)" stroke-width=".8" opacity=".5"/>
-              <g fill="var(--copper-hi)" opacity=".8">
-                <circle cx="16" cy="16" r="1.7"/><circle cx="24" cy="16" r="1.7"/><circle cx="32" cy="16" r="1.7"/><circle cx="40" cy="16" r="1.7"/><circle cx="48" cy="16" r="1.7"/>
-                <circle cx="16" cy="24" r="1.7"/><circle cx="48" cy="24" r="1.7"/>
-                <circle cx="16" cy="32" r="1.7"/><circle cx="24" cy="32" r="1.7"/><circle cx="40" cy="32" r="1.7"/><circle cx="48" cy="32" r="1.7"/>
-                <circle cx="16" cy="40" r="1.7"/><circle cx="48" cy="40" r="1.7"/>
-                <circle cx="16" cy="48" r="1.7"/><circle cx="24" cy="48" r="1.7"/><circle cx="32" cy="48" r="1.7"/><circle cx="40" cy="48" r="1.7"/><circle cx="48" cy="48" r="1.7"/>
-              </g>
-              <rect x="25" y="25" width="14" height="14" rx="2" fill="var(--mask-1)" stroke="var(--sig)" stroke-width=".8"/>
-              <circle cx="11" cy="11" r="2" fill="var(--sig)"/>
+              <defs>
+                <radialGradient id="ballGrad" cx=".35" cy=".25" r=".85">
+                  <stop offset="0" stop-color="#f2f7fa"/>
+                  <stop offset=".45" stop-color="#a9b6c0"/>
+                  <stop offset=".8" stop-color="#5b6771"/>
+                  <stop offset="1" stop-color="#1b242c"/>
+                </radialGradient>
+                <filter id="pkgSh4"><feGaussianBlur stdDeviation="1.4"/></filter>
+              </defs>
+              <rect x="16" y="18" width="34" height="34" rx="4" fill="#000" opacity=".6" filter="url(#pkgSh4)"/>
+              <rect x="15" y="15" width="34" height="34" rx="4" fill="#141d26" stroke="rgba(0,0,0,.75)"/>
+              <rect x="16" y="16" width="32" height="10" rx="3" fill="#fff" opacity=".06"/>
+              <circle cx="27.4" cy="22.0" r="2.1" fill="url(#ballGrad)"/>
+              <circle cx="26.7" cy="21.2" r="0.7" fill="#fff" opacity=".75"/>
+              <circle cx="32.8" cy="22.0" r="2.1" fill="url(#ballGrad)"/>
+              <circle cx="32.1" cy="21.2" r="0.7" fill="#fff" opacity=".75"/>
+              <circle cx="38.2" cy="22.0" r="2.1" fill="url(#ballGrad)"/>
+              <circle cx="37.5" cy="21.2" r="0.7" fill="#fff" opacity=".75"/>
+              <circle cx="22.0" cy="27.4" r="2.1" fill="url(#ballGrad)"/>
+              <circle cx="21.3" cy="26.6" r="0.7" fill="#fff" opacity=".75"/>
+              <circle cx="27.4" cy="27.4" r="2.1" fill="url(#ballGrad)"/>
+              <circle cx="26.7" cy="26.6" r="0.7" fill="#fff" opacity=".75"/>
+              <circle cx="32.8" cy="27.4" r="2.1" fill="url(#ballGrad)"/>
+              <circle cx="32.1" cy="26.6" r="0.7" fill="#fff" opacity=".75"/>
+              <circle cx="38.2" cy="27.4" r="2.1" fill="url(#ballGrad)"/>
+              <circle cx="37.5" cy="26.6" r="0.7" fill="#fff" opacity=".75"/>
+              <circle cx="43.6" cy="27.4" r="2.1" fill="url(#ballGrad)"/>
+              <circle cx="42.9" cy="26.6" r="0.7" fill="#fff" opacity=".75"/>
+              <circle cx="22.0" cy="32.8" r="2.1" fill="url(#ballGrad)"/>
+              <circle cx="21.3" cy="32.0" r="0.7" fill="#fff" opacity=".75"/>
+              <circle cx="27.4" cy="32.8" r="2.1" fill="url(#ballGrad)"/>
+              <circle cx="26.7" cy="32.0" r="0.7" fill="#fff" opacity=".75"/>
+              <circle cx="32.8" cy="32.8" r="2.1" fill="url(#ballGrad)"/>
+              <circle cx="32.1" cy="32.0" r="0.7" fill="#fff" opacity=".75"/>
+              <circle cx="38.2" cy="32.8" r="2.1" fill="url(#ballGrad)"/>
+              <circle cx="37.5" cy="32.0" r="0.7" fill="#fff" opacity=".75"/>
+              <circle cx="43.6" cy="32.8" r="2.1" fill="url(#ballGrad)"/>
+              <circle cx="42.9" cy="32.0" r="0.7" fill="#fff" opacity=".75"/>
+              <circle cx="22.0" cy="38.2" r="2.1" fill="url(#ballGrad)"/>
+              <circle cx="21.3" cy="37.4" r="0.7" fill="#fff" opacity=".75"/>
+              <circle cx="27.4" cy="38.2" r="2.1" fill="url(#ballGrad)"/>
+              <circle cx="26.7" cy="37.4" r="0.7" fill="#fff" opacity=".75"/>
+              <circle cx="32.8" cy="38.2" r="2.1" fill="url(#ballGrad)"/>
+              <circle cx="32.1" cy="37.4" r="0.7" fill="#fff" opacity=".75"/>
+              <circle cx="38.2" cy="38.2" r="2.1" fill="url(#ballGrad)"/>
+              <circle cx="37.5" cy="37.4" r="0.7" fill="#fff" opacity=".75"/>
+              <circle cx="43.6" cy="38.2" r="2.1" fill="url(#ballGrad)"/>
+              <circle cx="42.9" cy="37.4" r="0.7" fill="#fff" opacity=".75"/>
+              <circle cx="27.4" cy="43.6" r="2.1" fill="url(#ballGrad)"/>
+              <circle cx="26.7" cy="42.8" r="0.7" fill="#fff" opacity=".75"/>
+              <circle cx="32.8" cy="43.6" r="2.1" fill="url(#ballGrad)"/>
+              <circle cx="32.1" cy="42.8" r="0.7" fill="#fff" opacity=".75"/>
+              <circle cx="38.2" cy="43.6" r="2.1" fill="url(#ballGrad)"/>
+              <circle cx="37.5" cy="42.8" r="0.7" fill="#fff" opacity=".75"/>
+              <path d="M17 17h6" stroke="#53d1cc" stroke-width="1.6" stroke-linecap="round" opacity=".9"/>
+              <text x="47" y="47" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="3.4" fill="#dbe6ee" opacity=".38" letter-spacing=".5">OT256</text>
             </svg>
           </header>
           <h3>BGA‑256 Fanout</h3>
@@ -374,15 +420,20 @@
             <span class="pkg__ref">U2</span>
             <span class="pkg__type">QFN · 7×7</span>
             <svg class="pkg__foot" viewBox="0 0 64 64" fill="none" aria-hidden="true">
-              <rect x="14" y="14" width="36" height="36" rx="4" fill="var(--mask-1)" stroke="var(--copper)" stroke-width=".8" opacity=".8"/>
-              <g fill="var(--copper-hi)" opacity=".9">
-                <rect x="13" y="22" width="6" height="2.4" rx="1"/><rect x="13" y="28" width="6" height="2.4" rx="1"/><rect x="13" y="34" width="6" height="2.4" rx="1"/><rect x="13" y="40" width="6" height="2.4" rx="1"/>
-                <rect x="45" y="22" width="6" height="2.4" rx="1"/><rect x="45" y="28" width="6" height="2.4" rx="1"/><rect x="45" y="34" width="6" height="2.4" rx="1"/><rect x="45" y="40" width="6" height="2.4" rx="1"/>
-                <rect x="22" y="13" width="2.4" height="6" rx="1"/><rect x="28" y="13" width="2.4" height="6" rx="1"/><rect x="34" y="13" width="2.4" height="6" rx="1"/><rect x="40" y="13" width="2.4" height="6" rx="1"/>
-                <rect x="22" y="45" width="2.4" height="6" rx="1"/><rect x="28" y="45" width="2.4" height="6" rx="1"/><rect x="34" y="45" width="2.4" height="6" rx="1"/><rect x="40" y="45" width="2.4" height="6" rx="1"/>
-              </g>
-              <rect x="26" y="26" width="12" height="12" rx="1.5" fill="var(--copper)" opacity=".35"/>
-              <path d="M14 32h-8" stroke="var(--sig)" stroke-width="1.2" opacity=".9"/>
+              <filter id="pkgSh2"><feGaussianBlur stdDeviation="1.1"/></filter>
+              <rect x="13" y="26" width="6" height="3" rx=".7" fill="#8d9aa4"/>
+              <rect x="13" y="32" width="6" height="3" rx=".7" fill="#8d9aa4"/>
+              <rect x="13" y="38" width="6" height="3" rx=".7" fill="#8d9aa4"/>
+              <rect x="45" y="26" width="6" height="3" rx=".7" fill="#8d9aa4"/>
+              <rect x="45" y="32" width="6" height="3" rx=".7" fill="#8d9aa4"/>
+              <rect x="45" y="38" width="6" height="3" rx=".7" fill="#8d9aa4"/>
+              <rect x="19" y="24" width="34" height="6" rx="2" fill="#000" opacity=".5" filter="url(#pkgSh2)"/>
+              <rect x="17" y="20" width="32" height="24" rx="2.4" fill="#131c24" stroke="rgba(0,0,0,.7)"/>
+              <rect x="18" y="21" width="30" height="7" rx="1.8" fill="#fff" opacity=".08"/>
+              <path d="M19 22.5 24 21" stroke="#fff" stroke-opacity=".22" stroke-width=".8"/>
+              <circle cx="22" cy="24.5" r="1.3" fill="#08100c"/>
+              <circle cx="21.7" cy="24.2" r=".5" fill="#fff" opacity=".5"/>
+              <text x="33" y="34" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="4" fill="#dbe6ee" opacity=".4" letter-spacing=".6">OT-S25Q</text>
             </svg>
           </header>
           <h3>QFN‑48 RF Front‑End</h3>
@@ -400,12 +451,15 @@
             <span class="pkg__ref">J1</span>
             <span class="pkg__type">DIFF · 2×N</span>
             <svg class="pkg__foot" viewBox="0 0 64 64" fill="none" aria-hidden="true">
-              <path d="M8 20h16c4 0 4-8 8-8h8c4 0 4 8 8 8h8" stroke="var(--copper-hi)" stroke-width="1.4" opacity=".85"/>
-              <path d="M8 44h16c4 0 4 8 8 8h8c4 0 4-8 8-8h8" stroke="var(--copper-hi)" stroke-width="1.4" opacity=".55"/>
-              <path d="M8 26h14c6 0 4 6 10 6h16c6 0 4-6 8-6" stroke="var(--copper-hi)" stroke-width="1.4" opacity=".7"/>
-              <path d="M8 38h14c6 0 4-6 10-6h16c6 0 4 6 8 6" stroke="var(--copper-hi)" stroke-width="1.4" opacity=".4"/>
-              <circle cx="8" cy="20" r="2" fill="var(--sig)"/><circle cx="8" cy="44" r="2" fill="var(--sig)"/>
-              <circle cx="56" cy="20" r="2" fill="var(--copper-hi)"/><circle cx="56" cy="44" r="2" fill="var(--copper-hi)"/>
+              <filter id="pkgSh3"><feGaussianBlur stdDeviation="1"/></filter>
+              <path d="M6 20h14c5 0 4-8 9-8h8c5 0 4 8 9 8h12" stroke="#000" stroke-opacity=".6" stroke-width="3.2" filter="url(#pkgSh3)" transform="translate(0 2.4)"/>
+              <path d="M6 20h14c5 0 4-8 9-8h8c5 0 4 8 9 8h12" stroke="#d8b677" stroke-width="2" stroke-linecap="round"/>
+              <path d="M6 20h14c5 0 4-8 9-8h8c5 0 4 8 9 8h12" stroke="#fff" stroke-opacity=".45" stroke-width=".7" stroke-linecap="round"/>
+              <path d="M6 44h14c5 0 4 8 9 8h8c5 0 4-8 9-8h12" stroke="#000" stroke-opacity=".5" stroke-width="3" filter="url(#pkgSh3)" transform="translate(0 2)"/>
+              <path d="M6 44h14c5 0 4 8 9 8h8c5 0 4-8 9-8h12" stroke="#8b6a34" stroke-width="1.8" stroke-linecap="round"/>
+              <circle cx="6" cy="20" r="2.4" fill="#d8b677"/><circle cx="58" cy="20" r="2.4" fill="#d8b677"/>
+              <circle cx="6" cy="44" r="2" fill="#8b6a34"/><circle cx="58" cy="44" r="2" fill="#8b6a34"/>
+              <circle cx="5.2" cy="19.2" r=".8" fill="#fff" opacity=".7"/><circle cx="57.2" cy="19.2" r=".8" fill="#fff" opacity=".7"/>
             </svg>
           </header>
           <h3>Diff Pair 100 Ω</h3>
@@ -445,6 +499,6 @@
     </div>
   </footer>
 
-  <script src="assets/js/board.js?v=1795551136" defer></script>
+  <script src="assets/js/board.js?v=1795551962" defer></script>
 </body>
 </html>

@@ -48,8 +48,33 @@
   const gParts = svgEl("g", { "aria-hidden": "true" });
   const gSilk = svgEl("g", { "aria-hidden": "true" });
   const gPulse = svgEl("g", { "aria-hidden": "true" });
-  svg.append(gPour, gTraces, gParts, gPads, gSilk, gPulse);
+  svg.append(gPour, gTraces, gPads, gParts, gSilk, gPulse);
   art.appendChild(svg);
+
+  /* shared defs: soft part shadows + gradients for metal/epoxy */
+  (() => {
+    const defs = svgEl("defs");
+    const f = svgEl("filter", { id: "partShadow", x: "-60%", y: "-60%", width: "230%", height: "230%" });
+    f.appendChild(svgEl("feGaussianBlur", { stdDeviation: "2.1" }));
+    defs.appendChild(f);
+
+    const lin = (id, stops, v) => {
+      const gd = svgEl("linearGradient", v
+        ? { id, x1: "0", y1: "0", x2: "0", y2: "1" }
+        : { id, x1: "0", y1: "0", x2: "1", y2: "0" });
+      stops.forEach(([o, c]) => gd.appendChild(svgEl("stop", { offset: o, "stop-color": c })));
+      defs.appendChild(gd);
+    };
+    // solder-plated termination: bright crest → dark heel
+    lin("metalGrad", [["0", "#fbfdfe"], ["0.2", "#e2e8ec"], ["0.52", "#aab5be"], ["0.78", "#727d87"], ["1", "#3d474f"]]);
+    // dark moulded epoxy body
+    lin("bodyDarkGrad", [["0", "#3d4a56"], ["0.4", "#29333d"], ["1", "#121a21"]]);
+    // tan ceramic chip
+    lin("bodyWarmGrad", [["0", "#cbb28d"], ["0.45", "#ab916e"], ["1", "#6a5842"]]);
+    // yellow tantalum moulding
+    lin("bodyTanGrad", [["0", "#dfae45"], ["0.4", "#c08a2e"], ["1", "#7a5514"]]);
+    svg.insertBefore(defs, gPour);
+  })();
 
   /* ============================================================
      1. hatched copper pours — top & bottom margins
@@ -116,7 +141,9 @@
     // solder-mask opening, ENIG land, specular highlight
     gPads.appendChild(svgEl("circle", { cx: x, cy: y, r: r + 2.4, fill: "rgba(255,255,255,0.028)" }));
     gPads.appendChild(svgEl("circle", { cx: x, cy: y, r, class: "pad" }));
-    gPads.appendChild(svgEl("circle", { cx: x - r * 0.28, cy: y - r * 0.3, r: r * 0.45, fill: "rgba(255,255,255,0.42)" }));
+    if (!opts.quiet) {
+      gPads.appendChild(svgEl("circle", { cx: x - r * 0.28, cy: y - r * 0.3, r: r * 0.45, fill: "rgba(255,255,255,0.42)" }));
+    }
     if (opts.ring !== false) {
       gPads.appendChild(svgEl("circle", { cx: x, cy: y, r: r + 1.2, class: "pad-ring" }));
     }
@@ -166,7 +193,8 @@
       dim: rand() > 0.86,
     });
     if (!path) return;
-    addPad(port.x, port.y, rr(2.2, 3.1));
+    // land under the part's termination: small, no specular, no ring
+    addPad(port.x, port.y, rr(1.5, 2.1), { ring: false, quiet: true });
     traceMeta.push({ path, port, angle });
   };
 
@@ -207,8 +235,20 @@
   };
 
   /* ============================================================
-     3. components
+     3. components — extruded SMD parts with studio lighting
      ============================================================ */
+
+  /* one global light: upper-left, like a bench microscope ring light */
+  const LIGHT = { x: -0.62, y: -0.78 };
+  const localLight = (rot) => {
+    const r = (-rot * Math.PI) / 180;
+    const c = Math.cos(r), sn = Math.sin(r);
+    return {
+      x: LIGHT.x * c - LIGHT.y * sn,
+      y: LIGHT.x * sn + LIGHT.y * c,
+    };
+  };
+
   const label = (x, y, text, cls = "silk", anchor = "middle") => {
     const t = svgEl("text", { x, y, class: cls, "text-anchor": anchor });
     t.textContent = text;
@@ -216,20 +256,116 @@
     return t;
   };
 
+  /* soft contact shadow, thrown away from the light */
+  const dropShadow = (g, w, h, rx, rot, spread = 2.6) => {
+    const L = localLight(rot);
+    g.appendChild(svgEl("rect", {
+      x: -w / 2 - L.x * -spread,
+      y: -h / 2 - L.y * -spread,
+      width: w, height: h, rx,
+      fill: "rgba(0,0,0,0.62)",
+      filter: "url(#partShadow)",
+      "pointer-events": "none",
+    }));
+  };
+
+  /* extruded box: darker side walls facing away from the light + lit top face */
+  const block3D = (g, x0, y0, w, h, rx, depth, fillTop, fillSide, L, opts = {}) => {
+    const steps = Math.max(2, Math.round(depth / 0.45));
+    for (let i = steps; i >= 1; i--) {
+      const t = (i / steps) * depth;
+      g.appendChild(svgEl("rect", {
+        x: x0 + -L.x * t, y: y0 + -L.y * t,
+        width: w, height: h, rx,
+        fill: fillSide,
+        opacity: opts.sideOpacity ?? 0.95,
+      }));
+    }
+    g.appendChild(svgEl("rect", { x: x0, y: y0, width: w, height: h, rx, fill: fillTop }));
+    if (opts.shine !== false) {
+      // lit rim along the upper-left edge
+      g.appendChild(svgEl("rect", {
+        x: x0 + 0.4, y: y0 + 0.4,
+        width: w - 0.8, height: Math.min(1.15, h * 0.24),
+        rx: Math.max(0.3, rx * 0.6),
+        fill: "rgba(255,255,255,0.32)",
+      }));
+      // occluded rim along the lower-right edge
+      g.appendChild(svgEl("rect", {
+        x: x0 + 0.35, y: y0 + h - Math.min(1.25, h * 0.26) - 0.35,
+        width: w - 0.7, height: Math.min(1.25, h * 0.26),
+        rx: Math.max(0.3, rx * 0.5),
+        fill: "rgba(0,0,0,0.42)",
+      }));
+    }
+  };
+
+  /* tinned termination: metal block + solder fillet rising to the pad */
+  const termination = (g, x0, y0, w, h, rot, L, opts = {}) => {
+    // NOTE: x0/y0/w/h are in the *already rotated* parent space, so the block
+    // geometry is emitted unrotated while the light comes in parent-local too.
+    block3D(g, x0, y0, w, h, Math.min(0.8, Math.min(w, h) * 0.26), 1.2,
+      opts.top || "url(#metalGrad)", opts.side || "#4b555e", L, { shine: false });
+    // specular crest (a thin, slightly inset highlight — not a full white bar)
+    g.appendChild(svgEl("rect", {
+      x: x0 + w * 0.16, y: y0 + h * 0.12,
+      width: Math.max(0.6, w * 0.32), height: Math.max(0.6, h * 0.74),
+      rx: Math.min(0.55, w * 0.2), fill: "rgba(255,255,255,0.5)",
+    }));
+    // dark heel toward the board shadow side
+    g.appendChild(svgEl("rect", {
+      x: x0 + w * 0.62, y: y0 + 0.3,
+      width: Math.max(0.5, w * 0.3), height: Math.max(0.5, h - 0.6),
+      rx: 0.3, fill: "rgba(24,32,38,0.4)",
+    }));
+  };
+
+  /* --- passives: 0402 / 0603 / 0805 with real bodies -------------- */
   const smdBody = (x, y, w, h, rot = 0, opts = {}) => {
     const g = svgEl("g", { transform: `translate(${x} ${y}) rotate(${rot})` });
-    const termW = Math.max(2.4, w * 0.2);
-    // contact shadow on the solder mask
-    g.appendChild(svgEl("rect", { x: -w / 2 - termW, y: -h / 2 + 1.2, width: w + termW * 2, height: h, rx: 0.7, fill: "rgba(0,0,0,0.55)" }));
-    // tinned solder terminations
-    g.appendChild(svgEl("rect", { x: -w / 2 - termW, y: -h / 2, width: termW, height: h, rx: 0.7, fill: "#aeb9c3" }));
-    g.appendChild(svgEl("rect", { x: w / 2, y: -h / 2, width: termW, height: h, rx: 0.7, fill: "#aeb9c3" }));
-    g.appendChild(svgEl("rect", { x: -w / 2 - termW + 0.6, y: -h / 2 + 0.5, width: termW - 1.2, height: Math.max(1, h * 0.3), rx: 0.4, fill: "rgba(255,255,255,0.5)" }));
-    g.appendChild(svgEl("rect", { x: w / 2 + 0.6, y: -h / 2 + 0.5, width: termW - 1.2, height: Math.max(1, h * 0.3), rx: 0.4, fill: "rgba(255,255,255,0.5)" }));
-    // body: warm = MLCC ceramic, cool = dark resistor overcoat
-    g.appendChild(svgEl("rect", { x: -w / 2, y: -h / 2, width: w, height: h, rx: 0.5, fill: opts.warm ? "#87765f" : "#222c35" }));
-    g.appendChild(svgEl("rect", { x: -w / 2, y: -h / 2, width: w, height: Math.max(1, h * 0.32), rx: 0.5, fill: "rgba(255,255,255,0.16)" }));
-    g.appendChild(svgEl("rect", { x: -w / 2, y: h / 2 - Math.max(1, h * 0.2), width: w, height: Math.max(1, h * 0.2), rx: 0.3, fill: "rgba(0,0,0,0.32)" }));
+    const termW = Math.max(1.7, w * 0.19);
+    const L = localLight(rot);
+    const depth = Math.max(1.4, h * 0.24);
+
+    dropShadow(g, w + termW * 2, h, 0.9, rot);
+
+    // body sits between the terminations
+    block3D(g, -w / 2, -h / 2, w, h, 0.55, depth,
+      opts.warm ? "url(#bodyWarmGrad)" : "url(#bodyDarkGrad)",
+      opts.warm ? "#5d4c3a" : "#111820", L);
+
+    // ceramic dielectric sheen for MLCC (warm) — faint banding
+    if (opts.warm) {
+      g.appendChild(svgEl("rect", {
+        x: -w / 2 + 1, y: -h / 2 + 1, width: w - 2, height: Math.max(0.7, h * 0.26),
+        rx: 0.3, fill: "rgba(255,255,255,0.2)",
+      }));
+    }
+
+    // solder lands just outside the metal, wetted up the termination flank
+    [-1, 1].forEach((side) => {
+      const x0 = side < 0 ? -w / 2 - termW - 1.5 : w / 2 + termW - 0.8;
+      g.appendChild(svgEl("rect", {
+        x: x0, y: -h / 2 - 0.35, width: 1.5, height: h + 0.7, rx: 0.6,
+        fill: "rgba(212,182,126,0.3)",
+      }));
+    });
+
+    // terminations wrap the ends
+    termination(g, -w / 2 - termW, -h / 2, termW, h, rot, L);
+    termination(g, w / 2, -h / 2, termW, h, rot, L);
+
+    // laser marking on resistors (3-digit code) when there is room
+    if (!opts.warm && w >= 11) {
+      const t = svgEl("text", {
+        x: 0, y: 0.85, "text-anchor": "middle",
+        fill: "rgba(226,232,240,0.42)",
+        "font-family": "var(--font-mono)", "font-size": Math.min(3.1, h * 0.42),
+        "letter-spacing": "0.08em",
+      });
+      t.textContent = "103";
+      g.appendChild(t);
+    }
     gParts.appendChild(g);
     return g;
   };
@@ -243,87 +379,225 @@
     const lx = x + local.x * Math.cos(rad) - local.y * Math.sin(rad);
     const ly = y + local.x * Math.sin(rad) + local.y * Math.cos(rad);
     if (name) label(lx, ly + 2.4, name, "silk", "middle");
-    // pads for routing
     const halfW = w / 2 + 2.4;
-    const padA = rot
-      ? addPort(x, y - halfW)
-      : addPort(x - halfW, y);
+    const padA = rot ? addPort(x, y - halfW) : addPort(x - halfW, y);
     return { padA };
   };
 
+  /* --- QFN: exposed pad, gull leads, laser marking ---------------- */
   const qfn = (x, y, size, name) => {
     const g = svgEl("g", { transform: `translate(${x} ${y})` });
-    g.appendChild(svgEl("rect", { x: -size / 2 - 3, y: -size / 2 - 3, width: size + 6, height: size + 6, rx: 2, fill: "rgba(94,240,184,0.04)" }));
+    const L = localLight(0);
+    const half = size / 2;
     const leads = 7;
+    const step = size / (leads - 1);
+
+    dropShadow(g, size + 10, size + 10, 2.2, 0, 2.4);
+
+    // 1) solder lands just outside the body
     for (let i = 0; i < leads; i++) {
-      const t = -size / 2 + (size / (leads - 1)) * i;
-      const lead = { x: 2.8, y: 1.3, rx: 0.4, class: "qfn-lead" };
-      [
-        { x: t - 1.4, y: -size / 2 - 2.6 }, { x: t - 1.4, y: size / 2 + 0.9 },
-      ].forEach((p) => g.appendChild(svgEl("rect", { ...p, ...lead })));
-      [
-        { x: -size / 2 - 2.6, y: t - 1.4 }, { x: size / 2 + 0.9, y: t - 1.4 },
-      ].forEach((p) => g.appendChild(svgEl("rect", { x: p.x, y: p.y, width: 1.3, height: 2.8, rx: 0.4, class: "qfn-lead" })));
+      const t = -half + i * step;
+      g.appendChild(svgEl("rect", { x: t - 1.7, y: -half - 4.1, width: 3.4, height: 4, rx: 0.5, fill: "rgba(224,190,134,0.45)" }));
+      g.appendChild(svgEl("rect", { x: t - 1.7, y: half + 0.1, width: 3.4, height: 4, rx: 0.5, fill: "rgba(224,190,134,0.45)" }));
+      g.appendChild(svgEl("rect", { x: -half - 4.1, y: t - 1.7, width: 4, height: 3.4, rx: 0.5, fill: "rgba(224,190,134,0.45)" }));
+      g.appendChild(svgEl("rect", { x: half + 0.1, y: t - 1.7, width: 4, height: 3.4, rx: 0.5, fill: "rgba(224,190,134,0.45)" }));
     }
-    g.appendChild(svgEl("rect", { x: -size / 2, y: -size / 2, width: size, height: size, rx: 2, class: "qfn-body" }));
-    g.appendChild(svgEl("rect", { x: -size * 0.22, y: -size * 0.22, width: size * 0.44, height: size * 0.44, rx: 1, fill: "rgba(0,0,0,0.45)" }));
-    g.appendChild(svgEl("circle", { cx: -size / 2 + 3.4, cy: -size / 2 + 3.4, r: 1.7, class: "qfn-dot" }));
+
+    // 2) exposed pads first (they sit "under" the leads)
+    const tp = size * 0.4;
+    g.appendChild(svgEl("rect", {
+      x: -tp / 2 - 1.2, y: -tp / 2 - 1.2, width: tp + 2.4, height: tp + 2.4, rx: 1.6,
+      fill: "rgba(224,190,134,0.22)",
+    }));
+
+    // 3) package body (the leads tuck under its edge)
+    block3D(g, -half, -half, size, size, 1.8, 3.2, "url(#bodyDarkGrad)", "#0c1319", L);
+
+    // 4) leads only as far as the body edge — small metal fingers
+    const finger = 2.2;
+    for (let i = 0; i < leads; i++) {
+      const t = -half + i * step;
+      [-1, 1].forEach((side) => {
+        const y0 = side < 0 ? -half - finger : half;
+        block3D(g, t - 1.3, y0, 2.6, finger, 0.35, 0.9, "#a9b4be", "#4f5962", L, { shine: false });
+        g.appendChild(svgEl("rect", { x: t - 0.95, y: side < 0 ? y0 + 0.3 : y0 + 0.3, width: 1.9, height: Math.max(0.5, finger * 0.42), rx: 0.25, fill: "rgba(255,255,255,0.42)" }));
+      });
+      [-1, 1].forEach((side) => {
+        const x0 = side < 0 ? -half - finger : half;
+        block3D(g, x0, t - 1.3, finger, 2.6, 0.35, 0.9, "#a9b4be", "#4f5962", L, { shine: false });
+        g.appendChild(svgEl("rect", { x: x0 + 0.3, y: t - 0.95, width: Math.max(0.5, finger * 0.42), height: 1.9, rx: 0.25, fill: "rgba(255,255,255,0.42)" }));
+      });
+    }
+
+    // 5) top face detail: brushed sheen, thermal pad recess, solder fillet
+    g.appendChild(svgEl("rect", {
+      x: -half + 1.4, y: -half + 1.4, width: size - 2.8, height: size * 0.26,
+      rx: 1.1, fill: "rgba(255,255,255,0.055)",
+    }));
+    g.appendChild(svgEl("rect", {
+      x: -tp / 2, y: -tp / 2, width: tp, height: tp, rx: 1,
+      fill: "#2c353d", stroke: "rgba(0,0,0,0.55)", "stroke-width": "0.6",
+    }));
+    g.appendChild(svgEl("rect", {
+      x: -tp / 2 + 0.7, y: -tp / 2 + 0.7, width: tp - 1.4, height: tp - 1.4, rx: 0.7,
+      fill: "none", stroke: "rgba(255,255,255,0.14)", "stroke-width": "0.55",
+    }));
+    g.appendChild(svgEl("rect", {
+      x: -tp / 2 - 0.8, y: -tp / 2 - 0.8, width: tp + 1.6, height: tp + 1.6, rx: 1.4,
+      fill: "none", stroke: "rgba(228,238,246,0.26)", "stroke-width": "0.85",
+    }));
+
+    // 6) pin-1 index + laser marking
+    g.appendChild(svgEl("circle", { cx: -half + 3.6, cy: -half + 3.6, r: 1.5, fill: "#0a1116" }));
+    g.appendChild(svgEl("circle", { cx: -half + 3.35, cy: -half + 3.35, r: 0.6, fill: "rgba(255,255,255,0.5)" }));
+
+    const mark = (yOff, txt, fs) => {
+      const t = svgEl("text", {
+        x: 0, y: yOff, "text-anchor": "middle",
+        fill: "rgba(214,224,232,0.32)",
+        "font-family": "var(--font-mono)", "font-size": fs,
+        "letter-spacing": "0.14em",
+      });
+      t.textContent = txt;
+      g.appendChild(t);
+    };
+    if (size >= 30) mark(half - 2.6, "OT256", 3.2);
+
     gParts.appendChild(g);
-    label(x - size / 2 + 1, y - size / 2 - 5.4, name, "silk", "start");
-    // escape ports on right & left
-    for (let i = 0; i < 3; i++) addPort(x + size / 2 + 5, y - size / 4 + i * (size / 4));
+    label(x - half + 1, y - half - 6.6, name, "silk", "start");
+    for (let i = 0; i < 3; i++) addPort(x + half + 1.4, y - size / 4 + i * (size / 4));
     return g;
   };
 
+  /* --- SOIC: chamfered body, gull-wing leads ---------------------- */
   const soic = (x, y, w, h, pins, name) => {
     const g = svgEl("g", { transform: `translate(${x} ${y})` });
-    for (let i = 0; i < pins / 2; i++) {
-      const t = -w / 2 + ((i + 0.5) * w) / (pins / 2);
-      g.appendChild(svgEl("rect", { x: t - 1.5, y: -h / 2 - 3, width: 3, height: 3.4, class: "qfn-lead" }));
-      g.appendChild(svgEl("rect", { x: t - 1.5, y: h / 2 - 0.4, width: 3, height: 3.4, class: "qfn-lead" }));
+    const L = localLight(0);
+    const perSide = pins / 2;
+    const pitch = w / perSide;
+
+    dropShadow(g, w + 12, h + 10, 1.6, 0, 2.2);
+
+    // gull-wing leads: arm out of the body, then a foot curling down to the pad
+    for (let i = 0; i < perSide; i++) {
+      const t = -w / 2 + (i + 0.5) * pitch;
+      [-1, 1].forEach((side) => {
+        // ENIG land under the foot
+        g.appendChild(svgEl("rect", {
+          x: t - 1.9, y: side < 0 ? -h / 2 - 5.4 : h / 2 + 2.2,
+          width: 3.8, height: 3.2, rx: 0.5, fill: "rgba(226,196,142,0.4)",
+        }));
+        // shadow the lead casts on the board
+        g.appendChild(svgEl("rect", {
+          x: t - 1.55, y: side < 0 ? -h / 2 - 5.0 : h / 2 + 3.6,
+          width: 3.1, height: 1.0, rx: 0.3, fill: "rgba(0,0,0,0.55)",
+        }));
+        // lead silhouette in one path: shoulder, knee, toe
+        const s1 = side < 0 ? -1 : 1;
+        const base = s1 < 0 ? -h / 2 : h / 2;
+        const d = s1 < 0
+          ? `M${t - 1.45} ${base} L${t - 1.45} ${base - 2.4} Q${t - 1.45} ${base - 3.5} ${t - 0.55} ${base - 3.5}
+             L${t + 0.55} ${base - 3.5} Q${t + 1.45} ${base - 3.5} ${t + 1.45} ${base - 2.4} L${t + 1.45} ${base} Z`
+          : `M${t - 1.45} ${base} L${t - 1.45} ${base + 2.4} Q${t - 1.45} ${base + 3.5} ${t - 0.55} ${base + 3.5}
+             L${t + 0.55} ${base + 3.5} Q${t + 1.45} ${base + 3.5} ${t + 1.45} ${base + 2.4} L${t + 1.45} ${base} Z`;
+        g.appendChild(svgEl("path", { d, fill: "#8f9aa4" }));
+        // lit crest along the outer flank
+        g.appendChild(svgEl("rect", {
+          x: t - 1.45, y: s1 < 0 ? base - 3.4 : base + 1.4,
+          width: 2.9, height: 1.9, rx: 0.6, fill: "rgba(255,255,255,0.45)",
+        }));
+        // dark contact line where the foot meets the pad
+        g.appendChild(svgEl("rect", {
+          x: t - 1.45, y: s1 < 0 ? base - 3.5 : base + 3.05,
+          width: 2.9, height: 0.55, fill: "rgba(20,26,32,0.55)",
+        }));
+      });
     }
-    g.appendChild(svgEl("rect", { x: -w / 2, y: -h / 2, width: w, height: h, rx: 1.6, class: "qfn-body" }));
-    g.appendChild(svgEl("circle", { cx: -w / 2 + 4, cy: -h / 2 + 3.4, r: 1.3, class: "qfn-dot", opacity: 0.6 }));
+
+    // body
+    block3D(g, -w / 2, -h / 2, w, h, 1.5, 3.0, "url(#bodyDarkGrad)", "#0d141a", L);
+    // top-face sheen
+    g.appendChild(svgEl("rect", {
+      x: -w / 2 + 1.2, y: -h / 2 + 1.2, width: w - 2.4, height: Math.max(1.2, h * 0.3),
+      rx: 1, fill: "rgba(255,255,255,0.05)",
+    }));
+
+    // pin-1 chamfer highlight
+    g.appendChild(svgEl("path", {
+      d: `M${-w / 2 + 0.2} ${-h / 2 + 4.2} L${-w / 2 + 4.2} ${-h / 2 + 0.2}`,
+      stroke: "rgba(255,255,255,0.18)", "stroke-width": "0.7", fill: "none",
+    }));
+    // pin-1 dimple
+    g.appendChild(svgEl("circle", { cx: -w / 2 + 4.2, cy: -h / 2 + 3.6, r: 1.25, fill: "#0a1116" }));
+    g.appendChild(svgEl("circle", { cx: -w / 2 + 3.95, cy: -h / 2 + 3.35, r: 0.5, fill: "rgba(255,255,255,0.5)" }));
+
+    // laser marking
+    if (w >= 34) {
+      const t = svgEl("text", {
+        x: 0, y: 1.2, "text-anchor": "middle",
+        fill: "rgba(214,224,232,0.36)",
+        "font-family": "var(--font-mono)", "font-size": 3.1,
+        "letter-spacing": "0.16em",
+      });
+      t.textContent = "OT-S25Q";
+      g.appendChild(t);
+    }
+
     gParts.appendChild(g);
-    label(x, y - h / 2 - 5.6, name, "silk", "middle");
-    for (let i = 0; i < 3; i++) addPort(x + w / 2 + 4, y - h / 3 + i * (h / 3));
+    label(x, y - h / 2 - 6.6, name, "silk", "middle");
+    for (let i = 0; i < 3; i++) addPort(x + w / 2 + 1.2, y - h / 3 + i * (h / 3));
     return g;
   };
 
-  const mountHole = (x, y, r = 9) => {
+  const mountHole = (x, y, r = 11) => {
+    // countersunk rim, then the barrel
+    gParts.appendChild(svgEl("circle", { cx: x - 0.6, cy: y - 0.8, r: r + 4.6, fill: "rgba(0,0,0,0.5)", filter: "url(#partShadow)" }));
     gParts.appendChild(svgEl("circle", { cx: x, cy: y, r: r + 4, class: "mount-ring" }));
-    gParts.appendChild(svgEl("circle", { cx: x, cy: y, r, class: "mount-hole" }));
-    gParts.appendChild(svgEl("circle", { cx: x, cy: y, r: r * 0.45, fill: "#000", stroke: "rgba(238,243,236,0.2)", "stroke-width": "0.7" }));
+    gParts.appendChild(svgEl("circle", { cx: x, cy: y, r: r + 1.2, fill: "#c8b184" }));
+    gParts.appendChild(svgEl("circle", { cx: x, cy: y, r: r, fill: "#0b1218" }));
+    gParts.appendChild(svgEl("circle", { cx: x, cy: y, r: r, fill: "none", stroke: "rgba(0,0,0,0.75)", "stroke-width": "1.2" }));
+    // bore wall catching light on one side
+    gParts.appendChild(svgEl("path", {
+      d: `M${x - r * 0.86} ${y - r * 0.4} A${r} ${r} 0 0 1 ${x - r * 0.1} ${y - r * 0.99}`,
+      fill: "none", stroke: "rgba(200,214,226,0.45)", "stroke-width": `${Math.max(1, r * 0.16)}`,
+      "stroke-linecap": "round",
+    }));
+    gParts.appendChild(svgEl("circle", { cx: x, cy: y, r: r * 0.52, fill: "#05090d" }));
   };
 
-  const fiducial = (x, y, r = 4.2) => {
+  const fiducial = (x, y, r = 5) => {
+    gParts.appendChild(svgEl("circle", { cx: x - 0.5, cy: y - 0.6, r: r + 3, fill: "rgba(0,0,0,0.45)", filter: "url(#partShadow)" }));
     gParts.appendChild(svgEl("circle", { cx: x, cy: y, r: r + 2.6, class: "fiducial-ring" }));
-    gParts.appendChild(svgEl("circle", { cx: x, cy: y, r, class: "fiducial" }));
+    gParts.appendChild(svgEl("circle", { cx: x, cy: y, r, fill: "#d9b878" }));
+    gParts.appendChild(svgEl("circle", { cx: x - r * 0.3, cy: y - r * 0.34, r: r * 0.42, fill: "rgba(255,255,255,0.65)" }));
   };
 
   const testPoint = (x, y, name) => {
-    gParts.appendChild(svgEl("circle", { cx: x, cy: y, r: 5.2, fill: "none", stroke: "rgba(238,243,236,0.2)", "stroke-width": "0.8", "stroke-dasharray": "2 2.5" }));
-    gParts.appendChild(svgEl("circle", { cx: x, cy: y, r: 2.4, class: "fiducial" }));
+    gParts.appendChild(svgEl("circle", { cx: x, cy: y, r: 5.2, fill: "none", stroke: "rgba(226,232,240,0.22)", "stroke-width": "0.8", "stroke-dasharray": "2 2.5" }));
+    gParts.appendChild(svgEl("circle", { cx: x - 0.4, cy: y - 0.5, r: 3.1, fill: "rgba(0,0,0,0.5)", filter: "url(#partShadow)" }));
+    gParts.appendChild(svgEl("circle", { cx: x, cy: y, r: 2.8, fill: "#d9b878" }));
+    gParts.appendChild(svgEl("circle", { cx: x - 0.8, cy: y - 0.9, r: 1.1, fill: "rgba(255,255,255,0.6)" }));
     label(x, y + 10, name, "silk");
   };
 
   /* --- left bank -------------------------------------------------- */
-  qfn(150, 236, 42, "U2 · QFN‑48");
+  qfn(168, 240, 62, "U2 · QFN‑48");
   const lResistors = [];
-  for (let i = 0; i < 8; i++) {
-    const y = 338 + i * 20;
-    smd(104, y, 90, `R${12 + i}`, { w: 13, h: 6.4 });
+  for (let i = 0; i < 6; i++) {
+    const col = i % 2;
+    const y = 344 + Math.floor(i / 2) * 62;
+    smd(96 + col * 46, y, 90, `R${12 + i}`, { w: 30, h: 12 });
     lResistors.push(y);
   }
-  label(104, 316, "R12–R19", "silk--warm");
+  label(126, 316, "R12–R17 · 0603", "silk--warm", "start");
 
-  const cBankY = 552;
-  for (let i = 0; i < 8; i++) {
-    smd(238 + i * 17, cBankY, 0, null, { w: 9, h: 5.4, warm: true });
+  const cBankY = 566;
+  for (let i = 0; i < 5; i++) {
+    smd(252 + i * 28, cBankY, 0, null, { w: 17, h: 9, warm: true });
   }
-  label(238, cBankY + 14, "C31–C38 · 100 nF", "silk");
+  label(252, cBankY + 24, "C31–C35 · 100 nF", "silk", "start");
 
-  soic(318, 150, 46, 20, 8, "U3 · NOR‑FLASH");
+  soic(344, 152, 66, 26, 8, "U3 · NOR‑FLASH");
   for (let i = 0; i < 3; i++) {
     addPort(300 + i * 16, 176);
   }
@@ -332,33 +606,53 @@
   const gConn = svgEl("g");
   for (let i = 0; i < 6; i++) {
     const y = 306 + i * 22;
-    gConn.appendChild(svgEl("rect", { x: 30, y: y - 4, width: 26, height: 8, rx: 1.4, fill: "var(--gold-2)", opacity: 0.55 }));
-    gConn.appendChild(svgEl("rect", { x: 52, y: y - 4, width: 5, height: 8, fill: "rgba(0,0,0,0.45)" }));
+    gConn.appendChild(svgEl("rect", { x: 31, y: y - 3, width: 26, height: 8, rx: 1.4, fill: "rgba(0,0,0,0.5)" }));
+    gConn.appendChild(svgEl("rect", { x: 30, y: y - 4, width: 26, height: 8, rx: 1.4, fill: "#d8b677" }));
+    gConn.appendChild(svgEl("rect", { x: 30.7, y: y - 3.2, width: 24.6, height: 2.4, rx: 1, fill: "rgba(255,255,255,0.6)" }));
+    gConn.appendChild(svgEl("rect", { x: 30.7, y: y + 0.9, width: 24.6, height: 2.2, rx: 0.9, fill: "rgba(90,62,20,0.4)" }));
     addPort(60, y);
   }
   gParts.appendChild(gConn);
-  label(42, 288, "J1 · EDGE", "silk", "start");
+  label(30, 276, "J1 · EDGE", "silk", "start");
 
   /* --- right bank ------------------------------------------------- */
-  qfn(1286, 214, 42, "U4 · QFN‑48");
-  for (let i = 0; i < 8; i++) {
-    smd(1338, 338 + i * 20, 90, `R${21 + i}`, { w: 13, h: 6.4 });
+  qfn(1258, 218, 62, "U4 · QFN‑48");
+  for (let i = 0; i < 6; i++) {
+    const col = i % 2;
+    const y = 344 + Math.floor(i / 2) * 62;
+    smd(1344 - col * 46, y, 90, `R${21 + i}`, { w: 30, h: 12 });
   }
-  label(1338, 316, "R21–R28", "silk--warm");
+  label(1318, 316, "R21–R26 · 0603", "silk--warm", "end");
 
   // inductor
   (() => {
     const x = 1128, y = 512;
     const g = svgEl("g");
-    g.appendChild(svgEl("rect", { x: x - 28, y: y - 18, width: 56, height: 36, rx: 3, class: "qfn-body" }));
+    const L = localLight(0);
+    dropShadow(g, 80, 44, 4, 0, 3);
+    // pads
+    g.appendChild(svgEl("rect", { x: x - 37, y: y - 13.5, width: 36, height: 27, rx: 2, fill: "rgba(224,190,134,0.4)" }));
+    g.appendChild(svgEl("rect", { x: x + 1, y: y - 13.5, width: 36, height: 27, rx: 2, fill: "rgba(224,190,134,0.4)" }));
+    // terminations
+    termination(g, x - 36, y - 12, 7, 24, 0, L, { top: "#a6b2bc", side: "#4c565f" });
+    termination(g, x + 29, y - 12, 7, 24, 0, L, { top: "#a6b2bc", side: "#4c565f" });
+    // moulded housing
+    block3D(g, x - 28, y - 18, 56, 36, 3.4, 4.6, "#39434c", "#151c23", L);
+    g.appendChild(svgEl("rect", { x: x - 26, y: y - 16, width: 52, height: 5, rx: 2.4, fill: "rgba(255,255,255,0.055)" }));
+    // winding coils on the top face
     for (let i = 0; i < 4; i++) {
       g.appendChild(svgEl("path", {
-        d: `M${x - 20 + i * 11} ${y - 11} q5 11 0 22`,
-        fill: "none", stroke: "rgba(226,166,104,0.5)", "stroke-width": "1.4",
+        d: `M${x - 20 + i * 11} ${y - 9} q5 9 0 18`,
+        fill: "none", stroke: "rgba(214,180,126,0.6)", "stroke-width": "1.5",
+        "stroke-linecap": "round",
+      }));
+      g.appendChild(svgEl("path", {
+        d: `M${x - 20 + i * 11} ${y - 9} q5 9 0 18`,
+        fill: "none", stroke: "rgba(255,255,255,0.2)", "stroke-width": "0.6",
+        "stroke-linecap": "round",
+        transform: `translate(-0.5 -0.6)`,
       }));
     }
-    g.appendChild(svgEl("rect", { x: x - 35, y: y - 12, width: 7, height: 24, rx: 1, class: "smd-cap" }));
-    g.appendChild(svgEl("rect", { x: x + 28, y: y - 12, width: 7, height: 24, rx: 1, class: "smd-cap" }));
     gParts.appendChild(g);
     label(x, y + 30, "L1 · 4.7 µH", "silk");
     addPort(x - 36, y);
@@ -386,7 +680,7 @@
     [470, 96, 0], [974, 96, 0], [470, 620, 0], [974, 620, 0],
   ];
   scatter.forEach(([x, y], i) => {
-    smd(x, y, i % 3 === 0 ? 90 : 0, null, { w: 12, h: 6, warm: i % 2 === 0 });
+    smd(x, y, i % 3 === 0 ? 90 : 0, null, { w: 20, h: 9, warm: i % 2 === 0 });
   });
 
   /* --- extra realism: SOIC with pin-1 and legend, tantalums, micro silk --- */
@@ -395,22 +689,29 @@
     label(250, 222, "U5 · OPA", "silk");
     // tiny 0402 passives hugging a QFN, like real decoupling
     for (let i = 0; i < 4; i++) {
-      smdBody(122 + (i % 2) * 14, 286 + Math.floor(i / 2) * 12, 7, 4, i % 2 ? 90 : 0, { warm: i % 2 === 0 });
+      smdBody(126 + (i % 2) * 26, 292 + Math.floor(i / 2) * 20, 15, 8, i % 2 ? 90 : 0, { warm: i % 2 === 0 });
     }
     // tantalum caps: chamfered body + polarity bar
     const tantalum = (x, y, rot) => {
       const g = svgEl("g", { transform: `translate(${x} ${y}) rotate(${rot})` });
-      g.appendChild(svgEl("rect", { x: -11, y: -7 + 1.4, width: 22, height: 14, rx: 1.6, fill: "rgba(0,0,0,0.55)" }));
-      g.appendChild(svgEl("rect", { x: -12, y: -7, width: 24, height: 14, rx: 1.8, fill: "#c99a3f" }));
-      g.appendChild(svgEl("rect", { x: -12, y: -7, width: 24, height: 5, rx: 1.6, fill: "rgba(255,255,255,0.28)" }));
-      g.appendChild(svgEl("rect", { x: 6.4, y: -7, width: 5.6, height: 14, rx: 1.4, fill: "rgba(60,38,10,0.55)" }));
-      g.appendChild(svgEl("rect", { x: -12, y: -7, width: 3.2, height: 14, rx: 1.2, fill: "#aeb9c3" }));
-      g.appendChild(svgEl("rect", { x: 8.8, y: -7, width: 3.2, height: 14, rx: 1.2, fill: "#aeb9c3" }));
+      const L = localLight(rot);
+      dropShadow(g, 38, 22, 2.5, rot, 2.2);
+      // solder terminations
+      termination(g, -19, -10, 4.6, 20, rot, L, { top: "#9fabb5", side: "#4d5760" });
+      termination(g, 14.4, -10, 4.6, 20, rot, L, { top: "#9fabb5", side: "#4d5760" });
+      // moulded body: higher than a ceramic chip, rounded shoulders
+      block3D(g, -15, -10, 30, 20, 3.4, 4.6, "url(#bodyTanGrad)", "#6d4a13", L);
+      // top face lighting
+      g.appendChild(svgEl("rect", { x: -13.4, y: -8.8, width: 26.8, height: 5.2, rx: 2, fill: "rgba(255,255,255,0.26)" }));
+      g.appendChild(svgEl("rect", { x: -13.4, y: 3.2, width: 26.8, height: 4.4, rx: 1.8, fill: "rgba(0,0,0,0.18)" }));
+      // polarity band
+      g.appendChild(svgEl("rect", { x: 6, y: -9.4, width: 7.4, height: 18.8, rx: 1.6, fill: "rgba(52,32,6,0.6)" }));
+      g.appendChild(svgEl("path", { d: "M7.8 -2.4h4M9.8 -4.4v4", stroke: "rgba(255,255,255,0.55)", "stroke-width": "0.9" }));
       gParts.appendChild(g);
     };
-    tantalum(300, 548, 0);
-    tantalum(332, 548, 0);
-    label(316, 552, "C41 · C42  10 µF", "silk");
+    tantalum(424, 566, 0);
+    tantalum(472, 566, 0);
+    label(448, 592, "C41 · C42 · 10 µF", "silk");
     // micro silkscreen: fab panel in the free top strip
     label(760, 30, "OPENTRACE LABS · REV 3.1 · 2026‑11", "silk", "middle");
   })();
@@ -425,7 +726,7 @@
   fiducial(874, 648);
   testPoint(210, 460, "TP1");
   testPoint(1230, 460, "TP2");
-  testPoint(560, 610, "TP3");
+  testPoint(520, 626, "TP3");
 
   /* big silkscreen legends */
   /* vertical legends along the board edges, like real silkscreen */
@@ -474,7 +775,7 @@
       if (x < 320 || x > W - 320) continue;
       if (y < 120 || y > H - 120) continue;
       const tangent = (a * 180) / Math.PI + 90;
-      smdBody(x, y, 10, 5.2, tangent, { warm: i % 3 === 0 });
+      smdBody(x, y, 16, 8, tangent, { warm: i % 3 === 0 });
       // short stitch to a via just outside
       const vx = CX + Math.cos(a) * (r + 17);
       const vy = CY + Math.sin(a) * (r + 17);
