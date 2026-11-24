@@ -10734,8 +10734,8 @@
             {
               "t": "image",
               "src": "assets/img/m12l02.webp",
-              "alt": "A cleaning line with a wash chamber, rinse, ultrasonic tank and dryer, with a material compatibility matrix beside it",
-              "caption": "Cleaning methods: aqueous, semi-aqueous, solvent and ultrasonic, with material compatibility"
+              "alt": "Reference sheet: inline cleaner with wash, rinse, final rinse and dry chambers, aqueous / semi-aqueous / solvent / ultrasonic method icons, a blank compatibility checklist to fill from datasheets and a coupon trial, residue types, a rinse photo and MSL / ESD constraints",
+              "caption": "Cleaning methods and material compatibility: match chemistry and action to the residue, verify compatibility on a coupon"
             }
           ]
         },
@@ -10903,8 +10903,8 @@
             {
               "t": "image",
               "src": "assets/img/m12l03.webp",
-              "alt": "A ROSE tester extracting a board, an ion chromatography trace, a particle count readout and a magnified visual check",
-              "caption": "Cleanliness verification: ROSE, ion chromatography, particle count and visual"
+              "alt": "Reference sheet: ROSE extraction tank with conductivity meter, ion chromatography trace with species peaks, particle count on a filter membrane, visual residue halo, a flux residue photo, a write-criterion → test → pass / rework / retest flow and a report form",
+              "caption": "Cleanliness verification: ROSE, ion chromatography, particle count, visual and the reporting form"
             }
           ]
         },
@@ -11233,8 +11233,8 @@
             {
               "t": "image",
               "src": "assets/img/m12l05.webp",
-              "alt": "A coating line with a selective spray head, a masked connector, a thickness measurement and a cure oven",
-              "caption": "Application and masking: spray, dip, selective, thickness, cure and repairability"
+              "alt": "Reference sheet: spray, dip and selective coating methods, masking with boots, tape and peelable mask, wet film comb gauge and dry film measurement, cure oven and UV lamp, a UV inspection photo and repairability options",
+              "caption": "Conformal coating application and masking: method, masking, thickness, cure and repairability"
             }
           ]
         },
@@ -11393,8 +11393,8 @@
             {
               "t": "image",
               "src": "assets/img/m12l06.webp",
-              "alt": "Five magnified coated-surface defects shown side by side, each labelled, beside a sound coated surface",
-              "caption": "Contamination and coating defect cases: residue, white residue, corrosion, fish-eye and dewetting"
+              "alt": "Reference sheet: magnified tiles for sound coating, flux residue, white residue, corrosion, fish-eye and dewetting with cross-sections, a cause-to-test table, a fish-eye photo under UV light and the decision to set the criterion from defect risk",
+              "caption": "Contamination and coating defect cases: appearance, likely source and the test that sees it"
             }
           ]
         },
@@ -12740,8 +12740,8 @@
             {
               "t": "image",
               "src": "assets/img/m14l02.webp",
-              "alt": "Four small diagrams side by side: a five-why chain, a fishbone with six bones, a fault tree and a change-point chart",
-              "caption": "Cause analysis tools: five-why, fishbone, fault tree and change-point analysis"
+              "alt": "Reference sheet: why-chain ending at a controllable parameter, fishbone with six cause families, fault tree with AND / OR gates and an escape branch, change-point run chart with event markers, failure / cause / escape boxes and a team at a whiteboard",
+              "caption": "Cause analysis tools: why-chain, fishbone, fault tree and change-point analysis"
             }
           ]
         },
@@ -12896,8 +12896,8 @@
             {
               "t": "image",
               "src": "assets/img/m14l03.webp",
-              "alt": "A containment boundary drawn around work in process, finished goods and shipped units, with a lot trace chain and a retroactive search arrow",
-              "caption": "Containment and traceability: quarantine scope, lot trace and retroactive search"
+              "alt": "Reference sheet: containment boundary around work in process, finished goods and shipped units with a suspect window, lot trace chain from reel to shipment, process settings linked to board serial, retroactive search back to last known good, a quarantine shelf photo and an 8D action card",
+              "caption": "Containment and traceability: quarantine scope, lot trace, retroactive search and action cards"
             }
           ]
         },
@@ -13524,8 +13524,8 @@
             {
               "t": "image",
               "src": "assets/img/m14l07.webp",
-              "alt": "A case timeline from observed defect through containment, root cause, corrective action and closure, with the evidence recorded at each step",
-              "caption": "Eight-discipline workshop: a full case from symptom to closure"
+              "alt": "Reference sheet: D1 to D8 case timeline with evidence at each step, Pareto by stage, AOI measurement integrity check, root cause / contributing / detection escape split, an evidence review photo and closure by removing the action",
+              "caption": "8D workshop: symptom to closure with evidence at every step"
             }
           ]
         },
