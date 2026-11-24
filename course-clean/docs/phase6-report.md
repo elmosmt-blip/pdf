@@ -89,5 +89,10 @@ changed.
   `STANDARD`, `CLASS LIMIT`, `CUSTOMER ACCEPTANCE LIMIT`, `CLASSIFICATION:`, etc.;
   long "REFER TO <standard>" sentences → generic guideline wording; the IPC logo on
   m03l02 blanked. Per-image overrides live in the script's `OVERRIDES` table.
-- Verification: second OCR pass → 0 remaining hits; spot-checked crops and full sheets.
+- Technologist review of the edited sheets found three small-print lines the 2× OCR pass had
+  missed (m06l01 footer `REFERENCES: J-STD-020 | IPC-7530`, m09l04 `REFER TO IPC-A-610 …`,
+  and the IPC-A-610 title *Acceptability of Electronic Assemblies* on m07l05); all three
+  were patched via `OVERRIDES`.
+- Verification: full-frame OCR at 4× in overlapping 200 px strips, O/0-tolerant regex →
+  0 remaining hits in 92 images; spot-checked crops and full sheets.
 - Pipeline re-run green (integrity OK, course tests 211/0, case-qa 57/0).
