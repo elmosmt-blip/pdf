@@ -54,9 +54,28 @@
   /* shared defs: soft part shadows + gradients for metal/epoxy */
   (() => {
     const defs = svgEl("defs");
-    const f = svgEl("filter", { id: "partShadow", x: "-60%", y: "-60%", width: "230%", height: "230%" });
-    f.appendChild(svgEl("feGaussianBlur", { stdDeviation: "2.1" }));
+    const f = svgEl("filter", { id: "partShadow", x: "-70%", y: "-70%", width: "260%", height: "260%" });
+    f.appendChild(svgEl("feGaussianBlur", { stdDeviation: "1.1" }));
     defs.appendChild(f);
+
+    // wide penumbra for the cast shadow of a lifted part
+    const fs = svgEl("filter", { id: "partShadowSoft", x: "-90%", y: "-90%", width: "300%", height: "300%" });
+    fs.appendChild(svgEl("feGaussianBlur", { stdDeviation: "3.4" }));
+    defs.appendChild(fs);
+
+    // glossy top-face shading: light from the top, falls into shadow at the bottom
+    const gloss = svgEl("linearGradient", { id: "glossGrad", x1: "0", y1: "0", x2: "0", y2: "1" });
+    [["0", "rgba(255,255,255,0.28)"], ["0.34", "rgba(255,255,255,0.06)"],
+     ["0.62", "rgba(0,0,0,0.04)"], ["1", "rgba(0,0,0,0.38)"]].forEach(([o, c]) =>
+      gloss.appendChild(svgEl("stop", { offset: o, "stop-color": c.startsWith("rgba(255") ? "#ffffff" : "#000000", "stop-opacity": c.match(/,([\d.]+)\)$/)[1] })));
+    defs.appendChild(gloss);
+
+    // specular blob from the ring light
+    const spec = svgEl("radialGradient", { id: "specGrad" });
+    spec.appendChild(svgEl("stop", { offset: "0", "stop-color": "#ffffff", "stop-opacity": "0.85" }));
+    spec.appendChild(svgEl("stop", { offset: "0.45", "stop-color": "#ffffff", "stop-opacity": "0.28" }));
+    spec.appendChild(svgEl("stop", { offset: "1", "stop-color": "#ffffff", "stop-opacity": "0" }));
+    defs.appendChild(spec);
 
     const lin = (id, stops, v) => {
       const gd = svgEl("linearGradient", v
@@ -66,13 +85,15 @@
       defs.appendChild(gd);
     };
     // solder-plated termination: bright crest → dark heel
-    lin("metalGrad", [["0", "#fbfdfe"], ["0.2", "#e2e8ec"], ["0.52", "#aab5be"], ["0.78", "#727d87"], ["1", "#3d474f"]]);
+    lin("metalGrad", [["0", "#ffffff"], ["0.16", "#eef4f8"], ["0.46", "#c3ccd4"], ["0.74", "#818c96"], ["1", "#39434b"]]);
     // dark moulded epoxy body
-    lin("bodyDarkGrad", [["0", "#3d4a56"], ["0.4", "#29333d"], ["1", "#121a21"]]);
+    lin("bodyDarkGrad", [["0", "#2f3a44"], ["0.16", "#1e262d"], ["0.7", "#12181e"], ["1", "#0a0f13"]]);
+    // matte moulded epoxy for large packages: almost flat, slight top light
+    lin("mouldGrad", [["0", "#28313a"], ["0.3", "#222a32"], ["0.75", "#1a2128"], ["1", "#141a20"]]);
     // tan ceramic chip
-    lin("bodyWarmGrad", [["0", "#cbb28d"], ["0.45", "#ab916e"], ["1", "#6a5842"]]);
+    lin("bodyWarmGrad", [["0", "#b9a483"], ["0.4", "#9a8567"], ["1", "#5f5039"]]);
     // yellow tantalum moulding
-    lin("bodyTanGrad", [["0", "#dfae45"], ["0.4", "#c08a2e"], ["1", "#7a5514"]]);
+    lin("bodyTanGrad", [["0", "#e5b345"], ["0.35", "#c9902c"], ["1", "#6f4c10"]]);
     svg.insertBefore(defs, gPour);
   })();
 
@@ -256,46 +277,100 @@
     return t;
   };
 
-  /* soft contact shadow, thrown away from the light */
-  const dropShadow = (g, w, h, rx, rot, spread = 2.6) => {
+  /* contact shadow + long cast shadow, thrown away from the light */
+  const dropShadow = (g, w, h, rx, rot, spread = 3.5, lift = 1) => {
     const L = localLight(rot);
+    const ox = -L.x, oy = -L.y;              // shadow falls opposite the light
+    // tight ambient occlusion hugging the part
     g.appendChild(svgEl("rect", {
-      x: -w / 2 - L.x * -spread,
-      y: -h / 2 - L.y * -spread,
-      width: w, height: h, rx,
-      fill: "rgba(0,0,0,0.62)",
-      filter: "url(#partShadow)",
-      "pointer-events": "none",
+      x: -w / 2 - ox * (spread * 0.35) - 1, y: -h / 2 - oy * (spread * 0.35) - 1,
+      width: w + 2, height: h + 2, rx: rx + 0.6,
+      fill: "rgba(0,0,0,0.72)", filter: "url(#partShadow)", "pointer-events": "none",
+    }));
+    // long cast shadow, softer and wider the higher the part
+    g.appendChild(svgEl("ellipse", {
+      cx: -ox * spread * 1.15 * lift, cy: -oy * spread * 1.15 * lift,
+      rx: w * 0.62 + 1.4, ry: h * 0.62 + 1.4,
+      fill: "rgba(0,0,0,0.34)", filter: "url(#partShadowSoft)", "pointer-events": "none",
+    }));
+  };
+
+  /* silkscreen courtyard around a part — the strongest "real board" cue */
+  const silkOutline = (g, x0, y0, w, h, rx, opts = {}) => {
+    g.appendChild(svgEl("rect", {
+      x: x0 - (opts.gap ?? 1.6), y: y0 - (opts.gap ?? 1.6),
+      width: w + (opts.gap ?? 1.6) * 2, height: h + (opts.gap ?? 1.6) * 2,
+      rx: Math.max(0.4, rx * 0.7),
+      fill: "none",
+      stroke: opts.color || "rgba(236,243,250,0.5)",
+      "stroke-width": opts.width || 0.95,
+      "stroke-linecap": "round",
     }));
   };
 
   /* extruded box: darker side walls facing away from the light + lit top face */
   const block3D = (g, x0, y0, w, h, rx, depth, fillTop, fillSide, L, opts = {}) => {
-    const steps = Math.max(2, Math.round(depth / 0.45));
-    for (let i = steps; i >= 1; i--) {
+    // side wall: solid slab first (so it is never lost against the board),
+    // then a gradient of scan-lines for the vertical falloff
+    const wallX = x0 + -L.x * depth;
+    const wallY = y0 + -L.y * depth;
+    g.appendChild(svgEl("rect", {
+      x: wallX, y: wallY, width: w, height: h, rx,
+      fill: opts.sideBase || fillSide, opacity: 1,
+    }));
+    const steps = Math.max(6, Math.round(depth * 3));
+    for (let i = 1; i <= steps; i++) {
       const t = (i / steps) * depth;
       g.appendChild(svgEl("rect", {
         x: x0 + -L.x * t, y: y0 + -L.y * t,
         width: w, height: h, rx,
         fill: fillSide,
-        opacity: opts.sideOpacity ?? 0.95,
+        opacity: 0.9,
       }));
     }
+    // bounce light where the wall meets the board (never pure black)
+    g.appendChild(svgEl("rect", {
+      x: wallX + 0.2, y: wallY + h - Math.max(0.8, h * 0.18),
+      width: w - 0.4, height: Math.max(0.8, h * 0.18), rx: 0.3,
+      fill: "rgba(146,165,185,0.16)",
+    }));
+    // top face
     g.appendChild(svgEl("rect", { x: x0, y: y0, width: w, height: h, rx, fill: fillTop }));
     if (opts.shine !== false) {
-      // lit rim along the upper-left edge
+      // curved glossy reflection across the top
       g.appendChild(svgEl("rect", {
-        x: x0 + 0.4, y: y0 + 0.4,
-        width: w - 0.8, height: Math.min(1.15, h * 0.24),
-        rx: Math.max(0.3, rx * 0.6),
-        fill: "rgba(255,255,255,0.32)",
+        x: x0, y: y0, width: w, height: h, rx,
+        fill: "url(#glossGrad)", opacity: 0.9,
       }));
-      // occluded rim along the lower-right edge
+      if (opts.glint) {
+        // wet-looking highlight streak, like a real epoxy moulding
+        g.appendChild(svgEl("rect", {
+          x: x0 + w * 0.1, y: y0 + h * 0.12,
+          width: w * 0.78, height: Math.max(0.7, h * 0.13), rx: 0.4,
+          fill: "rgba(255,255,255,0.5)",
+        }));
+      }
+      // narrow specular ridge: matte moulding, not chrome
+      if (opts.matte !== false) {
+        g.appendChild(svgEl("rect", {
+          x: x0 + w * 0.06, y: y0 + h * 0.055,
+          width: w * (1 - 0.12), height: Math.max(0.55, h * 0.075), rx: 0.3,
+          fill: "rgba(255,255,255,0.3)",
+        }));
+      } else {
+        g.appendChild(svgEl("ellipse", {
+          cx: x0 + w * (opts.specX ?? 0.26), cy: y0 + h * (opts.specY ?? 0.24),
+          rx: Math.max(1.2, w * 0.26), ry: Math.max(0.8, h * 0.2),
+          fill: "url(#specGrad)", opacity: 0.55,
+        }));
+      }
+      // bevel: lit edge upper-left, occluded edge lower-right
       g.appendChild(svgEl("rect", {
-        x: x0 + 0.35, y: y0 + h - Math.min(1.25, h * 0.26) - 0.35,
-        width: w - 0.7, height: Math.min(1.25, h * 0.26),
-        rx: Math.max(0.3, rx * 0.5),
-        fill: "rgba(0,0,0,0.42)",
+        x: x0 + 0.35, y: y0 + 0.35, width: w - 0.7, height: h - 0.7,
+        rx: Math.max(0.2, rx - 0.3), fill: "none",
+        stroke: "rgba(255,255,255,0.34)", "stroke-width": "0.8",
+        "stroke-dasharray": `${(w * 0.62).toFixed(1)} ${(w + h).toFixed(1)}`,
+        transform: `rotate(180 ${x0 + w / 2} ${y0 + h / 2})`,
       }));
     }
   };
@@ -304,8 +379,9 @@
   const termination = (g, x0, y0, w, h, rot, L, opts = {}) => {
     // NOTE: x0/y0/w/h are in the *already rotated* parent space, so the block
     // geometry is emitted unrotated while the light comes in parent-local too.
-    block3D(g, x0, y0, w, h, Math.min(0.8, Math.min(w, h) * 0.26), 1.2,
-      opts.top || "url(#metalGrad)", opts.side || "#4b555e", L, { shine: false });
+    block3D(g, x0, y0, w, h, Math.min(0.8, Math.min(w, h) * 0.26), 1.4,
+      opts.top || "url(#metalGrad)", opts.side || "#6b7782", L,
+      { shine: false, sideBase: "#8d99a4" });
     // specular crest (a thin, slightly inset highlight — not a full white bar)
     g.appendChild(svgEl("rect", {
       x: x0 + w * 0.16, y: y0 + h * 0.12,
@@ -325,14 +401,15 @@
     const g = svgEl("g", { transform: `translate(${x} ${y}) rotate(${rot})` });
     const termW = Math.max(1.7, w * 0.19);
     const L = localLight(rot);
-    const depth = Math.max(1.4, h * 0.24);
+    const depth = Math.max(3.2, h * 0.52);
 
     dropShadow(g, w + termW * 2, h, 0.9, rot);
 
     // body sits between the terminations
     block3D(g, -w / 2, -h / 2, w, h, 0.55, depth,
       opts.warm ? "url(#bodyWarmGrad)" : "url(#bodyDarkGrad)",
-      opts.warm ? "#5d4c3a" : "#111820", L);
+      opts.warm ? "#6a5741" : "#1b242d", L,
+      { sideBase: opts.warm ? "#7d6a52" : "#1b232a", specX: 0.2, specY: 0.16, glint: true });
 
     // ceramic dielectric sheen for MLCC (warm) — faint banding
     if (opts.warm) {
@@ -355,6 +432,9 @@
     termination(g, -w / 2 - termW, -h / 2, termW, h, rot, L);
     termination(g, w / 2, -h / 2, termW, h, rot, L);
 
+    // silkscreen courtyard drawn *under* nothing — it sits on the mask beside the part
+    silkOutline(g, -w / 2 - termW, -h / 2, w + termW * 2, h, 1.2, { gap: 2.4, width: 1.1 });
+
     // laser marking on resistors (3-digit code) when there is room
     if (!opts.warm && w >= 11) {
       const t = svgEl("text", {
@@ -374,11 +454,12 @@
     const w = opts.w || 18;
     const h = opts.h || 9;
     smdBody(x, y, w, h, rot, opts);
-    const local = rot ? { x: -h / 2 - 2.5, y: 0 } : { x: 0, y: -h / 2 - 4 };
+    const gap = h / 2 + 7.5;
+    const local = rot ? { x: 0, y: -gap } : { x: 0, y: -gap };
     const rad = (rot * Math.PI) / 180;
     const lx = x + local.x * Math.cos(rad) - local.y * Math.sin(rad);
     const ly = y + local.x * Math.sin(rad) + local.y * Math.cos(rad);
-    if (name) label(lx, ly + 2.4, name, "silk", "middle");
+    if (name) label(lx, ly + 2.6, name, "silk", "middle");
     const halfW = w / 2 + 2.4;
     const padA = rot ? addPort(x, y - halfW) : addPort(x - halfW, y);
     return { padA };
@@ -411,7 +492,37 @@
     }));
 
     // 3) package body (the leads tuck under its edge)
-    block3D(g, -half, -half, size, size, 1.8, 3.2, "url(#bodyDarkGrad)", "#0c1319", L);
+    block3D(g, -half, -half, size, size, 1.8, size * 0.12, "url(#mouldGrad)", "#0b1218", L,
+      { sideBase: "#1e2731", matte: true });
+
+    // moulded chamfer: lit on the upper/left edges, shadowed on the lower/right
+    const ch = 1.6;
+    g.appendChild(svgEl("path", {
+      d: `M${-half + 1} ${-half + 1} L${half - 1} ${-half + 1} L${half - 3} ${-half + ch} L${-half + 3} ${-half + ch} Z`,
+      fill: "rgba(255,255,255,0.085)",
+    }));
+    g.appendChild(svgEl("path", {
+      d: `M${-half + 1} ${-half + 1} L${-half + 1} ${half - 1} L${-half + ch} ${half - 3} L${-half + ch} ${-half + 3} Z`,
+      fill: "rgba(255,255,255,0.05)",
+    }));
+    g.appendChild(svgEl("path", {
+      d: `M${-half + 1} ${half - 1} L${half - 1} ${half - 1} L${half - 3} ${half - ch} L${-half + 3} ${half - ch} Z`,
+      fill: "rgba(0,0,0,0.3)",
+    }));
+    g.appendChild(svgEl("path", {
+      d: `M${half - 1} ${-half + 1} L${half - 1} ${half - 1} L${half - ch} ${half - 3} L${half - ch} ${-half + 3} Z`,
+      fill: "rgba(0,0,0,0.26)",
+    }));
+
+    // inner shadow cast by the moulded rim onto the top face
+    g.appendChild(svgEl("rect", {
+      x: -half + 1.1, y: -half + 1.1, width: size - 2.2, height: size - 2.2, rx: 1.3,
+      fill: "none", stroke: "rgba(0,0,0,0.55)", "stroke-width": "2.4",
+    }));
+    g.appendChild(svgEl("rect", {
+      x: -half + 1.1, y: -half + 1.1, width: size - 2.2, height: size - 2.2, rx: 1.3,
+      fill: "none", stroke: "rgba(255,255,255,0.07)", "stroke-width": "0.7",
+    }));
 
     // 4) leads only as far as the body edge — small metal fingers
     const finger = 2.2;
@@ -431,20 +542,29 @@
 
     // 5) top face detail: brushed sheen, thermal pad recess, solder fillet
     g.appendChild(svgEl("rect", {
-      x: -half + 1.4, y: -half + 1.4, width: size - 2.8, height: size * 0.26,
-      rx: 1.1, fill: "rgba(255,255,255,0.055)",
+      x: -half + 1.6, y: -half + 1.6, width: size - 3.2, height: size * 0.18,
+      rx: 1, fill: "rgba(255,255,255,0.028)",
+    }));
+    // recess: dark lip at the top edge, lit lip at the bottom edge
+    g.appendChild(svgEl("rect", {
+      x: -tp / 2 - 1.1, y: -tp / 2 - 1.1, width: tp + 2.2, height: tp + 2.2, rx: 1.6,
+      fill: "rgba(0,0,0,0.5)",
     }));
     g.appendChild(svgEl("rect", {
-      x: -tp / 2, y: -tp / 2, width: tp, height: tp, rx: 1,
-      fill: "#2c353d", stroke: "rgba(0,0,0,0.55)", "stroke-width": "0.6",
+      x: -tp / 2, y: -tp / 2 + 1.1, width: tp, height: tp, rx: 1,
+      fill: "#222a31",
     }));
     g.appendChild(svgEl("rect", {
-      x: -tp / 2 + 0.7, y: -tp / 2 + 0.7, width: tp - 1.4, height: tp - 1.4, rx: 0.7,
-      fill: "none", stroke: "rgba(255,255,255,0.14)", "stroke-width": "0.55",
+      x: -tp / 2, y: -tp / 2 + 1.1, width: tp, height: 1.3, rx: 0.5,
+      fill: "rgba(0,0,0,0.6)",
     }));
     g.appendChild(svgEl("rect", {
-      x: -tp / 2 - 0.8, y: -tp / 2 - 0.8, width: tp + 1.6, height: tp + 1.6, rx: 1.4,
-      fill: "none", stroke: "rgba(228,238,246,0.26)", "stroke-width": "0.85",
+      x: -tp / 2, y: -tp / 2 + tp, width: tp, height: 1.2, rx: 0.5,
+      fill: "rgba(198,214,226,0.3)",
+    }));
+    g.appendChild(svgEl("rect", {
+      x: -tp / 2 + 0.9, y: -tp / 2 + 2.2, width: tp - 1.8, height: tp - 2.4, rx: 0.6,
+      fill: "none", stroke: "rgba(255,255,255,0.1)", "stroke-width": "0.55",
     }));
 
     // 6) pin-1 index + laser marking
@@ -464,7 +584,7 @@
     if (size >= 30) mark(half - 2.6, "OT256", 3.2);
 
     gParts.appendChild(g);
-    label(x - half + 1, y - half - 6.6, name, "silk", "start");
+    label(x - half - 4, y - half - 9, name, "silk", "start");
     for (let i = 0; i < 3; i++) addPort(x + half + 1.4, y - size / 4 + i * (size / 4));
     return g;
   };
@@ -515,7 +635,7 @@
     }
 
     // body
-    block3D(g, -w / 2, -h / 2, w, h, 1.5, 3.0, "url(#bodyDarkGrad)", "#0d141a", L);
+    block3D(g, -w / 2, -h / 2, w, h, 1.5, Math.max(4.5, h * 0.3), "url(#bodyDarkGrad)", "#0e161d", L, { sideBase: "#2b3742" });
     // top-face sheen
     g.appendChild(svgEl("rect", {
       x: -w / 2 + 1.2, y: -h / 2 + 1.2, width: w - 2.4, height: Math.max(1.2, h * 0.3),
@@ -544,7 +664,7 @@
     }
 
     gParts.appendChild(g);
-    label(x, y - h / 2 - 6.6, name, "silk", "middle");
+    label(x - w / 2 - 2, y - h / 2 - 10, name, "silk", "start");
     for (let i = 0; i < 3; i++) addPort(x + w / 2 + 1.2, y - h / 3 + i * (h / 3));
     return g;
   };
@@ -581,23 +701,23 @@
   };
 
   /* --- left bank -------------------------------------------------- */
-  qfn(168, 240, 62, "U2 · QFN‑48");
+  qfn(172, 244, 78, "U2 · QFN‑48");
   const lResistors = [];
   for (let i = 0; i < 6; i++) {
     const col = i % 2;
-    const y = 344 + Math.floor(i / 2) * 62;
-    smd(96 + col * 46, y, 90, `R${12 + i}`, { w: 30, h: 12 });
+    const y = 336 + Math.floor(i / 2) * 72;
+    smd(92 + col * 62, y, 90, `R${12 + i}`, { w: 44, h: 18 });
     lResistors.push(y);
   }
-  label(126, 316, "R12–R17 · 0603", "silk--warm", "start");
+  label(96, 286, "R12–R17 · 0603", "silk--warm", "start");
 
-  const cBankY = 566;
+  const cBankY = 596;
   for (let i = 0; i < 5; i++) {
-    smd(252 + i * 28, cBankY, 0, null, { w: 17, h: 9, warm: true });
+    smd(252 + i * 34, cBankY, 0, null, { w: 22, h: 13, warm: true });
   }
-  label(252, cBankY + 24, "C31–C35 · 100 nF", "silk", "start");
+  label(252, cBankY + 30, "C31–C35 · 100 nF", "silk", "start");
 
-  soic(344, 152, 66, 26, 8, "U3 · NOR‑FLASH");
+  soic(360, 168, 82, 32, 8, "U3 · NOR‑FLASH");
   for (let i = 0; i < 3; i++) {
     addPort(300 + i * 16, 176);
   }
@@ -616,13 +736,13 @@
   label(30, 276, "J1 · EDGE", "silk", "start");
 
   /* --- right bank ------------------------------------------------- */
-  qfn(1258, 218, 62, "U4 · QFN‑48");
+  qfn(1254, 222, 78, "U4 · QFN‑48");
   for (let i = 0; i < 6; i++) {
     const col = i % 2;
-    const y = 344 + Math.floor(i / 2) * 62;
-    smd(1344 - col * 46, y, 90, `R${21 + i}`, { w: 30, h: 12 });
+    const y = 336 + Math.floor(i / 2) * 72;
+    smd(1348 - col * 62, y, 90, `R${21 + i}`, { w: 44, h: 18 });
   }
-  label(1318, 316, "R21–R26 · 0603", "silk--warm", "end");
+  label(1348, 300, "R21–R26 · 0603", "silk--warm", "end");
 
   // inductor
   (() => {
@@ -680,38 +800,33 @@
     [470, 96, 0], [974, 96, 0], [470, 620, 0], [974, 620, 0],
   ];
   scatter.forEach(([x, y], i) => {
-    smd(x, y, i % 3 === 0 ? 90 : 0, null, { w: 20, h: 9, warm: i % 2 === 0 });
+    smd(x, y, i % 3 === 0 ? 90 : 0, null, { w: 26, h: 12, warm: i % 2 === 0 });
   });
 
   /* --- extra realism: SOIC with pin-1 and legend, tantalums, micro silk --- */
   (() => {
     // second SOIC (op-amp) upper-left quadrant
-    label(250, 222, "U5 · OPA", "silk");
-    // tiny 0402 passives hugging a QFN, like real decoupling
-    for (let i = 0; i < 4; i++) {
-      smdBody(126 + (i % 2) * 26, 292 + Math.floor(i / 2) * 20, 15, 8, i % 2 ? 90 : 0, { warm: i % 2 === 0 });
-    }
     // tantalum caps: chamfered body + polarity bar
     const tantalum = (x, y, rot) => {
       const g = svgEl("g", { transform: `translate(${x} ${y}) rotate(${rot})` });
       const L = localLight(rot);
-      dropShadow(g, 38, 22, 2.5, rot, 2.2);
+      dropShadow(g, 48, 30, 3, rot, 3.0, 1.5);
       // solder terminations
-      termination(g, -19, -10, 4.6, 20, rot, L, { top: "#9fabb5", side: "#4d5760" });
-      termination(g, 14.4, -10, 4.6, 20, rot, L, { top: "#9fabb5", side: "#4d5760" });
+      termination(g, -24, -13, 5.6, 26, rot, L, { top: "#9fabb5", side: "#4d5760" });
+      termination(g, 18.4, -13, 5.6, 26, rot, L, { top: "#9fabb5", side: "#4d5760" });
       // moulded body: higher than a ceramic chip, rounded shoulders
-      block3D(g, -15, -10, 30, 20, 3.4, 4.6, "url(#bodyTanGrad)", "#6d4a13", L);
+      block3D(g, -19, -13, 38, 26, 4, 10, "url(#bodyTanGrad)", "#8a6218", L, { sideBase: "#a8791f" });
       // top face lighting
-      g.appendChild(svgEl("rect", { x: -13.4, y: -8.8, width: 26.8, height: 5.2, rx: 2, fill: "rgba(255,255,255,0.26)" }));
-      g.appendChild(svgEl("rect", { x: -13.4, y: 3.2, width: 26.8, height: 4.4, rx: 1.8, fill: "rgba(0,0,0,0.18)" }));
+      g.appendChild(svgEl("rect", { x: -17, y: -11.4, width: 34, height: 6.6, rx: 2.4, fill: "rgba(255,255,255,0.28)" }));
+      g.appendChild(svgEl("rect", { x: -17, y: 4.2, width: 34, height: 5.6, rx: 2.2, fill: "rgba(0,0,0,0.2)" }));
       // polarity band
-      g.appendChild(svgEl("rect", { x: 6, y: -9.4, width: 7.4, height: 18.8, rx: 1.6, fill: "rgba(52,32,6,0.6)" }));
-      g.appendChild(svgEl("path", { d: "M7.8 -2.4h4M9.8 -4.4v4", stroke: "rgba(255,255,255,0.55)", "stroke-width": "0.9" }));
+      g.appendChild(svgEl("rect", { x: 7.6, y: -12.2, width: 9.4, height: 24.4, rx: 1.8, fill: "rgba(52,32,6,0.62)" }));
+      g.appendChild(svgEl("path", { d: "M9.9 -3h5M12.4 -5.5v5", stroke: "rgba(255,255,255,0.6)", "stroke-width": "1.1" }));
       gParts.appendChild(g);
     };
-    tantalum(424, 566, 0);
-    tantalum(472, 566, 0);
-    label(448, 592, "C41 · C42 · 10 µF", "silk");
+    tantalum(438, 596, 0);
+    tantalum(502, 596, 0);
+    label(438, 690, "C41 · C42 · 10 µF", "silk", "start");
     // micro silkscreen: fab panel in the free top strip
     label(760, 30, "OPENTRACE LABS · REV 3.1 · 2026‑11", "silk", "middle");
   })();
@@ -775,7 +890,7 @@
       if (x < 320 || x > W - 320) continue;
       if (y < 120 || y > H - 120) continue;
       const tangent = (a * 180) / Math.PI + 90;
-      smdBody(x, y, 16, 8, tangent, { warm: i % 3 === 0 });
+      smdBody(x, y, 21, 11, tangent, { warm: i % 3 === 0 });
       // short stitch to a via just outside
       const vx = CX + Math.cos(a) * (r + 17);
       const vy = CY + Math.sin(a) * (r + 17);
