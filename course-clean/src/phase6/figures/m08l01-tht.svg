@@ -1,0 +1,21 @@
+<svg viewBox='0 0 940 350' xmlns='http://www.w3.org/2000/svg' role='img' aria-label='Through-hole joint cross-section with plated barrel, lead, top and bottom fillets and land; clearance ranges; worked tolerance example 0.80 mm lead in a 1.10 mm hole with 75 percent fill'><style>text{font-family:'IBM Plex Mono',monospace;fill:#e2e8f0}.d{fill:#94a3b8}.t{fill:#53d1cc}.r{fill:#f44336}.o{fill:#ff9800}</style>
+<rect x='60' y='110' width='120' height='70' fill='#475569'/><rect x='300' y='110' width='120' height='70' fill='#475569'/>
+<rect x='180' y='100' width='14' height='90' fill='#b87333'/><rect x='286' y='100' width='14' height='90' fill='#b87333'/>
+<rect x='60' y='100' width='134' height='10' fill='#b87333'/><rect x='286' y='100' width='134' height='10' fill='#b87333'/><rect x='60' y='180' width='134' height='10' fill='#b87333'/><rect x='286' y='180' width='134' height='10' fill='#b87333'/>
+<rect x='194' y='125' width='92' height='65' fill='rgba(83,209,204,.45)'/><path d='M150,190 L194,160 L194,190 Z M330,190 L286,160 L286,190 Z' fill='rgba(83,209,204,.45)'/>
+<rect x='222' y='40' width='36' height='160' fill='#94a3b8'/>
+<line x1='194' y1='125' x2='286' y2='125' stroke='#e2e8f0' stroke-dasharray='3 3'/><text x='240' y='120' font-size='9' text-anchor='middle'>fill 75 %</text>
+<text x='440' y='50' font-size='11'><tspan class='t'>lead</tspan> 0.80 ± 0.03 mm → 0.77-0.83</text>
+<text x='440' y='70' font-size='11'><tspan class='t'>finished hole</tspan> 1.10 ± 0.05 mm → 1.05-1.15</text>
+<text x='440' y='96' font-size='11'>diametral clearance = hole − lead</text>
+<text x='440' y='114' font-size='11'>  min 1.05 − 0.83 = 0.22 · nom 0.30 · max 0.38 mm</text>
+<text x='440' y='134' font-size='11'>radial clearance = diametral / 2 → 0.11 / 0.15 / 0.19 mm</text>
+<text x='440' y='160' font-size='11' class='d'>working ranges: diametral 0.10-0.30 mm, radial 0.05-0.15 mm</text>
+<text x='440' y='176' font-size='11' class='d'>fill is a process result — predict, then confirm by section/X-ray</text>
+<text x='60' y='222' font-size='10' class='d'>barrel (plated Cu) · lead · solder fill · top and bottom fillets · land</text>
+<rect x='20' y='230' width='860' height='1' fill='#334155'/>
+<text x='20' y='255' font-size='12' class='t'>WHY IT STAYS THROUGH-HOLE</text>
+<path d='M60,300 l0,-25 M60,275 l-6,8 M60,275 l6,8' stroke='#ff9800' stroke-width='2' fill='none'/><text x='80' y='290' font-size='11'>mechanical load (cable flex, mating force, vibration) passes through lead + fillets into the barrel</text>
+<text x='80' y='312' font-size='11'>power: current through barrel and fill — rate against the connector spec and IPC guidance, not hole size</text>
+<text x='20' y='334' font-size='10' class='d'>Acceptance per IPC-A-610 for the product class.</text>
+</svg>

@@ -25,6 +25,7 @@ const { LESSONS_PATH, readJson, writeJson } = require('./lib');
 const { merge } = require('./apply');
 const { normalise, stats } = require('./04-normalise');
 const { tighten } = require('./05-tighten');
+const { applyFigures } = require('../phase6/apply');
 
 const DRY = process.argv.includes('--dry');
 const BASELINE = path.join(__dirname, 'baseline-lessons.json');
@@ -45,6 +46,9 @@ console.log('sentences tightened         ' + t.changes);
 if (t.changes) Object.keys(t.byRule).forEach(function (k) {
   console.log('   ' + String(t.byRule[k]).padStart(3) + '  ' + k);
 });
+
+const figs = applyFigures(lessons);
+console.log('phase-6 figure fixes        ' + figs.length);
 
 /* Word counts move with the edit, so time is computed on the finished text. */
 const { checkLesson } = require('./schema');

@@ -1,0 +1,70 @@
+[
+ {
+  "id": "m06l01",
+  "section": 0,
+  "mode": "replace-figure",
+  "figure": "m06l01-reflow",
+  "caption": "SAC305 reflow profile with the lesson envelope: ramp 1-3 °C/s, soak 140-180 °C, 30-90 s above the 219 °C liquidus, peak 235-245 °C under the 250 °C ceiling, cooling ≥ 2 °C/s"
+ },
+ {
+  "id": "m03l01",
+  "section": 0,
+  "mode": "replace-figure",
+  "figure": "m03l01-aperture",
+  "caption": "Aperture geometry and paste release: area ratio ≥ 0.66 and aspect ratio ≥ 1.5; a thick foil with a narrow aperture gives low ratios and a short deposit"
+ },
+ {
+  "id": "m03l02",
+  "section": 0,
+  "mode": "replace-image",
+  "figure": "m03l02-ratios",
+  "caption": "Worked example: 0.25 × 0.25 mm aperture in 0.10 mm foil — area ratio 0.625 (below 0.66), aspect ratio 2.5",
+  "keepImage": true
+ },
+ {
+  "id": "m09l01",
+  "section": 0,
+  "mode": "replace-figure",
+  "figure": "m09l01-wave",
+  "caption": "Wave soldering line: fluxer, preheat, dual wave (turbulent chip wave first, laminar main wave second), cooling; single, dual, lambda and micro-wave types"
+ },
+ {
+  "id": "m09l04",
+  "section": 0,
+  "mode": "replace-image",
+  "figure": "m09l04-dwell",
+  "caption": "Dwell time t = L / v: 180 mm at 1.0 m/min gives 10.8 s against a 2-5 s window; fog height and board clearance are set together",
+  "keepImage": true
+ },
+ {
+  "id": "m14l04",
+  "section": 0,
+  "mode": "replace-image",
+  "figure": "m14l04-8d",
+  "caption": "The eight disciplines D1-D8 and where 8D reports usually fail: containment sold as correction, root cause without data, closure without an effectiveness metric",
+  "keepImage": true
+ },
+ {
+  "id": "m08l01",
+  "section": 0,
+  "mode": "replace-figure",
+  "figure": "m08l01-tht",
+  "caption": "Through-hole joint cross-section and the clearance stack: 0.80 ± 0.03 mm lead in a 1.10 ± 0.05 mm hole gives 0.22-0.38 mm diametral clearance; 75 % fill from the trial"
+ },
+ {
+  "id": "m12l04",
+  "section": 0,
+  "mode": "replace-image",
+  "figure": "m12l04-coatings",
+  "caption": "Coating families compared: typical dry-film thickness, barrier, rework and application method",
+  "keepImage": true
+ },
+ {
+  "id": "m03l06",
+  "section": 0,
+  "mode": "replace-image",
+  "figure": "m03l06-acceptance",
+  "caption": "Stencil acceptance checklist from the issued specification, plus the cleaning regime and lifetime tracking",
+  "keepImage": true
+ }
+]

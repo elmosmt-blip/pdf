@@ -1,0 +1,19 @@
+<svg viewBox='0 0 940 360' xmlns='http://www.w3.org/2000/svg' role='img' aria-label='Wave soldering line: fluxer, preheat, a dual wave with the turbulent chip wave first and the laminar main wave second, then cooling; wave types single, dual, lambda and micro-wave'><style>text{font-family:'IBM Plex Mono',monospace;fill:#e2e8f0}.d{fill:#94a3b8}.t{fill:#53d1cc}.r{fill:#f44336}.o{fill:#ff9800}</style>
+<text x='20' y='26' font-size='13' class='t'>WAVE LINE — board travels left to right, solder side down</text>
+<rect x='20' y='60' width='900' height='4' fill='#94a3b8'/><path d='M880,50 l20,12 l-20,12' fill='none' stroke='#94a3b8'/>
+<rect x='60' y='40' width='110' height='14' fill='#1e293b' stroke='#53d1cc'/><text x='115' y='51' font-size='9' text-anchor='middle'>PCB</text>
+<text x='100' y='90' font-size='12' class='t' text-anchor='middle'>FLUXER</text><path d='M85,100 l5,22 M100,100 l0,22 M115,100 l-5,22' stroke='#53d1cc' fill='none'/><text x='100' y='140' font-size='10' class='d' text-anchor='middle'>spray from below;</text><text x='100' y='153' font-size='10' class='d' text-anchor='middle'>solids checked on coupon</text>
+<text x='270' y='90' font-size='12' class='t' text-anchor='middle'>PREHEAT</text><rect x='200' y='100' width='140' height='16' fill='rgba(255,152,0,.45)'/><text x='270' y='140' font-size='10' class='d' text-anchor='middle'>top-side thermocouple,</text><text x='270' y='153' font-size='10' class='d' text-anchor='middle'>soak plateau before the wave</text>
+<text x='560' y='90' font-size='12' class='t' text-anchor='middle'>DUAL WAVE</text>
+<rect x='420' y='150' width='280' height='40' fill='rgba(83,209,204,.12)' stroke='#334155'/>
+<path d='M440,150 C455,150 462,112 470,108 C476,104 480,118 486,106 C492,118 498,104 504,110 C512,118 516,150 530,150' fill='rgba(83,209,204,.4)' stroke='#53d1cc'/>
+<path d='M560,150 C590,150 610,104 650,104 C690,104 710,150 740,150' fill='rgba(83,209,204,.4)' stroke='#53d1cc'/>
+<text x='485' y='208' font-size='11' text-anchor='middle'>1st: CHIP WAVE</text><text x='485' y='222' font-size='10' class='d' text-anchor='middle'>turbulent, narrow</text><text x='485' y='235' font-size='10' class='d' text-anchor='middle'>fills behind tall parts</text>
+<text x='650' y='208' font-size='11' text-anchor='middle'>2nd: MAIN WAVE</text><text x='650' y='222' font-size='10' class='d' text-anchor='middle'>laminar, smooth exit</text><text x='650' y='235' font-size='10' class='d' text-anchor='middle'>peels solder, clears bridges</text>
+<text x='560' y='255' font-size='10' class='d' text-anchor='middle'>solder pot · nitrogen hood optional: less dross, better wetting</text>
+<text x='840' y='90' font-size='12' class='t' text-anchor='middle'>COOLING</text><path d='M820,100 l0,26 M840,100 l0,26 M860,100 l0,26' stroke='#53d1cc'/><text x='840' y='140' font-size='10' class='d' text-anchor='middle'>sets the joint</text>
+<rect x='20' y='275' width='900' height='1' fill='#334155'/>
+<text x='20' y='297' font-size='11'><tspan class='t'>single</tspan>  one laminar wave for simple boards      <tspan class='t'>dual</tspan>  chip wave + laminar main wave for dense SMT undersides</text>
+<text x='20' y='317' font-size='11'><tspan class='t'>lambda</tspan>  long laminar wave, wide contact zone     <tspan class='t'>micro-wave</tspan>  narrow nozzle for small or selective areas</text>
+<text x='20' y='343' font-size='10' class='d'>Profile per IPC-7530; result judged against IPC-A-610 for the product class.</text>
+</svg>

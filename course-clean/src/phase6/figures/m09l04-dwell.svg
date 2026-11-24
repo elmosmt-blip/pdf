@@ -1,0 +1,18 @@
+<svg viewBox='0 0 940 380' xmlns='http://www.w3.org/2000/svg' role='img' aria-label='Dwell time equals contact length divided by conveyor speed; worked example 180 mm at 1.0 m/min gives 10.8 s against a 2-5 s window; fog height and board clearance set together'><style>text{font-family:'IBM Plex Mono',monospace;fill:#e2e8f0}.d{fill:#94a3b8}.t{fill:#53d1cc}.r{fill:#f44336}.o{fill:#ff9800}</style>
+<line x1='20' y1='120' x2='560' y2='120' stroke='#94a3b8' stroke-width='3'/><text x='20' y='110' font-size='11' class='d'>board underside, conveyor speed v →</text>
+<path d='M120,200 C170,200 200,128 290,124 C380,128 410,200 460,200' fill='rgba(83,209,204,.3)' stroke='#53d1cc'/>
+<line x1='200' y1='215' x2='380' y2='215' stroke='#e2e8f0' stroke-width='2'/><text x='290' y='232' font-size='11' text-anchor='middle'>effective contact length L</text>
+<line x1='480' y1='124' x2='480' y2='200' stroke='#e2e8f0' stroke-dasharray='3 3'/><text x='488' y='160' font-size='10' class='d'>fog height</text>
+<line x1='60' y1='124' x2='60' y2='200' stroke='#94a3b8' stroke-dasharray='3 3'/><text x='66' y='170' font-size='10' class='d'>clearance</text>
+<rect x='600' y='40' width='280' height='70' rx='6' fill='none' stroke='#53d1cc'/><text x='740' y='70' font-size='18' class='t' text-anchor='middle'>t = L / v</text><text x='740' y='96' font-size='9' class='d' text-anchor='middle'>t dwell s · L contact mm · v speed mm/s</text>
+<text x='600' y='140' font-size='11'>example: v = 1.0 m/min = 16.7 mm/s</text>
+<text x='600' y='160' font-size='11'>L = 180 mm → t = 180 / 16.7 = 10.8 s</text>
+<text x='600' y='182' font-size='11' class='r'>window 2-5 s → far too slow</text>
+<text x='600' y='204' font-size='11'>fix: v = 180/4 = 45 mm/s (2.7 m/min)</text>
+<text x='600' y='222' font-size='11'>     v = 180/3 = 60 mm/s (3.6 m/min)</text>
+<rect x='20' y='240' width='900' height='1' fill='#334155'/>
+<text x='20' y='264' font-size='11'><tspan class='t'>dwell windows:</tspan> typical 2-4 s · lead-free 3-5 s · heavy boards or chip + main wave up to about 6 s</text><text x='20' y='282' font-size='11' class='d'>anything above 6 s needs your own trial data to justify it</text>
+<text x='20' y='304' font-size='11'><tspan class='t'>preheat:</tspan> 90-130 °C on the board underside at wave entry · <tspan class='t'>flux solids:</tspan> 500-1500 µg/in² (0.8-2.3 g/m²)</text>
+<text x='20' y='326' font-size='11'>wave too high or clearance too small → early contact, long dwell, bridging</text><text x='20' y='344' font-size='11'>wave too low or clearance too large → no hole penetration, icicles, non-fill</text>
+<text x='20' y='366' font-size='10' class='d'>Set fog height and clearance together; measure L with a witness board; inspect the coupon against IPC-A-610.</text>
+</svg>

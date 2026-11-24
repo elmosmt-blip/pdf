@@ -1,0 +1,18 @@
+<svg viewBox='0 0 940 340' xmlns='http://www.w3.org/2000/svg' role='img' aria-label='Worked example of area ratio and aspect ratio for a 0.25 by 0.25 mm aperture in 0.10 mm foil: area ratio 0.625 below the 0.66 guidance, aspect ratio 2.5'><style>text{font-family:'IBM Plex Mono',monospace;fill:#e2e8f0}.d{fill:#94a3b8}.t{fill:#53d1cc}.r{fill:#f44336}.o{fill:#ff9800}</style>
+<text x='20' y='24' font-size='13' class='t'>APERTURE 0.25 × 0.25 mm, FOIL 0.10 mm</text>
+<rect x='90' y='60' width='110' height='110' fill='none' stroke='#53d1cc' stroke-width='2'/><text x='145' y='120' font-size='11' text-anchor='middle'>top view</text>
+<line x1='90' y1='185' x2='200' y2='185' stroke='#e2e8f0'/><text x='145' y='200' font-size='11' text-anchor='middle'>W = 0.25 mm</text>
+<line x1='75' y1='60' x2='75' y2='170' stroke='#e2e8f0'/><text x='68' y='118' font-size='11' text-anchor='end'>L=0.25</text>
+<rect x='250' y='90' width='40' height='40' fill='#475569'/><rect x='380' y='90' width='40' height='40' fill='#475569'/><rect x='290' y='90' width='90' height='40' fill='rgba(83,209,204,.35)' stroke='#53d1cc'/>
+<text x='335' y='80' font-size='11' text-anchor='middle'>section</text><line x1='435' y1='90' x2='435' y2='130' stroke='#e2e8f0'/><text x='442' y='114' font-size='10'>t = 0.10 mm</text>
+<text x='560' y='60' font-size='11'>aperture area   = 0.25 × 0.25 = 0.0625 mm²</text>
+<text x='560' y='82' font-size='11'>wall area       = 2·(0.25+0.25) × 0.10 = 0.10 mm²</text>
+<text x='560' y='110' font-size='12' class='r'>area ratio      = 0.0625 / 0.10 = 0.625  &lt; 0.66</text>
+<text x='560' y='136' font-size='12' class='t'>aspect ratio    = 0.25 / 0.10 = 2.5  (passes)</text>
+<text x='560' y='162' font-size='11'>theoretical vol = 0.0625 × 0.10 = 0.00625 mm³</text>
+<text x='560' y='184' font-size='11'>expected vol = 0.00625 × 0.85 = 0.0053125 mm³</text>
+<rect x='20' y='215' width='860' height='1' fill='#334155'/>
+<text x='20' y='245' font-size='12' class='r'>LOW area ratio</text><text x='150' y='245' font-size='11'>= small opening against a lot of wall. Fine pitch shrinks W and L while t stays: the ratio falls first.</text>
+<text x='20' y='270' font-size='11'>Aspect ratio alone can pass (2.5 here) while the area ratio fails — judge on both, and on the expected volume.</text>
+<text x='20' y='300' font-size='10' class='d'>Guidance value 0.66 per IPC-7525C; release also depends on paste rheology, wall finish, print speed, snap-off and pressure — verify with SPI.</text>
+</svg>
