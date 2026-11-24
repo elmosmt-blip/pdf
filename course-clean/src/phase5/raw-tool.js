@@ -26,6 +26,11 @@
  *     ## Corrections
  *     - 0.45 -> 0.5 :: why the original number was wrong, and the source.
  *
+ *     ## Solution
+ *     Replacement text for the worked calculation's solution (one paragraph
+ *     or several). Same guard as the theory: every number of the original
+ *     solution survives or is declared under Corrections.
+ *
  * A Correction is the ONLY way a number from the original may disappear. It
  * names the exact token that goes, the token that replaces it, and the reason;
  * the import still refuses any other lost number, and the correction travels
@@ -139,7 +144,7 @@ function main() {
 
   const md = fs.readFileSync(file, 'utf8');
   const chunks = md.split(/^## /m).filter(function (c) { return c.trim(); });
-  const theory = [], additions = { takeaways: [], mistakes: [], terms: [], corrections: [] };
+  const theory = [], additions = { takeaways: [], mistakes: [], terms: [], corrections: [], solution: null };
   chunks.forEach(function (chunk) {
     const lines = chunk.split('\n');
     const heading = lines.shift().trim();
@@ -153,6 +158,12 @@ function main() {
         const parts = x.split(/\s+::\s+/);
         return { mistake: (parts[0] || '').trim(), instead: (parts[1] || '').trim() };
       });
+      return;
+    }
+    if (/^solution$/i.test(heading)) {
+      additions.solution = body.split(/\n\s*\n/).map(function (p) {
+        return p.replace(/\s*\n\s*/g, ' ').replace(/\s{2,}/g, ' ').trim();
+      }).filter(Boolean).join(' ');
       return;
     }
     if (/^corrections$/i.test(heading)) {
@@ -179,6 +190,25 @@ function main() {
   const r = parseTheory(null, l, theory, additions.corrections);
 
   const problems = r.problems.slice();
+  /* The solution override is guarded exactly like the theory: nothing numeric
+   * from the original solution may vanish unless a Correction names it. */
+  if (additions.solution) {
+    const before = String((l.content.calc || {}).solution || '');
+    const tb = tokensOf(before), ta = tokensOf(additions.solution);
+    const counts = {}; ta.nums.forEach(function (n) { counts[n] = (counts[n] || 0) + 1; });
+    const allowance = {}; additions.corrections.forEach(function (c) { allowance[c.from] = (allowance[c.from] || 0) + 1; });
+    const lost = [];
+    tb.nums.forEach(function (n) {
+      if (counts[n]) { counts[n]--; return; }
+      if (allowance[n]) { allowance[n]--; return; }
+      if (lost.indexOf(n) < 0) lost.push(n);
+    });
+    if (lost.length) problems.push('solution: numbers that would be lost: ' + lost.join(', '));
+    const sa = new Set(ta.stds);
+    const lostStd = tb.stds.filter(function (x) { return !sa.has(x); });
+    if (lostStd.length) problems.push('solution: standards that would be lost: ' + Array.from(new Set(lostStd)).join(', '));
+    if (words(additions.solution).length < 40) problems.push('solution: under 40 words');
+  }
   if (additions.takeaways.length !== 3) problems.push('takeaways: ' + additions.takeaways.length + ' (need 3)');
   if (additions.mistakes.length !== 3) problems.push('mistakes: ' + additions.mistakes.length + ' (need 3)');
   if (additions.terms.length < 2) problems.push('glossary: ' + additions.terms.length + ' (need 2 or more)');
@@ -254,7 +284,8 @@ function main() {
     additions.terms.map(function (t) {
       return '    { term: ' + JSON.stringify(t.term) + ', def: ' + JSON.stringify(t.def) + ' }';
     }).join(',\n'),
-    '  ]' + (additions.corrections.length ? ',' : ''),
+    '  ]' + (additions.corrections.length || additions.solution ? ',' : ''),
+    additions.solution ? '  solution: ' + JSON.stringify(additions.solution) + (additions.corrections.length ? ',' : '') : '',
     additions.corrections.length ? '  corrections: [' : '',
     additions.corrections.map(function (c) {
       return '    { from: ' + JSON.stringify(c.from) + ', to: ' + JSON.stringify(c.to) + ', why: ' + JSON.stringify(c.why) + ' }';

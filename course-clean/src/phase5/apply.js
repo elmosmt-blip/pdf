@@ -145,6 +145,12 @@ lessons.forEach(function (l) {
     if (book.takeaways) l.content.takeaways = book.takeaways;
     if (book.mistakes) l.content.mistakes = book.mistakes;
     if (book.terms) l.content.terms = book.terms;
+    /* Worked-calculation solution override, guarded like a paragraph. */
+    if (book.solution) {
+      const goneS = missingNumbers((l.content.calc || {}).solution || '', book.solution, book.corrections);
+      if (goneS.length) errors.push(l.lessonId + '[solution]: numbers lost: ' + goneS.join(', '));
+      else l.content.calc.solution = book.solution;
+    }
     /* Audit trail for a corrected value: what changed, and why. */
     if (book.corrections && book.corrections.length) l.content.corrections = book.corrections;
     else delete l.content.corrections;

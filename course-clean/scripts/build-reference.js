@@ -101,7 +101,7 @@ const FORMULA_PATTERNS = [
   {
     name: 'Shadow length behind a tall part at the wave',
     expr: 'shadow = h × tan(θ)',
-    where: 'a line-of-sight screening estimate; h is the part height, θ the wave contact angle measured FROM VERTICAL, plus a 0.5 to 1.0 mm margin for turbulence and flux depletion. Lesson m08l03 writes the same screen as h / tan(angle) with the angle taken from the board surface, which is the complementary angle: keep the convention with the number',
+    where: 'a line-of-sight screening estimate; h is the part height, θ the wave contact angle measured FROM VERTICAL, plus a 0.5 to 1.0 mm margin for turbulence and flux depletion. Lesson m08l03 shows why the conveyor incline must not be used as that angle (it gives a 137 mm shadow that no line observes)',
     test: /shadow length = height|height \* tan|tan\(angle\)/i,
     lessons: ['m09l05']
   },

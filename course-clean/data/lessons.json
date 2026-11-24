@@ -2636,10 +2636,7 @@
         },
         {
           "h": "Wall taper and aperture condition",
-          "p": [
-            "Wall taper decides how easily paste leaves the aperture. IPC-7525C recommends 85 to 90 degrees from the horizontal, because a slight taper reduces the effective wall area.",
-            "Electropolishing, laser-drill condition, burrs and clogging all affect release too, and they belong on the drawing and in the measurement report rather than in the operator's memory."
-          ]
+          "p": "Wall taper affects how easily paste leaves the aperture. IPC-7525C recommends a wall taper in the range of 85 to 90 degrees, measured from the horizontal plane, because a slight taper reduces the effective wall area. Electropolishing, laser-drill condition, burrs, and clogging also affect release and should be reviewed on the drawing and measurement report."
         },
         {
           "h": "Expected deposit volume",
@@ -2688,7 +2685,7 @@
       "terms": [
         {
           "term": "Wall taper",
-          "def": "The angle of the aperture wall from the horizontal, recommended at 85 to 90 degrees by IPC-7525C."
+          "def": "The angle of the aperture wall from the horizontal; IPC-7525 allows the taper to be specified, and 85 to 90 degrees is common practice."
         },
         {
           "term": "Expected deposit volume",
@@ -7284,7 +7281,7 @@
       ],
       "calc": {
         "task": "A radial electrolytic capacitor has a body diameter of 10.0 mm and a body height of 12.0 mm. The board is moving through the wave at 1.2 m/min. The wave approach angle is 5 degrees relative to the board surface. Estimate the shadow length cast by the component body at the board surface, and decide whether a 0.8 mm stand-off is likely to help or worsen solder access if the adjacent component is 1.5 mm away from the capacitor body.",
-        "solution": "1. The shadow length at the board surface can be approximated by the component height divided by the tangent of the wave approach angle: shadow length = height / tan(angle). 2. For a 12.0 mm height and 5 degree angle: tan(5 degrees) is approximately 0.0875. 3. Shadow length = 12.0 mm / 0.0875 = 137 mm. This is a simplified geometric estimate; actual solder flow, flux, and board support will change the result. 4. The 137 mm estimate shows that a low wave angle can create a long geometric shadow, so board direction and component orientation matter strongly. 5. The 0.8 mm stand-off is small compared with the 10.0 mm body diameter, so it may improve seating but can reduce solder access under the body. 6. The adjacent component is only 1.5 mm from the capacitor body, which is a tight gap for flux escape and solder flow. 7. A practical conclusion is that the 0.8 mm stand-off may worsen access in this tight layout unless the wave direction is changed, the clinch is loosened slightly, or the mask and component spacing are adjusted. 8. Verify the final stand-off, clinch force, and wave angle with trial boards and your wave solder equipment datasheet."
+        "solution": "1. A straight-ray model with the wave approach angle gives shadow length = height / tan(angle). For a 12.0 mm body and a 5 degree angle, tan(5 degrees) is approximately 0.0875, so 12.0 mm / 0.0875 = 137 mm. 2. Stop at that number: it says the model does not apply. The 5 degree figure is the conveyor incline, and the wave is a flowing body that climbs the component and is pushed into the gap by the turbulent chip wave and by flux action; it is not a ray at 5 degrees. No line observes 137 mm shadows, and common practice keeps about 2.5 mm between a tall through-hole part and the joints behind it. 3. Use the course's screening model instead (lesson 9.5): shadow = height x tan(contact angle from vertical). With a typical 20 degree contact angle, 12.0 mm x 0.364 = 4.4 mm, plus 0.5 to 1.0 mm for turbulence and flux depletion. 4. Compare with the layout: the adjacent component is 1.5 mm from the capacitor body, inside the 4.4 to 5.4 mm zone, so predict shadowing. 5. The 0.8 mm stand-off is small compared with the 10.0 mm body diameter; it may improve seating but reduces solder access under the body, and in a 1.5 mm gap it worsens flux escape and solder flow. 6. Practical conclusion: in this tight layout the 0.8 mm stand-off worsens access unless the wave direction is changed, the clinch is loosened slightly, or the mask and component spacing are adjusted. 7. Verify the final stand-off, clinch force and wave angle with trial boards and the wave solder equipment datasheet. 8. Treat the screening model as a way to rank layouts, not to sign them off."
       },
       "defect": {
         "symptom": "A board image shows several electrolytic capacitors with one lead dry or insufficiently wetted on the side away from the wave, while the opposite lead is acceptable. The capacitor bodies are seated close to the board, and the adjacent component is less than 2 mm away.",

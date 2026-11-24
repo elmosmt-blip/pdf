@@ -26,7 +26,7 @@ module.exports = {
   },
   4: {
     p: [
-      "Wall taper decides how easily paste leaves the aperture. IPC-7525C recommends 85 to 90 degrees from the horizontal, because a slight taper reduces the effective wall area.",
+      "Wall taper decides how easily paste leaves the aperture. IPC-7525 describes the trapezoidal aperture, wider on the board side than on the squeegee side, as an aid to release and lets you specify the taper on the drawing; it does not fix an angle. Common practice is a wall at 85 to 90 degrees from the horizontal, that is up to about 5 degrees of taper, because a slight taper reduces the effective wall area.",
       "Electropolishing, laser-drill condition, burrs and clogging all affect release too, and they belong on the drawing and in the measurement report rather than in the operator's memory."
     ]
   },
@@ -58,7 +58,7 @@ module.exports = {
     { mistake: "Skipping the taper correction in the volume estimate", instead: "Apply it whenever the bottom opening is smaller, or the expected volume comes out optimistic." }
   ],
   terms: [
-    { term: "Wall taper", def: "The angle of the aperture wall from the horizontal, recommended at 85 to 90 degrees by IPC-7525C." },
+    { term: "Wall taper", def: "The angle of the aperture wall from the horizontal; IPC-7525 allows the taper to be specified, and 85 to 90 degrees is common practice." },
     { term: "Expected deposit volume", def: "Aperture volume corrected for taper and multiplied by transfer efficiency." },
     { term: "Measurement report", def: "The supplier's record of measured stencil characteristics against the issued drawing." },
     { term: "Qualified deviation", def: "A documented engineering approval to use a value outside the issued specification." }

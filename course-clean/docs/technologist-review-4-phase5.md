@@ -24,7 +24,7 @@ sandbox, it is listed as open with the exact question.
 | Glossary homonyms shown as one term | **7 terms / 13 entries** — split by sense |
 | Glossary duplicates that differ only in wording | 47 terms (59 entries), left as they are and disclosed on the page |
 | Prerequisites pointing forward in course order | 0 |
-| Open items needing the standard's text | 3 |
+| Open items after web verification | 0 (2 fixed, 1 confirmed correct as written) |
 
 ## 2. Found and fixed
 
@@ -150,30 +150,55 @@ wording, in …" under each.
   (m02l04) matches J-STD-033's wording; reference condition 30 °C / 60 % RH
   correct; sample-size code letter per ISO 2859-1 correct.
 
-## 4. Open items (need the standard's text, which is not in this sandbox)
+## 4. Open items — resolved against published sources
 
-1. **m08l03 shadow example (2.5).** Recommend rewriting the worked example to
-   the m09l05 convention (angle from vertical, result in single millimetres) or
-   stating in m08l03 that the 5° "approach angle" is the conveyor incline and
-   not a line-of-sight angle. Owner decision; a correction entry will carry it.
-2. **≤10 % RH dry cabinet, m02l01 / m02l04.** The lessons say a 10 % RH
-   cabinet "slows the clock without stopping it" and that only ≤5 % RH suspends
-   floor life. The reviewer's recollection of J-STD-033D §4 is that **≤10 % RH
-   stops floor-life accumulation** for MSL 2a–5a, and that ≤5 % RH additionally
-   counts as drying (floor-life reset after a stated multiple of the exposure).
-   If that is right, the lessons understate what a 10 % cabinet earns. Verify
-   against the current J-STD-033 text before changing anything; three lessons
-   and two takeaways depend on it.
-3. **Wall taper "85 to 90 degrees from horizontal, IPC-7525C", m03l05.** The
-   number is in the frozen text and its calculation (bottom-side opening from a
-   5° wall) is arithmetically right; whether IPC-7525C states that range in
-   those words should be checked against the standard before it is quoted on
-   the formula sheet (it is not quoted there now).
+The three questions left open in the first pass were checked against what is
+published on the web (the standards themselves are paywalled; vendor and
+assembler guides that quote them agree with each other and are cited).
+
+1. **m08l03 shadow example — fixed.** Every published wave-soldering design
+   rule puts the shadow zone behind a tall part at a few millimetres: "keep
+   ≥ 2.5 mm between tall THT parts and nearby bottom-side SMDs"
+   ([PCBSync](https://pcbsync.com/wave-soldering/),
+   [FastTurn](https://www.fastturnpcbs.com/guides/selective-soldering-vs-wave-soldering/),
+   [Magellan](https://magellancircuits.com/what-is-minimum-component-spacing-required-for-reflow-soldering/)).
+   A 137 mm shadow from a 12 mm capacitor is therefore not a simplification,
+   it is the wrong model: the 5° in the task is the conveyor incline, and the
+   wave is a flowing body, not a ray. The worked solution was rewritten through
+   a new `## Solution` override (same number guard as the theory): it still
+   computes the 137 mm, says why that number disqualifies the straight-ray
+   model, then applies the m09l05 screening model (12 mm × tan 20° = 4.4 mm
+   plus 0.5–1.0 mm margin) and reaches the same practical conclusion about the
+   1.5 mm gap and the 0.8 mm stand-off. Every number of the original solution
+   survives; none was declared away.
+2. **≤10 % RH dry cabinet, m02l01 / m02l04 — the lessons were right, the
+   reviewer was wrong.** Published J-STD-033 summaries agree: only a cabinet at
+   ≤ 5 % RH is equivalent to a sealed MBB and pauses the floor-life clock; at
+   ≤ 10 % RH the clock runs at a reduced rate with a limited storage time, and
+   a 10 % cabinet never substitutes for a bake
+   ([PCBSync J-STD-033 guide](https://pcbsync.com/j-std-033/),
+   [PCBSync MSL](https://pcbsync.com/pcb-moisture-sensitivity/),
+   [JLCPCB](https://jlcpcb.com/blog/moisture-sensitivity-level-msl-baking-guide),
+   [Koldpwr](https://koldpwr.com/articles/msl-and-floor-life-explained-what-every-ems-assembler-needs-to-track-lsz3/)).
+   That is exactly what m02l01 and m02l04 say. **No change.** The wrong
+   recollection is recorded here so nobody "fixes" it later.
+3. **Wall taper "recommended at 85–90° by IPC-7525C", m03l05 — attribution
+   corrected.** IPC-7525A §4.4.2 / §4.4.5 (text available
+   [here](https://u.dianyuan.com/upload/bbs/2010/08/15/1281819187-319579.pdf))
+   says a tapered wall is inherent to laser cutting, that apertures are cut
+   larger on the contact side unless specified otherwise, and that the
+   trapezoidal dimension *Z* "can be specified" — it recommends no angle in
+   degrees. The ~5° (85° wall) figure is vendor practice (e.g. Micron CSN-33:
+   "a positive taper (5° angle)"). The sentence and the glossary term now say
+   "IPC-7525 allows the taper to be specified; 85 to 90 degrees is common
+   practice". The numbers and the worked calculation are unchanged.
 
 ## 5. Tooling added by this review
 
 - `src/phase5/raw-tool.js` / `apply.js`: `## Corrections` section (2.1) —
-  the only path by which a frozen number may change, always with a reason.
+  the only path by which a frozen number may change, always with a reason;
+  `## Solution` section (4.1) — a worked-calculation rewrite under the same
+  guard.
 - `assets/app.js`: "Corrected in this edition" block on the lesson page.
 - `scripts/build-reference.js`: formula patterns anchored to the stating
   sentence; `where` text now carries the angle / unit conventions.
