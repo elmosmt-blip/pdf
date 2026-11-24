@@ -91,7 +91,7 @@ module.exports = {
   ],
   terms: [
     { term: "Fish-eye", def: "A circular area where coating fails to wet the surface, leaving bare substrate." },
-    { term: "Dewetting", def: "Coating pulling back from an area and leaving it thinly covered or uncovered." },
+    { term: "Dewetting (conformal coating)", def: "Coating pulling back from an area and leaving it thinly covered or uncovered." },
     { term: "Patch test", def: "A rapid extraction test that estimates ionic contamination over a defined area." },
     { term: "Dissipative", def: "A surface resistance range that bleeds charge away slowly enough to protect sensitive devices." }
   ]

@@ -67,7 +67,7 @@ module.exports = {
   ],
   terms: [
     { term: "Volume percentage", def: "Measured deposit volume as a percentage of the nominal aperture volume." },
-    { term: "Skew", def: "A consistent directional displacement of deposits across pads or panel locations." },
+    { term: "Skew (print offset)", def: "A consistent directional displacement of deposits across pads or panel locations." },
     { term: "Under-fill", def: "A deposit that is short in volume, height and area because the aperture did not fill or release." },
     { term: "Slumping", def: "Lateral flow of the deposit after release, producing a wider, flatter print." }
   ]

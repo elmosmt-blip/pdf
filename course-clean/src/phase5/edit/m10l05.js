@@ -66,7 +66,7 @@ module.exports = {
   terms: [
     { term: "Sacrificial board", def: "A production-equivalent board used for thermal or destructive testing." },
     { term: "Pull test", def: "A mechanical test that measures the force needed to separate a joint." },
-    { term: "Thermal budget", def: "The temperature and time a part may tolerate without damage." },
+    { term: "Thermal budget (component limit)", def: "The temperature and time a part may tolerate without damage." },
     { term: "Program revision", def: "The versioned record of path, dwell, pass and process settings." }
   ]
 };

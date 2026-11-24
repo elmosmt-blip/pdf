@@ -1545,6 +1545,19 @@
     return html;
   }
 
+  /* A value corrected after the baseline (raw file "## Corrections") is shown,
+   * not hidden: the reader sees what changed and why. */
+  function correctionsHtml(content) {
+    var c = content && Array.isArray(content.corrections) ? content.corrections : [];
+    if (!c.length) return '';
+    var html = '<section class="corrections"><h2>Corrected in this edition</h2><ul>';
+    c.forEach(function (x) {
+      html += '<li><code>' + esc(x.from) + '</code> → <code>' + esc(x.to) + '</code>' +
+        (x.why ? ' — ' + esc(x.why) : '') + '</li>';
+    });
+    return html + '</ul></section>';
+  }
+
   function slug(str) {
     return String(str).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   }
@@ -2354,6 +2367,7 @@
     html += termsHtml(content);
     html += quizSectionHtml(lesson);
     html += sourcesHtml(lesson);
+    html += correctionsHtml(content);
     html += pagerHtml(lesson);
     return html;
   }

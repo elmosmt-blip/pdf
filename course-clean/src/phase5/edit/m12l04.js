@@ -86,6 +86,6 @@ module.exports = {
     { term: "Dry-film thickness", def: "The coating thickness remaining after solvents have evaporated and cure is complete." },
     { term: "IPC-CC-830", def: "The qualification and performance standard for conformal coating materials." },
     { term: "Silicone migration", def: "The transfer of low-molecular silicone to nearby surfaces, raising contact resistance." },
-    { term: "Shadowing", def: "An area that line-of-sight cure cannot reach under a component or behind a tall part." }
+    { term: "Shadowing (conformal coating cure)", def: "An area that line-of-sight cure cannot reach under a component or behind a tall part." }
   ]
 };

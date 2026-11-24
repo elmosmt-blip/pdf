@@ -65,44 +65,44 @@ function readJson(file) {
 const FORMULA_PATTERNS = [
   {
     name: 'Area ratio (stencil aperture)',
-    expr: '(L × W) / (2 × (L + W) × T)',
-    where: 'release capability of a rectangular aperture; L and W are the aperture sides, T the foil thickness',
+    expr: 'AR = (L × W) / (2 × (L + W) × T)',
+    where: 'aperture opening area over sidewall area; L and W are the aperture sides, T the foil thickness. Release is usually acceptable at AR ≥ 0.66',
     test: /area ratio (?:is|=|of)|area ratio,? (?:is )?(?:calculated|defined)/i,
     lessons: ['m03l01', 'm03l02']
   },
   {
     name: 'Aspect ratio (stencil aperture)',
     expr: 'W / T',
-    where: 'release capability on the narrow side; W is aperture width, T the foil thickness',
+    where: 'narrowest aperture dimension W over foil thickness T; not the plated-hole aspect ratio (depth over diameter) of modules 8 and 9',
     test: /aspect ratio (?:is|=|of)/i,
     lessons: ['m03l01']
   },
   {
     name: 'Squeegee pressure per blade length',
     expr: 'p = F / L',
-    where: 'pressure in N/mm; F is the force applied to the blade, L the blade length',
+    where: 'N/mm; F is the force on the blade in N, L the blade length in mm. The course band is 0.2 to 0.6 N/mm (0.5 to 1.5 kg per 25 mm)',
     test: /pressure per (?:blade )?length|N\/mm/i,
     lessons: ['m04l03', 'm04l07']
   },
   {
-    name: 'Estimated dry-film thickness from wet film',
-    expr: 'DFT = WFT × (volume solids fraction)',
-    where: 'coating thickness after cure; WFT is the measured wet film, solids given as a fraction',
-    test: /DFT = WFT|volume solids/i,
-    lessons: ['m12l05']
+    name: 'Process capability, Cp and Cpk',
+    expr: 'Cp = (USL − LSL) / (6 × sd);  Cpk = min[(USL − mean), (mean − LSL)] / (3 × sd)',
+    where: 'capability of a stable process against its specification limits; Cp ignores centring, Cpk includes it',
+    test: /\bCpk\b/,
+    lessons: ['m04l05']
   },
   {
     name: 'Wave contact time from contact length',
     expr: 't = L / v',
-    where: 'dwell over the wave; L is the effective contact length, v the conveyor speed',
+    where: 'dwell over the wave in s; L is the effective contact length in mm, v the conveyor speed in mm/s',
     test: /t = L \/ v|contact length divided by|contact time is the contact length/i,
     lessons: ['m09l04']
   },
   {
-    name: 'Shadow length behind a lifted lead',
-    expr: 'shadow = height × tan(wave angle)',
-    where: 'the wake a tall part casts in the wave, plus a turbulence margin',
-    test: /shadow length|tan\(/i,
+    name: 'Shadow length behind a tall part at the wave',
+    expr: 'shadow = h × tan(θ)',
+    where: 'a line-of-sight screening estimate; h is the part height, θ the wave contact angle measured FROM VERTICAL, plus a 0.5 to 1.0 mm margin for turbulence and flux depletion. Lesson m08l03 writes the same screen as h / tan(angle) with the angle taken from the board surface, which is the complementary angle: keep the convention with the number',
+    test: /shadow length = height|height \* tan|tan\(angle\)/i,
     lessons: ['m09l05']
   },
   {
@@ -113,32 +113,32 @@ const FORMULA_PATTERNS = [
     lessons: ['m11l02']
   },
   {
-    name: 'Process capability index',
-    expr: 'Cpk = min[(USL − mean), (mean − LSL)] / (3 × sd)',
-    where: 'capability of a stable process against its specification limits',
-    test: /\bCpk\b/,
-    lessons: ['m04l05']
+    name: 'Dry-film thickness from wet film',
+    expr: 'DFT = WFT × (volume solids fraction)',
+    where: 'coating thickness after cure; WFT is the measured wet film, volume solids as a fraction (45 % → 0.45)',
+    test: /DFT = WFT/i,
+    lessons: ['m12l05']
   },
   {
-    name: 'Defect rate in parts per million',
-    expr: 'ppm = (defects / opportunities) × 1,000,000',
-    where: 'defect rate normalised by the opportunity count the report states',
-    test: /ppm|parts per million/i,
-    lessons: ['m13l05', 'm14l05']
+    name: 'Residual escape rate of an inspection and test strategy',
+    expr: 'escape ppm = Σ occurrence_i × (1 − detection_i)',
+    where: 'per defect class i: occurrence rate in ppm times the fraction the strategy does not detect; weighted coverage is 1 − escape / Σ occurrence',
+    test: /residual escape rate is the occurrence rate multiplied|Residual escape =/i,
+    lessons: ['m13l05']
+  },
+  {
+    name: 'Suspect quantity for containment',
+    expr: 'suspect boards = production rate × suspect window',
+    where: 'the window runs from the earliest credible suspect time (last verified good, or the last material or setting change if earlier) to the line stop',
+    test: /Multiply 20 boards\/min by 40 min|suspect window/i,
+    lessons: ['m14l03']
   },
   {
     name: 'Sample size for a no-defect demonstration',
     expr: 'n = ln(1 − confidence) / ln(1 − p)',
-    where: 'units needed to show a defect rate p with no defect found',
-    test: /n = ln\(1 \/ confidence|ln\(0\.05\)/i,
+    where: 'units that must all pass to show a defect rate no worse than p at the stated confidence (binomial upper bound)',
+    test: /n = ln\(|ln\(0\.05\)/i,
     lessons: ['m15l01']
-  },
-  {
-    name: 'Escape count from a defect rate',
-    expr: 'escapes = boards × (escape rate)',
-    where: 'how many defective units reach the next stage at a stated rate',
-    test: /escape rate|escape count/i,
-    lessons: ['m14l03']
   }
 ];
 

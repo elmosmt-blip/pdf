@@ -65,6 +65,6 @@ module.exports = {
     { term: "Wake", def: "The region downstream of an obstacle where the solder wave is disturbed or absent." },
     { term: "Wave-side lead protrusion", def: "The length of lead standing proud of the solder side after clinching." },
     { term: "Carrier", def: "A fixture that holds the board flat through the wave." },
-    { term: "Drainage", def: "The path that lets flux and air escape from under a board or mask." }
+    { term: "Drainage (flux and gas venting)", def: "The path that lets flux and air escape from under a board or mask." }
   ]
 };

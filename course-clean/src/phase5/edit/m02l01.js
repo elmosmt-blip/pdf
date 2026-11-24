@@ -66,6 +66,6 @@ module.exports = {
     { term: "Popcorn effect", def: "Package cracking or interface separation caused by moisture vaporising during reflow." },
     { term: "Moisture sensitivity level", def: "The J-STD-020 classification of how much ambient exposure a non-hermetic package tolerates before reflow." },
     { term: "Floor life", def: "The ambient exposure a moisture-sensitive device may accumulate before it must be baked." },
-    { term: "Delamination", def: "Separation between layers inside a package, such as mold compound and die or substrate." }
+    { term: "Delamination (package)", def: "Separation between layers inside a package, such as mold compound and die or substrate." }
   ]
 };

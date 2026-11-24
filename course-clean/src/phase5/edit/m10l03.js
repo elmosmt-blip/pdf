@@ -65,7 +65,7 @@ module.exports = {
   terms: [
     { term: "Attenuation length", def: "The distance over which the temperature rise from a source falls by a factor of e." },
     { term: "Thermal resistance", def: "How strongly a path resists heat flow; the lowest-resistance path carries the most heat." },
-    { term: "Moisture sensitivity level", def: "The J-STD-020 class that limits how much thermal exposure a package may take." },
+    { term: "Moisture sensitivity level", def: "The J-STD-020 class that states how long a package may sit in factory ambient before reflow; it does not raise or lower the peak temperature the package tolerates." },
     { term: "Thermal shield", def: "A physical barrier that reduces radiant or convective heat reaching a part." }
   ]
 };

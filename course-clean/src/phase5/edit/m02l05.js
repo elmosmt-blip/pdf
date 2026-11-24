@@ -60,7 +60,7 @@ module.exports = {
   ],
   mistakes: [
     { mistake: "Treating a grounded-looking rack as bonded", instead: "Measure the bonding path to the EPA reference and inspect contact surfaces for paint or insulation." },
-    { mistake: "Using a 10 % RH cabinet or an unmonitored ionizer as a substitute for grounding", instead: "Qualify each control to its own standard and keep the test records with the equipment." },
+    { mistake: "Treating a dry cabinet or an unmonitored ionizer as a substitute for grounding", instead: "Qualify each control to its own standard and keep the test records with the equipment." },
     { mistake: "Closing an audit finding on a visual check", instead: "Verify closure with a repeat test or re-audit record." }
   ],
   terms: [

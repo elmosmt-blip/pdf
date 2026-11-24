@@ -17,7 +17,7 @@ module.exports = {
   2: {
     p: [
       "Squeegee pressure is force per unit of blade length, never a bare force, because 100 N is a light touch on a 400 mm blade and a crushing load on a 100 mm blade. Low pressure leaves apertures underfilled, especially small ones or high aspect ratio stencils. High pressure drives paste under the stencil, wears the blade, deforms the stencil and disturbs the paste roll.",
-      "Industry guidance clusters around 0.45 to 0.70 kg per 25 mm of blade, which is 0.2 to 0.6 N/mm; work in N/mm and state the blade length with every setting, because 0.2 N/mm on a 250 mm blade is 50 N and 0.6 N/mm is 150 N. Start at the lower end and raise it until the stencil wipes clean, then verify against the paste and equipment datasheet and the printed deposit."
+      "Industry guidance clusters around 0.5 to 1.5 kg per 25 mm of blade, which is 0.2 to 0.6 N/mm; work in N/mm and state the blade length with every setting, because 0.2 N/mm on a 250 mm blade is 50 N and 0.6 N/mm is 150 N. Start at the lower end and raise it until the stencil wipes clean, then verify against the paste and equipment datasheet and the printed deposit."
     ]
   },
   3: {
@@ -66,5 +66,9 @@ module.exports = {
     { term: "Separation", def: "The stencil-to-board gap set at the start of the print stroke." },
     { term: "Paste roll", def: "The bead of paste that rolls ahead of the squeegee and feeds the apertures." },
     { term: "Wipe cycle", def: "The interval and method used to clean the stencil underside between prints." }
+  ],
+  corrections: [
+    { from: "0.45", to: "0.5", why: "0.45 kg per 25 mm is 0.18 N/mm, not 0.2 N/mm; the kilogram band is restated as the exact equivalent of the 0.2 to 0.6 N/mm band the lesson, its calculation and m04l07 all use." },
+    { from: "0.70", to: "1.5", why: "0.70 kg per 25 mm is 0.27 N/mm, not 0.6 N/mm; 0.6 N/mm on 25 mm is 15 N, which is 1.5 kg." }
   ]
 };

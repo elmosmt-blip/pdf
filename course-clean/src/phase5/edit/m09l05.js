@@ -68,6 +68,6 @@ module.exports = {
     { term: "Low-energy zone", def: "The region behind an obstacle where the wave arrives weakened and cooled." },
     { term: "Projected height", def: "The obstacle dimension that faces the wave travel direction." },
     { term: "Pallet opening", def: "The cut-out that exposes a joint to the wave through the fixture." },
-    { term: "Drainage", def: "How readily solder leaves the joint after the wave passes." }
+    { term: "Drainage (wave soldering)", def: "How readily solder leaves the joint after the wave passes." }
   ]
 };

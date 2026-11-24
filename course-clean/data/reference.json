@@ -4,7 +4,7 @@
   "generatedFor": "phase 5: glossary and formula reference",
   "counts": {
     "lessons": 92,
-    "terms": 302,
+    "terms": 309,
     "formulas": 11
   },
   "terms": [
@@ -104,8 +104,15 @@
       "alsoDefinedIn": [
         "m03l02",
         "m03l03",
-        "m04l01",
-        "m08l02",
+        "m04l01"
+      ]
+    },
+    {
+      "term": "Aspect ratio (plated through-hole)",
+      "def": "Hole depth divided by hole diameter, which governs how easily solder fills the barrel.",
+      "definedIn": "m08l02",
+      "moduleId": "m08",
+      "alsoDefinedIn": [
         "m09l06"
       ]
     },
@@ -492,13 +499,18 @@
       "alsoDefinedIn": []
     },
     {
-      "term": "Delamination",
+      "term": "Delamination (board laminate)",
+      "def": "Separation between layers of laminate within the board.",
+      "definedIn": "m11l04",
+      "moduleId": "m11",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Delamination (package)",
       "def": "Separation between layers inside a package, such as mold compound and die or substrate.",
       "definedIn": "m02l01",
       "moduleId": "m02",
-      "alsoDefinedIn": [
-        "m11l04"
-      ]
+      "alsoDefinedIn": []
     },
     {
       "term": "Design rule",
@@ -553,9 +565,15 @@
       "definedIn": "m06l02",
       "moduleId": "m06",
       "alsoDefinedIn": [
-        "m06l06",
-        "m12l06"
+        "m06l06"
       ]
+    },
+    {
+      "term": "Dewetting (conformal coating)",
+      "def": "Coating pulling back from an area and leaving it thinly covered or uncovered.",
+      "definedIn": "m12l06",
+      "moduleId": "m12",
+      "alsoDefinedIn": []
     },
     {
       "term": "Diametral clearance",
@@ -617,13 +635,18 @@
       "alsoDefinedIn": []
     },
     {
-      "term": "Drainage",
+      "term": "Drainage (flux and gas venting)",
       "def": "The path that lets flux and air escape from under a board or mask.",
       "definedIn": "m08l04",
       "moduleId": "m08",
-      "alsoDefinedIn": [
-        "m09l05"
-      ]
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Drainage (wave soldering)",
+      "def": "How readily solder leaves the joint after the wave passes.",
+      "definedIn": "m09l05",
+      "moduleId": "m09",
+      "alsoDefinedIn": []
     },
     {
       "term": "Dross",
@@ -1678,9 +1701,14 @@
       "def": "A dry or starved joint caused by geometry blocking the solder wave.",
       "definedIn": "m08l03",
       "moduleId": "m08",
-      "alsoDefinedIn": [
-        "m12l04"
-      ]
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Shadowing (conformal coating cure)",
+      "def": "An area that line-of-sight cure cannot reach under a component or behind a tall part.",
+      "definedIn": "m12l04",
+      "moduleId": "m12",
+      "alsoDefinedIn": []
     },
     {
       "term": "Shelf life",
@@ -1712,13 +1740,19 @@
     },
     {
       "term": "Skew",
+      "def": "Angular misalignment of a placed component against the board coordinate system.",
+      "definedIn": "m05l03",
+      "moduleId": "m05",
+      "alsoDefinedIn": [
+        "m05l04"
+      ]
+    },
+    {
+      "term": "Skew (print offset)",
       "def": "A consistent directional displacement of deposits across pads or panel locations.",
       "definedIn": "m04l06",
       "moduleId": "m04",
-      "alsoDefinedIn": [
-        "m05l03",
-        "m05l04"
-      ]
+      "alsoDefinedIn": []
     },
     {
       "term": "Slot nozzle",
@@ -1907,12 +1941,18 @@
       "alsoDefinedIn": []
     },
     {
-      "term": "Thermal budget",
+      "term": "Thermal budget (component limit)",
       "def": "The temperature and time a part may tolerate without damage.",
       "definedIn": "m10l05",
       "moduleId": "m10",
+      "alsoDefinedIn": []
+    },
+    {
+      "term": "Thermal budget (rework)",
+      "def": "The combination of tip temperature, contact time and heat cycles a joint receives.",
+      "definedIn": "m11l01",
+      "moduleId": "m11",
       "alsoDefinedIn": [
-        "m11l01",
         "m11l02"
       ]
     },
@@ -2241,8 +2281,8 @@
   "formulas": [
     {
       "name": "Area ratio (stencil aperture)",
-      "expr": "(L × W) / (2 × (L + W) × T)",
-      "where": "release capability of a rectangular aperture; L and W are the aperture sides, T the foil thickness",
+      "expr": "AR = (L × W) / (2 × (L + W) × T)",
+      "where": "aperture opening area over sidewall area; L and W are the aperture sides, T the foil thickness. Release is usually acceptable at AR ≥ 0.66",
       "lessonId": "m03l01",
       "lessonTitle": "The paste volume budget: what the joint needs before the aperture is drawn",
       "moduleId": "m03",
@@ -2260,7 +2300,7 @@
     {
       "name": "Aspect ratio (stencil aperture)",
       "expr": "W / T",
-      "where": "release capability on the narrow side; W is aperture width, T the foil thickness",
+      "where": "narrowest aperture dimension W over foil thickness T; not the plated-hole aspect ratio (depth over diameter) of modules 8 and 9",
       "lessonId": "m03l01",
       "lessonTitle": "The paste volume budget: what the joint needs before the aperture is drawn",
       "moduleId": "m03",
@@ -2276,20 +2316,20 @@
     {
       "name": "Squeegee pressure per blade length",
       "expr": "p = F / L",
-      "where": "pressure in N/mm; F is the force applied to the blade, L the blade length",
+      "where": "N/mm; F is the force on the blade in N, L the blade length in mm. The course band is 0.2 to 0.6 N/mm (0.5 to 1.5 kg per 25 mm)",
       "lessonId": "m04l03",
       "lessonTitle": "Printer setup: squeegee pressure and speed, snap-off, separation, wipe cycle",
       "moduleId": "m04",
       "alsoUsedIn": [
         "m04l07"
       ],
-      "quote": "Industry guidance clusters around 0.45 to 0.70 kg per 25 mm of blade, which is 0.2 to 0.6 N/mm; work in N/mm and state the blade length with every setting, because 0.2 N/mm on a 250 mm blade is 50 N and 0.6 N/mm is 150 N.",
+      "quote": "Industry guidance clusters around 0.5 to 1.5 kg per 25 mm of blade, which is 0.2 to 0.6 N/mm; work in N/mm and state the blade length with every setting, because 0.2 N/mm on a 250 mm blade is 50 N and 0.6 N/mm is 150 N.",
       "heading": "Squeegee pressure"
     },
     {
-      "name": "Process capability index",
-      "expr": "Cpk = min[(USL − mean), (mean − LSL)] / (3 × sd)",
-      "where": "capability of a stable process against its specification limits",
+      "name": "Process capability, Cp and Cpk",
+      "expr": "Cp = (USL − LSL) / (6 × sd);  Cpk = min[(USL − mean), (mean − LSL)] / (3 × sd)",
+      "where": "capability of a stable process against its specification limits; Cp ignores centring, Cpk includes it",
       "lessonId": "m04l05",
       "lessonTitle": "SPI as process evidence: mean, spread, capability, stop/adjust decisions",
       "moduleId": "m04",
@@ -2302,7 +2342,7 @@
     {
       "name": "Wave contact time from contact length",
       "expr": "t = L / v",
-      "where": "dwell over the wave; L is the effective contact length, v the conveyor speed",
+      "where": "dwell over the wave in s; L is the effective contact length in mm, v the conveyor speed in mm/s",
       "lessonId": "m09l04",
       "lessonTitle": "Contact time and fog height: dwell calculation, wave height vs board clearance",
       "moduleId": "m09",
@@ -2311,19 +2351,17 @@
       "heading": "Contact time and why it matters"
     },
     {
-      "name": "Shadow length behind a lifted lead",
-      "expr": "shadow = height × tan(wave angle)",
-      "where": "the wake a tall part casts in the wave, plus a turbulence margin",
+      "name": "Shadow length behind a tall part at the wave",
+      "expr": "shadow = h × tan(θ)",
+      "where": "a line-of-sight screening estimate; h is the part height, θ the wave contact angle measured FROM VERTICAL, plus a 0.5 to 1.0 mm margin for turbulence and flux depletion. Lesson m08l03 writes the same screen as h / tan(angle) with the angle taken from the board surface, which is the complementary angle: keep the convention with the number",
       "lessonId": "m09l05",
       "lessonTitle": "Shadowing and orientation: shading, pallets, board direction, lead geometry",
       "moduleId": "m09",
       "alsoUsedIn": [
-        "m03l05",
-        "m08l03",
-        "m08l04"
+        "m08l03"
       ],
-      "quote": "Board direction changes the shadow length, because the same component presents a different projected height to the wave.",
-      "heading": "Board and wave direction"
+      "quote": "Estimate shadow length using a line-of-sight model: shadow length = height * tan(angle).",
+      "heading": "Worked calculation"
     },
     {
       "name": "Thermal budget index for hand rework",
@@ -2337,57 +2375,42 @@
       "heading": "Worked calculation"
     },
     {
-      "name": "Estimated dry-film thickness from wet film",
+      "name": "Dry-film thickness from wet film",
       "expr": "DFT = WFT × (volume solids fraction)",
-      "where": "coating thickness after cure; WFT is the measured wet film, solids given as a fraction",
+      "where": "coating thickness after cure; WFT is the measured wet film, volume solids as a fraction (45 % → 0.45)",
       "lessonId": "m12l05",
       "lessonTitle": "Application and masking: spray, dip, selective, thickness, cure, repairability",
       "moduleId": "m12",
       "alsoUsedIn": [],
-      "quote": "The coating has a volume solids content of 45% by volume.",
+      "quote": "Step 1: Use the relationship between wet film thickness, dry film thickness, and volume solids: DFT = WFT × volume solids fraction.",
       "heading": "Worked calculation"
     },
     {
-      "name": "Defect rate in parts per million",
-      "expr": "ppm = (defects / opportunities) × 1,000,000",
-      "where": "defect rate normalised by the opportunity count the report states",
+      "name": "Residual escape rate of an inspection and test strategy",
+      "expr": "escape ppm = Σ occurrence_i × (1 − detection_i)",
+      "where": "per defect class i: occurrence rate in ppm times the fraction the strategy does not detect; weighted coverage is 1 − escape / Σ occurrence",
       "lessonId": "m13l05",
       "lessonTitle": "Coverage math: node vs defect coverage, escape risk, where inspection ends and test starts",
       "moduleId": "m13",
-      "alsoUsedIn": [
-        "m05l04",
-        "m14l01",
-        "m14l03",
-        "m14l04",
-        "m14l05",
-        "m14l06",
-        "m15l01"
-      ],
-      "quote": "Use SI units such as millimetre and micrometre for physical inspection limits, and ppm as the dimensionless rate for escape risk.",
-      "heading": "Coverage math needs a defect model"
+      "alsoUsedIn": [],
+      "quote": "Where a defect class occurs at a known rate and a method detects a fraction of it, the residual escape rate is the occurrence rate multiplied by the undetected fraction.",
+      "heading": "Escape risk is coverage plus occurrence"
     },
     {
-      "name": "Escape count from a defect rate",
-      "expr": "escapes = boards × (escape rate)",
-      "where": "how many defective units reach the next stage at a stated rate",
+      "name": "Suspect quantity for containment",
+      "expr": "suspect boards = production rate × suspect window",
+      "where": "the window runs from the earliest credible suspect time (last verified good, or the last material or setting change if earlier) to the line stop",
       "lessonId": "m14l03",
       "lessonTitle": "Containment and traceability: quarantine scope, lot trace, retroactive search",
       "moduleId": "m14",
-      "alsoUsedIn": [
-        "m07l02",
-        "m07l03",
-        "m13l05",
-        "m14l01",
-        "m14l02",
-        "m14l05"
-      ],
-      "quote": "Measure effectiveness with a metric tied to the defect: solder defect ppm, first pass yield, rework rate, test escape rate or audit findings.",
-      "heading": "Owners, dates and effectiveness metrics"
+      "alsoUsedIn": [],
+      "quote": "Calculate the suspect window, suspect board count, and quarantine quantity.",
+      "heading": "Worked calculation"
     },
     {
       "name": "Sample size for a no-defect demonstration",
       "expr": "n = ln(1 − confidence) / ln(1 − p)",
-      "where": "units needed to show a defect rate p with no defect found",
+      "where": "units that must all pass to show a defect rate no worse than p at the stated confidence (binomial upper bound)",
       "lessonId": "m15l01",
       "lessonTitle": "How designers read process feedback: language, format, what gets acted on",
       "moduleId": "m15",
@@ -2496,12 +2519,7 @@
     },
     {
       "term": "Skew",
-      "first": "m04l06",
-      "again": "m05l03"
-    },
-    {
-      "term": "Skew",
-      "first": "m04l06",
+      "first": "m05l03",
       "again": "m05l04"
     },
     {
@@ -2540,11 +2558,6 @@
       "again": "m08l01"
     },
     {
-      "term": "Aspect ratio",
-      "first": "m03l01",
-      "again": "m08l02"
-    },
-    {
       "term": "Process window",
       "first": "m04l02",
       "again": "m08l02"
@@ -2560,13 +2573,8 @@
       "again": "m09l04"
     },
     {
-      "term": "Drainage",
-      "first": "m08l04",
-      "again": "m09l05"
-    },
-    {
-      "term": "Aspect ratio",
-      "first": "m03l01",
+      "term": "Aspect ratio (plated through-hole)",
+      "first": "m08l02",
       "again": "m09l06"
     },
     {
@@ -2590,18 +2598,13 @@
       "again": "m10l03"
     },
     {
-      "term": "Thermal budget",
-      "first": "m10l05",
-      "again": "m11l01"
-    },
-    {
       "term": "Wetting",
       "first": "m06l01",
       "again": "m11l01"
     },
     {
-      "term": "Thermal budget",
-      "first": "m10l05",
+      "term": "Thermal budget (rework)",
+      "first": "m11l01",
       "again": "m11l02"
     },
     {
@@ -2617,11 +2620,6 @@
     {
       "term": "Disposition",
       "first": "m07l05",
-      "again": "m11l04"
-    },
-    {
-      "term": "Delamination",
-      "first": "m02l01",
       "again": "m11l04"
     },
     {
@@ -2653,16 +2651,6 @@
       "term": "Ion chromatography",
       "first": "m09l01",
       "again": "m12l03"
-    },
-    {
-      "term": "Shadowing",
-      "first": "m08l03",
-      "again": "m12l04"
-    },
-    {
-      "term": "Dewetting",
-      "first": "m06l02",
-      "again": "m12l06"
     },
     {
       "term": "Boundary scan",

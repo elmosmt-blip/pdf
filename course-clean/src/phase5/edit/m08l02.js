@@ -69,7 +69,7 @@ module.exports = {
   ],
   terms: [
     { term: "Tolerance stack-up", def: "The combined worst-case effect of several independent tolerances on one gap." },
-    { term: "Aspect ratio", def: "Hole depth divided by hole diameter, which governs how easily solder fills the barrel." },
+    { term: "Aspect ratio (plated through-hole)", def: "Hole depth divided by hole diameter, which governs how easily solder fills the barrel." },
     { term: "Insertion force", def: "The force needed to push a lead into a plated hole, an indicator of clearance and burrs." },
     { term: "Process window", def: "The range of a parameter that produces acceptable results in production." }
   ]

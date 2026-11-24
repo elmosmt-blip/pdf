@@ -36,12 +36,17 @@ function tokens(text) {
   };
 }
 /* A merged paragraph may move a number, never drop one. */
-function missingNumbers(before, after) {
+function missingNumbers(before, after, corrections) {
   const have = {};
   tokens(after).numbers.forEach(function (n) { have[n] = (have[n] || 0) + 1; });
+  /* A declared correction (book.corrections, from the raw file's
+   * "## Corrections" section) releases one occurrence of the old value. */
+  const allow = {};
+  (corrections || []).forEach(function (c) { allow[c.from] = (allow[c.from] || 0) + 1; });
   const gone = [];
   tokens(before).numbers.forEach(function (n) {
     if (have[n]) have[n]--;
+    else if (allow[n]) allow[n]--;
     else gone.push(n);
   });
   return gone;
@@ -106,7 +111,7 @@ lessons.forEach(function (l) {
       const spec = book.paragraphs[key];
       const paras = Array.isArray(spec.p) ? spec.p : [spec.p];
       const joined = paras.join(' ');
-      const gone = missingNumbers(entry.p, joined);
+      const gone = missingNumbers(entry.p, joined, book.corrections);
       if (gone.length) {
         errors.push(l.lessonId + '[' + i + ']: numbers lost: ' + gone.join(', '));
         return;
@@ -140,6 +145,9 @@ lessons.forEach(function (l) {
     if (book.takeaways) l.content.takeaways = book.takeaways;
     if (book.mistakes) l.content.mistakes = book.mistakes;
     if (book.terms) l.content.terms = book.terms;
+    /* Audit trail for a corrected value: what changed, and why. */
+    if (book.corrections && book.corrections.length) l.content.corrections = book.corrections;
+    else delete l.content.corrections;
   }
   const changed = JSON.stringify(l.content) !== before || book;
   if (changed) edited++;

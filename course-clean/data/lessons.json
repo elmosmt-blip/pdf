@@ -1225,7 +1225,7 @@
           "def": "The ambient exposure a moisture-sensitive device may accumulate before it must be baked."
         },
         {
-          "term": "Delamination",
+          "term": "Delamination (package)",
           "def": "Separation between layers inside a package, such as mold compound and die or substrate."
         }
       ]
@@ -1795,7 +1795,7 @@
           "instead": "Measure the bonding path to the EPA reference and inspect contact surfaces for paint or insulation."
         },
         {
-          "mistake": "Using a 10 % RH cabinet or an unmonitored ionizer as a substitute for grounding",
+          "mistake": "Treating a dry cabinet or an unmonitored ionizer as a substitute for grounding",
           "instead": "Qualify each control to its own standard and keep the test records with the equipment."
         },
         {
@@ -3229,7 +3229,7 @@
           "h": "Squeegee pressure",
           "p": [
             "Squeegee pressure is force per unit of blade length, never a bare force, because 100 N is a light touch on a 400 mm blade and a crushing load on a 100 mm blade. Low pressure leaves apertures underfilled, especially small ones or high aspect ratio stencils. High pressure drives paste under the stencil, wears the blade, deforms the stencil and disturbs the paste roll.",
-            "Industry guidance clusters around 0.45 to 0.70 kg per 25 mm of blade, which is 0.2 to 0.6 N/mm; work in N/mm and state the blade length with every setting, because 0.2 N/mm on a 250 mm blade is 50 N and 0.6 N/mm is 150 N. Start at the lower end and raise it until the stencil wipes clean, then verify against the paste and equipment datasheet and the printed deposit."
+            "Industry guidance clusters around 0.5 to 1.5 kg per 25 mm of blade, which is 0.2 to 0.6 N/mm; work in N/mm and state the blade length with every setting, because 0.2 N/mm on a 250 mm blade is 50 N and 0.6 N/mm is 150 N. Start at the lower end and raise it until the stencil wipes clean, then verify against the paste and equipment datasheet and the printed deposit."
           ]
         },
         {
@@ -3312,6 +3312,18 @@
         {
           "term": "Wipe cycle",
           "def": "The interval and method used to clean the stencil underside between prints."
+        }
+      ],
+      "corrections": [
+        {
+          "from": "0.45",
+          "to": "0.5",
+          "why": "0.45 kg per 25 mm is 0.18 N/mm, not 0.2 N/mm; the kilogram band is restated as the exact equivalent of the 0.2 to 0.6 N/mm band the lesson, its calculation and m04l07 all use."
+        },
+        {
+          "from": "0.70",
+          "to": "1.5",
+          "why": "0.70 kg per 25 mm is 0.27 N/mm, not 0.6 N/mm; 0.6 N/mm on 25 mm is 15 N, which is 1.5 kg."
         }
       ]
     },
@@ -3747,7 +3759,7 @@
           "def": "Measured deposit volume as a percentage of the nominal aperture volume."
         },
         {
-          "term": "Skew",
+          "term": "Skew (print offset)",
           "def": "A consistent directional displacement of deposits across pads or panel locations."
         },
         {
@@ -7138,7 +7150,7 @@
           "def": "The combined worst-case effect of several independent tolerances on one gap."
         },
         {
-          "term": "Aspect ratio",
+          "term": "Aspect ratio (plated through-hole)",
           "def": "Hole depth divided by hole diameter, which governs how easily solder fills the barrel."
         },
         {
@@ -7456,7 +7468,7 @@
           "def": "A fixture that holds the board flat through the wave."
         },
         {
-          "term": "Drainage",
+          "term": "Drainage (flux and gas venting)",
           "def": "The path that lets flux and air escape from under a board or mask."
         }
       ]
@@ -8345,7 +8357,7 @@
           "def": "The cut-out that exposes a joint to the wave through the fixture."
         },
         {
-          "term": "Drainage",
+          "term": "Drainage (wave soldering)",
           "def": "How readily solder leaves the joint after the wave passes."
         }
       ]
@@ -8495,8 +8507,8 @@
           "def": "A void or crater in the joint caused by expanding trapped volatiles."
         },
         {
-          "term": "Aspect ratio",
-          "def": "Hole depth divided by hole diameter."
+          "term": "Aspect ratio (plated through-hole)",
+          "def": "Hole depth divided by hole diameter, the same name as the stencil ratio but a different quantity."
         },
         {
           "term": "Meniscus",
@@ -9162,7 +9174,7 @@
         },
         {
           "term": "Moisture sensitivity level",
-          "def": "The J-STD-020 class that limits how much thermal exposure a package may take."
+          "def": "The J-STD-020 class that states how long a package may sit in factory ambient before reflow; it does not raise or lower the peak temperature the package tolerates."
         },
         {
           "term": "Thermal shield",
@@ -9475,7 +9487,7 @@
           "def": "A mechanical test that measures the force needed to separate a joint."
         },
         {
-          "term": "Thermal budget",
+          "term": "Thermal budget (component limit)",
           "def": "The temperature and time a part may tolerate without damage."
         },
         {
@@ -9658,7 +9670,7 @@
       ],
       "terms": [
         {
-          "term": "Thermal budget",
+          "term": "Thermal budget (rework)",
           "def": "The combination of tip temperature, contact time and heat cycles a joint receives."
         },
         {
@@ -9817,7 +9829,7 @@
           "def": "A joint whose component moved while the solder was solidifying, leaving a rough surface."
         },
         {
-          "term": "Thermal budget",
+          "term": "Thermal budget (rework)",
           "def": "The written combination of setpoint, preheat, contact time and alloy allowed for a rework."
         },
         {
@@ -10138,7 +10150,7 @@
           "def": "The remaining weakness a repair leaves behind, accepted or rejected by the product owner."
         },
         {
-          "term": "Delamination",
+          "term": "Delamination (board laminate)",
           "def": "Separation between layers of laminate within the board."
         }
       ]
@@ -11152,7 +11164,7 @@
           "def": "The transfer of low-molecular silicone to nearby surfaces, raising contact resistance."
         },
         {
-          "term": "Shadowing",
+          "term": "Shadowing (conformal coating cure)",
           "def": "An area that line-of-sight cure cannot reach under a component or behind a tall part."
         }
       ]
@@ -11475,7 +11487,7 @@
           "def": "A circular area where coating fails to wet the surface, leaving bare substrate."
         },
         {
-          "term": "Dewetting",
+          "term": "Dewetting (conformal coating)",
           "def": "Coating pulling back from an area and leaving it thinly covered or uncovered."
         },
         {
@@ -13590,7 +13602,7 @@
         },
         {
           "term": "Detection escape",
-          "def": "The reason a defect was not found before it left the process."
+          "def": "The third cause category of an 8D: why the defect passed the inspection or test meant to catch it."
         },
         {
           "term": "Process capability",

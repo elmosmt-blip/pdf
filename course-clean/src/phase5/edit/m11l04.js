@@ -75,6 +75,6 @@ module.exports = {
     { term: "Annular ring", def: "The width of copper remaining around a drilled hole after plating." },
     { term: "Disposition", def: "The recorded decision to repair, rework, use as is or scrap an assembly." },
     { term: "Residual risk", def: "The remaining weakness a repair leaves behind, accepted or rejected by the product owner." },
-    { term: "Delamination", def: "Separation between layers of laminate within the board." }
+    { term: "Delamination (board laminate)", def: "Separation between layers of laminate within the board." }
   ]
 };

@@ -23,6 +23,16 @@
  *     ## Glossary
  *     - Term :: definition.
  *
+ *     ## Corrections
+ *     - 0.45 -> 0.5 :: why the original number was wrong, and the source.
+ *
+ * A Correction is the ONLY way a number from the original may disappear. It
+ * names the exact token that goes, the token that replaces it, and the reason;
+ * the import still refuses any other lost number, and the correction travels
+ * into the lesson record (content.corrections) so a reviewer can see what was
+ * changed in this edition and why. A silent fix in the baseline is not an
+ * option: the baseline is the evidence.
+ *
  * Rules the import enforces, because they are the acceptance criteria:
  *   - the number of theory sections is unchanged, and each keeps its topic
  *     (the first word of the heading must match the original);
@@ -52,7 +62,8 @@ function tokensOf(text) {
   return { nums: nums, stds: stds };
 }
 
-function parseTheory(lessons, l, sections) {
+function parseTheory(lessons, l, sections, corrections) {
+  corrections = corrections || [];
   /* The theory array interleaves prose with media blocks, so the units are the
    * prose items: media keeps its place, the Nth section lands in the Nth slot. */
   const prose = [];
@@ -95,8 +106,19 @@ function parseTheory(lessons, l, sections) {
   const lostNums = [];
   const counts = {};
   ta.nums.forEach(function (n) { counts[n] = (counts[n] || 0) + 1; });
+  /* A declared correction lets exactly one occurrence of `from` go, and
+   * requires `to` to be present in the new text — otherwise the correction is
+   * a deletion wearing a label. */
+  const allowance = {};
+  corrections.forEach(function (c) {
+    allowance[c.from] = (allowance[c.from] || 0) + 1;
+    if (!counts[c.to]) problems.push('correction ' + c.from + ' -> ' + c.to + ': the new value ' + c.to + ' is not in the text');
+    if (tb.nums.indexOf(c.from) < 0) problems.push('correction ' + c.from + ' -> ' + c.to + ': ' + c.from + ' is not in the original');
+    if (!c.why || words(c.why).length < 6) problems.push('correction ' + c.from + ' -> ' + c.to + ': give a reason of at least six words');
+  });
   tb.nums.forEach(function (n) {
     if (counts[n]) { counts[n]--; return; }
+    if (allowance[n]) { allowance[n]--; return; }
     if (lostNums.indexOf(n) < 0) lostNums.push(n);
   });
   if (lostNums.length) problems.push('numbers that would be lost: ' + lostNums.join(', '));
@@ -117,7 +139,7 @@ function main() {
 
   const md = fs.readFileSync(file, 'utf8');
   const chunks = md.split(/^## /m).filter(function (c) { return c.trim(); });
-  const theory = [], additions = { takeaways: [], mistakes: [], terms: [] };
+  const theory = [], additions = { takeaways: [], mistakes: [], terms: [], corrections: [] };
   chunks.forEach(function (chunk) {
     const lines = chunk.split('\n');
     const heading = lines.shift().trim();
@@ -130,6 +152,14 @@ function main() {
       additions.mistakes = items.map(function (x) {
         const parts = x.split(/\s+::\s+/);
         return { mistake: (parts[0] || '').trim(), instead: (parts[1] || '').trim() };
+      });
+      return;
+    }
+    if (/^corrections$/i.test(heading)) {
+      additions.corrections = items.map(function (x) {
+        const parts = x.split(/\s+::\s+/);
+        const arrow = (parts[0] || '').split(/\s*->\s*/);
+        return { from: (arrow[0] || '').trim(), to: (arrow[1] || '').trim(), why: (parts[1] || '').trim() };
       });
       return;
     }
@@ -146,7 +176,7 @@ function main() {
     theory.push({ heading: heading, paragraphs: paragraphs });
   });
 
-  const r = parseTheory(null, l, theory);
+  const r = parseTheory(null, l, theory, additions.corrections);
 
   const problems = r.problems.slice();
   if (additions.takeaways.length !== 3) problems.push('takeaways: ' + additions.takeaways.length + ' (need 3)');
@@ -177,7 +207,8 @@ function main() {
     return;
   }
   console.log('\nOK — ' + additions.takeaways.length + ' takeaways, ' + additions.mistakes.length +
-    ' mistakes, ' + additions.terms.length + ' terms; no number or standard lost.');
+    ' mistakes, ' + additions.terms.length + ' terms; no number or standard lost' +
+    (additions.corrections.length ? ' (' + additions.corrections.length + ' declared correction(s))' : '') + '.');
   if (DRY) { console.log('(dry run: nothing written)'); return; }
 
   fs.mkdirSync(EDIT, { recursive: true });
@@ -223,9 +254,14 @@ function main() {
     additions.terms.map(function (t) {
       return '    { term: ' + JSON.stringify(t.term) + ', def: ' + JSON.stringify(t.def) + ' }';
     }).join(',\n'),
-    '  ]',
+    '  ]' + (additions.corrections.length ? ',' : ''),
+    additions.corrections.length ? '  corrections: [' : '',
+    additions.corrections.map(function (c) {
+      return '    { from: ' + JSON.stringify(c.from) + ', to: ' + JSON.stringify(c.to) + ', why: ' + JSON.stringify(c.why) + ' }';
+    }).join(',\n'),
+    additions.corrections.length ? '  ]' : '',
     '};'
-  ].join('\n');
+  ].filter(function (line) { return line !== ''; }).join('\n');
   fs.writeFileSync(path.join(EDIT, id + '.js'), js + '\n');
   console.log('wrote src/phase5/edit/' + id + '.js');
 }

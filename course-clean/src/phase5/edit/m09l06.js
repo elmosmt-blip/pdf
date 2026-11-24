@@ -77,7 +77,7 @@ module.exports = {
   terms: [
     { term: "Bypass", def: "A joint that the wave failed to wet at all." },
     { term: "Blowhole", def: "A void or crater in the joint caused by expanding trapped volatiles." },
-    { term: "Aspect ratio", def: "Hole depth divided by hole diameter." },
+    { term: "Aspect ratio (plated through-hole)", def: "Hole depth divided by hole diameter, the same name as the stencil ratio but a different quantity." },
     { term: "Meniscus", def: "The curved solder surface at the top of a filled hole or at the joint edge." }
   ]
 };

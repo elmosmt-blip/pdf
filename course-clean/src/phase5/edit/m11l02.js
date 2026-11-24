@@ -75,7 +75,7 @@ module.exports = {
   ],
   terms: [
     { term: "Disturbed joint", def: "A joint whose component moved while the solder was solidifying, leaving a rough surface." },
-    { term: "Thermal budget", def: "The written combination of setpoint, preheat, contact time and alloy allowed for a rework." },
+    { term: "Thermal budget (rework)", def: "The written combination of setpoint, preheat, contact time and alloy allowed for a rework." },
     { term: "Flux-cored wire", def: "Solder wire with a flux core that cleans the interface as it melts." },
     { term: "Interface temperature", def: "The temperature at the boundary between solder and the surfaces being joined." }
   ]

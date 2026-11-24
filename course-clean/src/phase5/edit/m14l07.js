@@ -73,7 +73,7 @@ module.exports = {
   terms: [
     { term: "Stage Pareto", def: "Defect counts sorted by the process stage where they were detected or attributed." },
     { term: "Boundary sample", def: "A physical specimen showing the limit of acceptability, used to align inspectors." },
-    { term: "Detection escape", def: "The reason a defect was not found before it left the process." },
+    { term: "Detection escape", def: "The third cause category of an 8D: why the defect passed the inspection or test meant to catch it." },
     { term: "Process capability", def: "How well a process holds its specification, stated as a measurable index." }
   ]
 };

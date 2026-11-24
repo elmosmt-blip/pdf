@@ -72,7 +72,7 @@ module.exports = {
     { mistake: "Checking ESD grounding once at installation", instead: "Verify the iron and the operator grounding at the interval the program defines." }
   ],
   terms: [
-    { term: "Thermal budget", def: "The combination of tip temperature, contact time and heat cycles a joint receives." },
+    { term: "Thermal budget (rework)", def: "The combination of tip temperature, contact time and heat cycles a joint receives." },
     { term: "Wetting", def: "The spreading of molten solder into a continuous metallurgical bond with the pad and lead." },
     { term: "Capture velocity", def: "The air speed at the extraction inlet needed to pull fume away from the joint." },
     { term: "Hoof tip", def: "A curved tip shape that carries a solder bead to a joint, useful on through-hole and large pads." }

@@ -16,7 +16,7 @@ reader can reach from anywhere.
 | Takeaways / mistakes / terms | 3 / 3 / ≥2 per lesson, enforced by `src/phase5/schema.js` |
 | Lesson minutes | from the text, 15–30 min each, 1720 min total (plan was 2685) |
 | Prerequisites | `lesson.prereqs = {lessons[], skills[]}` from `src/phase5/prereqs.json` |
-| Glossary `#/g/` | 302 distinct terms, derived |
+| Glossary `#/g/` | 309 distinct terms (homonyms split by sense), derived |
 | Formula sheet `#/f/` | 11 relations, each linked to its deriving lesson |
 
 Numbers and standard references in each lesson were checked as a multiset
@@ -48,14 +48,14 @@ m04l05, m14l04, m13l05, m03l02 (35 → 15 each).
 `data/reference.json`. `scripts/check-integrity.js` rebuilds it in memory and
 fails on a stale copy; `build-embed.js` carries it into the file:// embed.
 
-**Glossary.** 368 term entries across lessons collapse to 302 distinct terms.
+**Glossary.** 368 term entries across lessons collapse to 309 distinct terms.
 Where two lessons define the same term, the first definition in course order
-is shown and every defining lesson is linked. 66 of the duplicates differ in
-wording (Aspect ratio ×5, Area ratio ×3, Quarantine, Floor life, Humidity
-indicator card, Containment, Skew, Dewetting ×2 each…). These are disclosed
-under the entry — "also defined, with different wording, in …" — not hidden.
-Making the wordings agree is an editorial decision for the technologist
-review, not something a script should do.
+is shown and every defining lesson is linked. Seven terms with two genuine
+senses (aspect ratio, dewetting, shadowing, drainage, skew, delamination,
+thermal budget) were split at the source with a qualifier in the term; the 59
+remaining duplicates differ in wording only and are disclosed under the entry
+— "also defined, with different wording, in …" — not hidden. See
+`docs/technologist-review-4-phase5.md`.
 
 **Formula sheet.** Discovery is deliberately narrow: a fixed list of patterns
 in `FORMULA_PATTERNS`, each anchored on how the lesson actually phrases the
@@ -71,7 +71,7 @@ count, and the no-defect sample size.
 - Lesson page, in order: prerequisites → goals → theory → worked calculation →
   defect analysis → key takeaways → common mistakes → terms → quiz → sources.
 - Sidebar: a "Reference" block under the modules with both pages and counts.
-- Tests: `tests/course.test.js` (210 checks) renders a mid-course lesson and
+- Tests: `tests/course.test.js` (211 checks) renders a mid-course lesson and
   both reference pages and asserts counts against the data.
 
 ## Commands
@@ -82,3 +82,12 @@ count, and the no-defect sample size.
     node scripts/build.js               # → build/course-clean
     node scripts/check-integrity.js
     node tests/course.test.js
+
+## Corrections to frozen text
+
+A number from the baseline may change only through a `## Corrections` section
+in the raw file (`old -> new :: reason`). The import releases exactly that
+token, demands the new one be present, and carries the entry into
+`content.corrections`; the lesson page shows it under "Corrected in this
+edition". One correction exists so far (m04l03, kilogram band), found by the
+fourth technologist review.

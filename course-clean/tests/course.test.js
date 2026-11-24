@@ -838,6 +838,14 @@ async function renderLayer() {
       'every formula links to a lesson that exists', linkedLessons.join(','));
     ok(!!fd.querySelector('h1') && /Formula/.test(fd.querySelector('h1').textContent), 'formula page has its heading');
 
+    /* a declared correction is disclosed on the lesson page */
+    const corrected = lessonsForP5.filter(function (l) { return l.content.corrections && l.content.corrections.length; });
+    if (corrected.length) {
+      const cd = load('#/l/' + corrected[0].lessonId).window.document;
+      eq(cd.querySelectorAll('.corrections li').length, corrected[0].content.corrections.length,
+        'corrected values are listed on the lesson page');
+    }
+
     const nd = load('#/g/zz').window.document;
     ok(/not found/i.test(nd.querySelector('h1').textContent), '#/g/zz is not a valid glossary route');
   }
