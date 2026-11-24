@@ -71,7 +71,9 @@
   "mode": "replace-image",
   "figure": "m12l04-coatings",
   "caption": "Coating families compared: typical dry-film thickness, barrier, rework and application method",
-  "keepImage": true
+  "keepImage": true,
+  "alt": "Reference sheet: five coating cross-sections acrylic, urethane, silicone, parylene and UV cure, each rated for moisture barrier and removability in words, with a macro photograph of a coated assembly under UV light",
+  "imageCaption": "Coating types and selection: acrylic, urethane, silicone, parylene and UV cure; thicknesses in the figure above"
  },
  {
   "id": "m03l06",
@@ -79,7 +81,9 @@
   "mode": "replace-image",
   "figure": "m03l06-acceptance",
   "caption": "Stencil acceptance checklist from the issued specification, plus the cleaning regime and lifetime tracking",
-  "keepImage": true
+  "keepImage": true,
+  "alt": "Reference sheet: a framed stencil under a thickness gauge, an acceptance checklist with blank value lines, the understencil wipe and off-line wash sequence, and a lifetime usage log",
+  "imageCaption": "Stencil acceptance, cleaning regime and lifetime tracking; specification values in the figure above"
  },
  {
   "id": "m07l05",
@@ -104,5 +108,41 @@
   "section": 0,
   "alt": "Reference sheet: six through-hole joint tiles with macro photographs and cross-sections for bridging, balling, insufficient fill, bypass, lifted lead and blowhole",
   "imageCaption": "Wave soldering defect atlas: bridging, balling, insufficient fill, bypass, lifted lead, blowhole"
+ },
+ {
+  "id": "m01l07",
+  "section": 0,
+  "alt": "Reference sheet: a locked quarantine cage with red hold tags, the MRB decision flow with use as is, rework, return to supplier and scrap branches feeding supplier notification, and a hold tag",
+  "imageCaption": "Nonconforming material at the dock: quarantine, MRB and supplier notification"
+ },
+ {
+  "id": "m02l01",
+  "section": 0,
+  "alt": "Reference sheet: package cross-section with moisture ingress, vapour pressure, delamination and popcorn crack through storage, preheat, reflow and cooling; a moisture barrier bag with desiccant and humidity indicator card; a floor-life clock",
+  "imageCaption": "Moisture inside a package: ingress, vapour pressure at reflow, delamination and cracking; the barrier bag and the floor-life clock"
+ },
+ {
+  "id": "m02l03",
+  "section": 0,
+  "alt": "Reference sheet: a timeline where exposure accumulates across three bag openings, pauses in a dry cabinet and resets to zero at a bake, a reel with a handwritten exposure log, and a start / accumulate / pause / reset rules table",
+  "imageCaption": "Floor-life accounting: clock start, accumulation across exposure events, the dry-cabinet pause and the bake reset"
+ },
+ {
+  "id": "m02l04",
+  "section": 0,
+  "alt": "Reference sheet: a nitrogen dry cabinet with reels, a bake oven with a ramp-hold-cool curve, thin, medium and thick package outlines, and a blank bake log",
+  "imageCaption": "Baking and dry cabinets: when required, conditions by package thickness, and the records"
+ },
+ {
+  "id": "m02l05",
+  "section": 0,
+  "alt": "Reference sheet: plan view of an EPA bench with dissipative work surface, wrist strap, floor mat, common ground point, ionizer, shielding bag, conductive tote and signage; an operator at the bench; a daily checks table",
+  "imageCaption": "The ESD control program: protected area boundary, grounding, straps, mats, ionizers and packaging"
+ },
+ {
+  "id": "m02l06",
+  "section": 0,
+  "alt": "Reference sheet: a partially used reel on a feeder with a floor-life expired tag, a clock past its limit, the stop / quarantine / bake / MRB / scrap decision flow and a containment checklist",
+  "imageCaption": "Case: expired floor life found mid-lot — stop the feeder, quarantine, then bake / MRB / scrap"
  }
 ]
