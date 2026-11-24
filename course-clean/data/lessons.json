@@ -667,8 +667,8 @@
             {
               "t": "image",
               "src": "assets/img/m01l05.webp",
-              "alt": "Cold-storage cabinet with paste jars and a temperature log, a magnified label with alloy code and expiry, and a powder particle size distribution curve",
-              "caption": "Solder paste, flux and adhesive receipt: alloy, powder, expiry and the cold chain"
+              "alt": "Reference sheet: cold-storage cabinet with temperature log, magnified paste label fields (alloy, powder, lot, expiry, storage), powder size distribution curve, photo of a paste jar in a refrigerator and an accept / quarantine / reject decision",
+              "caption": "Solder paste, flux and adhesive receipt: label, cold chain, powder and release decision"
             }
           ]
         },
@@ -1274,8 +1274,8 @@
             {
               "t": "image",
               "src": "assets/img/m02l02.webp",
-              "alt": "A magnified MSL label with a caution symbol, a barrier bag shown as a translucent panel with a humidity indicator card and desiccant inside",
-              "caption": "Reading moisture sensitivity markings: MSL label, barrier bag, humidity indicator card and desiccant"
+              "alt": "Reference sheet: magnified MSL caution label, barrier bag with desiccant and humidity indicator card, HIC spots, photo of a sealed bag with a component tray and a floor-life clock that starts at bag opening",
+              "caption": "Reading moisture sensitivity markings: MSL label, barrier bag, HIC, desiccant and floor-life clock"
             }
           ]
         },
@@ -2462,8 +2462,8 @@
             {
               "t": "image",
               "src": "assets/img/m03l04.webp",
-              "alt": "Four aperture shapes side by side with a label for each component family and the deposit each produces",
-              "caption": "Aperture geometry by component: chip, fine-pitch QFP, QFN/LGA and BGA"
+              "alt": "Reference sheet: stencil aperture plan views and the deposits they produce for chip, fine-pitch QFP, QFN/LGA with segmented thermal pad and BGA, a laser-cut stencil photo and a geometry-to-defect table",
+              "caption": "Aperture geometry by component: chip, fine-pitch QFP, QFN/LGA and BGA, with the defect each choice prevents"
             }
           ]
         },
@@ -2907,8 +2907,8 @@
             {
               "t": "image",
               "src": "assets/img/m04l01.webp",
-              "alt": "Screen printer cycle showing squeegee print, stencil snap-off gap, paste release and a deposit inspection scan",
-              "caption": "Print cycle: squeegee, snap-off, paste release, then inspection of the deposit"
+              "alt": "Reference sheet: print stroke, snap-off and release, area ratio and aspect ratio cross-sections, a photo of printed paste bricks and an SPI height map",
+              "caption": "From aperture to deposit: print stroke, release, area and aspect ratio, deposit inspection"
             },
             {
               "t": "callout",
@@ -3529,8 +3529,8 @@
             {
               "t": "image",
               "src": "assets/img/m04l05.webp",
-              "alt": "A control chart of deposit volume showing the mean, the spread and the limits, with a decision flow for stop, adjust and continue",
-              "caption": "SPI as process evidence: mean, spread, capability, and the stop / adjust decision"
+              "alt": "Reference sheet: volume trend chart with drift and step regions, histogram with spec limits, volume / height / area icons, offset vector, SPI height-map screen and a stable / capable decision flow",
+              "caption": "SPI as process evidence: trend, histogram, volume with height and area, and the continue / adjust / stop decision"
             }
           ]
         },
@@ -3828,8 +3828,8 @@
             {
               "t": "image",
               "src": "assets/img/m04l07.webp",
-              "alt": "A troubleshooting flow that first rules out inspection artifacts, then changes one print parameter at a time while recording the others",
-              "caption": "Print troubleshooting logic and one-variable-at-a-time experiments"
+              "alt": "Reference sheet: triage flow from reported defect to confirmed defect, one-variable-at-a-time table with a single changed row, experiment plan checklist, paste bridge photo and a change / measure / keep-or-revert loop",
+              "caption": "Print troubleshooting logic: triage first, then one variable at a time"
             }
           ]
         },
@@ -4126,8 +4126,8 @@
             {
               "t": "image",
               "src": "assets/img/m05l02.webp",
-              "alt": "A placement head with interchangeable nozzles, a feeder bank, and a pick-height measurement with a placement force gauge",
-              "caption": "Feeders, nozzles, pick height and placement force limits by component"
+              "alt": "Reference sheet: nozzle sizes by component type, tape feeder bank, pick-height dimensions (component height, pocket depth, tip length), placement force band, nozzle tip photo and vacuum trend for wear monitoring",
+              "caption": "Feeders, nozzles, pick height and placement force: selection, limits and wear monitoring"
             }
           ]
         },
@@ -4279,8 +4279,8 @@
             {
               "t": "image",
               "src": "assets/img/m05l03.webp",
-              "alt": "A board with global and local fiducials inside a camera view, a calibration target, and a placement offset measurement crosshair",
-              "caption": "Fiducials, board recognition, vision calibration and measuring placement offset"
+              "alt": "Reference sheet: board with global and local fiducials, camera search box, dot-grid vision calibration target, offset vector with DX, DY and rotation, skew versus offset and a photo of a copper fiducial",
+              "caption": "Fiducials, vision calibration and placement offset: coordinate system, offset vector and rotation"
             }
           ]
         },

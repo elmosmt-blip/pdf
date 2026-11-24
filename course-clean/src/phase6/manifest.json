@@ -1,148 +1,196 @@
 [
- {
-  "id": "m06l01",
-  "section": 0,
-  "mode": "replace-figure",
-  "figure": "m06l01-reflow",
-  "caption": "SAC305 reflow profile with the lesson envelope: ramp 1-3 °C/s, soak 140-180 °C, 30-90 s above the 219 °C liquidus, peak 235-245 °C under the 250 °C ceiling, cooling ≥ 2 °C/s",
-  "alt": "Reference sheet: side view of a convection reflow oven with preheat, soak, reflow and cooling zones, convection, conduction and radiation icons, a profiling board with thermocouples, and a profile shape with ramp, soak, TAL, peak and cooling",
-  "imageCaption": "Reflow oven zones, heat-transfer paths and the profile shape; numeric targets come from the paste datasheet and the figure above"
- },
- {
-  "id": "m03l01",
-  "section": 0,
-  "mode": "replace-figure",
-  "figure": "m03l01-aperture",
-  "caption": "Aperture geometry and paste release: area ratio ≥ 0.66 and aspect ratio ≥ 1.5; a thick foil with a narrow aperture gives low ratios and a short deposit",
-  "alt": "Reference sheet: stencil macro photograph, release geometry cross-section, good release versus poor release comparison, and the joint target to SPI workflow",
-  "imageCaption": "Paste volume budget: joint target first, then deposit volume, aperture and SPI verification"
- },
- {
-  "id": "m03l02",
-  "section": 0,
-  "mode": "replace-image",
-  "figure": "m03l02-ratios",
-  "caption": "Worked example: 0.25 × 0.25 mm aperture in 0.10 mm foil — area ratio 0.625 (below 0.66), aspect ratio 2.5",
-  "keepImage": true,
-  "alt": "Reference sheet: isometric aperture with opening and wall areas, a width versus foil thickness section, the two ratio definitions, a macro photograph of complete and short fine-pitch deposits, and the fine-pitch consequence",
-  "imageCaption": "Area ratio and aspect ratio: definitions, the fine-pitch consequence, and what short deposits look like"
- },
- {
-  "id": "m09l01",
-  "section": 0,
-  "mode": "replace-figure",
-  "figure": "m09l01-wave",
-  "caption": "Wave soldering line: fluxer, preheat, dual wave (turbulent chip wave first, laminar main wave second), cooling; single, dual, lambda and micro-wave types",
-  "alt": "Reference sheet: side view of a wave soldering machine with fluxer, preheat, a solder pot with the turbulent chip wave first and the laminar main wave second, and cooling; a solder wave photograph; wave type profiles",
-  "imageCaption": "Wave soldering architecture: fluxer, preheat, chip wave then main wave, cooling; single, dual, lambda and micro-wave"
- },
- {
-  "id": "m09l04",
-  "section": 0,
-  "mode": "replace-image",
-  "figure": "m09l04-dwell",
-  "caption": "Dwell time t = L / v: 180 mm at 1.0 m/min gives 10.8 s against a 2-5 s window; fog height and board clearance are set together",
-  "keepImage": true,
-  "alt": "Reference sheet: board over a solder wave with effective contact length, conveyor speed, fog height and board clearance dimensions, the formula t equals L over v, a photograph of a board meeting the wave, and too-high versus too-low wave sketches",
-  "imageCaption": "Contact time t = L / v, fog height and board clearance; worked numbers in the figure above"
- },
- {
-  "id": "m14l04",
-  "section": 0,
-  "mode": "replace-image",
-  "figure": "m14l04-8d",
-  "caption": "The eight disciplines D1-D8 and where 8D reports usually fail: containment sold as correction, root cause without data, closure without an effectiveness metric",
-  "keepImage": true,
-  "alt": "Reference sheet: eight hexagons D1 team to D8 closure with D3, D4 and D8 marked as common failure points, a whiteboard fishbone photograph, and evidence examples",
-  "imageCaption": "The eight disciplines D1-D8 and the usual failure points"
- },
- {
-  "id": "m08l01",
-  "section": 0,
-  "mode": "replace-figure",
-  "figure": "m08l01-tht",
-  "caption": "Through-hole joint cross-section and the clearance stack: 0.80 ± 0.03 mm lead in a 1.10 ± 0.05 mm hole gives 0.22-0.38 mm diametral clearance; 75 % fill from the trial",
-  "alt": "Reference sheet: macro cross-section of a plated through-hole joint, schematic section with barrel, lead, fill, fillets and land, the load path from a connector through the barrel, and a clearance sketch",
-  "imageCaption": "Through-hole joint: barrel, fill and fillets carry the mechanical load; clearance stack in the figure above"
- },
- {
-  "id": "m12l04",
-  "section": 0,
-  "mode": "replace-image",
-  "figure": "m12l04-coatings",
-  "caption": "Coating families compared: typical dry-film thickness, barrier, rework and application method",
-  "keepImage": true,
-  "alt": "Reference sheet: five coating cross-sections acrylic, urethane, silicone, parylene and UV cure, each rated for moisture barrier and removability in words, with a macro photograph of a coated assembly under UV light",
-  "imageCaption": "Coating types and selection: acrylic, urethane, silicone, parylene and UV cure; thicknesses in the figure above"
- },
- {
-  "id": "m03l06",
-  "section": 0,
-  "mode": "replace-image",
-  "figure": "m03l06-acceptance",
-  "caption": "Stencil acceptance checklist from the issued specification, plus the cleaning regime and lifetime tracking",
-  "keepImage": true,
-  "alt": "Reference sheet: a framed stencil under a thickness gauge, an acceptance checklist with blank value lines, the understencil wipe and off-line wash sequence, and a lifetime usage log",
-  "imageCaption": "Stencil acceptance, cleaning regime and lifetime tracking; specification values in the figure above"
- },
- {
-  "id": "m07l05",
-  "section": 0,
-  "alt": "Reference sheet: macro photograph of a gull-wing joint under evaluation, schematic section with heel, toe and side fillets, a disposition table accept / process indicator / defect, and the three IPC classes",
-  "imageCaption": "Disposition language: the joint, its fillets, accept / process indicator / defect, and the product class"
- },
- {
-  "id": "m14l05",
-  "section": 0,
-  "alt": "Reference sheet: flow from nonconformity detected through corrective and preventive action to an effectiveness verification gate with a reopen loop, and a macro photograph of a reworked chip resistor joint",
-  "imageCaption": "Corrective vs preventive action, verified with data at the effectiveness gate"
- },
- {
-  "id": "m15l02",
-  "section": 0,
-  "alt": "Reference sheet: macro photograph of a solder bridge between QFP leads with a scale bar, a measurement table, a defect-rate trend with control limits and a cost-of-poor-quality donut chart",
-  "imageCaption": "The evidence pack: measurement, image with scale, defect rate with its basis, cost of poor quality"
- },
- {
-  "id": "m09l06",
-  "section": 0,
-  "alt": "Reference sheet: six through-hole joint tiles with macro photographs and cross-sections for bridging, balling, insufficient fill, bypass, lifted lead and blowhole",
-  "imageCaption": "Wave soldering defect atlas: bridging, balling, insufficient fill, bypass, lifted lead, blowhole"
- },
- {
-  "id": "m01l07",
-  "section": 0,
-  "alt": "Reference sheet: a locked quarantine cage with red hold tags, the MRB decision flow with use as is, rework, return to supplier and scrap branches feeding supplier notification, and a hold tag",
-  "imageCaption": "Nonconforming material at the dock: quarantine, MRB and supplier notification"
- },
- {
-  "id": "m02l01",
-  "section": 0,
-  "alt": "Reference sheet: package cross-section with moisture ingress, vapour pressure, delamination and popcorn crack through storage, preheat, reflow and cooling; a moisture barrier bag with desiccant and humidity indicator card; a floor-life clock",
-  "imageCaption": "Moisture inside a package: ingress, vapour pressure at reflow, delamination and cracking; the barrier bag and the floor-life clock"
- },
- {
-  "id": "m02l03",
-  "section": 0,
-  "alt": "Reference sheet: a timeline where exposure accumulates across three bag openings, pauses in a dry cabinet and resets to zero at a bake, a reel with a handwritten exposure log, and a start / accumulate / pause / reset rules table",
-  "imageCaption": "Floor-life accounting: clock start, accumulation across exposure events, the dry-cabinet pause and the bake reset"
- },
- {
-  "id": "m02l04",
-  "section": 0,
-  "alt": "Reference sheet: a nitrogen dry cabinet with reels, a bake oven with a ramp-hold-cool curve, thin, medium and thick package outlines, and a blank bake log",
-  "imageCaption": "Baking and dry cabinets: when required, conditions by package thickness, and the records"
- },
- {
-  "id": "m02l05",
-  "section": 0,
-  "alt": "Reference sheet: plan view of an EPA bench with dissipative work surface, wrist strap, floor mat, common ground point, ionizer, shielding bag, conductive tote and signage; an operator at the bench; a daily checks table",
-  "imageCaption": "The ESD control program: protected area boundary, grounding, straps, mats, ionizers and packaging"
- },
- {
-  "id": "m02l06",
-  "section": 0,
-  "alt": "Reference sheet: a partially used reel on a feeder with a floor-life expired tag, a clock past its limit, the stop / quarantine / bake / MRB / scrap decision flow and a containment checklist",
-  "imageCaption": "Case: expired floor life found mid-lot — stop the feeder, quarantine, then bake / MRB / scrap"
- }
+  {
+    "id": "m06l01",
+    "section": 0,
+    "mode": "replace-figure",
+    "figure": "m06l01-reflow",
+    "caption": "SAC305 reflow profile with the lesson envelope: ramp 1-3 °C/s, soak 140-180 °C, 30-90 s above the 219 °C liquidus, peak 235-245 °C under the 250 °C ceiling, cooling ≥ 2 °C/s",
+    "alt": "Reference sheet: side view of a convection reflow oven with preheat, soak, reflow and cooling zones, convection, conduction and radiation icons, a profiling board with thermocouples, and a profile shape with ramp, soak, TAL, peak and cooling",
+    "imageCaption": "Reflow oven zones, heat-transfer paths and the profile shape; numeric targets come from the paste datasheet and the figure above"
+  },
+  {
+    "id": "m03l01",
+    "section": 0,
+    "mode": "replace-figure",
+    "figure": "m03l01-aperture",
+    "caption": "Aperture geometry and paste release: area ratio ≥ 0.66 and aspect ratio ≥ 1.5; a thick foil with a narrow aperture gives low ratios and a short deposit",
+    "alt": "Reference sheet: stencil macro photograph, release geometry cross-section, good release versus poor release comparison, and the joint target to SPI workflow",
+    "imageCaption": "Paste volume budget: joint target first, then deposit volume, aperture and SPI verification"
+  },
+  {
+    "id": "m03l02",
+    "section": 0,
+    "mode": "replace-image",
+    "figure": "m03l02-ratios",
+    "caption": "Worked example: 0.25 × 0.25 mm aperture in 0.10 mm foil — area ratio 0.625 (below 0.66), aspect ratio 2.5",
+    "keepImage": true,
+    "alt": "Reference sheet: isometric aperture with opening and wall areas, a width versus foil thickness section, the two ratio definitions, a macro photograph of complete and short fine-pitch deposits, and the fine-pitch consequence",
+    "imageCaption": "Area ratio and aspect ratio: definitions, the fine-pitch consequence, and what short deposits look like"
+  },
+  {
+    "id": "m09l01",
+    "section": 0,
+    "mode": "replace-figure",
+    "figure": "m09l01-wave",
+    "caption": "Wave soldering line: fluxer, preheat, dual wave (turbulent chip wave first, laminar main wave second), cooling; single, dual, lambda and micro-wave types",
+    "alt": "Reference sheet: side view of a wave soldering machine with fluxer, preheat, a solder pot with the turbulent chip wave first and the laminar main wave second, and cooling; a solder wave photograph; wave type profiles",
+    "imageCaption": "Wave soldering architecture: fluxer, preheat, chip wave then main wave, cooling; single, dual, lambda and micro-wave"
+  },
+  {
+    "id": "m09l04",
+    "section": 0,
+    "mode": "replace-image",
+    "figure": "m09l04-dwell",
+    "caption": "Dwell time t = L / v: 180 mm at 1.0 m/min gives 10.8 s against a 2-5 s window; fog height and board clearance are set together",
+    "keepImage": true,
+    "alt": "Reference sheet: board over a solder wave with effective contact length, conveyor speed, fog height and board clearance dimensions, the formula t equals L over v, a photograph of a board meeting the wave, and too-high versus too-low wave sketches",
+    "imageCaption": "Contact time t = L / v, fog height and board clearance; worked numbers in the figure above"
+  },
+  {
+    "id": "m14l04",
+    "section": 0,
+    "mode": "replace-image",
+    "figure": "m14l04-8d",
+    "caption": "The eight disciplines D1-D8 and where 8D reports usually fail: containment sold as correction, root cause without data, closure without an effectiveness metric",
+    "keepImage": true,
+    "alt": "Reference sheet: eight hexagons D1 team to D8 closure with D3, D4 and D8 marked as common failure points, a whiteboard fishbone photograph, and evidence examples",
+    "imageCaption": "The eight disciplines D1-D8 and the usual failure points"
+  },
+  {
+    "id": "m08l01",
+    "section": 0,
+    "mode": "replace-figure",
+    "figure": "m08l01-tht",
+    "caption": "Through-hole joint cross-section and the clearance stack: 0.80 ± 0.03 mm lead in a 1.10 ± 0.05 mm hole gives 0.22-0.38 mm diametral clearance; 75 % fill from the trial",
+    "alt": "Reference sheet: macro cross-section of a plated through-hole joint, schematic section with barrel, lead, fill, fillets and land, the load path from a connector through the barrel, and a clearance sketch",
+    "imageCaption": "Through-hole joint: barrel, fill and fillets carry the mechanical load; clearance stack in the figure above"
+  },
+  {
+    "id": "m12l04",
+    "section": 0,
+    "mode": "replace-image",
+    "figure": "m12l04-coatings",
+    "caption": "Coating families compared: typical dry-film thickness, barrier, rework and application method",
+    "keepImage": true,
+    "alt": "Reference sheet: five coating cross-sections acrylic, urethane, silicone, parylene and UV cure, each rated for moisture barrier and removability in words, with a macro photograph of a coated assembly under UV light",
+    "imageCaption": "Coating types and selection: acrylic, urethane, silicone, parylene and UV cure; thicknesses in the figure above"
+  },
+  {
+    "id": "m03l06",
+    "section": 0,
+    "mode": "replace-image",
+    "figure": "m03l06-acceptance",
+    "caption": "Stencil acceptance checklist from the issued specification, plus the cleaning regime and lifetime tracking",
+    "keepImage": true,
+    "alt": "Reference sheet: a framed stencil under a thickness gauge, an acceptance checklist with blank value lines, the understencil wipe and off-line wash sequence, and a lifetime usage log",
+    "imageCaption": "Stencil acceptance, cleaning regime and lifetime tracking; specification values in the figure above"
+  },
+  {
+    "id": "m07l05",
+    "section": 0,
+    "alt": "Reference sheet: macro photograph of a gull-wing joint under evaluation, schematic section with heel, toe and side fillets, a disposition table accept / process indicator / defect, and the three IPC classes",
+    "imageCaption": "Disposition language: the joint, its fillets, accept / process indicator / defect, and the product class"
+  },
+  {
+    "id": "m14l05",
+    "section": 0,
+    "alt": "Reference sheet: flow from nonconformity detected through corrective and preventive action to an effectiveness verification gate with a reopen loop, and a macro photograph of a reworked chip resistor joint",
+    "imageCaption": "Corrective vs preventive action, verified with data at the effectiveness gate"
+  },
+  {
+    "id": "m15l02",
+    "section": 0,
+    "alt": "Reference sheet: macro photograph of a solder bridge between QFP leads with a scale bar, a measurement table, a defect-rate trend with control limits and a cost-of-poor-quality donut chart",
+    "imageCaption": "The evidence pack: measurement, image with scale, defect rate with its basis, cost of poor quality"
+  },
+  {
+    "id": "m09l06",
+    "section": 0,
+    "alt": "Reference sheet: six through-hole joint tiles with macro photographs and cross-sections for bridging, balling, insufficient fill, bypass, lifted lead and blowhole",
+    "imageCaption": "Wave soldering defect atlas: bridging, balling, insufficient fill, bypass, lifted lead, blowhole"
+  },
+  {
+    "id": "m01l07",
+    "section": 0,
+    "alt": "Reference sheet: a locked quarantine cage with red hold tags, the MRB decision flow with use as is, rework, return to supplier and scrap branches feeding supplier notification, and a hold tag",
+    "imageCaption": "Nonconforming material at the dock: quarantine, MRB and supplier notification"
+  },
+  {
+    "id": "m02l01",
+    "section": 0,
+    "alt": "Reference sheet: package cross-section with moisture ingress, vapour pressure, delamination and popcorn crack through storage, preheat, reflow and cooling; a moisture barrier bag with desiccant and humidity indicator card; a floor-life clock",
+    "imageCaption": "Moisture inside a package: ingress, vapour pressure at reflow, delamination and cracking; the barrier bag and the floor-life clock"
+  },
+  {
+    "id": "m02l03",
+    "section": 0,
+    "alt": "Reference sheet: a timeline where exposure accumulates across three bag openings, pauses in a dry cabinet and resets to zero at a bake, a reel with a handwritten exposure log, and a start / accumulate / pause / reset rules table",
+    "imageCaption": "Floor-life accounting: clock start, accumulation across exposure events, the dry-cabinet pause and the bake reset"
+  },
+  {
+    "id": "m02l04",
+    "section": 0,
+    "alt": "Reference sheet: a nitrogen dry cabinet with reels, a bake oven with a ramp-hold-cool curve, thin, medium and thick package outlines, and a blank bake log",
+    "imageCaption": "Baking and dry cabinets: when required, conditions by package thickness, and the records"
+  },
+  {
+    "id": "m02l05",
+    "section": 0,
+    "alt": "Reference sheet: plan view of an EPA bench with dissipative work surface, wrist strap, floor mat, common ground point, ionizer, shielding bag, conductive tote and signage; an operator at the bench; a daily checks table",
+    "imageCaption": "The ESD control program: protected area boundary, grounding, straps, mats, ionizers and packaging"
+  },
+  {
+    "id": "m02l06",
+    "section": 0,
+    "alt": "Reference sheet: a partially used reel on a feeder with a floor-life expired tag, a clock past its limit, the stop / quarantine / bake / MRB / scrap decision flow and a containment checklist",
+    "imageCaption": "Case: expired floor life found mid-lot — stop the feeder, quarantine, then bake / MRB / scrap"
+  },
+  {
+    "id": "m01l05",
+    "section": 0,
+    "alt": "Reference sheet: cold-storage cabinet with temperature log, magnified paste label fields (alloy, powder, lot, expiry, storage), powder size distribution curve, photo of a paste jar in a refrigerator and an accept / quarantine / reject decision",
+    "imageCaption": "Solder paste, flux and adhesive receipt: label, cold chain, powder and release decision"
+  },
+  {
+    "id": "m02l02",
+    "section": 0,
+    "alt": "Reference sheet: magnified MSL caution label, barrier bag with desiccant and humidity indicator card, HIC spots, photo of a sealed bag with a component tray and a floor-life clock that starts at bag opening",
+    "imageCaption": "Reading moisture sensitivity markings: MSL label, barrier bag, HIC, desiccant and floor-life clock"
+  },
+  {
+    "id": "m03l04",
+    "section": 0,
+    "alt": "Reference sheet: stencil aperture plan views and the deposits they produce for chip, fine-pitch QFP, QFN/LGA with segmented thermal pad and BGA, a laser-cut stencil photo and a geometry-to-defect table",
+    "imageCaption": "Aperture geometry by component: chip, fine-pitch QFP, QFN/LGA and BGA, with the defect each choice prevents"
+  },
+  {
+    "id": "m04l01",
+    "section": 0,
+    "alt": "Reference sheet: print stroke, snap-off and release, area ratio and aspect ratio cross-sections, a photo of printed paste bricks and an SPI height map",
+    "imageCaption": "From aperture to deposit: print stroke, release, area and aspect ratio, deposit inspection"
+  },
+  {
+    "id": "m04l05",
+    "section": 0,
+    "alt": "Reference sheet: volume trend chart with drift and step regions, histogram with spec limits, volume / height / area icons, offset vector, SPI height-map screen and a stable / capable decision flow",
+    "imageCaption": "SPI as process evidence: trend, histogram, volume with height and area, and the continue / adjust / stop decision"
+  },
+  {
+    "id": "m04l07",
+    "section": 0,
+    "alt": "Reference sheet: triage flow from reported defect to confirmed defect, one-variable-at-a-time table with a single changed row, experiment plan checklist, paste bridge photo and a change / measure / keep-or-revert loop",
+    "imageCaption": "Print troubleshooting logic: triage first, then one variable at a time"
+  },
+  {
+    "id": "m05l02",
+    "section": 0,
+    "alt": "Reference sheet: nozzle sizes by component type, tape feeder bank, pick-height dimensions (component height, pocket depth, tip length), placement force band, nozzle tip photo and vacuum trend for wear monitoring",
+    "imageCaption": "Feeders, nozzles, pick height and placement force: selection, limits and wear monitoring"
+  },
+  {
+    "id": "m05l03",
+    "section": 0,
+    "alt": "Reference sheet: board with global and local fiducials, camera search box, dot-grid vision calibration target, offset vector with DX, DY and rotation, skew versus offset and a photo of a copper fiducial",
+    "imageCaption": "Fiducials, vision calibration and placement offset: coordinate system, offset vector and rotation"
+  }
 ]
