@@ -1,0 +1,92 @@
+m01l01	ok	numbers ✓ (3000/II/1.0%/K/125/3/4); fragment sentence "THAT ESCALATION GROWS…" in raster; alt ✓
+m01l02	ok	alt ✓; no numbers
+m01l03	ok	numbers ✓ (501-1200 J, 1201-3200 K, 3201-10000 L; n=125; Ac3/Re4); alt ✓
+m01l04	ok	placeholder markings XXX/YYWW; alt ✓
+m01l05	cropped	left-edge labels cut: "EMPERATURE", "EFRIGERATED", "UMIDITY WARE", "CCESS"; no numbers; alt ✓
+m01l06	ok	alt ✓
+m01l07	minor	biohazard symbol on quarantine cage (wrong icon); legend text micro; alt ✓ (four branches)
+m02l01	cropped	title cut "OISTURE INSIDE…"; numbers ✓ MSL 3 168 h, 30 C/60% RH; alt ✓
+m02l02	minor	HIC spots unlabelled (lesson uses 5/10/60 %); placeholder "◇–△"; alt ✓
+m02l03	cropped	title "OR-LIFE ACCOUNTING", left labels, right "EVENT LE…", key "BAKE EVENT (RESETS T" all cut; no numbers; alt ✓
+m02l04	minor	"HH%" placeholder; typo "QUALITS"; no numbers; alt ✓
+m02l05	cropped	left edge "LAN VIEW", "ISSIPATIVE ORK SURFACE" cut; alt ✓
+m02l06	minor	HIC text garbled ("LEVEL SENSITIVE / BAKE REQUIRED / CHECK IMMEDIATELY"); footer "EF: … J-STD-033" cut; "CONFIDENTIAL" filler
+m03l01	ERROR	right panel labels low-AR case as "OVER-THICK APERTURE / OVER-THICK DEPOSIT" — thick foil + small aperture gives insufficient release, not an oversize deposit; numbers 0.66/1.5/0.30 mm ✓
+m03l02	ERROR	low-AR case labelled "HIGH ASPECT RATIO" — thick foil with narrow aperture is LOW aspect ratio; numbers 0.66/1.5/0.30 ✓
+m03l03	ok	no numbers; title slightly tight at left; alt ✓
+m03l04	cropped	left column "COMPONENT FAMILY" cut; right notes cut ("process robustness", "REV. A"); no numbers; alt ✓
+m03l05	ok	placeholders only (no numbers) — lesson has 0.66/1.5/0.120 mm/0.30 mm; image generic; alt ✓
+m03l06	wrong-label	top-right "SC" cut; stray "IPC-9191" (does not exist — should be IPC-7525/IPC-A-610 only); tiny micro-text
+m04l01	cropped	left labels "QUEEGEE", "ASTE ROLL", "PERTURE", "CB / BOARD", "UPPORT" cut; right input boxes cut; no numbers; alt ✓
+m04l02	ok	right panel slightly cut ("REACTING"); no numbers; alt ✓
+m04l03	cropped	left labels "TENCIL", "NAP-OFF GAP", "EPARATION", "CB", "UPPORT PINS" cut; right notes cut; no numbers (lesson has 0.2-0.6 N/mm, 20-80 mm/s); alt ✓
+m04l04	ok	no numbers; alt ✓
+m04l05	cropped	left axis labels "EPOSIT VOLUME", "EPOSIT UNDER INSPECTION" cut; chart ok (trend to upper limit matches lesson); no numbers; alt ✓
+m04l06	ok	defect names consistent with lesson (under-fill/excess/bridging/skew/smear); alt ✓
+m04l07	cropped	left "XAMPLE DEFECT", "YMBOL LEGEND", "RINT SYSTEM" cut; right column cut mid-word; no numbers; alt ✓
+m05l01	cropped	left "PICK-AND-PLACE" partially; spec values placeholders "[—]"; alt ✓
+m05l02	cropped	title "LACEMENT PROCESS…" cut left; no numbers; alt ✓
+m05l03	cropped	title left cut "FIDUCIALS" tight; no numbers; alt ✓
+m05l04	cropped	left column "CORRECT" cut, right "POLARITY" cut; defects consistent; alt ✓
+m05l05	cropped	title "OMPONENT LIBRARY", right edge "SHEE", "OP-◇" cut; no numbers; alt ✓
+m05l06	cropped	title "SHIFT AND SKEW" cut left; no numbers; alt ✓
+m06l01	ERROR	TAL 30-60 s vs lesson 30-90 s; curve peak drawn ≈265 °C while labelled 245 °C (above the 250 °C ceiling the lesson states); soak 150-180 °C not in lesson; cooling 1-4 C/s vs lesson "≥2 °C/s"; axis 0-360 s; priority remake
+m06l02	ok	no numbers; date "2025-05-21" filler; alt ✓
+m06l03	ok	no numbers; alt ✓
+m06l04	cropped	title "OARD THERMAL MASS", "MPACT" cut; no numbers; alt ✓
+m06l05	cropped	title "LLOY SYSTEMS" cut; numbers 219/217/183 ✓; alt ✓
+m06l06	cropped	title "EFLOW DEFECT ATLAS", caption "ood wetting and filet" cut; typo "filet"; defects match lesson; alt ✓
+m06l07	cropped	title "EFLOW PROFILE…", left "EGEND" cut; micro-text unreadable; no numbers; alt ✓
+m07l01	ok	no text issues; alt ✓
+m07l02	ok	no numbers; alt ✓
+m07l03	ok	bars unlabelled (no numbers, lesson has 90 %/66.7 %); date filler; alt ✓
+m07l04	cropped	right legend "BALL / PLATIN", "BOARD / PACKAG" cut; no numbers; alt ✓
+m07l05	ERROR	"real joint under evaluation" photo is a WELD bead on steel, not a solder joint — wrong domain; alt check
+m07l06	ok	classes A/B/C "symbolic" (IPC uses Class 1/2/3 — misleading next to IPC-A-610 citation); alt ✓
+m08l01	numbers-not-in-text	75 % fill ✓; "external annular ring ≥0.05 mm, Class 3" is not in the lesson (lesson 0.05 mm is radial lead clearance) — a reader will conflate the two; alt ✓
+m08l02	ok	C=(DH−DL)/2 ✓ matches lesson; alt ✓
+m08l03	ok	no numbers; alt ✓
+m08l04	ok	typo "EBFORE"; right legend cut; alt ✓
+m08l05	cropped	all worked-example numbers ✓ (0.90/0.50/1.60 → Cr 0.20, Cd 0.40, 0.30/0.45, Vc 0.70, 0.63, Ac 0.44, 0.45, 0.40); left column cut ("LATED", "ALCULATION", "ORKED", "ILL OF MATERIALS"); dense micro-text
+m09l01	ERROR	dual wave labelled "FIRST WAVE LAMINAR / SECOND WAVE TURBULENT" — reversed (first = turbulent chip wave, second = laminar); "lambda/micro-wave" descriptions invented; alt check
+m09l02	cropped	title "WAVE SOLDERING", "APPLY" cut left; no numbers; alt ✓
+m09l03	cropped	left "ROSS-SECTION", "REHEAT TEMPERATURE PROFILE" cut; no numbers (lesson has preheat ranges); alt ✓
+m09l04	SEVERE-CROP	left title "NG: CONTACT TIME & FOG HEIGHT", right panel formula "t = L /" cut at "/", legend cut — the key formula is unreadable; priority remake (formula image)
+m09l05	ok	shadow model shown qualitatively; alt ✓
+m09l06	SEVERE-CROP	title "LDERING DEFECT ATLAS", first and last defect tiles cut ("NT", "BLO…"), notes cut; priority remake
+m09l07	cropped	left "SOLDER POT", "LEGEND" tight; "CARBIDES / NITRIDES" as bath contaminants is nonsense (should be Cu, Fe, Pb, Au dissolution); alt ✓
+m10l01	ok	no numbers; alt ✓
+m10l02	ok	nozzle types qualitative; alt ✓
+m10l03	cropped	left "A] THERMAL FIELD", "TOP SIDE", "EMP" cut; no numbers; alt ✓
+m10l04	ok	date filler 2024-05-24; sequence numbering has two "9"; alt ✓
+m10l05	cropped	left "JOINT CROSS-SECTION", "COMMON", "LEGEND" cut; typo "SOLERR"; alt ✓
+m11l01	ok	left "TIP SELECTION" slightly cut; no temperatures (lesson 330–360 °C) — fine; alt ✓
+m11l02	ok	typo "DOLL SURFACE" (dull); alt ✓
+m11l03	cropped	left "HOT-AIR REWORK", "LEGEND", "NOZZLE" cut; no numbers; alt ✓
+m11l04	ok	left labels slightly cut ("REPAIRED", "ANNULAR"); class table empty (symbolic ◇○△□ — not IPC 1/2/3); alt ✓
+m11l05	ok	no numbers; alt ✓
+m11l06	ok	no numbers; alt ✓
+m12l01	ok	no numbers; CAF between two plated holes ✓; alt ✓
+m12l02	cropped	right notes column cut ("COMPATIBILIT", "COMMITTING", "CLEANLINESS"), left "FLOW DIRECTION" cut; alt ✓
+m12l03	cropped	left title "LEANLINESS", right notes cut; refs J-STD-001/IPC-TM-650 ✓; no ROSE limit shown; alt ✓
+m12l04	wrong-label	IPC-CC-830 type codes wrong: polyurethane "(ER)" should be UR, parylene "(DR)" should be XY (ER = epoxy); lesson uses no codes, so image invents wrong ones; alt ✓
+m12l05	cropped	left "COATING LINE", "LEGEND"; right "REPAIRABILITY" cut; alt ✓
+m12l06	cropped	left "CONFORMAL COATING / DEFECT ATLAS", first tile "SOUND COATING" cut; alt ✓
+m13l01	ok	cost/coverage match lesson table (ICT low, FCT medium, burn-in high); flying probe row "LOW / circuit-dependent" added by artist — lesson table has no flying-probe row (minor); alt ✓
+m13l02	ok	left title cut "IN-CIRCUIT"; no numbers; alt ✓
+m13l03	ok	left "SYSTEM SCHEMATIC" cut; values intentionally omitted; alt ✓
+m13l04	ok	IEEE 1149.x ✓; photo labelled "BGA package" but shows a QFP (leaded) — wrong label; alt ✓
+m13l05	ok	no numbers; alt ✓
+m13l06	ok	refs IPC/WHMA-A-620 odd for test strategy (minor); alt ✓
+m14l01	ok	left "PARETO", "LEGEND" tight; no numbers; alt ✓
+m14l02	cropped	left title "AUSE ANALYSIS / TOOLS REFERENCE" cut; alt ✓
+m14l03	cropped	left "CONTAINMENT", "PROTECT", "LEGEND" cut; alt ✓
+m14l04	ERROR	8D steps mislabelled vs lesson: image D1 "emergency response", D3 "problem description", D4 "root cause", D5 "corrective action"; lesson: D3 containment, D4 root cause, D7 prevention, D8 closure — D2/D3 shifted; priority remake; alt generic ✓
+m14l05	ERROR	"REWORKED JOINT" photo is a pipe WELD, not electronics — wrong domain; left "NONCONFORMITY" cut; alt check
+m14l06	ok	left "PFMEA", "PROCESS STEP" cut; alt ✓
+m14l07	cropped	title "IGHT-DISCIPLINE WORKSHOP", "BSERVED DEFECT" cut; 8D names here standard ✓ (inconsistent with m14l04); defect photo = metal plate dent, not PCB — minor; alt check
+m15l01	ok	no numbers; alt ✓
+m15l02	ERROR	"ACTUAL DEFECT (MACRO PHOTOGRAPH)" is a hole in a steel plate — not electronics; tofu boxes "□□□□" everywhere (placeholder glyphs); priority remake / replace
+m15l03	ok	typos "captuers", "betweee"; alt ✓
+m15l04	ok	no numbers; alt ✓
+m15l05	ok	left title "AGREEMENT" slightly cut; alt ✓
