@@ -4,14 +4,18 @@
   "section": 0,
   "mode": "replace-figure",
   "figure": "m06l01-reflow",
-  "caption": "SAC305 reflow profile with the lesson envelope: ramp 1-3 °C/s, soak 140-180 °C, 30-90 s above the 219 °C liquidus, peak 235-245 °C under the 250 °C ceiling, cooling ≥ 2 °C/s"
+  "caption": "SAC305 reflow profile with the lesson envelope: ramp 1-3 °C/s, soak 140-180 °C, 30-90 s above the 219 °C liquidus, peak 235-245 °C under the 250 °C ceiling, cooling ≥ 2 °C/s",
+  "alt": "Reference sheet: side view of a convection reflow oven with preheat, soak, reflow and cooling zones, convection, conduction and radiation icons, a profiling board with thermocouples, and a profile shape with ramp, soak, TAL, peak and cooling",
+  "imageCaption": "Reflow oven zones, heat-transfer paths and the profile shape; numeric targets come from the paste datasheet and the figure above"
  },
  {
   "id": "m03l01",
   "section": 0,
   "mode": "replace-figure",
   "figure": "m03l01-aperture",
-  "caption": "Aperture geometry and paste release: area ratio ≥ 0.66 and aspect ratio ≥ 1.5; a thick foil with a narrow aperture gives low ratios and a short deposit"
+  "caption": "Aperture geometry and paste release: area ratio ≥ 0.66 and aspect ratio ≥ 1.5; a thick foil with a narrow aperture gives low ratios and a short deposit",
+  "alt": "Reference sheet: stencil macro photograph, release geometry cross-section, good release versus poor release comparison, and the joint target to SPI workflow",
+  "imageCaption": "Paste volume budget: joint target first, then deposit volume, aperture and SPI verification"
  },
  {
   "id": "m03l02",
@@ -19,14 +23,18 @@
   "mode": "replace-image",
   "figure": "m03l02-ratios",
   "caption": "Worked example: 0.25 × 0.25 mm aperture in 0.10 mm foil — area ratio 0.625 (below 0.66), aspect ratio 2.5",
-  "keepImage": true
+  "keepImage": true,
+  "alt": "Reference sheet: isometric aperture with opening and wall areas, a width versus foil thickness section, the two ratio definitions, a macro photograph of complete and short fine-pitch deposits, and the fine-pitch consequence",
+  "imageCaption": "Area ratio and aspect ratio: definitions, the fine-pitch consequence, and what short deposits look like"
  },
  {
   "id": "m09l01",
   "section": 0,
   "mode": "replace-figure",
   "figure": "m09l01-wave",
-  "caption": "Wave soldering line: fluxer, preheat, dual wave (turbulent chip wave first, laminar main wave second), cooling; single, dual, lambda and micro-wave types"
+  "caption": "Wave soldering line: fluxer, preheat, dual wave (turbulent chip wave first, laminar main wave second), cooling; single, dual, lambda and micro-wave types",
+  "alt": "Reference sheet: side view of a wave soldering machine with fluxer, preheat, a solder pot with the turbulent chip wave first and the laminar main wave second, and cooling; a solder wave photograph; wave type profiles",
+  "imageCaption": "Wave soldering architecture: fluxer, preheat, chip wave then main wave, cooling; single, dual, lambda and micro-wave"
  },
  {
   "id": "m09l04",
@@ -34,7 +42,9 @@
   "mode": "replace-image",
   "figure": "m09l04-dwell",
   "caption": "Dwell time t = L / v: 180 mm at 1.0 m/min gives 10.8 s against a 2-5 s window; fog height and board clearance are set together",
-  "keepImage": true
+  "keepImage": true,
+  "alt": "Reference sheet: board over a solder wave with effective contact length, conveyor speed, fog height and board clearance dimensions, the formula t equals L over v, a photograph of a board meeting the wave, and too-high versus too-low wave sketches",
+  "imageCaption": "Contact time t = L / v, fog height and board clearance; worked numbers in the figure above"
  },
  {
   "id": "m14l04",
@@ -42,14 +52,18 @@
   "mode": "replace-image",
   "figure": "m14l04-8d",
   "caption": "The eight disciplines D1-D8 and where 8D reports usually fail: containment sold as correction, root cause without data, closure without an effectiveness metric",
-  "keepImage": true
+  "keepImage": true,
+  "alt": "Reference sheet: eight hexagons D1 team to D8 closure with D3, D4 and D8 marked as common failure points, a whiteboard fishbone photograph, and evidence examples",
+  "imageCaption": "The eight disciplines D1-D8 and the usual failure points"
  },
  {
   "id": "m08l01",
   "section": 0,
   "mode": "replace-figure",
   "figure": "m08l01-tht",
-  "caption": "Through-hole joint cross-section and the clearance stack: 0.80 ± 0.03 mm lead in a 1.10 ± 0.05 mm hole gives 0.22-0.38 mm diametral clearance; 75 % fill from the trial"
+  "caption": "Through-hole joint cross-section and the clearance stack: 0.80 ± 0.03 mm lead in a 1.10 ± 0.05 mm hole gives 0.22-0.38 mm diametral clearance; 75 % fill from the trial",
+  "alt": "Reference sheet: macro cross-section of a plated through-hole joint, schematic section with barrel, lead, fill, fillets and land, the load path from a connector through the barrel, and a clearance sketch",
+  "imageCaption": "Through-hole joint: barrel, fill and fillets carry the mechanical load; clearance stack in the figure above"
  },
  {
   "id": "m12l04",
@@ -66,5 +80,29 @@
   "figure": "m03l06-acceptance",
   "caption": "Stencil acceptance checklist from the issued specification, plus the cleaning regime and lifetime tracking",
   "keepImage": true
+ },
+ {
+  "id": "m07l05",
+  "section": 0,
+  "alt": "Reference sheet: macro photograph of a gull-wing joint under evaluation, schematic section with heel, toe and side fillets, a disposition table accept / process indicator / defect, and the three IPC classes",
+  "imageCaption": "Disposition language: the joint, its fillets, accept / process indicator / defect, and the product class"
+ },
+ {
+  "id": "m14l05",
+  "section": 0,
+  "alt": "Reference sheet: flow from nonconformity detected through corrective and preventive action to an effectiveness verification gate with a reopen loop, and a macro photograph of a reworked chip resistor joint",
+  "imageCaption": "Corrective vs preventive action, verified with data at the effectiveness gate"
+ },
+ {
+  "id": "m15l02",
+  "section": 0,
+  "alt": "Reference sheet: macro photograph of a solder bridge between QFP leads with a scale bar, a measurement table, a defect-rate trend with control limits and a cost-of-poor-quality donut chart",
+  "imageCaption": "The evidence pack: measurement, image with scale, defect rate with its basis, cost of poor quality"
+ },
+ {
+  "id": "m09l06",
+  "section": 0,
+  "alt": "Reference sheet: six through-hole joint tiles with macro photographs and cross-sections for bridging, balling, insufficient fill, bypass, lifted lead and blowhole",
+  "imageCaption": "Wave soldering defect atlas: bridging, balling, insufficient fill, bypass, lifted lead, blowhole"
  }
 ]
