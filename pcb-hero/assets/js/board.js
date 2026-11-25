@@ -98,11 +98,50 @@
     lin("metalGrad", [["0", "#f4f7f9"], ["0.18", "#dfe5e9"], ["0.5", "#b6c0c7"], ["0.78", "#8b959d"], ["1", "#4a545c"]]);
     // dark moulded epoxy body
     lin("bodyDarkGrad", [["0", "#2f3a44"], ["0.16", "#1e262d"], ["0.7", "#12181e"], ["1", "#0a0f13"]]);
+    // fired alumina body of an MLCC: warm tan, slightly translucent at the top
+    lin("ceramicGrad", [["0", "#c9b593"], ["0.22", "#bda781"], ["0.62", "#a08a68"], ["1", "#6f5f47"]]);
+    /* ONE gradient describes the whole passive, end to end: metalised
+       cap → shadowed seam → ceramic body → seam → metalised cap. Because
+       the stops are fractions of the length, the same two definitions
+       serve a 0402 at 15 px and an 0805 at 21 px, and the caps can never
+       drift out of register with the body. */
+    lin("partDark", [
+      ["0", "#767d82"], ["0.05", "#6a7176"], ["0.12", "#565d62"],
+      ["0.165", "#434a4f"], ["0.182", "#2b3135"], ["0.2", "#242b31"],
+      ["0.42", "#1d242a"], ["0.62", "#171d22"], ["0.8", "#242b31"],
+      ["0.818", "#2b3135"], ["0.835", "#434a4f"], ["0.88", "#565d62"],
+      ["0.95", "#6a7176"], ["1", "#767d82"],
+    ]);
+    lin("partWarm", [
+      ["0", "#8b8880"], ["0.05", "#7e7b73"], ["0.12", "#6a675f"],
+      ["0.165", "#565248"], ["0.182", "#3c3830"], ["0.2", "#b6a181"],
+      ["0.3", "#ac9776"], ["0.58", "#968160"], ["0.8", "#7d694a"],
+      ["0.818", "#3c3830"], ["0.835", "#565248"], ["0.88", "#6a675f"],
+      ["0.95", "#7e7b73"], ["1", "#8b8880"],
+    ]);
+    // one vertical light pass over the whole brick, so the part reads as a
+    // single solid object instead of a lit body with separate ends
+    lin("partLight", [
+      ["0", "rgba(255,255,255,0.13)"], ["0.16", "rgba(255,255,255,0.05)"],
+      ["0.5", "rgba(0,0,0,0)"], ["0.74", "rgba(0,0,0,0.14)"],
+      ["1", "rgba(0,0,0,0.36)"],
+    ], true);
+    // dull tin of a reflowed resistor cap: mid grey, low value
+    lin("capTinMatte", [["0", "#94999b"], ["0.22", "#828789"], ["0.55", "#666b6d"], ["0.82", "#4a4f51"], ["1", "#2e3335"]]);
+    // the same in warm tin for MLCC caps
+    lin("capWarmMatte", [["0", "#a7a49c"], ["0.24", "#95938c"], ["0.58", "#787670"], ["0.84", "#57554f"], ["1", "#37352f"]]);
     // matte moulded epoxy for large packages: almost flat, slight top light
     lin("mouldGrad", [["0", "#333e49"], ["0.28", "#29333d"], ["0.7", "#1d252d"], ["1", "#131a21"]]);
     // tan ceramic chip
     lin("bodyWarmGrad", [["0", "#c2ae8b"], ["0.35", "#a58f6d"], ["1", "#665440"]]);
-    // yellow tantalum moulding
+    /* whole tantalum: metal end, sharp seam, yellow moulding, seam, metal */
+    lin("partTant", [
+      ["0", "#2f3336"], ["0.03", "#494f52"], ["0.075", "#585e62"],
+      ["0.11", "#41474a"], ["0.128", "#232119"], ["0.145", "#b78f2f"],
+      ["0.28", "#c8a139"], ["0.55", "#b68c2c"], ["0.78", "#95701f"],
+      ["0.858", "#232119"], ["0.875", "#41474a"], ["0.925", "#585e62"],
+      ["0.97", "#494f52"], ["1", "#2f3336"],
+    ]);
     lin("bodyTanGrad", [["0", "#dcae43"], ["0.3", "#c79433"], ["0.72", "#a97a24"], ["1", "#6d4d12"]]);
     svg.insertBefore(defs, gPour);
   })();
@@ -321,240 +360,145 @@
     });
   };
 
-  /* extruded box: darker side walls facing away from the light + lit top face */
+  /* ---------------------------------------------------------------
+     A real passive is a ceramic brick: two metalized end caps and a
+     light-absorbing body between them, with the lid slightly proud of
+     the sides. Drawing a translated copy of the body under the part
+     (the old "extrusion") reads as two stacked cards and is the single
+     biggest reason these parts looked fake. So: one footprint, shaded
+     by its own normals, with a 1px-high edge only where the light hits.
+     --------------------------------------------------------------- */
+
+  /* soft ambient occlusion ring, hugging the part */
+  const contactShadow = (g, w, h, rx) => {
+    g.appendChild(svgEl("rect", {
+      x: -w / 2 - 1.1, y: -h / 2 - 1.1, width: w + 2.2, height: h + 2.2, rx: rx + 0.7,
+      fill: "rgba(0,0,0,0.62)", filter: "url(#partShadow)", "pointer-events": "none",
+    }));
+  };
+
+  /* soft cast shadow + long soft shadow, thrown away from the light */
+
+  /* extruded box for the tall parts (inductors, connectors): a lit top face
+     over a side wall that is offset against the light. Used only where the
+     part really is thick and viewed from above. */
   const block3D = (g, x0, y0, w, h, rx, depth, fillTop, fillSide, L, opts = {}) => {
-    // side wall: solid slab first (so it is never lost against the board),
-    // then a gradient of scan-lines for the vertical falloff
-    const wallX = x0 + -L.x * depth;
-    const wallY = y0 + -L.y * depth;
+    /* Thickness without changing the silhouette. The part is one rounded
+       rectangle; the wall is simply the strip of it the top face does not
+       cover, on the side away from the lamp. An offset outer copy — the
+       old approach — always reads as a second card lying underneath, and
+       a skirt outside the outline reads as a notch. */
+    const side = opts.sideBase || fillSide;
+    const d = Math.max(1.0, Math.min(depth * 0.5, Math.min(w, h) * 0.16));
+    const ix = L.x < 0 ? 0 : d;        // top face keeps the lit edge intact
+    const iy = L.y < 0 ? 0 : d;
+    const iw = Math.max(0.5, w - d);
+    const ih = Math.max(0.5, h - d);
+
+    g.appendChild(svgEl("rect", { x: x0, y: y0, width: w, height: h, rx, fill: side }));
     g.appendChild(svgEl("rect", {
-      x: wallX, y: wallY, width: w, height: h, rx,
-      fill: opts.sideBase || fillSide, opacity: 1,
+      x: x0 + ix, y: y0 + iy, width: iw, height: ih,
+      rx: Math.max(0.3, rx - d * 0.5), fill: fillTop,
     }));
-    const steps = Math.max(6, Math.round(depth * 3));
-    for (let i = 1; i <= steps; i++) {
-      const t = (i / steps) * depth;
-      g.appendChild(svgEl("rect", {
-        x: x0 + -L.x * t, y: y0 + -L.y * t,
-        width: w, height: h, rx,
-        fill: fillSide,
-        opacity: 0.9,
-      }));
-    }
-    // bounce light where the wall meets the board (never pure black)
-    g.appendChild(svgEl("rect", {
-      x: wallX + 0.2, y: wallY + h - Math.max(0.8, h * 0.18),
-      width: w - 0.4, height: Math.max(0.8, h * 0.18), rx: 0.3,
-      fill: "rgba(146,165,185,0.16)",
-    }));
-    // top face
-    g.appendChild(svgEl("rect", { x: x0, y: y0, width: w, height: h, rx, fill: fillTop }));
     if (opts.shine !== false) {
-      // curved glossy reflection across the top
       g.appendChild(svgEl("rect", {
-        x: x0 + 0.2, y: y0 + 0.2, width: Math.max(0.2, w - 0.4), height: Math.max(0.2, h - 0.4),
-        rx: Math.max(0.2, rx - 0.25),
-        fill: "url(#glossGrad)", opacity: 0.75,
-      }));
-      if (opts.glint) {
-        // wet-looking highlight streak, like a real epoxy moulding
-        g.appendChild(svgEl("rect", {
-          x: x0 + w * 0.1, y: y0 + h * 0.12,
-          width: w * 0.78, height: Math.max(0.7, h * 0.13), rx: 0.4,
-          fill: "rgba(255,255,255,0.5)",
-        }));
-      }
-      // narrow specular ridge: matte moulding, not chrome
-      if (opts.matte !== false) {
-        g.appendChild(svgEl("rect", {
-          x: x0 + w * 0.06, y: y0 + h * 0.055,
-          width: w * (1 - 0.12), height: Math.max(0.55, h * 0.075), rx: 0.3,
-          fill: "rgba(255,255,255,0.3)",
-        }));
-      } else {
-        g.appendChild(svgEl("ellipse", {
-          cx: x0 + w * (opts.specX ?? 0.26), cy: y0 + h * (opts.specY ?? 0.24),
-          rx: Math.max(1.2, w * 0.26), ry: Math.max(0.8, h * 0.2),
-          fill: "url(#specGrad)", opacity: 0.55,
-        }));
-      }
-      // bevel: separate top and bottom edges so nothing can render as a bar
-      g.appendChild(svgEl("rect", {
-        x: x0 + 0.45, y: y0 + 0.35,
-        width: Math.max(0.3, w - 0.9), height: Math.max(0.35, h * 0.05),
-        rx: 0.2, fill: "rgba(255,255,255,0.22)",
-      }));
-      g.appendChild(svgEl("rect", {
-        x: x0 + 0.45, y: y0 + h - Math.max(0.35, h * 0.06) - 0.35,
-        width: Math.max(0.3, w - 0.9), height: Math.max(0.35, h * 0.06),
-        rx: 0.2, fill: "rgba(0,0,0,0.32)",
+        x: x0 + ix + 0.2, y: y0 + iy + 0.2,
+        width: Math.max(0.2, iw - 0.4), height: Math.max(0.2, ih - 0.4),
+        rx: Math.max(0.2, rx - 0.4), fill: "url(#glossGrad)",
+        opacity: opts.gloss === undefined ? 0.55 : opts.gloss,
       }));
     }
   };
 
-  /* tinned termination: metal block + solder fillet rising to the pad */
+  /* metalized termination for the leaded parts (tantalum, connectors) */
   const termination = (g, x0, y0, w, h, rot, L, opts = {}) => {
-    const outward = x0 + w / 2 < 0 ? -1 : 1;   // which way the cap faces
-    const r = Math.min(w, h) * 0.34;
-
-    // 1) plated cap: flat, slightly rounded like a dipped termination
     g.appendChild(svgEl("rect", {
-      x: x0, y: y0, width: w, height: h, rx: Math.min(0.55, r * 0.55),
-      fill: "url(#solderGrad)",
+      x: x0, y: y0, width: w, height: h, rx: Math.min(0.7, Math.min(w, h) * 0.2),
+      fill: opts.top ? opts.top : "url(#solderGrad)",
     }));
-    // 2) the lit top facet — a band, not a blob
     g.appendChild(svgEl("rect", {
-      x: x0 + w * 0.1, y: y0 + h * 0.06,
-      width: Math.max(0.5, w * 0.8), height: Math.max(0.6, h * 0.3),
-      rx: 0.3, fill: "rgba(255,255,255,0.4)",
+      x: x0 + 0.3, y: y0 + 0.25, width: Math.max(0.3, w - 0.6), height: Math.max(0.4, h * 0.24),
+      rx: 0.3, fill: "rgba(250,252,255,0.3)",
     }));
-    // 3) solder fillet: concave meniscus rolling from the pad up the outer face
-    g.appendChild(svgEl("path", {
-      d: `M${x0 + (outward < 0 ? 0 : w)} ${y0 + h * 0.06}
-          q${outward * 2.2} ${h * 0.44} 0 ${h * 0.88}
-          L${x0 + (outward < 0 ? w : 0)} ${y0 + h * 0.94} Z`,
-      fill: "rgba(178, 188, 196, 0.42)",
-    }));
-    // 4) soft shading on the lower third, so the cap looks cylindrical
     g.appendChild(svgEl("rect", {
-      x: x0 + 0.3, y: y0 + h * 0.62,
-      width: Math.max(0.4, w - 0.6), height: Math.max(0.5, h * 0.3),
-      rx: 0.3, fill: "rgba(86,98,108,0.22)",
-    }));
-    // 4) dark crease where the cap meets the ceramic body (inboard edge)
-    g.appendChild(svgEl("rect", {
-      x: outward < 0 ? x0 + w - 0.9 : x0 + 0.25,
-      y: y0 + 0.3, width: 0.65, height: h - 0.6,
-      fill: "rgba(0,0,0,0.5)",
-    }));
-
-    // 5) occluded bottom edge
-    g.appendChild(svgEl("rect", {
-      x: x0 + 0.35, y: y0 + h - Math.max(0.55, h * 0.12) - 0.2,
-      width: Math.max(0.4, w - 0.7), height: Math.max(0.55, h * 0.12), rx: 0.25,
-      fill: "rgba(10,16,22,0.5)",
-    }));
-
-    // 6) tiny solder pimple where the fillet peaks — real joints are never flat
-    g.appendChild(svgEl("circle", {
-      cx: x0 + (outward < 0 ? w * 0.12 : w * 0.88), cy: y0 + h * 0.5,
-      r: Math.max(0.4, Math.min(0.8, w * 0.14)),
-      fill: "rgba(236,242,246,0.45)",
+      x: x0 + 0.3, y: y0 + h - Math.max(0.5, h * 0.26), width: Math.max(0.3, w - 0.6),
+      height: Math.max(0.5, h * 0.26), rx: 0.3, fill: "rgba(40,48,56,0.32)",
     }));
   };
 
-  /* --- passives: 0402 / 0603 / 0805 with real bodies -------------- */
+  /* --- passives: 0402 / 0603 / 0805 -------------------------------
+     A real chip part is ONE ceramic brick whose metalized ends are part
+     of the same outline. Drawing caps as separate rounded rectangles
+     (however subtly) always reads as stickers laid on top, so the caps
+     live inside one gradient that spans the whole silhouette, and a
+     single vertical light overlay shades the whole brick at once.
+     --------------------------------------------------------------- */
   const smdBody = (x, y, w, h, rot = 0, opts = {}) => {
     const g = svgEl("g", { transform: `translate(${x} ${y}) rotate(${rot})` });
-    const termW = Math.max(1.9, w * 0.22);   // real 0603: caps ≈ 20% of length
-    const L = localLight(rot);
-    const depth = Math.max(3.4, h * 0.5);
+    const capW = Math.max(1.7, w * 0.19);   // 0603: end caps ≈ 19 % of length
+    const cf = 0.19;                        // fixed so one gradient serves all
+    const r = Math.min(1.2, h * 0.15);      // a 0603 has ~0.2 mm corner radius
 
-    dropShadow(g, w + termW * 2, h, 0.9, rot, 3.4, 1.2);
+    contactShadow(g, w + 1.2, h + 1.4, r);
 
-    // solder-mask clearance + ENIG land + a whisker of solder wicking out
+    // solder that has wet up the very end of the cap — a hair of duller
+    // metal, flush with the outline so it never reads as a little shelf
     [-1, 1].forEach((side) => {
-      const out = side < 0 ? -1 : 1;
-      const lx = side < 0 ? -w / 2 - termW - 2.6 : w / 2 + termW - 0.2;
-      // mask opening (a real cut-out in the solder mask, just around the land)
       g.appendChild(svgEl("rect", {
-        x: lx - 0.6, y: -h / 2 - 0.5, width: 3.0, height: h + 1.0, rx: 0.7,
-        fill: "rgba(6,10,14,0.42)",
-      }));
-      // gold land
-      g.appendChild(svgEl("rect", {
-        x: lx, y: -h / 2 + 0.2, width: 1.9, height: h - 0.4, rx: 0.45,
-        fill: "rgba(216,190,146,0.42)",
-      }));
-      // solder wicking onto the land
-      g.appendChild(svgEl("path", {
-        d: `M${lx + 0.95} ${-h / 2 + 1.4} q${out * 1.1} ${(h - 2.8) / 2} 0 ${h - 2.8}`,
-        fill: "none", stroke: "rgba(232,238,242,0.4)", "stroke-width": "0.75",
-        "stroke-linecap": "round",
+        x: side < 0 ? -w / 2 + 0.05 : w / 2 - 0.75,
+        y: -h / 2 + h * 0.14, width: 0.7, height: h * 0.72, rx: 0.35,
+        fill: "rgba(150,146,132,0.3)",
       }));
     });
 
-    // camera-locked shading: the light stays put while the part rotates, so the
-    // top-face gradient is counter-rotated through gradientTransform
-    if (rot) {
-      const uid = `${Math.round(x)}_${Math.round(y)}`;
-      const shadeId = `shade_${uid}`;
-      const lightId = `light_${uid}`;
-      const gs = svgEl("linearGradient", {
-        id: shadeId, x1: "0", y1: "0", x2: "0", y2: "1",
-        gradientTransform: `rotate(${(-rot).toFixed(1)} 0.5 0.5)`,
-      });
-      gs.appendChild(svgEl("stop", { offset: "0", "stop-color": "#ffffff", "stop-opacity": "0" }));
-      gs.appendChild(svgEl("stop", { offset: "0.42", "stop-color": "#ffffff", "stop-opacity": "0.05" }));
-      gs.appendChild(svgEl("stop", { offset: "1", "stop-color": "#000000", "stop-opacity": "0.42" }));
-      const gl = svgEl("linearGradient", {
-        id: lightId, x1: "0", y1: "0", x2: "0", y2: "1",
-        gradientTransform: `rotate(${(-rot).toFixed(1)} 0.5 0.5)`,
-      });
-      gl.appendChild(svgEl("stop", { offset: "0", "stop-color": "#ffffff", "stop-opacity": "0.16" }));
-      gl.appendChild(svgEl("stop", { offset: "0.34", "stop-color": "#ffffff", "stop-opacity": "0.03" }));
-      gl.appendChild(svgEl("stop", { offset: "1", "stop-color": "#ffffff", "stop-opacity": "0" }));
-      gParts.appendChild(gs);
-      gParts.appendChild(gl);
-      g.appendChild(svgEl("rect", {
-        x: -w / 2, y: -h / 2, width: w, height: h, rx: 0.7,
-        fill: `url(#${shadeId})`, style: "mix-blend-mode: multiply",
-      }));
-      g.appendChild(svgEl("rect", {
-        x: -w / 2, y: -h / 2, width: w, height: h, rx: 0.7,
-        fill: `url(#${lightId})`, style: "mix-blend-mode: screen",
-      }));
-    }
-
-    // grain overlay is added after the body is drawn (see below)
-
-    // body: matte moulded epoxy (resistor) or ceramic (MLCC)
-    const bodyTop = opts.warm ? "#b9a684" : "#14191e";
-    const bodySide = opts.warm ? "#6d5c45" : "#0a0e12";
-    block3D(g, -w / 2, -h / 2, w, h, 0.7, depth,
-      bodyTop, bodySide, L,
-      { sideBase: opts.warm ? "#8a7659" : "#232b32", matte: true, glint: false });
-
-    // micro texture: fractal noise, barely visible, kills the "vector" feel
+    // --- the brick: one outline, material read through one gradient ---
     g.appendChild(svgEl("rect", {
-      x: -w / 2 + 0.4, y: -h / 2 + 0.4, width: w - 0.8, height: h - 0.8, rx: 0.5,
-      filter: "url(#grain)", opacity: opts.warm ? "0.16" : "0.2",
+      x: -w / 2, y: -h / 2, width: w, height: h, rx: r,
+      fill: opts.warm ? "url(#partWarm)" : "url(#partDark)",
+    }));
+
+    // --- one light overlay for the whole part: lit crest, shaded heel ---
+    g.appendChild(svgEl("rect", {
+      x: -w / 2, y: -h / 2, width: w, height: h, rx: r,
+      fill: "url(#partLight)",
+    }));
+
+    // --- ceramic grain: only across the body, never over the metal -----
+    g.appendChild(svgEl("rect", {
+      x: -w / 2 + w * 0.2, y: -h / 2 + 0.3, width: Math.max(0.4, w * 0.6),
+      height: Math.max(0.4, h - 0.6), rx: Math.max(0.15, r - 0.3),
+      filter: "url(#grain)", opacity: opts.warm ? "0.1" : "0.13",
       style: "mix-blend-mode: overlay",
     }));
 
-    // laser-ablated marking: pale, slightly recessed, only on resistor bodies
-    if (!opts.warm && w >= 14) {
-      const fs = Math.min(4.4, h * 0.5);
+    // --- the groove where each cap meets the ceramic body --------------
+    [-1, 1].forEach((side) => {
+      const gx = side < 0 ? -w / 2 + w * cf : w / 2 - w * cf - 0.3;
+      g.appendChild(svgEl("rect", {
+        x: gx, y: -h / 2 + 0.6, width: 0.36, height: Math.max(0.4, h - 1.2),
+        fill: "rgba(6,10,14,0.5)",
+      }));
+    });
+
+    // --- lid: a hair of light along the top face, none along the base --
+    g.appendChild(svgEl("rect", {
+      x: -w / 2 + r * 0.7, y: -h / 2 + 0.12,
+      width: Math.max(0.4, w - r * 1.4), height: Math.max(0.45, h * 0.055),
+      rx: 0.24, fill: "rgba(236,244,250,0.16)",
+    }));
+
+    // --- laser marking: shallow, low contrast, only where it fits -----
+    if (!opts.warm && w >= 15) {
+      const fs = Math.min(3.9, h * 0.42);
       const t = svgEl("text", {
-        x: 0, y: fs * 0.36, "text-anchor": "middle",
-        fill: "rgba(214,222,230,0.5)",
+        x: 0, y: fs * 0.35, "text-anchor": "middle",
+        fill: "rgba(176,190,201,0.34)",
         "font-family": "var(--font-mono)", "font-size": fs,
-        "letter-spacing": "0.06em",
+        "letter-spacing": "0.1em",
       });
       t.textContent = "103";
       g.appendChild(t);
     }
-
-    // MLCC: faint dielectric banding + rounded, glazed top
-    if (opts.warm) {
-      g.appendChild(svgEl("rect", {
-        x: -w / 2 + 1.4, y: h / 2 - Math.max(1.2, h * 0.3),
-        width: w - 2.8, height: Math.max(0.8, h * 0.16), rx: 0.4,
-        fill: "rgba(70,54,34,0.35)",
-      }));
-      g.appendChild(svgEl("rect", {
-        x: -w / 2 + 1.4, y: -h / 2 + 1.2,
-        width: w - 2.8, height: Math.max(0.8, h * 0.18), rx: 0.4,
-        fill: "rgba(255,255,255,0.16)",
-      }));
-    }
-
-    // solder caps on both ends (drawn last so they sit proud of the body)
-    termination(g, -w / 2 - termW, -h / 2, termW, h, rot, L);
-    termination(g, w / 2, -h / 2, termW, h, rot, L);
-
-    // pin-1 silk bars on the mask
-    silkMarks(g, -w / 2 - termW * 2 - 2.8, -h / 2, w + termW * 4 + 5.6, h, { width: 1.5, gap: 0, len: 0.34 });
 
     gParts.appendChild(g);
     return g;
@@ -737,18 +681,18 @@
         // the arm: a flat bar of metal, brighter on its upper face
         g.appendChild(svgEl("rect", {
           x: t - 1.5, y: s1 < 0 ? base - reach : base,
-          width: 3.0, height: reach, fill: "#7d8894",
+          width: 3.0, height: reach, fill: "#5b646c",
         }));
         g.appendChild(svgEl("rect", {
           x: t - 1.5, y: s1 < 0 ? base - reach : base,
-          width: 3.0, height: Math.max(0.7, reach * 0.42), fill: "rgba(226,234,240,0.55)",
+          width: 3.0, height: Math.max(0.6, reach * 0.36), fill: "rgba(214,224,232,0.22)",
         }));
         // the foot: bent down onto the pad, drawn as a small wedge
         g.appendChild(svgEl("path", {
           d: s1 < 0
             ? `M${t - 1.5} ${base - reach} L${t + 1.5} ${base - reach} L${t + 1.5} ${base - reach - 1.9} Q${t} ${base - reach - 3} ${t - 1.5} ${base - reach - 1.9} Z`
             : `M${t - 1.5} ${base + reach} L${t + 1.5} ${base + reach} L${t + 1.5} ${base + reach + 1.9} Q${t} ${base + reach + 3} ${t - 1.5} ${base + reach + 1.9} Z`,
-          fill: "#98a3ad",
+          fill: "#6c757d",
         }));
         // shadow the foot drops on the board
         g.appendChild(svgEl("rect", {
@@ -763,9 +707,10 @@
       });
     }
 
-    // body: moulded epoxy with a chamfered top edge
-    block3D(g, -w / 2, -h / 2, w, h, 1.6, Math.max(5, h * 0.34),
-      "url(#bodyDarkGrad)", "#0c1319", L, { sideBase: "#2a3540", matte: true });
+    // body: moulded epoxy. A SOIC sits only ~1 mm tall, so the wall is a
+    // hairline under the shaded edge, not a skirt you can see all round.
+    block3D(g, -w / 2, -h / 2, w, h, 1.6, Math.max(2.2, h * 0.14),
+      "url(#bodyDarkGrad)", "#0c1319", L, { sideBase: "#222b33", matte: true });
 
     // top face: soft light falloff + the mould parting line
     g.appendChild(svgEl("rect", {
@@ -943,27 +888,59 @@
   /* --- extra realism: SOIC with pin-1 and legend, tantalums, micro silk --- */
   (() => {
     // second SOIC (op-amp) upper-left quadrant
-    // tantalum caps: chamfered body + polarity bar
+    /* Tantalum: one moulded yellow brick, terminations folded into the
+       same silhouette. No offset copy, no translucent layers — those read
+       as glass sheets lying on each other. */
     const tantalum = (x, y, rot) => {
       const g = svgEl("g", { transform: `translate(${x} ${y}) rotate(${rot})` });
-      const L = localLight(rot);
-      dropShadow(g, 48, 30, 3, rot, 3.0, 1.5);
-      // solder terminations
-      termination(g, -24, -13, 5.6, 26, rot, L, { top: "#9fabb5", side: "#4d5760" });
-      termination(g, 18.4, -13, 5.6, 26, rot, L, { top: "#9fabb5", side: "#4d5760" });
-      // moulded body: higher than a ceramic chip, rounded shoulders
-      block3D(g, -19, -13, 38, 26, 4, 10, "url(#bodyTanGrad)", "#8a6218", L, { sideBase: "#a8791f" });
-      // top face lighting
-      g.appendChild(svgEl("rect", { x: -17, y: -11.4, width: 34, height: 6.6, rx: 2.4, fill: "rgba(255,255,255,0.28)" }));
-      g.appendChild(svgEl("rect", { x: -17, y: 4.2, width: 34, height: 5.6, rx: 2.2, fill: "rgba(0,0,0,0.2)" }));
-      // polarity band
-      g.appendChild(svgEl("rect", { x: 7.6, y: -12.2, width: 9.4, height: 24.4, rx: 1.8, fill: "rgba(52,32,6,0.62)" }));
-      g.appendChild(svgEl("path", { d: "M9.9 -3h5M12.4 -5.5v5", stroke: "rgba(255,255,255,0.6)", "stroke-width": "1.1" }));
+      const W = 48, H = 26, R = 4.5;
+      contactShadow(g, W + 1.2, H + 1.4, R);
+
+      // body + both terminations, described by a single gradient
+      g.appendChild(svgEl("rect", {
+        x: -W / 2, y: -H / 2, width: W, height: H, rx: R,
+        fill: "url(#partTant)",
+      }));
+      // one vertical light pass for the whole part
+      g.appendChild(svgEl("rect", {
+        x: -W / 2, y: -H / 2, width: W, height: H, rx: R,
+        fill: "url(#partLight)",
+      }));
+      // moulded chamfer: a hairline of light inside the top and left edge
+      g.appendChild(svgEl("rect", {
+        x: -W / 2 + 1.1, y: -H / 2 + 0.9, width: W - 2.2, height: 1.5,
+        rx: 0.75, fill: "rgba(255,247,214,0.16)",
+      }));
+      g.appendChild(svgEl("rect", {
+        x: -W / 2 + 1.0, y: -H / 2 + 2.0, width: 1.2, height: H - 4.4,
+        rx: 0.6, fill: "rgba(255,247,214,0.1)",
+      }));
+      // polarity band, set into the moulding rather than pasted on
+      g.appendChild(svgEl("rect", {
+        x: 8.6, y: -H / 2 + 1.35, width: 7.0, height: H - 2.7, rx: 1.5,
+        fill: "rgba(26,17,3,0.66)",
+      }));
+      g.appendChild(svgEl("rect", {
+        x: 8.6, y: -H / 2 + 1.35, width: 7.0, height: 0.85, rx: 0.4,
+        fill: "rgba(255,240,200,0.08)",
+      }));
+      // a "+" moulded into the band: low contrast, reads only up close
+      g.appendChild(svgEl("path", {
+        d: "M10.5 -1.2h4.2M12.6 -3.3v4.2",
+        stroke: "rgba(226,214,186,0.34)", "stroke-width": "1.0",
+        "stroke-linecap": "round",
+      }));
+      // ceramic grain over the body only
+      g.appendChild(svgEl("rect", {
+        x: -W / 2 + 7.2, y: -H / 2 + 0.35, width: W - 14.4, height: H - 0.7,
+        rx: 2.2, filter: "url(#grain)", opacity: "0.1",
+        style: "mix-blend-mode: overlay",
+      }));
       gParts.appendChild(g);
     };
-    tantalum(438, 596, 0);
-    tantalum(502, 596, 0);
-    label(438, 690, "C41 · C42 · 10 µF", "silk", "start");
+    tantalum(438, 600, 0);
+    tantalum(502, 600, 0);
+    label(470, 570, "C41 · C42 · 10 µF", "silk", "end");
     // micro silkscreen: fab panel in the free top strip
     label(760, 30, "OPENTRACE LABS · REV 3.1 · 2026‑11", "silk", "middle");
   })();
