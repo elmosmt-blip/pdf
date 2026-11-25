@@ -99,7 +99,7 @@
     // dark moulded epoxy body
     lin("bodyDarkGrad", [["0", "#2f3a44"], ["0.16", "#1e262d"], ["0.7", "#12181e"], ["1", "#0a0f13"]]);
     // matte moulded epoxy for large packages: almost flat, slight top light
-    lin("mouldGrad", [["0", "#28313a"], ["0.3", "#222a32"], ["0.75", "#1a2128"], ["1", "#141a20"]]);
+    lin("mouldGrad", [["0", "#333e49"], ["0.28", "#29333d"], ["0.7", "#1d252d"], ["1", "#131a21"]]);
     // tan ceramic chip
     lin("bodyWarmGrad", [["0", "#c2ae8b"], ["0.35", "#a58f6d"], ["1", "#665440"]]);
     // yellow tantalum moulding
@@ -352,8 +352,9 @@
     if (opts.shine !== false) {
       // curved glossy reflection across the top
       g.appendChild(svgEl("rect", {
-        x: x0, y: y0, width: w, height: h, rx,
-        fill: "url(#glossGrad)", opacity: 0.9,
+        x: x0 + 0.2, y: y0 + 0.2, width: Math.max(0.2, w - 0.4), height: Math.max(0.2, h - 0.4),
+        rx: Math.max(0.2, rx - 0.25),
+        fill: "url(#glossGrad)", opacity: 0.75,
       }));
       if (opts.glint) {
         // wet-looking highlight streak, like a real epoxy moulding
@@ -377,45 +378,68 @@
           fill: "url(#specGrad)", opacity: 0.55,
         }));
       }
-      // bevel: lit edge upper-left, occluded edge lower-right
+      // bevel: separate top and bottom edges so nothing can render as a bar
       g.appendChild(svgEl("rect", {
-        x: x0 + 0.35, y: y0 + 0.35, width: w - 0.7, height: h - 0.7,
-        rx: Math.max(0.2, rx - 0.3), fill: "none",
-        stroke: "rgba(255,255,255,0.34)", "stroke-width": "0.8",
-        "stroke-dasharray": `${(w * 0.62).toFixed(1)} ${(w + h).toFixed(1)}`,
-        transform: `rotate(180 ${x0 + w / 2} ${y0 + h / 2})`,
+        x: x0 + 0.45, y: y0 + 0.35,
+        width: Math.max(0.3, w - 0.9), height: Math.max(0.35, h * 0.05),
+        rx: 0.2, fill: "rgba(255,255,255,0.22)",
+      }));
+      g.appendChild(svgEl("rect", {
+        x: x0 + 0.45, y: y0 + h - Math.max(0.35, h * 0.06) - 0.35,
+        width: Math.max(0.3, w - 0.9), height: Math.max(0.35, h * 0.06),
+        rx: 0.2, fill: "rgba(0,0,0,0.32)",
       }));
     }
   };
 
   /* tinned termination: metal block + solder fillet rising to the pad */
   const termination = (g, x0, y0, w, h, rot, L, opts = {}) => {
-    // 1) solder fillet wicking up the end of the chip (matte, slightly warm)
+    const outward = x0 + w / 2 < 0 ? -1 : 1;   // which way the cap faces
+    const r = Math.min(w, h) * 0.34;
+
+    // 1) plated cap: flat, slightly rounded like a dipped termination
     g.appendChild(svgEl("rect", {
-      x: x0 - 0.5, y: y0 - 0.5, width: w + 1, height: h + 1, rx: 0.9,
-      fill: "rgba(150, 158, 164, 0.55)",
+      x: x0, y: y0, width: w, height: h, rx: Math.min(0.55, r * 0.55),
+      fill: "url(#solderGrad)",
     }));
-    // 2) the metal cap itself
-    block3D(g, x0, y0, w, h, Math.min(0.7, Math.min(w, h) * 0.24), 1.1,
-      opts.top || "url(#solderGrad)", opts.side || "#5c666f", L,
-      { shine: false, sideBase: "#7c868e" });
-    // 3) bright top facet (the flat of the cap catches the ring light)
+    // 2) the lit top facet — a band, not a blob
     g.appendChild(svgEl("rect", {
-      x: x0 + w * 0.12, y: y0 + h * 0.08,
-      width: Math.max(0.6, w * 0.5), height: Math.max(0.6, h * 0.5),
-      rx: Math.min(0.45, w * 0.18), fill: "rgba(255,255,255,0.34)",
+      x: x0 + w * 0.1, y: y0 + h * 0.06,
+      width: Math.max(0.5, w * 0.8), height: Math.max(0.6, h * 0.3),
+      rx: 0.3, fill: "rgba(255,255,255,0.4)",
     }));
-    // 4) dark meniscus where the cap meets the ceramic body
-    g.appendChild(svgEl("rect", {
-      x: x0 + w * 0.72, y: y0 + 0.2,
-      width: Math.max(0.5, w * 0.24), height: Math.max(0.5, h - 0.4),
-      rx: 0.3, fill: "rgba(18,24,30,0.5)",
+    // 3) solder fillet: concave meniscus rolling from the pad up the outer face
+    g.appendChild(svgEl("path", {
+      d: `M${x0 + (outward < 0 ? 0 : w)} ${y0 + h * 0.06}
+          q${outward * 2.2} ${h * 0.44} 0 ${h * 0.88}
+          L${x0 + (outward < 0 ? w : 0)} ${y0 + h * 0.94} Z`,
+      fill: "rgba(178, 188, 196, 0.42)",
     }));
-    // 5) occluded underside
+    // 4) soft shading on the lower third, so the cap looks cylindrical
     g.appendChild(svgEl("rect", {
-      x: x0 + 0.25, y: y0 + h - Math.max(0.6, h * 0.14) - 0.2,
-      width: Math.max(0.5, w - 0.5), height: Math.max(0.6, h * 0.14), rx: 0.25,
-      fill: "rgba(12,18,24,0.5)",
+      x: x0 + 0.3, y: y0 + h * 0.62,
+      width: Math.max(0.4, w - 0.6), height: Math.max(0.5, h * 0.3),
+      rx: 0.3, fill: "rgba(86,98,108,0.22)",
+    }));
+    // 4) dark crease where the cap meets the ceramic body (inboard edge)
+    g.appendChild(svgEl("rect", {
+      x: outward < 0 ? x0 + w - 0.9 : x0 + 0.25,
+      y: y0 + 0.3, width: 0.65, height: h - 0.6,
+      fill: "rgba(0,0,0,0.5)",
+    }));
+
+    // 5) occluded bottom edge
+    g.appendChild(svgEl("rect", {
+      x: x0 + 0.35, y: y0 + h - Math.max(0.55, h * 0.12) - 0.2,
+      width: Math.max(0.4, w - 0.7), height: Math.max(0.55, h * 0.12), rx: 0.25,
+      fill: "rgba(10,16,22,0.5)",
+    }));
+
+    // 6) tiny solder pimple where the fillet peaks — real joints are never flat
+    g.appendChild(svgEl("circle", {
+      cx: x0 + (outward < 0 ? w * 0.12 : w * 0.88), cy: y0 + h * 0.5,
+      r: Math.max(0.4, Math.min(0.8, w * 0.14)),
+      fill: "rgba(236,242,246,0.45)",
     }));
   };
 
@@ -428,12 +452,25 @@
 
     dropShadow(g, w + termW * 2, h, 0.9, rot, 3.4, 1.2);
 
-    // ENIG land under the joint (peeks out an eyelash)
+    // solder-mask clearance + ENIG land + a whisker of solder wicking out
     [-1, 1].forEach((side) => {
-      const lx = side < 0 ? -w / 2 - termW - 1.1 : w / 2 + termW - 0.6;
+      const out = side < 0 ? -1 : 1;
+      const lx = side < 0 ? -w / 2 - termW - 2.6 : w / 2 + termW - 0.2;
+      // mask opening (a real cut-out in the solder mask, just around the land)
       g.appendChild(svgEl("rect", {
-        x: lx, y: -h / 2 + 0.4, width: 1.8, height: h - 0.8, rx: 0.5,
-        fill: "rgba(214,186,140,0.34)",
+        x: lx - 0.6, y: -h / 2 - 0.5, width: 3.0, height: h + 1.0, rx: 0.7,
+        fill: "rgba(6,10,14,0.42)",
+      }));
+      // gold land
+      g.appendChild(svgEl("rect", {
+        x: lx, y: -h / 2 + 0.2, width: 1.9, height: h - 0.4, rx: 0.45,
+        fill: "rgba(216,190,146,0.42)",
+      }));
+      // solder wicking onto the land
+      g.appendChild(svgEl("path", {
+        d: `M${lx + 0.95} ${-h / 2 + 1.4} q${out * 1.1} ${(h - 2.8) / 2} 0 ${h - 2.8}`,
+        fill: "none", stroke: "rgba(232,238,242,0.4)", "stroke-width": "0.75",
+        "stroke-linecap": "round",
       }));
     });
 
@@ -517,7 +554,7 @@
     termination(g, w / 2, -h / 2, termW, h, rot, L);
 
     // pin-1 silk bars on the mask
-    silkMarks(g, -w / 2 - termW * 2 - 2.6, -h / 2, w + termW * 4 + 5.2, h, { width: 1.35, gap: 0, len: 0.62 });
+    silkMarks(g, -w / 2 - termW * 2 - 2.8, -h / 2, w + termW * 4 + 5.6, h, { width: 1.5, gap: 0, len: 0.34 });
 
     gParts.appendChild(g);
     return g;
@@ -527,12 +564,14 @@
     const w = opts.w || 18;
     const h = opts.h || 9;
     smdBody(x, y, w, h, rot, opts);
-    const gap = h / 2 + 7.5;
-    const local = rot ? { x: 0, y: -gap } : { x: 0, y: -gap };
-    const rad = (rot * Math.PI) / 180;
-    const lx = x + local.x * Math.cos(rad) - local.y * Math.sin(rad);
-    const ly = y + local.x * Math.sin(rad) + local.y * Math.cos(rad);
-    if (name) label(lx, ly + 2.6, name, "silk", "middle");
+    if (name) {
+      if (rot) {
+        // vertical part: caption sits to its left, vertically centred
+        label(x - h / 2 - 20, y + 2.6, name, "silk", "end");
+      } else {
+        label(x, y - h / 2 - 9.5, name, "silk", "middle");
+      }
+    }
     const halfW = w / 2 + 2.4;
     const padA = rot ? addPort(x, y - halfW) : addPort(x - halfW, y);
     return { padA };
@@ -603,21 +642,33 @@
       const t = -half + i * step;
       [-1, 1].forEach((side) => {
         const y0 = side < 0 ? -half - finger : half;
-        block3D(g, t - 1.3, y0, 2.6, finger, 0.35, 0.9, "#a9b4be", "#4f5962", L, { shine: false });
-        g.appendChild(svgEl("rect", { x: t - 0.95, y: side < 0 ? y0 + 0.3 : y0 + 0.3, width: 1.9, height: Math.max(0.5, finger * 0.42), rx: 0.25, fill: "rgba(255,255,255,0.42)" }));
+        block3D(g, t - 1.3, y0, 2.6, finger, 0.35, 0.9, "url(#solderGrad)", "#4f5962", L, { shine: false });
+        // lit toe + shaded heel, so each pin reads as metal
+        g.appendChild(svgEl("rect", {
+          x: t - 0.95, y: y0 + (side < 0 ? 0.25 : 0.25), width: 1.9,
+          height: Math.max(0.5, finger * 0.4), rx: 0.25, fill: "rgba(255,255,255,0.46)",
+        }));
+        g.appendChild(svgEl("rect", {
+          x: t - 0.95, y: y0 + finger - Math.max(0.35, finger * 0.22) - 0.15, width: 1.9,
+          height: Math.max(0.35, finger * 0.22), rx: 0.2, fill: "rgba(0,0,0,0.4)",
+        }));
       });
       [-1, 1].forEach((side) => {
         const x0 = side < 0 ? -half - finger : half;
-        block3D(g, x0, t - 1.3, finger, 2.6, 0.35, 0.9, "#a9b4be", "#4f5962", L, { shine: false });
-        g.appendChild(svgEl("rect", { x: x0 + 0.3, y: t - 0.95, width: Math.max(0.5, finger * 0.42), height: 1.9, rx: 0.25, fill: "rgba(255,255,255,0.42)" }));
+        block3D(g, x0, t - 1.3, finger, 2.6, 0.35, 0.9, "url(#solderGrad)", "#4f5962", L, { shine: false });
+        g.appendChild(svgEl("rect", {
+          x: x0 + 0.25, y: t - 0.95, width: Math.max(0.5, finger * 0.4), height: 1.9,
+          rx: 0.25, fill: "rgba(255,255,255,0.46)",
+        }));
+        g.appendChild(svgEl("rect", {
+          x: x0 + finger - Math.max(0.35, finger * 0.22) - 0.15, y: t - 0.95,
+          width: Math.max(0.35, finger * 0.22), height: 1.9, rx: 0.2, fill: "rgba(0,0,0,0.4)",
+        }));
       });
     }
 
     // 5) top face detail: brushed sheen, thermal pad recess, solder fillet
-    g.appendChild(svgEl("rect", {
-      x: -half + 1.6, y: -half + 1.6, width: size - 3.2, height: size * 0.18,
-      rx: 1, fill: "rgba(255,255,255,0.028)",
-    }));
+
     // recess: dark lip at the top edge, lit lip at the bottom edge
     g.appendChild(svgEl("rect", {
       x: -tp / 2 - 1.1, y: -tp / 2 - 1.1, width: tp + 2.2, height: tp + 2.2, rx: 1.6,
@@ -671,48 +722,63 @@
 
     dropShadow(g, w + 12, h + 10, 1.6, 0, 2.2);
 
-    // gull-wing leads: arm out of the body, then a foot curling down to the pad
+    // gull-wing leads: flat arm out of the body, knee, foot landing on the pad
     for (let i = 0; i < perSide; i++) {
       const t = -w / 2 + (i + 0.5) * pitch;
       [-1, 1].forEach((side) => {
+        const s1 = side < 0 ? -1 : 1;
+        const base = s1 < 0 ? -h / 2 : h / 2;      // where the lead leaves the body
+        const reach = 4.2;                         // length of the arm
         // ENIG land under the foot
         g.appendChild(svgEl("rect", {
-          x: t - 1.9, y: side < 0 ? -h / 2 - 5.4 : h / 2 + 2.2,
-          width: 3.8, height: 3.2, rx: 0.5, fill: "rgba(226,196,142,0.4)",
+          x: t - 1.85, y: s1 < 0 ? base - reach - 2.2 : base + reach - 1.0,
+          width: 3.7, height: 3.2, rx: 0.45, fill: "rgba(226,196,142,0.42)",
         }));
-        // shadow the lead casts on the board
+        // the arm: a flat bar of metal, brighter on its upper face
         g.appendChild(svgEl("rect", {
-          x: t - 1.55, y: side < 0 ? -h / 2 - 5.0 : h / 2 + 3.6,
-          width: 3.1, height: 1.0, rx: 0.3, fill: "rgba(0,0,0,0.55)",
+          x: t - 1.5, y: s1 < 0 ? base - reach : base,
+          width: 3.0, height: reach, fill: "#7d8894",
         }));
-        // lead silhouette in one path: shoulder, knee, toe
-        const s1 = side < 0 ? -1 : 1;
-        const base = s1 < 0 ? -h / 2 : h / 2;
-        const d = s1 < 0
-          ? `M${t - 1.45} ${base} L${t - 1.45} ${base - 2.4} Q${t - 1.45} ${base - 3.5} ${t - 0.55} ${base - 3.5}
-             L${t + 0.55} ${base - 3.5} Q${t + 1.45} ${base - 3.5} ${t + 1.45} ${base - 2.4} L${t + 1.45} ${base} Z`
-          : `M${t - 1.45} ${base} L${t - 1.45} ${base + 2.4} Q${t - 1.45} ${base + 3.5} ${t - 0.55} ${base + 3.5}
-             L${t + 0.55} ${base + 3.5} Q${t + 1.45} ${base + 3.5} ${t + 1.45} ${base + 2.4} L${t + 1.45} ${base} Z`;
-        g.appendChild(svgEl("path", { d, fill: "#8f9aa4" }));
-        // lit crest along the outer flank
         g.appendChild(svgEl("rect", {
-          x: t - 1.45, y: s1 < 0 ? base - 3.4 : base + 1.4,
-          width: 2.9, height: 1.9, rx: 0.6, fill: "rgba(255,255,255,0.45)",
+          x: t - 1.5, y: s1 < 0 ? base - reach : base,
+          width: 3.0, height: Math.max(0.7, reach * 0.42), fill: "rgba(226,234,240,0.55)",
         }));
-        // dark contact line where the foot meets the pad
+        // the foot: bent down onto the pad, drawn as a small wedge
+        g.appendChild(svgEl("path", {
+          d: s1 < 0
+            ? `M${t - 1.5} ${base - reach} L${t + 1.5} ${base - reach} L${t + 1.5} ${base - reach - 1.9} Q${t} ${base - reach - 3} ${t - 1.5} ${base - reach - 1.9} Z`
+            : `M${t - 1.5} ${base + reach} L${t + 1.5} ${base + reach} L${t + 1.5} ${base + reach + 1.9} Q${t} ${base + reach + 3} ${t - 1.5} ${base + reach + 1.9} Z`,
+          fill: "#98a3ad",
+        }));
+        // shadow the foot drops on the board
         g.appendChild(svgEl("rect", {
-          x: t - 1.45, y: s1 < 0 ? base - 3.5 : base + 3.05,
-          width: 2.9, height: 0.55, fill: "rgba(20,26,32,0.55)",
+          x: t - 1.6, y: s1 < 0 ? base - reach - 2.6 : base + reach + 2.6,
+          width: 3.2, height: 1.0, rx: 0.3, fill: "rgba(0,0,0,0.5)",
+        }));
+        // contact line + a little solder fillet at the toe
+        g.appendChild(svgEl("rect", {
+          x: t - 1.5, y: s1 < 0 ? base - reach - 2.9 : base + reach + 2.2,
+          width: 3.0, height: 0.6, fill: "rgba(208,216,222,0.35)",
         }));
       });
     }
 
-    // body
-    block3D(g, -w / 2, -h / 2, w, h, 1.5, Math.max(4.5, h * 0.3), "url(#bodyDarkGrad)", "#0e161d", L, { sideBase: "#2b3742" });
-    // top-face sheen
+    // body: moulded epoxy with a chamfered top edge
+    block3D(g, -w / 2, -h / 2, w, h, 1.6, Math.max(5, h * 0.34),
+      "url(#bodyDarkGrad)", "#0c1319", L, { sideBase: "#2a3540", matte: true });
+
+    // top face: soft light falloff + the mould parting line
     g.appendChild(svgEl("rect", {
-      x: -w / 2 + 1.2, y: -h / 2 + 1.2, width: w - 2.4, height: Math.max(1.2, h * 0.3),
-      rx: 1, fill: "rgba(255,255,255,0.05)",
+      x: -w / 2 + 0.9, y: -h / 2 + 0.9, width: w - 1.8, height: h - 1.8, rx: 1.2,
+      fill: "url(#mouldGrad)", opacity: 0.55,
+    }));
+    g.appendChild(svgEl("path", {
+      d: `M${-w / 2 + 1.2} ${-h / 2 + 1.4} L${w / 2 - 1.2} ${-h / 2 + 1.4}`,
+      stroke: "rgba(255,255,255,0.1)", "stroke-width": "0.7", fill: "none",
+    }));
+    g.appendChild(svgEl("path", {
+      d: `M${-w / 2 + 1.2} ${h / 2 - 1.6} L${w / 2 - 1.2} ${h / 2 - 1.6}`,
+      stroke: "rgba(0,0,0,0.45)", "stroke-width": "1", fill: "none",
     }));
 
     // pin-1 chamfer highlight
@@ -782,7 +848,6 @@
     smd(92 + col * 62, y, 90, `R${12 + i}`, { w: 44, h: 18 });
     lResistors.push(y);
   }
-  label(96, 286, "R12–R17 · 0603", "silk--warm", "start");
 
   const cBankY = 596;
   for (let i = 0; i < 5; i++) {
@@ -815,7 +880,6 @@
     const y = 336 + Math.floor(i / 2) * 72;
     smd(1348 - col * 62, y, 90, `R${21 + i}`, { w: 44, h: 18 });
   }
-  label(1348, 300, "R21–R26 · 0603", "silk--warm", "end");
 
   // inductor
   (() => {
@@ -1335,18 +1399,21 @@
     const body = document.getElementById("chip-body");
     const shadow = chip.querySelector(".chip__shadow");
     const ballEls = Array.from(chip.querySelectorAll(".ball"));
+    const chipEl = chip;
 
     // resting pose: slightly tipped so the package reads as a solid object
     const HOME = { x: 17, y: -14 };
     let rotX = HOME.x, rotY = HOME.y;
     let velX = 0, velY = 0;
     let dragging = false;
-    let lastX = 0, lastY = 0, lastT = 0;
-    let raf = 0, idleSpin = 0;
+    let lastX = 0, lastY = 0, frameT = 0;
+    let raf = 0;
     let touched = false;
     let dragMoved = 0;
+    let dragT = 0;
 
-    const clampPitch = (v) => Math.max(-46, Math.min(46, v));
+    const clampPitch = (v) => Math.max(-34, Math.min(34, v));
+    const yawLimit = 40;
 
     const paintBalls = () => {
       // light comes from the upper-left of the *screen*, so the highlight
@@ -1378,6 +1445,12 @@
     const paint = () => {
       if (float) float.style.transform =
         `perspective(1400px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg)`;
+      if (chipEl && chipEl.querySelector(".chip__edge")) {
+        const tilt = Math.abs(Math.sin((rotX * Math.PI) / 180)) +
+                     Math.abs(Math.sin((rotY * Math.PI) / 180)) * 0.6;
+        chipEl.querySelector(".chip__edge").style.setProperty("--edge",
+          (0.35 + Math.min(0.55, tilt * 0.8)).toFixed(2));
+      }
       if (shadow) {
         // the shadow slides opposite the tilt and softens as the part lifts
         const pitch = (rotX * Math.PI) / 180;
@@ -1391,54 +1464,95 @@
       paintBalls();
     };
 
-    const tick = () => {
+    /* ---------- idle auto-rotation ----------
+       The package turns slowly on its own so the 3D form is obvious without
+       any interaction. Hovering pauses it; dragging takes over; after the
+       pointer leaves it eases back into the automatic turn.               */
+    const AUTO = { yaw: 7.5, pitch: 4.2 };   // degrees / second
+    let autoOn = true;
+    let autoBlend = 1;                        // 0 = manual, 1 = full auto
+    frameT = performance.now();
+
+    const tick = (now) => {
       raf = 0;
-      if (!dragging) {
-        // inertia
-        rotY += velY;
-        rotX = clampPitch(rotX + velX);
-        velY *= 0.94;
-        velX *= 0.94;
-        // settle slowly toward the resting pose when idle
-        if (Math.abs(velY) < 0.04 && Math.abs(velX) < 0.04) {
-          velX = 0; velY = 0;
-          rotX += (HOME.x - rotX) * 0.035;
-          rotY += (HOME.y - rotY) * 0.035;
-          if (Math.abs(HOME.x - rotX) < 0.05 && Math.abs(HOME.y - rotY) < 0.05) {
-            rotX = HOME.x; rotY = HOME.y;
-            chip.classList.remove("is-spinning");
-            paint();
-            return;
-          }
-        } else {
-          raf = requestAnimationFrame(tick);
+      const t = now || performance.now();
+      const dt = Math.min(48, Math.max(8, t - frameT));
+      frameT = t;
+      const k = dt / 1000;
+
+      if (dragging) {
+        paint();
+        raf = requestAnimationFrame(tick);
+        return;
+      }
+
+      // blend factor eases in/out so switching between modes never jumps
+      const target = autoOn ? 1 : 0;
+      autoBlend += (target - autoBlend) * Math.min(1, k * 3.2);
+
+      // manual inertia (from a flick) decays quickly
+      rotY += velY;
+      rotX = clampPitch(rotX + velX);
+      velY *= 0.94;
+      velX *= 0.94;
+      if (Math.abs(velY) < 0.02) velY = 0;
+      if (Math.abs(velX) < 0.02) velX = 0;
+
+      // automatic turn: a slow swing across ±yawLimit with a gentle nod.
+      // A full 360° orbit would expose the package edge-on and read as a sheet.
+      if (autoBlend > 0.002) {
+        const swing = Math.sin(t / 5200) * yawLimit;
+        rotY += (HOME.y + swing - rotY) * Math.min(1, k * 1.2 * autoBlend);
+        const nod = Math.sin(t / 3400) * 8;
+        rotX += (HOME.x + nod - rotX) * Math.min(1, k * 1.1 * autoBlend);
+        chip.classList.add("is-spinning");
+      } else {
+        // settle to the resting pose when the automatic turn is off
+        rotX += (HOME.x - rotX) * 0.06;
+        rotY += (HOME.y - rotY) * 0.06;
+        if (Math.abs(HOME.x - rotX) < 0.12 && Math.abs(HOME.y - rotY) < 0.12) {
+          rotX = HOME.x; rotY = HOME.y;
+          chip.classList.remove("is-spinning");
+          paint();
+          return;
         }
       }
+
       paint();
-      if (!dragging && (velX || velY)) raf = requestAnimationFrame(tick);
+      raf = requestAnimationFrame(tick);
     };
+
+    const kick = () => { if (!raf) { frameT = performance.now(); raf = requestAnimationFrame(tick); } };
+
+    // pause the automatic turn while the user looks at / touches the package
+    chip.addEventListener("pointerenter", () => { autoOn = false; kick(); });
+    chip.addEventListener("pointerleave", () => { autoOn = true; kick(); });
 
     chip.addEventListener("pointerdown", (e) => {
       if (e.button !== 0 && e.pointerType === "mouse") return;
       dragging = true;
       touched = true;
       dragMoved = 0;
-      lastX = e.clientX; lastY = e.clientY; lastT = performance.now();
+      autoOn = false;
+      autoBlend = 0;
+      lastX = e.clientX; lastY = e.clientY;
+      dragT = performance.now();
       velX = 0; velY = 0;
-      chip.classList.add("is-spinning");
+      chip.classList.add("is-dragging");
       chip.setPointerCapture?.(e.pointerId);
+      kick();
       e.preventDefault();
     });
 
     chip.addEventListener("pointermove", (e) => {
       if (!dragging) return;
       const now = performance.now();
-      const dt = Math.max(8, now - lastT);
+      const dt = Math.max(8, now - dragT);
       const dx = e.clientX - lastX;
       const dy = e.clientY - lastY;
-      lastX = e.clientX; lastY = e.clientY; lastT = now;
+      lastX = e.clientX; lastY = e.clientY; dragT = now;
       dragMoved += Math.abs(dx) + Math.abs(dy);
-      rotY += dx * 0.55;
+      rotY = Math.max(HOME.y - 55, Math.min(HOME.y + 55, rotY + dx * 0.5));
       rotX = clampPitch(rotX - dy * 0.45);
       velY = (dx * 0.55) * (16 / dt);
       velX = (-dy * 0.45) * (16 / dt);
@@ -1450,7 +1564,10 @@
       dragging = false;
       // a real drag must not toggle the x-ray pin
       if (dragMoved > 6) suppressClick = true;
-      if (!raf) raf = requestAnimationFrame(tick);
+      chip.classList.remove("is-dragging");
+      // resume the automatic turn unless the pointer is still over the part
+      autoOn = !chip.matches(":hover");
+      kick();
     };
     chip.addEventListener("pointerup", endDrag);
     chip.addEventListener("pointercancel", endDrag);
@@ -1488,6 +1605,7 @@
     }
 
     paint();
+    kick();
     chip.__resetTilt = () => { rotX = HOME.x; rotY = HOME.y; velX = velY = 0; paint(); };
   }
 

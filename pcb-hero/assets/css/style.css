@@ -1135,10 +1135,29 @@ svg { display: block; }
 }
 .chip.is-spinning .chip__shadow { opacity: 0.7; }
 
-/* ---------- true 3D package: six faces on a preserve-3d box ---------- */
+/* ---------- package as a thin slab ---------- */
 .chip {
   --half: calc(var(--chip) / 2);
-  --thick: calc(var(--chip) * 0.11);   /* package thickness incl. balls */
+  --thick: calc(var(--chip) * 0.13);   /* package thickness incl. balls */
+}
+
+/* the rim: a dark edge that grows with the viewing angle, so the slab never
+   looks like a sheet of paper */
+.chip__edge {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.09) 0 1.5px, transparent 1.5px),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.55) 0 4px, transparent 4px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0 1.5px, transparent 1.5px),
+    linear-gradient(270deg, rgba(0, 0, 0, 0.4) 0 2.5px, transparent 2.5px);
+  box-shadow:
+    0 10px 0 -6px #0a1015,
+    0 18px 0 -12px rgba(0, 0, 0, 0.5);
+  opacity: var(--edge, 0.6);
+  transition: opacity 0.2s linear;
 }
 .chip__body {
   position: absolute;
@@ -1151,34 +1170,14 @@ svg { display: block; }
   inset: 0;
   border-radius: 9px;
   overflow: hidden;
-  backface-visibility: hidden;
-  transform-style: preserve-3d;
-  isolation: isolate;
+  /* the package is a thin slab: at steep angles the face itself is what we
+     see, so it must stay visible rather than be culled as a back face */
+  backface-visibility: visible;
 }
 /* the soldered side faces the camera by default; the lid is behind it */
-.chip__face--bottom { transform: translateZ(calc(var(--thick) / 2)); }
-.chip__face--top    { transform: rotateX(180deg) translateZ(calc(var(--thick) / 2)); }
+.chip__face--bottom { transform: translateZ(1px); }
 
-/* the package reads as a slab: the lower face is lifted off the board and the
-   board-side shadow does the work of a physical wall */
-.chip__body::after {
-  /* moulded edge: a rim that catches light along the top/left and falls into
-     shadow along the bottom/right, which is what reads as package thickness */
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: 11px;
-  pointer-events: none;
-  background:
-    linear-gradient(168deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0) 12%),
-    linear-gradient(12deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 14%);
-  box-shadow:
-    inset 0 1.5px 0 rgba(255, 255, 255, 0.16),
-    inset 0 -2.5px 0 rgba(0, 0, 0, 0.62),
-    inset 1.5px 0 0 rgba(255, 255, 255, 0.06),
-    inset -2px 0 0 rgba(0, 0, 0, 0.45);
-  z-index: 6;
-}
+
 
 /* moulded lid */
 .chip__lid {
@@ -1247,7 +1246,6 @@ svg { display: block; }
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 2;
   border-radius: 10px;
   background:
     linear-gradient(150deg, #232e39 0%, #141d26 40%, #0c141c 100%);
@@ -1275,15 +1273,16 @@ svg { display: block; }
 }
 
 .chip__sheen {
+  /* a soft, wide reflection only — a narrow band reads as a light bar */
   position: absolute;
   inset: 0;
   z-index: 4;
   pointer-events: none;
   background:
-    linear-gradient(118deg, transparent 18%, rgba(255, 255, 255, 0.05) 34%, rgba(255, 255, 255, 0.10) 46%, rgba(255, 255, 255, 0.03) 56%, transparent 72%),
-    radial-gradient(140% 90% at 50% -20%, rgba(255, 255, 255, 0.09), transparent 46%);
+    radial-gradient(120% 80% at 22% 8%, rgba(255, 255, 255, 0.075), transparent 52%),
+    radial-gradient(90% 70% at 78% 96%, rgba(120, 170, 200, 0.05), transparent 56%);
   mix-blend-mode: screen;
-  opacity: 0.9;
+  opacity: 0.85;
 }
 .chip__fanout {
   position: absolute;
@@ -1500,11 +1499,15 @@ svg { display: block; }
   height: 26%;
   z-index: 6;
   pointer-events: none;
-  background: linear-gradient(180deg, transparent 0%, rgba(83, 209, 204, 0.015) 40%, rgba(83, 209, 204, 0.03) 74%, rgba(150, 235, 231, 0.1) 97%, rgba(220, 250, 249, 0.22) 99.4%, transparent 100%);
+  background: linear-gradient(180deg, transparent 0%, rgba(83, 209, 204, 0.012) 40%, rgba(83, 209, 204, 0.022) 74%, rgba(150, 235, 231, 0.06) 97%, rgba(220, 250, 249, 0.1) 99.4%, transparent 100%);
   mix-blend-mode: screen;
   animation: scan 7.5s cubic-bezier(0.42, 0, 0.58, 1) infinite;
-  opacity: 0.9;
+  /* the sweep belongs to the x-ray view; on the physical package it reads
+     as a stray light bar across the balls */
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
 }
+.chip.is-xray .chip__scan { opacity: 0.55; }
 
 .chip__xray-label {
   position: absolute;
@@ -1538,21 +1541,23 @@ svg { display: block; }
     0 0 120px -10px rgba(83, 209, 204, 0.3);
 }
 .chip.is-xray .chip__balls { opacity: 0.42; filter: grayscale(0.65) brightness(0.72) contrast(1.05); }
-/* while spinning, show the physical package — no x-ray wash */
-.chip.is-spinning .chip__xray { opacity: 0 !important; }
-.chip.is-spinning .chip__balls { opacity: 1 !important; filter: none !important; }
-.chip.is-spinning .chip__die { opacity: 0 !important; }
-.chip.is-spinning .chip__xray-label { opacity: 0 !important; }
+/* while the user is actively dragging, show the physical package */
+.chip.is-dragging .chip__xray { opacity: 0 !important; }
+.chip.is-dragging .chip__die { opacity: 0 !important; }
+.chip.is-dragging .chip__xray-label { opacity: 0 !important; }
+/* the idle swing must not fight the x-ray reveal */
+.chip.is-spinning:not(.is-xray) .chip__scan { opacity: 0; }
 .chip.is-xray .chip__sheen {
+  /* a soft, wide reflection only — a narrow band reads as a light bar */
   position: absolute;
   inset: 0;
   z-index: 4;
   pointer-events: none;
   background:
-    linear-gradient(118deg, transparent 18%, rgba(255, 255, 255, 0.05) 34%, rgba(255, 255, 255, 0.10) 46%, rgba(255, 255, 255, 0.03) 56%, transparent 72%),
-    radial-gradient(140% 90% at 50% -20%, rgba(255, 255, 255, 0.09), transparent 46%);
+    radial-gradient(120% 80% at 22% 8%, rgba(255, 255, 255, 0.075), transparent 52%),
+    radial-gradient(90% 70% at 78% 96%, rgba(120, 170, 200, 0.05), transparent 56%);
   mix-blend-mode: screen;
-  opacity: 0.9;
+  opacity: 0.85;
 }
 .chip__fanout {
   position: absolute;
