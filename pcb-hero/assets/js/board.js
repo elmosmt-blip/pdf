@@ -1546,8 +1546,10 @@
     };
 
     const paint = () => {
+      // yaw first, then pitch: the package rolls about its own vertical axis
+      // and only then tips over, so the lid marking never ends up mirrored
       if (float) float.style.transform =
-        `perspective(1400px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg)`;
+        `perspective(1400px) rotateY(${rotY.toFixed(2)}deg) rotateX(${rotX.toFixed(2)}deg)`;
       if (shadow) {
         // the shadow slides opposite the tilt and softens as the part lifts
         const pitch = (rotX * Math.PI) / 180;
@@ -1601,9 +1603,11 @@
       if (autoBlend > 0.002) {
         // s eases 0 → 1 → 0 with zero velocity at the ends, so the flip
         // lands exactly on the resting tilt and on a full 180° face-up pose
-        const s01 = (1 - Math.cos(t / 9000)) / 2;
+        const s01 = (1 - Math.cos(t / 8600)) / 2;
         const pitch = HOME.x + (180 - HOME.x) * s01;
-        const swing = Math.sin(t / 5200) * 9;
+        // sideways sweep runs on its own clock, so the part keeps turning
+        // in yaw while it is rolling over — the two never lock together
+        const swing = Math.sin(t / 4200) * 46;
         rotY += (HOME.y + swing - rotY) * Math.min(1, k * 1.0 * autoBlend);
         rotX += (pitch - rotX) * Math.min(1, k * 1.6 * autoBlend);
         chip.classList.add("is-spinning");
@@ -1653,7 +1657,8 @@
       const dy = e.clientY - lastY;
       lastX = e.clientX; lastY = e.clientY; dragT = now;
       dragMoved += Math.abs(dx) + Math.abs(dy);
-      rotY = Math.max(HOME.y - 80, Math.min(HOME.y + 80, rotY + dx * 0.5));
+      // unwrapped on purpose: the package can be spun right round on its axis
+      rotY = rotY + dx * 0.5;
       rotX = clampPitch(rotX - dy * 0.5);
       velY = (dx * 0.55) * (16 / dt);
       velX = (-dy * 0.45) * (16 / dt);
