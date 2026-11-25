@@ -1142,7 +1142,6 @@ svg { display: block; }
      .chip__lid-key    key light, positioned in *screen* space per frame
      .chip__lid-shade  occlusion toward the far corners
      .chip__lid-bevel  lit chamfer on the edge facing the key light
-     .chip__lid-eject  ejector-pin dimple in the centre of the cavity
    The key light, the bevel highlight and the shade are driven from
    board.js so they stay put while the package turns, exactly like a real
    part under a fixed lamp.                                           */
@@ -1201,18 +1200,6 @@ svg { display: block; }
   opacity: var(--bv, 1);
 }
 /* ejector pin: a shallow circular mark left by the moulding tool */
-.chip__lid-eject {
-  position: absolute;
-  left: 62%; top: 74%;
-  width: 13%; aspect-ratio: 1;
-  border-radius: 50%;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 38% 32%, rgba(255, 255, 255, 0.05), transparent 46%),
-    radial-gradient(circle, rgba(0, 0, 0, 0.16) 58%, rgba(255, 255, 255, 0.03) 80%, transparent 88%);
-  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.28);
-}
-
 /* laser-etched brand: slightly lighter than the moulding, no glow */
 .chip__lid-brand {
   position: absolute;
