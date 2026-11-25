@@ -859,3 +859,27 @@ table.tbl{width:100%;border-collapse:collapse}
     border-top:1px solid #bbb;padding-top:3pt;background:#fff}
   #main{padding-bottom:14mm}
 }
+
+/* ---- home / sidebar re-flow (reader feedback: the case grid buried the course) ---- */
+.toc-cases{margin:14px 0 0;padding:6px 10px}
+details.toc-cases>summary.toc-cases-head{cursor:pointer;list-style:none;padding:6px 0;margin:0;display:flex;gap:8px;align-items:center}
+details.toc-cases>summary::-webkit-details-marker{display:none}
+details.toc-cases>summary::before{content:"\25B8";font-size:11px;color:var(--signal);transition:transform .15s}
+details.toc-cases[open]>summary::before{transform:rotate(90deg)}
+details.toc-cases>summary:focus-visible{outline:2px solid var(--signal);outline-offset:2px;border-radius:6px}
+details.toc-cases[open]>summary{margin-bottom:6px}
+.home-cases{margin:44px 0 8px}
+.home-case-grid--compact{display:block;margin-top:12px}
+.home-case-grid--compact li{margin:0;max-width:none}
+.home-case-grid--compact .home-case-link{display:grid;grid-template-columns:44px 1fr auto;gap:14px;align-items:center;
+  padding:11px 16px;border-radius:12px;height:auto;transform:none}
+.home-case-grid--compact .home-case-link:hover{transform:none;box-shadow:none}
+.home-case-grid--compact li+li .home-case-link{margin-top:6px}
+.home-case-grid--compact .home-case-title{font-size:15px;font-weight:500}
+.home-case-grid--compact .home-case-meta{gap:12px;white-space:nowrap}
+.home-case-grid--compact .home-case-state{margin:0;padding:0;border:0}
+.home-case-grid--compact .home-case-state:empty{display:none}
+@media (max-width:700px){
+  .home-case-grid--compact .home-case-link{grid-template-columns:44px 1fr}
+  .home-case-grid--compact .home-case-meta{grid-column:2}
+}

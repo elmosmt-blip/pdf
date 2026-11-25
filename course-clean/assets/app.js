@@ -399,47 +399,6 @@
       '<div class="hero-cta"><a class="btn btn--primary" href="#/l/m01l01">Start the course &#8594;</a></div>' +
       '</div></section>';
 
-    html += '<div class="stats">' +
-      '<div class="stat-card"><div class="stat-num">' + esc(LESSONS.length) + '</div>' +
-      '<div class="stat-label">lessons across the full line — each with a worked calculation and a real defect</div></div>' +
-      '<div class="stat-card"><div class="stat-num">' + esc(MODULES.length) + '</div>' +
-      '<div class="stat-label">process stages covered, from incoming inspection to capability reporting</div></div>' +
-      '<div class="stat-card"><div class="stat-num">' + esc(QUESTIONS.length) + '</div>' +
-      '<div class="stat-label">quiz questions graded in-page by code</div></div>' +
-      '</div>';
-
-    /* The cases are the interactive part of the course and they were buried
-     * inside four modules — a reader had to know they existed to find them.
-     * One block on the home page, before the program, removes that step. */
-    if (CASES.length) {
-      html += '<section class="home-cases"><div class="home-cases-head">' +
-        '<h2 class="flush">Toolkit cases</h2>' +
-        '<p class="muted flush">Interactive, scored work on one fictional product — Board X. ' +
-        'Each case hands you real data, checks your numbers against a generated key, and ' +
-        'scores the decision against a rubric.</p></div>' +
-        '<ul class="home-case-grid">';
-      CASES.forEach(function (c) {
-        var m = moduleById(c.moduleId);
-        var rec = caseRecord(c.caseId);
-        var done = caseMastered(c.caseId);
-        html += '<li class="home-case-card' + (done ? ' home-case-card--done' : '') + '">' +
-          '<a class="home-case-link" href="#/c/' + encodeURIComponent(c.caseId) + '">' +
-          '<span class="home-case-mod">M' + esc(m ? pad2(m.n) : '') + ' · ' +
-          esc(m ? m.title : '') + '</span>' +
-          '<span class="home-case-title">' + esc(c.title) + '</span>' +
-          '<span class="home-case-meta">' +
-          '<span>' + esc(c.estMinutes) + ' min</span>' +
-          '<span>' + esc((c.steps || []).length) + ' steps</span>' +
-          '<span>rubric ' + esc(casePoints(c)) + ' pts</span>' +
-          '</span>' +
-          '<span class="home-case-state">' + (done ? 'Mastered · best ' + esc(rec.best) + ' %'
-            : rec ? 'Best so far ' + esc(rec.best) + ' % · continue'
-            : 'Not attempted yet · open the case') + '</span>' +
-          '</a></li>';
-      });
-      html += '</ul></section>';
-    }
-
     html += homePathsHtml();
 
     html += '<h2>Course program</h2>';
@@ -476,6 +435,32 @@
         '</span></a></li>';
     });
     html += '</ul>';
+
+    /* The cases, after the program they belong to: one compact row each,
+     * in line order. Every case stays one click from the home page, but the
+     * list no longer pushes the course itself below the fold. */
+    if (CASES.length) {
+      html += '<section class="home-cases"><div class="home-cases-head">' +
+        '<h2 class="flush">Toolkit cases</h2>' +
+        '<p class="muted flush">Scored work on one fictional product, Board X: real data in, your numbers ' +
+        'checked against a generated key, the decision scored against a rubric. Each case also sits ' +
+        'inside its module.</p></div>' +
+        '<ul class="home-case-grid home-case-grid--compact">';
+      casesInOrder().forEach(function (c) {
+        var m = moduleById(c.moduleId);
+        var rec = caseRecord(c.caseId);
+        var done = caseMastered(c.caseId);
+        html += '<li class="home-case-card' + (done ? ' home-case-card--done' : '') + '">' +
+          '<a class="home-case-link" href="#/c/' + encodeURIComponent(c.caseId) + '">' +
+          '<span class="home-case-mod">M' + esc(m ? pad2(m.n) : '') + '</span>' +
+          '<span class="home-case-title">' + esc(c.title) + '</span>' +
+          '<span class="home-case-meta"><span>' + esc(c.estMinutes) + ' min</span>' +
+          '<span class="home-case-state">' + (done ? 'mastered · ' + esc(rec.best) + ' %'
+            : rec ? 'best ' + esc(rec.best) + ' %' : '') + '</span></span>' +
+          '</a></li>';
+      });
+      html += '</ul></section>';
+    }
     return html;
   }
 
@@ -571,6 +556,13 @@
   }
 
   function casesOf(moduleId) { return casesByModule[moduleId] || []; }
+  /* Cases in line order (module 01 first), for every list a reader scans. */
+  function casesInOrder() {
+    var out = [];
+    MODULES.forEach(function (m) { out = out.concat(casesOf(m.id)); });
+    CASES.forEach(function (c) { if (out.indexOf(c) === -1) out.push(c); });
+    return out;
+  }
 
   function caseRecord(caseId) {
     var rec = progress.cases && progress.cases[caseId];
@@ -2762,20 +2754,6 @@
         (route.view === 'case' && byCase[route.caseId] ? byCase[route.caseId].moduleId : null));
     var activeLesson = route.view === 'lesson' ? route.lessonId : null;
     var html = '';
-    /* Pinned above the module list: the four cases, always one click away. */
-    if (CASES.length) {
-      html += '<div class="toc-cases"><p class="toc-cases-head">Toolkit cases</p>';
-      CASES.forEach(function (c) {
-        var short = moduleById(c.moduleId);
-        var active = route.view === 'case' && route.caseId === c.caseId;
-        html += '<a class="toc-case-item' + (active ? ' toc-case-item--active' : '') +
-          (caseMastered(c.caseId) ? ' toc-case-item--done' : '') +
-          '" href="#/c/' + encodeURIComponent(c.caseId) + '">' +
-          '<span class="toc-case-m">M' + esc(short ? pad2(short.n) : '') + '</span>' +
-          '<span class="toc-case-t">' + esc(c.title.split(':')[0]) + '</span></a>';
-      });
-      html += '</div>';
-    }
     MODULES.forEach(function (m) {
       var active = m.id === activeModule;
       html += '<a class="toc-mod' + (active ? ' toc-mod--active' : '') + '" href="#/m/' +
@@ -2814,6 +2792,23 @@
         }
       }
     });
+    /* Toolkit cases, below the modules they belong to: a closed list unless a
+       case is open. Each case is also linked from inside its module. */
+    if (CASES.length) {
+      var caseOpen = route.view === 'case';
+      html += '<details class="toc-cases"' + (caseOpen ? ' open' : '') + '>' +
+        '<summary class="toc-cases-head">Toolkit cases <span class="muted">(' + esc(CASES.length) + ')</span></summary>';
+      casesInOrder().forEach(function (c) {
+        var short = moduleById(c.moduleId);
+        var active = route.view === 'case' && route.caseId === c.caseId;
+        html += '<a class="toc-case-item' + (active ? ' toc-case-item--active' : '') +
+          (caseMastered(c.caseId) ? ' toc-case-item--done' : '') +
+          '" href="#/c/' + encodeURIComponent(c.caseId) + '">' +
+          '<span class="toc-case-m">M' + esc(short ? pad2(short.n) : '') + '</span>' +
+          '<span class="toc-case-t">' + esc(c.title.split(':')[0]) + '</span></a>';
+      });
+      html += '</details>';
+    }
     /* Learning paths (phase 7): the chosen one first, with its progress. */
     if (PATHS.length) {
       var apS = activePath();
