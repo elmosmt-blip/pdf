@@ -1514,8 +1514,9 @@
     let dragMoved = 0;
     let dragT = 0;
 
-    const clampPitch = (v) => Math.max(-34, Math.min(34, v));
-    const yawLimit = 40;
+    // a flip needs the full range: the package must be able to turn over
+    const clampPitch = (v) => Math.max(-180, Math.min(180, v));
+    const yawLimit = 62;
 
     const paintBalls = () => {
       // light comes from the upper-left of the *screen*, so the highlight
@@ -1547,12 +1548,6 @@
     const paint = () => {
       if (float) float.style.transform =
         `perspective(1400px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg)`;
-      if (chipEl && chipEl.querySelector(".chip__edge")) {
-        const tilt = Math.abs(Math.sin((rotX * Math.PI) / 180)) +
-                     Math.abs(Math.sin((rotY * Math.PI) / 180)) * 0.6;
-        chipEl.querySelector(".chip__edge").style.setProperty("--edge",
-          (0.35 + Math.min(0.55, tilt * 0.8)).toFixed(2));
-      }
       if (shadow) {
         // the shadow slides opposite the tilt and softens as the part lifts
         const pitch = (rotX * Math.PI) / 180;
@@ -1600,13 +1595,17 @@
       if (Math.abs(velY) < 0.02) velY = 0;
       if (Math.abs(velX) < 0.02) velX = 0;
 
-      // automatic turn: a slow swing across ±yawLimit with a gentle nod.
-      // A full 360° orbit would expose the package edge-on and read as a sheet.
+      // automatic turn: it rolls the package over so the lid shows, then
+      // carries on to the ball side. A one-way 360° would snap at the seam,
+      // so the pitch is driven as a smooth triangle wave in [-180, 0].
       if (autoBlend > 0.002) {
-        const swing = Math.sin(t / 5200) * yawLimit;
-        rotY += (HOME.y + swing - rotY) * Math.min(1, k * 1.2 * autoBlend);
-        const nod = Math.sin(t / 3400) * 8;
-        rotX += (HOME.x + nod - rotX) * Math.min(1, k * 1.1 * autoBlend);
+        // s eases 0 → 1 → 0 with zero velocity at the ends, so the flip
+        // lands exactly on the resting tilt and on a full 180° face-up pose
+        const s01 = (1 - Math.cos(t / 9000)) / 2;
+        const pitch = HOME.x + (180 - HOME.x) * s01;
+        const swing = Math.sin(t / 5200) * 9;
+        rotY += (HOME.y + swing - rotY) * Math.min(1, k * 1.0 * autoBlend);
+        rotX += (pitch - rotX) * Math.min(1, k * 1.6 * autoBlend);
         chip.classList.add("is-spinning");
       } else {
         // settle to the resting pose when the automatic turn is off
@@ -1654,8 +1653,8 @@
       const dy = e.clientY - lastY;
       lastX = e.clientX; lastY = e.clientY; dragT = now;
       dragMoved += Math.abs(dx) + Math.abs(dy);
-      rotY = Math.max(HOME.y - 55, Math.min(HOME.y + 55, rotY + dx * 0.5));
-      rotX = clampPitch(rotX - dy * 0.45);
+      rotY = Math.max(HOME.y - 80, Math.min(HOME.y + 80, rotY + dx * 0.5));
+      rotX = clampPitch(rotX - dy * 0.5);
       velY = (dx * 0.55) * (16 / dt);
       velX = (-dy * 0.45) * (16 / dt);
       paint();

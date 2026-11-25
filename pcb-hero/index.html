@@ -10,7 +10,7 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23080d0a'/%3E%3Cpath d='M23 8h-6L9 16l8 8h6' fill='none' stroke='%23dfb877' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='9' cy='16' r='2' fill='%235ef0b8'/%3E%3C/svg%3E">
   <link rel="preload" href="assets/fonts/plexsans-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/plexsans-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/style.css?v=795635717">
+  <link rel="stylesheet" href="assets/css/style.css?v=795637517">
 </head>
 <body>
   <a class="skip" href="#main">К содержимому</a>
@@ -133,45 +133,38 @@
           <span class="stage__frame-br"></span>
         </div>
 
-        <div class="hud hud--tl" aria-hidden="true">
-          <div class="hud__top"><span class="hud__dot"></span>ROUTER CORE <span class="hud__tag">ACTIVE</span></div>
-          <div class="hud__value">OT-256</div>
-          <div class="hud__bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        </div>
-
-        <div class="hud hud--tr" aria-hidden="true">
-          <div class="hud__top"><span class="hud__dot hud__dot--warm"></span>PKG TEMPERATURE</div>
-          <div class="hud__value hud__value--sm">41.2 <em>°C</em></div>
-          <svg class="hud__spark" viewBox="0 0 120 22" preserveAspectRatio="none">
-            <path d="M0 16h10l5-4h14l4 3h16l5-6h13l4 5h14l5-2h13l4-4h17" fill="none" stroke="var(--sig)" stroke-width="1.2" opacity=".8"/>
-          </svg>
-        </div>
-
-        <div class="hud hud--bl" aria-hidden="true">
-          <div class="hud__top"><span class="hud__dot"></span>DIFF PAIR · L3</div>
-          <div class="hud__row"><span class="hud__value hud__value--sm">100 <em>Ω</em></span><span class="hud__meta">±7%</span></div>
-          <svg class="hud__eye" viewBox="0 0 120 26" preserveAspectRatio="none">
-            <path d="M2 13c14-14 26 14 40 0s26 14 40 0 26 14 36 0" fill="none" stroke="var(--copper-hi)" stroke-width="1.1" opacity=".85"/>
-            <path d="M2 13c14 14 26-14 40 0s26-14 40 0 26-14 36 0" fill="none" stroke="var(--copper-hi)" stroke-width="1.1" opacity=".35"/>
-            <path d="M32 2v22M88 2v22" stroke="var(--sig)" stroke-width=".8" opacity=".35" stroke-dasharray="2 3"/>
-          </svg>
-        </div>
-
-        <div class="hud hud--br" aria-hidden="true">
-          <div class="hud__top"><span class="hud__dot"></span>THROUGHPUT</div>
-          <div class="hud__row"><span class="hud__value hud__value--sm">1.02<em>M/s</em></span><span class="hud__meta hud__meta--up">+12.4%</span></div>
-          <div class="hud__bars hud__bars--thin"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        </div>
-
         <!-- BGA centerpiece -->
-        <div class="chip" id="chip" tabindex="0" role="button" aria-pressed="false" aria-label="BGA-256. Перетаскивайте мышью, чтобы вращать корпус. Нажмите, чтобы включить рентген-режим.">
+        <div class="chip" id="chip" tabindex="0" role="button" aria-pressed="false" aria-label="BGA-256. Перетаскивайте мышью, чтобы перевернуть корпус на 180 градусов. Нажмите, чтобы включить рентген-режим.">
           <div class="chip__footprint" id="chip-footprint" aria-hidden="true"></div>
           <div class="chip__shadow" aria-hidden="true"></div>
           <div class="chip__float" id="chip-float">
             <div class="chip__glow" aria-hidden="true"></div>
 
             <div class="chip__body" id="chip-body" aria-hidden="true">
-              <div class="chip__edge" aria-hidden="true"></div>
+              <!-- the laminate edge: four walls give the slab real thickness -->
+              <div class="chip__side chip__side--n" aria-hidden="true"></div>
+              <div class="chip__side chip__side--s" aria-hidden="true"></div>
+              <div class="chip__side chip__side--w" aria-hidden="true"></div>
+              <div class="chip__side chip__side--e" aria-hidden="true"></div>
+
+              <!-- moulded lid: the top of the package, carrying the brand -->
+              <div class="chip__face chip__face--top">
+                <div class="chip__lid">
+                  <div class="chip__lid-sheen" aria-hidden="true"></div>
+                  <div class="chip__lid-brand">smtinsider</div>
+                  <div class="chip__lid-rule" aria-hidden="true"></div>
+                  <div class="chip__lid-sub">OT-256 · BGA-256 · 0.80P</div>
+                  <div class="chip__lid-lot">LOT 2641 · TW · 2026</div>
+                  <div class="chip__lid-pin1" aria-hidden="true"></div>
+                  <div class="chip__lid-logo" aria-hidden="true">
+                    <svg viewBox="0 0 40 40" fill="none">
+                      <rect x="1" y="1" width="38" height="38" rx="3" stroke="currentColor" stroke-width="1.1"/>
+                      <path d="M8 20h5l2.5-6 3.5 12 3.5-9 2.5 3h7" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
               <!-- solder-ball face -->
               <div class="chip__face chip__face--bottom">
                 <div class="chip__pkg">
@@ -321,7 +314,7 @@
           </div>
 
           <div class="chip__tag" aria-hidden="true"><span class="chip__tag-led"></span>SIGNAL <b>LOCK</b> · 0.8 mm</div>
-          <div class="chip__hint" id="chip-hint" aria-hidden="true">перетащите — вращение · клик — рентген</div>
+          <div class="chip__hint" id="chip-hint" aria-hidden="true">перетащите — переворот · клик — рентген</div>
         </div>
 
         <div class="stage__caption" aria-hidden="true">
@@ -512,6 +505,6 @@
     </div>
   </footer>
 
-  <script src="assets/js/board.js?v=795635717" defer></script>
+  <script src="assets/js/board.js?v=795637517" defer></script>
 </body>
 </html>
