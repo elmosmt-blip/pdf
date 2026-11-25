@@ -57,7 +57,8 @@ def _m04():
         ],
         columns=["Board", "Deposit", "Squeegee pass", "Volume (nL)",
                  "Nominal (nL)", "Share of nominal (%)", "Window: low (nL)",
-                 "Window: high (nL)", "In window?", "Pass mean (nL)"],
+                 "Window: high (nL)", "In window?", "Pass mean (nL)",
+                 "Second-pass volume (nL)"],
         formulas={
             "Nominal (nL)": '=INPUTS[Aperture area (mm2)]*INPUTS[Foil over the region (mm)]*1000',
             "Share of nominal (%)": '=D{r}/E{r}*100',
@@ -67,6 +68,10 @@ def _m04():
             "Pass mean (nL)": '=IF(C{r}="first",AVERAGEIF(COL[Squeegee pass],"first",'
                               'COL[Volume (nL)]),IF(C{r}="second",'
                               'AVERAGEIF(COL[Squeegee pass],"second",COL[Volume (nL)]),""))',
+            # Helper column so the second-pass Cpk needs no array formula:
+            # STDEV(IF(...)) gives #VALUE! in LibreOffice and needs
+            # Ctrl+Shift+Enter in older Excel. STDEV skips the "" cells.
+            "Second-pass volume (nL)": '=IF(C{r}="second",D{r},"")',
         },
         inputs=[
             ("Aperture area (mm2)", "mm2", 0.198),
@@ -91,7 +96,7 @@ def _m04():
             ("Cpk, second pass only",
              '=MIN((AVERAGE(COL[Window: high (nL)])-SUMMARY[Second-pass mean (nL)]),'
              '(SUMMARY[Second-pass mean (nL)]-AVERAGE(COL[Window: low (nL)])))/'
-             '(3*STDEV(IF(COL[Squeegee pass]="second",COL[Volume (nL)])))'),
+             '(3*STDEV(COL[Second-pass volume (nL)]))'),
             # The program's foil is thicker than the one the press cuts, so its
             # nominal is larger and the screen reads LOW. The correction is one
             # multiplication by program/press, and it lands on the row above.
@@ -105,7 +110,7 @@ def _m04():
                         '"the mean passes and the process does not: split the passes",'
                         '"capable")'),
         ],
-        example_rows=[[b, d, p_, v, None, None, None, None, None, None]
+        example_rows=[[b, d, p_, v, None, None, None, None, None, None, None]
                       for b, d, p_, v in deposits],
         example_note="Two pops, not one distribution: the first pass sits around "
                      "18.7 nL and the second around 15.9 nL. Cpk on all twelve looks "
@@ -717,9 +722,9 @@ def _m15():
             ("Effectiveness target (ppm)", 1000, None, "agreed metric, cx-m14-01"),
         ],
         columns=["Item", "Unit", "Value", "What it is used for"],
-        formulas={
-            "Value": '=IF(A{r}="","",VALUE(C{r}))',
-        },
+        # "Value" is typed by the reader: v1 carried a formula here that
+        # referenced its own cell (a circular reference). No formula is right.
+        formulas={},
         inputs=[
             ("Boards started", "count", 1240),
             ("Defects confirmed", "count", 38),
@@ -921,12 +926,13 @@ ROWS = [
             # A reel that needs a bake cannot simply be baked at the part's own
             # temperature: the tape carrier sets a much lower ceiling, so the row
             # names the ceiling the bake may use instead of leaving the reader to
-            # bake at 125 C because a tray would take it. N is the Decision
-            # column; check-templates recomputes this column, so a column that
-            # moves without this reference moving fails the build.
+            # bake at 125 C because a tray would take it. M is the Decision
+            # column (v1 shipped this as N — the cell itself — a circular
+            # reference that Excel flags; check-templates now rejects any
+            # formula that names its own cell).
             "Bake ceiling for the carrier (C)":
-                '=IF(N{r}="bake or reschedule",[[Tape-and-reel bake ceiling (C)]],'
-                'IF(N{r}="release","no bake",""))',
+                '=IF(M{r}="bake or reschedule",[[Tape-and-reel bake ceiling (C)]],'
+                'IF(M{r}="release","no bake",""))',
         },
         example_rows=[
             ["R-4412", "BGA-256 14x14", "FBGA", 4, 58, 7, None, 6, None, None, None, 10,

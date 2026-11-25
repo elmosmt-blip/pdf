@@ -1,12 +1,13 @@
-# Review checklist — the audit record behind the removal of the draft markers
+# Review checklist — internal working note (not shipped)
 
-This document is the audit record for the course. It was written as the gate
-for removing `TBD-REVIEW`, and that gate has been passed: all 30 Part A facts
-are verified, every Part B claim has been adjudicated, and all 92 lessons now
-carry `status: "reviewed"` with a source reference. The markers are down.
-
-What it still does is say *what was checked*, which is the only reason to
-trust the promotion. Read it as the evidence, not as a to-do list.
+> **Status 2026-10-31.** This file is the author's working trail, kept in the
+> repository only. It is NOT a record of an independent review: the checks
+> below were made by automated passes and by the author against secondary
+> sources, 14 of the 39 registry sources are confirmed by scope only, and all
+> 92 lessons carry `status: "draft"`. The "reviewed" column at the bottom is
+> left unticked on purpose — that tick belongs to a human technologist.
+> Counts such as "185 quiz questions" are from the round when the file was
+> written; the course now ships 734 questions.
 
 ## Why the existing TBD-REVIEW lists are not the checklist
 
@@ -1028,7 +1029,7 @@ ticked, every Part B claim it carries is ticked, and its own arithmetic has been
 checked. Ticking a row here means "I have read this lesson and its claims hold",
 not that the text is well written.
 
-| Lesson | Title | Claims | Standards cited | Status | Reviewed |
+| Lesson | Title | Claims | Standards cited | Status (now draft) | Reviewed |
 |---|---|---|---|---|---|
 | m01l01 | What incoming inspection protects: defect cost by stage | 0 | — | reviewed | ☐ |
 | m01l02 | The documentation package: CoC/CoA, packing list, MSL label, declarations | 11 | IPC-6012, IPC-A-600, J-STD-004, J-STD-033 | reviewed | ☐ |

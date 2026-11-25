@@ -417,7 +417,87 @@ def build_xlsx(spec, variant, data):
 
     path = os.path.join(OUT, fname(spec, variant))
     wb.save(path)
+    cache_formula_values(path)
     return path, formula_cells
+
+
+# ------------------------------------------------------- cached values
+
+def cache_formula_values(path):
+    """Write each formula's computed value next to the formula.
+
+    openpyxl stores a formula with an empty <v/>; Excel recalculates on open,
+    but every viewer that does not run an engine — phone previews, mail and
+    Drive thumbnails, LibreOffice until F9 — shows blank cells. The values are
+    computed with the independent `formulas` engine (the same one
+    check-templates.py uses) and patched into the sheet XML, so the file reads
+    correctly everywhere and still recalculates in Excel.
+    """
+    import io
+    import re
+    import zipfile
+    from xml.sax.saxutils import escape
+    try:
+        import formulas
+    except ImportError:
+        return 0
+    values = {}
+    sol = formulas.ExcelModel().loads(path).finish().calculate()
+    for k, v in sol.items():
+        if "]SHEET" not in k.upper().replace("'", ""):
+            continue
+        cell = k.split("!")[-1].replace("$", "")
+        try:
+            values[cell] = v.value[0, 0]
+        except Exception:
+            pass
+
+    def xml_value(val):
+        # returns (type attribute or None, text) or None when nothing sensible
+        if val is None:
+            return ("str", "")
+        if isinstance(val, bool):
+            return ("b", "1" if val else "0")
+        if isinstance(val, (int, float)):
+            if val != val:  # NaN
+                return None
+            return (None, repr(float(val)) if isinstance(val, float) else str(val))
+        sval = str(val)
+        if sval.startswith("#"):
+            return None  # an error is not a cached value worth writing
+        return ("str", escape(sval))
+
+    zin = zipfile.ZipFile(path)
+    out = io.BytesIO()
+    patched = 0
+    with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as zout:
+        for item in zin.infolist():
+            data = zin.read(item.filename)
+            if item.filename == "xl/worksheets/sheet1.xml":
+                text = data.decode("utf-8")
+
+                def sub(m):
+                    nonlocal patched
+                    ref, attrs, formula = m.group(1), m.group(2), m.group(3)
+                    if ref not in values:
+                        return m.group(0)
+                    xv = xml_value(values[ref])
+                    if xv is None:
+                        return m.group(0)
+                    t, body = xv
+                    attrs = re.sub(r'\s+t="[^"]*"', "", attrs)
+                    if t:
+                        attrs += ' t="%s"' % t
+                    patched += 1
+                    return '<c r="%s"%s><f>%s</f><v>%s</v></c>' % (ref, attrs, formula, body)
+
+                text = re.sub(r'<c r="([A-Z]+[0-9]+)"([^>]*)><f>(.*?)</f><v></v></c>', sub, text)
+                data = text.encode("utf-8")
+            zout.writestr(item, data)
+    zin.close()
+    with open(path, "wb") as f:
+        f.write(out.getvalue())
+    return patched
 
 
 # ---------------------------------------------------------------- docx build

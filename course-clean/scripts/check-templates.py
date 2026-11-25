@@ -265,6 +265,46 @@ def _solve(path):
     return out
 
 
+def check_formula_hygiene():
+    """Every workbook: no formula names its own cell (Excel's circular-reference
+    warning), no array-only construct (STDEV(IF(...)) and friends need
+    Ctrl+Shift+Enter in older Excel and fail in LibreOffice), and every
+    formula carries a cached value so previews without an engine show numbers."""
+    import re
+    import zipfile
+    bad = 0
+    files = 0
+    for name in sorted(os.listdir(TPL)):
+        if not name.endswith(".xlsx"):
+            continue
+        files += 1
+        path = os.path.join(TPL, name)
+        ws = load_workbook(path)["Sheet"]
+        for row in ws.iter_rows():
+            for c in row:
+                if not (isinstance(c.value, str) and c.value.startswith("=")):
+                    continue
+                refs = set(re.findall(r"(?<![A-Z$])\$?([A-Z]{1,2})\$?([0-9]+)", c.value))
+                if (c.column_letter, str(c.row)) in refs:
+                    fail("hygiene", "%s!%s references itself: %s" % (name, c.coordinate, c.value[:80]))
+                    bad += 1
+                if re.search(r"\b(STDEV|STDEVP|AVERAGE|SUM|MAX|MIN)\(IF\(", c.value):
+                    fail("hygiene", "%s!%s uses an array-only construct: %s" % (name, c.coordinate, c.value[:80]))
+                    bad += 1
+        with zipfile.ZipFile(path) as z:
+            xml = z.read("xl/worksheets/sheet1.xml").decode("utf-8")
+        # a cached empty string is written as t="str" with an empty <v/>; only
+        # a formula cell WITHOUT a type and without a value is uncached
+        empty = len(re.findall(r'<c r="[A-Z]+[0-9]+"(?![^>]*\st=")[^>]*><f>[^<]*</f>(?:<v></v>)?</c>', xml))
+        total = len(re.findall(r"<f>", xml))
+        if total and empty:
+            fail("hygiene", "%s: %d of %d formulas have no cached value" % (name, empty, total))
+            bad += 1
+    if not bad and files:
+        ok("%d workbooks: no self-references, no array-only formulas, every formula "
+           "carries a cached value" % files)
+
+
 def check_pareto_by_row(spec):
     path = os.path.join(TPL, "%s-example-%s-2026-10-31.xlsx" % (spec["slug"], VERSION))
     sol = _solve(path)
@@ -503,6 +543,10 @@ def check_msl_by_row(spec):
             if sol.get("M%d" % r) != want_dec:
                 fail("msl", "row %d: decision %r, expected %r"
                      % (r, sol.get("M%d" % r), want_dec)); bad += 1
+            want_bake2 = "no bake" if want_dec == "release" else tape
+            if (sol.get("N%d" % r) or "") != want_bake2:
+                fail("msl", "row %d: bake ceiling %r, expected %r"
+                     % (r, sol.get("N%d" % r), want_bake2)); bad += 1
         n += 1
         r += 1
     if not bad and n:
@@ -1227,6 +1271,7 @@ def main():
         else:
             check_docx_content(spec)
     check_formulas(cases)
+    check_formula_hygiene()
     for spec in ROWS:
         if spec["kind"] == "xlsx" and spec["slug"] in BY_ROW:
             BY_ROW[spec["slug"]](spec)

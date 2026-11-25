@@ -5,7 +5,12 @@
   "report": {
     "formUrl": "https://forms.gle/REPLACE-WITH-YOUR-FORM-ID",
     "email": "",
-    "params": { "lesson": "entry.lesson", "build": "entry.build", "version": "entry.version", "url": "entry.url" },
+    "params": {
+      "lesson": "entry.lesson",
+      "build": "entry.build",
+      "version": "entry.version",
+      "url": "entry.url"
+    },
     "note": "formUrl is a placeholder: replace it with the real form address (Google Form prefilled link, Typeform, …). The engine appends lesson, build, version and url as GET parameters using the names in `params`. If formUrl is empty and email is set, a mailto: link is used instead."
   },
   "changelog": [
@@ -45,7 +50,7 @@
       "items": [
         "All 92 lessons rewritten; key takeaways, common mistakes and terms per lesson; reading time from the text.",
         "Glossary (309 terms) and formula sheet (11 relations) derived from the lessons.",
-        "Four technologist reviews closed; corrections listed inside the affected lessons."
+        "Four automated review passes closed (arithmetic, quiz keys, citations, units); corrections listed inside the affected lessons. No independent human review yet."
       ]
     },
     {

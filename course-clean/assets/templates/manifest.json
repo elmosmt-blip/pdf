@@ -48,8 +48,8 @@
         "guide": "msl-log-guide-v1-2026-10-31.md"
       },
       "bytes": {
-        "blank": 8091,
-        "example": 8320,
+        "blank": 8107,
+        "example": 8392,
         "guide": 2106
       }
     },
@@ -76,7 +76,7 @@
       },
       "bytes": {
         "blank": 7870,
-        "example": 8021,
+        "example": 8138,
         "guide": 2172
       }
     },
@@ -100,8 +100,8 @@
         "guide": "reflow-profile-guide-v1-2026-10-31.md"
       },
       "bytes": {
-        "blank": 8281,
-        "example": 8460,
+        "blank": 8287,
+        "example": 8564,
         "guide": 2160
       }
     },
@@ -125,8 +125,8 @@
         "guide": "design-feedback-pack-guide-v1-2026-10-31.md"
       },
       "bytes": {
-        "blank": 8483,
-        "example": 8624,
+        "blank": 8463,
+        "example": 8602,
         "guide": 1492
       }
     },
@@ -150,8 +150,8 @@
         "guide": "coverage-model-guide-v1-2026-10-31.md"
       },
       "bytes": {
-        "blank": 8489,
-        "example": 8889,
+        "blank": 8499,
+        "example": 9170,
         "guide": 1549
       }
     },
@@ -175,8 +175,8 @@
         "guide": "cleanliness-record-guide-v1-2026-10-31.md"
       },
       "bytes": {
-        "blank": 8610,
-        "example": 8837,
+        "blank": 8619,
+        "example": 8997,
         "guide": 1546
       }
     },
@@ -200,8 +200,8 @@
         "guide": "rework-record-guide-v1-2026-10-31.md"
       },
       "bytes": {
-        "blank": 9233,
-        "example": 9567,
+        "blank": 9251,
+        "example": 9709,
         "guide": 1540
       }
     },
@@ -225,8 +225,8 @@
         "guide": "selective-program-record-guide-v1-2026-10-31.md"
       },
       "bytes": {
-        "blank": 8216,
-        "example": 8424,
+        "blank": 8221,
+        "example": 8455,
         "guide": 1515
       }
     },
@@ -250,8 +250,8 @@
         "guide": "wave-run-log-guide-v1-2026-10-31.md"
       },
       "bytes": {
-        "blank": 8362,
-        "example": 8538,
+        "blank": 8375,
+        "example": 8594,
         "guide": 1601
       }
     },
@@ -275,8 +275,8 @@
         "guide": "tht-fill-record-guide-v1-2026-10-31.md"
       },
       "bytes": {
-        "blank": 8299,
-        "example": 8567,
+        "blank": 8302,
+        "example": 8688,
         "guide": 1548
       }
     },
@@ -300,8 +300,8 @@
         "guide": "placement-record-guide-v1-2026-10-31.md"
       },
       "bytes": {
-        "blank": 8403,
-        "example": 8613,
+        "blank": 8408,
+        "example": 8867,
         "guide": 1583
       }
     },
@@ -325,8 +325,8 @@
         "guide": "spi-record-guide-v1-2026-10-31.md"
       },
       "bytes": {
-        "blank": 9046,
-        "example": 9400,
+        "blank": 9178,
+        "example": 9847,
         "guide": 1509
       }
     },
@@ -377,8 +377,8 @@
         "guide": "pareto-defects-guide-v1-2026-10-31.md"
       },
       "bytes": {
-        "blank": 7451,
-        "example": 7727,
+        "blank": 7454,
+        "example": 7914,
         "guide": 2024
       }
     }

@@ -685,8 +685,10 @@ async function renderLayer() {
   const tplCards = m6d.querySelectorAll('.toolkit .tpl-card');
   ok(tplCards.length >= 1, 'the toolkit lists template cards');
   if (tplCards.length) {
-    const variants = tplCards[0].querySelectorAll('[data-act="case-tpl"]');
-    eq(variants.length, 3, 'a template ships blank, example and guide');
+    const variants = tplCards[0].querySelectorAll('a[download][data-tpl]');
+    eq(variants.length, 3, 'a template ships blank, worked example and guide as real files');
+    eq(m6d.querySelectorAll('.toolkit [data-act="case-tpl"]').length, 0,
+      'the CSV copies are not offered as a second template set');
   }
   mod6.window.close();
 

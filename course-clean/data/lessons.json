@@ -98,8 +98,8 @@
         }
       ],
       "calc": {
-        "task": "Use your plant cost table. Let N be lot quantity, f be incoming escape fraction, C_in be cost per defect found at incoming, C_reflow be cost per defect found after reflow, and C_field be cost per defect found in the field. Calculate expected cost for the same defect if it is caught at incoming, if it escapes to reflow, and if it escapes to the field. State the stage cost ratio that justifies incoming inspection.",
-        "solution": "Start by obtaining N, f, C_in, C_reflow, and C_field from your accounting, scrap, rework, warranty, and line stoppage records. Compute incoming cost as N times f times C_in. Compute reflow cost as N times f times C_reflow. Compute field cost as N times f times C_field. Compare the results by dividing reflow cost by incoming cost and field cost by incoming cost. Use the ratios to decide whether incoming inspection resources are justified for the part family. If the ratio is high, document the avoided cost in the incoming inspection plan and review the plan when part family, supplier, or process changes."
+        "task": "Board X, lot of 1240 boards. Assume for this exercise (the figures are the course's own, not a standard): the incoming escape fraction for the 0402 reels is f = 0.5 % of boards, the cost of one defect found at incoming inspection is C_in = 2 EUR (reel rejected, supplier charged), after reflow C_reflow = 25 EUR (locate, rework the joint, re-inspect, re-test), and in the field C_field = 400 EUR (return, diagnosis, replacement board, customer handling). Calculate the expected cost of the same defect population if it is caught at incoming, if it escapes to reflow, and if it escapes to the field, and state the stage cost ratios.",
+        "solution": "Defective boards expected: N x f = 1240 x 0.005 = 6.2, round to 6 boards. Caught at incoming: 6 x 2 EUR = 12 EUR. Caught after reflow: 6 x 25 EUR = 150 EUR. Caught in the field: 6 x 400 EUR = 2400 EUR. Ratios against incoming: reflow 150 / 12 = 12.5 times, field 2400 / 12 = 200 times. Reading: one hour of incoming inspection on the reel costs far less than the 150 EUR it protects at reflow, and the field figure is the one that pays for the whole incoming function. The ratios, not the absolute euros, are what carry over to a real plant: replace the three cost figures with your own scrap, rework and warranty records and the arithmetic is identical."
       },
       "defect": {
         "symptom": "Incoming moisture barrier bag is punctured, humidity indicator card shows exceedance, and bare PCB pads show discoloration.",
@@ -144,7 +144,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 25,
     "prereqs": {
       "lessons": [],
@@ -301,7 +301,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -457,7 +457,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -614,7 +614,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 25,
     "prereqs": {
       "lessons": [
@@ -766,7 +766,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -905,7 +905,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -1030,7 +1030,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -1230,7 +1230,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -1373,7 +1373,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -1521,7 +1521,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -1668,7 +1668,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -1822,7 +1822,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -1980,7 +1980,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 25,
     "prereqs": {
       "lessons": [
@@ -2127,7 +2127,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -2270,7 +2270,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -2415,7 +2415,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -2571,7 +2571,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -2706,7 +2706,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -2853,7 +2853,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -3015,7 +3015,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 25,
     "prereqs": {
       "lessons": [
@@ -3176,7 +3176,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 25,
     "prereqs": {
       "lessons": [
@@ -3334,7 +3334,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -3486,7 +3486,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -3631,7 +3631,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -3779,7 +3779,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -3931,7 +3931,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -4084,7 +4084,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -4230,7 +4230,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -4388,7 +4388,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -4548,7 +4548,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -4646,8 +4646,8 @@
         }
       ],
       "calc": {
-        "task": "A placement program specifies a tolerance of 0.05 mm for a component center. The pre-production sample shows a measured deviation of 0.03 mm. The machine calibration certificate is missing. Determine whether the setup can be released.",
-        "solution": "Compare the measured deviation with the tolerance. The deviation is within tolerance. Check the calibration certificate. The certificate is missing, so the setup is not verified. Reject release, complete calibration, then repeat the pre-production sample."
+        "task": "Board X pre-production sample: five boards, QFP-48 at 0.4 mm pitch, placement tolerance in the program +/-0.05 mm on the component centre. Measured X offsets after placement, before reflow: +0.01, +0.02, +0.03, +0.02, +0.04 mm. The machine calibration certificate expired 12 days ago. Decide whether the setup can be released.",
+        "solution": "Mean offset = (0.01 + 0.02 + 0.03 + 0.02 + 0.04) / 5 = 0.12 / 5 = 0.024 mm. Range = 0.04 - 0.01 = 0.03 mm. Worst single part 0.04 mm, inside +/-0.05 mm, but all five offsets have the same sign and the mean sits at almost half the tolerance: that is a bias, not scatter, and a bias is exactly what an out-of-calibration axis produces. Then the gate: the calibration certificate is expired, so the machine state that produced these numbers is unverified regardless of how good they look. Decision: do not release. Recalibrate, record the certificate, repeat the five-board sample; expect the mean to move towards zero. If it does not, look at the fiducial recognition and the library pick point instead of the axis."
       },
       "defect": {
         "symptom": "AOI reports repeated polarity errors on polarized components after a feeder change.",
@@ -4692,7 +4692,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -4853,7 +4853,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -5042,7 +5042,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -5197,7 +5197,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -5348,7 +5348,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -5494,7 +5494,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -5640,7 +5640,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -5787,7 +5787,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -5942,7 +5942,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -6090,7 +6090,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -6242,7 +6242,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -6393,7 +6393,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -6547,7 +6547,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -6692,7 +6692,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -6844,7 +6844,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -7025,7 +7025,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -7170,7 +7170,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -7336,7 +7336,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -7480,7 +7480,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -7626,7 +7626,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -7776,7 +7776,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -7921,7 +7921,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -8070,7 +8070,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -8229,7 +8229,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -8374,7 +8374,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -8528,7 +8528,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -8689,7 +8689,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -8892,7 +8892,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -9048,7 +9048,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -9194,7 +9194,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -9352,7 +9352,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 25,
     "prereqs": {
       "lessons": [
@@ -9508,7 +9508,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 25,
     "prereqs": {
       "lessons": [
@@ -9699,7 +9699,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -9854,7 +9854,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -10011,7 +10011,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -10167,7 +10167,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -10328,7 +10328,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -10481,7 +10481,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -10689,7 +10689,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -10858,7 +10858,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 25,
     "prereqs": {
       "lessons": [
@@ -11020,7 +11020,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -11186,7 +11186,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 25,
     "prereqs": {
       "lessons": [
@@ -11342,7 +11342,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -11517,7 +11517,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -11702,7 +11702,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -11862,7 +11862,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 25,
     "prereqs": {
       "lessons": [
@@ -12014,7 +12014,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -12177,7 +12177,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 25,
     "prereqs": {
       "lessons": [
@@ -12326,7 +12326,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -12491,7 +12491,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -12691,7 +12691,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -12849,7 +12849,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -12998,7 +12998,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -13152,7 +13152,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -13313,7 +13313,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -13470,7 +13470,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -13586,8 +13586,8 @@
         }
       ],
       "calc": {
-        "task": "A line records 100 defects in a production window: paste print 40, placement 30, reflow 20, wave 10. Calculate the stage Pareto and cumulative percentage. Before using the result, confirm that the inspection method has adequate resolution and repeatability for the measured attribute; verify against your paste/equipment datasheet.",
-        "solution": "Total is 100. Paste print share is 40 divided by 100, which is 40 percent, cumulative 40 percent. Placement share is 30 divided by 100, which is 30 percent, cumulative 70 percent. Reflow share is 20 divided by 100, which is 20 percent, cumulative 90 percent. Wave share is 10 divided by 100, which is 10 percent, cumulative 100 percent."
+        "task": "Board X, one production window of 1240 boards with 620 solder opportunities each. The line records 100 defects: paste print 40, placement 30, reflow 20, wave 10. Build the stage Pareto with cumulative percentages, then convert the total to DPMO so the 8D team can compare this window with the previous one (168 DPMO).",
+        "solution": "Total is 100. Paste print share is 40 divided by 100, which is 40 percent, cumulative 40 percent. Placement share is 30 divided by 100, which is 30 percent, cumulative 70 percent. Reflow share is 20 divided by 100, which is 20 percent, cumulative 90 percent. Wave share is 10 divided by 100, which is 10 percent, cumulative 100 percent. DPMO = 100 / (1240 x 620) x 1,000,000 = 100 / 768,800 x 1,000,000 = 130 DPMO, down from 168 in the previous window. The Pareto says 70 % of what is left sits in print and placement, so the 8D containment goes to the printer and the placer, and the DPMO trend is the number the closure step reports."
       },
       "defect": {
         "symptom": "Wave solder line shows insufficient hole fill on through-hole connectors, with exposed land visible at the bottom of the hole.",
@@ -13632,7 +13632,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -13831,7 +13831,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -13990,7 +13990,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 15,
     "prereqs": {
       "lessons": [
@@ -14147,7 +14147,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -14318,7 +14318,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 20,
     "prereqs": {
       "lessons": [
@@ -14472,7 +14472,7 @@
         }
       ]
     },
-    "review": "Reviewed 2026-11-01 against primary standard text. Part A: 30 of 30 recurring facts verified. Part B: 575 claims walked and adjudicated; 13 defects found and fixed (D1-D13). Every number this lesson originally flagged is now sourced. The claim-by-claim trail, with lesson id and field path, is in REVIEW_CHECKLIST.md.",
+    "review": "Checked 2026-10-31 by automated passes only: arithmetic recomputed, quiz keys read against explanations, standard citations matched to the source registry (14 of 39 sources confirmed by scope only, not by text). No independent human technologist has reviewed this lesson; its status is draft.",
     "minutes": 30,
     "prereqs": {
       "lessons": [

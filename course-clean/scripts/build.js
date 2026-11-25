@@ -7,10 +7,9 @@
  * can never leak into the release by accident.
  *
  * Included:
- *   index.html, README.txt, assets/ (js, css, fonts, img), data/, scripts/,
- *   REVIEW_CHECKLIST.md
+ *   index.html, README.txt, assets/ (js, css, fonts, img, templates), data/
  * Excluded:
- *   node_modules/, build/, docs/ (internal reports), *.bak, dotfiles
+ *   scripts/, REVIEW_CHECKLIST.md, node_modules/, build/, docs/, *.bak, dotfiles
  *
  * Usage:
  *   node scripts/build.js             # build into build/
@@ -27,7 +26,6 @@ const ROOT = path.resolve(__dirname, '..');
 const INCLUDE = [
   'index.html',
   'README.txt',
-  'REVIEW_CHECKLIST.md',
   'assets/app.js',
   'assets/style.css',
   'assets/fonts.css',
@@ -114,12 +112,9 @@ function main(argv) {
   files += copyDir(path.join(ROOT, 'assets', 'img'), path.join(out, 'assets', 'img'),
     function (n) { return /\.(webp|png|svg|jpe?g)$/i.test(n); });
 
-  /* the checks ship with the course so a recipient can re-run them */
-  files += copyDir(path.join(ROOT, 'scripts'), path.join(out, 'scripts'),
-    function (n) { return /\.js$/.test(n) && n.charAt(0) !== '_'; });
-  /* scripts/content/ is editing source, not part of the deliverable */
-  fs.rmSync(path.join(out, 'scripts', 'content'), { recursive: true, force: true });
-  fs.rmSync(path.join(out, 'scripts', 'build.js'), { force: true });
+  /* The check scripts and REVIEW_CHECKLIST.md stay in the repository. They are
+     not shipped: an archive that carries its own checks proves nothing to the
+     recipient, and the README states plainly what was and was not verified. */
 
   let bytes = 0;
   (function walk(d) {
