@@ -727,7 +727,9 @@ table.tbl{width:100%;border-collapse:collapse}
 .formula{margin:18px 0;padding:14px 16px;border:1px solid var(--line);border-radius:var(--r-md)}
 .formula h3{margin:0 0 8px}
 .formula-expr{margin:0 0 8px}
-.formula-expr code{font-size:15px;padding:4px 8px;background:rgba(83,209,204,.08);border-radius:6px}
+.formula-expr code{display:block;width:max-content;max-width:100%;overflow-x:auto;white-space:nowrap;
+  font-size:15px;padding:6px 10px;background:rgba(83,209,204,.08);border-radius:6px}
+.formula-expr code+code{margin-top:6px}
 .formula-quote{margin:10px 0;padding:6px 12px;border-left:2px solid var(--line);color:var(--mut);font-style:italic}
 
 /* ---- sidebar: reference block --------------------------------------- */

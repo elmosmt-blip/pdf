@@ -1654,7 +1654,11 @@
         html += '<h2 class="formula-module">' + (m ? 'Module ' + esc(pad2(m.n)) + ' · ' + esc(m.title) : esc(x.moduleId)) + '</h2>';
       }
       html += '<section class="formula"><h3>' + esc(x.name) + '</h3>' +
-        '<p class="formula-expr"><code>' + esc(x.expr) + '</code></p>' +
+        /* several relations in one entry ("Cp = …;  Cpk = …") go on separate
+           lines by design; a single relation never wraps mid-expression. */
+        '<p class="formula-expr">' + String(x.expr).split(/;\s*/).filter(Boolean).map(function (part) {
+          return '<code>' + esc(part) + '</code>';
+        }).join('') + '</p>' +
         '<p class="flush">' + esc(x.where) + '</p>' +
         (x.quote ? '<blockquote class="formula-quote">' + esc(x.quote) + '</blockquote>' : '') +
         '<p class="muted small flush">Derived in <a href="#/l/' + esc(x.lessonId) + '">' + esc(x.lessonTitle) + '</a>' +
