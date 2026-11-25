@@ -266,7 +266,7 @@ pre,code,kbd,samp{font-size:14px}
 .lesson-num{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--signal);flex:0 0 auto;
   border:1px solid rgba(83,209,204,.35);border-radius:9px;padding:4px 8px;background:rgba(83,209,204,.08)}
 .lesson-main{min-width:0;flex:1}
-.lesson-title{display:block;font-size:16px;font-weight:600;color:#fff;margin:0 0 8px;max-width:65ch}
+.lesson-title{display:block;font-size:16px;font-weight:600;color:#fff;margin:0 0 2px;max-width:65ch}
 .lesson-title:hover{color:var(--signal)}
 .lesson-meta{display:flex;flex-wrap:wrap;gap:8px 12px;font-family:var(--mono);font-size:12px;color:var(--mut);align-items:center}
 .lesson-side{flex:0 0 auto}
@@ -884,4 +884,93 @@ details.toc-cases[open]>summary{margin-bottom:6px}
 @media (max-width:700px){
   .home-case-grid--compact .home-case-link{grid-template-columns:44px 1fr}
   .home-case-grid--compact .home-case-meta{grid-column:2}
+}
+
+/* =====================================================================
+   Reader-first layout (module page, lesson page, phone shell, home)
+   ===================================================================== */
+.page-sub{margin:4px 0 10px;font-size:16px;color:var(--mut);max-width:70ch}
+.module-outcomes{margin:16px 0 20px;padding:16px 20px;border:1px solid var(--line);border-radius:var(--r-md);
+  background:rgba(83,209,204,.04)}
+.module-outcomes h2{font-size:14px;font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--signal)}
+.module-outcomes ul{margin:8px 0 0;padding-left:20px}
+.module-outcomes li{margin:6px 0}
+.module-outcomes .small{margin-top:10px}
+.lesson-sub{display:block;font-size:13px;color:var(--mut);margin:2px 0 4px;max-width:70ch}
+.lesson-state{color:var(--dim)}
+.lesson-row--mastered .lesson-state{color:var(--green)}
+.lesson-row--started:not(.lesson-row--mastered) .lesson-state{color:var(--signal)}
+
+/* lesson head: one line of goals, the summary box, the contents row */
+.goals-line{margin:6px 0 14px;color:var(--body)}
+.goals-line strong{color:var(--txt)}
+.takeaways{margin:0 0 18px;padding:14px 18px 14px 14px;border-left:3px solid var(--signal);
+  background:rgba(83,209,204,.05);border-radius:0 var(--r-sm) var(--r-sm) 0}
+.takeaways h2{margin:0 0 6px;font-size:14px;font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--signal)}
+.takeaways ol{margin:0;padding-left:20px}
+.takeaways li{margin:5px 0}
+.lesson-toc{position:sticky;top:57px;z-index:20;display:flex;flex-wrap:wrap;align-items:center;gap:6px;
+  margin:0 0 16px;padding:8px 10px;border:1px solid var(--line);border-radius:99px;
+  background:rgba(13,17,23,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.lesson-toc-label{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);padding:0 6px}
+.lesson-toc-item{font-size:13px;padding:4px 10px;border-radius:99px;color:var(--body);border:1px solid transparent}
+.lesson-toc-item:hover{color:var(--signal);border-color:var(--line2)}
+.draft-line,.prereq-line{margin:0 0 10px;font-size:14px;color:var(--mut)}
+.draft-line .chip{margin-right:6px}
+.prereq-line strong{color:var(--body)}
+.terms .spoiler summary h2{display:inline;font-size:18px}
+.terms .spoiler summary{cursor:pointer}
+.pipeline--foot{margin:32px 0 0;opacity:.85}
+
+/* Board X thread as a closed line */
+details.bx-thread{padding:0}
+details.bx-thread summary.bx-thread-head{margin:0;padding:14px 20px;cursor:pointer;list-style:none;display:flex;gap:8px;flex-wrap:wrap;align-items:baseline}
+details.bx-thread summary.bx-thread-head::-webkit-details-marker{display:none}
+details.bx-thread summary.bx-thread-head::before{content:"\25B8";color:var(--signal);font-size:12px}
+details.bx-thread[open] summary.bx-thread-head::before{content:"\25BE"}
+details.bx-thread nav{padding:0 20px 18px}
+
+/* home: about block, search, continue */
+.hero-continue-note{display:block;flex:1 1 100%;font-size:14px;color:var(--mut);margin-top:4px}
+.home-about{margin:8px 0 28px}
+.home-about-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.home-about-grid>div{padding:16px 18px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--panel)}
+.home-about-grid h2{font-size:12px;font-family:var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--signal);margin-bottom:6px}
+.home-about-grid p{font-size:15px;color:var(--body)}
+.home-search{margin:0 0 28px}
+.home-search-label{display:block;font-weight:600;margin-bottom:6px}
+.home-search-input{width:100%;max-width:640px;font:inherit;font-size:16px;color:var(--txt);padding:12px 16px;
+  border:1px solid var(--line2);border-radius:99px;background:rgba(255,255,255,.03)}
+.home-search-input:focus{outline:2px solid var(--signal);outline-offset:1px;border-color:var(--signal)}
+.home-results{margin-top:10px}
+.home-result-list{list-style:none;margin:0;padding:0;border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden}
+.home-result-list li+li{border-top:1px solid var(--line)}
+.home-result-list a{display:block;padding:10px 14px;color:var(--body);font-size:15px}
+.home-result-list a:hover{background:rgba(83,209,204,.06);color:var(--txt)}
+.home-result-list .chip{margin-right:6px}
+
+/* the phone menu button: hidden on wide screens */
+.menu-btn{display:none}
+
+@media(max-width:960px){
+  .side-head{display:flex;align-items:center;gap:12px;padding:8px 14px}
+  .menu-btn{display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:14px;font-weight:600;color:var(--txt);
+    background:rgba(255,255,255,.04);border:1px solid var(--line2);border-radius:99px;padding:8px 14px;cursor:pointer}
+  .menu-btn[aria-expanded="true"]{border-color:var(--signal);color:var(--signal)}
+  .logo-mark{width:30px;height:30px;flex-basis:30px;border-radius:10px}
+  .logo-mark::before{width:13px;height:13px;border-width:2px}
+  .side-sub{display:none}
+  .side-title{font-size:12px}
+  .side-progress,.side-home,.side-build{display:none}
+  #toc{display:none;padding:8px 10px 16px;border-top:1px solid var(--line);max-height:70vh;overflow-y:auto}
+  body.nav-open #toc{display:block}
+  #sidebar{position:sticky;top:0;z-index:40}
+  #topbar{padding:8px 16px;position:static}
+  .topbar-crumb{font-size:13px}
+  .topbar-crumb a{padding:6px 0}
+  #main{padding:16px 16px 60px}
+  .lesson-toc{top:52px;border-radius:var(--r-sm);overflow-x:auto;flex-wrap:nowrap}
+  .lesson-toc-item{white-space:nowrap}
+  .home-about-grid{grid-template-columns:1fr}
+  .page-head h1{font-size:26px}
 }

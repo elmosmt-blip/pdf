@@ -2424,7 +2424,8 @@
       "skills": [
         "Lesson m03l02: Area ratio and aspect ratio: definitions, calculation, fine-pitch consequences"
       ]
-    }
+    },
+    "shortTitle": "Foil, thickness and cut quality"
   },
   {
     "lessonId": "m03l04",
@@ -2862,7 +2863,8 @@
       "skills": [
         "Lesson m03l05: Aperture calculator and drawing review"
       ]
-    }
+    },
+    "shortTitle": "Stencil acceptance and lifetime"
   },
   {
     "lessonId": "m04l01",
@@ -3940,7 +3942,8 @@
       "skills": [
         "Lesson m04l06: Print defect atlas: under-fill, excess, bridging, skew, smearing, slumping"
       ]
-    }
+    },
+    "shortTitle": "Print troubleshooting logic"
   },
   {
     "lessonId": "m05l01",
@@ -4093,7 +4096,8 @@
       "skills": [
         "Lesson m04l07: Print troubleshooting logic and one-variable-at-a-time experiments"
       ]
-    }
+    },
+    "shortTitle": "Placement machines: accuracy and throughput"
   },
   {
     "lessonId": "m05l02",
@@ -4239,7 +4243,8 @@
       "skills": [
         "Lesson m05l01: Machine types and what accuracy, repeatability and throughput really mean"
       ]
-    }
+    },
+    "shortTitle": "Feeders, nozzles and placement force"
   },
   {
     "lessonId": "m05l03",
@@ -4397,7 +4402,8 @@
       "skills": [
         "Lesson m05l02: Feeders, nozzles, pick height and placement force limits by component"
       ]
-    }
+    },
+    "shortTitle": "Fiducials, vision and placement offset"
   },
   {
     "lessonId": "m05l04",
@@ -4701,7 +4707,8 @@
       "skills": [
         "Lesson m05l04: Placement defect atlas: tombstone, skew, tilt, missing, wrong part, polarity"
       ]
-    }
+    },
+    "shortTitle": "Library, program and first article"
   },
   {
     "lessonId": "m05l06",
@@ -5951,7 +5958,8 @@
       "skills": [
         "Lesson m06l06: Reflow defect atlas: tombstone, balling, beading, dewetting, voids, distortion"
       ]
-    }
+    },
+    "shortTitle": "Profile validation and change control"
   },
   {
     "lessonId": "m07l01",
@@ -10337,7 +10345,8 @@
       "skills": [
         "Lesson m11l04: Repair limits: IPC-7711/7721 classes, conductor cut, annular ring, laminate damage"
       ]
-    }
+    },
+    "shortTitle": "Accepting and documenting rework"
   },
   {
     "lessonId": "m11l06",
@@ -13322,7 +13331,8 @@
       "skills": [
         "Lesson m14l04: 8D discipline: D1–D8 content and where 8D reports fail"
       ]
-    }
+    },
+    "shortTitle": "Corrective vs preventive action"
   },
   {
     "lessonId": "m14l06",
@@ -14481,6 +14491,7 @@
       "skills": [
         "Lesson m15l04: DFM/DFT asks that work: pad geometry, paste relief, spacing, test points, fiducials, panelization, hole/lead spec"
       ]
-    }
+    },
+    "shortTitle": "Negotiation, versions and closure"
   }
 ]

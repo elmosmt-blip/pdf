@@ -364,10 +364,20 @@ async function renderLayer() {
 
   /* the module page grows a Toolkit block */
   const modView = load('#/m/m03');
-  ok(/Toolkit/.test(modView.window.document.getElementById('main').textContent),
-    'module page renders the Toolkit block');
-  ok(!!modView.window.document.querySelector('.toolkit-item'),
-    'Toolkit block lists the case');
+  ok(/Practice on Board X/.test(modView.window.document.getElementById('main').textContent),
+    'module page renders the Practice block');
+  ok(!!modView.window.document.querySelector('.toolkit .case-card'),
+    'Practice block carries the case card');
+  {
+    const mainEl = modView.window.document.getElementById('main');
+    const order = ['.lesson-list', '.toolkit', '.exam-card', '.bx-thread'].map(function (sel) {
+      const el = mainEl.querySelector(sel);
+      return el ? Array.prototype.indexOf.call(mainEl.querySelectorAll('*'), el) : -1;
+    });
+    ok(order.every(function (i) { return i >= 0; }) && order[0] < order[1] && order[1] < order[2] && order[2] < order[3],
+      'module page order: lessons, practice, exam, thread', order.join(','));
+    ok(!mainEl.querySelector('.bx-thread[open]'), 'the Board X thread starts collapsed');
+  }
   modView.window.close();
 
   /* an unknown case id is a clean not-found, not a crash */
@@ -655,7 +665,7 @@ async function renderLayer() {
   /* the module page says why, and the sidebar marks it */
   const lockedModule = load('#/m/m01');
   const lockedText = lockedModule.window.document.getElementById('main').textContent || '';
-  ok(/Opens after all lessons are mastered/i.test(lockedText),
+  ok(/Opens when every lesson quiz above is at 80 % or better/i.test(lockedText),
     'the module page explains the exam lock', lockedText.slice(0, 80));
   const sideLock = lockedModule.window.document.querySelector('.toc-exam--locked');
   ok(!!sideLock, 'the sidebar marks the exam as locked');
@@ -691,6 +701,64 @@ async function renderLayer() {
       'the CSV copies are not offered as a second template set');
   }
   mod6.window.close();
+
+  /* 5e. reader-first layout: lesson page order, contents row, short titles,
+     phone menu, home "continue" and search */
+  {
+    const lp = load('#/l/m06l03');
+    const d = lp.window.document;
+    const mainEl = d.getElementById('main');
+    const idx = function (sel) {
+      const el = mainEl.querySelector(sel);
+      return el ? Array.prototype.indexOf.call(mainEl.querySelectorAll('*'), el) : -1;
+    };
+    ok(idx('.takeaways') >= 0 && idx('.theory') >= 0 && idx('.takeaways') < idx('.theory'),
+      'key takeaways come before the theory', idx('.takeaways') + ' vs ' + idx('.theory'));
+    ok(idx('.mistakes') < idx('.quiz') && idx('.quiz') < idx('.terms'),
+      'mistakes, then quiz, then terms');
+    ok(!!mainEl.querySelector('.terms details'), 'terms are collapsed by default');
+    const toc = mainEl.querySelector('.lesson-toc');
+    ok(!!toc, 'the lesson has an in-page contents row');
+    if (toc) {
+      const anchors = Array.prototype.map.call(toc.querySelectorAll('a[data-anchor]'), function (a) { return a.getAttribute('data-anchor'); });
+      ok(anchors.length >= 4, 'contents row lists the sections', anchors.join(','));
+      ok(anchors.every(function (id) { return !!d.getElementById(id); }), 'every contents anchor has a target');
+      const before = lp.window.location.hash;
+      toc.querySelector('a[data-anchor="quiz"]').dispatchEvent(new lp.window.MouseEvent('click', { bubbles: true, cancelable: true }));
+      eq(lp.window.location.hash, before, 'a contents click does not change the route');
+    }
+    ok(mainEl.querySelectorAll('.banner--warn').length === 0 && !!mainEl.querySelector('.draft-line'),
+      'the draft note is one line, not a banner');
+    ok(!!mainEl.querySelector('.goals-line'), 'goals are one line under the heading');
+    const h1 = mainEl.querySelector('h1').textContent;
+    ok(h1.length <= 60 && h1.indexOf(':') === -1, 'the lesson heading is the short title', h1);
+    ok(!/lesson m0\d/.test(mainEl.querySelector('.report-meta').textContent),
+      'the report line names module and lesson, not a code');
+    const side = d.getElementById('toc');
+    const longSide = Array.prototype.filter.call(side.querySelectorAll('.toc-lesson'), function (a) { return a.textContent.length > 60; });
+    eq(longSide.length, 0, 'sidebar lesson titles are short');
+    ok(!!d.getElementById('menu-btn'), 'the shell has a menu button for phones');
+    d.getElementById('menu-btn').click();
+    ok(d.body.classList.contains('nav-open'), 'the menu button opens the outline');
+    lp.window.close();
+
+    const home1 = load('#/');
+    ok(/Start the course/.test(home1.window.document.querySelector('.hero-cta').textContent),
+      'a fresh browser sees "Start the course"');
+    ok(!!home1.window.document.querySelector('.home-about'), 'the home page says who, how long and what you get');
+    ok(!!home1.window.document.getElementById('home-q'), 'the home page has a search box');
+    const inp = home1.window.document.getElementById('home-q');
+    inp.value = 'hole fill';
+    inp.dispatchEvent(new home1.window.Event('input', { bubbles: true }));
+    ok(home1.window.document.querySelectorAll('.home-result-list a').length >= 1, 'search finds lessons by title');
+    home1.window.close();
+
+    const home2 = load('#/', { visited: { m06l03: 1 }, last: 'm06l03', quiz: {}, exam: {}, cases: {} });
+    const cta = home2.window.document.querySelector('.hero-cta');
+    ok(/Continue where you left off/.test(cta.textContent) && /m06l03/.test(cta.querySelector('a').getAttribute('href')),
+      'a returning reader gets "Continue where you left off"', cta.textContent.slice(0, 80));
+    home2.window.close();
+  }
 
   /* 5d. a case page: data table, chart, spec chips, points per step, score chip */
   const casePage = load('#/c/cx-m06-01');
@@ -815,7 +883,7 @@ async function renderLayer() {
     eq(pd.querySelectorAll('.terms dt').length, probe.content.terms.length, 'terms render one dt each');
     const pre = (probe.prereqs && probe.prereqs.lessons) || [];
     if (pre.length) {
-      eq(pd.querySelectorAll('.prereq a[href^="#/l/"]').length, pre.length, 'prerequisite lessons link out');
+      eq(pd.querySelectorAll('.prereq-line a[href^="#/l/"]').length, pre.length, 'prerequisite lessons link out');
     }
     ok(!!pd.querySelector('.terms a[href="#/g/"]'), 'the lesson terms block links to the glossary');
 

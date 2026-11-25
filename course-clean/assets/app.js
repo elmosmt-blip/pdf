@@ -117,7 +117,7 @@
   var byCase = {};
   var caseState = { caseId: null, answers: {}, shown: {}, hints: {}, result: null };
 
-  function freshProgress() { return { v: 1, visited: {}, quiz: {}, exams: {}, cases: {}, path: '' }; }
+  function freshProgress() { return { v: 1, visited: {}, quiz: {}, exams: {}, cases: {}, path: '', last: '' }; }
 
   function loadProgress() {
     var raw = lsGet(STORE_KEY);
@@ -131,7 +131,8 @@
           quiz: (p.quiz && typeof p.quiz === 'object' && !Array.isArray(p.quiz)) ? p.quiz : {},
           exams: (p.exams && typeof p.exams === 'object' && !Array.isArray(p.exams)) ? p.exams : {},
           cases: (p.cases && typeof p.cases === 'object' && !Array.isArray(p.cases)) ? p.cases : {},
-          path: typeof p.path === 'string' ? p.path : ''
+          path: typeof p.path === 'string' ? p.path : '',
+          last: typeof p.last === 'string' ? p.last : ''
         };
       }
     } catch (e) { /* corrupt -> start fresh */ }
@@ -143,10 +144,20 @@
   function saveProgress() { lsSet(STORE_KEY, JSON.stringify(progress)); }
 
   function markVisited(lessonId) {
-    if (!progress.visited[lessonId]) {
-      progress.visited[lessonId] = Date.now();
-      saveProgress();
-    }
+    var changed = false;
+    if (!progress.visited[lessonId]) { progress.visited[lessonId] = Date.now(); changed = true; }
+    if (progress.last !== lessonId) { progress.last = lessonId; changed = true; }
+    if (changed) saveProgress();
+  }
+  /* Where to pick up: the last lesson opened; failing that, the first lesson
+   * not yet mastered; null when nothing has been opened at all. */
+  function continueTarget() {
+    if (progress.last && byLesson[progress.last]) return byLesson[progress.last];
+    var keys = Object.keys(progress.visited || {});
+    if (!keys.length) return null;
+    var latest = null;
+    keys.forEach(function (k) { if (byLesson[k] && (!latest || progress.visited[k] > progress.visited[latest])) latest = k; });
+    return latest ? byLesson[latest] : null;
   }
 
   function startedIn(moduleId) {
@@ -396,9 +407,11 @@
       '<h1 class="hero-title" tabindex="-1">SMT &amp; THT <span class="accent">Process Engineer</span></h1>' +
       '<p class="hero-lead">From incoming inspection to capability reporting — every stage of the line, ' +
       'one lesson at a time, each with a worked calculation and a real defect.</p>' +
-      '<div class="hero-cta"><a class="btn btn--primary" href="#/l/m01l01">Start the course &#8594;</a></div>' +
+      '<div class="hero-cta">' + homeContinueHtml() + '</div>' +
       '</div></section>';
 
+    html += homeAboutHtml();
+    html += homeSearchHtml();
     html += homePathsHtml();
 
     html += '<h2>Course program</h2>';
@@ -466,6 +479,53 @@
 
   function pad2(n) { return (n < 10 ? '0' : '') + n; }
 
+  /* Short title / subtitle. Most lesson titles are "Name: topic, topic, topic";
+   * the part before the colon is the name a menu or a pager needs, the rest is
+   * the subtitle the lesson page shows under the heading. Eleven titles have no
+   * colon and carry an explicit shortTitle in the data. */
+  function shortTitle(l) {
+    if (!l) return '';
+    if (l.shortTitle) return String(l.shortTitle);
+    var t = String(l.title || '');
+    var i = t.indexOf(':');
+    if (i > 0 && i <= 60) return t.slice(0, i);
+    return t;
+  }
+  function subTitle(l) {
+    if (!l) return '';
+    var t = String(l.title || '');
+    if (l.shortTitle) return t;
+    var i = t.indexOf(':');
+    if (i > 0 && i <= 60) {
+      var rest = t.slice(i + 1).trim();
+      return rest ? rest.charAt(0).toUpperCase() + rest.slice(1) : '';
+    }
+    return '';
+  }
+  /* "Module 04 · Solder Paste Printing and SPI" — never a bare id. */
+  function moduleLabel(id) {
+    var m = moduleById(String(id || '').toLowerCase());
+    return m ? 'Module ' + pad2(m.n) + ' · ' + m.title : String(id || '');
+  }
+  function moduleLink(id) {
+    var m = moduleById(String(id || '').toLowerCase());
+    return m ? '<a href="#/m/' + encodeURIComponent(m.id) + '">' + esc(moduleLabel(m.id)) + '</a>' : esc(id);
+  }
+  /* Three things a module makes you able to do: the first goal of three
+   * lessons spread across the module, so the list reads as the module, not
+   * as lesson one three times. */
+  function moduleOutcomes(moduleId) {
+    var ls = lessonsOf(moduleId);
+    var out = [];
+    if (!ls.length) return out;
+    var picks = ls.length >= 3 ? [0, Math.floor(ls.length / 2), ls.length - 1] : ls.map(function (_, i) { return i; });
+    picks.forEach(function (i) {
+      var g = Array.isArray(ls[i].goals) ? ls[i].goals[0] : null;
+      if (g && g.text && out.indexOf(g.text) === -1) out.push(g.text);
+    });
+    return out;
+  }
+
   /* ------------------------------------------------------ view: module #/m/ */
 
   function moduleView(moduleId) {
@@ -479,39 +539,24 @@
     var mastered = masteredIn(moduleId);
 
     var html = '<p class="kicker">Course program · Module ' + esc(pad2(m.n)) + '</p>';
+    var prereqMods = (m.prereq && m.prereq !== '—') ? m.prereq.split(/\s*,\s*/) : [];
     html += '<header class="page-head"><div><h1 tabindex="-1">' + esc(pad2(m.n) + ' — ' + m.title) + '</h1>' +
       '<div class="meta-line">' +
       stageChip(m.stageId) + pilotChip(m) +
-      (m.prereq && m.prereq !== '—' ? '<span class="chip">prereq: ' +
-        esc(m.prereq.replace(/^M(\d)$/, 'Module 0$1').replace(/^M(\d{2})$/, 'Module $1')) + '</span>' : '') +
+      '<span class="chip">' + esc(ls.length) + ' lessons</span>' +
+      (moduleMinutes(moduleId) ? '<span class="chip">&#8776;' + esc(Math.round(moduleMinutes(moduleId) / 60 * 10) / 10) + ' h</span>' : '') +
       '</div></div></header>';
+
+    var outcomes = moduleOutcomes(moduleId);
+    if (outcomes.length) {
+      html += '<section class="module-outcomes"><h2 class="flush">After this module you can</h2><ul>';
+      outcomes.forEach(function (t) { html += '<li>' + esc(t) + '</li>'; });
+      html += '</ul>' + (prereqMods.length ? '<p class="muted flush small">Builds on ' +
+        prereqMods.map(moduleLink).join(' and ') + '.</p>' : '') + '</section>';
+    }
 
     html += progressLine(started, mastered, ls.length, moduleMinutes(moduleId));
     html += progressBar(mastered, ls.length);
-    html += threadHtml(moduleId);
-
-    var examQs = moduleExamQuestions(moduleId);
-    if (examQs.length) {
-      var rec = examRecord(moduleId);
-      var bankN = examBankFor(moduleId).length;
-      var locked = ls.length > 0 && mastered < ls.length;
-      html += '<section class="exam-card' + (locked ? ' exam-card--locked' : '') +
-        '"><h2>Module exam</h2><p class="flush">' +
-        esc(examQs.length) + ' question' + (examQs.length === 1 ? '' : 's') +
-        (bankN ? ' randomly drawn from a bank of ' + esc(bankN) + '. ' : ' drawn from this module&#8217;s lessons. ') +
-        'Pass mark: ' + esc(PASS_PCT) + '%.' +
-        (rec ? ' Best result so far: ' + esc(rec.best) + '% — ' +
-          (rec.best >= PASS_PCT ? 'passed.' : 'not passed yet.') : ' Not attempted yet.') +
-        '</p><p class="flush">' + (locked
-          ? '<span class="chip chip--locked">Opens after all lessons are mastered</span> ' +
-            '<span class="muted">' + esc(mastered) + ' of ' + esc(ls.length) +
-            ' lessons mastered so far.</span>'
-          : '<a class="btn btn--primary" href="#/e/' + encodeURIComponent(moduleId) + '">' +
-            (rec ? 'Retake the module exam' : 'Open the module exam') + ' &#8594;</a>') +
-        '</p></section>';
-    }
-
-    html += toolkitHtml(moduleId);
 
     if (!ls.length) {
       html += emptyBox('No lessons in the data yet',
@@ -519,26 +564,56 @@
       return html;
     }
 
-    html += '<ul class="lesson-list">';
+    /* 1. Lessons: the thing the page is for, straight under the heading. */
+    html += '<h2 id="lessons">Lessons</h2><ul class="lesson-list">';
     ls.forEach(function (l, i) {
       var mins = lessonMinutes(l.lessonId);
       var quizN = questionsFor(l).length;
       var visited = !!progress.visited[l.lessonId];
-      html += '<li class="lesson-row' + (visited ? ' lesson-row--started' : '') + '">' +
+      var done = lessonMastered(l.lessonId);
+      html += '<li class="lesson-row' + (visited ? ' lesson-row--started' : '') + (done ? ' lesson-row--mastered' : '') + '">' +
         '<span class="lesson-num">' + esc(pad2(i + 1)) + '</span>' +
         '<div class="lesson-main">' +
-        '<a class="lesson-title" href="#/l/' + encodeURIComponent(l.lessonId) + '">' + esc(l.title) + '</a>' +
+        '<a class="lesson-title" href="#/l/' + encodeURIComponent(l.lessonId) + '">' + esc(shortTitle(l)) + '</a>' +
+        (subTitle(l) ? '<span class="lesson-sub">' + esc(subTitle(l)) + '</span>' : '') +
         '<div class="lesson-meta">' +
         (mins != null ? '<span>' + esc(mins) + ' min</span>' : '') +
         (quizN ? '<span>' + esc(quizN) + ' quiz question' + (quizN === 1 ? '' : 's') + '</span>' : '') +
+        '<span class="lesson-state">' + (done ? 'mastered' : visited ? 'started' : 'not started') + '</span>' +
         '</div></div>' +
-        '<div class="lesson-side"><a class="btn btn--small" href="#/l/' + encodeURIComponent(l.lessonId) + '">Open</a></div>' +
+        '<div class="lesson-side"><a class="btn btn--small" href="#/l/' + encodeURIComponent(l.lessonId) + '">' +
+        (done ? 'Revisit' : visited ? 'Continue' : 'Open') + '</a></div>' +
         '</li>';
     });
     html += '</ul>';
 
-    /* The case card comes after the lessons, because it assumes them. */
-    casesOf(moduleId).forEach(function (c) { html += caseCardHtml(c); });
+    /* 2. Practice: the case and the one set of forms it uses. */
+    html += toolkitHtml(moduleId);
+
+    /* 3. The exam, after the work it examines, with the gate spelled out. */
+    var examQs = moduleExamQuestions(moduleId);
+    if (examQs.length) {
+      var rec = examRecord(moduleId);
+      var bankN = examBankFor(moduleId).length;
+      var locked = ls.length > 0 && mastered < ls.length;
+      html += '<section class="exam-card' + (locked ? ' exam-card--locked' : '') +
+        '" id="exam"><h2>Module exam</h2><p class="flush">' +
+        esc(examQs.length) + ' question' + (examQs.length === 1 ? '' : 's') +
+        (bankN ? ' randomly drawn from a bank of ' + esc(bankN) + '. ' : ' drawn from this module&#8217;s lessons. ') +
+        'Pass mark: ' + esc(PASS_PCT) + '%.' +
+        (rec ? ' Best result so far: ' + esc(rec.best) + '% — ' +
+          (rec.best >= PASS_PCT ? 'passed.' : 'not passed yet.') : ' Not attempted yet.') +
+        '</p><p class="flush">' + (locked
+          ? '<span class="chip chip--locked">Opens when every lesson quiz above is at ' + esc(PASS_PCT) + ' % or better</span> ' +
+            '<span class="muted">' + esc(mastered) + ' of ' + esc(ls.length) +
+            ' lessons mastered so far.</span>'
+          : '<a class="btn btn--primary" href="#/e/' + encodeURIComponent(moduleId) + '">' +
+            (rec ? 'Retake the module exam' : 'Open the module exam') + ' &#8594;</a>') +
+        '</p></section>';
+    }
+
+    /* 4. Where this module sits in the product: one line, opened on demand. */
+    html += threadHtml(moduleId);
     return html;
   }
 
@@ -829,24 +904,11 @@
   function toolkitHtml(moduleId) {
     var cs = casesOf(moduleId);
     if (!cs.length) return '';
-    var html = '<section class="toolkit"><h2>Toolkit</h2>' +
-      '<p class="flush muted">Apply the module on Board X. Each case is scored against a rubric; ' +
-      esc(CASE_MASTERED_PCT) + ' % of the rubric marks it mastered.</p><ul class="toolkit-list">';
-    cs.forEach(function (c) {
-      var rec = caseRecord(c.caseId);
-      var mastered = caseMastered(c.caseId);
-      html += '<li class="toolkit-item' + (mastered ? ' toolkit-item--done' : '') + '">' +
-        '<div class="toolkit-main">' +
-        '<a class="toolkit-title" href="#/c/' + encodeURIComponent(c.caseId) + '">' + esc(c.title) + '</a>' +
-        '<div class="toolkit-meta"><span>' + esc(c.estMinutes) + ' min</span>' +
-        '<span>' + esc((c.steps || []).length) + ' steps</span>' +
-        '<span>' + esc(c.level || 'core') + '</span>' +
-        (rec ? '<span>best ' + esc(rec.best) + ' %</span>' : '<span>not attempted</span>') +
-        '</div></div>' +
-        '<a class="btn btn--small" href="#/c/' + encodeURIComponent(c.caseId) + '">' +
-        (mastered ? 'Revisit' : rec ? 'Retry' : 'Open case') + '</a></li>';
-    });
-    html += '</ul>';
+    var html = '<section class="toolkit" id="practice"><h2>Practice on Board X</h2>' +
+      '<p class="flush muted">One scored case per module: real-looking data in, your numbers checked ' +
+      'against a generated key, the decision scored against a rubric (' +
+      esc(CASE_MASTERED_PCT) + ' % marks it mastered). The forms below are the ones the case fills in.</p>';
+    cs.forEach(function (c) { html += caseCardHtml(c); });
     /* the lesson links the cases point at, deduplicated */
     var tools = {};
     cs.forEach(function (c) {
@@ -1077,11 +1139,14 @@
   function threadHtml(moduleId) {
     var t = threadOf(moduleId);
     if (!t.items.length || t.index === -1) return '';
-    var html = '<nav class="bx-thread" aria-label="Board X thread"><p class="bx-thread-head">' +
-      'Board X thread<span class="muted"> — where this module sits in the product</span></p>' +
-      '<ol class="bx-thread-list">';
-    t.items.forEach(function (item, i) {
-      var here = i === t.index;
+    var hereId = t.items[t.index].caseId;
+    var items = t.items.slice().sort(function (a, b) { return a.moduleId < b.moduleId ? -1 : a.moduleId > b.moduleId ? 1 : 0; });
+    var html = '<details class="bx-thread"><summary class="bx-thread-head">' +
+      'Board X thread<span class="muted"> — the same product through all 15 modules; this one is step ' +
+      esc(items.map(function (x) { return x.caseId; }).indexOf(hereId) + 1) + ' of ' + esc(items.length) + '</span></summary>' +
+      '<nav aria-label="Board X thread"><ol class="bx-thread-list">';
+    items.forEach(function (item) {
+      var here = item.caseId === hereId;
       var done = caseMastered(item.caseId);
       html += '<li class="bx-thread-item' + (here ? ' bx-thread-item--here' : '') +
         (done ? ' bx-thread-item--done' : '') + '">' +
@@ -1092,7 +1157,7 @@
         '<span class="bx-thread-asset">' + esc(item.asset) + (done ? ' · mastered' : '') +
         '</span></a></li>';
     });
-    return html + '</ol></nav>';
+    return html + '</ol></nav></details>';
   }
 
   /* ------------------------------------------------------------ case card */
@@ -1283,7 +1348,7 @@
 
   /* Same renderer as a lesson's Sources block, for sources held by a case. */
   function sourcesBlock(ids) {
-    var html = '<section class="sources"><details class="spoiler">' +
+    var html = '<section class="sources" id="sources"><details class="spoiler">' +
       '<summary>Sources — ' + ids.length + '</summary><div class="details-body"><ul>';
     ids.forEach(function (ref) { html += sourceItemHtml(ref); });
     return html + '</ul></div></details></section>';
@@ -1391,13 +1456,11 @@
   function goalsHtml(lesson) {
     var goals = Array.isArray(lesson.goals) ? lesson.goals : [];
     if (!goals.length) return '';
-    var html = '<section class="goals"><h2>What this lesson makes you able to do</h2><ol>';
-    goals.forEach(function (g) {
-      var comps = (g && Array.isArray(g.competencies)) ? g.competencies : [];
-      html += '<li>' + esc(g && g.text ? g.text : '') + '</li>';
-    });
-    html += '</ol></section>';
-    return html;
+    var texts = goals.map(function (g) { return g && g.text ? String(g.text).replace(/\.$/, '') : ''; })
+      .filter(Boolean);
+    if (!texts.length) return '';
+    return '<p class="goals-line"><strong>After this lesson you can:</strong> ' +
+      texts.map(function (t) { return esc(t.charAt(0).toLowerCase() + t.slice(1)); }).join('; ') + '.</p>';
   }
 
   /* The learner-facing draft note. The internal review trace that used to sit
@@ -1406,11 +1469,8 @@
      remains is the honest statement of what the page is. */
   function draftBannerHtml(lesson) {
     if (lesson.status === 'reviewed' || lesson.status === 'published') return '';
-    var html = '<div class="banner banner--warn banner--slim" role="note">' +
-      '<p class="flush">This lesson is a draft: treat it as study notes, not as a work instruction. ' +
-      'Numbers without a source reference are unverified.</p>';
-    html += '</div>';
-    return html;
+    return '<p class="draft-line" role="note"><span class="chip chip--draft">draft</span> ' +
+      'Study notes, not a work instruction: numbers without a source reference are unverified.</p>';
   }
 
   function theoryHtml(content) {
@@ -1421,7 +1481,7 @@
         'This lesson is a curriculum placeholder: the goals are fixed, the text has not been drafted.');
     }
     if (!theory.length) return ''; // blocks-only lesson: sectionsHtml renders it
-    var html = '<section class="theory"><h2>Theory</h2>';
+    var html = '<section class="theory" id="theory"><h2>Theory</h2>';
     theory.forEach(function (t) {
       if (!t) return;
       // A theory entry may be a bare paragraph string. Rendering it as a
@@ -1457,7 +1517,7 @@
   function calcHtml(content) {
     var calc = content && content.calc;
     if (!calc || (!calc.task && !calc.solution)) return '';
-    var html = '<section class="calc"><h2>Calculation</h2>';
+    var html = '<section class="calc" id="calc"><h2>Calculation</h2>';
     if (calc.task) html += '<p class="calc-task">' + esc(calc.task) + '</p>';
     if (calc.solution) {
       html += '<details><summary>Show worked solution</summary><div class="details-body">' +
@@ -1471,7 +1531,7 @@
     var d = content && content.defect;
     if (!d || (!d.symptom && !d.cause && !d.action)) return '';
     var steps = [['Symptom', d.symptom], ['Cause', d.cause], ['Action', d.action]];
-    var html = '<section class="defect"><h2>Defect analysis: symptom → cause → action</h2><div class="defect-flow">';
+    var html = '<section class="defect" id="defect"><h2>Defect analysis: symptom → cause → action</h2><div class="defect-flow">';
     steps.forEach(function (s) {
       if (!s[1]) return;
       html += '<div class="defect-step"><span class="defect-label">' + esc(s[0]) + '</span>' +
@@ -1489,32 +1549,32 @@
   function prereqHtml(lesson) {
     var p = lesson && lesson.prereqs;
     var ls = (p && Array.isArray(p.lessons)) ? p.lessons.filter(function (id) { return byLesson[id]; }) : [];
-    var sk = (p && Array.isArray(p.skills)) ? p.skills : [];
+    /* skills that merely restate a linked lesson ("Lesson m06l02: …") are
+       not shown twice; only a skill phrased as a skill survives */
+    var sk = ((p && Array.isArray(p.skills)) ? p.skills : []).filter(function (t) {
+      return !/^lesson\s+m\d\dl\d\d\b/i.test(String(t));
+    });
     if (!ls.length && !sk.length) return '';
-    var html = '<section class="prereq"><h2>Before you start</h2>';
+    var html = '<p class="prereq-line"><strong>Before you start:</strong> ';
     if (ls.length) {
-      html += '<p class="flush">Read first:</p><ul class="prereq-list">';
-      ls.forEach(function (id) {
+      html += 'read ' + ls.map(function (id) {
         var l = byLesson[id];
         var m = moduleById(l.moduleId);
-        html += '<li><a href="#/l/' + esc(id) + '">' + esc(l.title) + '</a>' +
-          (m ? ' <span class="muted">· Module ' + esc(pad2(m.n)) + '</span>' : '') + '</li>';
-      });
-      html += '</ul>';
+        return '<a href="#/l/' + esc(id) + '" title="' + esc(l.title) + (m ? ' · Module ' + pad2(m.n) : '') + '">' +
+          esc(shortTitle(l)) + '</a>';
+      }).join(', ');
     }
     if (sk.length) {
-      html += '<p class="flush">You should already be able to:</p><ul class="prereq-list">';
-      sk.forEach(function (t) { html += '<li>' + esc(t) + '</li>'; });
-      html += '</ul>';
+      html += (ls.length ? '; you ' : 'you ') + 'should already be able to ' +
+        sk.map(function (t) { t = String(t).replace(/\.$/, ''); return esc(t.charAt(0).toLowerCase() + t.slice(1)); }).join('; ');
     }
-    html += '</section>';
-    return html;
+    return html + '.</p>';
   }
 
   function takeawaysHtml(content) {
     var t = content && Array.isArray(content.takeaways) ? content.takeaways : [];
     if (!t.length) return '';
-    var html = '<section class="takeaways"><h2>Key takeaways</h2><ol>';
+    var html = '<section class="takeaways" id="takeaways"><h2>In short</h2><ol>';
     t.forEach(function (x) { html += '<li>' + esc(x) + '</li>'; });
     return html + '</ol></section>';
   }
@@ -1523,7 +1583,7 @@
     var m = content && Array.isArray(content.mistakes) ? content.mistakes : [];
     m = m.filter(function (x) { return x && x.mistake; });
     if (!m.length) return '';
-    var html = '<section class="mistakes"><h2>Common mistakes</h2><div class="mistake-list">';
+    var html = '<section class="mistakes" id="mistakes"><h2>Common mistakes</h2><div class="mistake-list">';
     m.forEach(function (x) {
       html += '<div class="mistake"><p class="mistake-what"><span class="mistake-label">Mistake</span> ' + esc(x.mistake) + '</p>' +
         (x.instead ? '<p class="mistake-fix flush"><span class="mistake-label">Instead</span> ' + esc(x.instead) + '</p>' : '') +
@@ -1536,11 +1596,12 @@
     var t = content && Array.isArray(content.terms) ? content.terms : [];
     t = t.filter(function (x) { return x && x.term && x.def; });
     if (!t.length) return '';
-    var html = '<section class="terms"><h2>Terms used in this lesson</h2><dl class="term-list">';
+    var html = '<section class="terms" id="terms"><details class="spoiler"><summary><h2>Terms used in this lesson <span class="muted">(' +
+      esc(t.length) + ')</span></h2></summary><dl class="term-list">';
     t.forEach(function (x) {
       html += '<dt id="t-' + esc(slug(x.term)) + '">' + esc(x.term) + '</dt><dd>' + esc(x.def) + '</dd>';
     });
-    html += '</dl><p class="muted small">All terms, across every lesson: <a href="#/g/">Glossary</a>.</p></section>';
+    html += '</dl><p class="muted small">All terms, across every lesson: <a href="#/g/">Glossary</a>.</p></details></section>';
     return html;
   }
 
@@ -1700,7 +1761,7 @@
 
   function sourcesHtml(lesson) {
     var refs = Array.isArray(lesson.sources) ? lesson.sources : [];
-    var html = '<section class="sources"><details class="spoiler">' +
+    var html = '<section class="sources" id="sources"><details class="spoiler">' +
       '<summary>Sources' + (refs.length ? ' — ' + refs.length : '') + '</summary>' +
       '<div class="details-body">';
     if (!refs.length) {
@@ -2318,13 +2379,33 @@
     if (prev) {
       html += '<a href="#/l/' + encodeURIComponent(prev.lessonId) + '" class="pager-prev">' +
         '<span class="pager-label">← Previous</span>' +
-        '<span class="pager-title">' + esc(prev.title) + '</span></a>';
+        '<span class="pager-title">' + esc(shortTitle(prev)) + '</span></a>';
     }
     if (next) {
       html += '<a href="#/l/' + encodeURIComponent(next.lessonId) + '" class="pager-next">' +
         '<span class="pager-label">Next →</span>' +
-        '<span class="pager-title">' + esc(next.title) + '</span></a>';
+        '<span class="pager-title">' + esc(shortTitle(next)) + '</span></a>';
     }
+    return html + '</nav>';
+  }
+
+  /* The in-page contents: anchors to the sections this lesson actually has.
+   * Sticky under the top bar on a wide screen, a plain row on a phone. */
+  function lessonTocHtml(lesson, content) {
+    var c = content || {};
+    var items = [];
+    if ((Array.isArray(c.theory) && c.theory.length)) items.push(['theory', 'Theory']);
+    if (c.calc && (c.calc.task || c.calc.solution)) items.push(['calc', 'Calculation']);
+    if (c.defect && (c.defect.symptom || c.defect.cause)) items.push(['defect', 'Defect']);
+    if (Array.isArray(c.mistakes) && c.mistakes.length) items.push(['mistakes', 'Mistakes']);
+    if (questionsFor(lesson).length) items.push(['quiz', 'Quiz']);
+    if (Array.isArray(c.terms) && c.terms.length) items.push(['terms', 'Terms']);
+    if (Array.isArray(lesson.sources) && lesson.sources.length) items.push(['sources', 'Sources']);
+    if (items.length < 2) return '';
+    var html = '<nav class="lesson-toc" aria-label="On this page"><span class="lesson-toc-label">On this page</span>';
+    items.forEach(function (it) {
+      html += '<a class="lesson-toc-item" href="#' + it[0] + '" data-anchor="' + it[0] + '">' + it[1] + '</a>';
+    });
     return html + '</nav>';
   }
 
@@ -2348,32 +2429,34 @@
     for (var li = 0; li < ls.length; li++) {
       if (ls[li].lessonId === lesson.lessonId) { lnum = li + 1; break; }
     }
-    html += '<header class="page-head"><div><h1 tabindex="-1">' + esc(lesson.title) + '</h1>' +
+    html += '<header class="page-head"><div><h1 tabindex="-1">' + esc(shortTitle(lesson)) + '</h1>' +
+      (subTitle(lesson) ? '<p class="page-sub">' + esc(subTitle(lesson)) + '</p>' : '') +
       '<div class="meta-line">' +
-      '<span class="chip">Lesson ' + esc(pad2(lnum)) + '</span>' +
+      '<span class="chip">Lesson ' + esc(pad2(lnum)) + ' of ' + esc(ls.length) + '</span>' +
       (mins != null ? '<span class="chip">' + esc(mins) + ' min</span>' : '') +
       stageChip(lesson.stageId) +
       '</div></div></header>';
 
-    // Line-position strip: shown for any lesson attached to a stage.
-    if (lesson.stageId) html += '<div class="pipeline">' + stagePipeline(lesson.stageId) + '</div>';
-    html += pathStripHtml(lesson);
-
+    html += goalsHtml(lesson);
+    html += takeawaysHtml(content);
+    html += lessonTocHtml(lesson, content);
     html += draftBannerHtml(lesson);
     html += prereqHtml(lesson);
-    html += goalsHtml(lesson);
+    html += pathStripHtml(lesson);
+
     html += theoryHtml(content);
     html += sectionsHtml(content);
     html += calcHtml(content);
     html += defectHtml(content);
-    html += takeawaysHtml(content);
     html += mistakesHtml(content);
-    html += termsHtml(content);
     html += quizSectionHtml(lesson);
+    html += termsHtml(content);
     html += sourcesHtml(lesson);
     html += correctionsHtml(content);
     html += reportLinkHtml('lesson', lesson.lessonId, lesson.title);
     html += pagerHtml(lesson);
+    // Line-position strip: where this lesson sits on the line, after the work.
+    if (lesson.stageId) html += '<div class="pipeline pipeline--foot">' + stagePipeline(lesson.stageId) + '</div>';
     html += printMetaHtml('lesson', lesson.lessonId, lesson.title);
     return html;
   }
@@ -2431,7 +2514,16 @@
         '<span aria-hidden="true">&#9873;</span> Report an error in this ' +
         (kind === 'case' ? 'case' : 'lesson') + '</a>';
     }
-    html += '<span class="report-meta">' + esc(kind === 'case' ? 'case ' : 'lesson ') + esc(id) +
+    var where = '';
+    if (kind === 'lesson' && byLesson[id]) {
+      var lm = moduleById(byLesson[id].moduleId), lls = lessonsOf(byLesson[id].moduleId), ln = 0;
+      for (var li = 0; li < lls.length; li++) if (lls[li].lessonId === id) ln = li + 1;
+      where = (lm ? 'Module ' + pad2(lm.n) : '') + (ln ? ' · Lesson ' + pad2(ln) : '');
+    } else if (kind === 'case' && byCase[id]) {
+      var cmm = moduleById(byCase[id].moduleId);
+      where = (cmm ? 'Module ' + pad2(cmm.n) : '') + ' · case';
+    }
+    html += '<span class="report-meta" title="' + esc(kind + ' ' + id) + '">' + esc(where || (kind + ' ' + id)) +
       (ver ? ' · v' + esc(ver) : '') + ' · build ' + esc(buildStamp()) +
       ' · <a href="#/about/">what changed</a></span></div>';
     return html;
@@ -2508,6 +2600,105 @@
         '</div>';
     }
     return html + '</li>';
+  }
+
+  /* "Continue where you left off", or "Start" when nothing was opened yet. */
+  function homeContinueHtml() {
+    var c = continueTarget();
+    if (!c) return '<a class="btn btn--primary" href="#/l/m01l01">Start the course &#8594;</a>';
+    var m = moduleById(c.moduleId);
+    var nextUn = null;
+    for (var i = 0; i < LESSONS.length; i++) if (!lessonMastered(LESSONS[i].lessonId)) { nextUn = LESSONS[i]; break; }
+    var html = '<a class="btn btn--primary" href="#/l/' + encodeURIComponent(c.lessonId) + '">Continue where you left off &#8594;</a>' +
+      '<span class="hero-continue-note">' + (m ? esc('Module ' + pad2(m.n)) + ' · ' : '') + esc(shortTitle(c)) +
+      (lessonMastered(c.lessonId) && nextUn && nextUn.lessonId !== c.lessonId
+        ? ' · <a href="#/l/' + encodeURIComponent(nextUn.lessonId) + '">next not mastered: ' + esc(shortTitle(nextUn)) + '</a>' : '') +
+      '</span>';
+    return html;
+  }
+
+  /* Who it is for, how long, what you get — before the choice of a path. */
+  function homeAboutHtml() {
+    var lessonMin = 0;
+    LESSONS.forEach(function (l) { lessonMin += lessonMinutes(l.lessonId) || 0; });
+    var caseMin = 0;
+    CASES.forEach(function (c) { caseMin += Number(c.estMinutes) || 0; });
+    var examN = MODULES.filter(function (m) { return moduleExamQuestions(m.id).length; }).length;
+    var h = function (min) { return Math.round(min / 60 * 10) / 10; };
+    return '<section class="home-about"><div class="home-about-grid">' +
+      '<div><h2 class="flush">Who it is for</h2><p class="flush">Process and quality engineers, line technologists ' +
+      'and inspectors on an SMT and THT line, and engineers moving into one. English, no prior course needed; ' +
+      'Module 01 starts at the receiving dock.</p></div>' +
+      '<div><h2 class="flush">How long</h2><p class="flush">About <strong>' + esc(h(lessonMin)) + ' h</strong> of lessons ' +
+      '(' + esc(LESSONS.length) + ' × 15–25 min), <strong>' + esc(h(caseMin)) + ' h</strong> of Board X cases and ' +
+      esc(examN) + ' module exams. A learning path below cuts that to 12–22 h for one job.</p></div>' +
+      '<div><h2 class="flush">What you get</h2><p class="flush">You can set and defend a process window at every stage ' +
+      '— stencil, print, placement, reflow, wave and selective, rework — compute the numbers behind it (area ratio, ' +
+      'TAL, hole fill, Cpk, DPMO), read a defect back to its cause and close it as an 8D.</p></div>' +
+      '<div><h2 class="flush">How to go</h2><p class="flush">In order, module by module, if you want the whole line; ' +
+      'by a path if you have one job. Every lesson ends in a quiz; ' + esc(PASS_PCT) + ' % marks it mastered and ' +
+      'the module exam opens when all its lessons are. Progress stays in this browser.</p></div>' +
+      '</div></section>';
+  }
+
+  /* One search box over lessons, cases and glossary terms. Results render
+   * inline below the box; nothing routes until the reader picks one. */
+  function homeSearchHtml() {
+    return '<section class="home-search"><label for="home-q" class="home-search-label">Find a lesson, a case or a term</label>' +
+      '<input id="home-q" class="home-search-input" type="search" autocomplete="off" ' +
+      'placeholder="e.g. area ratio, hole fill, MSL, Cpk, tombstone" aria-describedby="home-q-hint">' +
+      '<p id="home-q-hint" class="muted small flush">Searches ' + esc(LESSONS.length) + ' lesson titles and goals, ' +
+      esc(CASES.length) + ' cases' + (REFERENCE && Array.isArray(REFERENCE.terms) ? ' and ' + esc(REFERENCE.terms.length) + ' glossary terms' : '') +
+      '. Type two letters or more.</p><div id="home-results" class="home-results" aria-live="polite"></div></section>';
+  }
+
+  function searchCourse(q) {
+    q = String(q || '').trim().toLowerCase();
+    if (q.length < 2) return [];
+    var out = [];
+    var hit = function (txt) { return String(txt || '').toLowerCase().indexOf(q) !== -1; };
+    LESSONS.forEach(function (l) {
+      var inTitle = hit(l.title);
+      var inGoals = !inTitle && (l.goals || []).some(function (g) { return g && hit(g.text); });
+      if (inTitle || inGoals) {
+        var m = moduleById(l.moduleId);
+        out.push({ kind: 'Lesson', href: '#/l/' + encodeURIComponent(l.lessonId), title: shortTitle(l),
+          sub: (m ? 'Module ' + pad2(m.n) + ' · ' : '') + (subTitle(l) || ''), rank: inTitle ? 0 : 1 });
+      }
+    });
+    CASES.forEach(function (c) {
+      if (hit(c.title) || hit((c.scenario || [])[0])) {
+        var cm = moduleById(c.moduleId);
+        out.push({ kind: 'Case', href: '#/c/' + encodeURIComponent(c.caseId), title: c.title,
+          sub: cm ? 'Module ' + pad2(cm.n) : '', rank: 0 });
+      }
+    });
+    if (REFERENCE && Array.isArray(REFERENCE.terms)) {
+      REFERENCE.terms.forEach(function (t) {
+        if (hit(t.term)) {
+          out.push({ kind: 'Term', href: '#/g/' + encodeURIComponent(String(t.term).charAt(0).toUpperCase()),
+            title: t.term, sub: String(t.def || '').slice(0, 110) + (String(t.def || '').length > 110 ? '…' : ''), rank: 2 });
+        }
+      });
+    }
+    out.sort(function (a, b) { return a.rank - b.rank; });
+    return out.slice(0, 30);
+  }
+
+  function renderSearch() {
+    var box = document.getElementById('home-results');
+    var inp = document.getElementById('home-q');
+    if (!box || !inp) return;
+    var q = inp.value;
+    var res = searchCourse(q);
+    if (String(q).trim().length < 2) { box.innerHTML = ''; return; }
+    if (!res.length) { box.innerHTML = '<p class="muted flush">Nothing matches “' + esc(q) + '”.</p>'; return; }
+    var html = '<ul class="home-result-list">';
+    res.forEach(function (r) {
+      html += '<li><a href="' + r.href + '"><span class="chip">' + esc(r.kind) + '</span> <strong>' + esc(r.title) + '</strong>' +
+        (r.sub ? '<span class="muted"> — ' + esc(r.sub) + '</span>' : '') + '</a></li>';
+    });
+    box.innerHTML = html + '</ul>';
   }
 
   function homePathsHtml() {
@@ -2753,7 +2944,7 @@
             if (lessonMastered(l.lessonId)) cls += ' toc-lesson--mastered';
             if (l.lessonId === activeLesson) cls += ' toc-lesson--active';
             html += '<li><a class="' + cls + '" href="#/l/' + encodeURIComponent(l.lessonId) +
-              '">' + esc(l.title) + '</a></li>';
+              '" title="' + esc(l.title) + '">' + esc(shortTitle(l)) + '</a></li>';
           });
           html += '</ul>';
         }
@@ -2852,7 +3043,7 @@
         var mm = moduleById(l.moduleId);
         if (mm) html += '<span class="sep">·</span><a href="#/m/' + encodeURIComponent(mm.id) +
           '">Module ' + esc(pad2(mm.n)) + ' · ' + esc(mm.title) + '</a>';
-        html += '<span class="sep">&#8594;</span><strong>' + esc(l.title) + '</strong>';
+        html += '<span class="sep">&#8594;</span><strong>' + esc(shortTitle(l)) + '</strong>';
       }
     }
     el.innerHTML = html;
@@ -3012,6 +3203,36 @@
     if (lesson) gradeQuiz(lesson);
   });
 
+  /* In-page anchors (lesson contents) scroll instead of routing: the hash is
+   * the router's, so "#theory" must never reach it. */
+  app.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[data-anchor]') : null;
+    if (!a) return;
+    var el = document.getElementById(a.getAttribute('data-anchor'));
+    if (!el) return;
+    e.preventDefault();
+    if (typeof el.scrollIntoView === 'function') {
+      try { el.scrollIntoView({ block: 'start', behavior: 'smooth' }); } catch (err) { el.scrollIntoView(); }
+    }
+    var h = el.querySelector('h2, summary');
+    if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
+  });
+
+  /* Phone menu: the outline lives in the sidebar; the button shows it. */
+  var menuBtn = document.getElementById('menu-btn');
+  function setMenu(open) {
+    document.body.classList.toggle('nav-open', !!open);
+    if (menuBtn) menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  if (menuBtn) {
+    menuBtn.addEventListener('click', function () { setMenu(!document.body.classList.contains('nav-open')); });
+    var tocEl = document.getElementById('toc');
+    if (tocEl) tocEl.addEventListener('click', function (e) {
+      if (e.target && e.target.closest && e.target.closest('a')) setMenu(false);
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
+  }
+
   app.addEventListener('click', function (e) {
     var btn = e.target && e.target.closest ? e.target.closest('[data-act]') : null;
     if (!btn) return;
@@ -3155,7 +3376,10 @@
     render();
   });
 
-  window.addEventListener('hashchange', render);
+  window.addEventListener('hashchange', function () { setMenu(false); render(); });
+  app.addEventListener('input', function (e) {
+    if (e.target && e.target.id === 'home-q') renderSearch();
+  });
 
   /* ------------------------------------------------------------------ boot */
 
