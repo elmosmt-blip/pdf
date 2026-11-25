@@ -1501,6 +1501,7 @@
     const body = document.getElementById("chip-body");
     const shadow = chip.querySelector(".chip__shadow");
     const ballEls = Array.from(chip.querySelectorAll(".ball"));
+    const ballsWrap = chip.querySelector(".chip__balls");
     const chipEl = chip;
 
     // resting pose: slightly tipped so the package reads as a solid object
@@ -1575,6 +1576,17 @@
       });
     };
 
+    /* The slab has to keep a believable proportion to the body: a 17 mm BGA
+       is about 1.45 mm thick, i.e. ~8.5% of its side. CSS cannot derive that
+       from the rendered width inside a var(), so it is measured here and the
+       result is written back as a plain pixel length. */
+    const syncThickness = () => {
+      const w = chip.getBoundingClientRect().width;
+      if (w > 0) chip.style.setProperty("--thick", (w * 0.085).toFixed(2) + "px");
+    };
+    syncThickness();
+    if (window.ResizeObserver) new ResizeObserver(syncThickness).observe(chip);
+
     const clampPitch = (v) => Math.max(-180, Math.min(180, v));
     const yawLimit = 62;
 
@@ -1593,6 +1605,12 @@
       const sx = 50 + px * 30;
       const sy = 50 + py * 30;
       const spread = Math.min(1, Math.abs(Math.sin(pitch)) + 0.3);
+      /* At a grazing angle the spheres hide behind each other and no light
+         reaches them: the whole field must sink into shadow instead of
+         floating as rows of bright dots.                                   */
+      const facing = Math.max(0, Math.cos(rad) * Math.cos(pitch));
+      const lit = Math.max(0.1, Math.pow(facing, 0.6));
+      if (ballsWrap) ballsWrap.style.setProperty("--ball-lit", lit.toFixed(3));
       for (let i = 0; i < ballEls.length; i++) {
         const b = ballEls[i];
         b.style.setProperty("--lx", sx.toFixed(1) + "%");
