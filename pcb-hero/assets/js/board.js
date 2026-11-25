@@ -1353,6 +1353,108 @@
   }
 
   /* ============================================================
+     7b. BGA land pattern on the board under the package
+     The socket must look reflowed: 256 lands with escapes, a
+     courtyard and pin-1 silk. Everything inside the body outline
+     is hidden by the package, so the visible cue is the ring of
+     silk, escapes and vias that spills out around it.
+     ============================================================ */
+  (() => {
+    const host = document.getElementById("chip-footprint");
+    if (!host) return;
+    const make = (tag, attrs, text) => {
+      const n = document.createElementNS(SVG_NS, tag);
+      for (const k in attrs) n.setAttribute(k, attrs[k]);
+      if (text != null) n.textContent = text;
+      return n;
+    };
+    // the element is 114% of the package; the viewBox keeps the body
+    // outline exactly at 0…200 so the pads stay under the balls
+    const M = 14, S = 200;
+    const svg = make("svg", { viewBox: `${-M} ${-M} ${S + M * 2} ${S + M * 2}`, fill: "none", "aria-hidden": "true" });
+
+    // ball field: 9.5% inset, 2.2% gap — mirrors .chip__balls
+    const inset = S * 0.095, gapPct = 0.022;
+    const field = S - inset * 2;
+    const pitch = field / (16 + 15 * gapPct);
+    const rLand = pitch * 0.32;
+    const start = inset + pitch / 2;
+    const step = pitch * (1 + gapPct);
+
+    const gEsc = make("g", { stroke: "rgba(206,170,120,0.28)", "stroke-width": "0.55", "stroke-linecap": "round", "stroke-linejoin": "round" });
+    const gLand = make("g", {});
+    const gSilk = make("g", {});
+
+    // a land under a ball is mostly hidden: keep it matte copper behind mask
+    const land = (x, y, r, bright) => {
+      gLand.appendChild(make("circle", { cx: x.toFixed(2), cy: y.toFixed(2), r: (r + 0.7).toFixed(2), fill: "rgba(6,10,14,0.55)" }));
+      gLand.appendChild(make("circle", { cx: x.toFixed(2), cy: y.toFixed(2), r: r.toFixed(2), fill: `rgba(196,164,116,${bright})` }));
+      gLand.appendChild(make("circle", { cx: (x - r * 0.22).toFixed(2), cy: (y - r * 0.28).toFixed(2), r: (r * 0.34).toFixed(2), fill: "rgba(226,206,168,0.18)" }));
+    };
+    const via = (x, y, rr2) => {
+      gEsc.appendChild(make("circle", { cx: x.toFixed(2), cy: y.toFixed(2), r: rr2.toFixed(2), fill: "rgba(206,170,120,0.38)", stroke: "none" }));
+      gEsc.appendChild(make("circle", { cx: x.toFixed(2), cy: y.toFixed(2), r: (rr2 * 0.42).toFixed(2), fill: "#05090c", stroke: "none" }));
+    };
+
+    for (let row = 0; row < 16; row++) {
+      for (let col = 0; col < 16; col++) {
+        const x = start + col * step;
+        const y = start + row * step;
+        const depopulated = (row === 0 || row === 15) && (col < 2 || col > 13);
+        if (depopulated) { land(x, y, rLand * 0.5, 0.16); continue; }
+        land(x, y, rLand, 0.34);
+
+        // escape: the outer two rows fan out to vias, the rest dog-bone in place
+        const dx = x - S / 2, dy = y - S / 2;
+        const onEdge = Math.abs(dx) > field / 2 - pitch * 1.6 || Math.abs(dy) > field / 2 - pitch * 1.6;
+        const horizontal = Math.abs(dx) >= Math.abs(dy);
+        const sx = Math.sign(dx) || 1, sy = Math.sign(dy) || 1;
+        if (onEdge) {
+          // a short trace escaping toward the courtyard, ending in a via
+          const ex = horizontal ? x + sx * pitch * 2.1 : x + sx * pitch * 0.5;
+          const ey = horizontal ? y + sy * pitch * 0.5 : y + sy * pitch * 2.1;
+          gEsc.appendChild(make("path", { d: `M${x.toFixed(2)} ${y.toFixed(2)}L${ex.toFixed(2)} ${ey.toFixed(2)}` }));
+          via(ex, ey, 0.85);
+        } else {
+          const ex = x + sx * pitch * 0.62, ey = y + sy * pitch * 0.62;
+          gEsc.appendChild(make("path", { d: `M${x.toFixed(2)} ${y.toFixed(2)}L${ex.toFixed(2)} ${ey.toFixed(2)}` }));
+          via(ex, ey, 0.55);
+        }
+      }
+    }
+
+    // courtyard: the silk frame sits just outside the body, corner-broken
+    const k0 = -3.6, k1 = S + 3.6, cl = 11;
+    const frame = `M${k0} ${k0 + cl}V${k0}H${k0 + cl}` +
+      `M${k1 - cl} ${k0}H${k1}V${k0 + cl}` +
+      `M${k1} ${k1 - cl}V${k1}H${k1 - cl}` +
+      `M${k0 + cl} ${k1}H${k0}V${k1 - cl}`;
+    gSilk.appendChild(make("path", { d: frame, fill: "none", stroke: "rgba(240,245,250,0.46)", "stroke-width": "0.75" }));
+    // body outline ghost, so the part visually "sits" in its land
+    gSilk.appendChild(make("rect", {
+      x: "0", y: "0", width: S, height: S, rx: "2.2",
+      fill: "none", stroke: "rgba(240,245,250,0.22)", "stroke-width": "0.55",
+    }));
+    // pin-1 triangle at the corner of the courtyard
+    gSilk.appendChild(make("path", {
+      d: `M${k0 + 0.6} ${k0 - 3.2}L${k0 + 3.4} ${k0 - 3.2}L${k0 + 0.6} ${k0 - 0.4}`,
+      fill: "rgba(240,245,250,0.45)", stroke: "none",
+    }));
+    gSilk.appendChild(make("text", { x: (k1).toFixed(2), y: (k0 - 2).toFixed(2), class: "fp-silk", "text-anchor": "end" }, "U1"));
+    gSilk.appendChild(make("text", { x: (k0).toFixed(2), y: (k1 + 6.2).toFixed(2), class: "fp-silk", "text-anchor": "start" }, "U1 · SOCKET"));
+    gSilk.appendChild(make("text", { x: (k1).toFixed(2), y: (k1 + 6.2).toFixed(2), class: "fp-silk fp-silk--warm", "text-anchor": "end" }, "KEEP-OUT 0.35"));
+
+    // a faint mask wash unifies the pattern with the laminate
+    const wash = make("rect", {
+      x: (-M).toFixed(2), y: (-M).toFixed(2),
+      width: (S + M * 2).toFixed(2), height: (S + M * 2).toFixed(2),
+      fill: "rgba(10,16,22,0.22)",
+    });
+    svg.append(gEsc, gLand, wash, gSilk);
+    host.appendChild(svg);
+  })();
+
+  /* ============================================================
      8. interaction
      ============================================================ */
   const chip = document.getElementById("chip");
