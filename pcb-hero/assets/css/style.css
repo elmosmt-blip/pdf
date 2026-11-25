@@ -1070,14 +1070,15 @@ svg { display: block; }
    The 1px bleed on the in-plane axis closes the seam at the corners.      */
 .chip__side {
   position: absolute;
+  /* --wl is the lambert term for this wall, --wd how square it is to the eye */
   background:
     linear-gradient(180deg,
-      rgba(196, 210, 224, 0.42) 0 1px,
-      rgba(96, 112, 128, 0.32) 1px 6%,
-      rgba(30, 40, 50, 0.97) 6% 100%);
+      rgba(190, 206, 222, calc(0.3 * var(--wl, 1))) 0 1px,
+      rgba(74, 88, 104, calc(0.3 * var(--wl, 1))) 1px 5%,
+      rgba(17, 24, 31, calc(0.99 * var(--wd, 1))) 5% 100%);
   box-shadow:
-    inset 0 0 0 1px rgba(8, 12, 17, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.09);
+    inset 0 0 0 1px rgba(6, 10, 14, 0.75),
+    inset 0 1px 0 rgba(255, 255, 255, calc(0.07 * var(--wl, 1)));
   backface-visibility: visible;
 }
 .chip__side--n,
@@ -1097,6 +1098,17 @@ svg { display: block; }
 .chip__side--w { left: 0; transform-origin: left center; transform: rotateY(-90deg); }
 .chip__side--e { right: 0; transform-origin: right center; transform: rotateY(90deg); }
 
+/* contact shadow: the 0.15 mm gap under a reflowed BGA reads almost black */
+.chip__face--bottom::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 9;
+  pointer-events: none;
+  border-radius: 9px;
+  background:
+    radial-gradient(112% 112% at 50% 46%, transparent 52%, rgba(2, 5, 8, 0.72) 92%, rgba(2, 5, 8, 0.92) 100%);
+}
 .chip__face {
   position: absolute;
   inset: 0;
@@ -1110,29 +1122,85 @@ svg { display: block; }
 /* the lid is the far side: turned over so it reads upright when we flip */
 .chip__face--top { transform: translateZ(var(--thick)) rotateX(180deg); }
 
-/* lid surface: matte epoxy with a soft tooling sheen */
+/* ------------------------------------------------------------------
+   Lid material: black moulded epoxy (similar to Sumitomo EME-G770).
+   Layers, back to front:
+     .chip__lid        base body colour (matte, low value)
+     .chip__lid-grain  transfer-moulding flow marks + micro texture
+     .chip__lid-key    key light, positioned in *screen* space per frame
+     .chip__lid-shade  occlusion toward the far corners
+     .chip__lid-bevel  lit chamfer on the edge facing the key light
+     .chip__lid-eject  ejector-pin dimple in the centre of the cavity
+   The key light, the bevel highlight and the shade are driven from
+   board.js so they stay put while the package turns, exactly like a real
+   part under a fixed lamp.                                           */
 .chip__lid {
   position: absolute;
   inset: 0;
   border-radius: 9px;
   overflow: hidden;
-  background:
-    radial-gradient(120% 90% at 24% 10%, rgba(255, 255, 255, 0.1), transparent 46%),
-    linear-gradient(152deg, #313d47 0%, #26313a 34%, #1b242c 68%, #131a21 100%);
+  background: linear-gradient(168deg, #222c35 0%, #1a232b 46%, #141c23 100%);
   box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
-    inset 0 0 0 2px rgba(0, 0, 0, 0.5),
-    inset 0 -26px 40px -30px rgba(0, 0, 0, 0.9);
+    inset 0 0 0 1px rgba(0, 0, 0, 0.7),
+    inset 0 1px 1px rgba(255, 255, 255, 0.06);
 }
-.chip__lid-sheen {
+/* flow marks: the faint wavy lines left by transfer moulding */
+.chip__lid-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image:
+    radial-gradient(58% 34% at 50% 50%, rgba(255, 255, 255, 0.028) 0 40%, transparent 62%),
+    repeating-radial-gradient(circle at 50% 46%,
+      rgba(255, 255, 255, 0.014) 0 1px, transparent 1px 7px),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.24'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+/* key light: a broad, soft pool that slides, never a specular dot */
+.chip__lid-key {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(66% 58% at var(--klx, 30%) var(--kly, 22%),
+    rgba(220, 236, 248, 0.22) 0%, rgba(186, 208, 226, 0.09) 32%, transparent 66%);
+  mix-blend-mode: screen;
+  opacity: var(--kli, 0.9);
+}
+/* ambient falloff toward the edges the lamp cannot reach */
+.chip__lid-shade {
   position: absolute;
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(70% 50% at 22% 6%, rgba(196, 218, 235, 0.1), transparent 60%),
-    radial-gradient(60% 46% at 82% 96%, rgba(120, 160, 190, 0.05), transparent 62%);
-  mix-blend-mode: screen;
+    radial-gradient(110% 100% at var(--klx, 30%) var(--kly, 22%),
+      transparent 38%, rgba(4, 8, 12, 0.3) 78%, rgba(2, 5, 8, 0.55) 100%);
+  opacity: 0.9;
 }
+/* lit chamfer: only the edge turned toward the lamp catches the highlight */
+.chip__lid-bevel {
+  position: absolute;
+  inset: 0;
+  border-radius: 9px;
+  pointer-events: none;
+  box-shadow:
+    inset 0 1.5px 0 rgba(226, 238, 248, 0.16),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.045);
+  opacity: var(--bv, 1);
+}
+/* ejector pin: a shallow circular mark left by the moulding tool */
+.chip__lid-eject {
+  position: absolute;
+  left: 62%; top: 74%;
+  width: 13%; aspect-ratio: 1;
+  border-radius: 50%;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 38% 32%, rgba(255, 255, 255, 0.05), transparent 46%),
+    radial-gradient(circle, rgba(0, 0, 0, 0.16) 58%, rgba(255, 255, 255, 0.03) 80%, transparent 88%);
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.28);
+}
+
 /* laser-etched brand: slightly lighter than the moulding, no glow */
 .chip__lid-brand {
   position: absolute;
@@ -1143,10 +1211,10 @@ svg { display: block; }
   font-size: clamp(13px, 1.9vw, 27px);
   letter-spacing: 0.02em;
   text-transform: lowercase;
-  color: rgba(214, 228, 238, 0.62);
+  color: rgba(196, 212, 226, 0.5);
   text-shadow:
-    0 1px 0 rgba(0, 0, 0, 0.55),
-    0 -1px 0 rgba(255, 255, 255, 0.05);
+    0 1px 0 rgba(255, 255, 255, 0.045),
+    0 -1px 0 rgba(0, 0, 0, 0.5);
   white-space: nowrap;
 }
 .chip__lid-rule {

@@ -1515,6 +1515,66 @@
     let dragT = 0;
 
     // a flip needs the full range: the package must be able to turn over
+    /* ---------- lighting belongs to the room, not to the part ----------
+       A screen-space key sits up and to the left. As the package turns we
+       project that direction into the lid's own frame, so the highlight
+       slides across the face and the lit chamfer switches edges at the
+       right moment — the cue that sells a solid, matte object.           */
+    const lidEl = document.getElementById("chip-lid");
+    const LIGHT = { x: -0.52, y: -0.46, z: 0.72 };   // upper-left, from the viewer
+    const paintLight = () => {
+      if (!lidEl) return;
+      const ry = (rotY * Math.PI) / 180;
+      const rx = (rotX * Math.PI) / 180;
+      // rotate the world light into the package frame: R(-yaw) then R(-pitch)
+      let x = LIGHT.x * Math.cos(ry) - LIGHT.z * Math.sin(ry);
+      let z = LIGHT.x * Math.sin(ry) + LIGHT.z * Math.cos(ry);
+      let y = LIGHT.y;
+      const y2 = y * Math.cos(rx) - z * Math.sin(rx);
+      const z2 = y * Math.sin(rx) + z * Math.cos(rx);
+      y = y2; z = z2;
+      // the lid is seen from whichever side is turned toward the camera
+      const facing = Math.max(0, Math.abs(z));
+      const klx = (50 + x * 46).toFixed(1);
+      const kly = (50 + y * 46).toFixed(1);
+      lidEl.style.setProperty("--klx", klx + "%");
+      lidEl.style.setProperty("--kly", kly + "%");
+      lidEl.style.setProperty("--kli", (0.35 + facing * 0.75).toFixed(2));
+      // chamfer catches light when the face is oblique to the lamp
+      lidEl.style.setProperty("--bv", (0.25 + Math.abs(x) * 1.15).toFixed(2));
+      // and the whole face darkens as it turns away from the viewer
+      lidEl.style.setProperty("--lit", (0.55 + facing * 0.6).toFixed(2));
+      paintSlab();
+    };
+
+    /* the four walls share the lamp: each is shaded by its own normal */
+    const wallEls = {
+      n: chip.querySelector(".chip__side--n"),
+      s: chip.querySelector(".chip__side--s"),
+      w: chip.querySelector(".chip__side--w"),
+      e: chip.querySelector(".chip__side--e"),
+    };
+    const paintSlab = () => {
+      const ry = (rotY * Math.PI) / 180;
+      const rx = (rotX * Math.PI) / 180;
+      const L = LIGHT;
+      const walls = [
+        ["n", [0, -Math.sin(rx), Math.cos(rx)]],
+        ["s", [0, Math.sin(rx), -Math.cos(rx)]],
+        ["w", [-Math.cos(ry), 0, -Math.sin(ry)]],
+        ["e", [Math.cos(ry), 0, Math.sin(ry)]],
+      ];
+      walls.forEach(([key, v]) => {
+        const el = wallEls[key];
+        if (!el) return;
+        const lam = Math.max(0, v[0] * L.x + v[1] * L.y + v[2] * L.z);
+        const facingCam = Math.max(0, v[2]);
+        // lit face vs. the one turning into shadow, plus a floor of bounce
+        el.style.setProperty("--wl", (0.42 + lam * 0.85).toFixed(2));
+        el.style.setProperty("--wd", (0.55 + facingCam * 0.5).toFixed(2));
+      });
+    };
+
     const clampPitch = (v) => Math.max(-180, Math.min(180, v));
     const yawLimit = 62;
 
@@ -1560,6 +1620,7 @@
           `translate(${(Math.sin(yaw) * -10).toFixed(1)}px, ${off.toFixed(1)}px) scale(${sc.toFixed(2)})`;
         shadow.style.opacity = (0.9 - Math.abs(Math.sin(pitch)) * 0.25).toFixed(2);
       }
+      if (lidEl) paintLight();
       paintBalls();
     };
 
